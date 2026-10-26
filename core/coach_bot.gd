@@ -1,8 +1,56 @@
 class_name CoachBot
 extends RefCounted
 
-# Cerebro del bot: elige qué carta jugar según el BotProfile.
-# Devuelve el índice de la carta en la mano, o -1 si no hay jugadas posibles.
+# Cerebro del bot: elige qué carta jugar según el BotProfile, en ataque (choose) y en la fase
+# defensiva cuando el rival ataca (choose_defense / run_defense).
+
+const DEFENSE_FOCUS_WEIGHT := 1.6   # la carta del estilo defensivo del perfil
+const DEFENSE_CUT_WEIGHT := 1.2     # intercepción y despeje cortan el ataque entero
+const DEFENSE_MIN_SCORE := 0.25     # si ninguna carta llega a esto, deja pasar
+const DEFENSE_RESERVE_SHARE := 0.5  # al defender guarda la mitad de su reserva de élite para atacar
+
+
+# Fase defensiva completa contra un ataque. attack_quality = dificultad de sus jugadas defensivas
+# (calidad del ataque rival). Devuelve lo mismo que MatchEngine.end_defense() más "plays".
+static func run_defense(e: MatchEngine, profile: BotProfile, attack_quality: float) -> Dictionary:
+    if e.injured:
+        return {"pressure": 0.0, "block": 0.0, "cancelled": false, "emergency": false, "plays": []}
+    e.begin_defense(attack_quality)
+    var plays: Array = []
+    while e.in_defense:
+        var idx := choose_defense(e, profile)
+        if idx < 0:
+            break
+        plays.append(e.play_card(idx))
+    var result: Dictionary = e.end_defense().duplicate()
+    result["plays"] = plays
+    return result
+
+
+# Carta defensiva a jugar (índice en la mano) o -1 para dejar pasar. Prioriza el estilo del perfil
+# y no se queda sin aire para su próximo ataque.
+static func choose_defense(e: MatchEngine, profile: BotProfile) -> int:
+    var max_e := e.player.max_energy()
+    var floor_pct := profile.elite_reserve_pct() * DEFENSE_RESERVE_SHARE
+    var focus := profile.defense_focus_kind()
+    var best := -1
+    var best_score := DEFENSE_MIN_SCORE
+    for i in e.playable_indices():
+        var c: Card = e.deck.hand[i]
+        if (e.player.energy - e.cost_of(c)) / max_e < floor_pct:
+            continue
+        var score := e.success_chance(c)
+        if c.kind == focus:
+            score *= DEFENSE_FOCUS_WEIGHT
+        elif c.kind == Card.Kind.INTERCEPT or c.kind == Card.Kind.CLEARANCE:
+            score *= DEFENSE_CUT_WEIGHT
+        if score > best_score:
+            best_score = score
+            best = i
+    return best
+
+
+# Ataque: devuelve el índice de la carta en la mano, o -1 si no hay jugadas posibles.
 static func choose(e: MatchEngine, profile: BotProfile) -> int:
     var idxs := e.playable_indices()
     if idxs.is_empty():

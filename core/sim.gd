@@ -3,6 +3,7 @@
 extends SceneTree
 
 const MATCHES := 2000
+const DUELS := 1000
 const BASE_DIFFICULTY := 0.15
 
 
@@ -50,4 +51,32 @@ func _init() -> void:
 			team["short_name"], team["archetype"], team["facilities_level"],
 			", castiga LOW" if prof.punishes_passivity else "",
 			g_generic, g_squad, 100.0 * (g_squad - g_generic) / maxf(0.01, g_generic), g_low, g_block, natural])
+
+	# Partidos completos (DuelRunner): tu club contra cada rival, con bots en ambos lados y las
+	# mismas dificultades que match_view. "Antes" = solo tú defiendes; "ahora" = ambos defienden.
+	var you_id := "colo_colo"
+	var you := league.get_team(you_id)
+	print("Partidos completos de %s (bot) · %d por rival · antes (solo tú defiendes) → ahora (ambos defienden):" % [
+		you["short_name"], DUELS])
+	for id in ["universidad_de_chile", "universidad_catolica", "cobreloa", "audax_italiano", "palestino", "huachipato"]:
+		var opp := league.get_team(id)
+		var opp_prof := league.profile_for_team(opp)
+		var a := {"profile": league.profile_for_team(you), "templates": squads.build_match_templates(you_id, tpl),
+			"lineup": squads.lineup_ids(you_id), "defends": true,
+			"attack_difficulty": LeagueManager.attack_difficulty_vs(opp, opp_prof, BASE_DIFFICULTY),
+			"defense_difficulty": LeagueManager.defense_difficulty_vs(opp, BASE_DIFFICULTY)}
+		var b := {"profile": opp_prof, "templates": squads.build_match_templates(id, tpl),
+			"lineup": squads.lineup_ids(id), "defends": false,
+			"attack_difficulty": LeagueManager.team_attack_difficulty(opp, BASE_DIFFICULTY),
+			"defense_difficulty": LeagueManager.defense_difficulty_vs(you, BASE_DIFFICULTY)}
+		var before := DuelRunner.run(a, b, DUELS)
+		b["defends"] = true
+		var now := DuelRunner.run(a, b, DUELS)
+		print("vs %-12s (%s, defensa %s) | tus goles %.2f → %.2f | goles rival %.2f → %.2f | ganas %d%% → %d%% · empatas %d%% → %d%% | te corta %.2f ataques/partido" % [
+			opp["short_name"], opp["archetype"], BotProfile.DEFENSE_FOCUS_NAMES[opp_prof.defense_focus],
+			float(before["goals_a"]) / DUELS, float(now["goals_a"]) / DUELS,
+			float(before["goals_b"]) / DUELS, float(now["goals_b"]) / DUELS,
+			roundi(100.0 * before["wins_a"] / DUELS), roundi(100.0 * now["wins_a"] / DUELS),
+			roundi(100.0 * before["draws"] / DUELS), roundi(100.0 * now["draws"] / DUELS),
+			float(now["cuts_by_b"]) / DUELS])
 	quit()

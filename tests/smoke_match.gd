@@ -24,6 +24,7 @@ var defenses := 0
 var emergencies := 0
 var natural_plays := [0]
 var rival_natural_plays := [0]
+var rival_defense_plays := 0
 var _defense_open := false
 var card_checks := 0
 var ui_checked_errors := false   # tras el primer error de UI se deja de revisar (evita miles de líneas)
@@ -156,6 +157,7 @@ func _check_posture_lock() -> void:
 
 
 func _check_result() -> void:
+	rival_defense_plays += int(view._rival_engine.stats["defense_plays"])
 	var shown := int(view._local_goals.text)
 	var real: int = view._engine.stats["goals"]
 	if shown != real:
@@ -170,6 +172,9 @@ func _finish() -> bool:
 		errors.append("Se jugó en LOW contra un rival que castiga la pasividad y exploit_rival_space nunca se activó")
 	if played > 0 and defenses == 0:
 		errors.append("Nunca hubo fase defensiva")
+	if played > 0 and rival_defense_plays == 0:
+		errors.append("El rival nunca defendió tus ataques")
+	print("  el rival jugó %d cartas defensivas contra tus ataques" % rival_defense_plays)
 	print("smoke_match: %d partidos, %d defensas (%d despejes de emergencia), Ejecutor Natural: %d tuyas y %d del rival, %d chequeos de postura, %d cartas en pantalla verificadas contra el motor, contragolpe visto: %s" % [
 		played, defenses, emergencies, natural_plays[0], rival_natural_plays[0], lock_checks, card_checks, "sí" if exploit_seen else "no"])
 	for e in errors:

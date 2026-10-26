@@ -21,6 +21,8 @@ func _initialize() -> void:
 	_test_chance_matches_roll()
 	_test_exhausted_penalty_is_visible()
 	_test_signature_styles()
+	_test_bot_defense_styles()
+	_test_duel_runner()
 	print("engine_rules: %d comprobaciones, %d fallas" % [checks, failures.size()])
 	for f in failures:
 		print("  FALLA: " + f)
@@ -285,6 +287,45 @@ func _test_signature_styles() -> void:
 	_check(is_equal_approx(e.success_chance(plain), base_plain), "sin el tag, estar a un fallo no cambia nada")
 	var labels: Array = e.chance_breakdown(cold).map(func(i): return i["label"])
 	_check(labels.has("Sangre fría"), "el desglose debería nombrar Sangre fría")
+
+
+# Con una mano de cuatro cartas defensivas iguales, cada perfil elige la de su estilo; sin aire, deja pasar.
+func _test_bot_defense_styles() -> void:
+	var expected := {"Tiki-Taka": Card.Kind.PRESS, "Kamikaze": Card.Kind.PRESS, "Catenaccio": Card.Kind.BLOCK,
+		"Contragolpe": Card.Kind.INTERCEPT, "Directo": Card.Kind.CLEARANCE}
+	for profile in BotProfile.presets():
+		var e := _new_engine(31)
+		e.start()
+		e.begin_defense(0.15)
+		e.deck.hand.clear()
+		for kind in [Card.Kind.PRESS, Card.Kind.BLOCK, Card.Kind.INTERCEPT, Card.Kind.CLEARANCE]:
+			e.deck.hand.append(_card(kind, 0.10, 2))
+		var idx := CoachBot.choose_defense(e, profile)
+		_check(idx >= 0 and e.deck.hand[idx].kind == expected[profile.profile_name],
+				"%s debería defender con su estilo (%s)" % [profile.profile_name, BotProfile.DEFENSE_FOCUS_NAMES[profile.defense_focus]])
+		e.player.energy = 1.0
+		_check(CoachBot.choose_defense(e, profile) == -1, "%s sin energía debería dejar pasar" % profile.profile_name)
+
+	# run_defense completa la fase y deja el motor fuera de defensa.
+	var d := _new_engine(32)
+	d.start()
+	var r := CoachBot.run_defense(d, BotProfile.catenaccio(), 0.15)
+	_check(not d.in_defense and r.has("plays") and r["plays"].size() <= MatchEngine.DEFENSE_MAX_PLAYS,
+			"run_defense debería cerrar la fase con como máximo %d jugadas" % MatchEngine.DEFENSE_MAX_PLAYS)
+
+
+func _test_duel_runner() -> void:
+	var tpl := CardDB.load_templates(DECK_PATH)
+	var a := {"profile": BotProfile.tiki_taka(), "templates": tpl, "defends": true}
+	var b := {"profile": BotProfile.catenaccio(), "templates": tpl, "defends": true}
+	var r1 := DuelRunner.run(a, b, 40)
+	var r2 := DuelRunner.run(a, b, 40)
+	_check(r1 == r2, "DuelRunner debería ser determinista con las mismas semillas")
+	_check(r1["wins_a"] + r1["draws"] + r1["wins_b"] == 40, "cada partido termina en victoria, empate o derrota")
+	_check(r1["def_plays_b"] > 0 and r1["def_plays_a"] > 0, "con defends = true ambos lados deberían defender")
+	b["defends"] = false
+	var r3 := DuelRunner.run(a, b, 40)
+	_check(r3["def_plays_b"] == 0 and r3["cuts_by_b"] == 0, "con defends = false ese lado no defiende")
 
 
 # La base de equipos debe estar completa y bien formada.

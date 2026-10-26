@@ -36,6 +36,11 @@ extends Resource
 @export var punishes_passivity := false
 ## Puntos de acierto extra en remates al castigar la pasividad.
 @export_range(0.0, 0.3, 0.01) var passivity_shot_bonus := MatchEngine.PASSIVITY_SHOT_BONUS
+## Estilo defensivo: qué carta prioriza en la fase defensiva cuando el rival ataca (CoachBot.choose_defense).
+@export_enum("Equilibrado", "Presión", "Bloqueo", "Intercepción", "Despeje") var defense_focus := 0
+
+const DEFENSE_FOCUS_KINDS := [-1, Card.Kind.PRESS, Card.Kind.BLOCK, Card.Kind.INTERCEPT, Card.Kind.CLEARANCE]
+const DEFENSE_FOCUS_NAMES := ["Equilibrado", "Presión", "Bloqueo", "Intercepción", "Despeje"]
 
 
 # Traspasa al motor todo lo que depende solo del perfil. exploit_rival_space depende también
@@ -55,6 +60,11 @@ func elite_reserve_pct() -> float:
     if energy_reserve_threshold >= 0.0:
         return energy_reserve_threshold
     return lerpf(0.05, 0.60, energy_conservation)
+
+
+# Card.Kind que prioriza al defender, o -1 si no tiene preferencia.
+func defense_focus_kind() -> int:
+    return DEFENSE_FOCUS_KINDS[defense_focus]
 
 
 # 0 = muy abierto (Kamikaze), 1 = muy cerrado (Catenaccio). Mezcla conservación y postura.
@@ -78,6 +88,7 @@ func describe() -> String:
         s += "  |  Remata desde %d%%" % roundi(shot_min_chance * 100.0)
     if punishes_passivity:
         s += "  |  Castiga la pasividad (+%d%% remates)" % roundi(passivity_shot_bonus * 100.0)
+    s += "  |  Defensa: %s" % DEFENSE_FOCUS_NAMES[defense_focus]
     return s
 
 
@@ -91,17 +102,24 @@ static func make(p_name: String, flow: float, conserve: float, elite: float, pos
     return p
 
 
+# Defensa por estilo: Tiki-Taka y Kamikaze presionan arriba, Catenaccio bloquea, Directo despeja
+# y Contragolpe intercepta para salir rápido.
 static func tiki_taka() -> BotProfile:
-    return make("Tiki-Taka", 0.8, 0.55, 0.15, 1)
+    var p := make("Tiki-Taka", 0.8, 0.55, 0.15, 1)
+    p.defense_focus = 1
+    return p
 
 static func catenaccio() -> BotProfile:
     var p := make("Catenaccio", 0.2, 0.9, 0.05, 0)
     p.shot_min_chance = 0.40
     p.stall_plays = 2
+    p.defense_focus = 2
     return p
 
 static func directo() -> BotProfile:
-    return make("Directo", 0.5, 0.4, 0.5, 1)
+    var p := make("Directo", 0.5, 0.4, 0.5, 1)
+    p.defense_focus = 4
+    return p
 
 # Presión asfixiante: +20 pts de acierto en M1-M2; desde M3, fatiga doble y lesiones disparadas.
 static func kamikaze() -> BotProfile:
@@ -112,6 +130,7 @@ static func kamikaze() -> BotProfile:
     p.late_from_moment = 2
     p.late_cost_mult = 2.0
     p.late_injury_mult = 4.0
+    p.defense_focus = 1
     return p
 
 # Reactivo: reserva equilibrada, no persigue el Flow, élite solo para definir,
@@ -121,6 +140,7 @@ static func contragolpe() -> BotProfile:
     p.energy_reserve_threshold = 0.45
     p.risk_tolerance = 0.40
     p.punishes_passivity = true
+    p.defense_focus = 3
     return p
 
 

@@ -583,11 +583,28 @@ func _defend() -> Dictionary:
 
 func _player_moment_start() -> void:
     _lock_posture(true)   # antes de begin_moment: la recuperación ya usa la postura fijada
-    var m := _engine.begin_moment()
-    await _tween_clock(float(m["minute"]))
+    var minute: int = _engine.current_moment()["minute"]
+    await _tween_clock(float(minute))
     _ball_place(0.22, 0.5)
     _last_roll_text = ""
     _set_possession(Ball.OURS)
+
+    # Fase defensiva del rival: si intercepta o despeja, pierdes este Momento.
+    var defense := _rival_defends()
+    if defense["cancelled"]:
+        _set_possession(Ball.THEIRS)
+        var counter := "  ·  SU CONTRAGOLPE QUEDA LISTO" if _rival_engine.counter_ready else ""
+        await _banner_show("¡%s CORTÓ TU ATAQUE!%s" % [_rival.profile_name.to_upper(), counter], COLOR_BAD, 1.0)
+        _engine.skip_moment()
+        _finish_player_moment()
+        return
+    _engine.opponent_pressure = defense["pressure"]   # se ven en tus cartas como Presión/Bloqueo rival
+    _engine.opponent_block = defense["block"]
+    var defense_text := _rival_defense_text(defense)
+    if defense_text != "":
+        await _banner_show(defense_text, COLOR_WARN, 0.8)
+
+    _engine.begin_moment()
     if _engine.moment_over:
         await _banner_show("SIN JUGADAS DISPONIBLES", COLOR_WARN, 0.9)
         _finish_player_moment()
@@ -600,6 +617,30 @@ func _player_moment_start() -> void:
         await _banner_show("¡CONTRAGOLPE! ARRANCAS CON %d JUGADA" % _engine.progress, COLOR_OK, 1.0)
     else:
         await _banner_show("¡OPORTUNIDAD DE GOL!", COLOR_GOLD, 1.0)
+
+
+# El rival defiende tu ataque con su mano defensiva (CoachBot, según su estilo defensivo).
+# La dificultad de sus jugadas depende de la calidad de tu club.
+func _rival_defends() -> Dictionary:
+    var my_team := _league.get_team(_my_team_id())
+    var result := CoachBot.run_defense(_rival_engine, _rival,
+            LeagueManager.defense_difficulty_vs(my_team, BASE_DIFFICULTY))
+    _set_bar(_rival_bar, _rival_fill, _rival_engine.player.energy_pct())
+    return result
+
+
+func _rival_defense_text(defense: Dictionary) -> String:
+    var nm := _rival.profile_name.to_upper()
+    var parts: Array = []
+    if defense["pressure"] > 0.0:
+        parts.append("PRESIÓN −%d" % roundi(defense["pressure"] * 100.0))
+    if defense["block"] > 0.0:
+        parts.append("BLOQUEO −%d A TUS REMATES" % roundi(defense["block"] * 100.0))
+    if not parts.is_empty():
+        return "%s DEFIENDE · %s" % [nm, " · ".join(parts)]
+    if not defense["plays"].is_empty():
+        return "%s INTENTÓ DEFENDER · SIN EFECTO" % nm
+    return ""
 
 
 func _finish_player_moment() -> void:

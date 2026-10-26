@@ -34,6 +34,11 @@ const COLOR_NATURAL := Color("#ffd24a")
 @onready var _minute_label: Label = %MinuteLabel
 @onready var _player_bar: ProgressBar = %PlayerEnergyBar
 @onready var _rival_bar: ProgressBar = %RivalEnergyBar
+@onready var _stamina_label: Label = %PlayerBarLabel
+@onready var _rival_stamina_label: Label = %RivalBarLabel
+@onready var _ap_orb: PanelContainer = %ApOrb
+@onready var _ap_value: Label = %ApValue
+@onready var _ap_pips: Label = %ApPips
 @onready var _flow_badge: PanelContainer = %FlowBadge
 @onready var _flow_label: Label = %FlowLabel
 @onready var _possession_badge: PanelContainer = %PossessionBadge
@@ -76,6 +81,8 @@ var _prev_hand: Array = []
 var _active_clone: CardUI
 var _last_roll_text := ""      # resultado visible de la última tirada de la jugada en curso
 var _possession := Ball.NONE
+var _shown_ap := -1            # PA que muestra el orbe (para animar cuando cambian)
+var _ap_style: StyleBoxFlat
 
 var _ball: Panel
 var _flow_glow: ColorRect
@@ -167,6 +174,14 @@ func _style_ui() -> void:
     _backdrop.add_theme_stylebox_override("panel", bd)
     _hand_title.add_theme_color_override("font_color", COLOR_GOLD)
 
+    # Orbe de PA (estilo Slay the Spire): círculo con los PA del turno.
+    _ap_style = _flat(Color("#141b29"), 48)
+    _ap_style.border_color = COLOR_GOLD
+    _ap_style.set_border_width_all(3)
+    _ap_style.set_content_margin_all(6)
+    _ap_orb.add_theme_stylebox_override("panel", _ap_style)
+    _ap_pips.add_theme_color_override("font_color", COLOR_GOLD)
+
     var ms := _flat(Color(0.03, 0.06, 0.12, 0.97), 14)
     ms.border_color = COLOR_GOLD
     ms.set_border_width_all(3)
@@ -252,7 +267,10 @@ func _reset_hud() -> void:
     _emergency_button.text = "Despeje de emergencia"
     _ball.visible = false
     _last_roll_text = ""
+    _stamina_label.text = "TU ESTAMINA"
+    _rival_stamina_label.text = "ESTAMINA RIVAL"
     _update_flow_badge()
+    _update_ap_orb()
     _set_possession(Ball.NONE)
     _lock_posture(false)
 
@@ -262,16 +280,10 @@ func _update_hud() -> void:
         return
     _update_bars()
     _update_flow_badge()
-    # La estamina no toca el % de acierto: sus zonas solo cambian el robo, la lesión y las penalizaciones.
-    var zone_text := "ÓPTIMO (mano llena)"
-    match _player.zone():
-        PlayerStats.Zone.TIRED:
-            zone_text = "CANSADO (robas %d carta menos)" % PlayerStats.DRAW_PENALTY[PlayerStats.Zone.TIRED]
-        PlayerStats.Zone.EXHAUSTED:
-            zone_text = "AGOTADO (robas %d menos, riesgo de lesión)" % PlayerStats.DRAW_PENALTY[PlayerStats.Zone.EXHAUSTED]
-    _energy_readout.text = "ESTAMINA %d/%d · %s" % [int(_player.energy), int(_player.max_energy()), zone_text]
-    if _in_moment or _in_defense:
-        _energy_readout.text += " · PA %d/%d" % [_engine.ap, _engine.ap_max]
+    _update_ap_orb()
+    _update_stamina_labels()
+    _energy_readout.text = "ESTAMINA %d/%d (%d%%)" % [int(_player.energy), int(_player.max_energy()),
+            roundi(_player.energy_pct() * 100.0)]
     if _in_moment:
         var m := _engine.current_moment()
         _progress_label.text = "Jugada %d/%d · Fallos %d/%d" % [
@@ -294,7 +306,69 @@ func _update_bars() -> void:
     _set_bar(_player_bar, _player_fill, _player.energy_pct())
 
 
-# Verde > Naranja > Rojo según la zona de energía.
+# Orbe de PA: los del turno en curso (Momento: según la postura; defensa: 2). Fuera de turno se apaga.
+# Pulsa cada vez que cambian, así se ve el gasto apenas se juega la carta.
+func _update_ap_orb() -> void:
+    var active := _engine != null and (_in_moment or _engine.in_defense)
+    if not active:
+        _ap_value.text = "—"
+        _ap_pips.text = ""
+        _ap_orb.modulate = Color(1, 1, 1, 0.45)
+        _shown_ap = -1
+        return
+    var ap := _engine.ap
+    var ap_max := _engine.ap_max
+    _ap_orb.modulate = Color.WHITE
+    _ap_value.text = "%d/%d" % [ap, ap_max]
+    _ap_pips.text = "●".repeat(ap) + "○".repeat(maxi(0, ap_max - ap))
+    _ap_value.add_theme_color_override("font_color", COLOR_GOLD if ap > 0 else COLOR_BAD)
+    _ap_style.border_color = COLOR_WARN if _engine.in_defense else COLOR_GOLD
+    if _shown_ap >= 0 and ap != _shown_ap:
+        _ap_orb.pivot_offset = _ap_orb.size / 2.0
+        var t := create_tween()
+        t.tween_property(_ap_orb, "scale", Vector2(1.18, 1.18), 0.08)
+        t.tween_property(_ap_orb, "scale", Vector2.ONE, 0.18).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+    _shown_ap = ap
+
+
+# Zona de estamina y su efecto en la próxima mano. La estamina no toca el % de acierto.
+# short: versión compacta para la etiqueta del rival ("CANSADO (Mano: 5)").
+static func stamina_zone_text(p: PlayerStats, short: bool = false) -> String:
+    var hand := p.draw_count()
+    var zone_name: String = {PlayerStats.Zone.SAFE: "ÓPTIMO", PlayerStats.Zone.TIRED: "CANSADO",
+            PlayerStats.Zone.EXHAUSTED: "AGOTADO"}[p.zone()]
+    if short:
+        return "%s (Mano: %d)" % [zone_name, hand]
+    if p.zone() == PlayerStats.Zone.EXHAUSTED:
+        return "%s (Mano: %d cartas, riesgo de lesión)" % [zone_name, hand]
+    return "%s (Mano: %d cartas)" % [zone_name, hand]
+
+
+func _update_stamina_labels() -> void:
+    _stamina_label.text = "TU ESTAMINA · " + stamina_zone_text(_player)
+    _stamina_label.add_theme_color_override("font_color", _zone_color(_player.zone()))
+    var base := _player.base_hand_size()
+    _player_bar.tooltip_text = ("Estamina %d/%d. Define tu mano al iniciar cada Momento:\n" +
+            "ÓPTIMO (70%%+): %d cartas · CANSADO (30-69%%): %d · AGOTADO (<30%%): %d y riesgo de lesión al jugar.\n" +
+            "No cambia el %% de acierto de las cartas.") % [int(_player.energy), int(_player.max_energy()),
+            base, maxi(PlayerStats.MIN_DRAW, base - 1), maxi(PlayerStats.MIN_DRAW, base - 2)]
+    if _rival_engine != null:
+        var rp := _rival_engine.player
+        _rival_stamina_label.text = "ESTAMINA RIVAL · " + stamina_zone_text(rp, true)
+        _rival_stamina_label.add_theme_color_override("font_color", _zone_color(rp.zone()))
+
+
+func _zone_color(zone: PlayerStats.Zone) -> Color:
+    match zone:
+        PlayerStats.Zone.TIRED:
+            return COLOR_WARN
+        PlayerStats.Zone.EXHAUSTED:
+            return COLOR_BAD
+        _:
+            return Color("#c9d1d9")
+
+
+# Verde > Naranja > Rojo según la zona de estamina.
 func _set_bar(bar: ProgressBar, fill: StyleBoxFlat, pct: float) -> void:
     pct = clampf(pct, 0.0, 1.0)
     var col := COLOR_OK if pct >= 0.70 else (COLOR_WARN if pct >= 0.30 else COLOR_BAD)
@@ -555,6 +629,7 @@ func _rival_event() -> bool:
     if defense["emergency"] and _rival_engine.grant_extra_moment(minute):
         await _banner_show("EL BALÓN VUELVE A %s" % nm, COLOR_WARN, 0.7)
     _set_bar(_rival_bar, _rival_fill, ev["energy_pct"])
+    _update_stamina_labels()
     _set_possession(Ball.NONE)
     return true
 
@@ -628,6 +703,7 @@ func _rival_defends() -> Dictionary:
     var result := CoachBot.run_defense(_rival_engine, _rival,
             LeagueManager.defense_difficulty_vs(my_team, BASE_DIFFICULTY))
     _set_bar(_rival_bar, _rival_fill, _rival_engine.player.energy_pct())
+    _update_stamina_labels()
     return result
 
 

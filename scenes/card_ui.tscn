@@ -24,11 +24,30 @@ layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 4
 
-[node name="TypeLabel" type="Label" parent="Body/VBox"]
+[node name="TopRow" type="HBoxContainer" parent="Body/VBox"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
-text = "BÁSICA"
+mouse_filter = 2
+theme_override_constants/separation = 4
+
+[node name="ApBadge" type="PanelContainer" parent="Body/VBox/TopRow"]
+custom_minimum_size = Vector2(44, 24)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="ApLabel" type="Label" parent="Body/VBox/TopRow/ApBadge"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "1 PA"
 horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TypeLabel" type="Label" parent="Body/VBox/TopRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 11
+text = "BÁSICA"
+horizontal_alignment = 2
+vertical_alignment = 1
 
 [node name="NameLabel" type="Label" parent="Body/VBox"]
 layout_mode = 2

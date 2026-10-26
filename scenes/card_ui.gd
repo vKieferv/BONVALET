@@ -1,7 +1,13 @@
 class_name CardUI
 extends Control
 
-# Carta de la mano. Muestra costo y probabilidad de éxito ya calculados por el motor.
+# Carta de la mano. Muestra los dos costos por separado (PA del turno en la insignia de arriba,
+# desgaste de estamina abajo) y la probabilidad de éxito, todo ya calculado por el motor.
+
+const AP_COLOR := Color("#e3b341")        # dorado: Puntos de Acción (igual que el orbe del HUD)
+const STAMINA_COLOR := Color("#58a6ff")   # celeste: Estamina Global
+const UP_COLOR := Color("#f0883e")        # cuesta más que lo impreso (reuso en Flow, postura, funado)
+const DOWN_COLOR := Color("#3fb950")      # cuesta menos que lo impreso
 
 signal chosen(ui: CardUI)
 
@@ -43,10 +49,14 @@ var interactive := true
 var slot_hidden := false
 
 var _style: StyleBoxFlat
+var _ap_style: StyleBoxFlat
 var _tween: Tween
+var _cost_tip := ""
 
 @onready var body: PanelContainer = $Body
-@onready var type_label: Label = $Body/VBox/TypeLabel
+@onready var ap_badge: PanelContainer = $Body/VBox/TopRow/ApBadge
+@onready var ap_label: Label = $Body/VBox/TopRow/ApBadge/ApLabel
+@onready var type_label: Label = $Body/VBox/TopRow/TypeLabel
 @onready var name_label: Label = $Body/VBox/NameLabel
 @onready var kind_label: Label = $Body/VBox/KindLabel
 @onready var chance_label: Label = $Body/VBox/ChanceLabel
@@ -62,6 +72,12 @@ func _ready() -> void:
     _style.set_border_width_all(3)
     _style.set_content_margin_all(8)
     body.add_theme_stylebox_override("panel", _style)
+    _ap_style = StyleBoxFlat.new()
+    _ap_style.bg_color = AP_COLOR
+    _ap_style.set_corner_radius_all(8)
+    _ap_style.set_content_margin_all(2)
+    ap_badge.add_theme_stylebox_override("panel", _ap_style)
+    ap_label.add_theme_color_override("font_color", Color("#141b29"))
     glow.material = FlowGlow.make_material(Color("#ff7a18"))
     body.resized.connect(_on_body_resized)
     mouse_entered.connect(_on_enter)
@@ -91,22 +107,34 @@ func update_stats(ap: int, base_ap: int, stamina: float, chance: float, usable: 
     mod_label.text = ""
     tooltip_text = ""
     if card != null and card.type == Card.Type.PENALTY:
+        ap_badge.visible = false
         chance_label.text = "—"
         cost_label.text = "Sin efecto"
         chance_label.add_theme_color_override("font_color", Color("#a0aec0"))
         cost_label.add_theme_color_override("font_color", Color("#a0aec0"))
     else:
+        # Insignia de PA: dorada; naranja si hoy cuesta más de lo impreso, verde si menos.
+        ap_badge.visible = true
+        ap_label.text = "%d PA" % ap
+        _ap_style.bg_color = UP_COLOR if ap > base_ap else (DOWN_COLOR if ap < base_ap else AP_COLOR)
         chance_label.text = "%d%%" % roundi(chance * 100.0)
-        _show_breakdown(breakdown, chance)
         var cc := Color("#3fb950") if chance >= 0.65 else (Color("#ecc94b") if chance >= 0.45 else Color("#f85149"))
         chance_label.add_theme_color_override("font_color", cc)
-        cost_label.text = "%d PA · %d est." % [ap, roundi(stamina)]
-        var kc := Color.WHITE
-        if ap > base_ap:
-            kc = Color("#f0883e")
-        elif ap < base_ap:
-            kc = Color("#3fb950")
-        cost_label.add_theme_color_override("font_color", kc)
+        # Desgaste: celeste; naranja si la postura, el desgaste tardío o una funa lo suben.
+        var printed := card.stamina_cost * MatchEngine.STAMINA_SCALE
+        if card.kind == Card.Kind.PAUSE:
+            cost_label.text = "Recupera %d%% Est." % roundi(MatchEngine.PAUSE_STAMINA_PCT * 100.0)
+            cost_label.add_theme_color_override("font_color", DOWN_COLOR)
+        else:
+            cost_label.text = "Desgaste: %d Est." % roundi(stamina)
+            var sc := STAMINA_COLOR
+            if stamina > printed + 0.5:
+                sc = UP_COLOR
+            elif stamina < printed - 0.5:
+                sc = DOWN_COLOR
+            cost_label.add_theme_color_override("font_color", sc)
+        _cost_tip = "Cuesta %d PA del turno · desgasta %d de estamina" % [ap, roundi(stamina)]
+        _show_breakdown(breakdown, chance)
     glow.visible = glow_on
     body.modulate = Color.WHITE if usable else Color(0.55, 0.55, 0.62)
     if slot_hidden:
@@ -116,7 +144,7 @@ func update_stats(ap: int, base_ap: int, stamina: float, chance: float, usable: 
 # Línea corta con los modificadores (sin base, carta ni dificultad) y el desglose completo en el tooltip.
 func _show_breakdown(breakdown: Array, chance: float) -> void:
     var mods: Array = []
-    var tip: Array = []
+    var tip: Array = [_cost_tip] if _cost_tip != "" else []
     var penalized := false
     for item in breakdown:
         var pts := roundi(float(item["value"]) * 100.0)

@@ -93,9 +93,11 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="PlayerBarLabel" type="Label" parent="TopScoreboard/VBox/BarsRow/PlayerBarBox"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
-text = "TU ENERGÍA"
+text = "TU ESTAMINA"
+text_overrun_behavior = 3
 
 [node name="PlayerEnergyBar" type="ProgressBar" parent="TopScoreboard/VBox/BarsRow/PlayerBarBox"]
 unique_name_in_owner = true
@@ -123,10 +125,12 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="RivalBarLabel" type="Label" parent="TopScoreboard/VBox/BarsRow/RivalBarBox"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
-text = "ENERGÍA RIVAL"
+text = "ESTAMINA RIVAL"
 horizontal_alignment = 2
+text_overrun_behavior = 3
 
 [node name="RivalEnergyBar" type="ProgressBar" parent="TopScoreboard/VBox/BarsRow/RivalBarBox"]
 unique_name_in_owner = true
@@ -270,13 +274,51 @@ text = "Ceder jugada"
 [node name="EmergencyButton" type="Button" parent="HandOverlay/HandMargin/HandVBox/ActionRow"]
 unique_name_in_owner = true
 layout_mode = 2
-tooltip_text = "Fuera del mazo: gasta mucha energía y castiga los remates rivales, pero el balón vuelve al rival."
+tooltip_text = "Fuera del mazo: gasta todos tus PA de defensa y 15% de estamina y castiga los remates rivales, pero el balón vuelve al rival."
 disabled = true
 text = "Despeje de emergencia"
 
-[node name="HandBox" type="HBoxContainer" parent="HandOverlay/HandMargin/HandVBox"]
+[node name="HandRow" type="HBoxContainer" parent="HandOverlay/HandMargin/HandVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 18
+
+[node name="ApOrb" type="PanelContainer" parent="HandOverlay/HandMargin/HandVBox/HandRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+size_flags_vertical = 4
+tooltip_text = "Puntos de Acción del turno: cada carta cuesta sus PA. No se guardan para el turno siguiente."
+
+[node name="ApVBox" type="VBoxContainer" parent="HandOverlay/HandMargin/HandVBox/HandRow/ApOrb"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = -2
+alignment = 1
+
+[node name="ApValue" type="Label" parent="HandOverlay/HandMargin/HandVBox/HandRow/ApOrb/ApVBox"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "—"
+horizontal_alignment = 1
+
+[node name="ApCaption" type="Label" parent="HandOverlay/HandMargin/HandVBox/HandRow/ApOrb/ApVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "PA"
+horizontal_alignment = 1
+
+[node name="ApPips" type="Label" parent="HandOverlay/HandMargin/HandVBox/HandRow/ApOrb/ApVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 1
+
+[node name="HandBox" type="HBoxContainer" parent="HandOverlay/HandMargin/HandVBox/HandRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 12
 alignment = 1

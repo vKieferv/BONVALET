@@ -138,13 +138,27 @@ func _check_ui_matches_engine() -> void:
 	if view._in_defense and not (badge.contains("(DEFENSA)") and badge.contains(view._rival.profile_name.to_upper())):
 		errors.append("Defendiendo, el badge dice '%s'" % badge)
 	if view._in_moment or view._engine.in_defense:
+		var e: MatchEngine = view._engine
+		var orb := "%d/%d" % [e.ap, e.ap_max]
+		if view._ap_value.text != orb:
+			errors.append("El orbe muestra %s PA pero el turno tiene %s" % [view._ap_value.text, orb])
+		var zone: String = "TU ESTAMINA · " + view.stamina_zone_text(view._player)
+		if view._stamina_label.text != zone:
+			errors.append("La barra dice '%s' pero la estamina está en '%s'" % [view._stamina_label.text, zone])
 		for ui in view._hand_box.get_children():
 			if ui.card.type == Card.Type.PENALTY or ui.slot_hidden:
 				continue
 			card_checks += 1
-			var real := "%d%%" % roundi(view._engine.success_chance(ui.card) * 100.0)
+			var real := "%d%%" % roundi(e.success_chance(ui.card) * 100.0)
 			if ui.chance_label.text != real:
 				errors.append("La carta %s muestra %s pero el motor tira contra %s" % [ui.card.display_name, ui.chance_label.text, real])
+			var ap := "%d PA" % e.ap_cost_of(ui.card)
+			if ui.ap_label.text != ap:
+				errors.append("La carta %s muestra %s pero cuesta %s" % [ui.card.display_name, ui.ap_label.text, ap])
+			if ui.card.kind != Card.Kind.PAUSE:
+				var wear := "Desgaste: %d Est." % roundi(e.stamina_cost_of(ui.card))
+				if ui.cost_label.text != wear:
+					errors.append("La carta %s muestra '%s' pero desgasta '%s'" % [ui.card.display_name, ui.cost_label.text, wear])
 	ui_checked_errors = not errors.is_empty()
 
 

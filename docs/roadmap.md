@@ -20,7 +20,7 @@ entrada en `decisiones.md`. Las ideas nuevas van a `ideas.md`, no al hito en cur
 - [x] `balance-lab` permanente y skills de proceso (`idea-nueva`, `playtest`, `tarea-autonoma`)
 - [x] Repo privado en GitHub (`vKieferv/BONVALET`)
 - [x] Versión Linux de la verificación (`check.sh`) + GitHub Actions en cada push y PR
-- [ ] Probar una tarea autónoma de punta a punta (sesión en la nube → PR → revisión desde el celular)
+- [x] Probar una tarea autónoma de punta a punta: T-01 (sesión en la nube → PR #1 → revisión → mezcla)
 
 ## M1 · El partido es divertido (borrador)
 Preguntas a cerrar, cada una con playtest y medición:

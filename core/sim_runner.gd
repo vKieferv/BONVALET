@@ -6,7 +6,8 @@ extends RefCounted
 # Seguro para ejecutar en un hilo.
 # cfg (opcional): energy_max (tope con Stamina 60), regen_normal_pct, rival_difficulty, defense_influence,
 # lineup (ids de titulares: activan el Ejecutor Natural de las cartas con owner_id; ver
-# SquadManager.build_match_templates para simular a un club con su plantel).
+# SquadManager.build_match_templates para simular a un club con su plantel),
+# opponent_pressure / opponent_block (defensa rival fija en cada Momento, como la que deja tu fase defensiva).
 static func run(profile: BotProfile, n: int, cfg: Dictionary, templates: Array, progress: Callable = Callable()) -> Dictionary:
 	var totals := {}
 	var goals := PackedInt32Array()
@@ -27,6 +28,8 @@ static func run(profile: BotProfile, n: int, cfg: Dictionary, templates: Array, 
 				and int(cfg.get("rival_posture", MatchEngine.Posture.NORMAL)) == MatchEngine.Posture.LOW
 		e.start()
 		while not e.finished:
+			e.opponent_pressure = cfg.get("opponent_pressure", 0.0)   # advance() la limpia en cada Momento
+			e.opponent_block = cfg.get("opponent_block", 0.0)
 			e.begin_moment()
 			while not e.moment_over:
 				var idx := CoachBot.choose(e, profile)

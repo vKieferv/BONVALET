@@ -56,9 +56,15 @@ func _test_real_squads() -> void:
 	var starters := squads.lineup_ids("colo_colo")
 	_check(starters.has("humberto_suazo"), "Suazo debería ser titular en Colo-Colo")
 	_check(squads.find_player("colo_colo", "humberto_suazo").get("signature_card_id") == "zapatazo", "Suazo es dueño del Zapatazo")
-	# La figura sin carta propia recibe la carta firma genérica.
-	_check(squads.find_player("universidad_de_chile", "herly_alcazar").get("signature_card_id") == "firma_herly_alcazar",
-			"Alcázar (figura de la U) debería tener carta firma genérica")
+	# Cartas firma propias de los grandes; una figura sin carta propia recibe la genérica.
+	_check(squads.find_player("universidad_de_chile", "herly_alcazar").get("signature_card_id") == "arremetida_alcazar",
+			"Alcázar debería tener su Arremetida")
+	_check(squads.find_player("universidad_catolica", "juan_manuel_arostegui").get("signature_card_id") == "sangre_fria_arostegui",
+			"Aróstegui debería tener su Sangre fría")
+	var figure := String(league.get_team("everton")["signature_card"])
+	var everton_figure: Array = squads.get_squad("everton").filter(func(p): return p["name"] == figure)
+	_check(not everton_figure.is_empty() and String(everton_figure[0]["signature_card_id"]).begins_with("firma_"),
+			"la figura de Everton (sin carta propia) debería recibir la carta firma genérica")
 
 
 func _test_generator_is_deterministic() -> void:

@@ -42,9 +42,12 @@ func _init() -> void:
 		var r_squad := SimRunner.run(prof, MATCHES, cfg_squad, team_tpl)
 		var g_squad: float = SimRunner.metrics(r_squad)["goals_per_match"]
 		var g_low: float = SimRunner.metrics(SimRunner.run(prof, MATCHES, cfg_low, team_tpl))["goals_per_match"]
+		var cfg_block := cfg_squad.duplicate()
+		cfg_block["opponent_block"] = MatchEngine.BLOCK_EFFECT   # tu fase defensiva con un Bloqueo exitoso
+		var g_block: float = SimRunner.metrics(SimRunner.run(prof, MATCHES, cfg_block, team_tpl))["goals_per_match"]
 		var natural := float(r_squad["totals"].get("natural_plays", 0)) / MATCHES
-		print("%-12s (%s, inst. %d%s) | vs tu NORMAL %.2f → %.2f (%+.0f%%) | vs tu LOW %.2f | Ejecutor Natural %.1f jugadas/partido" % [
+		print("%-12s (%s, inst. %d%s) | vs tu NORMAL %.2f → %.2f (%+.0f%%) | vs tu LOW %.2f | contra tu Bloqueo %.2f | Ejecutor Natural %.1f/partido" % [
 			team["short_name"], team["archetype"], team["facilities_level"],
 			", castiga LOW" if prof.punishes_passivity else "",
-			g_generic, g_squad, 100.0 * (g_squad - g_generic) / maxf(0.01, g_generic), g_low, natural])
+			g_generic, g_squad, 100.0 * (g_squad - g_generic) / maxf(0.01, g_generic), g_low, g_block, natural])
 	quit()

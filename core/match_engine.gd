@@ -39,6 +39,9 @@ const RECOVERY_RATIO := {
 # Ejecutor Natural: la carta la juega su dueño (card.owner_id == player.player_id).
 const NATURAL_EXECUTOR_BONUS := 0.15  # +15 puntos de acierto
 const NATURAL_FLOW_CHARGE := 2        # la jugada cuenta doble para la racha de Flow
+# Estilos de cartas firma (por tag):
+const POWER_BLOCK_FACTOR := 0.5       # "potencia": el bloqueo rival cuenta la mitad en esta carta
+const COLD_BLOOD_BONUS := 0.10        # "sangre_fria": +10 pts con el Momento a un fallo de perderse
 # Pausa (carta de ataque): recupera energía sin sumar progreso; una por Momento Clave.
 const PAUSE_ENERGY_PCT := 0.10
 const MAX_PAUSES := 1
@@ -242,9 +245,13 @@ func chance_breakdown(card: Card) -> Array:
 			items.append({"label": "Apertura", "value": opening_bonus})
 		if opponent_pressure != 0.0:
 			items.append({"label": "Presión rival", "value": -opponent_pressure})
+		if card.tags.has("sangre_fria") and fails == MAX_FAILS - 1:
+			items.append({"label": "Sangre fría", "value": COLD_BLOOD_BONUS})
 		if card.kind == Card.Kind.SHOT:
 			if opponent_block != 0.0:
 				items.append({"label": "Bloqueo rival", "value": -opponent_block})
+				if card.tags.has("potencia"):
+					items.append({"label": "Potencia", "value": opponent_block * (1.0 - POWER_BLOCK_FACTOR)})
 			if posture == Posture.LOW:
 				items.append({"label": "Postura LOW", "value": -LOW_SHOT_PENALTY})
 			if exploit_rival_space:

@@ -20,6 +20,7 @@ func _initialize() -> void:
 	_test_team_database()
 	_test_chance_matches_roll()
 	_test_exhausted_penalty_is_visible()
+	_test_signature_styles()
 	print("engine_rules: %d comprobaciones, %d fallas" % [checks, failures.size()])
 	for f in failures:
 		print("  FALLA: " + f)
@@ -256,6 +257,34 @@ func _test_exhausted_penalty_is_visible() -> void:
 				roundi(MatchEngine.EXHAUSTED_PENALTY * 100.0), roundi((fresh - tired) * 100.0)])
 	var labels: Array = e.chance_breakdown(card).map(func(i): return i["label"])
 	_check(labels.has("AGOTADO"), "el desglose de la carta debería nombrar la penalización AGOTADO")
+
+
+# Estilos de carta firma: potencia (bloqueo rival a la mitad) y sangre fría (+10 a un fallo).
+func _test_signature_styles() -> void:
+	var e := _new_engine(21)
+	e.start()
+	e.begin_moment()
+	var plain := _card(Card.Kind.SHOT, 0.20)
+	var power := _card(Card.Kind.SHOT, 0.20)
+	power.tags = ["potencia"]
+	var cold := _card(Card.Kind.SHOT, 0.20)
+	cold.tags = ["sangre_fria"]
+
+	var block := 0.24
+	var base_plain := e.success_chance(plain)
+	var base_power := e.success_chance(power)
+	e.opponent_block = block
+	_check(is_equal_approx(base_plain - e.success_chance(plain), block), "un remate normal pierde todo el bloqueo")
+	_check(is_equal_approx(base_power - e.success_chance(power), block * MatchEngine.POWER_BLOCK_FACTOR),
+			"con potencia el bloqueo cuenta la mitad")
+	e.opponent_block = 0.0
+
+	var calm := e.success_chance(cold)
+	e.fails = MatchEngine.MAX_FAILS - 1
+	_check(is_equal_approx(e.success_chance(cold) - calm, MatchEngine.COLD_BLOOD_BONUS), "sangre fría suma con la jugada a un fallo")
+	_check(is_equal_approx(e.success_chance(plain), base_plain), "sin el tag, estar a un fallo no cambia nada")
+	var labels: Array = e.chance_breakdown(cold).map(func(i): return i["label"])
+	_check(labels.has("Sangre fría"), "el desglose debería nombrar Sangre fría")
 
 
 # La base de equipos debe estar completa y bien formada.

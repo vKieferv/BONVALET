@@ -30,6 +30,13 @@ const KIND_NAMES := {
     Card.Kind.CLEARANCE: "Defensa · Despeje",
 }
 
+# Estilos de carta (tags con efecto en MatchEngine); se explican en el tooltip.
+const TAG_TEXT := {
+    "potencia": "Potencia: el bloqueo rival cuenta la mitad en este remate.",
+    "sangre_fria": "Sangre fría: +10 de acierto con la jugada a un fallo de perderse.",
+    "fisica": "Física: más barata con buen ritmo.",
+}
+
 var card: Card
 var hand_index := -1
 var interactive := true
@@ -118,6 +125,9 @@ func _show_breakdown(breakdown: Array, chance: float) -> void:
     if breakdown.is_empty():
         return
     tip.append("= %d%% (tirada de 0 a 99: éxito si sale menos de %d)" % [roundi(chance * 100.0), roundi(chance * 100.0)])
+    for tag in card.tags:
+        if TAG_TEXT.has(tag):
+            tip.append(TAG_TEXT[tag])
     tooltip_text = "\n".join(tip)
     mod_label.text = " · ".join(mods)
     mod_label.add_theme_color_override("font_color", Color("#f85149") if penalized else Color("#ecc94b"))

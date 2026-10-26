@@ -48,7 +48,7 @@
         {"id": "mayer_candelo",        "name": "Mayer Candelo",        "age": 29, "nationality": "COL", "position": "MED", "role": "MCO", "stamina_max": 66, "skill_rating": 76, "signature_card_id": null},
         {"id": "felipe_seymour",       "name": "Felipe Seymour",       "age": 18, "nationality": "CHI", "position": "MED", "role": "MCD", "stamina_max": 72, "skill_rating": 60, "signature_card_id": null},
         {"id": "luis_pedro_figueroa",  "name": "Luis Pedro Figueroa",  "age": 23, "nationality": "CHI", "position": "MED", "role": "EXT", "stamina_max": 76, "skill_rating": 70, "signature_card_id": null},
-        {"id": "herly_alcazar",        "name": "Herly Alcázar",        "age": 29, "nationality": "COL", "position": "DEL", "role": "DEL", "stamina_max": 70, "skill_rating": 80, "signature_card_id": null},
+        {"id": "herly_alcazar",        "name": "Herly Alcázar",        "age": 29, "nationality": "COL", "position": "DEL", "role": "DEL", "stamina_max": 70, "skill_rating": 80, "signature_card_id": "arremetida_alcazar"},
         {"id": "marcelo_salas",        "name": "Marcelo Salas",        "age": 31, "nationality": "CHI", "position": "DEL", "role": "DEL", "stamina_max": 60, "skill_rating": 78, "signature_card_id": null},
         {"id": "rodrigo_astudillo",    "name": "Rodrigo Astudillo",    "age": 28, "nationality": "ARG", "position": "DEL", "role": "DEL", "stamina_max": 68, "skill_rating": 72, "signature_card_id": null},
         {"id": "hugo_droguett",        "name": "Hugo Droguett",        "age": 23, "nationality": "CHI", "position": "DEL", "role": "EXT", "stamina_max": 76, "skill_rating": 70, "signature_card_id": null}
@@ -71,7 +71,7 @@
         {"id": "francisco_silva",        "name": "Francisco Silva",        "age": 20, "nationality": "CHI", "position": "MED", "role": "MCD", "stamina_max": 74, "skill_rating": 62, "signature_card_id": null},
         {"id": "alejandro_osorio",       "name": "Alejandro Osorio",       "age": 29, "nationality": "CHI", "position": "MED", "role": "MCO", "stamina_max": 66, "skill_rating": 66, "signature_card_id": null},
         {"id": "jose_pedro_fuenzalida",  "name": "José Pedro Fuenzalida",  "age": 21, "nationality": "CHI", "position": "MED", "role": "EXT", "stamina_max": 78, "skill_rating": 68, "signature_card_id": null},
-        {"id": "juan_manuel_arostegui",  "name": "Juan Manuel Aróstegui",  "age": 26, "nationality": "ARG", "position": "DEL", "role": "DEL", "stamina_max": 68, "skill_rating": 74, "signature_card_id": null},
+        {"id": "juan_manuel_arostegui",  "name": "Juan Manuel Aróstegui",  "age": 26, "nationality": "ARG", "position": "DEL", "role": "DEL", "stamina_max": 68, "skill_rating": 74, "signature_card_id": "sangre_fria_arostegui"},
         {"id": "jorge_quinteros",        "name": "Jorge Quinteros",        "age": 31, "nationality": "ARG", "position": "DEL", "role": "DEL", "stamina_max": 64, "skill_rating": 76, "signature_card_id": null},
         {"id": "roberto_gutierrez",      "name": "Roberto Gutiérrez",      "age": 23, "nationality": "CHI", "position": "DEL", "role": "DEL", "stamina_max": 70, "skill_rating": 68, "signature_card_id": null},
         {"id": "willy_topp",             "name": "Willy Topp",             "age": 20, "nationality": "CHI", "position": "DEL", "role": "EXT", "stamina_max": 72, "skill_rating": 62, "signature_card_id": null}

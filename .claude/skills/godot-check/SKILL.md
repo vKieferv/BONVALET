@@ -15,6 +15,8 @@ Opciones:
 - `-Matches N` — partidos de la prueba de humo (5 por defecto; uno por arquetipo, rotando la postura).
 - `-Balance` — además corre `core/sim.gd` (2000 partidos por perfil, semillas fijas): goles, Flow, cansancio, lesiones por arquetipo. Tarda más; úsalo al tocar constantes de balance, `coach_bot.gd`, `bot_profile.gd` o `cards.json`.
 - `-SkipSmoke` — solo compilar (rápido, para cambios que no tocan la escena del partido).
+- `-TimeoutSec N` (240) por paso y `-BalanceTimeoutSec N` (600) para `sim.gd`, que con el planificador de `CoachBot` tarda unos 4-5 minutos.
+- Para comparar palancas de balance antes de tocar constantes, usa la skill `balance-lab` (más rápida que `-Balance` y con variantes lado a lado).
 
 ## Qué hace
 1. `--import`: regenera la caché de `class_name` (necesario tras crear o renombrar scripts).

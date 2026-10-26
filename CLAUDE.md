@@ -8,6 +8,10 @@ Futbolista Deckbuilder 2006: deckbuilder de fútbol chileno (Torneo Nacional 200
 - Este directorio (`futbolista/`) es a la vez el proyecto Godot (escena principal `res://scenes/calendar_view.tscn`; el partido rápido es `match_view.tscn`) y la raíz del repositorio git.
 - La carpeta padre (fuera del repo) guarda el binario `Godot_v4.7.2-stable_win64_console.exe`, `versiones/` y zips históricos que el usuario recibe de otras fuentes. Esos zips pueden venir escritos para Godot 4.3 y no compilar en 4.7: compáralos con el repo antes de copiarlos encima, porque pueden pisar correcciones. Las copias sueltas de `league_manager.gd` y los JSON de liga que hay ahí están desactualizadas; la versión que vale es la del repo.
 
+## Proceso de diseño (leer antes de cambiar reglas)
+- `docs/pilares.md` filtra toda idea; `docs/gdd.md` es el diseño vigente, con cada sección marcada DECIDIDO / EN PRUEBA / IDEA; `docs/decisiones.md` registra qué se cerró y por qué (no reabras una decisión VIGENTE sin una entrada nueva que la reemplace); `docs/roadmap.md` tiene los hitos y el sprint en curso.
+- Ideas nuevas del usuario → skill `idea-nueva` → `docs/ideas.md`, **sin tocar código** hasta que se aprueben. Notas de juego → skill `playtest` → `docs/playtests/`. Preguntas de balance → skill `balance-lab` antes de cambiar constantes. Trabajo sin el usuario presente → skill `tarea-autonoma` con un brief de `docs/tareas/`.
+
 ## Comandos
 Verificación completa (compila todo + juega partidos en headless). Úsala tras cualquier cambio en `.gd`, `.tscn` o `data/*.json`; detalles en el skill `godot-check`:
 ```powershell
@@ -19,6 +23,7 @@ Pruebas individuales (desde la raíz del repo; `--import` primero si creaste o r
 ..\Godot_v4.7.2-stable_win64_console.exe --headless --path . -s res://tests/check_scripts.gd
 ..\Godot_v4.7.2-stable_win64_console.exe --headless --path . -s res://tests/smoke_match.gd -- --matches=3
 ..\Godot_v4.7.2-stable_win64_console.exe --headless --path . -s res://core/sim.gd   # métricas de balance
+..\Godot_v4.7.2-stable_win64_console.exe --headless --path . -s res://tests/balance_lab.gd -- --variants=res://tests/lab/ejemplo.json   # palancas lado a lado
 ```
 `scenes/sim_dashboard.tscn` es la versión visual de la simulación (duelo 1v1 y liga todos contra todos con hilos), para abrir en el editor.
 
@@ -50,7 +55,7 @@ Pruebas individuales (desde la raíz del repo; `--import` primero si creaste o r
 - **Pruebas:** `tests/career_rules.gd` (planteles de los 32 clubes, mazo por club, reglas de la semana), `tests/smoke_career.gd` (dos semanas completas calendario → partido → calendario), `tests/engine_rules.gd` (reglas del motor y de los datos, sin escena), `tests/smoke_match.gd` (partidos completos de `match_view`, incluidas defensas) y `tests/check_scripts.gd` (compila todo). Si agregas una regla, agrégale su comprobación en `engine_rules.gd`.
 
 ## Versión actual
-**PA + Estamina Global con Aguantar el Balón** (2026-10-26: refactor PA + Estamina en cuatro fases, luego el playtest que trajo Aguantar, remates a 2 PA y Momentos de 3 jugadas). Línea base medida con `godot-check -Balance` (matriz neutral de 5 clubes, 400 partidos por cruce):
+**PA + Estamina Global con Aguantar el Balón** (2026-10-26: refactor PA + Estamina en cuatro fases, luego el playtest que trajo Aguantar, remates a 2 PA y Momentos de 3 jugadas; decisiones D-04 a D-13 en `docs/decisiones.md`). Línea base medida con `godot-check -Balance` (matriz neutral de 5 clubes, 400 partidos por cruce):
 
 | Métrica | Valor | Objetivo |
 |---|---|---|
@@ -62,7 +67,7 @@ Pruebas individuales (desde la raíz del repo; `--import` primero si creaste o r
 
 Valores calibrados que la sostienen: PA por turno LOW 3 / NORMAL 3 / HIGH 4 y 2 en defensa; `STAMINA_SCALE` 1.6; `INJURY_CHANCE_MAX` 0.009; 4 Momentos por equipo de 3 jugadas (`MOMENT_STEPS`); Aguantar 80% / 1 PA / 3 de estamina; Pase corto, Desmarque y canteranos a 0 PA, tácticas y Tiro de lejos 1, Remate de primera y "Sello de" 2, firmas con nombre propio 3 (2 la Sangre fría), Despeje e Intercepción 2. En la carrera, la fatiga tras el partido es 6 + 18 × (estamina gastada) y define con cuánta estamina se arranca el siguiente (tope × (1 − fatiga/200)).
 
-Pendientes conocidos de balance (medidos, sin tocar): lesiones de Kamikaze ~22% (diseño "hasta 15%"); la Intercepción de Contragolpe corta ~1.4 ataques por partido y deja a U. de Chile y UC por sobre Colo-Colo; Catenaccio es el que menos marca (0.72 goles por partido, por el −15 en remates en LOW).
+Pendientes conocidos de balance (medidos, sin tocar; se revisan en M1, ver `docs/roadmap.md`): lesiones de Kamikaze ~22% (diseño "hasta 15%"); la Intercepción de Contragolpe corta ~1.4 ataques por partido y deja a U. de Chile y UC por sobre Colo-Colo; Catenaccio es el que menos marca (0.72 goles por partido, por el −15 en remates en LOW).
 
 ## Contenido
 - Clubes, DT y jugadores son reales (2006). Marcas, sponsors, diarios y canales **nunca** usan nombres reales: siempre parodias nostálgicas (p. ej. Cerveza Glaciar por Cristal, Telnet por Entel, Diario El Chisme por La Cuarta, Televisora Nacional por TVN).

@@ -8,24 +8,34 @@ extends RefCounted
 # side: {profile: BotProfile, templates: Array (mazo como diccionarios), lineup: Array (titulares),
 #        attack_difficulty: float, defense_difficulty: float (dificultad de sus jugadas defensivas),
 #        defends: bool}
-static func run(a: Dictionary, b: Dictionary, n: int) -> Dictionary:
+#
+# hooks (opcional, para experimentos de tests/balance_lab.gd; sin hooks el partido es el de siempre):
+#   "after_start": Callable(e: MatchEngine) tras start(); "after_begin": Callable(e) tras begin_moment().
+static func run(a: Dictionary, b: Dictionary, n: int, hooks: Dictionary = {}) -> Dictionary:
 	# moments_1h/2h: Momentos de ataque jugados en cada tiempo (ambos equipos); tired_1h/2h: de ellos,
 	# los que empezaron en CANSADO o AGOTADO. injuries: equipos que terminaron lesionados.
+	# holds / holds_lost: veces que se aguantó el balón y cuántas terminaron en robo (ambos equipos).
 	var out := {"matches": n, "goals_a": 0, "goals_b": 0, "wins_a": 0, "draws": 0, "wins_b": 0,
 		"cuts_by_a": 0, "cuts_by_b": 0, "def_plays_a": 0, "def_plays_b": 0,
-		"moments_1h": 0, "tired_1h": 0, "moments_2h": 0, "tired_2h": 0, "injuries": 0}
+		"moments_1h": 0, "tired_1h": 0, "moments_2h": 0, "tired_2h": 0, "injuries": 0,
+		"holds": 0, "holds_lost": 0}
 	for s in n:
 		var ea := _engine(a, s * 2 + 1)
 		var eb := _engine(b, s * 2 + 2)
 		ea.start()
 		eb.start()
+		if hooks.has("after_start"):
+			hooks["after_start"].call(ea)
+			hooks["after_start"].call(eb)
 		while not (ea.finished and eb.finished):
 			var ma := 9999 if ea.finished else int(ea.current_moment()["minute"])
 			var mb := 9999 if eb.finished else int(eb.current_moment()["minute"])
 			if ma <= mb:
-				_attack(ea, a, eb, b, out, "b")
+				_attack(ea, a, eb, b, out, "b", hooks)
 			else:
-				_attack(eb, b, ea, a, out, "a")
+				_attack(eb, b, ea, a, out, "a", hooks)
+		out["holds"] += int(ea.stats["holds"]) + int(eb.stats["holds"])
+		out["holds_lost"] += int(ea.stats["holds_lost"]) + int(eb.stats["holds_lost"])
 		var ga: int = ea.stats["goals"]
 		var gb: int = eb.stats["goals"]
 		out["goals_a"] += ga
@@ -54,7 +64,7 @@ static func _engine(side: Dictionary, seed: int) -> MatchEngine:
 # Un ataque de `att`, con la fase defensiva previa de `def` si ese lado defiende.
 # def_tag = "a" o "b": a quién se le cuentan los cortes y las jugadas defensivas.
 static func _attack(att: MatchEngine, att_side: Dictionary, def: MatchEngine, def_side: Dictionary,
-		out: Dictionary, def_tag: String) -> void:
+		out: Dictionary, def_tag: String, hooks: Dictionary = {}) -> void:
 	var att_profile: BotProfile = att_side["profile"]
 	att.exploit_rival_space = att_profile.punishes_passivity and def.posture == MatchEngine.Posture.LOW
 	if def_side.get("defends", true):
@@ -69,6 +79,8 @@ static func _attack(att: MatchEngine, att_side: Dictionary, def: MatchEngine, de
 		att.opponent_block = r["block"]
 	var half := "2h" if int(att.current_moment()["minute"]) >= 45 else "1h"
 	att.begin_moment()
+	if hooks.has("after_begin"):
+		hooks["after_begin"].call(att)
 	out["moments_" + half] += 1
 	if att.player.zone() != PlayerStats.Zone.SAFE:
 		out["tired_" + half] += 1

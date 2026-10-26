@@ -1,0 +1,8 @@
+[
+	{"name": "línea base"},
+	{"name": "sin Aguantar", "no_hold": true},
+	{"name": "remates estándar a 3 PA", "cards": {"remate_primera": {"ap": 3}, "@sello": {"ap": 3}}},
+	{"name": "Momentos de 2 jugadas", "steps": 2},
+	{"name": "dificultad +3 pts", "diff_add": 0.03},
+	{"name": "desgaste x0.9", "stamina_mult": 0.9}
+]

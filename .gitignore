@@ -1,0 +1,9 @@
+# Caché de Godot (se regenera con --import)
+.godot/
+
+# Exportaciones
+build/
+*.pck
+
+# Configuración local de Claude Code (permisos personales)
+.claude/settings.local.json

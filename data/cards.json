@@ -1,0 +1,18 @@
+{
+  "cards": [
+	{"id": "pase_corto",      "name": "Pase corto",         "type": "basic",    "kind": "pass",    "cost": 2,  "bonus": 0.06, "count": 4},
+	{"id": "control_orient",  "name": "Control orientado",  "type": "basic",    "kind": "control", "cost": 2,  "bonus": 0.05, "count": 1},
+	{"id": "promesa_control", "name": "Promesa: Control",   "type": "basic",    "kind": "control", "cost": 2,  "bonus": 0.05, "count": 2, "age": 19},
+	{"id": "movimiento",      "name": "Desmarque",          "type": "basic",    "kind": "control", "cost": 2,  "bonus": 0.07, "count": 3, "tags": ["fisica"]},
+	{"id": "pase_al_pie",     "name": "Pase al pie",        "type": "basic",    "kind": "pass",    "cost": 3,  "bonus": 0.08, "count": 2},
+
+	{"id": "pase_filtrado",   "name": "Pase filtrado",      "type": "tactical", "kind": "pass",    "cost": 6,  "bonus": 0.20, "count": 2, "tags": ["linea_alta"]},
+	{"id": "amague",          "name": "Amague",             "type": "tactical", "kind": "dribble", "cost": 5,  "bonus": 0.18, "count": 2, "tags": ["fisica"]},
+	{"id": "centro",          "name": "Centro al área",     "type": "tactical", "kind": "cross",   "cost": 6,  "bonus": 0.22, "count": 1},
+	{"id": "tiro_lejano",     "name": "Tiro de lejos",      "type": "tactical", "kind": "shot",    "cost": 7,  "bonus": 0.18, "count": 1, "tags": ["bloque_bajo"]},
+
+	{"id": "chilena",         "name": "Chilena",            "type": "elite",    "kind": "shot",    "cost": 12, "bonus": 0.45, "count": 1, "tags": ["fisica"], "foreign": true},
+	{"id": "pared_explosiva", "name": "Pared explosiva",    "type": "elite",    "kind": "pass",    "cost": 10, "bonus": 0.38, "count": 1, "tags": ["fisica"], "foreign": true},
+	{"id": "remate_primera",  "name": "Remate de primera",  "type": "elite",    "kind": "shot",    "cost": 11, "bonus": 0.40, "count": 1}
+  ]
+}

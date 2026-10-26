@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "leagues": {
+    "chile_2006": {
+      "id": "chile_2006",
+      "name": "Campeonato Nacional Chile 2006",
+      "country": "CHI",
+      "season": 2006,
+      "divisions": [
+        "Primera A",
+        "Primera B"
+      ],
+      "rules": {
+        "max_foreigners_in_deck": 6,
+        "mandatory_sub21_cards": 2,
+        "max_squad_size": 18,
+        "sub21_age_limit": 21
+      },
+      "sub21_modifiers": {
+        "xp_gain_multiplier": 1.5,
+        "max_level_bonus": 1,
+        "market_value_growth_multiplier": 1.3,
+        "pressure_penalty": 0.03,
+        "pressure_penalty_from_moment": 3,
+        "salary_multiplier": 0.6
+      },
+      "salary": {
+        "unit": "millones_clp_por_temporada",
+        "base_by_card_type": {
+          "basic": 60,
+          "tactical": 180,
+          "elite": 520
+        },
+        "foreigner_multiplier": 1.4,
+        "sub21_multiplier": 0.6,
+        "signature_multiplier": 1.5,
+        "max_payroll_pct_of_budget": 0.6,
+        "division_salary_scale": {
+          "Primera A": 1.0,
+          "Primera B": 0.1
+        },
+        "over_cap_penalty": {
+          "morale": -10,
+          "dt_confidence": -5
+        }
+      },
+      "_notes": "Valores de diseño (balance del juego), no cifras reales. Los multiplicadores y penalizaciones aún no se aplican en el motor: solo validate_deck y payroll_for_deck los leen."
+    }
+  }
+}

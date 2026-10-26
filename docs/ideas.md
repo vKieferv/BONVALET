@@ -21,7 +21,7 @@ Para agregar una, la skill `idea-nueva` hace el análisis y la anota aquí.
 | I-07 | Largo de jugada por arquetipo (Tiki-Taka 3-4, Directo 1-2, Contragolpe 2, Catenaccio 1) en vez de 3 fijas | GDD / pizarra | 1 | EN ESPERA | M1 (decidir) |
 | I-08 | Kamikaze: "Presión Asfixiante", en HIGH el rival gasta +1 de estamina para responder | Pizarra | 1 | NUEVA | — |
 | I-10 | Fixture completo del Apertura 2006, tabla y fin del torneo | GDD original | 3 | ACEPTADA | M3 |
-| I-11 | Guardar y cargar la carrera | Necesario | — | ACEPTADA | M3 |
+| I-11 | Guardar y cargar la carrera | Necesario | — | ACEPTADA · implementada en T-01 | M3 |
 | I-12 | Clausura y Primera B (ascensos/descensos) | GDD original | 4 | EN ESPERA | M5 |
 | I-13 | Ojeo por niveles (nivel 1: edad, posición, promedio; máximo: stats, arquetipo ideal, fragilidad) | Pizarra | 3 | NUEVA | M3+ |
 | I-14 | Agentes que ofrecen jugadores en eventos (joyas baratas o conflictivos que suben el riesgo de funa) | Pizarra | 3, 4 | NUEVA | M3+ |

@@ -5,12 +5,27 @@ extends RefCounted
 # (entrenamiento o kinesiología) y Bloque 3 (validar el mazo e ir al partido).
 # Career.current sobrevive a los cambios de escena entre el calendario y el partido.
 # Los números salen de data/career_2006.json; aquí solo se aplican.
+# La carrera se guarda sola en Career.save_path (to_dict/save) y se recupera con load_saved().
 
 static var current: Career
+static var save_path := "user://carrera.json"   # las pruebas la cambian para no pisar la partida real
+static var last_load_errors: Array = []         # motivo del último load_saved() que devolvió null
 
 const DATA_PATH := "res://data/career_2006.json"
 const DECK_PATH := "res://data/cards.json"
 const LEAGUE_ID := "chile_2006"
+const SAVE_VERSION := 1
+# Campos del guardado y su tipo tras pasar por JSON (los números vuelven como float). El rng va
+# como texto porque seed y state son enteros de 64 bits que un float de JSON no conserva.
+const SAVE_FIELDS := {
+    "team_id": TYPE_STRING, "week": TYPE_FLOAT, "budget": TYPE_FLOAT, "popularity": TYPE_FLOAT,
+    "discipline": TYPE_FLOAT, "fatigue": TYPE_FLOAT, "sponsor_id": TYPE_STRING, "history": TYPE_ARRAY,
+    "event_result": TYPE_DICTIONARY, "training": TYPE_STRING, "match_mods": TYPE_DICTIONARY,
+    "sponsor_week_lost": TYPE_BOOL, "rival_id": TYPE_STRING, "pending_match": TYPE_BOOL,
+    "rng_seed": TYPE_STRING, "rng_state": TYPE_STRING,
+}
+const HISTORY_INTS := ["week", "gf", "ga", "income", "fatigue_gained"]
+const MATCH_MODS_INTS := ["opening_moments"]
 
 var league: LeagueManager
 var squads: SquadManager
@@ -323,3 +338,113 @@ func record_match(gf: int, ga: int, end_stamina_pct: float = 0.5) -> Dictionary:
     week += 1
     _new_week()
     return entry
+
+
+# ------------------------------------------------------------------ Guardado
+
+func to_dict() -> Dictionary:
+    return {
+        "version": SAVE_VERSION,
+        "team_id": team_id,
+        "week": week,
+        "budget": budget,
+        "popularity": popularity,
+        "discipline": discipline,
+        "fatigue": fatigue,
+        "sponsor_id": sponsor_id,
+        "history": history.duplicate(true),
+        "event_result": event_result.duplicate(true),
+        "training": training,
+        "match_mods": match_mods.duplicate(true),
+        "sponsor_week_lost": sponsor_week_lost,
+        "rival_id": rival_id,
+        "pending_match": pending_match,
+        "rng_seed": str(rng.seed),
+        "rng_state": str(rng.state),
+    }
+
+
+# Escribe la carrera en `path` (por defecto Career.save_path). Devuelve false si no se pudo escribir.
+func save(path: String = "") -> bool:
+    var f := FileAccess.open(path if path != "" else save_path, FileAccess.WRITE)
+    if f == null:
+        return false
+    f.store_string(JSON.stringify(to_dict(), "\t"))
+    f.close()
+    return true
+
+
+# Carga la carrera guardada en `path` (por defecto Career.save_path): setup() con el club guardado
+# (recarga los JSON del juego) y después el estado. Si el archivo no existe, no es JSON, trae otra
+# versión, un club desconocido o un campo inválido, devuelve null y deja el motivo en
+# Career.last_load_errors, sin errores de script.
+static func load_saved(p_league: LeagueManager, p_squads: SquadManager, path: String = "") -> Career:
+    last_load_errors = []
+    if path == "":
+        path = save_path
+    if not FileAccess.file_exists(path):
+        last_load_errors.append("No hay carrera guardada.")
+        return null
+    var f := FileAccess.open(path, FileAccess.READ)
+    if f == null:
+        last_load_errors.append("No se pudo abrir %s." % path)
+        return null
+    var json := JSON.new()
+    if json.parse(f.get_as_text()) != OK:
+        last_load_errors.append("El guardado no es JSON válido (línea %d: %s)." % [json.get_error_line(), json.get_error_message()])
+        return null
+    if not (json.data is Dictionary):
+        last_load_errors.append("El guardado no tiene el formato esperado.")
+        return null
+    var d: Dictionary = json.data
+    if typeof(d.get("version")) != TYPE_FLOAT or int(d["version"]) != SAVE_VERSION:
+        last_load_errors.append("Versión de guardado %s no compatible (se espera %d)." % [d.get("version"), SAVE_VERSION])
+        return null
+    for key in SAVE_FIELDS:
+        if typeof(d.get(key)) != SAVE_FIELDS[key]:
+            last_load_errors.append("Campo inválido en el guardado: %s." % key)
+            return null
+    if not (String(d["rng_seed"]).is_valid_int() and String(d["rng_state"]).is_valid_int()):
+        last_load_errors.append("Estado del azar inválido en el guardado.")
+        return null
+    for h in d["history"]:
+        if not (h is Dictionary):
+            last_load_errors.append("Campo inválido en el guardado: history.")
+            return null
+
+    var c := Career.new()
+    if not c.setup(p_league, p_squads, String(d["team_id"]), 1):
+        last_load_errors.append_array(c.load_errors)
+        return null
+    var sponsor := String(d["sponsor_id"])
+    var kind := String(d["training"])
+    if (sponsor != "" and c.get_sponsor(sponsor).is_empty()) or (kind != "" and not c.data.get("training", {}).has(kind)):
+        last_load_errors.append("El guardado trae un sponsor o un entrenamiento desconocido.")
+        return null
+    c.week = int(d["week"])
+    c.budget = float(d["budget"])
+    c.popularity = int(d["popularity"])
+    c.discipline = int(d["discipline"])
+    c.fatigue = float(d["fatigue"])
+    c.sponsor_id = sponsor
+    c.history = []
+    for h in d["history"]:
+        c.history.append(_with_ints(h, HISTORY_INTS))
+    c.event_result = d["event_result"]
+    c.training = kind
+    c.match_mods = _with_ints(d["match_mods"], MATCH_MODS_INTS)
+    c.sponsor_week_lost = d["sponsor_week_lost"]
+    c.rival_id = String(d["rival_id"])
+    c.pending_match = d["pending_match"]
+    c.rng.seed = String(d["rng_seed"]).to_int()
+    c.rng.state = String(d["rng_state"]).to_int()   # después de seed: asignar seed reinicia el state
+    return c
+
+
+# JSON devuelve todos los números como float: vuelve a entero los campos que lo son.
+static func _with_ints(src: Dictionary, keys: Array) -> Dictionary:
+    var out := src.duplicate(true)
+    for k in keys:
+        if typeof(out.get(k)) == TYPE_FLOAT:
+            out[k] = int(out[k])
+    return out

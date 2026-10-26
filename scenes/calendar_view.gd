@@ -294,7 +294,10 @@ func _refresh_block2() -> void:
         for state in ["font_color", "font_pressed_color", "font_hover_pressed_color"]:
             b.add_theme_color_override(state, COLOR_GOLD if chosen else Color.WHITE)
         b.disabled = _career.pending_match
-    _training_status.text = "Fatiga actual: %d%% (reduce la energía inicial del partido)." % int(_career.fatigue)
+    var now := _career.start_stamina_preview()
+    _training_status.text = ("Fatiga actual: %d%%. Sin cambios arrancarías con %d%% de estamina (%s, Mano: %d). " +
+            "La estamina vuelve a ese valor en cada partido; la fatiga se arrastra y sube más si terminas agotado.") % [
+            int(_career.fatigue), now["pct"], now["zone"], now["hand"]]
 
 
 func _refresh_block3() -> void:

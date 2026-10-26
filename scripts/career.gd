@@ -213,7 +213,20 @@ func training_terms(kind: String) -> String:
     if float(t.get("form_bonus", 0.0)) > 0.0:
         parts.append("+%d%% de acierto en todo el partido" % roundi(float(t["form_bonus"]) * 100.0))
     parts.append("fatiga %+d" % int(t.get("fatigue", 0)))
-    return "%s: %s." % [t.get("name", kind), ", ".join(parts)]
+    var start := start_stamina_preview(float(t.get("fatigue", 0)))
+    return "%s: %s → arrancas con %d%% de estamina, %s (Mano: %d)." % [
+        t.get("name", kind), ", ".join(parts), start["pct"], start["zone"], start["hand"]]
+
+
+# Con cuánta Estamina Global arrancaría el partido si la fatiga cambia en `extra` (lo mismo que
+# hace PlayerStats.start_match_energy con la fatiga de la semana). {pct, zone, hand}.
+func start_stamina_preview(extra: float = 0.0) -> Dictionary:
+    var p := PlayerStats.new()
+    p.fatigue = clampf(fatigue + extra, 0.0, 100.0)
+    p.start_match_energy()
+    var zone_name: String = {PlayerStats.Zone.SAFE: "ÓPTIMO", PlayerStats.Zone.TIRED: "CANSADO",
+            PlayerStats.Zone.EXHAUSTED: "AGOTADO"}[p.zone()]
+    return {"pct": roundi(p.energy_pct() * 100.0), "zone": zone_name, "hand": p.draw_count()}
 
 
 func choose_training(kind: String) -> bool:
@@ -267,7 +280,8 @@ func prepare_match() -> Dictionary:
     return {"ok": errors.is_empty(), "errors": errors, "warnings": warnings, "check": check, "deck_size": deck.size()}
 
 
-# Aplica la semana al partido. Llamar antes de engine.start() (la fatiga define la energía inicial).
+# Aplica la semana al partido. Llamar antes de engine.start(): la fatiga define con cuánta Estamina
+# Global se arranca, y el funado gasta más estamina en sus cartas (owner_stamina_mult).
 func configure_match(engine: MatchEngine, player: PlayerStats) -> void:
     player.fatigue = fatigue
     player.lineup = squads.lineup_ids(team_id)
@@ -279,8 +293,15 @@ func configure_match(engine: MatchEngine, player: PlayerStats) -> void:
         engine.owner_stamina_mult = {match_mods["funado_id"]: match_mods.get("funado_stamina_mult", 1.5)}
 
 
-# Cierra la semana con el resultado: paga al sponsor, suma fatiga y avanza a la siguiente.
-func record_match(gf: int, ga: int) -> Dictionary:
+# Nombre del funado de esta semana ("" si no hay funa).
+func funado_name() -> String:
+    var id: String = match_mods.get("funado_id", "")
+    return "" if id == "" else String(squads.find_player(team_id, id).get("name", id))
+
+
+# Cierra la semana con el resultado: paga al sponsor, suma fatiga según la estamina que quedó
+# (end_stamina_pct, 0-1) y avanza a la siguiente.
+func record_match(gf: int, ga: int, end_stamina_pct: float = 0.5) -> Dictionary:
     if not pending_match:
         return {}
     var m: Dictionary = data.get("match", {})
@@ -293,8 +314,11 @@ func record_match(gf: int, ga: int) -> Dictionary:
         popularity += int(m.get("popularity_loss", 0))
     popularity = clampi(popularity, 0, 100)
     budget += income
-    fatigue = clampf(fatigue + float(m.get("fatigue", 0)), 0.0, 100.0)
-    var entry := {"week": week, "rival_id": rival_id, "gf": gf, "ga": ga, "income": income}
+    var wear := 1.0 - clampf(end_stamina_pct, 0.0, 1.0)
+    var gained := float(m.get("fatigue_base", 0)) + float(m.get("fatigue_from_wear", 0)) * wear
+    fatigue = clampf(fatigue + gained, 0.0, 100.0)
+    var entry := {"week": week, "rival_id": rival_id, "gf": gf, "ga": ga, "income": income,
+        "fatigue_gained": roundi(gained)}
     history.append(entry)
     week += 1
     _new_week()

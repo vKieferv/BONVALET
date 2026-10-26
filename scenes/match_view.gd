@@ -513,6 +513,10 @@ func _begin_match() -> void:
     _away_name.add_theme_color_override("font_color", _league.team_display_color(_rival_team))
     _menu.visible = false
     await _banner_show("¡COMIENZA EL PARTIDO!", COLOR_GOLD, 0.9)
+    if _career != null and _career.funado_name() != "":
+        # La funa de la semana: sus cartas gastan +50% de estamina (se ve en naranja en su desgaste).
+        await _banner_show("FUNA: %s GASTA +%d%% DE ESTAMINA" % [_career.funado_name().to_upper(),
+                roundi((float(_career.match_mods.get("funado_stamina_mult", 1.5)) - 1.0) * 100.0)], COLOR_WARN, 1.0)
     _next_step()
 
 
@@ -783,9 +787,10 @@ func _end_match(title: String) -> void:
         res, _local_name.text, mine, _rival_goals, _rival.profile_name, s["plays"], s["flow_moments"],
         s["defense_plays"], s["interceptions"], s["emergencies"]]
     if _career != null:
-        var entry := _career.record_match(mine, _rival_goals)
+        var entry := _career.record_match(mine, _rival_goals, _player.energy_pct())
         if not entry.is_empty():
-            summary += "\nIngreso del sponsor: $%d M" % entry["income"]
+            summary += "\nIngreso del sponsor: $%d M · Fatiga +%d (terminaste con %d%% de estamina)" % [
+                entry["income"], entry["fatigue_gained"], roundi(_player.energy_pct() * 100.0)]
         _start_button.text = "VOLVER AL CALENDARIO"
     else:
         _start_button.text = "JUGAR OTRA VEZ"

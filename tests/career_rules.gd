@@ -24,6 +24,7 @@ func _initialize() -> void:
 	_test_natural_executor_by_lineup()
 	_test_big_clubs_bring_their_stars()
 	_test_week_flow()
+	_test_career_stamina()
 	_test_rivals_and_sponsor_scale()
 	print("career_rules: %d comprobaciones, %d fallas" % [checks, failures.size()])
 	for f in failures:
@@ -175,6 +176,66 @@ func _test_week_flow() -> void:
 	# Con funa + cláusula de conducta se pierde el fijo, pero el bono por victoria se paga igual.
 	_check(c.budget > budget, "ganar con sponsor debería sumar presupuesto (pago perdido: %s)" % lost)
 	_check(c.event_result.is_empty() and c.training == "" and c.rival_id != rival, "la semana 2 empieza limpia y con otro rival")
+
+
+# Integración del modelo PA + Estamina en la carrera: la funa (+50% de desgaste) llega al partido,
+# la fatiga define la estamina inicial (que se restablece en cada partido), la kinesiología la mejora
+# y la fatiga post-partido depende de la estamina que quedó.
+func _test_career_stamina() -> void:
+	var c: Career = null
+	for seed in range(1, 200):
+		var t := Career.new()
+		t.setup(league, squads, "colo_colo", seed)
+		t.choose_sponsor("cerveza_glaciar")
+		if t.resolve_event(true)["funa"]:
+			c = t
+			break
+	_check(c != null, "alguna semilla debería producir una funa al aceptar la fiesta")
+	if c == null:
+		return
+	var funado: String = c.match_mods.get("funado_id", "")
+	_check(funado != "" and c.funado_name() != "", "la funa debería tener un funado con nombre")
+	_check(c.choose_training("physio") and c.prepare_match()["ok"], "la semana con funa debería poder jugarse")
+
+	var rng := RandomNumberGenerator.new()
+	rng.seed = 9
+	var player := PlayerStats.new()
+	var deck := c.build_deck()
+	var e := MatchEngine.new(player, DeckManager.new(deck, [], rng), rng, 0.15)
+	c.configure_match(e, player)
+	var clean := MatchEngine.new(PlayerStats.new(), DeckManager.new([], [], rng), rng, 0.15)
+	var owned: Card = null
+	for card in deck:
+		if card.owner_id == funado:
+			owned = card
+	_check(owned != null, "el funado debería tener una carta en el mazo (por eso se le elige)")
+	if owned != null:
+		_check(is_equal_approx(e.stamina_cost_of(owned), clean.stamina_cost_of(owned) * 1.5),
+				"en el partido, las cartas del funado deberían gastar +50% de estamina")
+		_check(e.ap_cost_of(owned) == clean.ap_cost_of(owned), "la funa no cambia los PA")
+
+	# La fatiga define la estamina inicial y la estamina se restablece en cada partido.
+	c.fatigue = 60.0
+	c.configure_match(e, player)
+	e.start()
+	_check(is_equal_approx(player.energy_pct(), 0.7), "con fatiga 60 se arranca con 70%% de estamina (%.2f)" % player.energy_pct())
+	player.energy = 1.0
+	e.start()
+	_check(is_equal_approx(player.energy_pct(), 0.7), "cada partido restablece la estamina según la fatiga")
+	_check(c.start_stamina_preview(-25.0)["pct"] > c.start_stamina_preview()["pct"],
+			"la kinesiología debería mejorar la estamina con que se arranca")
+	_check(c.start_stamina_preview()["pct"] == 70, "el calendario debería anticipar el 70%")
+
+	# Fatiga post-partido: terminar agotado cansa más que terminar entero.
+	var m: Dictionary = c.data["match"]
+	var before := c.fatigue
+	var entry := c.record_match(1, 0, 0.1)
+	var expected := float(m["fatigue_base"]) + float(m["fatigue_from_wear"]) * 0.9
+	_check(is_equal_approx(c.fatigue, clampf(before + expected, 0.0, 100.0)),
+			"fatiga post-partido = base + desgaste x estamina gastada (%.1f -> %.1f)" % [before, c.fatigue])
+	_check(entry["fatigue_gained"] > roundi(float(m["fatigue_base"]) + float(m["fatigue_from_wear"]) * 0.1),
+			"terminar agotado debería sumar más fatiga que terminar entero")
+	_check(c.match_mods.is_empty() and c.funado_name() == "", "la semana siguiente empieza sin funa")
 
 
 func _test_rivals_and_sponsor_scale() -> void:

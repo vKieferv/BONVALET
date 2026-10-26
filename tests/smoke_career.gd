@@ -114,6 +114,8 @@ func _process(_delta: float) -> bool:
 			var c := Career.current
 			if c == null or c.week != WEEKS + 1 or c.history.size() != WEEKS or scene._go_button.disabled == false:
 				errors.append("Continuar debería recuperar la semana %d con los bloques por hacer" % (WEEKS + 1))
+			elif scene._club_option.get_item_metadata(scene._club_option.selected) != c.team_id:
+				errors.append("Al continuar, el selector debería mostrar el club de la carrera (%s)" % c.team_id)
 			else:
 				print("smoke_career: continuar · %s" % button.text)
 			return _finish()

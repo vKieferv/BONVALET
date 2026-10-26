@@ -28,6 +28,8 @@ Preguntas a cerrar, cada una con playtest y medición:
 - Kamikaze: ¿~22% de lesiones es aceptable o se vuelve al "hasta 15%"?
 - Catenaccio: es el que menos marca (−15 en remates en LOW); ¿es su identidad o un problema?
 - Contragolpe: su Intercepción deja a U. de Chile y UC por sobre Colo-Colo; ¿se ajusta?
+- Guardado (T-01): cerrar el juego a mitad de partido permite repetir un partido perdido. ¿Se
+  registra el partido como derrota provisional al entrar a la cancha?
 - Sensación de juego mínima: ritmo de animaciones, feedback de acierto/fallo, lectura de la mano.
 
 ## Trabajo autónomo vs. juntos

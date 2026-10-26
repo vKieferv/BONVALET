@@ -237,6 +237,8 @@ func _update_columns() -> void:
 func _refresh() -> void:
     var active := _career != null
     _club_option.disabled = active
+    if active:
+        _select_club(_career.team_id)   # al continuar o volver del partido, el selector muestra tu club
     _start_button.visible = not active
     _continue_button.visible = not active
     for p in _block_panels:
@@ -386,6 +388,13 @@ func _on_continue_career() -> void:
     _saved = null
     _set_blocks_enabled(true)
     _refresh()
+
+
+func _select_club(team_id: String) -> void:
+    for i in _club_option.item_count:
+        if _club_option.get_item_metadata(i) == team_id:
+            _club_option.select(i)
+            return
 
 
 func _save() -> void:

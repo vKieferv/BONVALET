@@ -112,11 +112,13 @@ func _test_natural_executor_by_lineup() -> void:
 		_check(e.is_natural_executor(zapatazo), "Suazo titular: el Zapatazo debería activar el Ejecutor Natural")
 		player.lineup = []
 		_check(not e.is_natural_executor(zapatazo), "sin Suazo en cancha el Zapatazo no debería activar el Ejecutor Natural")
-	# Funado: +1 de energía en sus cartas.
+	# Funado: +50% de desgaste de estamina en sus cartas, mismos PA.
 	if zapatazo != null:
-		var base := e.cost_of(zapatazo)
-		e.owner_cost_surcharge = {"humberto_suazo": 1}
-		_check(e.cost_of(zapatazo) == base + 1, "el funado debería pagar +1 de energía en sus cartas")
+		var base_wear := e.stamina_cost_of(zapatazo)
+		var base_ap := e.ap_cost_of(zapatazo)
+		e.owner_stamina_mult = {"humberto_suazo": 1.5}
+		_check(is_equal_approx(e.stamina_cost_of(zapatazo), base_wear * 1.5) and e.ap_cost_of(zapatazo) == base_ap,
+				"el funado debería gastar +50% de estamina en sus cartas, con los mismos PA")
 
 
 # Paridad: un club rival arma el mismo mazo que tendría como club propio. Los grandes traen la

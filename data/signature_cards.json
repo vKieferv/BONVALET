@@ -1,9 +1,9 @@
 {
-  "_notes": "Cartas firma (privadas de un jugador). SquadManager las agrega al mazo solo si su dueño es titular, con owner_id = id del jugador (Ejecutor Natural). template se usa para la figura del club que no tiene carta propia; %s = apellido. Tags de estilo (ver MatchEngine.chance_breakdown): potencia = el bloqueo rival cuenta la mitad; sangre_fria = +10 pts con el Momento a un fallo de perderse; fisica = más barata con buen ritmo. Nombres y estilos son de diseño, no una descripción del jugador real.",
+  "_notes": "Cartas firma (privadas de un jugador). SquadManager las agrega al mazo solo si su dueño es titular, con owner_id = id del jugador (Ejecutor Natural). template se usa para la figura del club que no tiene carta propia; %s = apellido. ap = Puntos de Acción del turno; stamina = desgaste de Estamina Global (misma convención que cards.json). Tags de estilo (ver MatchEngine.chance_breakdown): potencia = el bloqueo rival cuenta la mitad; sangre_fria = +10 pts con el Momento a un fallo de perderse; fisica = gasta menos estamina con buen ritmo. Nombres y estilos son de diseño, no una descripción del jugador real.",
   "cards": {
-	"zapatazo": {"id": "zapatazo", "name": "Zapatazo", "type": "elite", "kind": "shot", "cost": 11, "bonus": 0.38},
-	"arremetida_alcazar": {"id": "arremetida_alcazar", "name": "Arremetida", "type": "elite", "kind": "shot", "cost": 13, "bonus": 0.40, "tags": ["fisica", "potencia"]},
-	"sangre_fria_arostegui": {"id": "sangre_fria_arostegui", "name": "Sangre fría", "type": "elite", "kind": "shot", "cost": 9, "bonus": 0.30, "tags": ["sangre_fria"]}
+	"zapatazo": {"id": "zapatazo", "name": "Zapatazo", "type": "elite", "kind": "shot", "ap": 3, "stamina": 6, "bonus": 0.38},
+	"arremetida_alcazar": {"id": "arremetida_alcazar", "name": "Arremetida", "type": "elite", "kind": "shot", "ap": 3, "stamina": 8, "bonus": 0.40, "tags": ["fisica", "potencia"]},
+	"sangre_fria_arostegui": {"id": "sangre_fria_arostegui", "name": "Sangre fría", "type": "elite", "kind": "shot", "ap": 2, "stamina": 4, "bonus": 0.30, "tags": ["sangre_fria"]}
   },
-  "template": {"name": "Sello de %s", "type": "elite", "kind": "shot", "cost": 11, "bonus": 0.36}
+  "template": {"name": "Sello de %s", "type": "elite", "kind": "shot", "ap": 3, "stamina": 6, "bonus": 0.36}
 }

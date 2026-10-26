@@ -118,7 +118,7 @@ func _build_params_panel() -> Control:
     v.add_child(_label("Parámetros (comunes a ambos modos)", 20))
     var grid := _make_adaptive_grid(520, 2)
     v.add_child(grid)
-    _sl_energy = _add_slider(grid, "Tope de energía (Stamina 60)", 30, 120, 1, 58)
+    _sl_energy = _add_slider(grid, "Tope de estamina (Stamina 60)", 30, 120, 1, 58)
     _sl_regen = _add_slider(grid, "Regeneración NORMAL (% del tope)", 0.10, 0.40, 0.01, 0.22)
     _sl_matches = _add_slider(grid, "Partidos (por equipo / por duelo)", 0, 2, 1, 1)
     _sl_rival = _add_slider(grid, "Dificultad base del rival", 0.05, 0.35, 0.01, 0.15)
@@ -409,8 +409,8 @@ func _refresh_profile_info() -> void:
 
 func _exploit_note(me: BotProfile, rival: BotProfile) -> String:
     if me.punishes_passivity and rival.default_posture == MatchEngine.Posture.LOW:
-        return "\n⚡ Regla anti-pasividad activa vs %s: +%d%% en remates y -%d energía en remates" % [
-            rival.profile_name, roundi(MatchEngine.PASSIVITY_SHOT_BONUS * 100.0), MatchEngine.PASSIVITY_COST_REDUCTION]
+        return "\n⚡ Regla anti-pasividad activa vs %s: +%d%% en remates y -%d PA en remates" % [
+            rival.profile_name, roundi(MatchEngine.PASSIVITY_SHOT_BONUS * 100.0), MatchEngine.PASSIVITY_AP_REDUCTION]
     return ""
 
 

@@ -217,16 +217,19 @@ func _lock_posture(locked: bool) -> void:
 func _update_posture_hint() -> void:
     var base: float = _player.regen_normal_pct if _player != null else DEFAULT_REGEN
     var rec := roundi(base * MatchEngine.RECOVERY_RATIO[_posture] * 100.0)
+    var ap: int = MatchEngine.AP_BY_POSTURE[_posture]
+    var wear := roundi((float(MatchEngine.STAMINA_MULT[_posture]) - 1.0) * 100.0)
+    var wear_text := "desgaste normal" if wear == 0 else "desgaste %+d%%" % wear
     match _posture:
         MatchEngine.Posture.LOW:
-            _posture_hint.text = "LOW: recuperas %d%% entre momentos · remates −%d pts · máx. %d momentos" % [
-                rec, roundi(MatchEngine.LOW_SHOT_PENALTY * 100.0), MatchEngine.LOW_MAX_MOMENTS]
+            _posture_hint.text = "LOW: %d PA por turno · %s · recuperas %d%% · remates −%d pts · máx. %d momentos" % [
+                ap, wear_text, rec, roundi(MatchEngine.LOW_SHOT_PENALTY * 100.0), MatchEngine.LOW_MAX_MOMENTS]
             if _rival != null and _rival.punishes_passivity:
                 _posture_hint.text += " · %s castiga el repliegue" % _rival.profile_name
         MatchEngine.Posture.NORMAL:
-            _posture_hint.text = "NORMAL: recuperas %d%% entre momentos" % rec
+            _posture_hint.text = "NORMAL: %d PA por turno · %s · recuperas %d%%" % [ap, wear_text, rec]
         _:
-            _posture_hint.text = "HIGH: recuperas solo %d%% · más probabilidad de momentos extra" % rec
+            _posture_hint.text = "HIGH: %d PA por turno · %s · recuperas solo %d%% · más momentos extra" % [ap, wear_text, rec]
     if _posture_locked:
         _posture_hint.text = "[FIJA DURANTE LA JUGADA] " + _posture_hint.text
 
@@ -259,31 +262,30 @@ func _update_hud() -> void:
         return
     _update_bars()
     _update_flow_badge()
-    # La penalización de acierto ya está descontada en el % de cada carta; aquí se explica.
-    var extra_cost := roundi((MatchEngine.TIRED_COST_MULT - 1.0) * 100.0)
-    var zone_text := "ÓPTIMO"
+    # La estamina no toca el % de acierto: sus zonas solo cambian el robo, la lesión y las penalizaciones.
+    var zone_text := "ÓPTIMO (mano llena)"
     match _player.zone():
         PlayerStats.Zone.TIRED:
-            zone_text = "CANSADO (−%d%% acierto, costos +%d%%)" % [roundi(MatchEngine.TIRED_PENALTY * 100.0), extra_cost]
+            zone_text = "CANSADO (robas %d carta menos)" % PlayerStats.DRAW_PENALTY[PlayerStats.Zone.TIRED]
         PlayerStats.Zone.EXHAUSTED:
-            zone_text = "AGOTADO (−%d%% acierto, costos +%d%%, riesgo de lesión)" % [
-                roundi(MatchEngine.EXHAUSTED_PENALTY * 100.0), extra_cost]
-    _energy_readout.text = "ENERGÍA %d/%d · %s" % [int(_player.energy), int(_player.max_energy()), zone_text]
+            zone_text = "AGOTADO (robas %d menos, riesgo de lesión)" % PlayerStats.DRAW_PENALTY[PlayerStats.Zone.EXHAUSTED]
+    _energy_readout.text = "ESTAMINA %d/%d · %s" % [int(_player.energy), int(_player.max_energy()), zone_text]
+    if _in_moment or _in_defense:
+        _energy_readout.text += " · PA %d/%d" % [_engine.ap, _engine.ap_max]
     if _in_moment:
         var m := _engine.current_moment()
         _progress_label.text = "Jugada %d/%d · Fallos %d/%d" % [
             _engine.progress, m["steps_required"], _engine.fails, MatchEngine.MAX_FAILS]
     elif _in_defense:
         var d := _engine.defense_result
-        _progress_label.text = "Defensa %d/%d · Presión +%d · Bloqueo +%d" % [
-            _engine.defense_plays, MatchEngine.DEFENSE_MAX_PLAYS,
+        _progress_label.text = "Defensa · Presión +%d · Bloqueo +%d" % [
             roundi(d["pressure"] * 100.0), roundi(d["block"] * 100.0)]
     else:
         _progress_label.text = ""
     if _last_roll_text != "" and (_in_moment or _in_defense):
         _progress_label.text += " · " + _last_roll_text
     _yield_button.disabled = not (_in_moment or _in_defense) or _busy
-    _emergency_button.text = "Despeje de emergencia (−%d)" % _engine.emergency_cost()
+    _emergency_button.text = "Despeje de emergencia (todos tus PA, −%d est.)" % roundi(_engine.emergency_stamina_cost())
     _emergency_button.disabled = not _in_defense or _busy or not _engine.can_emergency_clear()
     _update_hand_stats()
 
@@ -739,17 +741,21 @@ func _clear_hand() -> void:
     _prev_hand.clear()
 
 
-# Recalcula costo y probabilidad de cada carta (cambio de postura, cansancio, Flow...).
+# Recalcula PA, desgaste y probabilidad de cada carta (postura, Flow, PA restantes...).
 func _update_hand_stats() -> void:
     # Según el motor, no según la UI: al cerrarse la defensa la mano sigue en pantalla un instante.
     if _engine == null or not (_in_moment or _engine.in_defense):
         return
     for node in _hand_box.get_children():
         var ui: CardUI = node
-        var card: Card = ui.card
-        var usable := _engine.can_play(card) and not _busy
-        ui.update_stats(_engine.cost_of(card), card.energy_cost, _engine.success_chance(card), usable,
-                card.flow_uses > 0 and _engine.flow_active, _engine.chance_breakdown(card))
+        var usable := _engine.can_play(ui.card) and not _busy
+        _show_card_stats(ui, ui.card, usable)
+
+
+func _show_card_stats(ui: CardUI, card: Card, usable: bool) -> void:
+    ui.update_stats(_engine.ap_cost_of(card), card.ap_cost, _engine.stamina_cost_of(card),
+            _engine.success_chance(card), usable, card.flow_uses > 0 and _engine.flow_active,
+            _engine.chance_breakdown(card))
 
 
 func _on_card_chosen(ui: CardUI) -> void:
@@ -793,8 +799,7 @@ func _spawn_clone(src: CardUI) -> CardUI:
     _fx.add_child(c)
     c.setup(src.card, -1)
     c.interactive = false
-    c.update_stats(_engine.cost_of(src.card), src.card.energy_cost, _engine.success_chance(src.card), true,
-            src.card.flow_uses > 0 and _engine.flow_active, _engine.chance_breakdown(src.card))
+    _show_card_stats(c, src.card, true)
     c.global_position = src.global_position
     c.pivot_offset = c.size / 2.0
     return c
@@ -831,6 +836,8 @@ func _present_result(ev: Dictionary, clone: CardUI) -> void:
         await _banner_show("¡SE ROMPIÓ EL FLOW!", COLOR_WARN, 0.6)
     if ev.has("penalties_added"):
         await _banner_show("¡JUGADOR EXHAUSTO!", COLOR_BAD, 0.7)
+    if ev.get("out_of_ap", false):
+        await _banner_show("SIN PA PARA SEGUIR · SE PIERDE LA JUGADA", COLOR_WARN, 0.8)
     if ev["injury"]:
         await _banner_show("¡LESIÓN!", COLOR_BAD, 0.9)
     var t := create_tween().set_parallel(true)

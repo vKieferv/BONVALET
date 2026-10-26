@@ -1,6 +1,13 @@
 class_name MatchEngine
 extends RefCounted
 
+# Motor de un equipo en el partido. Dos recursos separados:
+# - Puntos de Acción (PA): presupuesto de cada turno. Cada Momento Clave arranca con PA según la
+#   postura (LOW 2, NORMAL 3, HIGH 4) y cada fase defensiva con DEFENSE_AP. No se acumulan.
+# - Estamina Global (`player.energy`): desgaste del partido. La gasta cada carta jugada
+#   (stamina_cost_of), se recupera entre Momentos según la postura y define el robo de cartas
+#   (PlayerStats.draw_count), el riesgo de lesión y las cartas de penalización. Nunca bloquea jugadas.
+
 ## Se emite al jugar una carta cuyo dueño es el ejecutor (la UI lo usa para el resplandor).
 signal natural_executor_played(card: Card)
 
@@ -10,27 +17,27 @@ enum Posture { LOW, NORMAL, HIGH }
 const MAX_FAILS := 2                  # 2 fallos y el Momento Clave se pierde
 const MIN_CHANCE := 0.05              # ninguna jugada baja de 5% ni pasa de 95%
 const MAX_CHANCE := 0.95
-const FLOW_BREAK_LOSS_PCT := 0.15     # energía perdida al romperse el Flow
-const TIRED_COST_MULT := 1.25
-const TIRED_PENALTY := 0.04
-const EXHAUSTED_PENALTY := 0.10
+const FLOW_BREAK_LOSS_PCT := 0.15     # estamina perdida al romperse el Flow
+# Puntos de Acción por turno de ataque según la postura, y desgaste de estamina de esa postura.
+const AP_BY_POSTURE := {Posture.LOW: 2, Posture.NORMAL: 3, Posture.HIGH: 4}
+const STAMINA_MULT := {Posture.LOW: 0.75, Posture.NORMAL: 1.0, Posture.HIGH: 1.5}
+const DEFENSE_AP := 2                 # PA de cada fase defensiva (cualquier postura)
 # Lesión: solo se tira al jugar en zona de agotamiento, de MIN (al entrar) a MAX (barra en 0)
 # por jugada. Calibrado para que un partido normal termine en lesión un 2-5% de las veces.
 const INJURY_CHANCE_MIN := 0.004
 const INJURY_CHANCE_MAX := 0.012
-const EXHAUSTION_PCT := 0.30      # la zona de agotamiento empieza por debajo de este % de energía
+const EXHAUSTION_PCT := 0.30      # la zona de agotamiento empieza por debajo de este % de estamina
 const EXTRA_MOMENT_CHANCE_HIGH := 0.35
 const MAX_MOMENTS := 5
 # Regla de emparejamiento anti-pasividad (perfil que castiga + rival en postura LOW):
-# los REMATES ganan +exploit_shot_bonus puntos (por defecto 10), cuestan 1 de energía menos
+# los REMATES ganan +exploit_shot_bonus puntos (por defecto 10), cuestan 1 PA menos (mínimo 1)
 # y el Momento pide una jugada menos (transición rápida, mínimo 2).
 const PASSIVITY_SHOT_BONUS := 0.10
-const PASSIVITY_COST_REDUCTION := 1
+const PASSIVITY_AP_REDUCTION := 1
 const LOW_MAX_MOMENTS := 3        # tope de momentos propios en postura LOW
 const LOW_SHOT_PENALTY := 0.15    # -15 puntos de acierto en remates en postura LOW
-# Regeneración entre momentos = regen_normal_pct (22% por defecto) x este factor.
-# Con NORMAL = 22%: LOW = 35% y HIGH = 8%. HIGH no tiene consumo extra:
-# su único trade-off es la mayor frecuencia de momentos extra.
+# Recuperación de estamina entre momentos = regen_normal_pct (22% por defecto) x este factor.
+# Con NORMAL = 22%: LOW = 35% y HIGH = 8%.
 const RECOVERY_RATIO := {
 	Posture.LOW: 35.0 / 22.0,
 	Posture.NORMAL: 1.0,
@@ -42,15 +49,14 @@ const NATURAL_FLOW_CHARGE := 2        # la jugada cuenta doble para la racha de 
 # Estilos de cartas firma (por tag):
 const POWER_BLOCK_FACTOR := 0.5       # "potencia": el bloqueo rival cuenta la mitad en esta carta
 const COLD_BLOOD_BONUS := 0.10        # "sangre_fria": +10 pts con el Momento a un fallo de perderse
-# Pausa (carta de ataque): recupera energía sin sumar progreso; una por Momento Clave.
-const PAUSE_ENERGY_PCT := 0.10
+# Pausa (carta de ataque): gasta PA para recuperar estamina sin sumar progreso; una por Momento.
+const PAUSE_STAMINA_PCT := 0.10
 const MAX_PAUSES := 1
 # Defensa (posesión rival): antes de cada ataque rival se roba una mano defensiva.
-const DEFENSE_HAND_SIZE := 3
-const DEFENSE_MAX_PLAYS := 2          # cartas defensivas por ataque rival
+const DEFENSE_HAND_SIZE := 3          # una menos si estás AGOTADO
 const PRESS_EFFECT := 0.06            # Presión: +6 pts de dificultad a todas las jugadas de ese ataque
 const BLOCK_EFFECT := 0.12            # Bloqueo: +12 pts de dificultad a sus remates
-const EMERGENCY_COST_PCT := 0.25      # Despeje de Emergencia: 25% del tope de energía...
+const EMERGENCY_STAMINA_PCT := 0.15   # Despeje de Emergencia: todos tus PA de defensa + 15% de estamina...
 const EMERGENCY_SHOT_PENALTY := 0.25  # ...-25 pts a los remates de ese ataque, y el rival recupera el balón
 
 var player: PlayerStats
@@ -69,14 +75,18 @@ var exploit_shot_bonus := PASSIVITY_SHOT_BONUS
 var opening_bonus := 0.0           # bono de acierto en los primeros `opening_moments` momentos
 var opening_moments := 0
 var late_from_moment := MAX_MOMENTS   # desde este Momento (0 = primero) se aplica el desgaste tardío
-var late_cost_mult := 1.0
+var late_stamina_mult := 1.0
 var late_injury_mult := 1.0
 # Semana previa (modo carrera): forma del entrenamiento y jugadores funados.
 var form_bonus := 0.0            # puntos de acierto en todas las jugadas (ataque y defensa)
-var owner_cost_surcharge := {}   # owner_id -> energía extra en sus cartas (funado: +1)
+var owner_stamina_mult := {}     # owner_id -> multiplicador de desgaste en sus cartas (funado: 1.5)
 # Defensa rival aplicada al Momento en curso (la fija quien defiende; se limpia en advance()).
 var opponent_pressure := 0.0
 var opponent_block := 0.0
+
+# Puntos de Acción del turno en curso (Momento o fase defensiva)
+var ap := 0
+var ap_max := 0
 
 # Estado del Momento Clave en curso
 var moment_over := true
@@ -98,7 +108,7 @@ var defense_result := {}     # {pressure, block, cancelled, emergency}
 
 var stats := {"goals": 0, "moments": 0, "flow_moments": 0, "flow_breaks": 0, "injuries": 0,
 	"plays": 0, "elite_plays": 0, "tired_plays": 0, "natural_plays": 0, "skipped": 0,
-	"defense_plays": 0, "interceptions": 0, "emergencies": 0}
+	"defense_plays": 0, "interceptions": 0, "emergencies": 0, "out_of_ap": 0}
 
 
 func _init(p_player: PlayerStats, p_deck: DeckManager, p_rng: RandomNumberGenerator, p_rival_difficulty := 0.15) -> void:
@@ -132,12 +142,16 @@ func start() -> void:
 	exhausted_flagged = false
 	counter_ready = false
 	in_defense = false
+	ap = 0
+	ap_max = 0
 
 
+# Un Momento pide 2-3 jugadas exitosas (la última, un remate): con 2-4 PA por turno, uno de 4
+# no sería alcanzable.
 func _make_moment(minute: int) -> Dictionary:
 	return {
 		"minute": minute,
-		"steps_required": rng.randi_range(2, 4),
+		"steps_required": rng.randi_range(2, 3),
 		"difficulty": rival_difficulty + rng.randf_range(-0.05, 0.05),
 	}
 
@@ -169,6 +183,8 @@ func begin_moment() -> Dictionary:
 	flow_cards.clear()
 	moment_had_flow = false
 	moment_over = false
+	ap_max = int(AP_BY_POSTURE[posture])
+	ap = ap_max
 	if exploit_rival_space:
 		var m: Dictionary = current_moment()
 		m["steps_required"] = maxi(2, int(m["steps_required"]) - 1)
@@ -177,7 +193,7 @@ func begin_moment() -> Dictionary:
 		counter_ready = false
 	deck.reset_flow_uses()
 	deck.set_possession(DeckManager.Possession.POSSESSION_ATTACK)
-	deck.draw(player.hand_size())
+	deck.draw(player.draw_count())   # robo según la zona de estamina; no se repone por jugada
 	# Temple/Concentración: protege contra cartas de penalización mental
 	if rng.randf() < 0.30 * (1.0 - player.concentracion / 100.0):
 		deck.insert_into_hand(CardDB.make_penalty("nervios"))
@@ -204,25 +220,33 @@ func grant_extra_moment(after_minute: int) -> bool:
 	return true
 
 
-func cost_of(card: Card) -> int:
-	var c := float(card.energy_cost)
-	if card.tags.has("fisica"):
-		c *= 1.0 - player.ritmo / 400.0
+# PA que cuesta jugar la carta ahora: base + reusos en Flow (+1 cada uno); los remates cuestan
+# 1 PA menos (mínimo 1) aprovechando los espacios de un rival replegado.
+func ap_cost_of(card: Card) -> int:
+	var c := card.ap_cost
 	if flow_active:
-		c += card.flow_uses          # sobreesfuerzo: +1, +2...
-	if player.zone() != PlayerStats.Zone.SAFE:
-		c *= TIRED_COST_MULT
-	if _late():
-		c *= late_cost_mult
+		c += card.flow_uses
 	if exploit_rival_space and card.kind == Card.Kind.SHOT:
-		c -= PASSIVITY_COST_REDUCTION
-	c += float(owner_cost_surcharge.get(card.owner_id, 0))
-	return maxi(1, ceili(c))
+		c = maxi(1, c - PASSIVITY_AP_REDUCTION)
+	return c
 
 
-# Desglose de la probabilidad de éxito de una carta: [{label, value, zone?}], value en puntos
+# Estamina que gasta jugar la carta ahora: desgaste base, menos si es física y hay buen ritmo,
+# por la postura (LOW x0.75, HIGH x1.5), el desgaste tardío del perfil y el recargo del funado.
+func stamina_cost_of(card: Card) -> float:
+	var s := card.stamina_cost
+	if card.tags.has("fisica"):
+		s *= 1.0 - player.ritmo / 400.0
+	s *= float(STAMINA_MULT[posture])
+	if _late():
+		s *= late_stamina_mult
+	s *= float(owner_stamina_mult.get(card.owner_id, 1.0))
+	return s
+
+
+# Desglose de la probabilidad de éxito de una carta: [{label, value}], value en puntos
 # (0.10 = 10). Es la única fuente del cálculo: success_chance() lo suma y la carta lo muestra.
-# La zona de energía se evalúa con la energía actual, antes de pagar la carta (igual que la tirada).
+# La estamina no toca la probabilidad: sus zonas solo cambian el robo, la lesión y las penalizaciones.
 func chance_breakdown(card: Card) -> Array:
 	var items: Array = [{"label": "Base (técnica)", "value": player.base_success()}]
 	if card.effective_bonus() != 0.0:
@@ -231,11 +255,6 @@ func chance_breakdown(card: Card) -> Array:
 		items.append({"label": "Ataque rival", "value": -defense_difficulty})
 	else:
 		items.append({"label": "Defensa rival", "value": -float(current_moment()["difficulty"])})
-	match player.zone():
-		PlayerStats.Zone.TIRED:
-			items.append({"label": "CANSADO", "value": -TIRED_PENALTY, "zone": true})
-		PlayerStats.Zone.EXHAUSTED:
-			items.append({"label": "AGOTADO", "value": -EXHAUSTED_PENALTY, "zone": true})
 	if is_natural_executor(card):
 		items.append({"label": "Ejecutor Natural", "value": NATURAL_EXECUTOR_BONUS})
 	if form_bonus != 0.0:
@@ -268,8 +287,10 @@ func success_chance(card: Card) -> float:
 	return roundi(clampf(p, MIN_CHANCE, MAX_CHANCE) * 100.0) / 100.0
 
 
+# Se puede jugar si alcanzan los PA del turno. La estamina nunca bloquea (agotado se juega igual,
+# con riesgo de lesión).
 func can_play(card: Card) -> bool:
-	if not card.playable or float(cost_of(card)) > player.energy:
+	if not card.playable or ap_cost_of(card) > ap:
 		return false
 	if not DeckManager.fits_possession(card, deck.possession):
 		return false
@@ -293,10 +314,12 @@ func play_card(hand_index: int) -> Dictionary:
 	if not can_play(card):
 		return {"ok": false, "reason": "not_playable"}
 
-	var cost := cost_of(card)
+	var ap_cost := ap_cost_of(card)
+	var stamina := stamina_cost_of(card)
 	var p := success_chance(card)
 	var natural := is_natural_executor(card)
-	player.energy -= cost
+	ap -= ap_cost
+	player.energy = maxf(0.0, player.energy - stamina)
 	if in_defense:
 		stats["defense_plays"] += 1
 	else:
@@ -310,8 +333,9 @@ func play_card(hand_index: int) -> Dictionary:
 			stats["tired_m%d" % mk] += 1
 	var ev := {
 		"ok": true, "card_id": card.id, "card_name": card.display_name, "kind": card.kind,
-		"cost": cost, "chance": p, "success": false, "natural": natural, "defense": in_defense,
-		"flow_started": false, "flow_broken": false, "goal": false, "injury": false, "cancelled": false,
+		"ap": ap_cost, "stamina": stamina, "chance": p, "success": false, "natural": natural,
+		"defense": in_defense, "flow_started": false, "flow_broken": false, "goal": false,
+		"injury": false, "cancelled": false, "out_of_ap": false,
 	}
 	if natural:
 		stats["natural_plays"] += 1
@@ -333,6 +357,7 @@ func play_card(hand_index: int) -> Dictionary:
 	ev["energy"] = player.energy
 	ev["zone"] = player.zone()
 	ev["progress"] = progress
+	ev["ap_left"] = ap
 	return ev
 
 
@@ -340,8 +365,8 @@ func _resolve_attack(card: Card, success: bool, natural: bool, ev: Dictionary) -
 	if card.kind == Card.Kind.PAUSE:
 		pauses += 1
 	if success and card.kind == Card.Kind.PAUSE:
-		player.energy = minf(player.max_energy(), player.energy + player.max_energy() * PAUSE_ENERGY_PCT)
-		_send_to_discard(card)
+		player.energy = minf(player.max_energy(), player.energy + player.max_energy() * PAUSE_STAMINA_PCT)
+		deck.discard_from_hand(card)
 	elif success:
 		progress += 1
 		streak += NATURAL_FLOW_CHARGE if natural else 1
@@ -354,7 +379,7 @@ func _resolve_attack(card: Card, success: bool, natural: bool, ev: Dictionary) -
 			if not flow_cards.has(card):
 				flow_cards.append(card)
 		else:
-			_send_to_discard(card)
+			deck.discard_from_hand(card)
 		if card.kind == Card.Kind.SHOT and progress >= current_moment()["steps_required"]:
 			ev["goal"] = true
 			_finish_moment(true)
@@ -369,13 +394,16 @@ func _resolve_attack(card: Card, success: bool, natural: bool, ev: Dictionary) -
 			flow_cards.clear()
 			flow_active = false
 			player.energy = maxf(0.0, player.energy - player.max_energy() * FLOW_BREAK_LOSS_PCT)
-		_send_to_discard(card)
+		deck.discard_from_hand(card)
 		if fails >= MAX_FAILS:
 			_finish_moment(false)
 
 	if not moment_over and injured:
 		_finish_moment(false)
 	if not moment_over and playable_indices().is_empty():
+		# Sin PA (o sin cartas) para seguir: la jugada se pierde.
+		ev["out_of_ap"] = true
+		stats["out_of_ap"] += 1
 		_finish_moment(false)
 
 
@@ -410,10 +438,16 @@ func begin_defense(attack_difficulty: float) -> void:
 	defense_difficulty = attack_difficulty
 	defense_plays = 0
 	defense_result = {"pressure": 0.0, "block": 0.0, "cancelled": false, "emergency": false}
+	ap_max = DEFENSE_AP
+	ap = ap_max
 	deck.set_possession(DeckManager.Possession.POSSESSION_DEFENSE)
-	deck.draw(DEFENSE_HAND_SIZE)
+	deck.draw(defense_draw_count())
 	if playable_indices().is_empty() and not can_emergency_clear():
 		end_defense()
+
+
+func defense_draw_count() -> int:
+	return DEFENSE_HAND_SIZE - (1 if player.zone() == PlayerStats.Zone.EXHAUSTED else 0)
 
 
 # Termina la defensa (también sirve para "dejar pasar") y devuelve lo que se aplica al ataque rival.
@@ -424,26 +458,29 @@ func end_defense() -> Dictionary:
 	return defense_result
 
 
-func emergency_cost() -> int:
-	return ceili(player.max_energy() * EMERGENCY_COST_PCT)
+func emergency_stamina_cost() -> float:
+	return player.max_energy() * EMERGENCY_STAMINA_PCT
 
 
+# Pide al menos 1 PA de defensa; gasta todos los que queden.
 func can_emergency_clear() -> bool:
-	return in_defense and not injured and float(emergency_cost()) <= player.energy
+	return in_defense and not injured and ap >= 1
 
 
-# Despeje de Emergencia: opción fija fuera del mazo. Gasta mucha energía y castiga los remates
-# de este ataque, pero entrega el balón: quien arma el partido le da al rival un ataque extra
-# (grant_extra_moment).
+# Despeje de Emergencia: opción fija fuera del mazo. Gasta todos tus PA de defensa y 15% de
+# estamina y castiga los remates de este ataque, pero entrega el balón: quien arma el partido le
+# da al rival un ataque extra (grant_extra_moment).
 func emergency_clear() -> Dictionary:
 	if not can_emergency_clear():
 		return {"ok": false, "reason": "not_playable"}
-	var cost := emergency_cost()
-	player.energy -= cost
+	var stamina := emergency_stamina_cost()
+	var ap_spent := ap
+	ap = 0
+	player.energy = maxf(0.0, player.energy - stamina)
 	stats["emergencies"] += 1
 	defense_result["block"] += EMERGENCY_SHOT_PENALTY
 	defense_result["emergency"] = true
-	var ev := {"ok": true, "emergency": true, "cost": cost, "injury": false}
+	var ev := {"ok": true, "emergency": true, "ap": ap_spent, "stamina": stamina, "injury": false}
 	_check_exhaustion(ev)
 	_roll_injury(ev)
 	end_defense()
@@ -469,17 +506,12 @@ func _resolve_defense(card: Card, success: bool, ev: Dictionary) -> void:
 			Card.Kind.CLEARANCE:
 				defense_result["cancelled"] = true
 	ev["cancelled"] = defense_result["cancelled"]
-	if defense_result["cancelled"] or injured or defense_plays >= DEFENSE_MAX_PLAYS \
-			or playable_indices().is_empty():
+	if defense_result["cancelled"] or injured \
+			or (playable_indices().is_empty() and not can_emergency_clear()):
 		end_defense()
 
 
 # ---------- Internos ----------
-
-func _send_to_discard(card: Card) -> void:
-	deck.discard_from_hand(card)
-	deck.draw(1)
-
 
 # Cartas de penalización al entrar en agotamiento (aquí NO se tira lesión).
 func _check_exhaustion(ev: Dictionary) -> void:

@@ -20,7 +20,7 @@
       "accept_label": "Dar permiso",
       "decline_label": "Concentración en el hotel",
       "reward": {"opening_bonus": 0.05, "opening_moments": 2, "popularity": 5},
-      "risk": {"chance": 0.30, "discipline": -10, "funado_surcharge": 1, "lose_sponsor_week_if_clause": true},
+      "risk": {"chance": 0.30, "discipline": -10, "funado_stamina_extra": 0.5, "lose_sponsor_week_if_clause": true},
       "decline": {"discipline": 2, "popularity": -2}
     }
   ],

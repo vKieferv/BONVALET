@@ -24,15 +24,15 @@ extends Resource
 ## Bono de acierto (en puntos, 0.05 = +5%) a todas las jugadas de los primeros `opening_moments` Momentos Clave.
 @export_range(0.0, 0.3, 0.01) var opening_bonus := 0.0
 @export_range(0, 5, 1) var opening_moments := 2
-## Desgaste tardío: desde el Momento Clave `late_from_moment` (0 = primero) los costos de energía
+## Desgaste tardío: desde el Momento Clave `late_from_moment` (0 = primero) el desgaste de estamina
 ## y el riesgo de lesión se multiplican. 5 = nunca.
 @export_range(0, 5, 1) var late_from_moment := 5
-@export_range(1.0, 3.0, 0.05) var late_cost_mult := 1.0
+@export_range(1.0, 3.0, 0.05) var late_stamina_mult := 1.0
 @export_range(1.0, 10.0, 0.5) var late_injury_mult := 1.0
 ## Postura entre Momentos Clave: 0 = Baja (LOW), 1 = Normal, 2 = Alta (HIGH).
 @export_enum("Baja (LOW)", "Normal", "Alta (HIGH)") var default_posture := 1
 ## Regla de emparejamiento: si el rival juega en postura LOW, este perfil aprovecha los espacios
-## (+probabilidad y -costo en remates; valores en MatchEngine.PASSIVITY_*).
+## (+probabilidad y -1 PA en remates; valores en MatchEngine.PASSIVITY_*).
 @export var punishes_passivity := false
 ## Puntos de acierto extra en remates al castigar la pasividad.
 @export_range(0.0, 0.3, 0.01) var passivity_shot_bonus := MatchEngine.PASSIVITY_SHOT_BONUS
@@ -50,12 +50,12 @@ func configure_engine(e: MatchEngine) -> void:
     e.opening_bonus = opening_bonus
     e.opening_moments = opening_moments
     e.late_from_moment = late_from_moment
-    e.late_cost_mult = late_cost_mult
+    e.late_stamina_mult = late_stamina_mult
     e.late_injury_mult = late_injury_mult
     e.exploit_shot_bonus = passivity_shot_bonus
 
 
-# Energía mínima (como % del tope) que debe quedar tras pagar una carta de élite.
+# Estamina mínima (como % del tope) que debe quedar tras jugar una carta de élite.
 func elite_reserve_pct() -> float:
     if energy_reserve_threshold >= 0.0:
         return energy_reserve_threshold
@@ -82,8 +82,8 @@ func describe() -> String:
         s += "  |  Riesgo %d%%" % roundi(risk_tolerance * 100.0)
     if opening_bonus > 0.0:
         s += "  |  +%d%% acierto en M1-M%d" % [roundi(opening_bonus * 100.0), opening_moments]
-    if late_from_moment < MatchEngine.MAX_MOMENTS and (late_cost_mult > 1.0 or late_injury_mult > 1.0):
-        s += "  |  Desde M%d: costo x%.1f, lesión x%.1f" % [late_from_moment + 1, late_cost_mult, late_injury_mult]
+    if late_from_moment < MatchEngine.MAX_MOMENTS and (late_stamina_mult > 1.0 or late_injury_mult > 1.0):
+        s += "  |  Desde M%d: desgaste x%.1f, lesión x%.1f" % [late_from_moment + 1, late_stamina_mult, late_injury_mult]
     if shot_min_chance >= 0.0:
         s += "  |  Remata desde %d%%" % roundi(shot_min_chance * 100.0)
     if punishes_passivity:
@@ -128,7 +128,7 @@ static func kamikaze() -> BotProfile:
     p.opening_bonus = 0.20
     p.opening_moments = 2
     p.late_from_moment = 2
-    p.late_cost_mult = 2.0
+    p.late_stamina_mult = 2.0
     p.late_injury_mult = 4.0
     p.defense_focus = 1
     return p

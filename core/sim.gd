@@ -4,6 +4,9 @@ extends SceneTree
 
 const MATCHES := 2000
 const DUELS := 1000
+const MATRIX_DUELS := 400
+const GOALS_TARGET_MIN := 2.3   # goles totales por partido (ambos equipos)
+const GOALS_TARGET_MAX := 2.6
 const BASE_DIFFICULTY := 0.15
 
 
@@ -54,6 +57,7 @@ func _init() -> void:
 
 	# Partidos completos (DuelRunner): tu club contra cada rival, con bots en ambos lados y las
 	# mismas dificultades que match_view. "Antes" = solo tú defiendes; "ahora" = ambos defienden.
+	var your_goals_total := 0.0
 	var you_id := "colo_colo"
 	var you := league.get_team(you_id)
 	print("Partidos completos de %s (bot) · %d por rival · antes (solo tú defiendes) → ahora (ambos defienden):" % [
@@ -79,4 +83,41 @@ func _init() -> void:
 			roundi(100.0 * before["wins_a"] / DUELS), roundi(100.0 * now["wins_a"] / DUELS),
 			roundi(100.0 * before["draws"] / DUELS), roundi(100.0 * now["draws"] / DUELS),
 			float(now["cuts_by_b"]) / DUELS])
+		your_goals_total += float(now["goals_a"] + now["goals_b"]) / DUELS
+	print("  promedio de goles totales en tus partidos: %.2f" % (your_goals_total / 6.0))
+
+	# Matriz neutral: un club de Primera A por arquetipo (más Colo-Colo), todos contra todos, con
+	# defensa en ambos lados y dificultades simétricas. Referencia del ritmo de goles de la liga.
+	var clubs: Array = ["colo_colo"]
+	var seen_archetypes := {"Tiki-Taka": true}
+	for t in league.get_teams("Primera A"):
+		if not t.get("suspended", false) and not seen_archetypes.has(t["archetype"]):
+			seen_archetypes[t["archetype"]] = true
+			clubs.append(t["id"])
+	var total_goals := 0
+	var total_matches := 0
+	var rows: Array = []
+	for i in clubs.size():
+		for j in range(i + 1, clubs.size()):
+			var r := DuelRunner.run(_neutral_side(league, squads, tpl, clubs[i], clubs[j]),
+					_neutral_side(league, squads, tpl, clubs[j], clubs[i]), MATRIX_DUELS)
+			total_goals += r["goals_a"] + r["goals_b"]
+			total_matches += MATRIX_DUELS
+			rows.append("%s %.2f-%.2f %s" % [league.get_team(clubs[i])["short_name"], float(r["goals_a"]) / MATRIX_DUELS,
+					float(r["goals_b"]) / MATRIX_DUELS, league.get_team(clubs[j])["short_name"]])
+	var avg := float(total_goals) / total_matches
+	print("Matriz bot vs bot (%d clubes, %d partidos por cruce): %s" % [clubs.size(), MATRIX_DUELS, " · ".join(rows)])
+	print("  PROMEDIO DE GOLES TOTALES POR PARTIDO: %.2f (objetivo %.1f-%.1f) → %s" % [
+		avg, GOALS_TARGET_MIN, GOALS_TARGET_MAX,
+		"EN RANGO" if avg >= GOALS_TARGET_MIN and avg <= GOALS_TARGET_MAX else "FUERA DE RANGO"])
 	quit()
+
+
+# Un lado de la matriz neutral: ataca contra la defensa del rival y defiende contra su ataque.
+func _neutral_side(league: LeagueManager, squads: SquadManager, tpl: Array, id: String, opp_id: String) -> Dictionary:
+	var team := league.get_team(id)
+	var opp := league.get_team(opp_id)
+	return {"profile": league.profile_for_team(team), "templates": squads.build_match_templates(id, tpl),
+		"lineup": squads.lineup_ids(id), "defends": true,
+		"attack_difficulty": LeagueManager.attack_difficulty_vs(opp, league.profile_for_team(opp), BASE_DIFFICULTY),
+		"defense_difficulty": LeagueManager.defense_difficulty_vs(opp, BASE_DIFFICULTY)}

@@ -34,7 +34,7 @@ const KIND_NAMES := {
 const TAG_TEXT := {
     "potencia": "Potencia: el bloqueo rival cuenta la mitad en este remate.",
     "sangre_fria": "Sangre fría: +10 de acierto con la jugada a un fallo de perderse.",
-    "fisica": "Física: más barata con buen ritmo.",
+    "fisica": "Física: gasta menos estamina con buen ritmo.",
 }
 
 var card: Card
@@ -82,10 +82,12 @@ func setup(c: Card, index: int) -> void:
         kind_label.text += " ★"   # carta firma: tiene Ejecutor Natural
 
 
-# cost = costo actual (con cansancio/Flow), base_cost = costo impreso en la carta.
+# ap = PA que cuesta ahora (con reusos en Flow, etc.), base_ap = PA impresos en la carta,
+# stamina = desgaste de estamina que tendrá al jugarla.
 # chance = MatchEngine.success_chance() y breakdown = MatchEngine.chance_breakdown(): el % que se
 # muestra es exactamente el que usa la tirada, y el desglose explica de dónde sale.
-func update_stats(cost: int, base_cost: int, chance: float, usable: bool, glow_on: bool, breakdown: Array = []) -> void:
+func update_stats(ap: int, base_ap: int, stamina: float, chance: float, usable: bool, glow_on: bool,
+        breakdown: Array = []) -> void:
     mod_label.text = ""
     tooltip_text = ""
     if card != null and card.type == Card.Type.PENALTY:
@@ -98,11 +100,11 @@ func update_stats(cost: int, base_cost: int, chance: float, usable: bool, glow_o
         _show_breakdown(breakdown, chance)
         var cc := Color("#3fb950") if chance >= 0.65 else (Color("#ecc94b") if chance >= 0.45 else Color("#f85149"))
         chance_label.add_theme_color_override("font_color", cc)
-        cost_label.text = "Costo %d" % cost
+        cost_label.text = "%d PA · %d est." % [ap, roundi(stamina)]
         var kc := Color.WHITE
-        if cost > base_cost:
+        if ap > base_ap:
             kc = Color("#f0883e")
-        elif cost < base_cost:
+        elif ap < base_ap:
             kc = Color("#3fb950")
         cost_label.add_theme_color_override("font_color", kc)
     glow.visible = glow_on
@@ -121,7 +123,7 @@ func _show_breakdown(breakdown: Array, chance: float) -> void:
         tip.append("%s: %+d" % [item["label"], pts])
         if item["label"] not in ["Base (técnica)", "Carta", "Defensa rival", "Ataque rival"]:
             mods.append("%s %+d" % [item["label"], pts])
-            penalized = penalized or (item.get("zone", false) and pts < 0)
+            penalized = penalized or pts < 0
     if breakdown.is_empty():
         return
     tip.append("= %d%% (tirada de 0 a 99: éxito si sale menos de %d)" % [roundi(chance * 100.0), roundi(chance * 100.0)])

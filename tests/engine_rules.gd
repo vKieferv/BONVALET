@@ -19,7 +19,8 @@ func _initialize() -> void:
 	_test_big_clubs_punish_low()
 	_test_team_database()
 	_test_chance_matches_roll()
-	_test_exhausted_penalty_is_visible()
+	_test_stamina_zones_draw_not_chance()
+	_test_action_points()
 	_test_signature_styles()
 	_test_bot_defense_styles()
 	_test_duel_runner()
@@ -44,12 +45,13 @@ func _new_engine(seed: int, player_id: String = "") -> MatchEngine:
 	return MatchEngine.new(player, deck, rng, 0.15)
 
 
-func _card(kind: Card.Kind, bonus: float, cost: int = 3, owner: String = "") -> Card:
+func _card(kind: Card.Kind, bonus: float, ap: int = 1, owner: String = "") -> Card:
 	var c := Card.new()
 	c.id = "prueba"
 	c.kind = kind
 	c.bonus = bonus
-	c.energy_cost = cost
+	c.ap_cost = ap
+	c.stamina_cost = Card.default_stamina(ap, [])
 	c.owner_id = owner
 	return c
 
@@ -61,6 +63,14 @@ func _league() -> LeagueManager:
 
 
 func _test_deck_and_league_rules() -> void:
+	# Toda carta de datos declara sus PA (0-3) y su desgaste.
+	var sig = JSON.parse_string(FileAccess.open("res://data/signature_cards.json", FileAccess.READ).get_as_text())
+	var all_dicts: Array = CardDB.load_templates(DECK_PATH) + sig["cards"].values() + [sig["template"]]
+	for d in all_dicts:
+		_check(d.has("ap") and int(d["ap"]) >= 0 and int(d["ap"]) <= 3, "%s: ap debe estar entre 0 y 3" % d.get("id", d.get("name")))
+		_check(d.has("stamina") and float(d["stamina"]) >= 0.0, "%s: falta stamina" % d.get("id", d.get("name")))
+		_check(not d.has("cost"), "%s: 'cost' es del modelo anterior; usa ap y stamina" % d.get("id", d.get("name")))
+
 	var cards := CardDB.load_deck(DECK_PATH)
 	var deck := DeckManager.new(cards, [], RandomNumberGenerator.new())
 	_check(deck.size_error() == "", "cards.json: " + deck.size_error())
@@ -137,11 +147,13 @@ func _test_defense_and_emergency() -> void:
 	e.start()
 	var before := e.player.energy
 	e.begin_defense(0.15)
-	_check(e.can_emergency_clear(), "con energía llena el despeje de emergencia debería estar disponible")
-	var cost := e.emergency_cost()
+	_check(e.ap == MatchEngine.DEFENSE_AP, "la fase defensiva debería abrir con %d PA" % MatchEngine.DEFENSE_AP)
+	_check(e.can_emergency_clear(), "con PA de defensa el despeje de emergencia debería estar disponible")
+	var stamina := e.emergency_stamina_cost()
 	var ev := e.emergency_clear()
-	_check(ev["ok"] and not e.in_defense, "el despeje de emergencia debería cerrar la defensa")
-	_check(is_equal_approx(e.player.energy, before - cost), "el despeje de emergencia debería costar %d de energía" % cost)
+	_check(ev["ok"] and not e.in_defense and e.ap == 0, "el despeje de emergencia gasta todos los PA y cierra la defensa")
+	_check(is_equal_approx(e.player.energy, before - stamina),
+			"el despeje de emergencia debería costar %d%% de estamina" % roundi(MatchEngine.EMERGENCY_STAMINA_PCT * 100.0))
 	_check(e.defense_result["emergency"] and is_equal_approx(e.defense_result["block"], MatchEngine.EMERGENCY_SHOT_PENALTY),
 			"el despeje de emergencia debería castigar los remates rivales")
 
@@ -169,15 +181,17 @@ func _test_kamikaze_phases() -> void:
 		return
 	for m in e.moments:
 		m["difficulty"] = 0.15
-	var card := _card(Card.Kind.PASS, 0.05, 4)
+	var card := _card(Card.Kind.PASS, 0.05, 1)
 	e.moment_idx = 0
 	var p_early := e.success_chance(card)
-	var cost_early := e.cost_of(card)
+	var wear_early := e.stamina_cost_of(card)
+	var ap_early := e.ap_cost_of(card)
 	e.moment_idx = 2
 	var p_late := e.success_chance(card)
-	var cost_late := e.cost_of(card)
+	var wear_late := e.stamina_cost_of(card)
 	_check(is_equal_approx(p_early - p_late, 0.20), "Kamikaze: +20 pts en M1-M2 (diferencia %.2f)" % (p_early - p_late))
-	_check(cost_late == cost_early * 2, "Kamikaze: fatiga doble desde M3 (%d -> %d)" % [cost_early, cost_late])
+	_check(is_equal_approx(wear_late, wear_early * 2.0), "Kamikaze: desgaste doble desde M3 (%.1f -> %.1f)" % [wear_early, wear_late])
+	_check(e.ap_cost_of(card) == ap_early, "el desgaste tardío no cambia los PA")
 
 
 func _test_big_clubs_punish_low() -> void:
@@ -193,7 +207,7 @@ func _test_big_clubs_punish_low() -> void:
 
 
 # Lo que muestra la carta (success_chance antes de jugar) es exactamente lo que usa la tirada.
-# Juega partidos completos en postura HIGH (poca recuperación) para pasar también por AGOTADO.
+# Juega partidos completos en postura HIGH; en la mitad de las semillas fuerza AGOTADO.
 func _test_chance_matches_roll() -> void:
 	var plays := 0
 	var successes := 0
@@ -206,6 +220,8 @@ func _test_chance_matches_roll() -> void:
 		e.start()
 		while not e.finished:
 			e.begin_moment()
+			if seed % 2 == 0:
+				e.player.energy = e.player.max_energy() * 0.2
 			while not e.moment_over:
 				var idxs := e.playable_indices()
 				if idxs.is_empty():
@@ -214,15 +230,11 @@ func _test_chance_matches_roll() -> void:
 				var card: Card = e.deck.hand[idxs[0]]
 				var shown := e.success_chance(card)
 				var total := 0.0
-				var zone_penalty := false
 				for item in e.chance_breakdown(card):
 					total += float(item["value"])
-					zone_penalty = zone_penalty or item.get("zone", false)
 				var from_breakdown := roundi(clampf(total, MatchEngine.MIN_CHANCE, MatchEngine.MAX_CHANCE) * 100.0) / 100.0
 				if e.player.zone() == PlayerStats.Zone.EXHAUSTED:
 					exhausted_plays += 1
-					if not zone_penalty:
-						mismatches += 1
 				var ev := e.play_card(idxs[0])
 				plays += 1
 				expected += shown
@@ -245,20 +257,82 @@ func _test_chance_matches_roll() -> void:
 		plays, exhausted_plays, successes, expected])
 
 
-func _test_exhausted_penalty_is_visible() -> void:
+# Las zonas de estamina cambian el robo, nunca el % de acierto, y la estamina nunca bloquea jugadas.
+func _test_stamina_zones_draw_not_chance() -> void:
 	var e := _new_engine(9)
 	e.start()
 	e.begin_moment()
 	var card := _card(Card.Kind.PASS, 0.10)
 	var fresh := e.success_chance(card)
+	var full := e.player.base_hand_size()
+	_check(e.player.draw_count() == full, "con estamina óptima se roba la mano llena (%d)" % full)
+	e.player.energy = e.player.max_energy() * 0.5
+	_check(e.player.zone() == PlayerStats.Zone.TIRED and e.player.draw_count() == full - 1, "CANSADO roba 1 carta menos")
 	e.player.energy = e.player.max_energy() * 0.2
-	_check(e.player.zone() == PlayerStats.Zone.EXHAUSTED, "20% de energía debería ser AGOTADO")
-	var tired := e.success_chance(card)
-	_check(is_equal_approx(fresh - tired, MatchEngine.EXHAUSTED_PENALTY),
-			"AGOTADO debería restar %d pts al %% visible (restó %d)" % [
-				roundi(MatchEngine.EXHAUSTED_PENALTY * 100.0), roundi((fresh - tired) * 100.0)])
+	_check(e.player.zone() == PlayerStats.Zone.EXHAUSTED and e.player.draw_count() == full - 2, "AGOTADO roba 2 cartas menos")
+	_check(e.defense_draw_count() == MatchEngine.DEFENSE_HAND_SIZE - 1, "AGOTADO roba 1 carta defensiva menos")
+	_check(is_equal_approx(e.success_chance(card), fresh), "AGOTADO no debería cambiar el % de acierto")
 	var labels: Array = e.chance_breakdown(card).map(func(i): return i["label"])
-	_check(labels.has("AGOTADO"), "el desglose de la carta debería nombrar la penalización AGOTADO")
+	_check(not labels.has("AGOTADO") and not labels.has("CANSADO"), "el desglose no debería tener penalización por zona")
+	e.player.vision = 10
+	_check(e.player.draw_count() == PlayerStats.MIN_DRAW, "el robo nunca baja de %d" % PlayerStats.MIN_DRAW)
+	e.player.energy = 0.0
+	_check(e.can_play(card), "sin estamina se puede jugar igual si alcanzan los PA")
+
+
+# PA por turno según la postura, desgaste por postura, sin reposición de mano y recargos.
+func _test_action_points() -> void:
+	for posture in [MatchEngine.Posture.LOW, MatchEngine.Posture.NORMAL, MatchEngine.Posture.HIGH]:
+		var p := _new_engine(51)
+		p.posture = posture
+		p.start()
+		p.begin_moment()
+		var expected_ap: int = MatchEngine.AP_BY_POSTURE[posture]
+		_check(p.ap == expected_ap and p.ap_max == expected_ap,
+				"postura %s debería dar %d PA (da %d)" % [MatchEngine.Posture.keys()[posture], expected_ap, p.ap])
+
+	var e := _new_engine(52)
+	e.start()
+	e.begin_moment()
+	var c := _card(Card.Kind.PASS, 0.10, 2)
+	var wear := e.stamina_cost_of(c)
+	e.posture = MatchEngine.Posture.HIGH
+	_check(is_equal_approx(e.stamina_cost_of(c), wear * 1.5), "HIGH desgasta +50%")
+	e.posture = MatchEngine.Posture.LOW
+	_check(is_equal_approx(e.stamina_cost_of(c), wear * 0.75), "LOW desgasta menos (x0.75)")
+	e.posture = MatchEngine.Posture.NORMAL
+
+	# Jugar descuenta PA y estamina, y la mano no se repone.
+	e.current_moment()["steps_required"] = 3
+	e.deck.hand.append(c)
+	var hand_before := e.deck.hand.size()
+	var ap_before := e.ap
+	var energy_before := e.player.energy
+	var ev := e.play_card(e.deck.hand.size() - 1)
+	_check(ev["ok"] and e.ap == ap_before - 2, "jugar una carta de 2 PA descuenta 2 PA")
+	_check(is_equal_approx(e.player.energy, energy_before - wear), "jugar descuenta su desgaste de estamina")
+	_check(e.deck.hand.size() == hand_before - 1, "la mano no se repone al jugar")
+
+	# Flow: +1 PA por reuso. Sin PA suficientes no se puede jugar.
+	var reuse := _card(Card.Kind.PASS, 0.10, 1)
+	reuse.flow_uses = 1
+	e.flow_active = true
+	_check(e.ap_cost_of(reuse) == 2, "en Flow cada reuso suma 1 PA")
+	e.flow_active = false
+	e.ap = 0
+	_check(not e.can_play(reuse), "sin PA no se puede jugar")
+
+	# Funado: +50% de desgaste en sus cartas, sin tocar los PA.
+	var owned := _card(Card.Kind.PASS, 0.10, 1, "funado")
+	var base_wear := e.stamina_cost_of(owned)
+	e.owner_stamina_mult = {"funado": 1.5}
+	_check(is_equal_approx(e.stamina_cost_of(owned), base_wear * 1.5) and e.ap_cost_of(owned) == 1,
+			"el funado gasta +50% de estamina con los mismos PA")
+
+	# Contra un rival replegado los remates cuestan 1 PA menos (mínimo 1).
+	e.exploit_rival_space = true
+	_check(e.ap_cost_of(_card(Card.Kind.SHOT, 0.1, 3)) == 2 and e.ap_cost_of(_card(Card.Kind.SHOT, 0.1, 1)) == 1,
+			"los espacios del rival restan 1 PA a los remates, mínimo 1")
 
 
 # Estilos de carta firma: potencia (bloqueo rival a la mitad) y sangre fría (+10 a un fallo).
@@ -304,14 +378,17 @@ func _test_bot_defense_styles() -> void:
 		_check(idx >= 0 and e.deck.hand[idx].kind == expected[profile.profile_name],
 				"%s debería defender con su estilo (%s)" % [profile.profile_name, BotProfile.DEFENSE_FOCUS_NAMES[profile.defense_focus]])
 		e.player.energy = 1.0
-		_check(CoachBot.choose_defense(e, profile) == -1, "%s sin energía debería dejar pasar" % profile.profile_name)
+		_check(CoachBot.choose_defense(e, profile) == -1, "%s sin aire (estamina bajo su reserva) debería dejar pasar" % profile.profile_name)
+		e.player.energy = e.player.max_energy()
+		e.ap = 0
+		_check(CoachBot.choose_defense(e, profile) == -1, "%s sin PA debería dejar pasar" % profile.profile_name)
 
 	# run_defense completa la fase y deja el motor fuera de defensa.
 	var d := _new_engine(32)
 	d.start()
 	var r := CoachBot.run_defense(d, BotProfile.catenaccio(), 0.15)
-	_check(not d.in_defense and r.has("plays") and r["plays"].size() <= MatchEngine.DEFENSE_MAX_PLAYS,
-			"run_defense debería cerrar la fase con como máximo %d jugadas" % MatchEngine.DEFENSE_MAX_PLAYS)
+	_check(not d.in_defense and r.has("plays") and r["plays"].size() <= MatchEngine.DEFENSE_AP,
+			"run_defense debería cerrar la fase dentro de sus %d PA" % MatchEngine.DEFENSE_AP)
 
 
 func _test_duel_runner() -> void:

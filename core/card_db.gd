@@ -41,7 +41,8 @@ static func make_penalty(id: String) -> Card:
 	c.id = id
 	c.display_name = PENALTY_NAMES[id]
 	c.type = Card.Type.PENALTY
-	c.energy_cost = 0
+	c.ap_cost = 0
+	c.stamina_cost = 0.0
 	c.bonus = 0.0
 	c.playable = false
 	c.is_temporary = true

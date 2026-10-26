@@ -31,7 +31,7 @@ var history: Array = []    # {week, rival_id, gf, ga, income}
 # Semana en curso
 var event_result := {}     # vacío = evento sin resolver
 var training := ""         # "" | "tactical" | "physio"
-var match_mods := {}       # opening_bonus, opening_moments, form_bonus, funado_id, funado_surcharge
+var match_mods := {}       # opening_bonus, opening_moments, form_bonus, funado_id, funado_stamina_mult
 var sponsor_week_lost := false
 var rival_id := ""
 var pending_match := false
@@ -145,8 +145,9 @@ func event_terms(ev: Dictionary) -> String:
     var lines := [
         "Si aceptas: +%d%% de acierto en los Momentos 1-%d del próximo partido y popularidad %+d." % [
             roundi(float(r.get("opening_bonus", 0.0)) * 100.0), int(r.get("opening_moments", 2)), int(r.get("popularity", 0))],
-        "Riesgo: %d%% de funa → disciplina %+d y un titular con +%d de energía en sus cartas ese partido%s." % [
-            roundi(float(k.get("chance", 0.0)) * 100.0), int(k.get("discipline", 0)), int(k.get("funado_surcharge", 1)),
+        "Riesgo: %d%% de funa → disciplina %+d y un titular con +%d%% de desgaste de estamina en sus cartas ese partido%s." % [
+            roundi(float(k.get("chance", 0.0)) * 100.0), int(k.get("discipline", 0)),
+            roundi(float(k.get("funado_stamina_extra", 0.5)) * 100.0),
             "; con un sponsor con cláusula de conducta, se pierde el pago de la semana" if k.get("lose_sponsor_week_if_clause", false) else ""],
         "Si te niegas: disciplina %+d y popularidad %+d." % [int(d.get("discipline", 0)), int(d.get("popularity", 0))],
     ]
@@ -172,9 +173,9 @@ func resolve_event(accept: bool) -> Dictionary:
             result["funado_id"] = funado.get("id", "")
             discipline += int(risk.get("discipline", 0))
             match_mods["funado_id"] = funado.get("id", "")
-            match_mods["funado_surcharge"] = int(risk.get("funado_surcharge", 1))
-            result["lines"].append("¡FUNA! Diario El Chisme publica las fotos de %s: jugará con +%d de energía en sus cartas. Disciplina %+d." % [
-                funado.get("name", "?"), match_mods["funado_surcharge"], int(risk.get("discipline", 0))])
+            match_mods["funado_stamina_mult"] = 1.0 + float(risk.get("funado_stamina_extra", 0.5))
+            result["lines"].append("¡FUNA! Diario El Chisme publica las fotos de %s: sus cartas gastan +%d%% de estamina. Disciplina %+d." % [
+                funado.get("name", "?"), roundi((match_mods["funado_stamina_mult"] - 1.0) * 100.0), int(risk.get("discipline", 0))])
             if risk.get("lose_sponsor_week_if_clause", false) and get_sponsor(sponsor_id).get("conduct_clause", false):
                 sponsor_week_lost = true
                 result["lines"].append("%s aplica la cláusula de conducta: no paga esta semana." % get_sponsor(sponsor_id)["name"])
@@ -192,7 +193,7 @@ func resolve_event(accept: bool) -> Dictionary:
     return result
 
 
-# El funado es un titular con carta propia en el mazo (así el recargo importa); si no hay, cualquier titular.
+# El funado es un titular con carta propia en el mazo (así el desgaste extra importa); si no hay, cualquier titular.
 func _pick_funado() -> Dictionary:
     var starters := squads.pick_starters(team_id)
     var owners := {}
@@ -275,7 +276,7 @@ func configure_match(engine: MatchEngine, player: PlayerStats) -> void:
         engine.opening_moments = match_mods.get("opening_moments", 2)
     engine.form_bonus = match_mods.get("form_bonus", 0.0)
     if match_mods.get("funado_id", "") != "":
-        engine.owner_cost_surcharge = {match_mods["funado_id"]: match_mods.get("funado_surcharge", 1)}
+        engine.owner_stamina_mult = {match_mods["funado_id"]: match_mods.get("funado_stamina_mult", 1.5)}
 
 
 # Cierra la semana con el resultado: paga al sponsor, suma fatiga y avanza a la siguiente.

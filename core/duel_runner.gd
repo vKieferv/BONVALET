@@ -9,8 +9,11 @@ extends RefCounted
 #        attack_difficulty: float, defense_difficulty: float (dificultad de sus jugadas defensivas),
 #        defends: bool}
 static func run(a: Dictionary, b: Dictionary, n: int) -> Dictionary:
+	# moments_1h/2h: Momentos de ataque jugados en cada tiempo (ambos equipos); tired_1h/2h: de ellos,
+	# los que empezaron en CANSADO o AGOTADO. injuries: equipos que terminaron lesionados.
 	var out := {"matches": n, "goals_a": 0, "goals_b": 0, "wins_a": 0, "draws": 0, "wins_b": 0,
-		"cuts_by_a": 0, "cuts_by_b": 0, "def_plays_a": 0, "def_plays_b": 0}
+		"cuts_by_a": 0, "cuts_by_b": 0, "def_plays_a": 0, "def_plays_b": 0,
+		"moments_1h": 0, "tired_1h": 0, "moments_2h": 0, "tired_2h": 0, "injuries": 0}
 	for s in n:
 		var ea := _engine(a, s * 2 + 1)
 		var eb := _engine(b, s * 2 + 2)
@@ -27,6 +30,7 @@ static func run(a: Dictionary, b: Dictionary, n: int) -> Dictionary:
 		var gb: int = eb.stats["goals"]
 		out["goals_a"] += ga
 		out["goals_b"] += gb
+		out["injuries"] += int(ea.injured) + int(eb.injured)
 		if ga > gb:
 			out["wins_a"] += 1
 		elif gb > ga:
@@ -63,7 +67,11 @@ static func _attack(att: MatchEngine, att_side: Dictionary, def: MatchEngine, de
 			return
 		att.opponent_pressure = r["pressure"]
 		att.opponent_block = r["block"]
+	var half := "2h" if int(att.current_moment()["minute"]) >= 45 else "1h"
 	att.begin_moment()
+	out["moments_" + half] += 1
+	if att.player.zone() != PlayerStats.Zone.SAFE:
+		out["tired_" + half] += 1
 	while not att.moment_over:
 		var idx := CoachBot.choose(att, att_profile)
 		if idx < 0:

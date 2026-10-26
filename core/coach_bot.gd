@@ -1,13 +1,17 @@
 class_name CoachBot
 extends RefCounted
 
-# Cerebro del bot: elige qué carta jugar según el BotProfile, en ataque (choose) y en la fase
-# defensiva cuando el rival ataca (choose_defense / run_defense).
+# Cerebro del bot: elige qué carta jugar según el BotProfile, en ataque (choose: planificador del
+# turno) y en la fase defensiva cuando el rival ataca (choose_defense / run_defense).
 
 const DEFENSE_FOCUS_WEIGHT := 1.6   # la carta del estilo defensivo del perfil
 const DEFENSE_CUT_WEIGHT := 1.2     # intercepción y despeje cortan el ataque entero
 const DEFENSE_MIN_SCORE := 0.25     # si ninguna carta llega a esto, deja pasar
 const DEFENSE_RESERVE_SHARE := 0.5  # al defender guarda la mitad de su reserva de élite para atacar
+
+const PLAN_ELITE_WEIGHT := 0.3      # x elite_preference: gusto por planes con cartas de élite
+const PLAN_WEAR_WEIGHT := 0.6       # x energy_conservation: castigo al desgaste del plan (fracción del tope)
+const PLAN_RESERVE_PENALTY := 0.5   # plan con élite que deja la estamina bajo la reserva del perfil
 
 
 # Fase defensiva completa contra un ataque. attack_quality = dificultad de sus jugadas defensivas
@@ -50,101 +54,100 @@ static func choose_defense(e: MatchEngine, profile: BotProfile) -> int:
     return best
 
 
-# Ataque: devuelve el índice de la carta en la mano, o -1 si no hay jugadas posibles.
+# ---------- Ataque: planificador del turno ----------
+
+# Devuelve el índice de la carta a jugar, o -1 para ceder la jugada (no hay plan que pueda
+# terminar en gol, o el perfil no se arriesga con lo que hay).
 static func choose(e: MatchEngine, profile: BotProfile) -> int:
-    var idxs := e.playable_indices()
-    if idxs.is_empty():
-        return -1
+    var plan := best_plan(e, profile)
+    var pause := _playable_pause(e)
+    if plan.is_empty():
+        # Sin plan de gol: si está cansado, al menos recupera aire con la Pausa antes de ceder.
+        return pause if pause >= 0 and e.player.zone() != PlayerStats.Zone.SAFE else -1
+    var last_chance := e.fails >= MatchEngine.MAX_FAILS - 1
+    # Enfriar: si el remate final del mejor plan no convence, el perfil cede y guarda la estamina.
+    if not last_chance and profile.shot_min_chance >= 0.0 and plan["shot_p"] < profile.shot_min_chance:
+        return pause if pause >= 0 and e.player.zone() != PlayerStats.Zone.SAFE else -1
+    # PA de sobra para el plan: con cansancio, la Pausa primero recupera estamina gratis.
+    if pause >= 0 and e.player.zone() != PlayerStats.Zone.SAFE \
+            and e.ap - e.ap_cost_of(e.deck.hand[pause]) >= plan["ap"]:
+        return pause
+    return plan["cards"][0]
 
+
+# Mejor plan de gol para el turno: combinaciones de cartas de la mano que caben en los PA que quedan,
+# con tantas jugadas como faltan para completar el Momento y terminadas en un remate.
+# Puntaje = probabilidad de que salgan todas, ajustada por el perfil (élite, desgaste, riesgo).
+# Devuelve {cards: [índices en orden de juego], score, p, shot_p, ap, wear} o {} si no hay plan.
+static func best_plan(e: MatchEngine, profile: BotProfile) -> Dictionary:
+    var playable := e.playable_indices()
+    if playable.is_empty():
+        return {}
+    var need := maxi(1, int(e.current_moment()["steps_required"]) - e.progress)
+    var last_chance := e.fails >= MatchEngine.MAX_FAILS - 1
     var max_e := e.player.max_energy()
-    var required: int = e.current_moment()["steps_required"]
-    var closing: bool = e.progress + 1 >= required                  # toca cerrar con un remate
-    var last_chance: bool = e.fails >= MatchEngine.MAX_FAILS - 1    # otro fallo y se pierde
     var reserve := profile.elite_reserve_pct()
+    var floor_p := lerpf(0.75, 0.30, profile.risk_tolerance) if profile.risk_tolerance >= 0.0 else 0.0
 
-    # La Pausa solo se usa para recuperar aire: con cansancio y sin urgencia de cerrar.
-    var pause_ok := e.player.zone() != PlayerStats.Zone.SAFE and not closing and not last_chance
-
-    # Filtro de reserva: las cartas de élite solo pasan si la estamina que dejan alcanza la reserva.
-    var candidates: Array[int] = []
-    for i in idxs:
-        var c: Card = e.deck.hand[i]
-        if c.kind == Card.Kind.PAUSE and not pause_ok:
+    var steps: Array = []     # cartas que pueden ser pasos previos (todo menos la Pausa)
+    for i in playable:
+        if e.deck.hand[i].kind != Card.Kind.PAUSE:
+            steps.append(i)
+    var best := {}
+    for s in playable:
+        var shot: Card = e.deck.hand[s]
+        if shot.kind != Card.Kind.SHOT:
             continue
-        var after_pct := (e.player.energy - e.stamina_cost_of(c)) / max_e
-        if c.type != Card.Type.ELITE or last_chance or after_pct >= reserve:
-            candidates.append(i)
-    if candidates.is_empty():
-        candidates = idxs
-
-    # PA del turno: antes de cerrar, no gasta los PA que necesita el remate más barato de la mano.
-    # (Regla mínima del modelo de PA; el planificador del turno completo llega en la fase 2.)
-    if not closing:
-        var shot_ap := _cheapest_shot_ap(e)
-        if shot_ap >= 0:
-            var keep: Array[int] = []
-            for i in candidates:
+        var others: Array = steps.filter(func(i): return i != s)
+        for combo in _subsets(others, need - 1):
+            var cards: Array = combo.duplicate()
+            var ap := e.ap_cost_of(shot)
+            for i in cards:
+                ap += e.ap_cost_of(e.deck.hand[i])
+            if ap > e.ap:
+                continue
+            var p := 1.0
+            var wear := 0.0
+            var has_elite := false
+            var risk := 1.0
+            for i in cards + [s]:
                 var c: Card = e.deck.hand[i]
-                if c.kind == Card.Kind.SHOT or e.ap - e.ap_cost_of(c) >= shot_ap:
-                    keep.append(i)
-            if not keep.is_empty():
-                candidates = keep
-
-    # Enfriar el partido: si el mejor remate no convence, pases seguros o ceder la jugada
-    if closing and not last_chance and profile.shot_min_chance >= 0.0:
-        var best_shot := 0.0
-        var safe := -1
-        var safe_p := -1.0
-        for i in candidates:
-            var c: Card = e.deck.hand[i]
-            var cp := e.success_chance(c)
-            if c.kind == Card.Kind.SHOT:
-                best_shot = maxf(best_shot, cp)
-            elif c.type != Card.Type.ELITE and cp > safe_p:
-                safe_p = cp
-                safe = i
-        if best_shot < profile.shot_min_chance:
-            if e.progress - (required - 1) >= profile.stall_plays or safe < 0:
-                return -1
-            return safe
-
-    var cost_exp := lerpf(0.3, 1.0, profile.energy_conservation)
-    var best := -1
-    var best_score := -INF
-    for i in candidates:
-        var c: Card = e.deck.hand[i]
-        var p := e.success_chance(c)
-        var cost := 1.0 + float(e.ap_cost_of(c))      # PA del turno (+1 para que 0 PA no divida por cero)
-        var is_elite := c.type == Card.Type.ELITE
-        var score: float
-        if last_chance:
-            score = p                                   # todo o nada
-        elif closing:
-            score = p if c.kind == Card.Kind.SHOT else p * 0.01
-            if is_elite:
-                score *= 1.0 + 0.3 * profile.elite_preference
-        elif e.flow_active:
-            score = p + profile.flow_aggression * c.effective_bonus() \
-                    - (1.0 - profile.flow_aggression) * 0.05 * cost
-        else:
-            score = p / pow(cost, cost_exp)             # eficiencia: probabilidad por PA
-            if profile.risk_tolerance >= 0.0:           # cuanto menos riesgo tolera, más castiga lo poco fiable
-                var floor_p := lerpf(0.75, 0.30, profile.risk_tolerance)
-                score *= pow(clampf(p / floor_p, 0.0, 1.0), 2.0)
-            if is_elite:
-                score *= 1.0 + 1.5 * profile.elite_preference
-        if score > best_score:
-            best_score = score
-            best = i
+                var cp := e.success_chance(c)
+                p *= cp
+                wear += e.stamina_cost_of(c)
+                has_elite = has_elite or c.type == Card.Type.ELITE
+                if floor_p > 0.0:
+                    risk *= pow(clampf(cp / floor_p, 0.0, 1.0), 2.0)
+            var score := p * risk
+            if not last_chance:
+                score *= 1.0 - profile.energy_conservation * PLAN_WEAR_WEIGHT * clampf(wear / max_e, 0.0, 1.0)
+                if has_elite:
+                    score *= 1.0 + PLAN_ELITE_WEIGHT * profile.elite_preference
+                    if (e.player.energy - wear) / max_e < reserve:
+                        score *= PLAN_RESERVE_PENALTY
+            if best.is_empty() or score > best["score"]:
+                # Pasos previos primero, del más seguro al menos seguro; el remate al final.
+                cards.sort_custom(func(a, b): return e.success_chance(e.deck.hand[a]) > e.success_chance(e.deck.hand[b]))
+                cards.append(s)
+                best = {"cards": cards, "score": score, "p": p, "shot_p": e.success_chance(shot), "ap": ap, "wear": wear}
     return best
 
 
-# PA del remate más barato en la mano (jugable o no), o -1 si no hay remates.
-static func _cheapest_shot_ap(e: MatchEngine) -> int:
-    var best := -1
-    for c in e.deck.hand:
-        if c.kind == Card.Kind.SHOT and c.playable:
-            var cost := e.ap_cost_of(c)
-            if best < 0 or cost < best:
-                best = cost
-    return best
+# Subconjuntos de k elementos de `items` (k chico: a lo más los pasos que faltan del Momento).
+static func _subsets(items: Array, k: int) -> Array:
+    if k <= 0:
+        return [[]]
+    if items.size() < k:
+        return []
+    var out: Array = []
+    for i in items.size():
+        for rest in _subsets(items.slice(i + 1), k - 1):
+            out.append([items[i]] + rest)
+    return out
+
+
+static func _playable_pause(e: MatchEngine) -> int:
+    for i in e.playable_indices():
+        if e.deck.hand[i].kind == Card.Kind.PAUSE:
+            return i
+    return -1

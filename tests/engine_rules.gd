@@ -21,6 +21,7 @@ func _initialize() -> void:
 	_test_chance_matches_roll()
 	_test_stamina_zones_draw_not_chance()
 	_test_action_points()
+	_test_planner()
 	_test_signature_styles()
 	_test_bot_defense_styles()
 	_test_duel_runner()
@@ -333,6 +334,53 @@ func _test_action_points() -> void:
 	e.exploit_rival_space = true
 	_check(e.ap_cost_of(_card(Card.Kind.SHOT, 0.1, 3)) == 2 and e.ap_cost_of(_card(Card.Kind.SHOT, 0.1, 1)) == 1,
 			"los espacios del rival restan 1 PA a los remates, mínimo 1")
+
+
+# Planificador del bot: el plan cabe en los PA, termina en remate y tiene las jugadas que faltan;
+# sin remate en la mano no hay plan y el bot cede.
+func _test_planner() -> void:
+	var profile := BotProfile.directo()
+	var e := _new_engine(61)
+	e.start()
+	e.begin_moment()
+	e.deck.hand.clear()
+	var pass1 := _card(Card.Kind.PASS, 0.10, 1)
+	var pass0 := _card(Card.Kind.PASS, 0.05, 0)
+	var shot2 := _card(Card.Kind.SHOT, 0.20, 2)
+	var elite3 := _card(Card.Kind.SHOT, 0.40, 3)
+	elite3.type = Card.Type.ELITE
+	e.deck.hand.append_array([pass1, pass0, shot2, elite3])
+	e.ap = 3
+	e.progress = 0
+	e.current_moment()["steps_required"] = 2
+
+	var plan := CoachBot.best_plan(e, profile)
+	_check(not plan.is_empty(), "con remates en la mano debería haber plan")
+	if not plan.is_empty():
+		var cards: Array = plan["cards"]
+		_check(cards.size() == 2, "con 2 jugadas por hacer el plan debería tener 2 cartas (tiene %d)" % cards.size())
+		_check(e.deck.hand[cards[-1]].kind == Card.Kind.SHOT, "el plan debería terminar en un remate")
+		_check(plan["ap"] <= e.ap, "el plan debería caber en los PA (%d de %d)" % [plan["ap"], e.ap])
+		_check(e.deck.hand[cards[0]].kind != Card.Kind.SHOT or cards.size() == 1, "primero los pasos previos, el remate al final")
+		var choice := CoachBot.choose(e, profile)
+		_check(choice == cards[0], "choose debería jugar la primera carta del mejor plan")
+	# Con 3 PA la élite de 3 solo entra con un paso gratis: ese plan debe existir y ser válido.
+	e.deck.hand.erase(shot2)
+	var elite_plan := CoachBot.best_plan(e, profile)
+	_check(not elite_plan.is_empty() and e.deck.hand[elite_plan["cards"][-1]] == elite3 and elite_plan["ap"] <= 3,
+			"con 3 PA la élite de 3 PA debería jugarse tras un paso de 0 PA")
+
+	# Cerrando (falta 1 jugada) el plan es un remate solo.
+	e.progress = 1
+	var closing := CoachBot.best_plan(e, profile)
+	_check(not closing.is_empty() and closing["cards"].size() == 1, "cerrando, el plan debería ser solo el remate")
+
+	# Sin remates en la mano no hay plan de gol: cede (con estamina óptima no usa la Pausa).
+	e.deck.hand.clear()
+	e.deck.hand.append_array([pass1, pass0])
+	e.progress = 0
+	_check(CoachBot.best_plan(e, profile).is_empty() and CoachBot.choose(e, profile) == -1,
+			"sin remate en la mano el bot debería ceder la jugada")
 
 
 # Estilos de carta firma: potencia (bloqueo rival a la mitad) y sangre fría (+10 a un fallo).

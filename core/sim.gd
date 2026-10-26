@@ -7,6 +7,8 @@ const DUELS := 1000
 const MATRIX_DUELS := 400
 const GOALS_TARGET_MIN := 2.3   # goles totales por partido (ambos equipos)
 const GOALS_TARGET_MAX := 2.6
+const INJURY_TARGET_MIN := 2    # % de equipos que terminan el partido lesionados
+const INJURY_TARGET_MAX := 5
 const BASE_DIFFICULTY := 0.15
 
 
@@ -94,22 +96,33 @@ func _init() -> void:
 		if not t.get("suspended", false) and not seen_archetypes.has(t["archetype"]):
 			seen_archetypes[t["archetype"]] = true
 			clubs.append(t["id"])
-	var total_goals := 0
-	var total_matches := 0
+	var total := {"goals": 0, "matches": 0, "injuries": 0, "m1": 0, "t1": 0, "m2": 0, "t2": 0}
 	var rows: Array = []
 	for i in clubs.size():
 		for j in range(i + 1, clubs.size()):
 			var r := DuelRunner.run(_neutral_side(league, squads, tpl, clubs[i], clubs[j]),
 					_neutral_side(league, squads, tpl, clubs[j], clubs[i]), MATRIX_DUELS)
-			total_goals += r["goals_a"] + r["goals_b"]
-			total_matches += MATRIX_DUELS
+			total["goals"] += r["goals_a"] + r["goals_b"]
+			total["matches"] += MATRIX_DUELS
+			total["injuries"] += r["injuries"]
+			total["m1"] += r["moments_1h"]
+			total["t1"] += r["tired_1h"]
+			total["m2"] += r["moments_2h"]
+			total["t2"] += r["tired_2h"]
 			rows.append("%s %.2f-%.2f %s" % [league.get_team(clubs[i])["short_name"], float(r["goals_a"]) / MATRIX_DUELS,
 					float(r["goals_b"]) / MATRIX_DUELS, league.get_team(clubs[j])["short_name"]])
-	var avg := float(total_goals) / total_matches
+	var matches := float(total["matches"])
+	var avg: float = float(total["goals"]) / matches
+	var injuries: float = 100.0 * float(total["injuries"]) / (2.0 * matches)   # % de equipos que terminan lesionados
 	print("Matriz bot vs bot (%d clubes, %d partidos por cruce): %s" % [clubs.size(), MATRIX_DUELS, " · ".join(rows)])
 	print("  PROMEDIO DE GOLES TOTALES POR PARTIDO: %.2f (objetivo %.1f-%.1f) → %s" % [
 		avg, GOALS_TARGET_MIN, GOALS_TARGET_MAX,
 		"EN RANGO" if avg >= GOALS_TARGET_MIN and avg <= GOALS_TARGET_MAX else "FUERA DE RANGO"])
+	print("  LESIONES: %.1f%% de los equipos por partido (objetivo %d-%d%%) → %s" % [
+		injuries, INJURY_TARGET_MIN, INJURY_TARGET_MAX,
+		"EN RANGO" if injuries >= INJURY_TARGET_MIN and injuries <= INJURY_TARGET_MAX else "FUERA DE RANGO"])
+	print("  CANSANCIO: Momentos que empiezan en CANSADO o AGOTADO · primer tiempo %d%% · segundo tiempo %d%%" % [
+		roundi(100.0 * total["t1"] / maxf(1.0, total["m1"])), roundi(100.0 * total["t2"] / maxf(1.0, total["m2"]))])
 	quit()
 
 

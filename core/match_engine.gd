@@ -19,8 +19,13 @@ const MIN_CHANCE := 0.05              # ninguna jugada baja de 5% ni pasa de 95%
 const MAX_CHANCE := 0.95
 const FLOW_BREAK_LOSS_PCT := 0.15     # estamina perdida al romperse el Flow
 # Puntos de Acción por turno de ataque según la postura, y desgaste de estamina de esa postura.
-const AP_BY_POSTURE := {Posture.LOW: 2, Posture.NORMAL: 3, Posture.HIGH: 4}
+# LOW conserva la base de 3 PA (así puede jugar élites de 3); su identidad es el menor desgaste,
+# el castigo a los remates y el tope de momentos.
+const AP_BY_POSTURE := {Posture.LOW: 3, Posture.NORMAL: 3, Posture.HIGH: 4}
 const STAMINA_MULT := {Posture.LOW: 0.75, Posture.NORMAL: 1.0, Posture.HIGH: 1.5}
+# Escala global del desgaste de las cartas (los JSON guardan las proporciones; esto calibra el ritmo
+# de cansancio del partido con DuelRunner: CANSADO durante el segundo tiempo).
+const STAMINA_SCALE := 2.0
 const DEFENSE_AP := 2                 # PA de cada fase defensiva (cualquier postura)
 # Lesión: solo se tira al jugar en zona de agotamiento, de MIN (al entrar) a MAX (barra en 0)
 # por jugada. Calibrado para que un partido normal termine en lesión un 2-5% de las veces.
@@ -125,9 +130,11 @@ func start() -> void:
 	player.start_match_energy()
 	deck.start_match()
 	moments.clear()
-	var n := 3 + (1 if rng.randf() < 0.5 else 0)
+	# 4-5 Momentos propios por partido (calibrado con DuelRunner: con PA por turno, cada Momento es una
+	# oportunidad completa); LOW juega uno menos y además queda topado en LOW_MAX_MOMENTS.
+	var n := 4 + (1 if rng.randf() < 0.5 else 0)
 	if posture == Posture.LOW:
-		n -= 1   # 3-4 momentos pasan a 2-3
+		n -= 1
 	var minutes: Array = []
 	while minutes.size() < n:
 		var m := rng.randi_range(5, 88)
@@ -231,10 +238,10 @@ func ap_cost_of(card: Card) -> int:
 	return c
 
 
-# Estamina que gasta jugar la carta ahora: desgaste base, menos si es física y hay buen ritmo,
-# por la postura (LOW x0.75, HIGH x1.5), el desgaste tardío del perfil y el recargo del funado.
+# Estamina que gasta jugar la carta ahora: desgaste base x STAMINA_SCALE, menos si es física y hay
+# buen ritmo, por la postura (LOW x0.75, HIGH x1.5), el desgaste tardío del perfil y el funado.
 func stamina_cost_of(card: Card) -> float:
-	var s := card.stamina_cost
+	var s := card.stamina_cost * STAMINA_SCALE
 	if card.tags.has("fisica"):
 		s *= 1.0 - player.ritmo / 400.0
 	s *= float(STAMINA_MULT[posture])

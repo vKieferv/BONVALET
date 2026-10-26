@@ -1,11 +1,13 @@
 # Prueba de humo de la escena del partido: juega partidos completos de match_view
-# (un rival por arquetipo, alternando postura) eligiendo siempre la primera carta jugable.
-# Uso: godot --headless --path futbolista -s res://tests/smoke_match.gd [-- --matches=5]
-# Sale con código 1 si un partido se cuelga, el marcador no cuadra o la postura cambia en un Momento Clave.
+# (un rival por arquetipo, rotando la postura) eligiendo siempre la primera carta jugable,
+# tanto en ataque como en las fases defensivas (cada tercera defensa usa el Despeje de Emergencia).
+# Uso: godot --headless --path . -s res://tests/smoke_match.gd [-- --matches=5]
+# Sale con código 1 si un partido se cuelga, el marcador no cuadra, la postura cambia durante
+# una jugada, nunca hay fase defensiva o no se prueba el contragolpe contra tu LOW.
 extends SceneTree
 
 const TIME_SCALE := 20.0
-const MAX_FRAMES_PER_MATCH := 60000
+const MAX_FRAMES_PER_MATCH := 80000
 
 var view: Control
 var frames := 0
@@ -18,6 +20,10 @@ var errors: Array[String] = []
 var lock_checks := 0
 var exploit_seen := false
 var exploit_expected := false
+var defenses := 0
+var emergencies := 0
+var natural_plays := [0]
+var _defense_open := false
 
 
 func _initialize() -> void:
@@ -54,12 +60,31 @@ func _process(_delta: float) -> bool:
 
 	if view._rival_engine != null and view._rival_engine.exploit_rival_space:
 		exploit_seen = true
-	if view._in_moment and not view._busy:
+	if not view._in_defense:
+		_defense_open = false
+	if view._busy:
+		return false
+	if view._in_defense:
+		if not _defense_open:
+			_defense_open = true
+			defenses += 1
 		_check_posture_lock()
-		for ui in view._hand_box.get_children():
-			if ui.card.playable and float(view._engine.cost_of(ui.card)) <= view._player.energy:
-				view._on_card_chosen(ui)
-				break
+		if defenses % 3 == 0 and view._engine.can_emergency_clear():
+			emergencies += 1
+			view._on_emergency_pressed()
+		elif not _play_first_card():
+			view._on_yield_pressed()   # dejar pasar
+	elif view._in_moment:
+		_check_posture_lock()
+		_play_first_card()
+	return false
+
+
+func _play_first_card() -> bool:
+	for ui in view._hand_box.get_children():
+		if view._engine.can_play(ui.card):
+			view._on_card_chosen(ui)
+			return true
 	return false
 
 
@@ -87,6 +112,8 @@ func _start_match() -> void:
 	view._posture_buttons[posture].button_pressed = true
 	view._set_posture(posture)
 	view._on_start_pressed()
+	if view._engine != null:
+		view._engine.natural_executor_played.connect(func(_c: Card) -> void: natural_plays[0] += 1)
 
 
 func _check_posture_lock() -> void:
@@ -94,7 +121,7 @@ func _check_posture_lock() -> void:
 	var before: int = view._posture
 	view._set_posture((before + 1) % 3)
 	if view._posture != before:
-		errors.append("La postura cambió durante un Momento Clave (partido %d)" % (played + 1))
+		errors.append("La postura cambió durante una jugada (partido %d)" % (played + 1))
 
 
 func _check_result() -> void:
@@ -109,9 +136,11 @@ func _check_result() -> void:
 
 func _finish() -> bool:
 	if exploit_expected and not exploit_seen:
-		errors.append("Se jugó en LOW contra un Contragolpe y exploit_rival_space nunca se activó")
-	print("smoke_match: %d partidos, %d chequeos de postura, contragolpe visto: %s" % [
-		played, lock_checks, "sí" if exploit_seen else "no"])
+		errors.append("Se jugó en LOW contra un rival que castiga la pasividad y exploit_rival_space nunca se activó")
+	if played > 0 and defenses == 0:
+		errors.append("Nunca hubo fase defensiva")
+	print("smoke_match: %d partidos, %d defensas (%d despejes de emergencia), %d jugadas de Ejecutor Natural, %d chequeos de postura, contragolpe visto: %s" % [
+		played, defenses, emergencies, natural_plays[0], lock_checks, "sí" if exploit_seen else "no"])
 	for e in errors:
 		print("  ERROR: " + e)
 	quit(1 if errors.size() > 0 else 0)

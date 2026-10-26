@@ -38,6 +38,12 @@ function Invoke-Godot([string]$name, [string[]]$godotArgs) {
         return 124
     }
     $p.WaitForExit()
+    # Un error de script en ejecución no cambia el código de salida de Godot: se cuenta aparte.
+    if ($name -ne "import" -and (Select-String -Path $err -Pattern "SCRIPT ERROR" -Quiet)) {
+        Write-Host "[$name] Hubo errores de script en ejecución (ver $err)"
+        Get-Content $err | Where-Object { $_ -match 'SCRIPT ERROR|at: ' } | Select-Object -First 10 | ForEach-Object { Write-Host "[$name] $_" }
+        return 3
+    }
     if ($name -ne "import") {   # la salida del import es solo progreso del editor
         Get-Content $out | Where-Object { $_ -and $_ -notmatch '^Godot Engine v' } | ForEach-Object { Write-Host "[$name] $_" }
     }
@@ -56,13 +62,19 @@ if ($scriptErrors) { $failed += "import" }
 $code = Invoke-Godot "check_scripts" @("-s", "res://tests/check_scripts.gd")
 if ($code -ne 0) { $failed += "check_scripts" }
 
-# 3. Prueba de humo del partido (solo si compila)
+# 3. Reglas del motor y de los datos (rápido, sin escenas)
+if ($failed.Count -eq 0) {
+    $code = Invoke-Godot "engine_rules" @("-s", "res://tests/engine_rules.gd")
+    if ($code -ne 0) { $failed += "engine_rules" }
+}
+
+# 4. Prueba de humo del partido (solo si compila)
 if (-not $SkipSmoke -and $failed.Count -eq 0) {
     $code = Invoke-Godot "smoke_match" @("-s", "res://tests/smoke_match.gd", "--", "--matches=$Matches")
     if ($code -ne 0) { $failed += "smoke_match" }
 }
 
-# 4. Métricas de balance por arquetipo (opcional, 2000 partidos por perfil con semillas fijas)
+# 5. Métricas de balance por arquetipo (opcional, 2000 partidos por perfil con semillas fijas)
 if ($Balance -and $failed.Count -eq 0) {
     $code = Invoke-Godot "balance" @("-s", "res://core/sim.gd")
     if ($code -ne 0) { $failed += "balance" }

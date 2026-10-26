@@ -23,6 +23,11 @@ const KIND_NAMES := {
     Card.Kind.DRIBBLE: "Regate",
     Card.Kind.CROSS: "Centro",
     Card.Kind.SHOT: "Remate",
+    Card.Kind.PAUSE: "Pausa",
+    Card.Kind.PRESS: "Defensa · Presión",
+    Card.Kind.BLOCK: "Defensa · Bloqueo",
+    Card.Kind.INTERCEPT: "Defensa · Intercepción",
+    Card.Kind.CLEARANCE: "Defensa · Despeje",
 }
 
 var card: Card
@@ -65,6 +70,8 @@ func setup(c: Card, index: int) -> void:
     type_label.add_theme_color_override("font_color", col)
     name_label.text = c.display_name
     kind_label.text = "No jugable" if c.type == Card.Type.PENALTY else KIND_NAMES.get(c.kind, "")
+    if c.owner_id != "":
+        kind_label.text += " ★"   # carta firma: tiene Ejecutor Natural
 
 
 # cost = costo actual (con cansancio/Flow), base_cost = costo impreso en la carta
@@ -103,6 +110,12 @@ func hide_slot() -> void:
 func flash(color: Color) -> void:
     _style.border_color = color
     _style.set_border_width_all(6)
+
+
+# Resplandor de Ejecutor Natural (reemplaza el naranjo del Flow en esta carta).
+func natural_glow(color: Color) -> void:
+    glow.material = FlowGlow.make_material(color, 1.6)
+    glow.visible = true
 
 
 func shake() -> void:

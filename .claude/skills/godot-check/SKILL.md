@@ -19,9 +19,10 @@ Opciones:
 ## Qué hace
 1. `--import`: regenera la caché de `class_name` (necesario tras crear o renombrar scripts).
 2. `tests/check_scripts.gd`: carga cada `.gd` y `.tscn`; falla si alguno no compila.
-3. `tests/smoke_match.gd`: instancia `match_view.tscn`, juega partidos completos eligiendo la primera carta jugable y comprueba que ningún partido se cuelgue, que el marcador coincida con `MatchEngine.stats`, que la postura no cambie dentro de un Momento Clave y que `exploit_rival_space` se active al jugar LOW contra un Contragolpe.
+3. `tests/engine_rules.gd`: reglas del motor y de los datos sin escena (filtro de posesión, Ejecutor Natural, defensa y despeje de emergencia, fases de Kamikaze, clubes grandes vs LOW, `validate_deck` positivo y negativo, integridad de los 32 clubes).
+4. `tests/smoke_match.gd`: instancia `match_view.tscn`, juega partidos completos (ataque y defensa, con algún despeje de emergencia) y comprueba que ningún partido se cuelgue, que el marcador coincida con `MatchEngine.stats`, que la postura no cambie durante una jugada, que haya fases defensivas y que `exploit_rival_space` se active al jugar LOW contra un rival que castiga la pasividad.
 
-El resultado final es `RESULTADO: OK` o `RESULTADO: FALLA (pasos)`; el script sale con código 1 si falla. Los logs completos quedan en `%TEMP%\godot-check\`.
+Cualquier `SCRIPT ERROR` en ejecución cuenta como falla, aunque Godot salga con código 0. El resultado final es `RESULTADO: OK` o `RESULTADO: FALLA (pasos)`; el script sale con código 1 si falla. Los logs completos quedan en `%TEMP%\godot-check\`.
 
 ## Al fallar
 - Lee `%TEMP%\godot-check\<paso>.err.txt`: trae el archivo y la línea del error de GDScript.

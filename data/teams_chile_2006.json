@@ -4,8 +4,8 @@
   "_notes": [
     "Primera A: 19 clubes jugaron 2006 (Antofagasta, Audax, Cobreloa, Cobresal, Colo-Colo, Coquimbo, Everton, Huachipato, La Serena, O'Higgins, Palestino, Puerto Montt, Rangers, Santiago Morning, U. Católica, U. de Chile, U. de Concepción, Unión Española, Wanderers). Deportes Concepción fue suspendido ese año y se incluye como vigésimo club.",
     "Primera B: los 12 clubes del campeonato 2006.",
-    "DT: tomados de las tablas del Apertura/Clausura 2006 (es.wikipedia) y de Cooperativa (Primera B, marzo 2006); donde cambió durante el año, se usa el del Clausura. null = por definir.",
-    "Carta firma: solo figuras confirmadas en las tablas de goleadores 2006; null = por definir (el juego usa una carta genérica 'Figura de <club>').",
+    "DT: tablas de clubes del Apertura y Clausura 2006 (es.wikipedia) y Cooperativa (Primera B, 4-mar-2006); donde cambió durante el año, dt es el del Clausura/fin de temporada y dt_start el del inicio. Primera B: Ñublense (Luis Marcoleta) según Emol 2008 y entrevista en Encancha; San Luis (Mauricio Riffo, 2003-2007) según la lista de entrenadores del club en en.wikipedia; Lota Schwager (Leonardo Vinés -> Jaime Nova) según Diario Concepción y Resumen.cl. null = por definir.",
+    "Carta firma: goleador del club en el Clausura 2006 (Anexo de goleadores, es.wikipedia), salvo las ya confirmadas antes con el Apertura. Primera B: solo Patricio Morales (goleador del torneo); no hay tabla de goleadores por club disponible. null = por definir (el juego usa una carta genérica 'Figura de <club>').",
     "archetype, initial_budget (millones de CLP) y facilities_level: asignación de diseño según goles a favor/en contra de 2006; no son cifras reales.",
     "review: campos que conviene confirmar (colores y algunos estadios son aproximados)."
   ],
@@ -57,11 +57,9 @@
       "secondary_color": "#FFFFFF",
       "initial_budget": 7000,
       "facilities_level": 3,
-      "signature_card": null,
-      "signature_nationality": null,
-      "review": [
-        "signature_card"
-      ]
+      "signature_card": "Juan Manuel Aróstegui",
+      "signature_nationality": "ARG",
+      "review": []
     },
     {
       "id": "cobreloa",
@@ -123,17 +121,16 @@
       "code": "UES",
       "division": "Primera A",
       "dt": "Manuel Rodríguez Araneda",
+      "dt_start": "Fernando Carvallo",
       "archetype": "Contragolpe",
       "stadium": "Estadio Santa Laura",
       "primary_color": "#D52B1E",
       "secondary_color": "#FFFFFF",
       "initial_budget": 3800,
       "facilities_level": 2,
-      "signature_card": null,
-      "signature_nationality": null,
-      "review": [
-        "signature_card"
-      ]
+      "signature_card": "Manuel Neira",
+      "signature_nationality": "CHI",
+      "review": []
     },
     {
       "id": "everton",
@@ -142,17 +139,16 @@
       "code": "EVE",
       "division": "Primera A",
       "dt": "Jorge García",
+      "dt_start": "Marcelo Espina",
       "archetype": "Directo",
       "stadium": "Estadio Sausalito",
       "primary_color": "#FFD100",
       "secondary_color": "#0033A0",
       "initial_budget": 3200,
       "facilities_level": 2,
-      "signature_card": null,
-      "signature_nationality": null,
-      "review": [
-        "signature_card"
-      ]
+      "signature_card": "Cristián Uribe",
+      "signature_nationality": "CHI",
+      "review": []
     },
     {
       "id": "santiago_wanderers",
@@ -167,11 +163,9 @@
       "secondary_color": "#FFFFFF",
       "initial_budget": 3200,
       "facilities_level": 2,
-      "signature_card": null,
-      "signature_nationality": null,
-      "review": [
-        "signature_card"
-      ]
+      "signature_card": "José Luis Jiménez",
+      "signature_nationality": "CHI",
+      "review": []
     },
     {
       "id": "universidad_de_concepcion",
@@ -186,11 +180,9 @@
       "secondary_color": "#0033A0",
       "initial_budget": 3000,
       "facilities_level": 2,
-      "signature_card": null,
-      "signature_nationality": null,
-      "review": [
-        "signature_card"
-      ]
+      "signature_card": "Leonardo Monje",
+      "signature_nationality": "CHI",
+      "review": []
     },
     {
       "id": "o_higgins",
@@ -216,6 +208,7 @@
       "code": "CSA",
       "division": "Primera A",
       "dt": "Sergio Nichiporuk",
+      "dt_start": "Fernando Díaz",
       "archetype": "Directo",
       "stadium": "Estadio El Cobre",
       "primary_color": "#F58220",
@@ -235,16 +228,16 @@
       "code": "PAL",
       "division": "Primera A",
       "dt": "Jaime Pizarro",
+      "dt_start": "Daniel Salvador",
       "archetype": "Catenaccio",
       "stadium": "Estadio Municipal de La Cisterna",
       "primary_color": "#00843D",
       "secondary_color": "#D52B1E",
       "initial_budget": 2600,
       "facilities_level": 1,
-      "signature_card": null,
-      "signature_nationality": null,
+      "signature_card": "Juan Pablo Úbeda",
+      "signature_nationality": "CHI",
       "review": [
-        "signature_card",
         "colors"
       ]
     },
@@ -261,10 +254,9 @@
       "secondary_color": "#FFFFFF",
       "initial_budget": 2400,
       "facilities_level": 1,
-      "signature_card": null,
-      "signature_nationality": null,
+      "signature_card": "Renato Ramos",
+      "signature_nationality": "CHI",
       "review": [
-        "signature_card",
         "colors"
       ]
     },
@@ -281,10 +273,9 @@
       "secondary_color": "#FFD100",
       "initial_budget": 2300,
       "facilities_level": 1,
-      "signature_card": null,
-      "signature_nationality": null,
+      "signature_card": "Matías Urbano",
+      "signature_nationality": "ARG",
       "review": [
-        "signature_card",
         "colors"
       ]
     },
@@ -295,17 +286,16 @@
       "code": "COQ",
       "division": "Primera A",
       "dt": "Sergio Cortés",
+      "dt_start": "Jorge Díaz",
       "archetype": "Catenaccio",
       "stadium": "Estadio Francisco Sánchez Rumoroso",
       "primary_color": "#FFD100",
       "secondary_color": "#000000",
       "initial_budget": 2200,
       "facilities_level": 1,
-      "signature_card": null,
-      "signature_nationality": null,
-      "review": [
-        "signature_card"
-      ]
+      "signature_card": "Gamadiel García",
+      "signature_nationality": "CHI",
+      "review": []
     },
     {
       "id": "deportes_puerto_montt",
@@ -320,10 +310,11 @@
       "secondary_color": "#FFFFFF",
       "initial_budget": 2000,
       "facilities_level": 1,
-      "signature_card": "Leonardo Monje",
-      "signature_nationality": "CHI",
+      "signature_card": "Fernando Giménez",
+      "signature_nationality": "PAR",
       "review": [
-        "colors"
+        "colors",
+        "note: Leonardo Monje fue su goleador en el Apertura y pasó a U. de Concepción en el Clausura"
       ]
     },
     {
@@ -339,11 +330,9 @@
       "secondary_color": "#000000",
       "initial_budget": 1800,
       "facilities_level": 1,
-      "signature_card": null,
-      "signature_nationality": null,
-      "review": [
-        "signature_card"
-      ]
+      "signature_card": "Román Cuello",
+      "signature_nationality": "URU",
+      "review": []
     },
     {
       "id": "santiago_morning",
@@ -352,6 +341,7 @@
       "code": "SMO",
       "division": "Primera A",
       "dt": "Guillermo Páez",
+      "dt_start": "Ivo Basay",
       "archetype": "Catenaccio",
       "stadium": "Estadio USACH",
       "primary_color": "#FFD100",
@@ -361,7 +351,6 @@
       "signature_card": "Esteban Paredes",
       "signature_nationality": "CHI",
       "review": [
-        "signature_card",
         "colors"
       ]
     },
@@ -413,7 +402,8 @@
       "short_name": "Lota Schwager",
       "code": "LOT",
       "division": "Primera B",
-      "dt": null,
+      "dt": "Jaime Nova",
+      "dt_start": "Leonardo Vinés",
       "archetype": "Directo",
       "stadium": "Estadio Federico Schwager",
       "primary_color": "#000000",
@@ -423,7 +413,6 @@
       "signature_card": "Patricio Morales",
       "signature_nationality": "CHI",
       "review": [
-        "dt",
         "colors"
       ]
     },
@@ -433,7 +422,7 @@
       "short_name": "Ñublense",
       "code": "NUB",
       "division": "Primera B",
-      "dt": null,
+      "dt": "Luis Marcoleta",
       "archetype": "Kamikaze",
       "stadium": "Estadio Nelson Oyarzún Arenas",
       "primary_color": "#D52B1E",
@@ -443,7 +432,6 @@
       "signature_card": null,
       "signature_nationality": null,
       "review": [
-        "dt",
         "signature_card"
       ]
     },
@@ -454,6 +442,7 @@
       "code": "FVI",
       "division": "Primera B",
       "dt": null,
+      "dt_start": "Guillermo Páez",
       "archetype": "Directo",
       "stadium": "Estadio Municipal de Concepción",
       "primary_color": "#000000",
@@ -475,7 +464,7 @@
       "short_name": "San Luis",
       "code": "SLQ",
       "division": "Primera B",
-      "dt": null,
+      "dt": "Mauricio Riffo",
       "archetype": "Contragolpe",
       "stadium": "Estadio Lucio Fariña Fernández",
       "primary_color": "#FFD100",
@@ -485,7 +474,6 @@
       "signature_card": null,
       "signature_nationality": null,
       "review": [
-        "dt",
         "signature_card",
         "colors"
       ]
@@ -517,7 +505,7 @@
       "short_name": "La Calera",
       "code": "ULC",
       "division": "Primera B",
-      "dt": null,
+      "dt": "Alfredo Núñez",
       "archetype": "Contragolpe",
       "stadium": "Estadio Nicolás Chahuán Nazar",
       "primary_color": "#D52B1E",
@@ -527,7 +515,6 @@
       "signature_card": null,
       "signature_nationality": null,
       "review": [
-        "dt",
         "signature_card",
         "colors"
       ]
@@ -538,7 +525,7 @@
       "short_name": "San Felipe",
       "code": "USF",
       "division": "Primera B",
-      "dt": null,
+      "dt": "Rubén Espinoza",
       "archetype": "Directo",
       "stadium": "Estadio Municipal de San Felipe",
       "primary_color": "#D52B1E",
@@ -548,7 +535,6 @@
       "signature_card": null,
       "signature_nationality": null,
       "review": [
-        "dt",
         "signature_card",
         "colors"
       ]
@@ -599,7 +585,7 @@
       "short_name": "Copiapó",
       "code": "COP",
       "division": "Primera B",
-      "dt": null,
+      "dt": "Nelson Cossio",
       "archetype": "Kamikaze",
       "stadium": "Estadio Luis Valenzuela Hermosilla",
       "primary_color": "#F58220",
@@ -609,7 +595,6 @@
       "signature_card": null,
       "signature_nationality": null,
       "review": [
-        "dt",
         "signature_card",
         "colors"
       ]

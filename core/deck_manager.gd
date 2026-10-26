@@ -1,13 +1,21 @@
 class_name DeckManager
 extends RefCounted
 
-const MIN_DECK_SIZE := 15
+# Mazo unificado del partido: cartas de ataque y de defensa en las mismas pilas.
+# La mano se filtra por posesión: al robar solo salen cartas de la fase actual
+# (las penalizaciones salen en ambas, porque estorban siempre).
+
+enum Possession { POSSESSION_ATTACK, POSSESSION_DEFENSE }
+
+const DECK_MIN := 18
+const DECK_MAX := 20
 
 var active: Array = []       # mazo activo del partido
 var sideboard: Array = []    # reserva
 var draw_pile: Array = []
 var hand: Array = []
 var discard_pile: Array = []
+var possession: Possession = Possession.POSSESSION_ATTACK
 var rng: RandomNumberGenerator
 
 
@@ -17,11 +25,31 @@ func _init(p_active: Array, p_sideboard: Array, p_rng: RandomNumberGenerator) ->
 	rng = p_rng
 
 
+# "" si el mazo activo tiene un tamaño válido; si no, el mensaje de error.
+func size_error() -> String:
+	if active.size() < DECK_MIN or active.size() > DECK_MAX:
+		return "El mazo tiene %d cartas; debe tener entre %d y %d." % [active.size(), DECK_MIN, DECK_MAX]
+	return ""
+
+
+static func fits_possession(card: Card, p: Possession) -> bool:
+	if card.type == Card.Type.PENALTY:
+		return true
+	return card.is_defensive() == (p == Possession.POSSESSION_DEFENSE)
+
+
 func start_match() -> void:
 	draw_pile = active.duplicate()   # las cartas temporales nunca entran en `active`
 	hand.clear()
 	discard_pile.clear()
+	possession = Possession.POSSESSION_ATTACK
 	_shuffle(draw_pile)
+
+
+# Cambia de fase. La mano anterior no sirve en la nueva fase y va al descarte.
+func set_possession(p: Possession) -> void:
+	possession = p
+	discard_hand()
 
 
 func _shuffle(arr: Array) -> void:
@@ -32,18 +60,36 @@ func _shuffle(arr: Array) -> void:
 		arr[j] = tmp
 
 
+# Roba hasta n cartas de la fase actual. Las de la otra fase se quedan en la pila.
 func draw(n: int) -> int:
 	var drawn := 0
 	for i in n:
-		if draw_pile.is_empty():
-			if discard_pile.is_empty():
-				break
-			draw_pile = discard_pile.duplicate()
-			discard_pile.clear()
-			_shuffle(draw_pile)
-		hand.append(draw_pile.pop_back())
+		var idx := _next_fitting()
+		if idx < 0 and _recycle_discard():
+			idx = _next_fitting()
+		if idx < 0:
+			break
+		hand.append(draw_pile.pop_at(idx))
 		drawn += 1
 	return drawn
+
+
+# Índice de la carta de la fase actual más cercana al tope de la pila, o -1.
+func _next_fitting() -> int:
+	for i in range(draw_pile.size() - 1, -1, -1):
+		if fits_possession(draw_pile[i], possession):
+			return i
+	return -1
+
+
+# Baraja el descarte dentro de la pila de robo. false si no había nada que reciclar.
+func _recycle_discard() -> bool:
+	if discard_pile.is_empty():
+		return false
+	draw_pile.append_array(discard_pile)
+	discard_pile.clear()
+	_shuffle(draw_pile)
+	return true
 
 
 func discard_hand() -> void:
@@ -76,7 +122,7 @@ func reset_flow_uses() -> void:
 
 # Purga: quita una carta básica para subir la consistencia de robo.
 func trim(card_id: String) -> bool:
-	if active.size() <= MIN_DECK_SIZE:
+	if active.size() <= DECK_MIN:
 		return false
 	for i in active.size():
 		var c: Card = active[i]

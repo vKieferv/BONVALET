@@ -17,11 +17,9 @@ static func run(profile: BotProfile, n: int, cfg: Dictionary, templates: Array, 
 		player.regen_normal_pct = cfg.get("regen_normal_pct", 0.22)
 		var deck := DeckManager.new(CardDB.build_deck(templates), [], rng)
 		var e := MatchEngine.new(player, deck, rng, cfg.get("rival_difficulty", 0.15))
+		profile.configure_engine(e)
 		e.exploit_rival_space = profile.punishes_passivity \
 				and int(cfg.get("rival_posture", MatchEngine.Posture.NORMAL)) == MatchEngine.Posture.LOW
-		e.posture = profile.default_posture as MatchEngine.Posture
-		e.opening_bonus = profile.opening_bonus
-		e.opening_moments = profile.opening_moments
 		e.start()
 		while not e.finished:
 			e.begin_moment()

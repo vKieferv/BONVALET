@@ -14,10 +14,15 @@ static func choose(e: MatchEngine, profile: BotProfile) -> int:
     var last_chance: bool = e.fails >= MatchEngine.MAX_FAILS - 1    # otro fallo y se pierde
     var reserve := profile.elite_reserve_pct()
 
+    # La Pausa solo se usa para recuperar aire: con cansancio y sin urgencia de cerrar.
+    var pause_ok := e.player.zone() != PlayerStats.Zone.SAFE and not closing and not last_chance
+
     # Filtro de reserva: las cartas de élite solo pasan si se justifican.
     var candidates: Array[int] = []
     for i in idxs:
         var c: Card = e.deck.hand[i]
+        if c.kind == Card.Kind.PAUSE and not pause_ok:
+            continue
         var after_pct := (e.player.energy - e.cost_of(c)) / max_e
         if c.type != Card.Type.ELITE or last_chance or after_pct >= reserve:
             candidates.append(i)

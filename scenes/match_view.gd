@@ -2,23 +2,26 @@ extends Control
 
 # Escena del Partido Jugable (estilo transmisión de TV).
 # Conecta la UI con MatchEngine / PlayerStats / DeckManager. El rival juega un "partido
-# fantasma" (otro MatchEngine movido por CoachBot) que avanza Momento a Momento, así sus
-# ataques reaccionan a tu postura del momento.
+# fantasma" (otro MatchEngine movido por CoachBot) que avanza Momento a Momento. Antes de cada
+# ataque rival hay una fase defensiva: tu mano pasa a cartas de defensa y lo que logres
+# (presión, bloqueo, intercepción, despeje) se aplica a ese ataque.
+
+signal defense_finished
 
 const CARD_SCENE := preload("res://scenes/card_ui.tscn")
 const DECK_PATH := "res://data/cards.json"
 const BASE_DIFFICULTY := 0.15
 const DEFAULT_REGEN := 0.22
 const LEAGUE_ID := "chile_2006"
-# Dificultad según el rival (mismos criterios que SimRunner.difficulty_vs):
-const DEFENSE_INFLUENCE := 0.10   # cuánto pesa la defensa del arquetipo (valor por defecto del dashboard)
-const FACILITIES_STEP := 0.02     # cada nivel de instalaciones sobre 1.5: +2 pts a su defensa y a su ataque
+# Hasta que exista el plantel, controlas a la figura dueña de la carta firma del mazo.
+const PLAYER_ID := "suazo"
 
 const COLOR_OK := Color("#3fb950")
 const COLOR_WARN := Color("#f0883e")
 const COLOR_BAD := Color("#f85149")
 const COLOR_GOLD := Color("#e3b341")
 const COLOR_FLOW := Color("#ff6a00")
+const COLOR_NATURAL := Color("#ffd24a")
 
 @onready var _pitch: Pitch = %PitchContainer
 @onready var _scoreboard: PanelContainer = %TopScoreboard
@@ -40,6 +43,7 @@ const COLOR_FLOW := Color("#ff6a00")
 @onready var _progress_label: Label = %ProgressLabel
 @onready var _energy_readout: Label = %EnergyReadout
 @onready var _yield_button: Button = %YieldButton
+@onready var _emergency_button: Button = %EmergencyButton
 @onready var _fx: Control = %FxLayer
 @onready var _menu: PanelContainer = %MenuPanel
 @onready var _menu_title: Label = %MenuTitle
@@ -48,7 +52,6 @@ const COLOR_FLOW := Color("#ff6a00")
 @onready var _start_button: Button = %StartButton
 
 var _templates: Array = []
-var _profiles: Array = []
 var _engine: MatchEngine
 var _player: PlayerStats
 var _rival: BotProfile
@@ -61,7 +64,9 @@ var _posture_locked := false
 var _minute := 0.0
 var _busy := false
 var _in_moment := false
+var _in_defense := false
 var _prev_hand: Array = []
+var _active_clone: CardUI
 
 var _ball: Panel
 var _flow_glow: ColorRect
@@ -73,7 +78,6 @@ var _rival_fill: StyleBoxFlat
 
 func _ready() -> void:
     _templates = CardDB.load_templates(DECK_PATH)
-    _profiles = BotProfile.presets()
     _league = LeagueManager.new()
     if not _league.load_all():
         push_error("LeagueManager: " + "; ".join(_league.load_errors))
@@ -82,6 +86,7 @@ func _ready() -> void:
     _setup_posture_buttons()
     _start_button.pressed.connect(_on_start_pressed)
     _yield_button.pressed.connect(_on_yield_pressed)
+    _emergency_button.pressed.connect(_on_emergency_pressed)
     _reset_hud()
     _show_menu("TRANSMISIÓN EN VIVO", "Elige al rival y empieza el partido.")
 
@@ -171,8 +176,8 @@ func _set_posture(p: int) -> void:
     _update_posture_hint()
 
 
-# La postura se elige entre Momentos Clave: durante uno queda fija (evita recuperar en LOW
-# y cambiar a NORMAL justo antes de rematar).
+# La postura se elige entre Momentos Clave y ataques rivales: durante uno queda fija (evita
+# recuperar en LOW y cambiar a NORMAL justo antes de rematar, o salir de LOW al ver un contragolpe).
 func _lock_posture(locked: bool) -> void:
     _posture_locked = locked
     for b in _posture_buttons:
@@ -194,7 +199,7 @@ func _update_posture_hint() -> void:
         _:
             _posture_hint.text = "HIGH: recuperas solo %d%% · más probabilidad de momentos extra" % rec
     if _posture_locked:
-        _posture_hint.text = "[FIJA EN EL MOMENTO CLAVE] " + _posture_hint.text
+        _posture_hint.text = "[FIJA DURANTE LA JUGADA] " + _posture_hint.text
 
 
 func _reset_hud() -> void:
@@ -210,6 +215,9 @@ func _reset_hud() -> void:
     _progress_label.text = ""
     _energy_readout.text = ""
     _yield_button.disabled = true
+    _yield_button.text = "Ceder jugada"
+    _emergency_button.disabled = true
+    _emergency_button.text = "Despeje de emergencia"
     _ball.visible = false
     _update_flow_badge()
     _lock_posture(false)
@@ -231,9 +239,16 @@ func _update_hud() -> void:
         var m := _engine.current_moment()
         _progress_label.text = "Jugada %d/%d · Fallos %d/%d" % [
             _engine.progress, m["steps_required"], _engine.fails, MatchEngine.MAX_FAILS]
+    elif _in_defense:
+        var d := _engine.defense_result
+        _progress_label.text = "Defensa %d/%d · Presión +%d · Bloqueo +%d" % [
+            _engine.defense_plays, MatchEngine.DEFENSE_MAX_PLAYS,
+            roundi(d["pressure"] * 100.0), roundi(d["block"] * 100.0)]
     else:
         _progress_label.text = ""
-    _yield_button.disabled = (not _in_moment) or _busy
+    _yield_button.disabled = not (_in_moment or _in_defense) or _busy
+    _emergency_button.text = "Despeje de emergencia (−%d)" % _engine.emergency_cost()
+    _emergency_button.disabled = not _in_defense or _busy or not _engine.can_emergency_clear()
     _update_hand_stats()
 
 
@@ -332,19 +347,25 @@ func _begin_match() -> void:
     var rng := RandomNumberGenerator.new()
     rng.randomize()
     _player = PlayerStats.new()
+    _player.player_id = PLAYER_ID
     var cards := CardDB.build_deck(_templates)
-    var check := _league.validate_deck(cards, LEAGUE_ID)
-    if not check["valid"]:
-        _show_menu("MAZO NO VÁLIDO", "\n".join(check["errors"]))
-        return
     var deck := DeckManager.new(cards, [], rng)
-    _engine = MatchEngine.new(_player, deck, rng, _attack_difficulty_vs_rival())
+    var errors: Array = _league.validate_deck(cards, LEAGUE_ID)["errors"].duplicate()
+    if deck.size_error() != "":
+        errors.append(deck.size_error())
+    if not errors.is_empty():
+        _show_menu("MAZO NO VÁLIDO", "\n".join(errors))
+        return
+    _engine = MatchEngine.new(_player, deck, rng,
+            LeagueManager.attack_difficulty_vs(_rival_team, _rival, BASE_DIFFICULTY))
     _engine.posture = _posture
+    _engine.natural_executor_played.connect(_on_natural_executor)
     _engine.start()
     _setup_rival_engine()
     _rival_goals = 0
     _busy = false
     _in_moment = false
+    _in_defense = false
     _prev_hand.clear()
     _reset_hud()
     _away_name.text = _rival.profile_name.to_upper()
@@ -354,36 +375,28 @@ func _begin_match() -> void:
     _next_step()
 
 
-# (nivel de instalaciones - 1.5): de -1.5 (nivel 0) a +1.5 (nivel 3).
-func _rival_strength() -> float:
-    return float(_rival_team.get("facilities_level", 1)) - 1.5
-
-
-# Dificultad de tus jugadas: base + defensa del arquetipo rival + peso del club.
-func _attack_difficulty_vs_rival() -> float:
-    var cfg := {"rival_difficulty": BASE_DIFFICULTY, "defense_influence": DEFENSE_INFLUENCE}
-    return maxf(0.0, SimRunner.difficulty_vs(cfg, _rival) + FACILITIES_STEP * _rival_strength())
-
-
 # Partido "fantasma" del rival: mismo motor, movido por CoachBot con su perfil.
-# Los clubes grandes atacan contra una dificultad menor.
 func _setup_rival_engine() -> void:
     var rng := RandomNumberGenerator.new()
     rng.randomize()
     var deck := DeckManager.new(CardDB.build_deck(_templates), [], rng)
-    var difficulty := maxf(0.0, BASE_DIFFICULTY - FACILITIES_STEP * _rival_strength())
-    _rival_engine = MatchEngine.new(PlayerStats.new(), deck, rng, difficulty)
-    _rival_engine.posture = _rival.default_posture as MatchEngine.Posture
-    _rival_engine.opening_bonus = _rival.opening_bonus
-    _rival_engine.opening_moments = _rival.opening_moments
+    _rival_engine = MatchEngine.new(PlayerStats.new(), deck, rng,
+            LeagueManager.team_attack_difficulty(_rival_team, BASE_DIFFICULTY))
+    _rival.configure_engine(_rival_engine)
     _rival_engine.start()
 
 
-# Juega el siguiente Momento Clave del rival. Se resuelve justo cuando le toca, así
-# un perfil que castiga la pasividad aprovecha tu postura LOW de ese momento.
-func _play_rival_moment() -> Dictionary:
+func _rival_exploits_posture() -> bool:
+    return _rival.punishes_passivity and _posture == MatchEngine.Posture.LOW
+
+
+# Juega el siguiente Momento Clave del rival con lo que dejó tu defensa. Se resuelve justo
+# cuando le toca, así un perfil que castiga la pasividad aprovecha tu postura LOW de ese momento.
+func _play_rival_moment(exploited: bool, defense: Dictionary) -> Dictionary:
     var e := _rival_engine
-    e.exploit_rival_space = _rival.punishes_passivity and _posture == MatchEngine.Posture.LOW
+    e.exploit_rival_space = exploited
+    e.opponent_pressure = defense.get("pressure", 0.0)
+    e.opponent_block = defense.get("block", 0.0)
     var m := e.begin_moment()
     var goals_before: int = e.stats["goals"]
     while not e.moment_over:
@@ -396,7 +409,6 @@ func _play_rival_moment() -> Dictionary:
         "minute": m["minute"],
         "goal": e.stats["goals"] > goals_before,
         "energy_pct": e.player.energy_pct(),
-        "exploited": e.exploit_rival_space,
     }
     e.advance(_rival.default_posture as MatchEngine.Posture)
     return ev
@@ -414,26 +426,70 @@ func _next_step() -> void:
         await _tween_clock(90.0)
         _end_match("FINAL DEL PARTIDO")
     elif r_min <= p_min:
-        await _rival_event()
-        _next_step()
+        if await _rival_event():
+            _next_step()
     else:
         await _player_moment_start()
 
 
-func _rival_event() -> void:
-    var ev := _play_rival_moment()
-    await _tween_clock(float(ev["minute"]))
-    _ball_place(0.10, 0.5)
+# Ataque rival: fase defensiva y luego su Momento Clave. false si el partido terminó (lesión).
+func _rival_event() -> bool:
+    var minute: int = _rival_engine.current_moment()["minute"]
+    await _tween_clock(float(minute))
+    _ball_place(0.78, 0.5)
     var nm := _rival.profile_name.to_upper()
-    if ev["exploited"]:
+    var exploited := _rival_exploits_posture()
+    if exploited:
         await _banner_show("¡CONTRAGOLPE DE %s! APROVECHA TU REPLIEGUE" % nm, COLOR_WARN, 0.8)
+    else:
+        await _banner_show("¡ATACA %s! A DEFENDER" % nm, COLOR_WARN, 0.8)
+
+    var defense := await _defend()
+    if _engine.injured:
+        _end_match("LESIÓN — FIN DEL PARTIDO")
+        return false
+    if defense["cancelled"]:
+        _rival_engine.skip_moment()
+        _rival_engine.advance(_rival.default_posture as MatchEngine.Posture)
+        var counter := "  ·  ¡CONTRAGOLPE LISTO!" if _engine.counter_ready else ""
+        await _banner_show("¡RECUPERASTE EL BALÓN!" + counter, COLOR_OK, 0.9)
+        return true
+
+    var ev := _play_rival_moment(exploited, defense)
     if ev["goal"]:
         _rival_goals += 1
         _away_goals.text = str(_rival_goals)
+        _ball_place(0.015, 0.5)
         await _banner_show("¡GOL DE %s!" % nm, COLOR_BAD, 1.3)
     else:
         await _banner_show("ATACA %s... ¡SE SALVÓ!" % nm, COLOR_WARN, 0.9)
+    if defense["emergency"] and _rival_engine.grant_extra_moment(minute):
+        await _banner_show("EL BALÓN VUELVE A %s" % nm, COLOR_WARN, 0.7)
     _set_bar(_rival_bar, _rival_fill, ev["energy_pct"])
+    return true
+
+
+# Fase defensiva: mano de defensa (presión, bloqueo, intercepción, despeje), Despeje de
+# Emergencia o dejar pasar. Devuelve lo que se aplica al ataque rival.
+func _defend() -> Dictionary:
+    _lock_posture(true)
+    _engine.begin_defense(LeagueManager.defense_difficulty_vs(_rival_team, BASE_DIFFICULTY))
+    if _engine.in_defense:
+        _in_defense = true
+        _hand_title.text = "DEFENSA · ATACA %s" % _rival.profile_name.to_upper()
+        _yield_button.text = "Dejar pasar"
+        _build_hand()
+        _update_hud()
+        await defense_finished
+        _in_defense = false
+        _yield_button.text = "Ceder jugada"
+        _clear_hand()
+        _hand_title.text = "TU MANO"
+    else:
+        await _banner_show("SIN CARTAS PARA DEFENDER", COLOR_BAD, 0.7)
+    _lock_posture(false)
+    _update_hud()
+    return _engine.end_defense()
 
 
 func _player_moment_start() -> void:
@@ -449,7 +505,10 @@ func _player_moment_start() -> void:
     _hand_title.text = "TU MANO · MOMENTO CLAVE"
     _build_hand()
     _update_hud()
-    await _banner_show("¡OPORTUNIDAD DE GOL!", COLOR_GOLD, 1.0)
+    if _engine.progress > 0:
+        await _banner_show("¡CONTRAGOLPE! ARRANCAS CON %d JUGADA" % _engine.progress, COLOR_OK, 1.0)
+    else:
+        await _banner_show("¡OPORTUNIDAD DE GOL!", COLOR_GOLD, 1.0)
 
 
 func _finish_player_moment() -> void:
@@ -468,7 +527,13 @@ func _finish_player_moment() -> void:
 
 
 func _on_yield_pressed() -> void:
-    if _busy or not _in_moment:
+    if _busy:
+        return
+    if _in_defense:
+        _engine.end_defense()
+        defense_finished.emit()
+        return
+    if not _in_moment:
         return
     _busy = true
     _yield_button.disabled = true
@@ -478,16 +543,33 @@ func _on_yield_pressed() -> void:
     _finish_player_moment()
 
 
+func _on_emergency_pressed() -> void:
+    if _busy or not _in_defense or not _engine.can_emergency_clear():
+        return
+    _busy = true
+    var ev := _engine.emergency_clear()
+    _update_hud()
+    await _banner_show("¡DESPEJE DE EMERGENCIA! · REMATES RIVALES −%d" % roundi(
+            MatchEngine.EMERGENCY_SHOT_PENALTY * 100.0), COLOR_WARN, 0.8)
+    if ev["injury"]:
+        await _banner_show("¡LESIÓN!", COLOR_BAD, 0.9)
+    _busy = false
+    defense_finished.emit()
+
+
 func _end_match(title: String) -> void:
     _in_moment = false
+    _in_defense = false
     _busy = false
     _lock_posture(false)
     _clear_hand()
-    var mine: int = _engine.stats["goals"]
+    var s: Dictionary = _engine.stats
+    var mine: int = s["goals"]
     var res := "VICTORIA" if mine > _rival_goals else ("DERROTA" if mine < _rival_goals else "EMPATE")
     _hand_title.text = "FIN"
-    _show_menu(title, "%s\nTú %d - %d %s\nJugadas: %d · Momentos con Flow: %d" % [
-        res, mine, _rival_goals, _rival.profile_name, _engine.stats["plays"], _engine.stats["flow_moments"]])
+    _show_menu(title, "%s\nTú %d - %d %s\nJugadas: %d · Momentos con Flow: %d\nDefensa: %d jugadas · %d intercepciones · %d despejes de emergencia" % [
+        res, mine, _rival_goals, _rival.profile_name, s["plays"], s["flow_moments"],
+        s["defense_plays"], s["interceptions"], s["emergencies"]])
     _start_button.text = "JUGAR OTRA VEZ"
 
 
@@ -518,37 +600,51 @@ func _clear_hand() -> void:
 
 # Recalcula costo y probabilidad de cada carta (cambio de postura, cansancio, Flow...).
 func _update_hand_stats() -> void:
-    if _engine == null or not _in_moment:
+    # Según el motor, no según la UI: al cerrarse la defensa la mano sigue en pantalla un instante.
+    if _engine == null or not (_in_moment or _engine.in_defense):
         return
     for node in _hand_box.get_children():
         var ui: CardUI = node
         var card: Card = ui.card
-        var cost := _engine.cost_of(card)
-        var usable := card.playable and float(cost) <= _player.energy and not _busy
-        ui.update_stats(cost, card.energy_cost, _engine.success_chance(card), usable,
+        var usable := _engine.can_play(card) and not _busy
+        ui.update_stats(_engine.cost_of(card), card.energy_cost, _engine.success_chance(card), usable,
                 card.flow_uses > 0 and _engine.flow_active)
 
 
 func _on_card_chosen(ui: CardUI) -> void:
-    if _busy or not _in_moment:
+    if _busy or not (_in_moment or _in_defense):
         return
     var card: Card = ui.card
-    if not card.playable or float(_engine.cost_of(card)) > _player.energy:
+    if not _engine.can_play(card):
         ui.shake()
         return
     _busy = true
     _yield_button.disabled = true
-    var clone := _spawn_clone(ui)
+    _emergency_button.disabled = true
+    _active_clone = _spawn_clone(ui)
     ui.hide_slot()
-    await _fly_to_center(clone)
+    await _fly_to_center(_active_clone)
     var ev := _engine.play_card(ui.hand_index)
-    await _present_result(ev, clone)
+    await _present_result(ev, _active_clone)
+    _active_clone = null
     _busy = false
-    if _engine.moment_over:
+    if _in_defense:
+        if _engine.in_defense:
+            _build_hand()
+            _update_hud()
+        else:
+            defense_finished.emit()
+    elif _engine.moment_over:
         _finish_player_moment()
     else:
         _build_hand()
         _update_hud()
+
+
+# Ejecutor Natural: la carta la jugó su dueño. Resplandor dorado sobre la carta lanzada.
+func _on_natural_executor(_card: Card) -> void:
+    if _active_clone != null:
+        _active_clone.natural_glow(COLOR_NATURAL)
 
 
 func _spawn_clone(src: CardUI) -> CardUI:
@@ -579,6 +675,8 @@ func _present_result(ev: Dictionary, clone: CardUI) -> void:
     clone.flash(COLOR_OK if ok else COLOR_BAD)
     _move_ball(ev)
     _update_hud()
+    if ev["natural"]:
+        await _banner_show("¡EJECUTOR NATURAL!", COLOR_NATURAL, 0.6)
     if ev["goal"]:
         _local_goals.text = str(_engine.stats["goals"])
         await _banner_show("¡GOOOOL!", COLOR_OK, 1.3)
@@ -610,6 +708,16 @@ func _result_text(kind: int, ok: bool) -> String:
                 return "¡QUÉ REGATE!"
             Card.Kind.CROSS:
                 return "¡CENTRO PELIGROSO!"
+            Card.Kind.PAUSE:
+                return "PAUSA · RECUPERAS AIRE"
+            Card.Kind.PRESS:
+                return "¡PRESIÓN ASFIXIANTE!"
+            Card.Kind.BLOCK:
+                return "¡BLOQUEO!"
+            Card.Kind.INTERCEPT:
+                return "¡INTERCEPTADO!"
+            Card.Kind.CLEARANCE:
+                return "¡DESPEJADO!"
             _:
                 return "¡AL PALO!"
     match kind:
@@ -617,6 +725,8 @@ func _result_text(kind: int, ok: bool) -> String:
             return "¡PASE INTERCEPTADO!"
         Card.Kind.SHOT:
             return "¡REMATE BLOQUEADO!"
+        Card.Kind.PRESS, Card.Kind.BLOCK, Card.Kind.INTERCEPT, Card.Kind.CLEARANCE:
+            return "¡TE SUPERARON!"
         _:
             return "¡BALÓN PERDIDO!"
 
@@ -633,13 +743,18 @@ func _ball_place(fx: float, fy: float) -> void:
     _ball.visible = true
 
 
+# Atacas hacia la derecha; el rival, hacia tu arco (izquierda).
 func _move_ball(ev: Dictionary) -> void:
-    var req := float(_engine.current_moment()["steps_required"])
-    var ratio := clampf(float(_engine.progress) / req, 0.0, 1.0)
-    var fx := lerpf(0.22, 0.84, ratio)
-    if ev["goal"]:
-        fx = 0.985
-    elif not ev["success"]:
-        fx = maxf(0.12, fx - 0.12)
+    var fx: float
+    if ev["defense"]:
+        fx = 0.55 if ev["success"] else 0.22
+    else:
+        var req := float(_engine.current_moment()["steps_required"])
+        var ratio := clampf(float(_engine.progress) / req, 0.0, 1.0)
+        fx = lerpf(0.22, 0.84, ratio)
+        if ev["goal"]:
+            fx = 0.985
+        elif not ev["success"]:
+            fx = maxf(0.12, fx - 0.12)
     var fy := 0.5 + randf_range(-0.18, 0.18)
     create_tween().tween_property(_ball, "position", _field_point(fx, fy), 0.4).set_trans(Tween.TRANS_SINE)

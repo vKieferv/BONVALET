@@ -246,6 +246,13 @@ layout_mode = 2
 disabled = true
 text = "Ceder jugada"
 
+[node name="EmergencyButton" type="Button" parent="HandOverlay/HandMargin/HandVBox/InfoRow"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Fuera del mazo: gasta mucha energía y castiga los remates rivales, pero el balón vuelve al rival."
+disabled = true
+text = "Despeje de emergencia"
+
 [node name="HandBox" type="HBoxContainer" parent="HandOverlay/HandMargin/HandVBox"]
 unique_name_in_owner = true
 layout_mode = 2

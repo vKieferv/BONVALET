@@ -9,6 +9,13 @@ const DEFAULT_CONFIG_PATH := "res://data/league_config.json"
 const DEFAULT_TEAMS_PATH := "res://data/teams_chile_2006.json"
 const TYPE_KEYS := ["basic", "tactical", "elite", "penalty"]   # mismo orden que Card.Type
 
+# Dificultad por club. match_view y core/sim.gd usan estas mismas reglas, para que el
+# simulador mida lo que se juega.
+const DEFENSE_INFLUENCE := 0.10        # cuánto pesa la defensa del arquetipo (valor por defecto del dashboard)
+const FACILITIES_STEP := 0.02          # cada nivel de instalaciones sobre 1.5: +2 pts a su defensa y a su ataque
+const BIG_CLUB_FACILITIES := 3         # los clubes grandes también castigan la pasividad (tu postura LOW)...
+const BIG_CLUB_PASSIVITY_BONUS := 0.05 # ...y suman +5 pts a ese bono de remate
+
 var leagues: Dictionary = {}
 var teams: Array = []
 var load_errors: Array = []
@@ -80,9 +87,13 @@ static func _cmp_teams(a: Dictionary, b: Dictionary) -> bool:
     return String(a["name"]) < String(b["name"])
 
 
+# DT de fin de temporada; si no se conoce, el del inicio (dt_start).
 func dt_name(team: Dictionary) -> String:
-    var dt = team.get("dt")
-    return "Por definir" if dt == null else String(dt)
+    for key in ["dt", "dt_start"]:
+        var dt = team.get(key)
+        if dt != null and String(dt) != "":
+            return String(dt)
+    return "Por definir"
 
 
 func signature_name(team: Dictionary) -> String:
@@ -105,7 +116,31 @@ func profile_for_team(team: Dictionary) -> BotProfile:
         _:
             p = BotProfile.directo()
     p.profile_name = String(team.get("short_name", p.profile_name))
+    if int(team.get("facilities_level", 0)) >= BIG_CLUB_FACILITIES:
+        p.punishes_passivity = true
+        p.passivity_shot_bonus += BIG_CLUB_PASSIVITY_BONUS
     return p
+
+
+# -1.5 (instalaciones nivel 0) a +1.5 (nivel 3).
+static func team_strength(team: Dictionary) -> float:
+    return float(team.get("facilities_level", 1)) - 1.5
+
+
+# Dificultad de tus jugadas de ataque contra este club: defensa de su arquetipo + peso del club.
+static func attack_difficulty_vs(team: Dictionary, profile: BotProfile, base: float) -> float:
+    var cfg := {"rival_difficulty": base, "defense_influence": DEFENSE_INFLUENCE}
+    return maxf(0.0, SimRunner.difficulty_vs(cfg, profile) + FACILITIES_STEP * team_strength(team))
+
+
+# Dificultad de los ataques de este club: los grandes atacan contra una dificultad menor.
+static func team_attack_difficulty(team: Dictionary, base: float) -> float:
+    return maxf(0.0, base - FACILITIES_STEP * team_strength(team))
+
+
+# Dificultad de tus jugadas defensivas cuando este club ataca: cuesta más frenar a los grandes.
+static func defense_difficulty_vs(team: Dictionary, base: float) -> float:
+    return maxf(0.0, base + FACILITIES_STEP * team_strength(team))
 
 
 func team_colors(team: Dictionary) -> Array:
@@ -136,18 +171,19 @@ func validate_deck(deck_array: Array, league_id: String, team_id: String = "") -
     var rules: Dictionary = league.get("rules", {})
     result["rules"] = rules
     var sub21_limit := int(rules.get("sub21_age_limit", 21))
+    var country := String(league.get("country", ""))
     var foreigners := 0
     var sub21 := 0
     var players := {}
     for c in deck_array:
         if _type_key(c) == "penalty":
             continue
-        if _is_foreigner(c):
+        if _is_foreigner(c, country):
             foreigners += 1
         var age := int(_field(c, "age", 0))
         if age > 0 and age < sub21_limit:
             sub21 += 1
-        var pid := String(_field(c, "player_id", ""))
+        var pid := String(_field(c, "owner_id", _field(c, "player_id", "")))
         if pid != "":
             players[pid] = true
     result["foreigners"] = foreigners
@@ -186,13 +222,14 @@ func payroll_for_deck(deck_array: Array, league_id: String, team_id: String = ""
     var salary: Dictionary = league.get("salary", {})
     var base: Dictionary = salary.get("base_by_card_type", {})
     var sub21_limit := int(league.get("rules", {}).get("sub21_age_limit", 21))
+    var country := String(league.get("country", ""))
     var total := 0.0
     for c in deck_array:
         var key := _type_key(c)
         if key == "penalty":
             continue
         var s := float(base.get(key, 0.0))
-        if _is_foreigner(c):
+        if _is_foreigner(c, country):
             s *= float(salary.get("foreigner_multiplier", 1.0))
         var age := int(_field(c, "age", 0))
         if age > 0 and age < sub21_limit:
@@ -213,7 +250,12 @@ func _field(c: Variant, key: String, default: Variant) -> Variant:
     return default
 
 
-func _is_foreigner(c: Variant) -> bool:
+# Con `nationality` (código de 3 letras, como signature_nationality) se compara con el país de la
+# liga; si no, se usa la marca explícita is_foreigner / foreign.
+func _is_foreigner(c: Variant, country: String) -> bool:
+    var nat := String(_field(c, "nationality", ""))
+    if nat != "":
+        return nat != country
     return bool(_field(c, "is_foreigner", _field(c, "foreign", false)))
 
 

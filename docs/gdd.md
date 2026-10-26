@@ -129,9 +129,15 @@ Faltan más eventos (conferencia polémica, charla técnica, agentes): `ideas.md
 La estamina gastada deja fatiga (6 + 18 × desgaste), que define con cuánta estamina arrancas el
 siguiente partido.
 
-### 5.4 Temporada [IDEA] · prioridad M3
-Fixture completo del Apertura 2006, tabla de posiciones, fin del torneo, guardado. Hoy la carrera
-es una sucesión de semanas sin tabla ni guardado.
+### 5.4 Temporada · guardado [DECIDIDO] · fixture y tabla [IDEA] · prioridad M3
+Fixture completo del Apertura 2006, tabla de posiciones y fin del torneo. Hoy la carrera es una
+sucesión de semanas sin tabla.
+
+**Guardado (T-01):** una sola ranura, automática: se guarda tras cada acción de bloque, al ir al
+partido y al volver al calendario. "Continuar carrera" retoma la misma semana con el mismo estado,
+incluido el azar (los eventos siguen saliendo igual). No se guarda a mitad de partido: si el juego se
+cierra durante el partido, se vuelve al Bloque 3 y ese partido se juega desde el principio
+(pendiente: ¿contarlo como derrota provisional para que no se pueda repetir?).
 
 ### 5.5 Economía, fichajes, ojeo, infraestructura [IDEA] · M3+
 Presupuesto y masa salarial existen en los datos pero casi no se usan. Diseño: ojeo por niveles,

@@ -1,10 +1,11 @@
 # Pruebas del modo carrera sin escenas: planteles, mazo por club, Ejecutor Natural por titulares
-# y reglas de la semana (sponsor, evento social, entrenamiento, partido).
+# y reglas de la semana (sponsor, evento social, entrenamiento, partido) y el guardado de la carrera.
 # Uso: godot --headless --path . -s res://tests/career_rules.gd
 extends SceneTree
 
 const LEAGUE_ID := "chile_2006"
 const REAL_SQUADS := ["colo_colo", "universidad_de_chile", "universidad_catolica"]
+const TEST_SAVE := "user://test_carrera.json"   # nunca la partida real (user://carrera.json)
 
 var failures: Array[String] = []
 var checks := 0
@@ -13,6 +14,7 @@ var squads: SquadManager
 
 
 func _initialize() -> void:
+	Career.save_path = TEST_SAVE
 	league = LeagueManager.new()
 	_check(league.load_all(), "LeagueManager no carga: %s" % [league.load_errors])
 	squads = SquadManager.new()
@@ -26,6 +28,11 @@ func _initialize() -> void:
 	_test_week_flow()
 	_test_career_stamina()
 	_test_rivals_and_sponsor_scale()
+	_test_save_round_trip()
+	_test_save_pending_match()
+	_test_save_errors()
+	if FileAccess.file_exists(TEST_SAVE):
+		DirAccess.remove_absolute(TEST_SAVE)
 	print("career_rules: %d comprobaciones, %d fallas" % [checks, failures.size()])
 	for f in failures:
 		print("  FALLA: " + f)
@@ -254,3 +261,97 @@ func _test_rivals_and_sponsor_scale() -> void:
 	var small := Career.new()
 	small.setup(league, squads, "magallanes", 7)
 	_check(small.sponsor_offer(telnet)["weekly"] < big, "un club de Primera B nivel 0 debería recibir menos que Colo-Colo")
+
+
+# Guardado: una semana completa y otra a medias, guardar, cargar → mismo estado, y el azar sigue
+# igual (el evento de la semana siguiente sale igual en la original y en la cargada).
+func _test_save_round_trip() -> void:
+	var c := Career.new()
+	c.setup(league, squads, "colo_colo", 4321)
+	c.choose_sponsor("telnet")
+	c.resolve_event(true)
+	c.choose_training("tactical")
+	_check(c.prepare_match()["ok"], "la semana 1 de la prueba de guardado debería poder jugarse")
+	c.record_match(2, 1, 0.3)
+	c.choose_sponsor("cerveza_glaciar")
+	c.resolve_event(true)   # semana 2 a medias: evento resuelto, sin entrenamiento
+	_check(c.save(), "save() debería escribir %s" % TEST_SAVE)
+	var loaded := Career.load_saved(league, squads)
+	_check(loaded != null, "la carrera guardada debería cargar: %s" % [Career.last_load_errors])
+	if loaded == null:
+		return
+	var a := c.to_dict()
+	var b := loaded.to_dict()
+	_check(a.size() == b.size(), "to_dict debería tener los mismos campos tras cargar")
+	for key in a:
+		_check(b.has(key) and typeof(a[key]) == typeof(b[key]) and a[key] == b[key],
+				"campo %s distinto tras cargar: %s -> %s" % [key, a[key], b.get(key)])
+	_check(loaded.history.size() == 1 and typeof(loaded.history[0]["gf"]) == TYPE_INT, "el historial vuelve con enteros")
+	_check(loaded.blocks_done()["block1"] and not loaded.blocks_done()["block2"], "la semana a medias sigue a medias")
+
+	# El azar sigue igual: misma semana 3 y mismo resultado del evento en las dos.
+	for x in [c, loaded]:
+		x.choose_training("physio")
+		x.prepare_match()
+		x.record_match(0, 0)
+		x.choose_sponsor("telnet")
+		x.resolve_event(true)
+	_check(c.week == 3 and loaded.week == 3, "ambas carreras deberían llegar a la semana 3")
+	_check(c.event_result == loaded.event_result and c.match_mods == loaded.match_mods,
+			"el evento de la semana 3 debería salir igual tras cargar: %s vs %s" % [c.event_result, loaded.event_result])
+	_check(c.rng.state == loaded.rng.state and c.rng.randi() == loaded.rng.randi(),
+			"el estado del azar debería seguir igual tras cargar")
+
+
+# Si se cerró el juego durante el partido, la carrera vuelve al Bloque 3 con ese partido por jugar,
+# sin volver a sumar la fatiga del entrenamiento.
+func _test_save_pending_match() -> void:
+	var c := Career.new()
+	c.setup(league, squads, "universidad_catolica", 77)
+	c.choose_sponsor("telnet")
+	c.resolve_event(false)
+	c.choose_training("tactical")
+	c.prepare_match()
+	c.save()
+	var loaded := Career.load_saved(league, squads)
+	_check(loaded != null and loaded.pending_match, "el partido pendiente debería seguir pendiente tras cargar")
+	if loaded == null:
+		return
+	var fatigue := loaded.fatigue
+	_check(loaded.prepare_match()["ok"] and loaded.fatigue == fatigue, "el partido pendiente se juega sin sumar fatiga otra vez")
+	_check(not loaded.choose_training("physio"), "con el partido pendiente los bloques 1 y 2 quedan cerrados")
+	_check(loaded.rival_id == c.rival_id and not loaded.record_match(1, 1).is_empty() and loaded.week == 2,
+			"el partido pendiente cierra la semana al jugarse")
+
+
+# Errores de carga: devuelven null con el motivo en Career.last_load_errors, sin errores de script.
+func _test_save_errors() -> void:
+	if FileAccess.file_exists(TEST_SAVE):
+		DirAccess.remove_absolute(TEST_SAVE)
+	_check(Career.load_saved(league, squads) == null and not Career.last_load_errors.is_empty(),
+			"sin archivo de guardado la carga debería devolver null con motivo")
+
+	var good := Career.new()
+	good.setup(league, squads, "colo_colo", 5)
+	var cases := {"JSON roto": "{\"version\": 1, \"team_id\": "}
+	var other_version := good.to_dict()
+	other_version["version"] = 2
+	cases["otra versión"] = JSON.stringify(other_version)
+	var unknown_club := good.to_dict()
+	unknown_club["team_id"] = "club_inventado"
+	cases["club desconocido"] = JSON.stringify(unknown_club)
+	var bad_field := good.to_dict()
+	bad_field["week"] = "tres"
+	cases["campo con otro tipo"] = JSON.stringify(bad_field)
+	var no_rng := good.to_dict()
+	no_rng.erase("rng_state")
+	cases["sin estado del azar"] = JSON.stringify(no_rng)
+	cases["lista en vez de objeto"] = "[1, 2, 3]"
+	for name in cases:
+		var f := FileAccess.open(TEST_SAVE, FileAccess.WRITE)
+		f.store_string(cases[name])
+		f.close()
+		var loaded := Career.load_saved(league, squads)
+		_check(loaded == null and not Career.last_load_errors.is_empty(),
+				"guardado con %s: la carga debería devolver null con motivo" % name)
+	DirAccess.remove_absolute(TEST_SAVE)

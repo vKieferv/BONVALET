@@ -13,8 +13,8 @@ const DECK_PATH := "res://data/cards.json"
 const BASE_DIFFICULTY := 0.15
 const DEFAULT_REGEN := 0.22
 const LEAGUE_ID := "chile_2006"
-# Hasta que exista el plantel, controlas a la figura dueña de la carta firma del mazo.
-const PLAYER_ID := "suazo"
+const CALENDAR_SCENE := "res://scenes/calendar_view.tscn"
+const QUICK_TEAM_ID := "colo_colo"   # tu club en el partido rápido (sin modo carrera)
 
 const COLOR_OK := Color("#3fb950")
 const COLOR_WARN := Color("#f0883e")
@@ -28,6 +28,7 @@ const COLOR_NATURAL := Color("#ffd24a")
 @onready var _local_goals: Label = %LocalGoals
 @onready var _away_goals: Label = %AwayGoals
 @onready var _away_name: Label = %AwayName
+@onready var _local_name: Label = %LocalName
 @onready var _minute_label: Label = %MinuteLabel
 @onready var _player_bar: ProgressBar = %PlayerEnergyBar
 @onready var _rival_bar: ProgressBar = %RivalEnergyBar
@@ -57,6 +58,8 @@ var _player: PlayerStats
 var _rival: BotProfile
 var _rival_team: Dictionary = {}
 var _league: LeagueManager
+var _squads: SquadManager
+var _career: Career            # null = partido rápido
 var _rival_engine: MatchEngine
 var _rival_goals := 0
 var _posture: MatchEngine.Posture = MatchEngine.Posture.NORMAL
@@ -78,9 +81,17 @@ var _rival_fill: StyleBoxFlat
 
 func _ready() -> void:
     _templates = CardDB.load_templates(DECK_PATH)
-    _league = LeagueManager.new()
-    if not _league.load_all():
-        push_error("LeagueManager: " + "; ".join(_league.load_errors))
+    if Career.current != null and Career.current.pending_match:
+        _career = Career.current
+        _league = _career.league
+        _squads = _career.squads
+    else:
+        _league = LeagueManager.new()
+        if not _league.load_all():
+            push_error("LeagueManager: " + "; ".join(_league.load_errors))
+        _squads = SquadManager.new()
+        if not _squads.load_all(_league):
+            push_error("SquadManager: " + "; ".join(_squads.load_errors))
     _populate_rival_menu()
     _style_ui()
     _setup_posture_buttons()
@@ -88,7 +99,19 @@ func _ready() -> void:
     _yield_button.pressed.connect(_on_yield_pressed)
     _emergency_button.pressed.connect(_on_emergency_pressed)
     _reset_hud()
-    _show_menu("TRANSMISIÓN EN VIVO", "Elige al rival y empieza el partido.")
+    _local_name.text = String(_league.get_team(_my_team_id()).get("short_name", "TÚ")).to_upper()
+    if _career != null:
+        # Modo carrera: el rival y la semana ya están definidos en el calendario.
+        _rival_option.visible = false
+        _rival_team = _league.get_team(_career.rival_id)
+        _rival = _league.profile_for_team(_rival_team)
+        _begin_match()
+    else:
+        _show_menu("TRANSMISIÓN EN VIVO", "Partido rápido con %s. Elige al rival y empieza el partido." % _local_name.text)
+
+
+func _my_team_id() -> String:
+    return _career.team_id if _career != null else QUICK_TEAM_ID
 
 
 # ================================================================== Estilo
@@ -334,6 +357,9 @@ func _populate_rival_menu() -> void:
 
 
 func _on_start_pressed() -> void:
+    if _career != null:
+        get_tree().change_scene_to_file(CALENDAR_SCENE)
+        return
     if _rival_option.item_count == 0:
         _show_menu("SIN EQUIPOS", "No se pudo cargar la base de equipos:\n" + "\n".join(_league.load_errors))
         return
@@ -347,8 +373,8 @@ func _begin_match() -> void:
     var rng := RandomNumberGenerator.new()
     rng.randomize()
     _player = PlayerStats.new()
-    _player.player_id = PLAYER_ID
-    var cards := CardDB.build_deck(_templates)
+    _player.lineup = _squads.lineup_ids(_my_team_id())   # titulares: activan el Ejecutor Natural de sus cartas
+    var cards := _squads.build_match_deck(_my_team_id(), _templates)
     var deck := DeckManager.new(cards, [], rng)
     var errors: Array = _league.validate_deck(cards, LEAGUE_ID)["errors"].duplicate()
     if deck.size_error() != "":
@@ -359,6 +385,8 @@ func _begin_match() -> void:
     _engine = MatchEngine.new(_player, deck, rng,
             LeagueManager.attack_difficulty_vs(_rival_team, _rival, BASE_DIFFICULTY))
     _engine.posture = _posture
+    if _career != null:
+        _career.configure_match(_engine, _player)   # fatiga, hype, forma y funados de la semana
     _engine.natural_executor_played.connect(_on_natural_executor)
     _engine.start()
     _setup_rival_engine()
@@ -567,10 +595,17 @@ func _end_match(title: String) -> void:
     var mine: int = s["goals"]
     var res := "VICTORIA" if mine > _rival_goals else ("DERROTA" if mine < _rival_goals else "EMPATE")
     _hand_title.text = "FIN"
-    _show_menu(title, "%s\nTú %d - %d %s\nJugadas: %d · Momentos con Flow: %d\nDefensa: %d jugadas · %d intercepciones · %d despejes de emergencia" % [
-        res, mine, _rival_goals, _rival.profile_name, s["plays"], s["flow_moments"],
-        s["defense_plays"], s["interceptions"], s["emergencies"]])
-    _start_button.text = "JUGAR OTRA VEZ"
+    var summary := "%s\n%s %d - %d %s\nJugadas: %d · Momentos con Flow: %d\nDefensa: %d jugadas · %d intercepciones · %d despejes de emergencia" % [
+        res, _local_name.text, mine, _rival_goals, _rival.profile_name, s["plays"], s["flow_moments"],
+        s["defense_plays"], s["interceptions"], s["emergencies"]]
+    if _career != null:
+        var entry := _career.record_match(mine, _rival_goals)
+        if not entry.is_empty():
+            summary += "\nIngreso del sponsor: $%d M" % entry["income"]
+        _start_button.text = "VOLVER AL CALENDARIO"
+    else:
+        _start_button.text = "JUGAR OTRA VEZ"
+    _show_menu(title, summary)
 
 
 # ================================================================== Mano de cartas

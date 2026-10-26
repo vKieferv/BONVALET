@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="Futbolista Deckbuilder"
-run/main_scene="res://scenes/match_view.tscn"
+run/main_scene="res://scenes/calendar_view.tscn"
 config/features=PackedStringArray("4.7")
 
 [display]

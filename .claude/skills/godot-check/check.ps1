@@ -66,12 +66,16 @@ if ($code -ne 0) { $failed += "check_scripts" }
 if ($failed.Count -eq 0) {
     $code = Invoke-Godot "engine_rules" @("-s", "res://tests/engine_rules.gd")
     if ($code -ne 0) { $failed += "engine_rules" }
+    $code = Invoke-Godot "career_rules" @("-s", "res://tests/career_rules.gd")
+    if ($code -ne 0) { $failed += "career_rules" }
 }
 
 # 4. Prueba de humo del partido (solo si compila)
 if (-not $SkipSmoke -and $failed.Count -eq 0) {
     $code = Invoke-Godot "smoke_match" @("-s", "res://tests/smoke_match.gd", "--", "--matches=$Matches")
     if ($code -ne 0) { $failed += "smoke_match" }
+    $code = Invoke-Godot "smoke_career" @("-s", "res://tests/smoke_career.gd")
+    if ($code -ne 0) { $failed += "smoke_career" }
 }
 
 # 5. Métricas de balance por arquetipo (opcional, 2000 partidos por perfil con semillas fijas)

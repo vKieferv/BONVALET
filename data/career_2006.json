@@ -1,0 +1,32 @@
+{
+  "_notes": [
+    "Modo carrera: datos de la semana. Marcas, diarios y canales siempre paródicos (nunca nombres reales).",
+    "Montos en millones de CLP por semana: valores de diseño, no cifras reales. Oferta real = monto x escala de división x (1 + per_facility_level x nivel de instalaciones).",
+    "Efectos de partido en puntos de acierto (0.05 = +5%). Fatiga 0-100: reduce la energía inicial (energía x (1 - fatiga/200))."
+  ],
+  "start": {"popularity": 50, "discipline": 50, "fatigue": 0},
+  "sponsors": [
+    {"id": "cerveza_glaciar", "name": "Cerveza Glaciar", "pitch": "La rubia del sur. Menos fijo, más premio por ganar.",
+     "weekly": 40, "win_bonus": 30, "conduct_clause": false},
+    {"id": "telnet", "name": "Telnet", "pitch": "La compañía de los teléfonos. Más fijo, pero cuida su imagen.",
+     "weekly": 60, "win_bonus": 10, "conduct_clause": true}
+  ],
+  "sponsor_scale": {"division": {"Primera A": 1.0, "Primera B": 0.35}, "per_facility_level": 0.25},
+  "events": [
+    {
+      "id": "bautizazo",
+      "title": "Bautizazo en Bellavista",
+      "text": "El plantel quiere celebrar el cumpleaños del capitán en una disco de Bellavista. El fotógrafo de Diario El Chisme ya anda rondando.",
+      "accept_label": "Dar permiso",
+      "decline_label": "Concentración en el hotel",
+      "reward": {"opening_bonus": 0.05, "opening_moments": 2, "popularity": 5},
+      "risk": {"chance": 0.30, "discipline": -10, "funado_surcharge": 1, "lose_sponsor_week_if_clause": true},
+      "decline": {"discipline": 2, "popularity": -2}
+    }
+  ],
+  "training": {
+    "tactical": {"name": "Entrenamiento táctico", "form_bonus": 0.03, "fatigue": 10},
+    "physio": {"name": "Kinesiología", "form_bonus": 0.0, "fatigue": -25}
+  },
+  "match": {"fatigue": 15, "popularity_win": 3, "popularity_loss": -3}
+}

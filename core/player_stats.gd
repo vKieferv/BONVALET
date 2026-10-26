@@ -19,7 +19,9 @@ var regen_normal_pct := 0.22   # % del tope que se recupera entre momentos en po
 # Umbral de Flow de prueba. Si es > 0, ignora la Visión. Poner 0 para volver a 2/3 por Visión.
 const FLOW_THRESHOLD_TEST := 2
 
-var player_id := ""   # quién ejecuta las cartas: si coincide con card.owner_id es Ejecutor Natural
+# Ejecutor Natural: una carta lo activa si su owner_id es player_id o uno de los titulares en cancha.
+var player_id := ""
+var lineup: Array[String] = []
 
 var energy := 0.0
 var fatigue := 0.0   # 0-100, acumulada entre partidos

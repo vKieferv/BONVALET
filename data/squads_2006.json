@@ -1,0 +1,84 @@
+{
+  "league_id": "chile_2006",
+  "season": 2006,
+  "_notes": [
+    "Planteles reales base (18 jugadores) de Colo-Colo, U. de Chile y U. Católica. El resto de los clubes los completa SquadGenerator (scripts/squad_generator.gd) de forma determinista, con nombres ficticios más la figura real del club.",
+    "Fuentes: jugadores con membresía en el club que incluye 2006 según Wikidata (P54 con fechas), cruzado para Colo-Colo con el plantel 2006 publicado por Redgol. Nombre, fecha de nacimiento y nacionalidad (P27) vienen de Wikidata; se eligieron solo jugadores con una única fecha de nacimiento registrada, salvo Aróstegui (ver review).",
+    "age: edad al 1 de julio de 2006. nationality: código de 3 letras (CHI, ARG...).",
+    "position: línea (POR, DEF, MED, DEL). role, stamina_max (40-100) y skill_rating (40-99) son valores de diseño para el juego, no estadísticas reales.",
+    "signature_card_id: carta de data/signature_cards.json. La figura del club (signature_card en teams_chile_2006.json) sin carta propia recibe una carta firma genérica."
+  ],
+  "squads": {
+    "colo_colo": {
+      "players": [
+        {"id": "claudio_bravo",      "name": "Claudio Bravo",          "age": 23, "nationality": "CHI", "position": "POR", "role": "POR", "stamina_max": 70, "skill_rating": 80, "signature_card_id": null},
+        {"id": "sebastian_cejas",    "name": "Sebastián Cejas",        "age": 31, "nationality": "ARG", "position": "POR", "role": "POR", "stamina_max": 62, "skill_rating": 68, "signature_card_id": null},
+        {"id": "luis_mena",          "name": "Luis Mena",              "age": 26, "nationality": "CHI", "position": "DEF", "role": "LAT", "stamina_max": 74, "skill_rating": 70, "signature_card_id": null},
+        {"id": "miguel_riffo",       "name": "Miguel Riffo",           "age": 25, "nationality": "CHI", "position": "DEF", "role": "DFC", "stamina_max": 72, "skill_rating": 72, "signature_card_id": null},
+        {"id": "miguel_aceval",      "name": "Miguel Aceval",          "age": 23, "nationality": "CHI", "position": "DEF", "role": "LAT", "stamina_max": 76, "skill_rating": 71, "signature_card_id": null},
+        {"id": "andres_gonzalez",    "name": "Andrés Felipe González", "age": 22, "nationality": "COL", "position": "DEF", "role": "DFC", "stamina_max": 72, "skill_rating": 70, "signature_card_id": null},
+        {"id": "celso_ayala",        "name": "Celso Ayala",            "age": 35, "nationality": "PAR", "position": "DEF", "role": "DFC", "stamina_max": 58, "skill_rating": 73, "signature_card_id": null},
+        {"id": "cristian_abarca",    "name": "Cristián Abarca",        "age": 17, "nationality": "CHI", "position": "DEF", "role": "DFC", "stamina_max": 68, "skill_rating": 58, "signature_card_id": null},
+        {"id": "arturo_vidal",       "name": "Arturo Vidal",           "age": 19, "nationality": "CHI", "position": "MED", "role": "MCD", "stamina_max": 84, "skill_rating": 74, "signature_card_id": null},
+        {"id": "matias_fernandez",   "name": "Matías Fernández",       "age": 20, "nationality": "CHI", "position": "MED", "role": "MCO", "stamina_max": 74, "skill_rating": 84, "signature_card_id": null},
+        {"id": "rodrigo_melendez",   "name": "Rodrigo Meléndez",       "age": 28, "nationality": "CHI", "position": "MED", "role": "MCD", "stamina_max": 76, "skill_rating": 72, "signature_card_id": null},
+        {"id": "gonzalo_fierro",     "name": "Gonzalo Fierro",         "age": 23, "nationality": "CHI", "position": "MED", "role": "EXT", "stamina_max": 78, "skill_rating": 71, "signature_card_id": null},
+        {"id": "moises_villarroel",  "name": "Moisés Villarroel",      "age": 30, "nationality": "CHI", "position": "MED", "role": "MCD", "stamina_max": 70, "skill_rating": 70, "signature_card_id": null},
+        {"id": "jose_luis_jerez",    "name": "José Luis Jerez",        "age": 28, "nationality": "CHI", "position": "MED", "role": "MCO", "stamina_max": 68, "skill_rating": 66, "signature_card_id": null},
+        {"id": "humberto_suazo",     "name": "Humberto Suazo",         "age": 25, "nationality": "CHI", "position": "DEL", "role": "DEL", "stamina_max": 74, "skill_rating": 86, "signature_card_id": "zapatazo"},
+        {"id": "alexis_sanchez",     "name": "Alexis Sánchez",         "age": 17, "nationality": "CHI", "position": "DEL", "role": "EXT", "stamina_max": 76, "skill_rating": 72, "signature_card_id": null},
+        {"id": "hector_mancilla",    "name": "Héctor Mancilla",        "age": 25, "nationality": "CHI", "position": "DEL", "role": "DEL", "stamina_max": 70, "skill_rating": 74, "signature_card_id": null},
+        {"id": "mario_caceres",      "name": "Mario Cáceres",          "age": 25, "nationality": "CHI", "position": "DEL", "role": "DEL", "stamina_max": 66, "skill_rating": 64, "signature_card_id": null}
+      ],
+      "review": []
+    },
+    "universidad_de_chile": {
+      "players": [
+        {"id": "miguel_pinto",         "name": "Miguel Pinto",         "age": 22, "nationality": "CHI", "position": "POR", "role": "POR", "stamina_max": 68, "skill_rating": 74, "signature_card_id": null},
+        {"id": "jose_carlo_fernandez", "name": "José Carlo Fernández", "age": 35, "nationality": "BOL", "position": "POR", "role": "POR", "stamina_max": 58, "skill_rating": 66, "signature_card_id": null},
+        {"id": "waldo_ponce",          "name": "Waldo Ponce",          "age": 23, "nationality": "CHI", "position": "DEF", "role": "DFC", "stamina_max": 72, "skill_rating": 74, "signature_card_id": null},
+        {"id": "nicolas_sartori",      "name": "Nicolás Sartori",      "age": 30, "nationality": "ARG", "position": "DEF", "role": "DFC", "stamina_max": 66, "skill_rating": 70, "signature_card_id": null},
+        {"id": "jose_rojas",           "name": "José Rojas",           "age": 23, "nationality": "CHI", "position": "DEF", "role": "LAT", "stamina_max": 74, "skill_rating": 70, "signature_card_id": null},
+        {"id": "rodrigo_jara",         "name": "Rodrigo Jara",         "age": 21, "nationality": "CHI", "position": "DEF", "role": "LAT", "stamina_max": 74, "skill_rating": 66, "signature_card_id": null},
+        {"id": "adrian_rojas",         "name": "Adrián Rojas",         "age": 29, "nationality": "CHI", "position": "DEF", "role": "DFC", "stamina_max": 66, "skill_rating": 66, "signature_card_id": null},
+        {"id": "mauricio_gomez",       "name": "Mauricio Gómez",       "age": 17, "nationality": "CHI", "position": "DEF", "role": "LAT", "stamina_max": 66, "skill_rating": 56, "signature_card_id": null},
+        {"id": "manuel_iturra",        "name": "Manuel Iturra",        "age": 22, "nationality": "CHI", "position": "MED", "role": "MCD", "stamina_max": 80, "skill_rating": 72, "signature_card_id": null},
+        {"id": "marcelo_diaz",         "name": "Marcelo Díaz",         "age": 19, "nationality": "CHI", "position": "MED", "role": "MCD", "stamina_max": 74, "skill_rating": 64, "signature_card_id": null},
+        {"id": "hernan_losada",        "name": "Hernán Losada",        "age": 24, "nationality": "ARG", "position": "MED", "role": "MCO", "stamina_max": 66, "skill_rating": 70, "signature_card_id": null},
+        {"id": "mayer_candelo",        "name": "Mayer Candelo",        "age": 29, "nationality": "COL", "position": "MED", "role": "MCO", "stamina_max": 66, "skill_rating": 76, "signature_card_id": null},
+        {"id": "felipe_seymour",       "name": "Felipe Seymour",       "age": 18, "nationality": "CHI", "position": "MED", "role": "MCD", "stamina_max": 72, "skill_rating": 60, "signature_card_id": null},
+        {"id": "luis_pedro_figueroa",  "name": "Luis Pedro Figueroa",  "age": 23, "nationality": "CHI", "position": "MED", "role": "EXT", "stamina_max": 76, "skill_rating": 70, "signature_card_id": null},
+        {"id": "herly_alcazar",        "name": "Herly Alcázar",        "age": 29, "nationality": "COL", "position": "DEL", "role": "DEL", "stamina_max": 70, "skill_rating": 80, "signature_card_id": null},
+        {"id": "marcelo_salas",        "name": "Marcelo Salas",        "age": 31, "nationality": "CHI", "position": "DEL", "role": "DEL", "stamina_max": 60, "skill_rating": 78, "signature_card_id": null},
+        {"id": "rodrigo_astudillo",    "name": "Rodrigo Astudillo",    "age": 28, "nationality": "ARG", "position": "DEL", "role": "DEL", "stamina_max": 68, "skill_rating": 72, "signature_card_id": null},
+        {"id": "hugo_droguett",        "name": "Hugo Droguett",        "age": 23, "nationality": "CHI", "position": "DEL", "role": "EXT", "stamina_max": 76, "skill_rating": 70, "signature_card_id": null}
+      ],
+      "review": []
+    },
+    "universidad_catolica": {
+      "players": [
+        {"id": "jose_maria_buljubasich", "name": "José María Buljubasich", "age": 35, "nationality": "ARG", "position": "POR", "role": "POR", "stamina_max": 60, "skill_rating": 76, "signature_card_id": null},
+        {"id": "paulo_garces",           "name": "Paulo Garcés",           "age": 21, "nationality": "CHI", "position": "POR", "role": "POR", "stamina_max": 68, "skill_rating": 62, "signature_card_id": null},
+        {"id": "hernan_madrid",          "name": "Hernán Madrid",          "age": 25, "nationality": "CHI", "position": "DEF", "role": "DFC", "stamina_max": 70, "skill_rating": 70, "signature_card_id": null},
+        {"id": "eros_perez",             "name": "Eros Pérez",             "age": 30, "nationality": "CHI", "position": "DEF", "role": "LAT", "stamina_max": 70, "skill_rating": 68, "signature_card_id": null},
+        {"id": "albert_acevedo",         "name": "Albert Acevedo",         "age": 23, "nationality": "CHI", "position": "DEF", "role": "DFC", "stamina_max": 72, "skill_rating": 68, "signature_card_id": null},
+        {"id": "miguel_ponce",           "name": "Miguel Ponce",           "age": 34, "nationality": "CHI", "position": "DEF", "role": "DFC", "stamina_max": 58, "skill_rating": 68, "signature_card_id": null},
+        {"id": "mauricio_zenteno",       "name": "Mauricio Zenteno",       "age": 22, "nationality": "CHI", "position": "DEF", "role": "LAT", "stamina_max": 74, "skill_rating": 64, "signature_card_id": null},
+        {"id": "manuel_ormazabal",       "name": "Manuel Ormazábal",       "age": 23, "nationality": "CHI", "position": "DEF", "role": "LAT", "stamina_max": 70, "skill_rating": 64, "signature_card_id": null},
+        {"id": "dario_conca",            "name": "Darío Conca",            "age": 23, "nationality": "ARG", "position": "MED", "role": "MCO", "stamina_max": 74, "skill_rating": 82, "signature_card_id": null},
+        {"id": "jorge_ormeno",           "name": "Jorge Ormeño",           "age": 29, "nationality": "CHI", "position": "MED", "role": "MCD", "stamina_max": 72, "skill_rating": 70, "signature_card_id": null},
+        {"id": "gary_medel",             "name": "Gary Medel",             "age": 18, "nationality": "CHI", "position": "MED", "role": "MCD", "stamina_max": 82, "skill_rating": 68, "signature_card_id": null},
+        {"id": "francisco_silva",        "name": "Francisco Silva",        "age": 20, "nationality": "CHI", "position": "MED", "role": "MCD", "stamina_max": 74, "skill_rating": 62, "signature_card_id": null},
+        {"id": "alejandro_osorio",       "name": "Alejandro Osorio",       "age": 29, "nationality": "CHI", "position": "MED", "role": "MCO", "stamina_max": 66, "skill_rating": 66, "signature_card_id": null},
+        {"id": "jose_pedro_fuenzalida",  "name": "José Pedro Fuenzalida",  "age": 21, "nationality": "CHI", "position": "MED", "role": "EXT", "stamina_max": 78, "skill_rating": 68, "signature_card_id": null},
+        {"id": "juan_manuel_arostegui",  "name": "Juan Manuel Aróstegui",  "age": 26, "nationality": "ARG", "position": "DEL", "role": "DEL", "stamina_max": 68, "skill_rating": 74, "signature_card_id": null},
+        {"id": "jorge_quinteros",        "name": "Jorge Quinteros",        "age": 31, "nationality": "ARG", "position": "DEL", "role": "DEL", "stamina_max": 64, "skill_rating": 76, "signature_card_id": null},
+        {"id": "roberto_gutierrez",      "name": "Roberto Gutiérrez",      "age": 23, "nationality": "CHI", "position": "DEL", "role": "DEL", "stamina_max": 70, "skill_rating": 68, "signature_card_id": null},
+        {"id": "willy_topp",             "name": "Willy Topp",             "age": 20, "nationality": "CHI", "position": "DEL", "role": "EXT", "stamina_max": 72, "skill_rating": 62, "signature_card_id": null}
+      ],
+      "review": [
+        "juan_manuel_arostegui: Wikidata registra dos fechas de nacimiento (12-02-1980 y 02-12-1980); edad 25 o 26 al 1-jul-2006"
+      ]
+    }
+  }
+}

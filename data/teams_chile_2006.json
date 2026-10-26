@@ -360,6 +360,7 @@
       "short_name": "D. Concepción",
       "code": "DCO",
       "division": "Primera A",
+      "suspended": true,
       "dt": null,
       "archetype": "Directo",
       "stadium": "Estadio Municipal de Concepción",

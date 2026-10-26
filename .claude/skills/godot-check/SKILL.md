@@ -19,8 +19,8 @@ Opciones:
 ## Qué hace
 1. `--import`: regenera la caché de `class_name` (necesario tras crear o renombrar scripts).
 2. `tests/check_scripts.gd`: carga cada `.gd` y `.tscn`; falla si alguno no compila.
-3. `tests/engine_rules.gd`: reglas del motor y de los datos sin escena (filtro de posesión, Ejecutor Natural, defensa y despeje de emergencia, fases de Kamikaze, clubes grandes vs LOW, `validate_deck` positivo y negativo, integridad de los 32 clubes).
-4. `tests/smoke_match.gd`: instancia `match_view.tscn`, juega partidos completos (ataque y defensa, con algún despeje de emergencia) y comprueba que ningún partido se cuelgue, que el marcador coincida con `MatchEngine.stats`, que la postura no cambie durante una jugada, que haya fases defensivas y que `exploit_rival_space` se active al jugar LOW contra un rival que castiga la pasividad.
+3. `tests/engine_rules.gd` y `tests/career_rules.gd`: reglas sin escena. `career_rules` revisa los planteles de los 32 clubes (18 jugadores, Sub-21, extranjeros, ids únicos, 11 titulares), el mazo de cada club contra `validate_deck`, el Ejecutor Natural por titulares y la semana del modo carrera. `engine_rules` revisa (filtro de posesión, Ejecutor Natural, defensa y despeje de emergencia, fases de Kamikaze, clubes grandes vs LOW, `validate_deck` positivo y negativo, integridad de los 32 clubes).
+4. `tests/smoke_match.gd`: instancia `match_view.tscn`, juega partidos completos (ataque y defensa, con algún despeje de emergencia) y comprueba que ningún partido se cuelgue, que el marcador coincida con `MatchEngine.stats`, que la postura no cambie durante una jugada, que haya fases defensivas y que `exploit_rival_space` se active al jugar LOW contra un rival que castiga la pasividad. Después, `tests/smoke_career.gd` juega dos semanas del modo carrera (calendario → partido → calendario) y comprueba que la carrera avance.
 
 Cualquier `SCRIPT ERROR` en ejecución cuenta como falla, aunque Godot salga con código 0. El resultado final es `RESULTADO: OK` o `RESULTADO: FALLA (pasos)`; el script sale con código 1 si falla. Los logs completos quedan en `%TEMP%\godot-check\`.
 

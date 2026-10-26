@@ -1,8 +1,8 @@
 {
-  "_notes": "Mazo unificado (18-20 cartas). Ataque: control, pass, dribble, cross, shot, pause. Defensa: press, block, intercept, clearance. owner_id = jugador dueño (Ejecutor Natural); age < 21 cuenta como Sub-21; nationality (CHI, ARG...) o foreign = extranjero.",
+  "_notes": "Mazo colectivo del DT (19 cartas); SquadManager le suma las cartas firma de los titulares (data/signature_cards.json) hasta un mazo unificado de 18-20. Ataque: control, pass, dribble, cross, shot, pause. Defensa: press, block, intercept, clearance. tag canterano: SquadManager se la asigna a un Sub-21 del plantel (owner_id, edad y nacionalidad del jugador). age < 21 cuenta como Sub-21; nationality (CHI, ARG...) o foreign = extranjero.",
   "cards": [
 	{"id": "pase_corto",      "name": "Pase corto",         "type": "basic",    "kind": "pass",      "cost": 2,  "bonus": 0.06, "count": 3},
-	{"id": "promesa_control", "name": "Promesa: Control",   "type": "basic",    "kind": "control",   "cost": 2,  "bonus": 0.05, "count": 2, "age": 19},
+	{"id": "promesa_control", "name": "Promesa: Control",   "type": "basic",    "kind": "control",   "cost": 2,  "bonus": 0.05, "count": 2, "age": 19, "tags": ["canterano"]},
 	{"id": "movimiento",      "name": "Desmarque",          "type": "basic",    "kind": "control",   "cost": 2,  "bonus": 0.07, "count": 1, "tags": ["fisica"]},
 	{"id": "pase_al_pie",     "name": "Pase al pie",        "type": "basic",    "kind": "pass",      "cost": 3,  "bonus": 0.08, "count": 1},
 	{"id": "pausa",           "name": "Pausa",              "type": "basic",    "kind": "pause",     "cost": 1,  "bonus": 0.25, "count": 1},
@@ -14,7 +14,6 @@
 
 	{"id": "chilena",         "name": "Chilena",            "type": "elite",    "kind": "shot",      "cost": 12, "bonus": 0.45, "count": 1, "tags": ["fisica"], "foreign": true},
 	{"id": "remate_primera",  "name": "Remate de primera",  "type": "elite",    "kind": "shot",      "cost": 11, "bonus": 0.40, "count": 1},
-	{"id": "zapatazo",        "name": "Zapatazo",           "type": "elite",    "kind": "shot",      "cost": 11, "bonus": 0.38, "count": 1, "owner_id": "suazo", "age": 25, "nationality": "CHI"},
 
 	{"id": "presion",         "name": "Presión",            "type": "basic",    "kind": "press",     "cost": 2,  "bonus": 0.06, "count": 2, "tags": ["fisica"]},
 	{"id": "bloqueo",         "name": "Bloqueo",            "type": "basic",    "kind": "block",     "cost": 3,  "bonus": 0.08, "count": 1},

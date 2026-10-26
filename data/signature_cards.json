@@ -1,0 +1,7 @@
+{
+  "_notes": "Cartas firma (privadas de un jugador). SquadManager las agrega al mazo solo si su dueño es titular, con owner_id = id del jugador (Ejecutor Natural). template se usa para la figura del club que no tiene carta propia; %s = apellido.",
+  "cards": {
+	"zapatazo": {"id": "zapatazo", "name": "Zapatazo", "type": "elite", "kind": "shot", "cost": 11, "bonus": 0.38}
+  },
+  "template": {"name": "Sello de %s", "type": "elite", "kind": "shot", "cost": 11, "bonus": 0.36}
+}

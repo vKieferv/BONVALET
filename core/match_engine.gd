@@ -66,6 +66,9 @@ var opening_moments := 0
 var late_from_moment := MAX_MOMENTS   # desde este Momento (0 = primero) se aplica el desgaste tardío
 var late_cost_mult := 1.0
 var late_injury_mult := 1.0
+# Semana previa (modo carrera): forma del entrenamiento y jugadores funados.
+var form_bonus := 0.0            # puntos de acierto en todas las jugadas (ataque y defensa)
+var owner_cost_surcharge := {}   # owner_id -> energía extra en sus cartas (funado: +1)
 # Defensa rival aplicada al Momento en curso (la fija quien defiende; se limpia en advance()).
 var opponent_pressure := 0.0
 var opponent_block := 0.0
@@ -139,7 +142,7 @@ func current_moment() -> Dictionary:
 
 
 func is_natural_executor(card: Card) -> bool:
-	return card.owner_id != "" and card.owner_id == player.player_id
+	return card.owner_id != "" and (card.owner_id == player.player_id or player.lineup.has(card.owner_id))
 
 
 func _late() -> bool:
@@ -208,6 +211,7 @@ func cost_of(card: Card) -> int:
 		c *= late_cost_mult
 	if exploit_rival_space and card.kind == Card.Kind.SHOT:
 		c -= PASSIVITY_COST_REDUCTION
+	c += float(owner_cost_surcharge.get(card.owner_id, 0))
 	return maxi(1, ceili(c))
 
 
@@ -221,6 +225,7 @@ func success_chance(card: Card) -> float:
 			p -= EXHAUSTED_PENALTY
 	if is_natural_executor(card):
 		p += NATURAL_EXECUTOR_BONUS
+	p += form_bonus
 	if not in_defense:
 		if moment_idx < opening_moments:
 			p += opening_bonus

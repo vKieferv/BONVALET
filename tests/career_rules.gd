@@ -22,6 +22,7 @@ func _initialize() -> void:
 	_test_generator_is_deterministic()
 	_test_decks_for_every_club()
 	_test_natural_executor_by_lineup()
+	_test_big_clubs_bring_their_stars()
 	_test_week_flow()
 	_test_rivals_and_sponsor_scale()
 	print("career_rules: %d comprobaciones, %d fallas" % [checks, failures.size()])
@@ -110,6 +111,28 @@ func _test_natural_executor_by_lineup() -> void:
 		var base := e.cost_of(zapatazo)
 		e.owner_cost_surcharge = {"humberto_suazo": 1}
 		_check(e.cost_of(zapatazo) == base + 1, "el funado debería pagar +1 de energía en sus cartas")
+
+
+# Paridad: un club rival arma el mismo mazo que tendría como club propio. Los grandes traen la
+# carta firma de su figura titular, y con sus titulares en cancha el Ejecutor Natural se activa.
+func _test_big_clubs_bring_their_stars() -> void:
+	var templates := CardDB.load_templates("res://data/cards.json")
+	for id in REAL_SQUADS:
+		var as_dicts := squads.build_match_templates(id, templates)
+		var deck := squads.build_match_deck(id, templates)
+		_check(as_dicts.size() == deck.size(), "%s: el mazo en diccionarios y en cartas debería ser el mismo" % id)
+		var player := PlayerStats.new()
+		player.lineup = squads.lineup_ids(id)
+		var rng := RandomNumberGenerator.new()
+		var e := MatchEngine.new(player, DeckManager.new(deck, [], rng), rng, 0.15)
+		var figure := String(league.get_team(id)["signature_card"])
+		var star_card := false
+		for c in deck:
+			var owner := squads.find_player(id, c.owner_id)
+			if c.type == Card.Type.ELITE and owner.get("name", "") == figure:
+				star_card = true
+				_check(e.is_natural_executor(c), "%s: la carta firma de %s debería activar el Ejecutor Natural" % [id, figure])
+		_check(star_card, "%s: el mazo debería traer la carta firma de %s" % [id, figure])
 
 
 func _test_week_flow() -> void:

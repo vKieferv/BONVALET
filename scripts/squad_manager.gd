@@ -167,8 +167,17 @@ func signature_card_for(player: Dictionary) -> Dictionary:
     return d
 
 
-# Mazo unificado del club: cartas del DT + cartas de canteranos asignadas + firmas de los titulares.
+# Mazo unificado del club como cartas listas para el partido.
 func build_match_deck(team_id: String, templates: Array) -> Array:
+    var deck: Array = []
+    for d in build_match_templates(team_id, templates):
+        deck.append(Card.from_dict(d))
+    return deck
+
+
+# Mazo unificado del club como diccionarios (lo que usa SimRunner para construir un mazo nuevo
+# por partido): cartas del DT + cartas de canteranos asignadas + firmas de los titulares.
+func build_match_templates(team_id: String, templates: Array) -> Array:
     var starters := pick_starters(team_id)
     var starter_ids := {}
     for p in starters:
@@ -186,7 +195,7 @@ func build_match_deck(team_id: String, templates: Array) -> Array:
         return int(a["age"]) < int(b["age"])
     youth.sort_custom(youth_order)
 
-    var deck: Array = []
+    var out: Array = []
     var y := 0
     for t in templates:
         var d: Dictionary = t.duplicate()
@@ -195,12 +204,12 @@ func build_match_deck(team_id: String, templates: Array) -> Array:
             y += 1
             d["name"] = "Promesa: %s" % short_name(p)
             _stamp_owner(d, p)
-        deck.append(Card.from_dict(d))
+        out.append(d)
     for p in starters:
         var sig := signature_card_for(p)
         if not sig.is_empty():
-            deck.append(Card.from_dict(sig))
-    return deck
+            out.append(sig)
+    return out
 
 
 func _stamp_owner(d: Dictionary, player: Dictionary) -> void:

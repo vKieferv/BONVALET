@@ -4,17 +4,22 @@ extends RefCounted
 # Simula `n` partidos con un perfil. Usa semillas 1..n, así que dos perfiles
 # comparados juegan exactamente los mismos partidos (comparación pareada).
 # Seguro para ejecutar en un hilo.
-# cfg (opcional): energy_max (tope con Stamina 60), regen_normal_pct, rival_difficulty, defense_influence
+# cfg (opcional): energy_max (tope con Stamina 60), regen_normal_pct, rival_difficulty, defense_influence,
+# lineup (ids de titulares: activan el Ejecutor Natural de las cartas con owner_id; ver
+# SquadManager.build_match_templates para simular a un club con su plantel).
 static func run(profile: BotProfile, n: int, cfg: Dictionary, templates: Array, progress: Callable = Callable()) -> Dictionary:
 	var totals := {}
 	var goals := PackedInt32Array()
 	goals.resize(n)
+	var lineup: Array[String] = []
+	lineup.assign(cfg.get("lineup", []))
 	for s in n:
 		var rng := RandomNumberGenerator.new()
 		rng.seed = s + 1
 		var player := PlayerStats.new()
 		player.set_energy_cap(cfg.get("energy_max", 58.0))
 		player.regen_normal_pct = cfg.get("regen_normal_pct", 0.22)
+		player.lineup = lineup
 		var deck := DeckManager.new(CardDB.build_deck(templates), [], rng)
 		var e := MatchEngine.new(player, deck, rng, cfg.get("rival_difficulty", 0.15))
 		profile.configure_engine(e)

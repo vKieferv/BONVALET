@@ -440,12 +440,17 @@ func _begin_match() -> void:
     _next_step()
 
 
-# Partido "fantasma" del rival: mismo motor, movido por CoachBot con su perfil.
+# Partido "fantasma" del rival: mismo motor, movido por CoachBot con su perfil. Juega con las
+# mismas reglas que tú: su plantel arma su mazo (cartas firma de sus titulares y canteranos) y
+# sus titulares activan el Ejecutor Natural.
 func _setup_rival_engine() -> void:
     var rng := RandomNumberGenerator.new()
     rng.randomize()
-    var deck := DeckManager.new(CardDB.build_deck(_templates), [], rng)
-    _rival_engine = MatchEngine.new(PlayerStats.new(), deck, rng,
+    var rival_id := String(_rival_team["id"])
+    var deck := DeckManager.new(_squads.build_match_deck(rival_id, _templates), [], rng)
+    var player := PlayerStats.new()
+    player.lineup = _squads.lineup_ids(rival_id)
+    _rival_engine = MatchEngine.new(player, deck, rng,
             LeagueManager.team_attack_difficulty(_rival_team, BASE_DIFFICULTY))
     _rival.configure_engine(_rival_engine)
     _rival_engine.start()
@@ -464,16 +469,24 @@ func _play_rival_moment(exploited: bool, defense: Dictionary) -> Dictionary:
     e.opponent_block = defense.get("block", 0.0)
     var m := e.begin_moment()
     var goals_before: int = e.stats["goals"]
+    var scorer := {}
+    var natural_names: Array = []
     while not e.moment_over:
         var idx := CoachBot.choose(e, _rival)
         if idx < 0:
             e.abort_moment()
             break
-        e.play_card(idx)
+        var pev := e.play_card(idx)
+        if pev.get("natural", false) and not natural_names.has(pev["card_name"]):
+            natural_names.append(pev["card_name"])
+        if pev.get("goal", false):
+            scorer = pev
     var ev := {
         "minute": m["minute"],
         "goal": e.stats["goals"] > goals_before,
         "energy_pct": e.player.energy_pct(),
+        "scorer": scorer,              # evento de la jugada del gol (card_name, natural)
+        "natural_cards": natural_names,
     }
     e.advance(_rival.default_posture as MatchEngine.Posture)
     return ev
@@ -524,11 +537,17 @@ func _rival_event() -> bool:
         return true
 
     var ev := _play_rival_moment(exploited, defense)
+    if not ev["natural_cards"].is_empty():
+        # Su figura jugó su propia carta: mismo resplandor y aviso que en tus jugadas.
+        await _banner_show("★ %s · EJECUTOR NATURAL" % ", ".join(ev["natural_cards"]).to_upper(), COLOR_NATURAL, 0.8)
     if ev["goal"]:
         _rival_goals += 1
         _away_goals.text = str(_rival_goals)
         _ball_place(0.015, 0.5)
-        await _banner_show("¡GOL DE %s!" % nm, COLOR_BAD, 1.3)
+        var how := ""
+        if not ev["scorer"].is_empty():
+            how = " · " + String(ev["scorer"]["card_name"]).to_upper()
+        await _banner_show("¡GOL DE %s!%s" % [nm, how], COLOR_BAD, 1.3)
     else:
         await _banner_show("ATACA %s... ¡SE SALVÓ!" % nm, COLOR_WARN, 0.9)
     if defense["emergency"] and _rival_engine.grant_extra_moment(minute):

@@ -21,19 +21,30 @@ func _init() -> void:
 		print("No se pudo cargar la liga: %s" % [league.load_errors])
 		quit(1)
 		return
-	print("Peligro del rival según tu postura (goles/partido del rival, sin tu defensa):")
+	# Peligro de cada club atacándote, con su dificultad de ataque real. "Genérico" = mazo de
+	# cards.json sin dueños (como antes); "plantel" = su mazo real con cartas firma y Ejecutor
+	# Natural de sus titulares (como juega ahora en match_view).
+	var squads := SquadManager.new()
+	squads.load_all(league)
+	print("Peligro del rival (goles/partido del rival, sin tu defensa) · mazo genérico → con plantel:")
 	for id in ["colo_colo", "universidad_de_chile", "universidad_catolica", "cobreloa", "huachipato", "magallanes"]:
 		var team := league.get_team(id)
 		if team.is_empty():
 			continue
 		var prof := league.profile_for_team(team)
+		var team_tpl := squads.build_match_templates(id, tpl)
 		var cfg := {"rival_difficulty": LeagueManager.team_attack_difficulty(team, BASE_DIFFICULTY)}
-		var cfg_low := cfg.duplicate()
+		var cfg_squad := cfg.duplicate()
+		cfg_squad["lineup"] = squads.lineup_ids(id)
+		var cfg_low := cfg_squad.duplicate()
 		cfg_low["rival_posture"] = MatchEngine.Posture.LOW
-		var g_normal: float = SimRunner.metrics(SimRunner.run(prof, MATCHES, cfg, tpl))["goals_per_match"]
-		var g_low: float = SimRunner.metrics(SimRunner.run(prof, MATCHES, cfg_low, tpl))["goals_per_match"]
-		print("%-12s (%s, inst. %d%s) | vs tu NORMAL %.2f | vs tu LOW %.2f (%+.0f%%)" % [
+		var g_generic: float = SimRunner.metrics(SimRunner.run(prof, MATCHES, cfg, tpl))["goals_per_match"]
+		var r_squad := SimRunner.run(prof, MATCHES, cfg_squad, team_tpl)
+		var g_squad: float = SimRunner.metrics(r_squad)["goals_per_match"]
+		var g_low: float = SimRunner.metrics(SimRunner.run(prof, MATCHES, cfg_low, team_tpl))["goals_per_match"]
+		var natural := float(r_squad["totals"].get("natural_plays", 0)) / MATCHES
+		print("%-12s (%s, inst. %d%s) | vs tu NORMAL %.2f → %.2f (%+.0f%%) | vs tu LOW %.2f | Ejecutor Natural %.1f jugadas/partido" % [
 			team["short_name"], team["archetype"], team["facilities_level"],
 			", castiga LOW" if prof.punishes_passivity else "",
-			g_normal, g_low, 100.0 * (g_low - g_normal) / maxf(0.01, g_normal)])
+			g_generic, g_squad, 100.0 * (g_squad - g_generic) / maxf(0.01, g_generic), g_low, natural])
 	quit()

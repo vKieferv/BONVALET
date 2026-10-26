@@ -23,6 +23,7 @@ var exploit_expected := false
 var defenses := 0
 var emergencies := 0
 var natural_plays := [0]
+var rival_natural_plays := [0]
 var _defense_open := false
 var card_checks := 0
 var ui_checked_errors := false   # tras el primer error de UI se deja de revisar (evita miles de líneas)
@@ -117,6 +118,13 @@ func _start_match() -> void:
 	view._on_start_pressed()
 	if view._engine != null:
 		view._engine.natural_executor_played.connect(func(_c: Card) -> void: natural_plays[0] += 1)
+	if view._rival_engine != null:
+		# Paridad: el rival juega con su plantel (titulares y mazo con dueños).
+		view._rival_engine.natural_executor_played.connect(func(_c: Card) -> void: rival_natural_plays[0] += 1)
+		if view._rival_engine.player.lineup.size() != 11:
+			errors.append("El rival debería tener 11 titulares (tiene %d)" % view._rival_engine.player.lineup.size())
+		if not view._rival_engine.deck.active.any(func(c): return c.owner_id != ""):
+			errors.append("El mazo del rival debería traer cartas con dueño (canteranos o firma)")
 
 
 # El % de cada carta en pantalla y el badge de posesión deben reflejar el estado del motor.
@@ -162,8 +170,8 @@ func _finish() -> bool:
 		errors.append("Se jugó en LOW contra un rival que castiga la pasividad y exploit_rival_space nunca se activó")
 	if played > 0 and defenses == 0:
 		errors.append("Nunca hubo fase defensiva")
-	print("smoke_match: %d partidos, %d defensas (%d despejes de emergencia), %d jugadas de Ejecutor Natural, %d chequeos de postura, %d cartas en pantalla verificadas contra el motor, contragolpe visto: %s" % [
-		played, defenses, emergencies, natural_plays[0], lock_checks, card_checks, "sí" if exploit_seen else "no"])
+	print("smoke_match: %d partidos, %d defensas (%d despejes de emergencia), Ejecutor Natural: %d tuyas y %d del rival, %d chequeos de postura, %d cartas en pantalla verificadas contra el motor, contragolpe visto: %s" % [
+		played, defenses, emergencies, natural_plays[0], rival_natural_plays[0], lock_checks, card_checks, "sí" if exploit_seen else "no"])
 	for e in errors:
 		print("  ERROR: " + e)
 	quit(1 if errors.size() > 0 else 0)

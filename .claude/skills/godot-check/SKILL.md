@@ -11,7 +11,15 @@ Ejecuta desde la raíz del repo (`futbolista/`), sin cambiar la política de eje
 & .\.claude\skills\godot-check\check.ps1
 ```
 
-Opciones:
+En Linux (sesiones en la nube, GitHub Actions) usa `check.sh` con los mismos pasos; si no encuentra Godot (`$GODOT`, PATH o `~/.cache/godot`) descarga la versión oficial 4.7.2 desde github.com:
+
+```bash
+bash .claude/skills/godot-check/check.sh            # --skip-smoke, --balance, --matches N
+```
+
+GitHub Actions (`.github/workflows/godot-check.yml`) lo corre en cada push a `main` y en cada PR; el balance completo se lanza a mano desde la pestaña Actions ("Run workflow" → balance). Los logs quedan como artefacto `godot-check-logs`.
+
+Opciones de `check.ps1`:
 - `-Matches N` — partidos de la prueba de humo (5 por defecto; uno por arquetipo, rotando la postura).
 - `-Balance` — además corre `core/sim.gd` (2000 partidos por perfil, semillas fijas): goles, Flow, cansancio, lesiones por arquetipo. Tarda más; úsalo al tocar constantes de balance, `coach_bot.gd`, `bot_profile.gd` o `cards.json`.
 - `-SkipSmoke` — solo compilar (rápido, para cambios que no tocan la escena del partido).

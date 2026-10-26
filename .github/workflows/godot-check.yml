@@ -1,0 +1,48 @@
+# Verificación headless en cada push y PR (mismos pasos que godot-check). El balance completo
+# (sim.gd, ~5 min) se corre a mano desde la pestaña Actions con "Run workflow" → balance = true.
+name: godot-check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      balance:
+        description: "Correr también core/sim.gd (métricas de balance)"
+        type: boolean
+        default: false
+
+concurrency:
+  group: godot-check-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      GODOT_VERSION: "4.7.2"
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Caché de Godot
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/godot
+          key: godot-${{ env.GODOT_VERSION }}-linux
+
+      - name: godot-check
+        run: |
+          if [ "${{ inputs.balance }}" = "true" ]; then
+            bash .claude/skills/godot-check/check.sh --balance
+          else
+            bash .claude/skills/godot-check/check.sh
+          fi
+
+      - name: Logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: godot-check-logs
+          path: /tmp/godot-check/

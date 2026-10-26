@@ -17,6 +17,7 @@ Verificación completa (compila todo + juega partidos en headless). Úsala tras 
 ```powershell
 & .\.claude\skills\godot-check\check.ps1            # -SkipSmoke solo compila, -Balance agrega métricas y la matriz bot vs bot
 ```
+En Linux (nube, CI): `bash .claude/skills/godot-check/check.sh [--balance]`, que descarga Godot si falta. GitHub Actions lo corre en cada push y PR (repo privado `vKieferv/BONVALET`).
 Pruebas individuales (desde la raíz del repo; `--import` primero si creaste o renombraste scripts con `class_name`):
 ```powershell
 ..\Godot_v4.7.2-stable_win64_console.exe --headless --path . --import

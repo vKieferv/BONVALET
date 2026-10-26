@@ -25,8 +25,9 @@ el código, y la tarea no puede tomar decisiones de diseño por él.
 
 ## Verificar
 - `godot-check` en verde; `-Balance` si tocaste `core/`, `data/` o `scripts/career.gd`.
-- En Linux (sesión en la nube) usa la versión de la verificación para Linux cuando exista (ver
-  Sprint 0 en `docs/roadmap.md`); si todavía no existe, dilo en el PR: "sin verificar en Godot".
+- En Linux (sesión en la nube) usa `bash .claude/skills/godot-check/check.sh` (descarga Godot si
+  falta). Si el entorno no permite la descarga, dilo en el PR ("sin verificar en Godot localmente")
+  y confía en el resultado de GitHub Actions del PR.
 
 ## Entregar
 PR hacia `main` con:

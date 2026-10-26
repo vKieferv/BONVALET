@@ -18,8 +18,8 @@ entrada en `decisiones.md`. Las ideas nuevas van a `ideas.md`, no al hito en cur
 - [x] Aguantar el Balón, remates a 2 PA, constructibilidad (D-10 a D-13)
 - [x] Pilares, GDD vivo, buzón de ideas, registro de decisiones, esta hoja de ruta
 - [x] `balance-lab` permanente y skills de proceso (`idea-nueva`, `playtest`, `tarea-autonoma`)
-- [ ] Repo privado en GitHub (lo crea el usuario; luego push)
-- [ ] Versión Linux de la verificación (Godot 4.7.2 headless) + GitHub Actions en cada PR
+- [x] Repo privado en GitHub (`vKieferv/BONVALET`)
+- [x] Versión Linux de la verificación (`check.sh`) + GitHub Actions en cada push y PR
 - [ ] Probar una tarea autónoma de punta a punta (sesión en la nube → PR → revisión desde el celular)
 
 ## M1 · El partido es divertido (borrador)

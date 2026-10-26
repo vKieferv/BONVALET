@@ -10,6 +10,10 @@ const GOALS_TARGET_MAX := 2.6
 const INJURY_TARGET_MIN := 2    # % de equipos que terminan el partido lesionados
 const INJURY_TARGET_MAX := 5
 const BASE_DIFFICULTY := 0.15
+# Constructibilidad: % de inicios de Momento (postura NORMAL, 3 PA) cuya mano permite un plan de gol
+# (CoachBot.best_plan). Objetivo con estamina llena en Momentos de 3 jugadas.
+const CONSTRUCT_SAMPLES := 4000
+const CONSTRUCT_TARGET := 85
 
 
 func _init() -> void:
@@ -123,7 +127,39 @@ func _init() -> void:
 		"EN RANGO" if injuries >= INJURY_TARGET_MIN and injuries <= INJURY_TARGET_MAX else "FUERA DE RANGO"])
 	print("  CANSANCIO: Momentos que empiezan en CANSADO o AGOTADO · primer tiempo %d%% · segundo tiempo %d%%" % [
 		roundi(100.0 * total["t1"] / maxf(1.0, total["m1"])), roundi(100.0 * total["t2"] / maxf(1.0, total["m2"]))])
+
+	# Constructibilidad de mano con el mazo real de Colo-Colo.
+	print("Constructibilidad de mano (Colo-Colo, %d inicios de Momento en NORMAL · %% con jugada de gol armable):" % CONSTRUCT_SAMPLES)
+	for steps in [3, 2]:
+		var cells: Array = []
+		for zone_pct in [1.0, 0.5, 0.2]:
+			cells.append("%s %d%%" % [{1.0: "llena", 0.5: "cansado", 0.2: "agotado"}[zone_pct],
+					_constructibility(squads, tpl, "colo_colo", steps, zone_pct)])
+		print("  Momentos de %d jugadas · %s" % [steps, " · ".join(cells)])
+	var fresh := _constructibility(squads, tpl, "colo_colo", 3, 1.0)
+	print("  CONSTRUCTIBILIDAD (3 jugadas, estamina llena): %d%% (objetivo ≥%d%%) → %s" % [
+		fresh, CONSTRUCT_TARGET, "EN RANGO" if fresh >= CONSTRUCT_TARGET else "FUERA DE RANGO"])
 	quit()
+
+
+# % de manos iniciales (postura NORMAL) con un plan de gol para un Momento de `steps` jugadas,
+# arrancando con `zone_pct` de estamina (define cuántas cartas se roban).
+func _constructibility(squads: SquadManager, tpl: Array, team_id: String, steps: int, zone_pct: float) -> int:
+	var profile := BotProfile.directo()
+	var ok := 0
+	for i in CONSTRUCT_SAMPLES:
+		var rng := RandomNumberGenerator.new()
+		rng.seed = i + 1
+		var player := PlayerStats.new()
+		player.lineup = squads.lineup_ids(team_id)
+		var e := MatchEngine.new(player, DeckManager.new(squads.build_match_deck(team_id, tpl), [], rng), rng, BASE_DIFFICULTY)
+		e.start()
+		e.current_moment()["steps_required"] = steps
+		player.energy = player.max_energy() * zone_pct
+		e.begin_moment()
+		if not CoachBot.best_plan(e, profile).is_empty():
+			ok += 1
+	return roundi(100.0 * ok / CONSTRUCT_SAMPLES)
 
 
 # Un lado de la matriz neutral: ataca contra la defensa del rival y defiende contra su ataque.

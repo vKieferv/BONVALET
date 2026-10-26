@@ -22,6 +22,7 @@ func _initialize() -> void:
 	_test_stamina_zones_draw_not_chance()
 	_test_action_points()
 	_test_planner()
+	_test_hold_ball()
 	_test_signature_styles()
 	_test_bot_defense_styles()
 	_test_duel_runner()
@@ -292,6 +293,16 @@ func _test_action_points() -> void:
 		_check(p.ap == expected_ap and p.ap_max == expected_ap,
 				"postura %s debería dar %d PA (da %d)" % [MatchEngine.Posture.keys()[posture], expected_ap, p.ap])
 
+	# Todos los Momentos piden MOMENT_STEPS jugadas; el contragolpe arranca con una hecha.
+	var m := _new_engine(53)
+	m.start()
+	_check(m.moments.all(func(x: Dictionary) -> bool: return int(x["steps_required"]) == MatchEngine.MOMENT_STEPS),
+			"todos los Momentos deberían pedir %d jugadas" % MatchEngine.MOMENT_STEPS)
+	m.counter_ready = true
+	m.begin_moment()
+	_check(m.moment_over or int(m.current_moment()["steps_required"]) - m.progress == 2,
+			"tras un contragolpe el Momento debería pedir solo 2 jugadas")
+
 	var e := _new_engine(52)
 	e.start()
 	e.begin_moment()
@@ -379,8 +390,73 @@ func _test_planner() -> void:
 	e.deck.hand.clear()
 	e.deck.hand.append_array([pass1, pass0])
 	e.progress = 0
-	_check(CoachBot.best_plan(e, profile).is_empty() and CoachBot.choose(e, profile) == -1,
-			"sin remate en la mano el bot debería ceder la jugada")
+	_check(CoachBot.best_plan(e, profile).is_empty() and CoachBot.choose(e, profile) == CoachBot.HOLD,
+			"sin remate en la mano el bot debería aguantar el balón para robar una mano nueva")
+	e.holds = MatchEngine.MAX_HOLDS
+	_check(CoachBot.choose(e, profile) == -1, "sin remate y sin Aguantar disponible el bot debería ceder")
+
+
+# Aguantar el Balón: una vez por Momento, 1 PA (0 si no quedan, con +1 PA al salir bien), 3 de
+# estamina, 80% menos la Presión rival; éxito = mano nueva y Flow cortado sin penalización; fallo = robo.
+func _test_hold_ball() -> void:
+	var e := _new_engine(71)
+	e.start()
+	e.begin_moment()
+	_check(e.can_hold() and e.hold_ap_cost() == 1 and is_equal_approx(e.hold_chance(), MatchEngine.HOLD_BASE_CHANCE),
+			"al empezar el Momento se puede aguantar por 1 PA con 80%")
+	e.opponent_pressure = MatchEngine.PRESS_EFFECT
+	_check(is_equal_approx(e.hold_chance(), MatchEngine.HOLD_BASE_CHANCE - MatchEngine.PRESS_EFFECT),
+			"la Presión rival baja la retención")
+	var df := _new_engine(74)
+	df.start()
+	df.begin_defense(0.15)
+	_check(not df.can_hold(), "en defensa no se puede aguantar el balón")
+
+	var success_ev := {}
+	var fail_ev := {}
+	for seed in range(1, 120):
+		var h := _new_engine(seed)
+		h.start()
+		h.begin_moment()
+		if h.moment_over:
+			continue
+		h.flow_active = true
+		h.ap = 0                         # sin PA: cuesta 0 y, si sale bien, da +1 PA
+		var energy_before := h.player.energy
+		var ev := h.hold_ball()
+		if ev["success"] and success_ev.is_empty():
+			success_ev = ev
+			_check(not h.flow_active, "aguantar corta el Flow")
+			_check(is_equal_approx(h.player.energy, energy_before - MatchEngine.HOLD_STAMINA),
+					"aguantar desgasta exactamente %d de estamina, sin la penalización del Flow" % roundi(MatchEngine.HOLD_STAMINA))
+			_check(ev["ap"] == 0 and ev["ap_gained"] == 1 and h.ap == 1, "sin PA, aguantar cuesta 0 y al salir bien da +1 PA")
+			_check(h.deck.hand.size() == h.player.draw_count(), "al aguantar se roba una mano nueva según la zona de estamina")
+			_check(not h.can_hold(), "solo se puede aguantar una vez por Momento")
+		elif not ev["success"] and fail_ev.is_empty():
+			fail_ev = ev
+			_check(ev["stolen"] and h.moment_over, "si falla, el rival roba el balón y se pierde el Momento")
+		if not success_ev.is_empty() and not fail_ev.is_empty():
+			break
+	_check(not success_ev.is_empty() and not fail_ev.is_empty(), "las semillas deberían dar éxitos y fallos al aguantar")
+
+	var c := _new_engine(72)
+	c.start()
+	c.begin_moment()
+	var ap_before := c.ap
+	var ev2 := c.hold_ball()
+	_check(ev2["ap"] == 1 and (not ev2["success"] or c.ap == ap_before - 1), "con PA, aguantar cuesta 1 PA")
+
+	# Sin jugadas posibles, el Momento sigue abierto mientras quede un Aguantar.
+	var d := _new_engine(73)
+	d.start()
+	d.begin_moment()
+	d.ap = 0
+	d.deck.hand.clear()
+	d._end_if_stuck({})
+	_check(not d.moment_over, "sin jugadas y con Aguantar disponible el Momento no se cierra solo")
+	d.holds = MatchEngine.MAX_HOLDS
+	d._end_if_stuck({})
+	_check(d.moment_over, "sin jugadas y sin Aguantar, la jugada se pierde")
 
 
 # Estilos de carta firma: potencia (bloqueo rival a la mitad) y sangre fría (+10 a un fallo).

@@ -25,6 +25,7 @@ var emergencies := 0
 var natural_plays := [0]
 var rival_natural_plays := [0]
 var rival_defense_plays := 0
+var holds := 0
 var _defense_open := false
 var card_checks := 0
 var ui_checked_errors := false   # tras el primer error de UI se deja de revisar (evita miles de líneas)
@@ -81,7 +82,13 @@ func _process(_delta: float) -> bool:
 			view._on_yield_pressed()   # dejar pasar
 	elif view._in_moment:
 		_check_posture_lock()
-		_play_first_card()
+		if not _play_first_card():
+			# Sin carta jugable el Momento sigue abierto: aguantar (si queda) o ceder.
+			if view._engine.can_hold():
+				holds += 1
+				view._on_hold_pressed()
+			else:
+				view._on_yield_pressed()
 	return false
 
 
@@ -142,6 +149,9 @@ func _check_ui_matches_engine() -> void:
 		var orb := "%d/%d" % [e.ap, e.ap_max]
 		if view._ap_value.text != orb:
 			errors.append("El orbe muestra %s PA pero el turno tiene %s" % [view._ap_value.text, orb])
+		if view._in_moment and view._hold_button.disabled != not e.can_hold():
+			errors.append("El botón Aguantar está %s pero el motor dice can_hold = %s" % [
+				"deshabilitado" if view._hold_button.disabled else "habilitado", e.can_hold()])
 		var zone: String = "TU ESTAMINA · " + view.stamina_zone_text(view._player)
 		if view._stamina_label.text != zone:
 			errors.append("La barra dice '%s' pero la estamina está en '%s'" % [view._stamina_label.text, zone])
@@ -188,6 +198,9 @@ func _finish() -> bool:
 		errors.append("Nunca hubo fase defensiva")
 	if played > 0 and rival_defense_plays == 0:
 		errors.append("El rival nunca defendió tus ataques")
+	if played > 0 and holds == 0:
+		errors.append("Nunca se probó Aguantar el Balón")
+	print("  aguantaste el balón %d veces" % holds)
 	print("  el rival jugó %d cartas defensivas contra tus ataques" % rival_defense_plays)
 	print("smoke_match: %d partidos, %d defensas (%d despejes de emergencia), Ejecutor Natural: %d tuyas y %d del rival, %d chequeos de postura, %d cartas en pantalla verificadas contra el motor, contragolpe visto: %s" % [
 		played, defenses, emergencies, natural_plays[0], rival_natural_plays[0], lock_checks, card_checks, "sí" if exploit_seen else "no"])

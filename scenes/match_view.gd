@@ -53,6 +53,7 @@ const COLOR_NATURAL := Color("#ffd24a")
 @onready var _progress_label: Label = %ProgressLabel
 @onready var _energy_readout: Label = %EnergyReadout
 @onready var _yield_button: Button = %YieldButton
+@onready var _hold_button: Button = %HoldButton
 @onready var _emergency_button: Button = %EmergencyButton
 @onready var _fx: Control = %FxLayer
 @onready var _menu: PanelContainer = %MenuPanel
@@ -110,6 +111,7 @@ func _ready() -> void:
     _setup_posture_buttons()
     _start_button.pressed.connect(_on_start_pressed)
     _yield_button.pressed.connect(_on_yield_pressed)
+    _hold_button.pressed.connect(_on_hold_pressed)
     _emergency_button.pressed.connect(_on_emergency_pressed)
     _reset_hud()
     _local_name.text = String(_league.get_team(_my_team_id()).get("short_name", "TÚ")).to_upper()
@@ -263,6 +265,8 @@ func _reset_hud() -> void:
     _energy_readout.text = ""
     _yield_button.disabled = true
     _yield_button.text = "Ceder jugada"
+    _hold_button.disabled = true
+    _hold_button.text = "Aguantar el balón"
     _emergency_button.disabled = true
     _emergency_button.text = "Despeje de emergencia"
     _ball.visible = false
@@ -288,6 +292,8 @@ func _update_hud() -> void:
         var m := _engine.current_moment()
         _progress_label.text = "Jugada %d/%d · Fallos %d/%d" % [
             _engine.progress, m["steps_required"], _engine.fails, MatchEngine.MAX_FAILS]
+        if _engine.playable_indices().is_empty() and _engine.can_hold():
+            _progress_label.text += " · Sin jugadas: aguanta el balón o cede"
     elif _in_defense:
         var d := _engine.defense_result
         _progress_label.text = "Defensa · Presión +%d · Bloqueo +%d" % [
@@ -297,6 +303,7 @@ func _update_hud() -> void:
     if _last_roll_text != "" and (_in_moment or _in_defense):
         _progress_label.text += " · " + _last_roll_text
     _yield_button.disabled = not (_in_moment or _in_defense) or _busy
+    _update_hold_button()
     _emergency_button.text = "Despeje de emergencia (todos tus PA, −%d est.)" % roundi(_engine.emergency_stamina_cost())
     _emergency_button.disabled = not _in_defense or _busy or not _engine.can_emergency_clear()
     _update_hand_stats()
@@ -304,6 +311,27 @@ func _update_hud() -> void:
 
 func _update_bars() -> void:
     _set_bar(_player_bar, _player_fill, _player.energy_pct())
+
+
+# Botón Aguantar: muestra costo y % de retención (con la Presión rival ya descontada).
+func _update_hold_button() -> void:
+    var available := _in_moment and _engine != null and _engine.can_hold()
+    _hold_button.disabled = not available or _busy
+    if not available:
+        _hold_button.text = "Aguantar el balón" + (" (ya usado)" if _in_moment else "")
+        return
+    var cost := _engine.hold_ap_cost()
+    var pct := roundi(_engine.hold_chance() * 100.0)
+    if cost == 0:
+        _hold_button.text = "Aguantar el balón (0 PA → +1 PA · %d%%)" % pct
+    else:
+        _hold_button.text = "Aguantar el balón (%d PA · %d%%)" % [cost, pct]
+    var lines: Array = ["Retención = " + " ".join(_engine.hold_breakdown().map(
+            func(i): return "%s %+d" % [i["label"], roundi(float(i["value"]) * 100.0)])) + " = %d%%" % pct,
+        "Desgasta %d de estamina. Una vez por Momento." % roundi(MatchEngine.HOLD_STAMINA),
+        "Éxito: descartas la mano, se corta el Flow sin penalización y robas %d cartas." % _player.draw_count(),
+        "Fallo: el rival te roba el balón y queda con contragolpe."]
+    _hold_button.tooltip_text = "\n".join(lines)
 
 
 # Orbe de PA: los del turno en curso (Momento: según la postura; defensa: 2). Fuera de turno se apaga.
@@ -551,12 +579,12 @@ func _play_rival_moment(exploited: bool, defense: Dictionary) -> Dictionary:
     var goals_before: int = e.stats["goals"]
     var scorer := {}
     var natural_names: Array = []
+    var stolen := false
     while not e.moment_over:
-        var idx := CoachBot.choose(e, _rival)
-        if idx < 0:
-            e.abort_moment()
-            break
-        var pev := e.play_card(idx)
+        var pev := CoachBot.act(e, _rival)
+        if pev.get("stolen", false):
+            stolen = true
+            _engine.counter_ready = true   # el rival quiso aguantar y le robaste el balón: tu contragolpe
         if pev.get("natural", false) and not natural_names.has(pev["card_name"]):
             natural_names.append(pev["card_name"])
         if pev.get("goal", false):
@@ -567,6 +595,7 @@ func _play_rival_moment(exploited: bool, defense: Dictionary) -> Dictionary:
         "energy_pct": e.player.energy_pct(),
         "scorer": scorer,              # evento de la jugada del gol (card_name, natural)
         "natural_cards": natural_names,
+        "stolen": stolen,              # quiso aguantar el balón y se lo robaste
     }
     e.advance(_rival.default_posture as MatchEngine.Posture)
     return ev
@@ -628,6 +657,8 @@ func _rival_event() -> bool:
         if not ev["scorer"].is_empty():
             how = " · " + String(ev["scorer"]["card_name"]).to_upper()
         await _banner_show("¡GOL DE %s!%s" % [nm, how], COLOR_BAD, 1.3)
+    elif ev["stolen"]:
+        await _banner_show("¡%s QUISO AGUANTAR Y LE ROBASTE EL BALÓN! · CONTRAGOLPE LISTO" % nm, COLOR_OK, 1.0)
     else:
         await _banner_show("ATACA %s... ¡SE SALVÓ!" % nm, COLOR_WARN, 0.9)
     if defense["emergency"] and _rival_engine.grant_extra_moment(minute):
@@ -756,6 +787,35 @@ func _on_yield_pressed() -> void:
     await _banner_show("JUGADA CEDIDA · SE ENFRÍA EL PARTIDO", COLOR_WARN, 0.7)
     _busy = false
     _finish_player_moment()
+
+
+# Aguantar el Balón: tirada de retención; éxito = mano nueva, fallo = te roban y el rival contragolpea.
+func _on_hold_pressed() -> void:
+    if _busy or not _in_moment or not _engine.can_hold():
+        return
+    _busy = true
+    _update_hud()
+    var ev := _engine.hold_ball()
+    _last_roll_text = "Aguantar: tirada %d vs %d%% → %s" % [floori(ev["roll"] * 100.0), roundi(ev["chance"] * 100.0),
+            "ÉXITO" if ev["success"] else "FALLO"]
+    _update_hud()
+    if ev["success"]:
+        var gained := " · +1 PA" if ev["ap_gained"] > 0 else ""
+        await _banner_show("¡AGUANTASTE EL BALÓN! MANO NUEVA" + gained, COLOR_OK, 0.9)
+    else:
+        _rival_engine.counter_ready = true
+        await _banner_show("¡TE ROBARON EL BALÓN! · CONTRAGOLPE DE %s" % _rival.profile_name.to_upper(), COLOR_BAD, 1.0)
+    if ev["injury"]:
+        await _banner_show("¡LESIÓN!", COLOR_BAD, 0.9)
+    if ev.get("out_of_ap", false):
+        await _banner_show("SIN PA PARA SEGUIR · SE PIERDE LA JUGADA", COLOR_WARN, 0.8)
+    _busy = false
+    if _engine.moment_over:
+        _finish_player_moment()
+    else:
+        _prev_hand.clear()
+        _build_hand()
+        _update_hud()
 
 
 func _on_emergency_pressed() -> void:

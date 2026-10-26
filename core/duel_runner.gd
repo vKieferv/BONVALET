@@ -73,9 +73,7 @@ static func _attack(att: MatchEngine, att_side: Dictionary, def: MatchEngine, de
 	if att.player.zone() != PlayerStats.Zone.SAFE:
 		out["tired_" + half] += 1
 	while not att.moment_over:
-		var idx := CoachBot.choose(att, att_profile)
-		if idx < 0:
-			att.abort_moment()
-			break
-		att.play_card(idx)
+		var ev := CoachBot.act(att, att_profile)
+		if ev.get("stolen", false):
+			def.counter_ready = true   # le robaron el balón al aguantar: contragolpe del que defendía
 	att.advance(att_profile.default_posture as MatchEngine.Posture)

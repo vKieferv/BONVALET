@@ -271,6 +271,13 @@ layout_mode = 2
 disabled = true
 text = "Ceder jugada"
 
+[node name="HoldButton" type="Button" parent="HandOverlay/HandMargin/HandVBox/ActionRow"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Temporizar, una vez por Momento: si sale bien descartas la mano, se corta el Flow sin penalización y robas una mano nueva. Si sale mal, el rival te roba el balón y queda con contragolpe."
+disabled = true
+text = "Aguantar el balón"
+
 [node name="EmergencyButton" type="Button" parent="HandOverlay/HandMargin/HandVBox/ActionRow"]
 unique_name_in_owner = true
 layout_mode = 2

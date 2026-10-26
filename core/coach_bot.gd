@@ -56,18 +56,40 @@ static func choose_defense(e: MatchEngine, profile: BotProfile) -> int:
 
 # ---------- Ataque: planificador del turno ----------
 
-# Devuelve el índice de la carta a jugar, o -1 para ceder la jugada (no hay plan que pueda
-# terminar en gol, o el perfil no se arriesga con lo que hay).
+const HOLD := -2                    # choose(): aguantar el balón en vez de jugar una carta
+const HOLD_MIN_CHANCE := 0.5        # bajo esta retención no se arriesga a regalar un contragolpe
+
+
+# Un paso del turno de ataque: juega la carta elegida, aguanta el balón o cede. Es el único lugar que
+# ejecuta las decisiones del bot (lo usan match_view, SimRunner y DuelRunner). Devuelve el evento
+# del motor, o {} si cedió. Si el evento trae "stolen", quien arma el partido le da contragolpe al rival.
+static func act(e: MatchEngine, profile: BotProfile) -> Dictionary:
+    var idx := choose(e, profile)
+    if idx == HOLD:
+        return e.hold_ball()
+    if idx < 0:
+        e.abort_moment()
+        return {}
+    return e.play_card(idx)
+
+
+# Devuelve el índice de la carta a jugar, HOLD para aguantar el balón (mano sin plan de gol), o -1
+# para ceder la jugada.
 static func choose(e: MatchEngine, profile: BotProfile) -> int:
     var plan := best_plan(e, profile)
     var pause := _playable_pause(e)
     if plan.is_empty():
-        # Sin plan de gol: si está cansado, al menos recupera aire con la Pausa antes de ceder.
-        return pause if pause >= 0 and e.player.zone() != PlayerStats.Zone.SAFE else -1
+        # Sin plan de gol: si está cansado, primero recupera aire con la Pausa; después aguanta el
+        # balón para robar una mano nueva, o cede si no puede.
+        if pause >= 0 and e.player.zone() != PlayerStats.Zone.SAFE:
+            return pause
+        return HOLD if _should_hold(e, profile) else -1
     var last_chance := e.fails >= MatchEngine.MAX_FAILS - 1
-    # Enfriar: si el remate final del mejor plan no convence, el perfil cede y guarda la estamina.
+    # Enfriar: si el remate final del mejor plan no convence, el perfil temporiza (aguanta) o cede.
     if not last_chance and profile.shot_min_chance >= 0.0 and plan["shot_p"] < profile.shot_min_chance:
-        return pause if pause >= 0 and e.player.zone() != PlayerStats.Zone.SAFE else -1
+        if pause >= 0 and e.player.zone() != PlayerStats.Zone.SAFE:
+            return pause
+        return HOLD if _should_hold(e, profile) else -1
     # PA de sobra para el plan: con cansancio, la Pausa primero recupera estamina gratis.
     if pause >= 0 and e.player.zone() != PlayerStats.Zone.SAFE \
             and e.ap - e.ap_cost_of(e.deck.hand[pause]) >= plan["ap"]:
@@ -144,6 +166,14 @@ static func _subsets(items: Array, k: int) -> Array:
         for rest in _subsets(items.slice(i + 1), k - 1):
             out.append([items[i]] + rest)
     return out
+
+
+# Aguanta si puede y la retención es razonable. Un perfil muy conservador no lo hace cansado
+# (prefiere ceder y guardar la estamina).
+static func _should_hold(e: MatchEngine, profile: BotProfile) -> bool:
+    if not e.can_hold() or e.hold_chance() < HOLD_MIN_CHANCE:
+        return false
+    return not (profile.energy_conservation >= 0.8 and e.player.zone() != PlayerStats.Zone.SAFE)
 
 
 static func _playable_pause(e: MatchEngine) -> int:

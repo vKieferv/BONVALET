@@ -5,7 +5,8 @@ param(
     [int]$Matches = 5,
     [switch]$Balance,
     [switch]$SkipSmoke,
-    [int]$TimeoutSec = 240
+    [int]$TimeoutSec = 240,
+    [int]$BalanceTimeoutSec = 600   # sim.gd juega miles de partidos con el planificador de CoachBot
 )
 
 $project = (Resolve-Path (Join-Path $PSScriptRoot "..\..\..")).Path
@@ -26,15 +27,15 @@ if (-not $godot) {
 }
 
 # Ejecuta Godot con tiempo límite. Devuelve el código de salida (124 = tiempo agotado).
-function Invoke-Godot([string]$name, [string[]]$godotArgs) {
+function Invoke-Godot([string]$name, [string[]]$godotArgs, [int]$timeout = $TimeoutSec) {
     $out = Join-Path $logDir "$name.out.txt"
     $err = Join-Path $logDir "$name.err.txt"
     $argList = @("--headless", "--path", "`"$project`"") + $godotArgs
     $p = Start-Process $godot -ArgumentList $argList -RedirectStandardOutput $out -RedirectStandardError $err -PassThru -NoNewWindow
     $null = $p.Handle   # sin esto ExitCode queda vacío al terminar
-    if (-not $p.WaitForExit($TimeoutSec * 1000)) {
+    if (-not $p.WaitForExit($timeout * 1000)) {
         $p.Kill()
-        Write-Host "[$name] TIEMPO AGOTADO tras $TimeoutSec s"
+        Write-Host "[$name] TIEMPO AGOTADO tras $timeout s"
         return 124
     }
     $p.WaitForExit()
@@ -80,7 +81,7 @@ if (-not $SkipSmoke -and $failed.Count -eq 0) {
 
 # 5. Métricas de balance por arquetipo (opcional, 2000 partidos por perfil con semillas fijas)
 if ($Balance -and $failed.Count -eq 0) {
-    $code = Invoke-Godot "balance" @("-s", "res://core/sim.gd")
+    $code = Invoke-Godot "balance" @("-s", "res://core/sim.gd") $BalanceTimeoutSec
     if ($code -ne 0) { $failed += "balance" }
 }
 

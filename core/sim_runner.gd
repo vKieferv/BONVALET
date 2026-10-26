@@ -32,11 +32,7 @@ static func run(profile: BotProfile, n: int, cfg: Dictionary, templates: Array, 
 			e.opponent_block = cfg.get("opponent_block", 0.0)
 			e.begin_moment()
 			while not e.moment_over:
-				var idx := CoachBot.choose(e, profile)
-				if idx < 0:
-					e.abort_moment()
-					break
-				e.play_card(idx)
+				CoachBot.act(e, profile)
 			e.advance(profile.default_posture as MatchEngine.Posture)
 		goals[s] = e.stats["goals"]
 		for k in e.stats:

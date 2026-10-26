@@ -24,16 +24,22 @@ const FLOW_BREAK_LOSS_PCT := 0.15     # estamina perdida al romperse el Flow
 const AP_BY_POSTURE := {Posture.LOW: 3, Posture.NORMAL: 3, Posture.HIGH: 4}
 const STAMINA_MULT := {Posture.LOW: 0.75, Posture.NORMAL: 1.0, Posture.HIGH: 1.5}
 # Escala global del desgaste de las cartas (los JSON guardan las proporciones; esto calibra el ritmo
-# de cansancio del partido con DuelRunner: CANSADO durante el segundo tiempo).
-const STAMINA_SCALE := 2.0
+# de cansancio del partido con DuelRunner: CANSADO durante el segundo tiempo). Bajó de 2.0 a 1.6 al
+# llegar Aguantar el Balón (más jugadas por Momento) para dejar las lesiones en 2-5%.
+const STAMINA_SCALE := 1.6
 const DEFENSE_AP := 2                 # PA de cada fase defensiva (cualquier postura)
 # Lesión: solo se tira al jugar en zona de agotamiento, de MIN (al entrar) a MAX (barra en 0)
-# por jugada. Calibrado para que un partido normal termine en lesión un 2-5% de las veces.
+# por jugada. Calibrado para que un partido normal termine en lesión un 2-5% de las veces
+# (MAX bajó de 0.012 a 0.009 porque Aguantar el Balón suma jugadas estando agotado).
 const INJURY_CHANCE_MIN := 0.004
-const INJURY_CHANCE_MAX := 0.012
+const INJURY_CHANCE_MAX := 0.009
 const EXHAUSTION_PCT := 0.30      # la zona de agotamiento empieza por debajo de este % de estamina
 const EXTRA_MOMENT_CHANCE_HIGH := 0.35
 const MAX_MOMENTS := 5
+# Jugadas exitosas que pide cada Momento (la última, un remate). Con remates a 2 PA y Aguantar el
+# Balón, 3 fijas sostienen 2.3-2.6 goles; los Momentos de 2 salen solo del contragolpe
+# (counter_ready) o del espacio rival (exploit_rival_space).
+const MOMENT_STEPS := 3
 # Regla de emparejamiento anti-pasividad (perfil que castiga + rival en postura LOW):
 # los REMATES ganan +exploit_shot_bonus puntos (por defecto 10), cuestan 1 PA menos (mínimo 1)
 # y el Momento pide una jugada menos (transición rápida, mínimo 2).
@@ -54,6 +60,14 @@ const NATURAL_FLOW_CHARGE := 2        # la jugada cuenta doble para la racha de 
 # Estilos de cartas firma (por tag):
 const POWER_BLOCK_FACTOR := 0.5       # "potencia": el bloqueo rival cuenta la mitad en esta carta
 const COLD_BLOOD_BONUS := 0.10        # "sangre_fria": +10 pts con el Momento a un fallo de perderse
+# Aguantar el Balón (temporizar, fuera del mazo): una vez por Momento. Cuesta 1 PA y 3 de estamina;
+# si no quedan PA cuesta 0 y, si sale bien, da +1 PA. Éxito = 80% menos la Presión rival: descarta
+# la mano, corta el Flow sin penalización y roba una mano nueva según la zona de estamina.
+# Fallo = el rival roba el balón (Momento perdido) y queda con contragolpe (lo aplica quien arma el partido).
+const HOLD_BASE_CHANCE := 0.80
+const HOLD_AP_COST := 1
+const HOLD_STAMINA := 3.0
+const MAX_HOLDS := 1
 # Pausa (carta de ataque): gasta PA para recuperar estamina sin sumar progreso; una por Momento.
 const PAUSE_STAMINA_PCT := 0.10
 const MAX_PAUSES := 1
@@ -103,6 +117,7 @@ var flow_cards: Array = []
 var moment_had_flow := false
 var exhausted_flagged := false
 var pauses := 0
+var holds := 0
 var counter_ready := false   # tras una intercepción, el próximo Momento propio arranca con 1 jugada
 
 # Estado de la defensa en curso
@@ -113,7 +128,7 @@ var defense_result := {}     # {pressure, block, cancelled, emergency}
 
 var stats := {"goals": 0, "moments": 0, "flow_moments": 0, "flow_breaks": 0, "injuries": 0,
 	"plays": 0, "elite_plays": 0, "tired_plays": 0, "natural_plays": 0, "skipped": 0,
-	"defense_plays": 0, "interceptions": 0, "emergencies": 0, "out_of_ap": 0}
+	"defense_plays": 0, "interceptions": 0, "emergencies": 0, "out_of_ap": 0, "holds": 0, "holds_lost": 0}
 
 
 func _init(p_player: PlayerStats, p_deck: DeckManager, p_rng: RandomNumberGenerator, p_rival_difficulty := 0.15) -> void:
@@ -130,9 +145,9 @@ func start() -> void:
 	player.start_match_energy()
 	deck.start_match()
 	moments.clear()
-	# 4-5 Momentos propios por partido (calibrado con DuelRunner: con PA por turno, cada Momento es una
-	# oportunidad completa); LOW juega uno menos y además queda topado en LOW_MAX_MOMENTS.
-	var n := 4 + (1 if rng.randf() < 0.5 else 0)
+	# 4 Momentos propios por partido (calibrado con DuelRunner junto con los remates a 2 PA y Aguantar
+	# el Balón); LOW juega uno menos y HIGH puede sumar momentos extra en advance().
+	var n := 4
 	if posture == Posture.LOW:
 		n -= 1
 	var minutes: Array = []
@@ -153,12 +168,12 @@ func start() -> void:
 	ap_max = 0
 
 
-# Un Momento pide 2-3 jugadas exitosas (la última, un remate): con 2-4 PA por turno, uno de 4
-# no sería alcanzable.
+# Un Momento pide MOMENT_STEPS jugadas exitosas (la última, un remate); el contragolpe y el espacio
+# rival lo acortan a 2.
 func _make_moment(minute: int) -> Dictionary:
 	return {
 		"minute": minute,
-		"steps_required": rng.randi_range(2, 3),
+		"steps_required": MOMENT_STEPS,
 		"difficulty": rival_difficulty + rng.randf_range(-0.05, 0.05),
 	}
 
@@ -186,6 +201,7 @@ func begin_moment() -> Dictionary:
 	fails = 0
 	streak = 0
 	pauses = 0
+	holds = 0
 	flow_active = false
 	flow_cards.clear()
 	moment_had_flow = false
@@ -205,7 +221,7 @@ func begin_moment() -> Dictionary:
 	if rng.randf() < 0.30 * (1.0 - player.concentracion / 100.0):
 		deck.insert_into_hand(CardDB.make_penalty("nervios"))
 	_check_exhaustion({})
-	if playable_indices().is_empty():
+	if playable_indices().is_empty() and not can_hold():
 		_finish_moment(false)
 	return current_moment()
 
@@ -405,10 +421,15 @@ func _resolve_attack(card: Card, success: bool, natural: bool, ev: Dictionary) -
 		if fails >= MAX_FAILS:
 			_finish_moment(false)
 
+	_end_if_stuck(ev)
+
+
+# Sin PA (o sin cartas) para seguir y sin Aguantar disponible: la jugada se pierde. Con Aguantar
+# disponible, el Momento sigue abierto para que el jugador elija Aguantar o Ceder.
+func _end_if_stuck(ev: Dictionary) -> void:
 	if not moment_over and injured:
 		_finish_moment(false)
-	if not moment_over and playable_indices().is_empty():
-		# Sin PA (o sin cartas) para seguir: la jugada se pierde.
+	if not moment_over and playable_indices().is_empty() and not can_hold():
 		ev["out_of_ap"] = true
 		stats["out_of_ap"] += 1
 		_finish_moment(false)
@@ -417,6 +438,73 @@ func _resolve_attack(card: Card, success: bool, natural: bool, ev: Dictionary) -
 func abort_moment() -> void:
 	if not moment_over:
 		_finish_moment(false)
+
+
+# ---------- Aguantar el Balón ----------
+
+func can_hold() -> bool:
+	return not in_defense and not moment_over and not injured and holds < MAX_HOLDS
+
+
+# 1 PA, o 0 si no quedan (y entonces el éxito da +1 PA).
+func hold_ap_cost() -> int:
+	return HOLD_AP_COST if ap >= HOLD_AP_COST else 0
+
+
+# Desglose de la tirada de retención (misma transparencia que las cartas).
+func hold_breakdown() -> Array:
+	var items: Array = [{"label": "Base", "value": HOLD_BASE_CHANCE}]
+	if opponent_pressure != 0.0:
+		items.append({"label": "Presión rival", "value": -opponent_pressure})
+	return items
+
+
+func hold_chance() -> float:
+	var p := 0.0
+	for item in hold_breakdown():
+		p += float(item["value"])
+	return roundi(clampf(p, MIN_CHANCE, MAX_CHANCE) * 100.0) / 100.0
+
+
+# Aguantar el Balón. Devuelve un evento como play_card (con "hold", "stolen" y "ap_gained").
+func hold_ball() -> Dictionary:
+	if not can_hold():
+		return {"ok": false, "reason": "not_playable"}
+	var cost := hold_ap_cost()
+	var p := hold_chance()
+	holds += 1
+	stats["holds"] += 1
+	ap -= cost
+	player.energy = maxf(0.0, player.energy - HOLD_STAMINA)
+	var ev := {"ok": true, "hold": true, "ap": cost, "stamina": HOLD_STAMINA, "chance": p,
+		"success": false, "stolen": false, "ap_gained": 0, "injury": false, "out_of_ap": false,
+		"goal": false, "flow_started": false, "flow_broken": false, "natural": false, "defense": false}
+	_check_exhaustion(ev)
+	_roll_injury(ev)
+	var roll := rng.randf()
+	ev["roll"] = roll
+	ev["success"] = roll < p
+	if ev["success"]:
+		# Temporizar corta el Flow sin la penalización de estamina y renueva la mano.
+		flow_active = false
+		flow_cards.clear()
+		streak = 0
+		deck.discard_hand()
+		deck.draw(player.draw_count())
+		if cost == 0:
+			ap += 1
+			ev["ap_gained"] = 1
+		_end_if_stuck(ev)
+	else:
+		ev["stolen"] = true
+		stats["holds_lost"] += 1
+		_finish_moment(false)
+	ev["moment_over"] = moment_over
+	ev["energy"] = player.energy
+	ev["zone"] = player.zone()
+	ev["progress"] = progress
+	ev["ap_left"] = ap
+	return ev
 
 
 # Elegir postura para el siguiente momento y avanzar.

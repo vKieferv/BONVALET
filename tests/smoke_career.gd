@@ -86,7 +86,8 @@ func _process(_delta: float) -> bool:
 	return false
 
 
-# Mismo criterio que smoke_match: primera carta jugable; en defensa, si no hay, deja pasar.
+# Mismo criterio que smoke_match: primera carta jugable; si no hay, en defensa deja pasar y en
+# ataque aguanta el balón (si queda) o cede.
 func _autoplay(view: Node) -> void:
 	if view._busy:
 		return
@@ -95,7 +96,9 @@ func _autoplay(view: Node) -> void:
 			if view._engine.can_play(ui.card):
 				view._on_card_chosen(ui)
 				return
-		if view._in_defense:
+		if view._in_moment and view._engine.can_hold():
+			view._on_hold_pressed()
+		else:
 			view._on_yield_pressed()
 
 

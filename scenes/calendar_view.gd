@@ -4,6 +4,8 @@ extends Control
 #   Bloque 1 · Sponsor y prensa: contrato con un sponsor paródico y el evento social de la semana.
 #   Bloque 2 · Entrenamiento o kinesiología.
 #   Bloque 3 · El partido: valida el mazo (validate_deck) y abre match_view.
+# La carrera se guarda sola (Career.save_path) tras cada acción de bloque y al volver del partido;
+# "Continuar carrera" la recupera en la misma semana.
 
 const MATCH_SCENE := "res://scenes/match_view.tscn"
 const DEFAULT_TEAM := "colo_colo"
@@ -19,11 +21,13 @@ const NARROW_WIDTH := 1100.0   # por debajo, los bloques van en una columna
 var _league: LeagueManager
 var _squads: SquadManager
 var _career: Career
+var _saved: Career            # carrera guardada que ofrece "Continuar" (null = no hay o no es válida)
 
 var _title: Label
 var _status: Label
 var _club_option: OptionButton
 var _start_button: Button
+var _continue_button: Button
 var _blocks: GridContainer
 var _block_panels: Array = []
 var _sponsor_option: OptionButton
@@ -55,6 +59,10 @@ func _ready() -> void:
         _squads = SquadManager.new()
         if not _squads.load_all(_league):
             push_error("SquadManager: " + "; ".join(_squads.load_errors))
+    if _career != null:
+        _save()   # vuelve del partido con la semana nueva ya registrada
+    else:
+        _saved = Career.load_saved(_league, _squads)
     _build_ui()
     resized.connect(_update_columns)
     _update_columns()
@@ -150,6 +158,8 @@ func _build_ui() -> void:
     club_row.add_child(_club_option)
     _start_button = _button("COMENZAR CARRERA", _on_start_career)
     club_row.add_child(_start_button)
+    _continue_button = _button("CONTINUAR CARRERA", _on_continue_career)
+    club_row.add_child(_continue_button)
     root.add_child(club_row)
 
     _blocks = GridContainer.new()
@@ -228,11 +238,20 @@ func _refresh() -> void:
     var active := _career != null
     _club_option.disabled = active
     _start_button.visible = not active
+    _continue_button.visible = not active
     for p in _block_panels:
         p.modulate = Color.WHITE if active else Color(1, 1, 1, 0.45)
     if not active:
         _title.text = "MODO CARRERA · TORNEO NACIONAL 2006"
         _status.text = "Elige tu club y comienza la carrera."
+        _continue_button.disabled = _saved == null
+        if _saved != null:
+            _continue_button.text = "CONTINUAR · %s · SEMANA %d" % [_saved.team()["short_name"], _saved.week]
+            _status.text += " Comenzar una carrera nueva reemplaza la guardada."
+        else:
+            _continue_button.text = "CONTINUAR CARRERA"
+            if FileAccess.file_exists(Career.save_path):   # hay archivo pero no se pudo leer
+                _status.text += " No se pudo leer la carrera guardada: " + "; ".join(Career.last_load_errors)
         _set_blocks_enabled(false)
         return
 
@@ -321,7 +340,10 @@ func _refresh_block3() -> void:
     if not done["block2"]:
         missing.append("Bloque 2")
     _go_button.disabled = not missing.is_empty() or rival.is_empty()
-    if not missing.is_empty():
+    if _career.pending_match:   # se cerró el juego durante el partido: se juega desde el principio
+        _check_label.text = "Partido pendiente: se juega desde el principio."
+        _check_label.add_theme_color_override("font_color", COLOR_WARN)
+    elif not missing.is_empty():
         _check_label.text = "Completa: " + ", ".join(missing) + "."
         _check_label.add_theme_color_override("font_color", COLOR_MUTED)
     elif _check_label.text == "" or _check_label.text.begins_with("Completa"):
@@ -351,14 +373,31 @@ func _on_start_career() -> void:
         return
     Career.current = c
     _career = c
+    _save()   # reemplaza la carrera guardada
     _set_blocks_enabled(true)
     _refresh()
+
+
+func _on_continue_career() -> void:
+    if _saved == null:
+        return
+    Career.current = _saved
+    _career = _saved
+    _saved = null
+    _set_blocks_enabled(true)
+    _refresh()
+
+
+func _save() -> void:
+    if _career != null and not _career.save():
+        push_warning("No se pudo guardar la carrera en %s" % Career.save_path)
 
 
 func _on_sponsor_selected(index: int) -> void:
     if _career == null or index <= 0:
         return
-    _career.choose_sponsor(String(_sponsor_option.get_item_metadata(index)))
+    if _career.choose_sponsor(String(_sponsor_option.get_item_metadata(index))):
+        _save()
     _refresh()
 
 
@@ -366,13 +405,15 @@ func _on_event(accept: bool) -> void:
     if _career == null:
         return
     _career.resolve_event(accept)
+    _save()
     _refresh()
 
 
 func _on_training(kind: String) -> void:
     if _career == null:
         return
-    _career.choose_training(kind)
+    if _career.choose_training(kind):
+        _save()
     _refresh()
 
 
@@ -390,4 +431,5 @@ func _on_go() -> void:
     lines.append_array(r["warnings"])
     _check_label.text = "\n".join(lines)
     _check_label.add_theme_color_override("font_color", COLOR_WARN if not r["warnings"].is_empty() else COLOR_OK)
+    _save()   # con pending_match: si se cierra el juego durante el partido, se vuelve al Bloque 3
     get_tree().change_scene_to_file(MATCH_SCENE)

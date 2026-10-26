@@ -1,5 +1,7 @@
 # Prueba de humo del bucle semanal: calendario → partido → calendario, dos semanas seguidas.
 # Semana 1: Telnet, acepta la fiesta, entrenamiento táctico. Semana 2: Cerveza Glaciar, rechaza, kinesiología.
+# Al final reabre el calendario como si se hubiera cerrado el juego y usa "Continuar carrera".
+# Guarda en su propia ruta (TEST_SAVE), nunca en la partida real del usuario, y la borra al final.
 # Uso: godot --headless --path . -s res://tests/smoke_career.gd
 # Sale con código 1 si algún paso no ocurre o el partido se cuelga.
 extends SceneTree
@@ -9,17 +11,24 @@ const MATCH := "res://scenes/match_view.tscn"
 const TIME_SCALE := 20.0
 const MAX_FRAMES := 120000
 const WEEKS := 2
+const TEST_SAVE := "user://test_smoke_carrera.json"
+const REAL_SAVE := "user://carrera.json"
 
 var frames := 0
 var step := "boot"
 var week_done := 0
 var errors: Array[String] = []
 var _wait := 0
+var _real_save_time := 0   # fecha de modificación de la partida real (0 = no existe)
+var _closed_scene_id := 0  # calendario de antes de "cerrar el juego"
 
 
 func _initialize() -> void:
 	Engine.time_scale = TIME_SCALE
 	Career.current = null
+	Career.save_path = TEST_SAVE
+	_remove_test_save()
+	_real_save_time = FileAccess.get_modified_time(REAL_SAVE) if FileAccess.file_exists(REAL_SAVE) else 0
 	change_scene_to_file(CALENDAR)
 
 
@@ -37,6 +46,8 @@ func _process(_delta: float) -> bool:
 	match step:
 		"boot":
 			if scene.scene_file_path == CALENDAR:
+				if not scene._continue_button.disabled:
+					errors.append("Sin guardado, CONTINUAR debería estar deshabilitado")
 				scene._on_start_career()
 				if Career.current == null:
 					errors.append("No se pudo comenzar la carrera")
@@ -80,9 +91,32 @@ func _process(_delta: float) -> bool:
 				if c.week != WEEKS + 1 or c.history.size() != WEEKS:
 					errors.append("Tras %d partidos la carrera debería estar en la semana %d (está en %d, %d resultados)" % [
 						WEEKS, WEEKS + 1, c.week, c.history.size()])
+				var saved := Career.load_saved(c.league, c.squads)
+				if saved == null or saved.week != WEEKS + 1 or saved.history.size() != WEEKS:
+					errors.append("El guardado al volver del partido debería estar en la semana %d: %s" % [
+						WEEKS + 1, "; ".join(Career.last_load_errors)])
 				print("smoke_career: %d semanas · presupuesto $%d M · fatiga %d%% · popularidad %d · disciplina %d" % [
 					week_done, int(c.budget), int(c.fatigue), c.popularity, c.discipline])
+				Career.current = null   # como si se cerrara el juego
+				_closed_scene_id = scene.get_instance_id()
+				change_scene_to_file(CALENDAR)
+				step = "continue"
+				_wait = 2
+		"continue":
+			if scene.scene_file_path != CALENDAR or scene.get_instance_id() == _closed_scene_id:
+				return false
+			var button: Button = scene._continue_button
+			if button.disabled or not button.text.contains("SEMANA %d" % (WEEKS + 1)):
+				errors.append("CONTINUAR debería ofrecer la semana %d (texto: '%s', deshabilitado: %s)" % [
+					WEEKS + 1, button.text, button.disabled])
 				return _finish()
+			scene._on_continue_career()
+			var c := Career.current
+			if c == null or c.week != WEEKS + 1 or c.history.size() != WEEKS or scene._go_button.disabled == false:
+				errors.append("Continuar debería recuperar la semana %d con los bloques por hacer" % (WEEKS + 1))
+			else:
+				print("smoke_career: continuar · %s" % button.text)
+			return _finish()
 	return false
 
 
@@ -102,7 +136,16 @@ func _autoplay(view: Node) -> void:
 			view._on_yield_pressed()
 
 
+func _remove_test_save() -> void:
+	if FileAccess.file_exists(TEST_SAVE):
+		DirAccess.remove_absolute(TEST_SAVE)
+
+
 func _finish() -> bool:
+	_remove_test_save()
+	var real_now := FileAccess.get_modified_time(REAL_SAVE) if FileAccess.file_exists(REAL_SAVE) else 0
+	if real_now != _real_save_time:
+		errors.append("La prueba no debería escribir en %s" % REAL_SAVE)
 	for e in errors:
 		print("  ERROR: " + e)
 	quit(1 if errors.size() > 0 else 0)

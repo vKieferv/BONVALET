@@ -18,6 +18,8 @@ func _initialize() -> void:
 	_test_kamikaze_phases()
 	_test_big_clubs_punish_low()
 	_test_team_database()
+	_test_chance_matches_roll()
+	_test_exhausted_penalty_is_visible()
 	print("engine_rules: %d comprobaciones, %d fallas" % [checks, failures.size()])
 	for f in failures:
 		print("  FALLA: " + f)
@@ -185,6 +187,75 @@ func _test_big_clubs_punish_low() -> void:
 		if int(t["facilities_level"]) == 0 and t["archetype"] != "Contragolpe":
 			_check(not league.profile_for_team(t).punishes_passivity, "%s no debería castigar la pasividad" % t["short_name"])
 			break
+
+
+# Lo que muestra la carta (success_chance antes de jugar) es exactamente lo que usa la tirada.
+# Juega partidos completos en postura HIGH (poca recuperación) para pasar también por AGOTADO.
+func _test_chance_matches_roll() -> void:
+	var plays := 0
+	var successes := 0
+	var expected := 0.0
+	var exhausted_plays := 0
+	var mismatches := 0
+	for seed in range(1, 61):
+		var e := _new_engine(seed)
+		e.posture = MatchEngine.Posture.HIGH
+		e.start()
+		while not e.finished:
+			e.begin_moment()
+			while not e.moment_over:
+				var idxs := e.playable_indices()
+				if idxs.is_empty():
+					e.abort_moment()
+					break
+				var card: Card = e.deck.hand[idxs[0]]
+				var shown := e.success_chance(card)
+				var total := 0.0
+				var zone_penalty := false
+				for item in e.chance_breakdown(card):
+					total += float(item["value"])
+					zone_penalty = zone_penalty or item.get("zone", false)
+				var from_breakdown := roundi(clampf(total, MatchEngine.MIN_CHANCE, MatchEngine.MAX_CHANCE) * 100.0) / 100.0
+				if e.player.zone() == PlayerStats.Zone.EXHAUSTED:
+					exhausted_plays += 1
+					if not zone_penalty:
+						mismatches += 1
+				var ev := e.play_card(idxs[0])
+				plays += 1
+				expected += shown
+				if ev["success"]:
+					successes += 1
+				if not is_equal_approx(shown, from_breakdown) \
+						or not is_equal_approx(ev["chance"], shown) \
+						or ev["success"] != (ev["roll"] < ev["chance"]) \
+						or ev["success"] != (floori(ev["roll"] * 100.0) < roundi(shown * 100.0)) \
+						or not is_equal_approx(shown * 100.0, float(roundi(shown * 100.0))):
+					mismatches += 1
+			e.advance(MatchEngine.Posture.HIGH)
+	_check(mismatches == 0, "%d jugadas donde la tirada no usó el %% mostrado (o el desglose no cuadra)" % mismatches)
+	_check(exhausted_plays > 0, "la prueba debería pasar por la zona AGOTADO")
+	# Calibración: los éxitos reales deben rondar la suma de las probabilidades mostradas (±4 sigma).
+	var sigma := sqrt(expected * (1.0 - expected / float(plays)))
+	_check(absf(float(successes) - expected) < 4.0 * sigma,
+			"%d éxitos en %d jugadas; los %% mostrados predecían %.0f" % [successes, plays, expected])
+	print("  tiradas: %d jugadas (%d en AGOTADO), %d éxitos, esperados %.0f según los %% mostrados" % [
+		plays, exhausted_plays, successes, expected])
+
+
+func _test_exhausted_penalty_is_visible() -> void:
+	var e := _new_engine(9)
+	e.start()
+	e.begin_moment()
+	var card := _card(Card.Kind.PASS, 0.10)
+	var fresh := e.success_chance(card)
+	e.player.energy = e.player.max_energy() * 0.2
+	_check(e.player.zone() == PlayerStats.Zone.EXHAUSTED, "20% de energía debería ser AGOTADO")
+	var tired := e.success_chance(card)
+	_check(is_equal_approx(fresh - tired, MatchEngine.EXHAUSTED_PENALTY),
+			"AGOTADO debería restar %d pts al %% visible (restó %d)" % [
+				roundi(MatchEngine.EXHAUSTED_PENALTY * 100.0), roundi((fresh - tired) * 100.0)])
+	var labels: Array = e.chance_breakdown(card).map(func(i): return i["label"])
+	_check(labels.has("AGOTADO"), "el desglose de la carta debería nombrar la penalización AGOTADO")
 
 
 # La base de equipos debe estar completa y bien formada.

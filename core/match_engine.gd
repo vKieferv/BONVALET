@@ -8,6 +8,8 @@ enum Posture { LOW, NORMAL, HIGH }
 
 # --- Constantes de balance (ajustar con core/sim.gd o godot-check -Balance) ---
 const MAX_FAILS := 2                  # 2 fallos y el Momento Clave se pierde
+const MIN_CHANCE := 0.05              # ninguna jugada baja de 5% ni pasa de 95%
+const MAX_CHANCE := 0.95
 const FLOW_BREAK_LOSS_PCT := 0.15     # energía perdida al romperse el Flow
 const TIRED_COST_MULT := 1.25
 const TIRED_PENALTY := 0.04
@@ -215,28 +217,48 @@ func cost_of(card: Card) -> int:
 	return maxi(1, ceili(c))
 
 
-func success_chance(card: Card) -> float:
-	var difficulty: float = defense_difficulty if in_defense else float(current_moment()["difficulty"])
-	var p: float = player.base_success() + card.effective_bonus() - difficulty
+# Desglose de la probabilidad de éxito de una carta: [{label, value, zone?}], value en puntos
+# (0.10 = 10). Es la única fuente del cálculo: success_chance() lo suma y la carta lo muestra.
+# La zona de energía se evalúa con la energía actual, antes de pagar la carta (igual que la tirada).
+func chance_breakdown(card: Card) -> Array:
+	var items: Array = [{"label": "Base (técnica)", "value": player.base_success()}]
+	if card.effective_bonus() != 0.0:
+		items.append({"label": "Carta", "value": card.effective_bonus()})
+	if in_defense:
+		items.append({"label": "Ataque rival", "value": -defense_difficulty})
+	else:
+		items.append({"label": "Defensa rival", "value": -float(current_moment()["difficulty"])})
 	match player.zone():
 		PlayerStats.Zone.TIRED:
-			p -= TIRED_PENALTY
+			items.append({"label": "CANSADO", "value": -TIRED_PENALTY, "zone": true})
 		PlayerStats.Zone.EXHAUSTED:
-			p -= EXHAUSTED_PENALTY
+			items.append({"label": "AGOTADO", "value": -EXHAUSTED_PENALTY, "zone": true})
 	if is_natural_executor(card):
-		p += NATURAL_EXECUTOR_BONUS
-	p += form_bonus
+		items.append({"label": "Ejecutor Natural", "value": NATURAL_EXECUTOR_BONUS})
+	if form_bonus != 0.0:
+		items.append({"label": "Entrenamiento", "value": form_bonus})
 	if not in_defense:
-		if moment_idx < opening_moments:
-			p += opening_bonus
-		p -= opponent_pressure
+		if moment_idx < opening_moments and opening_bonus != 0.0:
+			items.append({"label": "Apertura", "value": opening_bonus})
+		if opponent_pressure != 0.0:
+			items.append({"label": "Presión rival", "value": -opponent_pressure})
 		if card.kind == Card.Kind.SHOT:
-			p -= opponent_block
+			if opponent_block != 0.0:
+				items.append({"label": "Bloqueo rival", "value": -opponent_block})
 			if posture == Posture.LOW:
-				p -= LOW_SHOT_PENALTY
+				items.append({"label": "Postura LOW", "value": -LOW_SHOT_PENALTY})
 			if exploit_rival_space:
-				p += exploit_shot_bonus
-	return clampf(p, 0.05, 0.95)
+				items.append({"label": "Espacios del rival", "value": exploit_shot_bonus})
+	return items
+
+
+# Probabilidad de éxito (0-1) redondeada a puntos enteros: el 88% que muestra la carta es
+# exactamente el 0.88 contra el que se tira (rng.randf() < 0.88, o sea, tirada 0-99 menor que 88).
+func success_chance(card: Card) -> float:
+	var p := 0.0
+	for item in chance_breakdown(card):
+		p += float(item["value"])
+	return roundi(clampf(p, MIN_CHANCE, MAX_CHANCE) * 100.0) / 100.0
 
 
 func can_play(card: Card) -> bool:
@@ -289,7 +311,9 @@ func play_card(hand_index: int) -> Dictionary:
 		natural_executor_played.emit(card)
 	_check_exhaustion(ev)
 	_roll_injury(ev)
-	var success := rng.randf() < p
+	var roll := rng.randf()
+	var success := roll < p   # p es la misma que mostraba la carta antes de jugarla
+	ev["roll"] = roll
 	ev["success"] = success
 
 	if in_defense:

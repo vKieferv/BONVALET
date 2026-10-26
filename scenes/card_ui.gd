@@ -43,6 +43,7 @@ var _tween: Tween
 @onready var name_label: Label = $Body/VBox/NameLabel
 @onready var kind_label: Label = $Body/VBox/KindLabel
 @onready var chance_label: Label = $Body/VBox/ChanceLabel
+@onready var mod_label: Label = $Body/VBox/ModLabel
 @onready var cost_label: Label = $Body/VBox/CostLabel
 @onready var glow: ColorRect = $Body/Glow
 
@@ -74,8 +75,12 @@ func setup(c: Card, index: int) -> void:
         kind_label.text += " ★"   # carta firma: tiene Ejecutor Natural
 
 
-# cost = costo actual (con cansancio/Flow), base_cost = costo impreso en la carta
-func update_stats(cost: int, base_cost: int, chance: float, usable: bool, glow_on: bool) -> void:
+# cost = costo actual (con cansancio/Flow), base_cost = costo impreso en la carta.
+# chance = MatchEngine.success_chance() y breakdown = MatchEngine.chance_breakdown(): el % que se
+# muestra es exactamente el que usa la tirada, y el desglose explica de dónde sale.
+func update_stats(cost: int, base_cost: int, chance: float, usable: bool, glow_on: bool, breakdown: Array = []) -> void:
+    mod_label.text = ""
+    tooltip_text = ""
     if card != null and card.type == Card.Type.PENALTY:
         chance_label.text = "—"
         cost_label.text = "Sin efecto"
@@ -83,6 +88,7 @@ func update_stats(cost: int, base_cost: int, chance: float, usable: bool, glow_o
         cost_label.add_theme_color_override("font_color", Color("#a0aec0"))
     else:
         chance_label.text = "%d%%" % roundi(chance * 100.0)
+        _show_breakdown(breakdown, chance)
         var cc := Color("#3fb950") if chance >= 0.65 else (Color("#ecc94b") if chance >= 0.45 else Color("#f85149"))
         chance_label.add_theme_color_override("font_color", cc)
         cost_label.text = "Costo %d" % cost
@@ -96,6 +102,25 @@ func update_stats(cost: int, base_cost: int, chance: float, usable: bool, glow_o
     body.modulate = Color.WHITE if usable else Color(0.55, 0.55, 0.62)
     if slot_hidden:
         modulate.a = 0.0
+
+
+# Línea corta con los modificadores (sin base, carta ni dificultad) y el desglose completo en el tooltip.
+func _show_breakdown(breakdown: Array, chance: float) -> void:
+    var mods: Array = []
+    var tip: Array = []
+    var penalized := false
+    for item in breakdown:
+        var pts := roundi(float(item["value"]) * 100.0)
+        tip.append("%s: %+d" % [item["label"], pts])
+        if item["label"] not in ["Base (técnica)", "Carta", "Defensa rival", "Ataque rival"]:
+            mods.append("%s %+d" % [item["label"], pts])
+            penalized = penalized or (item.get("zone", false) and pts < 0)
+    if breakdown.is_empty():
+        return
+    tip.append("= %d%% (tirada de 0 a 99: éxito si sale menos de %d)" % [roundi(chance * 100.0), roundi(chance * 100.0)])
+    tooltip_text = "\n".join(tip)
+    mod_label.text = " · ".join(mods)
+    mod_label.add_theme_color_override("font_color", Color("#f85149") if penalized else Color("#ecc94b"))
 
 
 func set_interactive(v: bool) -> void:

@@ -24,6 +24,8 @@ var defenses := 0
 var emergencies := 0
 var natural_plays := [0]
 var _defense_open := false
+var card_checks := 0
+var ui_checked_errors := false   # tras el primer error de UI se deja de revisar (evita miles de líneas)
 
 
 func _initialize() -> void:
@@ -64,6 +66,7 @@ func _process(_delta: float) -> bool:
 		_defense_open = false
 	if view._busy:
 		return false
+	_check_ui_matches_engine()
 	if view._in_defense:
 		if not _defense_open:
 			_defense_open = true
@@ -116,6 +119,26 @@ func _start_match() -> void:
 		view._engine.natural_executor_played.connect(func(_c: Card) -> void: natural_plays[0] += 1)
 
 
+# El % de cada carta en pantalla y el badge de posesión deben reflejar el estado del motor.
+func _check_ui_matches_engine() -> void:
+	if ui_checked_errors:
+		return
+	var badge: String = view._possession_label.text
+	if view._in_moment and not (badge.contains("(ATAQUE)") and badge.contains(view._local_name.text)):
+		errors.append("Atacando, el badge dice '%s'" % badge)
+	if view._in_defense and not (badge.contains("(DEFENSA)") and badge.contains(view._rival.profile_name.to_upper())):
+		errors.append("Defendiendo, el badge dice '%s'" % badge)
+	if view._in_moment or view._engine.in_defense:
+		for ui in view._hand_box.get_children():
+			if ui.card.type == Card.Type.PENALTY or ui.slot_hidden:
+				continue
+			card_checks += 1
+			var real := "%d%%" % roundi(view._engine.success_chance(ui.card) * 100.0)
+			if ui.chance_label.text != real:
+				errors.append("La carta %s muestra %s pero el motor tira contra %s" % [ui.card.display_name, ui.chance_label.text, real])
+	ui_checked_errors = not errors.is_empty()
+
+
 func _check_posture_lock() -> void:
 	lock_checks += 1
 	var before: int = view._posture
@@ -139,8 +162,8 @@ func _finish() -> bool:
 		errors.append("Se jugó en LOW contra un rival que castiga la pasividad y exploit_rival_space nunca se activó")
 	if played > 0 and defenses == 0:
 		errors.append("Nunca hubo fase defensiva")
-	print("smoke_match: %d partidos, %d defensas (%d despejes de emergencia), %d jugadas de Ejecutor Natural, %d chequeos de postura, contragolpe visto: %s" % [
-		played, defenses, emergencies, natural_plays[0], lock_checks, "sí" if exploit_seen else "no"])
+	print("smoke_match: %d partidos, %d defensas (%d despejes de emergencia), %d jugadas de Ejecutor Natural, %d chequeos de postura, %d cartas en pantalla verificadas contra el motor, contragolpe visto: %s" % [
+		played, defenses, emergencies, natural_plays[0], lock_checks, card_checks, "sí" if exploit_seen else "no"])
 	for e in errors:
 		print("  ERROR: " + e)
 	quit(1 if errors.size() > 0 else 0)

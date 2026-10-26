@@ -8,6 +8,8 @@ extends Control
 
 signal defense_finished
 
+enum Ball { NONE, OURS, THEIRS }   # quién tiene la pelota (badge de posesión)
+
 const CARD_SCENE := preload("res://scenes/card_ui.tscn")
 const DECK_PATH := "res://data/cards.json"
 const BASE_DIFFICULTY := 0.15
@@ -34,6 +36,8 @@ const COLOR_NATURAL := Color("#ffd24a")
 @onready var _rival_bar: ProgressBar = %RivalEnergyBar
 @onready var _flow_badge: PanelContainer = %FlowBadge
 @onready var _flow_label: Label = %FlowLabel
+@onready var _possession_badge: PanelContainer = %PossessionBadge
+@onready var _possession_label: Label = %PossessionLabel
 @onready var _posture_buttons: Array = [%PostureLow, %PostureNormal, %PostureHigh]
 @onready var _posture_hint: Label = %PostureHint
 @onready var _banner: PanelContainer = %BroadcastBanner
@@ -70,6 +74,8 @@ var _in_moment := false
 var _in_defense := false
 var _prev_hand: Array = []
 var _active_clone: CardUI
+var _last_roll_text := ""      # resultado visible de la última tirada de la jugada en curso
+var _possession := Ball.NONE
 
 var _ball: Panel
 var _flow_glow: ColorRect
@@ -242,7 +248,9 @@ func _reset_hud() -> void:
     _emergency_button.disabled = true
     _emergency_button.text = "Despeje de emergencia"
     _ball.visible = false
+    _last_roll_text = ""
     _update_flow_badge()
+    _set_possession(Ball.NONE)
     _lock_posture(false)
 
 
@@ -251,12 +259,15 @@ func _update_hud() -> void:
         return
     _update_bars()
     _update_flow_badge()
+    # La penalización de acierto ya está descontada en el % de cada carta; aquí se explica.
+    var extra_cost := roundi((MatchEngine.TIRED_COST_MULT - 1.0) * 100.0)
     var zone_text := "ÓPTIMO"
     match _player.zone():
         PlayerStats.Zone.TIRED:
-            zone_text = "CANSADO (costos +%d%%)" % roundi((MatchEngine.TIRED_COST_MULT - 1.0) * 100.0)
+            zone_text = "CANSADO (−%d%% acierto, costos +%d%%)" % [roundi(MatchEngine.TIRED_PENALTY * 100.0), extra_cost]
         PlayerStats.Zone.EXHAUSTED:
-            zone_text = "AGOTADO (riesgo de lesión)"
+            zone_text = "AGOTADO (−%d%% acierto, costos +%d%%, riesgo de lesión)" % [
+                roundi(MatchEngine.EXHAUSTED_PENALTY * 100.0), extra_cost]
     _energy_readout.text = "ENERGÍA %d/%d · %s" % [int(_player.energy), int(_player.max_energy()), zone_text]
     if _in_moment:
         var m := _engine.current_moment()
@@ -269,6 +280,8 @@ func _update_hud() -> void:
             roundi(d["pressure"] * 100.0), roundi(d["block"] * 100.0)]
     else:
         _progress_label.text = ""
+    if _last_roll_text != "" and (_in_moment or _in_defense):
+        _progress_label.text += " · " + _last_roll_text
     _yield_button.disabled = not (_in_moment or _in_defense) or _busy
     _emergency_button.text = "Despeje de emergencia (−%d)" % _engine.emergency_cost()
     _emergency_button.disabled = not _in_defense or _busy or not _engine.can_emergency_clear()
@@ -301,6 +314,30 @@ func _update_flow_badge() -> void:
             _flow_tween.kill()
             _flow_tween = null
         _flow_label.modulate = Color(1, 1, 1, 0.3)
+
+
+# Badge del marcador: quién tiene la pelota. Con balón propio atacas; con balón rival, defiendes.
+func _set_possession(ball: Ball) -> void:
+    _possession = ball
+    var color := COLOR_GOLD
+    match ball:
+        Ball.OURS:
+            _possession_label.text = "POSESIÓN: %s (ATAQUE)" % _local_name.text
+            color = _league.team_display_color(_league.get_team(_my_team_id()))
+        Ball.THEIRS:
+            _possession_label.text = "POSESIÓN: %s (DEFENSA)" % _rival.profile_name.to_upper()
+            color = _league.team_display_color(_rival_team)
+        _:
+            _possession_label.text = "BALÓN EN DISPUTA"
+            color = Color("#9da7b3")
+    var sb := _flat(color.darkened(0.7), 6)
+    sb.border_color = color
+    sb.set_border_width_all(2)
+    sb.set_content_margin_all(4)
+    sb.content_margin_left = 14
+    sb.content_margin_right = 14
+    _possession_badge.add_theme_stylebox_override("panel", sb)
+    _possession_label.add_theme_color_override("font_color", color.lightened(0.2))
 
 
 func _set_minute(v: float) -> void:
@@ -465,6 +502,7 @@ func _rival_event() -> bool:
     var minute: int = _rival_engine.current_moment()["minute"]
     await _tween_clock(float(minute))
     _ball_place(0.78, 0.5)
+    _set_possession(Ball.THEIRS)
     var nm := _rival.profile_name.to_upper()
     var exploited := _rival_exploits_posture()
     if exploited:
@@ -479,8 +517,10 @@ func _rival_event() -> bool:
     if defense["cancelled"]:
         _rival_engine.skip_moment()
         _rival_engine.advance(_rival.default_posture as MatchEngine.Posture)
+        _set_possession(Ball.OURS)
         var counter := "  ·  ¡CONTRAGOLPE LISTO!" if _engine.counter_ready else ""
         await _banner_show("¡RECUPERASTE EL BALÓN!" + counter, COLOR_OK, 0.9)
+        _set_possession(Ball.NONE)
         return true
 
     var ev := _play_rival_moment(exploited, defense)
@@ -494,6 +534,7 @@ func _rival_event() -> bool:
     if defense["emergency"] and _rival_engine.grant_extra_moment(minute):
         await _banner_show("EL BALÓN VUELVE A %s" % nm, COLOR_WARN, 0.7)
     _set_bar(_rival_bar, _rival_fill, ev["energy_pct"])
+    _set_possession(Ball.NONE)
     return true
 
 
@@ -501,6 +542,7 @@ func _rival_event() -> bool:
 # Emergencia o dejar pasar. Devuelve lo que se aplica al ataque rival.
 func _defend() -> Dictionary:
     _lock_posture(true)
+    _last_roll_text = ""
     _engine.begin_defense(LeagueManager.defense_difficulty_vs(_rival_team, BASE_DIFFICULTY))
     if _engine.in_defense:
         _in_defense = true
@@ -525,6 +567,8 @@ func _player_moment_start() -> void:
     var m := _engine.begin_moment()
     await _tween_clock(float(m["minute"]))
     _ball_place(0.22, 0.5)
+    _last_roll_text = ""
+    _set_possession(Ball.OURS)
     if _engine.moment_over:
         await _banner_show("SIN JUGADAS DISPONIBLES", COLOR_WARN, 0.9)
         _finish_player_moment()
@@ -541,6 +585,7 @@ func _player_moment_start() -> void:
 
 func _finish_player_moment() -> void:
     _in_moment = false
+    _set_possession(Ball.NONE)
     _lock_posture(false)
     _clear_hand()
     _hand_title.text = "TU MANO"
@@ -589,6 +634,7 @@ func _end_match(title: String) -> void:
     _in_moment = false
     _in_defense = false
     _busy = false
+    _set_possession(Ball.NONE)
     _lock_posture(false)
     _clear_hand()
     var s: Dictionary = _engine.stats
@@ -643,7 +689,7 @@ func _update_hand_stats() -> void:
         var card: Card = ui.card
         var usable := _engine.can_play(card) and not _busy
         ui.update_stats(_engine.cost_of(card), card.energy_cost, _engine.success_chance(card), usable,
-                card.flow_uses > 0 and _engine.flow_active)
+                card.flow_uses > 0 and _engine.flow_active, _engine.chance_breakdown(card))
 
 
 func _on_card_chosen(ui: CardUI) -> void:
@@ -688,7 +734,7 @@ func _spawn_clone(src: CardUI) -> CardUI:
     c.setup(src.card, -1)
     c.interactive = false
     c.update_stats(_engine.cost_of(src.card), src.card.energy_cost, _engine.success_chance(src.card), true,
-            src.card.flow_uses > 0 and _engine.flow_active)
+            src.card.flow_uses > 0 and _engine.flow_active, _engine.chance_breakdown(src.card))
     c.global_position = src.global_position
     c.pivot_offset = c.size / 2.0
     return c
@@ -707,6 +753,8 @@ func _present_result(ev: Dictionary, clone: CardUI) -> void:
         clone.queue_free()
         return
     var ok: bool = ev["success"]
+    _last_roll_text = "Última tirada %d vs %d%% → %s" % [
+        floori(ev["roll"] * 100.0), roundi(ev["chance"] * 100.0), "ÉXITO" if ok else "FALLO"]
     clone.flash(COLOR_OK if ok else COLOR_BAD)
     _move_ball(ev)
     _update_hud()

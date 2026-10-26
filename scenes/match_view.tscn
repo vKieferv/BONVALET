@@ -32,7 +32,7 @@ anchor_right = 0.5
 offset_left = -320.0
 offset_top = 12.0
 offset_right = 320.0
-offset_bottom = 122.0
+offset_bottom = 160.0
 grow_horizontal = 2
 mouse_filter = 2
 
@@ -135,6 +135,19 @@ layout_mode = 2
 value = 100.0
 show_percentage = false
 
+[node name="PossessionBadge" type="PanelContainer" parent="TopScoreboard/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 2
+
+[node name="PossessionLabel" type="Label" parent="TopScoreboard/VBox/PossessionBadge"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "BALÓN EN DISPUTA"
+horizontal_alignment = 1
+
 [node name="PostureSelector" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 6
@@ -199,7 +212,7 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -270.0
+offset_top = -300.0
 grow_horizontal = 2
 grow_vertical = 0
 
@@ -234,20 +247,27 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 16
-horizontal_alignment = 1
+horizontal_alignment = 2
+text_overrun_behavior = 3
 
-[node name="EnergyReadout" type="Label" parent="HandOverlay/HandMargin/HandVBox/InfoRow"]
+[node name="ActionRow" type="HBoxContainer" parent="HandOverlay/HandMargin/HandVBox"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="EnergyReadout" type="Label" parent="HandOverlay/HandMargin/HandVBox/ActionRow"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 16
+text_overrun_behavior = 3
 
-[node name="YieldButton" type="Button" parent="HandOverlay/HandMargin/HandVBox/InfoRow"]
+[node name="YieldButton" type="Button" parent="HandOverlay/HandMargin/HandVBox/ActionRow"]
 unique_name_in_owner = true
 layout_mode = 2
 disabled = true
 text = "Ceder jugada"
 
-[node name="EmergencyButton" type="Button" parent="HandOverlay/HandMargin/HandVBox/InfoRow"]
+[node name="EmergencyButton" type="Button" parent="HandOverlay/HandMargin/HandVBox/ActionRow"]
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Fuera del mazo: gasta mucha energía y castiga los remates rivales, pero el balón vuelve al rival."
@@ -281,9 +301,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -280.0
-offset_top = -220.0
+offset_top = -170.0
 offset_right = 280.0
-offset_bottom = -120.0
+offset_bottom = -70.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2

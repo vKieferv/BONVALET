@@ -22,15 +22,20 @@ entrada en `decisiones.md`. Las ideas nuevas van a `ideas.md`, no al hito en cur
 - [x] Versión Linux de la verificación (`check.sh`) + GitHub Actions en cada push y PR
 - [x] Probar una tarea autónoma de punta a punta: T-01 (sesión en la nube → PR #1 → revisión → mezcla)
 
-## M1 · El partido es divertido (borrador)
-Preguntas a cerrar, cada una con playtest y medición:
-- Largo de jugada: ¿3 fijas (D-12) o por arquetipo (I-07)?
-- Kamikaze: ¿~22% de lesiones es aceptable o se vuelve al "hasta 15%"?
-- Catenaccio: es el que menos marca (−15 en remates en LOW); ¿es su identidad o un problema?
-- Contragolpe: su Intercepción deja a U. de Chile y UC por sobre Colo-Colo; ¿se ajusta?
-- Guardado (T-01): cerrar el juego a mitad de partido permite repetir un partido perdido. ¿Se
-  registra el partido como derrota provisional al entrar a la cancha?
-- Sensación de juego mínima: ritmo de animaciones, feedback de acierto/fallo, lectura de la mano.
+## M1 · El partido es divertido
+Preguntas, medidas con `balance-lab` (`tests/lab/m1.json`) y decididas el 2026-10-26:
+- [x] Largo de jugada → 3 para todos, 2 para Catenaccio (D-16). Tiki-Taka 3-4 en espera (I-09).
+- [x] Kamikaze → lesión tardía ×2.5, ~15% (D-17).
+- [x] Catenaccio marca poco → se resuelve con sus 2 jugadas (D-16).
+- [x] Contragolpe sobre Colo-Colo → no se toca la Intercepción; jerarquía con el plantel, I-06 (D-18).
+- [x] Guardado: cerrar a mitad de partido → se repite el partido (D-19).
+- [ ] Sensación de juego: 5 playtests con `docs/playtests/_plantilla.md`, foco en: ¿entiendo por qué
+      gané o perdí cada jugada?, ¿el ritmo de las animaciones cansa?, ¿sé cuándo mi mano puede armar
+      un gol? (si no, I-32).
+
+Tareas:
+- [ ] T-02 · aplicar D-16 y D-17 (`docs/tareas/T-02-reglas-m1.md`, autónoma)
+- [ ] Playtests 1-5 (usuario) → skill `playtest`; los arreglos que salgan, como tareas nuevas
 
 ## Trabajo autónomo vs. juntos
 - **Autónomo** (sesión en la nube, termina en PR): tareas con brief cerrado y verificables con

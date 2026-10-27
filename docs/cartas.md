@@ -14,6 +14,26 @@ pasa al GDD (sección 3) y a los JSON; las ideas con efecto nuevo van primero a 
 - En pantalla, bajo el nombre, la carta muestra su familia ("Bombazo · Remate de primera"), para que el
   jugador aprenda las familias y no cada nombre (pilar 2).
 
+## Idioma de las cartas: un verbo por tipo (aceptado como dirección, 2026-10-27, I-43)
+Hoy pase, control, regate y centro son la misma regla con otro bono. La dirección es que cada tipo
+tenga su verbo, y que toda carta nueva se arme con uno de ellos más el toque de su estilo. Todavía sin
+código: cambiar estas reglas mueve el balance y se mide con `balance-lab`.
+
+| Tipo | Verbo | Ejemplo de uso |
+|---|---|---|
+| Pase | avanza la jugada (la base) | Pase corto |
+| Control | prepara: en ataque, la siguiente jugada +X; desde la defensa es la **Transición** | Bajarla de pecho |
+| Regate | ignora la Presión rival | Amague |
+| Centro | el próximo remate +X | Centro al área |
+| Remate | cierra el Momento | Remate de primera |
+| Presión | encarece todas sus jugadas | Marca, Presión |
+| Bloqueo | encarece su remate | Bloqueo |
+| Intercepción | corta y deja el contragolpe | Intercepción, Anticipo |
+| Despeje | corta | Despeje, Cerrojo |
+| Transición | no frena, prepara tu próximo Momento | Salida limpia |
+
+Nombres de las cartas de T-04 confirmados tal como están en el brief (2026-10-27).
+
 ## Catálogo actual por familia
 Estado: **estándar** = mazo inicial de todos (D-23) · **rasgo** = carta de rasgo de un arquetipo (D-23)
 · **catálogo** = se gana en el entrenamiento (D-20) · **firma** = de un jugador · **T-04** = definida,
@@ -66,33 +86,52 @@ Aguantar el Balón, Ceder Jugada y Despeje de Emergencia. No son cartas: no llev
 
 _Sin entradas todavía._
 
-## Cartas de estilo por arquetipo (borrador, I-40 a I-42)
-Idea: que la personalidad del DT viva en las cartas que le ofrece su entrenamiento (las "2 de tu
-estilo" de T-05), como las clases de Slay the Spire. Hoy las listas de crecimiento de T-04 son las
-mismas cartas genéricas en otro orden: el único naipe propio de cada estilo es su rasgo.
+## Intención del rival y superioridad numérica (I-41, I-44)
+- **Qué ves depende del nivel de tu DT frente al del rival** (idea del usuario). El "nivel del DT" no
+  existe todavía: falta decidir si es fijo por club, si sube en la carrera o ambas cosas.
+  - Tu DT por debajo: "Ataca Colo-Colo · atacan 4-5".
+  - Parejo: "atacan 5 · jugada de 3".
+  - Por encima: "atacan 5 · jugada de 3 · remata Suazo con el Zapatazo".
+- **Cuántos atacan contra cuántos defienden:** la diferencia es una línea del desglose
+  ("Superioridad numérica +X" o "Inferioridad −X"), visible en cada carta (pilar 2). Punto de partida
+  para medir: 1 jugador de diferencia = 6 pts, lo que vale hoy una Presión. Así la Presión y la Marca
+  se leen como "pongo uno más en defensa".
+  - Ejemplo: Colo-Colo ataca en HIGH con 5. Defiendes con 5 y juegas Marca (+1): 5 contra 6, sus
+    jugadas −6. Si en vez de eso juegas Salida limpia: 5 contra 5, sin efecto, pero tu próximo ataque
+    sale con uno más.
+  - Por decidir: de dónde sale la base (postura, estilo) sin contar dos veces lo que la postura ya hace.
+- El largo de la jugada ya depende del estilo en parte (Catenaccio 2, D-16); la intención lo muestra.
+  Cartas que den más jugadas o PA: más adelante.
 
-Dos ideas de reglas que lo sostienen:
-- **Transición (I-40):** carta de la mano defensiva que no frena al rival, pero si sale tu próximo
-  Momento arranca mejor. *Rápida* = arrancas con una jugada hecha (ya existe: el contragolpe de la
-  Intercepción y el campo `counter`). *Elaborada* = tu próximo Momento suma "Transición +X" en el
-  desglose (nueva). Con 2 PA de defensa, la decisión es cortar su ataque o preparar el tuyo.
-- **Intención visible (I-41):** antes de defender ves cómo viene el rival (largo de la jugada, con qué
-  remate). Sin eso, elegir entre Presión, Bloqueo o cortar es a ciegas.
+## Transición: reglas por decidir (I-40)
+Cálculo simplificado de la escala (Momento de 3 jugadas al 60%, un fallo de margen, sin contar PA):
+sin bono ~48% de gol · +10 solo en la primera ~52% · +6 en todas ("uno más") ~58% · +10 en todas ~65%.
+| Pregunta | Opciones | Recomendación |
+|---|---|---|
+| ¿A qué jugadas? | la primera / todas | todas, como "+1 atacante" (~58%): un solo concepto con la superioridad numérica |
+| ¿Se suma al contragolpe? | sí / no | sí, es el combo del Contragolpe (Anticipo 1 PA + Salida limpia 1 PA); máximo una transición por Momento |
+| ¿Se pierde si te hacen gol? | sí / no | sí: saque del medio. Es la apuesta de dejar atacar al rival |
+| ¿Cuánto dura? | próximo Momento / se guarda | solo tu próximo Momento, con aviso "TRANSICIÓN LISTA" como el del contragolpe |
 
-Bocetos, sin números (✓ = se arma con los campos que ya existen y se puede medir hoy en `balance-lab`):
-| Arquetipo | Cómo defiende | Transición | Cartas boceto |
+## Cartas de estilo por arquetipo (borrador, I-42)
+La personalidad del DT vive en las cartas que le ofrece su entrenamiento (las "2 de tu estilo" de
+T-05), como las clases de Slay the Spire. Hoy las listas de crecimiento de T-04 son las mismas cartas
+genéricas en otro orden: lo único propio de cada estilo es su rasgo. Cada carta usa un verbo del idioma
+con el toque del estilo. Sin números (✓ = se arma con campos que ya existen y se puede medir hoy).
+
+| Estilo | Ataque | Control / transición | Defensa |
 |---|---|---|---|
-| Tiki-Taka | presiona para recuperar | elaborada (probabilidad) | **Presión tras pérdida**: presión chica; si sale, Transición +X · **Salida limpia**: no frena; si sale, Transición +X y robas 1 |
-| Directo | gana la segunda pelota | rápida | **Segunda pelota**: bloqueo que, si sale, deja el contragolpe ✓ |
-| Catenaccio | corta y anula a la figura | rápida, poca | **Marcaje al hombre**: el remate firma del rival pierde el Ejecutor Natural y −X (luce con I-41) |
-| Kamikaze | presión alta que desgasta a los dos | rápida | **Presión asfixiante** (I-08): presión que le cuesta estamina al rival · **Recuperar arriba**: presión con contragolpe ✓ |
-| Contragolpe | intercepta | rápida + probabilidad | **Contra letal**: intercepción; si sale, contragolpe y +X al remate de ese Momento |
+| Tiki-Taka | **Paredita** (pase): cuenta doble para el Flow | **Salida limpia**: no frena; si sale, +1 atacante en tu próximo Momento y robas 1 | **Presión tras pérdida**: +1 defensor; si sale, transición |
+| Directo | **Cabezazo** (remate barato): solo después de un Centro o un Pelotazo | **Bajarla de pecho** (control): la siguiente jugada +X | **Segunda pelota** (bloqueo): si sale, contragolpe ✓ |
+| Catenaccio | **Pelota parada** (remate): la Presión rival no le afecta, solo el Bloqueo | — (su identidad es cortar) | **Marcaje al hombre**: la firma rival pierde el Ejecutor Natural · **Línea de cinco**: +2 defensores |
+| Kamikaze | **Todos al área** (centro): +1 atacante en este Momento, desgaste muy alto | **Recuperar arriba** (presión): si sale, contragolpe ✓ | **Presión asfixiante** (I-08): el rival gasta más estamina |
+| Contragolpe | **Pase en profundidad**: avanza 2 si el Momento es un contragolpe | **Salida en velocidad**: no frena; si sale, contragolpe ✓ | **Contra letal** (intercepción): si sale, contragolpe y +X al remate |
 
 ## Cartas especiales con efecto propio (en espera)
 Se diseñan después de cerrar el bucle del mazo (T-04 y T-05) y de los primeros playtests (I-39). Aquí
 van solo ideas sueltas, sin números.
 
-_Sin entradas todavía._
+- Cartas que dan más jugadas o PA en el Momento (usuario, 2026-10-27): más adelante, sin complicarnos aún.
 
 ## Jugadas anotadas
 Secuencias que salgan jugando, para ver qué se repite y qué falta. Formato:

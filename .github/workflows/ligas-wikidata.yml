@@ -1,0 +1,49 @@
+# Datos de referencia de ligas (uso propio, no para el juego): la sesión en la nube no llega a
+# Wikidata ni a Wikipedia, así que los scripts de tools/ligas/ corren aquí y el resultado se sube a
+# esta misma rama. Autorizado por el usuario. Corre los scripts que cambiaron en el push.
+name: ligas-wikidata
+
+on:
+  push:
+    branches: [claude/awesome-johnson-mfjxwu]
+    paths: [tools/ligas/*.py, .github/workflows/ligas-wikidata.yml]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ligas-wikidata
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Correr los scripts que cambiaron
+        env:
+          BEFORE: ${{ github.event.before }}
+        run: |
+          if [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
+            changed=$(ls tools/ligas/*.py)
+          else
+            changed=$(git diff --name-only "$BEFORE" "$GITHUB_SHA")
+          fi
+          for s in temporadas jugadores; do
+            if echo "$changed" | grep -q "tools/ligas/$s.py"; then
+              python3 "tools/ligas/$s.py" tools/ligas/out
+            fi
+          done
+
+      - name: Subir el resultado a la rama
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          git add tools/ligas/out
+          git commit -q -m "chore(ligas): instantánea de Wikidata y Wikipedia (${GITHUB_SHA::7})" || { echo "sin cambios"; exit 0; }
+          git pull --rebase -q origin "${GITHUB_REF_NAME}"
+          git push -q origin "HEAD:${GITHUB_REF_NAME}"

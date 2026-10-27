@@ -1,0 +1,2625 @@
+{{Ficha de campeonato
+|nombre = Torneo de Clausura de la Primera División de Chile 2006
+|tipo = LXXX Campeonato Nacional de Fútbol Profesional «BancoEstado» de la Primera División de Chile 2006
+|imagen = Colo Colo Campeón 2006.jpg
+|imagen_tamaño = 250px
+|imagen_pie = El equipo de Colo-Colo levanta la copa del Torneo de Clausura 2006.
+|ubicación =
+|país = {{CHL}}
+|categoría = [[Primera División de Chile|Primera División]]
+|fecha = 15 de julio de 2006<br />23 de diciembre de 2006
+|edición = 80.ª
+|inicio =
+|promoción =
+|marca =
+|premio = Copa [[Banco del Estado de Chile|BancoEstado]]
+|recaudación =
+|anterior = [[Torneo Apertura 2006 (Chile)|Torneo de Apertura 2006]]
+|actual = Torneo de Clausura 2006
+|siguiente = [[Torneo Apertura 2007 (Chile)|Torneo de Apertura 2007]]
+|página web = http://www.anfp.cl
+|primero = [[Archivo:Bianco e Nero.svg|20px]] [[Colo-Colo]]
+|segundo = [[Archivo:600px Verde Rosso Bianco Verde.png|20px]] [[Audax Italiano La Florida|Audax Italiano]]
+|tercero =
+|cuarto =
+|mayor_anotador =
+|mejor_jugador =
+|podio1 = [[Archivo:COBRELOALOGO2.png|20px]] [[Club de Deportes Cobreloa|Cobreloa]]<br />[[Archivo:Celeste e Bianco.svg|20px]] [[Club Deportivo O'Higgins|O'Higgins]]
+|nom_podio1 = Semifinalistas
+|asistentes =
+|participantes = 19
+|partidos = 186
+|victorias =
+|derrotas =
+|est_nombre1 = Goleador
+|est1 = {{Bandera|Chile}} [[Leonardo Monje]] de [[Club Deportivo Universidad de Concepción (fútbol)|Universidad de Concepción]] (17 goles)
+|est_nombre2 = Socio de TV
+|est2 = [[Canal del Fútbol|CDF]]<br />[[Mega (Chile)|Mega]]<br />[[CRT]]
+|anotaciones =
+|goles =
+|Ascendidos = [[Archivo:600px Bianco e Blu.svg|20px]] [[Club de Deportes Melipilla|Deportes Melipilla]]<br>[[Archivo:600px Rosso e Rosso.png|20px]] [[Ñublense]]<br>[[Archivo:600px Bianco Rosso Nero Verde e Bianco.png|20px]] [[Club de Deportes Lota Schwager|Lota Schwager]]
+|Descendidos = [[Archivo:Sports flag icons - White with narrow black V.svg|20px]] [[Club de Deportes Santiago Morning|Santiago Morning]]<br>[[Archivo:600px pentasection vertical Black HEX-DE1100.svg|18px]] [[Club Social de Deportes Rangers|Rangers]] (Promoción)
+}}
+
+El '''Campeonato Nacional de Clausura “[[Banco del Estado de Chile|BancoEstado]]” de Primera División de Fútbol Profesional, año 2006''' fue el segundo y último torneo de la temporada 2006 de la [[primera división chilena]] de [[fútbol]]. Comenzó el 15 de julio y finalizó el 23 de diciembre de 2006.
+
+El trofeo fue ganado por [[Colo-Colo]], tras disputar la final con [[Audax Italiano]] y constituyó el 25º título del cuadro albo en el fútbol chileno. 
+
+Este torneo contó con la particularidad de tener un número impar de equipos (19), debido a que el vigésimo participante, [[Deportes Concepción]], fue suspendido de participar en la temporada 2006 del fútbol chileno por problemas financieros. El equipo retornaría a la competencia para el [[Torneo Apertura 2007 (Chile)|Apertura 2007]].
+
+== Modalidad ==
+El campeonato se jugó al estilo de los torneos de la [[Primera división mexicana]]. Los 19 equipos se enfrentan en modalidad "todos contra todos", en una [[Fase Clasificatoria Apertura y Clausura (Chile)|Fase Clasificatoria]]. 
+
+Los equipos se agruparon en cuatro grupos (cinco de cinco equipos y uno de cuatro), clasificando a segunda ronda (''play-off'') los dos mejores puntajes de cada grupo. 
+
+Existió, adicionalmente, la posibilidad de un "repechaje" en caso de que un tercero de grupo obtuviese un mejor puntaje en la clasificación general que el segundo de otro grupo. En este caso se jugaba un partido de repechaje en la cancha del equipo con mayor puntaje durante la [[Fase Clasificatoria Apertura y Clausura (Chile)|Fase Clasificatoria]].
+
+== Equipos por región ==
+<center>
+{{cuadro imagen|
+{{Etiqueta imagen inicio|imagen=Chile loc map.svg|ancho=300|posición=center}}
+{{Etiqueta imagen pequeña|x=-56.0|y=-121.0|escala=-1|texto='''[[Club de Deportes Antofagasta|Deportes Antofagasta]]''' [[Archivo:Red pog.svg|6px]]}}
+{{Etiqueta imagen pequeña|x=-135.0|y=-101.0|escala=-1|texto='''[[Club de Deportes Cobreloa|Cobreloa]]''' [[Archivo:Red pog.svg|6px]]}}
+{{Etiqueta imagen pequeña|x=-170.70|y=-162.0|escala=-1|texto=[[Archivo:Red pog.svg|6px]] '''[[Club de Deportes Cobresal|Cobresal]]'''}}
+{{Etiqueta imagen pequeña|x=-145.70|y=-228.0|escala=-1|texto=[[Archivo:Red pog.svg|6px]] '''[[Club de Deportes La Serena|Deportes La Serena]]'''}}
+{{Etiqueta imagen pequeña|x=-64.0|y=-233.0|escala=-1|texto='''[[Coquimbo Unido]]''' [[Archivo:Red pog.svg|6px]]}}
+{{Etiqueta imagen pequeña|x=-48.5|y=-271.0|escala=-1|texto='''[[Club de Deportes Santiago Wanderers|Santiago Wanderers]]''' [[Archivo:Red pog.svg|6px]]}}
+{{Etiqueta imagen pequeña|x=-151.0|y=-269.0|escala=-1|texto='''[[Everton de Viña del Mar|Everton]]'''}}
+{{Etiqueta imagen pequeña|x=-152.0|y=-278.0|escala=-1|texto=[[Archivo:Red pog.svg|10px]]}}
+{{Etiqueta imagen pequeña|x=-152.0|y=-288.0|escala=-1|texto=[[Archivo:Red pog.svg|6px]] '''[[Club Deportivo O'Higgins|O'Higgins]]'''}}
+{{Etiqueta imagen pequeña|x=-98.0|y=-308.0|escala=-1|texto='''[[Club Social de Deportes Rangers|Rangers]]''' [[Archivo:Red pog.svg|6px]]}}
+{{Etiqueta imagen pequeña|x=-70.0|y=-330.0|escala=-1|texto='''[[Club Deportivo Huachipato|Huachipato]]''' [[Archivo:Red pog.svg|6px]]}}
+{{Etiqueta imagen pequeña|x=-129|y=-334.0|escala=-1|texto=[[Archivo:Red pog.svg|6px]] '''[[Club Deportivo Universidad de Concepción (fútbol)|U. de Concepción]]'''}}
+{{Etiqueta imagen pequeña|x=-55.0|y=-405.0|escala=-1|texto='''[[Club de Deportes Puerto Montt|D. Puerto Montt]]''' [[Archivo:Red pog.svg|6px]]}}
+{{Etiqueta imagen pequeña|x=-150.01|y=-500|escala=-1|texto=}}
+{{Etiqueta imagen fin}}}}
+{| class="wikitable sortable"
+|-
+!align=center style="color:#FFFFFF; background-color:#000000;" | Región
+!align=center style="color:#FFFFFF; background-color:#000000;" | N.º
+!align=center style="color:#FFFFFF; background-color:#000000;" | Equipos
+|-
+|[[Archivo:Flag of the Metropolitan Region, Chile.svg|25x25px|borde|link=]] [[Región Metropolitana de Santiago|Región Metropolitana]]
+|align=center| 7
+|align=center| [[Audax Italiano La Florida|Audax Italiano]], [[Club Social y Deportivo Colo-Colo|Colo-Colo]], [[Club Deportivo Palestino|Palestino]], [[Club de Deportes Santiago Morning|Santiago Morning]], [[Unión Española]], [[Club Deportivo Universidad Católica (fútbol)|Universidad Católica]] y [[Club Universidad de Chile|Universidad de Chile]]
+|-
+|[[Archivo:Flag of Antofagasta Region, Chile.svg|25x25px|borde|link=]] [[Región de Antofagasta|Antofagasta]]
+|align=center| 2
+|align=center| [[Club de Deportes Cobreloa|Cobreloa]] y [[Club de Deportes Antofagasta|Deportes Antofagasta]]
+|-
+|[[Archivo:Flag of Coquimbo Region, Chile.svg|25x25px|borde|link=]] [[Región de Coquimbo|Coquimbo]]
+|align=center| 2
+|align=center| [[Coquimbo Unido]] y [[Club de Deportes La Serena|Deportes La Serena]]
+|-
+|[[Archivo:Flag of Valparaiso Region, Chile.svg|25x25px|borde|link=]] [[Región de Valparaíso|Valparaíso]]
+|align=center| 2
+|align=center| [[Everton de Viña del Mar|Everton]] y [[Club de Deportes Santiago Wanderers|Santiago Wanderers]] 
+|-
+|[[Archivo:Flag of Biobío Region, Chile.svg|25x25px|borde|link=]] [[Región del Biobío|Biobío]]
+|align=center| 2
+|align=center| [[Club Deportivo Huachipato|Huachipato]] y [[Club Deportivo Universidad de Concepción (fútbol)|Universidad de Concepción]] 
+|-
+|[[Archivo:Flag of Atacama, Chile.svg|25x25px|borde|link=]] [[Región de Atacama|Atacama]]
+|align=center| 1
+|align=center| [[Club de Deportes Cobresal|Cobresal]] 
+|-
+|[[Archivo:Flag of O'Higgins Region, Chile.svg|25x25px|borde|link=]] [[Región de O'Higgins|O'Higgins]]
+|align=center| 1
+|align=center| [[Club Deportivo O'Higgins|O'Higgins]]
+|-
+|[[Archivo:Flag of Maule, Chile.svg|25x25px|borde|link=]] [[Región del Maule|Maule]]
+|align=center| 1
+|align=center| [[Club Social de Deportes Rangers|Rangers]]
+|-
+|[[Archivo:Flag of Los Lagos Region, Chile.svg|25x25px|borde|link=]] [[Región de Los Lagos|Los Lagos]]
+|align=center| 1
+|align=center| [[Club de Deportes Puerto Montt|Deportes Puerto Montt]]
+|-
+|}
+</center>
+
+{{nueva columna}}
+<center>
+{| border=0
+| <div style="position:relative;">
+[[Archivo:Comunas de Santiago (plain).svg|thumb|310px|Ubicación de los clubes del [[Gran Santiago]].]]
+{{Etiqueta imagen|x=0.87 |y=0.81 |escala=250|texto=<small>[[Archivo:ButtonRed.svg|4px]] [[Audax Italiano La Florida|Audax Italiano]]</small>}}
+{{Etiqueta imagen|x=0.76 |y=0.57 |escala=250|texto=<small>[[Archivo:ButtonRed.svg|4px]] [[Club Universidad de Chile|Universidad de Chile]]</small>}}
+{{Etiqueta imagen|x=0.78 |y=0.70 |escala=250|texto=<small>[[Archivo:ButtonRed.svg|4px]] [[Club Social y Deportivo Colo-Colo|Colo-Colo]]</small>}}
+{{Etiqueta imagen|x=0.66 |y=0.32 |escala=250|texto=<small>[[Club Deportivo Universidad Católica (fútbol)|Universidad Católica]] [[Archivo:ButtonRed.svg|4px]]</small>}}
+{{Etiqueta imagen|x=0.30 |y=0.39 |escala=250|texto=<small> [[Unión Española]] [[Archivo:ButtonRed.svg|4px]]</small>}}
+{{Etiqueta imagen|x=0.61 |y=0.77 |escala=250|texto=<small>[[Archivo:ButtonRed.svg|4px]][[Club Deportivo Palestino|Palestino]]</small>}}
+{{Etiqueta imagen|x=0.60 |y=0.79 |escala=300|texto=<small>[[Archivo:ButtonRed.svg|5px]][[Club de Deportes Santiago Morning|Santiago Morning]]</small>}}
+</center>
+{{fin columnas}}
+{{fin columnas}}
+{{espacio}}
+
+== Datos de los clubes ==
+
+<small> '''Fecha de actualización:''' {{fecha|30|09|2006}}</small>
+{| class="wikitable col4cen" style="margin: auto; font-size: 90%; text-align: left;" width=100%
+|- 
+!width=200 align=center|Equipo
+!width=200 align=center|Entrenador
+!width=200 align=center|Estadio
+!width=100 align=center|Capacidad
+!width=200 align=center|Marca
+!width=200 align=center|Patrocinador
+|-
+|[[Archivo:Verde con franjas verticales roja y blanca.png|20px]] [[Audax Italiano La Florida|Audax Italiano]]
+|{{bandera|Chile}} [[Raúl Toro Fuenzalida|Raúl Toro]]
+|[[Estadio Bicentenario Municipal de La Florida|Municipal de La Florida]]
+|8.500
+|{{bandera|Italia}} [[Diadora]]
+|{{bandera|Chile}} [[Universidad de Las Américas (Chile)|UDLA]]
+|-
+|[[Archivo:600px Arancio.png|20px]] [[Club de Deportes Cobreloa|Cobreloa]]
+|{{bandera|Chile}} [[Jorge Aravena (futbolista)|Jorge Aravena]]
+|[[Estadio Zorros del Desierto|Municipal de Calama]]
+|20.000
+|{{bandera|Italia}} [[Diadora]]
+|
+|-
+|[[Archivo:Orange white.png|20px]] [[Club de Deportes Cobresal|Cobresal]]
+|{{bandera|PAR}} {{bandera|CHI}} ''[[Sergio Nichiporuk]]''<ref>{{Cita web|url=https://m.alairelibre.cl/noticias/deportes/futbol/cobresal/sergio-nichiporuk-se-convirtio-en-el-nuevo-tecnico-de-cobresal/2006-07-05/225700.html|título= Sergio Nichiporuk se convirtió en el nuevo técnico de Cobresal|fecha= 5 de julio de 2006}}</ref>
+|[[Estadio El Cobre|El Cobre]]
+|20.000
+|{{bandera|Italia}} [[Lotto (marca)|Lotto]]
+|{{bandera|Chile}} [[Cerveza Cristal (Chile)|Cristal]]
+|-
+|[[Archivo:Bianco e Nero.svg|20px]] [[Club Social y Deportivo Colo-Colo|Colo-Colo]] [[Archivo:Scudetto chile.jpg|10px|Actual Campeón]]
+|{{bandera|ARG}} [[Claudio Borghi]]
+|[[Estadio Monumental (Chile)|Monumental]]
+|62.500
+|{{bandera|GBR}} [[Umbro (marca)|Umbro]]
+|{{bandera|Chile}} [[Cerveza Cristal (Chile)|Cristal]]
+|-
+|[[Archivo:Giallo e Nero.svg|20px]] [[Coquimbo Unido]] 
+|{{bandera|CHI}} ''Sergio Cortés''
+|[[Estadio Francisco Sánchez Rumoroso|Francisco Sánchez Rumoroso]]
+|15.000
+|{{bandera|Chile}} Buzines
+|{{bandera|Chile}} [[Cerveza Cristal (Chile)|Cristal]]
+|-
+|[[Archivo:600px bisection vertical White HEX-0033CC.svg|20px]] [[Club de Deportes Antofagasta|Deportes Antofagasta]]
+|{{bandera|ARG}} [[Oscar Malbernat]]
+|[[Estadio Regional Calvo y Bascuñán|Regional de Antofagasta]]
+|26.339
+|{{bandera|CHI}} [[Training Deportes|Training]]
+|{{bandera|CHI}} [[Minera Escondida|Escondida]]
+|-
+|[[Archivo:Flag maroon HEX-7B1C20.svg|20px]] [[Club de Deportes La Serena|Deportes La Serena]]
+|{{bandera|CHI}} [[Víctor Hugo Castañeda]]
+|[[Estadio La Portada|La Portada]]
+|18.500 
+|{{bandera|Chile}} [[Training Deportes|Training]]
+|{{bandera|Chile}} [[Deca (supermercado)|Deca]]
+|-
+|[[Archivo:Bianco e Verde2.svg|20px]] [[Club de Deportes Puerto Montt|Deportes Puerto Montt]]
+|{{bandera|ARG}} {{bandera|CHI}} [[Fernando Cavalleri]]
+|[[Estadio Regional de Chinquihue|Chinquihue]]
+|13.000
+|{{bandera|CHI}} [[Training Deportes|Training]]
+|{{bandera|Noruega}} [[Mowi|Marine Harvest]]
+|-
+|[[Archivo:600px Blu con striscia Gialla.png|20px]] [[Everton de Viña del Mar|Everton]]
+|{{bandera|CHI}} ''[[Jorge García Ahumada|Jorge García]]''
+|[[Estadio Sausalito|Sausalito]]
+|25.000
+|{{bandera|Italia}} [[Lotto (marca)|Lotto]]
+|{{bandera|Chile}} [[Cerveza Cristal (Chile)|Cristal]]
+|-
+|[[Archivo:600px Nero e Blu Strisce-Flag.svg|20px]] [[Club Deportivo Huachipato|Huachipato]]
+|{{bandera|CHI}} [[Arturo Salah]]
+|[[Estadio Las Higueras|Las Higueras]]
+|10.000
+|{{bandera|Italia}} [[Diadora]]
+|{{bandera|Chile}} [[Cerveza Cristal (Chile)|Cristal]]
+|-
+|[[Archivo:600px Azzurro.png|20px]] [[Club Deportivo O'Higgins|O'Higgins]]
+|{{bandera|Chile}} [[Jorge Garcés]]
+|[[Estadio El Teniente|El Teniente]]
+|15.000
+|{{bandera|Italia}} [[Lotto (marca)|Lotto]]
+|{{bandera|CHI}} [[Cerveza Cristal (Chile)|Cristal]]
+|-
+|[[Archivo:600px Verdibianco e Rosso (Strisce 5V).png|20px]] [[Club Deportivo Palestino|Palestino]]
+|{{bandera|CHI}} ''[[Jaime Pizarro]]''
+|[[Estadio Municipal de La Cisterna|Municipal de La Cisterna]]
+|12.000
+|{{bandera|ITA}} [[Diadora]]
+|{{bandera|CHI}} [[Líder (supermercado)|Presto]]
+|-
+|[[Archivo:600px Rosso e Nero (Strisce Orizzontali).png|20px]] [[Club Social de Deportes Rangers|Rangers]]
+|{{bandera|URU}} [[Ramón Víctor Castro|Ramón Castro]]
+|[[Estadio Fiscal de Talca|Fiscal de Talca]]
+|17.020
+|{{bandera|CHI}} [[Training Deportes|Training]]
+|{{bandera|CHI}} [[Productos Fernández|PF]]
+|-
+|[[Archivo:Sports flag icons - White with black V.svg|20px]] [[Club de Deportes Santiago Morning|Santiago Morning]]
+|{{bandera|CHI}} ''[[Guillermo Páez]]''
+|[[Universidad de Santiago de Chile#El estadio USACH|USACH]]
+|3.000
+|{{bandera|ITA}} [[Lotto (marca)|Lotto]]
+|{{bandera|CHI}} La Gran Guía
+|-
+|[[Archivo:Verde oscuro con franja blanca.png|20px]] [[Club de Deportes Santiago Wanderers|Santiago Wanderers]]
+|{{bandera|CHI}} [[Hernán Godoy]] 
+|[[Estadio Elías Figueroa Brander|Playa Ancha]]
+|19.000
+|{{bandera|CHI}} [[Training Deportes|Training]]
+|
+|-
+|[[Archivo:Rosso e Giallo.png|20px]] [[Unión Española]]
+|{{bandera|CHI}} ''[[Manuel Rodríguez Araneda]]''
+|[[Estadio Santa Laura|Santa Laura]]
+|25.000
+|{{bandera|ITA}} [[Diadora]]
+|{{bandera|CHI}} [[Cerveza Cristal (Chile)|Cristal]]
+|-
+|[[Archivo:600px Bianco con striscia Blu centrale.svg|20px]] [[Club Deportivo Universidad Católica (fútbol)|Universidad Católica]]
+|{{bandera|Chile}} [[Jorge Pellicer]]
+|[[Estadio San Carlos de Apoquindo|San Carlos de Apoquindo]]
+|20.000
+|{{bandera|USA}} [[Nike]]
+|{{bandera|CHI}} [[Cerveza Cristal (Chile)|Cristal]]
+|-
+|[[Archivo:UdeChileLogo.png|20px]] [[Club Universidad de Chile|Universidad de Chile]]
+|{{bandera|CHI}} [[Gustavo Huerta]]
+|[[Estadio Nacional de Chile|Nacional]]
+|65.000 
+|{{bandera|Alemania}} [[Adidas]]
+|{{bandera|Chile}} [[Cerveza Cristal (Chile)|Cristal]]
+|-
+|[[Archivo:Giallo e Blu2.png|20px]] [[Club Deportivo Universidad de Concepción (fútbol)|Universidad de Concepción]]
+|{{Bandera|CHI}} [[Yuri Fernández]]
+|[[Estadio Municipal Alcaldesa Ester Roa Rebolledo|Municipal de Concepción]]
+|35.000
+|{{bandera|ITA}} [[Lotto (marca)|Lotto]]
+|{{bandera|CHI}} Salazar Israel
+|}
+
+<small>'''Nota:''' Los técnicos debutantes en este torneo están en ''cursiva''.</small>
+
+==== Cambios de entrenadores ====
+
+Los [[entrenador interino|entrenadores interinos]] aparecen en ''cursiva''.
+
+{| class="wikitable" style="width:40%; font-size:90%"
+|- align=center
+!Equipo
+!Entrenador
+!Fechas
+|-
+|align=center rowspan=3 |[[Archivo:Giallo e Nero.svg|20px]] [[Coquimbo Unido]]
+|align=center | {{bandera|Argentina}} [[Jorge Manuel Díaz|Jorge Díaz]]
+|align=center | 1 - 6<ref>[https://m.alairelibre.cl/noticias/deportes/futbol/coquimbo/coquimbo-finiquito-el-contrato-del-tecnico-jorge-diaz/2006-08-22/101856.html Coquimbo finiquitó el contrato del técnico Jorge Díaz]</ref>
+|-
+|align=center | {{bandera|Chile}} ''Francisco Varela''
+|align=center | 7 - 11
+|-
+|align=center | {{bandera|Chile}} Sergio Cortés<ref>{{Cita web|url=https://m.alairelibre.cl/noticias/deportes/futbol/puerto-montt/puerto-montt-corto-la-racha-de-coquimbo-con-un-triunfo-a-domicilio/2006-09-30/220442.html|título= Puerto Montt cortó la racha de Coquimbo con un triunfo a domicilio|fecha= 30 de septiembre de 2006}}</ref>
+|align=center | 12 - Presente
+|-
+|align=center rowspan=2 |[[Archivo:600px Blu con striscia Gialla.png|20px]] [[Everton de Viña del Mar|Everton]]
+|align=center | {{bandera|Argentina}} [[Marcelo Espina]]
+|align=center | 1 - 7<ref name="EVESM">{{Cita web|url=https://m.alairelibre.cl/noticias/deportes/futbol/everton/everton-despidio-a-marcelo-espina-con-un-luchado-empate-ante-s-morning/2006-08-26/201819.html|título= Everton despidió a Marcelo Espina con un luchado empate ante S. Morning|fecha= 26 de agosto de 2006}}</ref>
+|-
+|align=center | {{bandera|Chile}} [[Jorge García Ahumada|Jorge García]]<ref>{{Cita web|url=https://m.alairelibre.cl/noticias/deportes/futbol/everton/jorge-garcia-asumio-como-nuevo-tecnico-de-everton/2006-08-28/114041.html|título= Jorge García asumió como nuevo técnico de Everton|fecha= 28 de agosto de 2006}}</ref>
+|align=center | 8 - Presente
+|-
+|align=center rowspan=2 |[[Archivo:600px Verdibianco e Rosso (Strisce 5V).png|20px]] [[Club Deportivo Palestino|Palestino]]
+|align=center |{{bandera|Chile}} Daniel Salvador
+|align=center | 1 - 3<ref>[https://m.alairelibre.cl/noticias/deportes/futbol/palestino/palestino-ceso-en-sus-funciones-como-tecnico-a-daniel-salvador/2006-07-31/223028.html Palestino cesó en sus funciones como técnico a Daniel Salvador]</ref>
+|-
+|align=center |{{bandera|Chile}} [[Jaime Pizarro]]<ref>{{Cita web|url=https://m.alairelibre.cl/noticias/deportes/futbol/palestino/jaime-pizarro-es-el-nuevo-entrenador-de-palestino/2006-08-01/190356.html|título= Jaime Pizarro es el nuevo entrenador de Palestino|fecha= 1 de agosto de 2006}}</ref>
+|align=center | 4 - Presente
+|-
+|align=center rowspan=3 |[[Archivo:Sports flag icons - White with black V.svg|20px]] [[Club de Deportes Santiago Morning|Santiago Morning]]
+|align=center |{{bandera|Chile}} [[Ivo Basay]]
+|align=center | 1 - 6<ref name="Basay">{{Cita web|url=https://m.alairelibre.cl/noticias/deportes/futbol/santiago-morning/tras-renuncia-de-basay-s-morning-anuncio-a-orlando-aravena-como-nuevo-dt/2006-08-21/144639.html|título= Tras renuncia de Basay, S. Morning anunció a Orlando Aravena como nuevo DT|fecha= 21 de agosto de 2006}}</ref>
+|-
+|align=center |{{bandera|Chile}} [[Orlando Aravena]]<ref name="Basay"></ref>
+|align=center | 7 - 8
+|-
+|align=center |{{bandera|Chile}} [[Guillermo Páez]]<ref>{{Cita web|url=https://m.alairelibre.cl/noticias/deportes/futbol/santiago-morning/guillermo-paez-asumio-en-s-morning-con-la-idea-de-convertirlo-en-un/2006-09-05/150903.html|título= Guillermo Páez asumió en S. Morning con la idea de convertirlo en un equipo aguerrido|fecha= 5 de septiembre de 2006}}</ref>
+|align=center | 9 - Presente
+|-
+|align=center rowspan=2 |[[Archivo:Rosso e Giallo.png|20px]] [[Unión Española]]
+|align=center |{{bandera|Chile}} [[Fernando Carvallo]]
+|align=center | 1 - 3<ref>[https://m.alairelibre.cl/noticias/deportes/futbol/u-espanola/u-espanola-se-quedo-sin-tecnico-tras-renuncia-de-fernando-carvallo/2006-07-31/132059.html U. Española se quedó sin técnico tras renuncia de Fernando Carvallo]</ref>
+|-
+|align=center |{{bandera|Chile}} ''[[Manuel Rodríguez Araneda]]''
+|align=center | 4 - Presente
+|- 
+|}
+
+== [[Fase Clasificatoria Apertura y Clausura (Chile)|Fase Clasificatoria]] ==
+=== Grupo A ===
+<center>
+{| class="wikitable sortable" width=65%
+|- bgcolor=#006699
+! Pos
+!width=35%|Equipo 
+! Pts
+! PJ
+! G
+! E
+! P
+! GF
+! GC
+! DIF
+|- align=center style="background:#CCFFCC;"
+||'''1'''|| align=left|'''[[Club de Deportes Cobreloa|Cobreloa]]'''
+||'''37'''||18||11||4||3||40||24||+16
+|- align=center style="background:#CCFFCC;"
+||'''2'''|| align=left|'''[[Club Social y Deportivo Colo-Colo|Colo-Colo]]'''
+||'''29'''||18||8||5||5||37||31||+6
+|- align=center style="background:#FFFFCC;"
+||'''3'''|| align=left|'''[[Club de Deportes Santiago Wanderers|Santiago Wanderers]]'''
+||'''28'''||18||8||4||6||22||21||+1
+|- align=center style="background:#ffffff;"
+||'''4'''|| align=left|'''[[Club Deportivo Palestino|Palestino]]'''
+||'''20'''||18||5||5||8||16||25||-11
+|- align=center style="background:#ffffff;"
+||'''5'''|| align=left|'''[[Club Deportes Cobresal|Cobresal]]'''
+||'''18'''||18||5||3||10||20||28||-8
+|}
+</center>
+
+=== Grupo B ===
+<center>
+{| class="wikitable sortable" width=65%  
+|- bgcolor=#006699
+! Pos
+!width=35%|Equipo 
+! Pts
+! PJ
+! G
+! E
+! P
+! GF
+! GC
+! DIF
+|- align=center style="background:#CCFFCC;"
+||'''1'''|| align=left|'''[[Club Deportivo O'Higgins|O'Higgins]]'''
+||'''35'''||18||10||5||3||31||20||+11
+|- align=center style="background:#CCFFCC;"
+||'''2'''|| align=left|'''[[Coquimbo Unido]]'''
+||'''29'''||18||8||5||5||23||22||+1
+|- align=center style="background:#ffffff;"
+||'''3'''|| align=left|'''[[Club Social de Deportes Rangers de Talca|Rangers]]'''
+||'''24'''||18||6||6||6||22||24||-2
+|- align=center style="background:#ffffff;"
+||'''4'''|| align=left|'''[[Club Deportivo Huachipato|Huachipato]]'''
+||'''20'''||18||6||2||10||29||32||-3
+|- align=center style="background:#ffffff;"
+||'''5'''|| align=left|'''[[Unión Española]]'''
+||'''14'''||18||3||5||10||20||34||-14
+|}
+</center>
+
+=== Grupo C ===
+<center>
+{| class="wikitable sortable" width=65%  
+|- bgcolor=#006699
+!Pos
+!width=35%|Equipo 
+! Pts
+! PJ
+! G
+! E
+! P
+! GF
+! GC
+! DIF
+|- align=center style="background:#CCFFCC;"
+||'''1'''|| align=left|'''[[Club de Deportes Puerto Montt|Deportes Puerto Montt]]'''
+||'''33'''||18||10||3||5||26||21||+5
+|- align=center style="background:#CCFFCC;"
+||'''2'''|| align=left|'''[[Audax Italiano La Florida|Audax Italiano]]'''
+||'''29'''||18||9||2||7||32||24||+8
+|- align=center style="background:#ffffff;"
+||'''3'''|| align=left|'''[[Club Deportivo Universidad de Concepción (fútbol)|Universidad de Concepción]]'''
+||'''25'''||18||7||4||7||34||30||+4
+|- align=center style="background:#ffffff;"
+||'''4'''|| align=left|'''[[Club de Deportes La Serena|Deportes La Serena]]'''
+||'''18'''||18||4||6||8||32||39||-7
+|- align=center style="background:#ffffff;"
+||'''5'''|| align=left|'''[[Club de Deportes Santiago Morning|Santiago Morning]]'''
+||'''17'''||18||4||5||9||22||32||-10
+|}
+</center>
+=== Grupo D ===
+<center>
+{| class="wikitable sortable" width=65%  
+|- bgcolor=#006699 
+! Pos
+!width=35%|Equipo 
+! Pts
+! PJ
+! G
+! E
+! P
+! GF
+! GC
+! DIF
+|- align=center style="background:#CCFFCC;"
+||'''1'''|| align=left|'''[[Club Deportivo Universidad Católica (fútbol)|Universidad Católica]]'''
+||'''31'''||18||9||4||5||24||18||+6
+|- align=center style="background:#FFFFCC;"
+||'''2'''|| align=left|'''[[Club Universidad de Chile|Universidad de Chile]]'''
+||'''23'''||18||7||2||9||24||25||-1
+|- align=center style="background:#ffffff;"
+||'''3'''|| align=left|'''[[Club de Deportes Antofagasta|Deportes Antofagasta]]'''
+||'''21'''||18||5||6||7||25||25||0
+|- align=center style="background:#ffffff;"
+||'''4'''|| align=left|'''[[Everton de Viña del Mar|Everton]]'''
+||'''21'''||18||5||6||7||23||27||-4
+|}
+</center>
+
+<small> Pts=Puntos; PJ=Partidos jugados; G=Partidos ganados; E=Partidos empatados; P=Partidos perdidos; GF=Goles a favor; GC=Goles en contra; DIF=Diferencia de gol</small>
+
+{| bgcolor="#f7f8ff" cellpadding="3" cellspacing="0" border="1" style="font-size: 95%; border: gray solid 1px; border-collapse: collapse;text-align:center;"
+|-
+| style="background: #CCFFCC;" width="20" | 
+| bgcolor="#ffffff" align="left" | Clasificado a cuartos de final
+|-
+| style="background: #FFFFCC;" width="20" | 
+| bgcolor="#ffffff" align="left" | Clasificado a repechaje
+|}
+
+=== Tabla general ===
+<center>
+{| class="wikitable sortable" width=65%
+|- bgcolor=#006699
+! Pos
+!width=35%|Equipo 
+! Pts
+! PJ
+! G
+! E
+! P
+! GF
+! GC
+! DIF
+|- align=center  style="background:#FEDF68;"
+||'''1'''|| align=left|'''[[Club de Deportes Cobreloa|Cobreloa]]'''
+||'''37'''||18||11||4||3||40||24||+16
+|- align=center style="background:#CCFFCC;"
+||'''2'''|| align=left|'''[[Club Deportivo O'Higgins|O'Higgins]]'''
+||'''35'''||18||10||5||3||31||20||+11
+|- align=center style="background:#CCFFCC;"
+||'''3'''|| align=left|'''[[Club de Deportes Puerto Montt|Deportes Puerto Montt]]'''
+||'''33'''||18||10||3||5||26||21||+5
+|- align=center style="background:#CCFFCC;"
+||'''4'''|| align=left|'''[[Club Deportivo Universidad Católica (fútbol)|Universidad Católica]]'''
+||'''31'''||18||9||4||5||24||18||+6
+|- align=center style="background:#CCFFCC;"
+||'''5'''|| align=left|'''[[Audax Italiano La Florida|Audax Italiano]]'''
+||'''29'''||18||9||2||7||32||24||+8
+|- align=center style="background:#CCFFCC;"
+||'''6'''|| align=left|'''[[Club Social y Deportivo Colo-Colo|Colo-Colo]]'''
+||'''29'''||18||8||5||5||37||31||+6
+|- align=center style="background:#CCFFCC;"
+||'''7'''|| align=left|'''[[Coquimbo Unido]]'''
+||'''29'''||18||8||5||5||23||22||+1
+|- align=center style="background:#FFFFCC;"
+||'''8'''|| align=left|'''[[Club de Deportes Santiago Wanderers|Santiago Wanderers]]'''
+||'''28'''||18||8||4||6||22||21||+1
+|- align=center style="background:#ffffff;"
+||'''9'''|| align=left|'''[[Club Deportivo Universidad de Concepción (fútbol)|Universidad de Concepción]]'''
+||'''25'''||18||7||4||7||34||30||+4
+|- align=center style="background:#ffffff;"
+||'''10'''|| align=left|'''[[Club Social de Deportes Rangers de Talca|Rangers]]'''
+||'''24'''||18||6||6||6||22||24||-2
+|- align=center style="background:#FFFFCC;"
+||'''11'''|| align=left|'''[[Club Universidad de Chile|Universidad de Chile]]'''
+||'''23'''||18||7||2||9||24||25||-1
+|- align=center style="background:#ffffff;"
+||'''12'''|| align=left|'''[[Club de Deportes Antofagasta|Deportes Antofagasta]]'''
+||'''21'''||18||5||6||7||25||25||0
+|- align=center style="background:#ffffff;"
+||'''13'''|| align=left|'''[[Everton de Viña del Mar|Everton]]'''
+||'''21'''||18||5||6||7||23||27||-4
+|- align=center style="background:#ffffff;"
+||'''14'''|| align=left|'''[[Club Deportivo Huachipato|Huachipato]]'''
+||'''20'''||18||6||2||10||29||32||-3
+|- align=center style="background:#ffffff;"
+||'''15'''|| align=left|'''[[Club Deportivo Palestino|Palestino]]'''
+||'''20'''||18||5||5||8||16||25||-11
+|- align=center style="background:#ffffff;"
+||'''16'''|| align=left|'''[[Club de Deportes La Serena|Deportes La Serena]]'''
+||'''18'''||18||4||6||8||32||39||-7
+|- align=center style="background:#ffffff;"
+||'''17'''|| align=left|'''[[Club Deportes Cobresal|Cobresal]]'''
+||'''18'''||18||5||3||10||20||28||-8
+|- align=center style="background:#ffffff;"
+||'''18'''|| align=left|'''[[Club de Deportes Santiago Morning|Santiago Morning]]'''
+||'''17'''||18||4||5||9||22||32||-10
+|- align=center style="background:#ffffff;"
+||'''19'''|| align=left|'''[[Unión Española]]'''
+||'''14'''||18||3||5||10||20||34||-14
+|}
+</center>
+
+{| bgcolor="#f7f8ff" cellpadding="3" cellspacing="0" border="1" style="font-size: 95%; border: gray solid 1px; border-collapse: collapse;text-align:center;"
+|-
+| style="background: #FEDF68;" width="20" |
+| align="left" bgcolor="#ffffff" | Clasificado a cuartos de final y a la Fase previa de la [[Copa Libertadores 2007]] como '''Chile 3'''.
+|-
+| style="background: #CCFFCC;" width="20" |
+| align="left" bgcolor="#ffffff" | Clasificados a cuartos de final.
+|-
+| style="background: #FFFFCC;" width="20" |
+| align="left" bgcolor="#ffffff" | Clasificados a repechaje.
+|-
+|}
+
+=== Estadísticas ===
+
+*'''El equipo con mayor cantidad de partidos ganados:''' [[Cobreloa]] 11 triunfos.
+*'''El equipo con menor cantidad de partidos perdidos:''' [[Cobreloa]] y [[Club Deportivo O'Higgins|O'Higgins]] 3 derrotas.
+*'''El equipo con menor cantidad de partidos ganados:''' [[Unión Española]] 3 triunfos.
+*'''El equipo con mayor cantidad de partidos perdidos:''' [[Unión Española]], [[Cobresal]] y [[Club Deportivo Huachipato|Huachipato]] 10 derrotas.
+*'''El equipo con mayor cantidad de empates:''' [[Deportes La Serena]], [[Deportes Antofagasta]], [[Everton de Viña del Mar|Everton]] y [[Rangers de Talca|Rangers]] 6 empates.
+*'''El equipo con menor cantidad de empates:''' [[Club Deportivo Huachipato|Huachipato]], [[Club Universidad de Chile|Universidad de Chile]] y [[Audax Italiano]] 2 empates.
+*'''El equipo más goleador del torneo:''' [[Cobreloa]] 40 goles a favor.
+*'''El equipo más goleado del torneo:''' [[Deportes La Serena]] 39 goles en contra.
+*'''El equipo menos goleado del torneo:''' [[Club Deportivo Universidad Católica (fútbol)|Universidad Católica]] 18 goles en contra.
+*'''El equipo menos goleador del torneo:''' [[Club Deportivo Palestino|Palestino]] 16 goles a favor.
+*'''Mejor diferencia de gol del torneo:''' [[Cobreloa]] convirtió 16 goles más de los que recibió.
+*'''Peor diferencia de gol del torneo:''' [[Unión Española]] recibió 14 goles más de los que convirtió.
+*'''Mayor goleada del torneo:''' [[Audax Italiano]] 5-0 [[Cobresal]] (fecha 11).
+
+=== Tabla acumulada ===
+<center>
+{| class="wikitable sortable"
+|- bgcolor=#006699 
+! Pos
+! Equipo 
+! Pts
+! PJ
+! G
+! E
+! P
+! GF
+! GC
+! DIF
+|- align=center style="background:#FEDF68;"
+|'''1'''||align=left|'''[[Club Social y Deportivo Colo-Colo|Colo-Colo]]'''
+||'''69'''||36||21||6||9||91||53||+38
+|- align=center style="background:#FDEEB4;"
+|'''2'''||align=left |'''[[Club de Deportes Cobreloa|Cobreloa]]'''
+||'''67'''||36||20||7||9||72||48||+24
+|- align=center style="background:#ffffff;"
+|'''3'''||align=left |'''[[Club Deportivo Universidad Católica (fútbol)|Universidad Católica]]'''
+||'''63'''||36||18||9||9||51||38||+13
+|- align=center style="background:#ffffff;"
+|'''4'''||align=left |'''[[Audax Italiano La Florida|Audax Italiano]]'''
+||'''61'''||36||18||7||11||64||46||+18
+|- align=center style="background:#ffffff;"
+|'''5'''||align=left |'''[[Club Deportivo Universidad de Concepción (fútbol)|Universidad de Concepción]]'''
+||'''58'''||36||16||10||10||65||53||+12
+|- align=center style="background:#ffffff;"
+|'''6'''||align=left |'''[[Club Universidad de Chile|Universidad de Chile]]'''
+||'''58'''||36||17||7||12||51||45||+6
+|- align=center style="background:#ffffff;"
+|'''7'''||align=left |'''[[Club Deportivo Huachipato|Huachipato]]'''
+||'''56'''||36||17||5||14||61||51||+10
+|- align=center style="background:#ffffff;"
+|'''8'''||align=left |'''[[Club Deportivo O'Higgins|O'Higgins]]'''
+||'''56'''||36||15||11||10||51||45||+6
+|- align=center style="background:#ffffff;"
+|'''9'''||align=left |'''[[Club de Deportes Puerto Montt|Deportes Puerto Montt]]'''
+||'''50'''||36||14||8||14||59||53||+6
+|- align=center style="background:#ffffff;"
+|'''10'''||align=left |'''[[Coquimbo Unido]]'''
+||'''46'''||36||11||13||12||39||48||-9
+|- align=center style="background:#ffffff;"
+|'''11'''|| align=left |'''[[Club de Deportes Santiago Wanderers|Santiago Wanderers]]'''
+||'''45'''||36||13||6||17||38||51||-13
+|- align=center style="background:#ffffff;"
+|'''12'''|| align=left |'''[[Club de Deportes Antofagasta|Deportes Antofagasta]]'''
+||'''42'''||36||10||12||14||51||56||-5
+|- align=center style="background:#ffffff;"
+|'''13'''|| align=left |'''[[Unión Española]]'''
+||'''42'''||36||11||9||16||44||55||-11
+|- align=center style="background:#ffffff;"
+|'''14'''|| align=left |'''[[Everton de Viña del Mar|Everton]]'''
+||'''42'''||36||10||12||14||43||54||-11
+|- align=center style="background:#ffffff;"
+|'''15'''|| align=left |'''[[Club de Deportes La Serena|Deportes La Serena]]'''
+||'''40'''||36||9||13||14||64||70||-6
+|- align=center style="background:#ffffff;"
+|'''16'''|| align=left |'''[[Club Deportes Cobresal|Cobresal]]'''
+||'''40'''||36||11||7||18||46||60||-14
+|- align=center style="background:#FFCCCC;" 
+|'''17'''|| align=left |'''[[Club Social de Deportes Rangers de Talca|Rangers]]'''
+||'''40'''||36||10||10||16||48||64||-16
+|- align=center style="background:#FFCCCC;" 
+|'''18'''|| align=left |'''[[Club Deportivo Palestino|Palestino]]'''
+||'''36'''||36||9||9||18||38||60||-22
+|- align=center style="background:#F08080;"
+|'''19'''|| align=left |'''[[Club de Deportes Santiago Morning|Santiago Morning]]'''
+||'''29'''||36||6||11||19||37||63||-26
+|}
+</center>
+
+<small> Pts=Puntos; PJ=Partidos jugados; G=Partidos ganados; E=Partidos empatados; P=Partidos perdidos; GF=Goles a favor; GC=Goles en contra; DIF=Diferencia de gol</small>
+
+{| bgcolor="#f7f8ff" cellpadding="3" cellspacing="0" border="1" style="font-size: 95%; border: gray solid 1px; border-collapse: collapse;text-align:center;"
+|-
+| style="background: #FEDF68;" width="20" |
+| align="left" bgcolor="#ffffff" | Clasificado a la Fase de grupos de la [[Copa Libertadores 2007]] como '''Chile 1'''.
+|-
+| style="background: #FDEEB4;" width="20" |
+| align="left" bgcolor="#ffffff" | Clasificado a la Fase previa de la [[Copa Libertadores 2007]] como '''Chile 3'''.
+|-
+| style="background: #FFCCCC;" width="20" |
+| align="left" bgcolor="#ffffff" |Jugarán [[Anexo:Liguilla de Promoción de Chile 2006|Liguilla de Promoción]] para intentar retener la categoría.
+|-
+| style="background: #F08080;" width="20" |
+| align="left" bgcolor="#ffffff" |Descendido a la [[Primera B de Chile 2007|Primera B 2007]].
+|-
+|}
+
+== Resultados ==
+{{AP|Anexo:Torneo Clausura 2006 (Chile) - Resultados de la fase regular}}
+
+{| class="wikitable mw-collapsible mw-collapsed" style="font-size:95%; text-align: center; width: 95%;"
+! colspan="12" style="with: 100%;" | Fecha 1
+|-
+! width="110" |Local
+! width="10" |Resultado
+! width="120" |Visitante
+! width="130" |Estadio
+! width="50" |Fecha
+! width="10" |Hora
+! width="10" |TV
+|- align="center"
+|[[Unión Española]]
+|bgcolor="#D0E7FF"| '''1 - 1'''
+|[[Coquimbo Unido]]
+|[[Estadio Santa Laura|Santa Laura]]
+|15 de julio
+|18:30
+|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club Social de Deportes Rangers|Rangers]]'''
+| 3 - 1
+|[[Club Deportivo Palestino|Palestino]]
+|[[Estadio Fiscal de Talca|Fiscal de Talca]]
+|rowspan=6|16 de julio
+|15:30
+|
+|- align="center"
+|[[Club de Deportes Santiago Morning|Santiago Morning]]
+|bgcolor="#D0E7FF"| '''1 - 1'''
+|[[Club de Deportes Santiago Wanderers|Santiago Wanderers]]
+|[[Estadio Bicentenario Municipal de La Florida|Municipal de La Florida]]
+|rowspan="5"|16:00
+|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|[[Club de Deportes Cobreloa|Cobreloa]]
+|bgcolor="#D0E7FF"| '''1 - 1'''
+|[[Club Deportivo Huachipato|Huachipato]]
+|[[Estadio Zorros del Desierto|Municipal de Calama]]
+|
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club de Deportes Cobresal|Cobresal]]'''
+| 1 - 0
+|[[Club de Deportes Antofagasta|Deportes Antofagasta]]
+|[[Estadio El Cobre|El Cobre]]
+|
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club de Deportes La Serena|Deportes La Serena]]'''
+| 2 - 1
+|[[Audax Italiano La Florida|Audax Italiano]]
+|[[Estadio La Portada|La Portada]]
+|
+|- align="center"
+|[[Everton de Viña del Mar|Everton]]
+| 1 - 2
+|bgcolor="#D0E7FF"|'''[[Club de Deportes Puerto Montt|Deportes Puerto Montt]]'''
+|[[Estadio Sausalito|Sausalito]]
+|
+|- align="center"
+|[[Club Deportivo Universidad Católica (fútbol)|Universidad Católica]]
+| 0 - 2
+|bgcolor="#D0E7FF"|'''[[Club Deportivo Universidad de Concepción (fútbol)|Universidad de Concepción]]'''
+|[[Estadio San Carlos de Apoquindo|San Carlos de Apoquindo]]
+|2 de agosto{{refn|group=n.|El duelo en un principio iba a jugarse el domingo 16 de julio a las 16:00 horas, pero se suspendió debido a que 6 jugadores de Universidad de Concepción se intoxicaron previo al partido.<ref>{{Cita web|url=https://m.alairelibre.cl/noticias/deportes/futbol/u-catolica/duelo-inaugural-del-clausura-entre-la-uc-y-u-de-concepcion-fue-suspendido/2006-07-15/122843.html|título= Duelo inaugural del Clausura entre la UC y U. de Concepción fue suspendido|fecha= 15 de julio de 2006}}</ref>}}
+|rowspan="2"|19:15
+|rowspan="2"|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club Social y Deportivo Colo-Colo|Colo-Colo]]'''
+| 4 - 1
+|[[Club Deportivo O'Higgins|O'Higgins]]
+|[[Estadio Monumental (Chile)|Monumental]]
+|9 de agosto{{refn|group=n.|Este partido en un principio iba a jugarse el domingo 16 de julio a las 18:30 horas pero se decidió aplazarlo en mutuo acuerdo entre ambos clubes ya que Colo-Colo solo tuvo 2 semanas de descanso comparado con el resto de los clubes (Tras jugar la [[Final del Torneo Apertura 2006 (Chile)|Final del Apertura]] contra [[Club Universidad de Chile|Universidad de Chile]]), en un principio iba a jugarse el miércoles 26 de julio pero la lluvia volvió a aplazarlo,<ref>https://m.alairelibre.cl/noticias/deportes/futbol/programacion/colo-colo-y-o-higgins-jugaran-el-26-de-julio-su-partido-de-la-primera/2006-07-11/180107.html</ref> finalmente se jugó en la fecha indicada.<ref>https://m.alairelibre.cl/noticias/deportes/futbol/colo-colo/la-lluvia-finalmente-impidio-el-duelo-entre-colo-colo-y-o-higgins/2006-07-26/171341.html</ref>}}
+|- align="center"
+| colspan="7" style="color:#FFFFFF; background-color:#000000;"|'''Equipo libre: {{tc|Club Universidad de Chile|Universidad de Chile}}'''
+|}
+{| class="wikitable mw-collapsible mw-collapsed" style="font-size:95%; text-align: center; width: 95%;"
+! colspan="12" style="with: 100%;" | Fecha 2
+|-
+! width="110" |Local
+! width="10" |Resultado
+! width="120" |Visitante
+! width="130" |Estadio
+! width="50" |Fecha
+! width="10" |Hora
+! width="10" |TV
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club de Deportes Santiago Wanderers|Santiago Wanderers]]'''
+| 2 - 0
+|[[Club de Deportes La Serena|Deportes La Serena]]
+|[[Estadio Elías Figueroa Brander|Playa Ancha]]
+|rowspan=4|22 de julio
+|15:30
+|rowspan="2"|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Audax Italiano La Florida|Audax Italiano]]'''
+| 1 - 0
+|[[Club Social de Deportes Rangers|Rangers]]
+|[[Estadio Bicentenario Municipal de La Florida|Municipal de La Florida]]
+|rowspan="2"|18:00
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club Deportivo O'Higgins|O'Higgins]]'''
+| 4 - 2
+|[[Club de Deportes Santiago Morning|Santiago Morning]]
+|[[Estadio El Teniente|El Teniente]]
+|
+|- align="center"
+|[[Coquimbo Unido]]
+|bgcolor="#D0E7FF"| '''0 - 0'''
+|[[Everton de Viña del Mar|Everton]]
+|[[Estadio Francisco Sánchez Rumoroso|Francisco Sánchez Rumoroso]]
+|20:00
+|
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club de Deportes Puerto Montt|Deportes Puerto Montt]]'''
+| 4 - 1
+|[[Club de Deportes Cobreloa|Cobreloa]]
+|[[Estadio Regional de Chinquihue|Chinquihue]]
+|rowspan=5|23 de julio
+|12:00
+|
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club Deportivo Universidad de Concepción (fútbol)|Universidad de Concepción]]'''
+| 4 - 2
+|[[Unión Española]]
+|[[Estadio Municipal Alcaldesa Ester Roa Rebolledo|Municipal de Concepción]]
+|rowspan="2"|15:30
+|
+|- align="center"
+|[[Club Deportivo Huachipato|Huachipato]]
+|bgcolor="#D0E7FF"| '''1 - 1'''
+|[[Club de Deportes Cobresal|Cobresal]]
+|[[Estadio Las Higueras|Las Higueras]]
+|
+|- align="center"
+|[[Club de Deportes Antofagasta|Deportes Antofagasta]]
+|bgcolor="#D0E7FF"| '''1 - 1'''
+|[[Club Social y Deportivo Colo-Colo|Colo-Colo]]
+|[[Estadio Regional Calvo y Bascuñán|Regional de Antofagasta]]
+|16:00
+|rowspan="2"|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club Deportivo Palestino|Palestino]]'''
+| 1 - 0
+|[[Club Universidad de Chile|Universidad de Chile]]
+|[[Estadio Santa Laura|Santa Laura]]
+|18:30
+|- align="center"
+| colspan="7" style="color:#FFFFFF; background-color:#000000;"|'''Equipo libre: {{tc|Club Deportivo Universidad Católica (fútbol)|Universidad Católica}}'''
+|}
+{| class="wikitable mw-collapsible mw-collapsed" style="font-size:95%; text-align: center; width: 95%;"
+! colspan="12" style="with: 100%;" | Fecha 3
+|-
+! width="110" |Local
+! width="10" |Resultado
+! width="120" |Visitante
+! width="130" |Estadio
+! width="50" |Fecha
+! width="10" |Hora
+! width="10" |TV
+|- align="center"
+|[[Club Deportivo Palestino|Palestino]]
+|bgcolor="#D0E7FF"| '''1 - 1'''
+|[[Club de Deportes Antofagasta|Deportes Antofagasta]]
+|[[Estadio Municipal de La Cisterna|Municipal de La Cisterna]]
+|rowspan=4|29 de julio
+|15:30
+|
+|- align="center"
+|[[Club Deportivo Universidad Católica (fútbol)|Universidad Católica]]
+| 0 - 1
+|bgcolor="#D0E7FF"|'''[[Club Deportivo O'Higgins|O'Higgins]]'''
+|[[Estadio San Carlos de Apoquindo|San Carlos de Apoquindo]]
+|16:00
+|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|[[Audax Italiano La Florida|Audax Italiano]]
+|bgcolor="#D0E7FF"|'''1 - 1'''
+|[[Club de Deportes Puerto Montt|Deportes Puerto Montt]]
+|[[Estadio Bicentenario Municipal de La Florida|Municipal de La Florida]]
+|18:00
+|
+|- align="center"
+|[[Unión Española]]
+| 1 - 3
+|bgcolor="#D0E7FF"|'''[[Club de Deportes La Serena|Deportes La Serena]]'''
+|[[Estadio Santa Laura|Santa Laura]]
+|18:30
+|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club Social de Deportes Rangers|Rangers]]'''
+| 3 - 1
+|[[Club de Deportes Santiago Wanderers|Santiago Wanderers]]
+|[[Estadio Fiscal de Talca|Fiscal de Talca]]
+|rowspan="5"|30 de julio
+|15:30
+|
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club de Deportes Cobreloa|Cobreloa]]'''
+| 1 - 0
+|[[Club Deportivo Universidad de Concepción (fútbol)|Universidad de Concepción]]
+|[[Estadio Zorros del Desierto|Municipal de Calama]]
+|rowspan="2"|16:00
+|
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Everton de Viña del Mar|Everton]]'''
+| 3 - 0
+|[[Club Social y Deportivo Colo-Colo|Colo-Colo]]
+|[[Estadio Sausalito|Sausalito]]
+|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club de Deportes Cobresal|Cobresal]]'''
+| 3 - 0
+|[[Club de Deportes Santiago Morning|Santiago Morning]]
+|[[Estadio El Cobre|El Cobre]]
+|18:00
+|
+|- align="center"
+|[[Club Universidad de Chile|Universidad de Chile]]
+| 0 - 2
+|bgcolor="#D0E7FF"|'''[[Club Deportivo Huachipato|Huachipato]]'''
+|[[Estadio Nacional Julio Martínez Prádanos|Nacional]]
+|18:30
+|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+| colspan="7" style="color:#FFFFFF; background-color:#000000;"|'''Equipo libre: {{tc|Coquimbo Unido}}'''
+|}
+{| class="wikitable mw-collapsible mw-collapsed" style="font-size:95%; text-align: center; width: 95%;"
+! colspan="12" style="with: 100%;" | Fecha 4
+|-
+! width="110" |Local
+! width="10" |Resultado
+! width="120" |Visitante
+! width="130" |Estadio
+! width="50" |Fecha
+! width="10" |Hora
+! width="10" |TV
+|- align="center"
+|[[Unión Española]]
+| 0 - 1
+|bgcolor="#D0E7FF"|'''[[Audax Italiano La Florida|Audax Italiano]]'''
+|[[Estadio Santa Laura|Santa Laura]]
+|rowspan=3|5 de agosto
+|rowspan=2|16:00
+|
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club de Deportes Puerto Montt|Deportes Puerto Montt]]'''
+| 3 - 0
+|[[Club Universidad de Chile|Universidad de Chile]]
+|[[Estadio Regional de Chinquihue|Chinquihue]]
+|rowspan=2|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club Deportivo O'Higgins|O'Higgins]]'''
+| 2 - 0
+|[[Everton de Viña del Mar|Everton]]
+|[[Estadio El Teniente|El Teniente]]
+|18:30
+|- align="center"
+|[[Club de Deportes Santiago Morning|Santiago Morning]]
+|bgcolor="#D0E7FF"|'''1 - 1'''
+|[[Club Deportivo Universidad de Concepción (fútbol)|Universidad de Concepción]]
+|[[Universidad de Santiago de Chile#El estadio USACH|USACH]]
+|rowspan=5|6 de agosto
+|15:30
+|
+|- align="center"
+|[[Club de Deportes Antofagasta|Deportes Antofagasta]]
+|bgcolor="#D0E7FF"|'''1 - 1'''
+|[[Club Social de Deportes Rangers|Rangers]]
+|[[Estadio Regional de Antofagasta|Regional de Antofagasta]]
+|rowspan=2|16:00
+|
+|- align="center"
+|[[Club Social y Deportivo Colo-Colo|Colo-Colo]]
+| 1 - 3
+|bgcolor="#D0E7FF"|'''[[Club Deportivo Palestino|Palestino]]'''
+|[[Estadio Monumental (Chile)|Monumental]]
+|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|[[Club de Deportes La Serena|Deportes La Serena]]
+| 3 - 6
+|bgcolor="#D0E7FF"|'''[[Club de Deportes Cobreloa|Cobreloa]]'''
+|[[Estadio La Portada|La Portada]]
+|16:30
+|
+|- align="center"
+|[[Club de Deportes Santiago Wanderers|Santiago Wanderers]]
+|bgcolor="#D0E7FF"|'''1 - 1'''
+|[[Club Deportivo Universidad Católica (fútbol)|Universidad Católica]]
+|[[Estadio Sausalito|Sausalito]]
+|18:30
+|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|[[Club Deportivo Huachipato|Huachipato]]
+| 0 - 1
+|bgcolor="#D0E7FF"|'''[[Coquimbo Unido]]'''
+|[[Estadio Las Higueras|Las Higueras]]
+|15 de noviembre{{refn|group=n.|El duelo en un principio iba a jugarse el domingo 6 de agosto a las 15:30 horas, pero debió aplazarse por fuertes lluvias caídas en la [[Región del Biobío|Octava Región]] ese día, jugándose 3 meses después de lo previsto.<ref>{{Cita web|url=https://m.alairelibre.cl/noticias/deportes/futbol/huachipato/duelo-entre-huachipato-y-coquimbo-fue-suspendido-por-lluvia/2006-08-06/131954.html|título= Duelo entre Huachipato y Coquimbo fue suspendido por lluvia|fecha= 6 de agosto de 2006}}</ref>}}
+|17:00
+|
+|- align="center"
+| colspan="7" style="color:#FFFFFF; background-color:#000000;"|'''Equipo libre: {{tc|Club de Deportes Cobresal|Cobresal}}'''
+|}
+{| class="wikitable mw-collapsible mw-collapsed" style="font-size:95%; text-align: center; width: 95%;"
+! colspan="12" style="with: 100%;" | Fecha 5
+|-
+! width="110" |Local
+! width="10" |Resultado
+! width="120" |Visitante
+! width="130" |Estadio
+! width="50" |Fecha
+! width="10" |Hora
+! width="10" |TV
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club Deportivo Palestino|Palestino]]'''
+| 1 - 0
+|[[Club de Deportes Cobresal|Cobresal]]
+|[[Estadio Santa Laura|Santa Laura]]
+|rowspan=4|12 de agosto
+|15:30
+|
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club Deportivo Universidad Católica (fútbol)|Universidad Católica]]'''
+| 1 - 0
+|[[Club de Deportes Santiago Morning|Santiago Morning]]
+|[[Estadio San Carlos de Apoquindo|San Carlos de Apoquindo]]
+|16:00
+|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|[[Audax Italiano La Florida|Audax Italiano]]
+|bgcolor="#D0E7FF"|'''1 - 1'''
+|[[Club de Deportes Antofagasta|Deportes Antofagasta]]
+|[[Estadio Bicentenario Municipal de La Florida|Municipal de La Florida]]
+|18:00
+|
+|- align="center"
+|[[Coquimbo Unido]]
+| 1 - 4
+|bgcolor="#D0E7FF"|'''[[Club Social y Deportivo Colo-Colo|Colo-Colo]]'''
+|[[Estadio Francisco Sánchez Rumoroso|Francisco Sánchez Rumoroso]]
+|18:30
+|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|[[Club de Deportes Puerto Montt|Deportes Puerto Montt]]
+| 0 - 1
+|bgcolor="#D0E7FF"|'''[[Unión Española]]'''
+|[[Estadio Regional de Chinquihue|Chinquihue]]
+|rowspan=4|13 de agosto
+|12:00
+|
+|- align="center"
+|[[Club Universidad de Chile|Universidad de Chile]]
+|bgcolor="#D0E7FF"|'''1 - 1'''
+|[[Club de Deportes Cobreloa|Cobreloa]]
+|[[Estadio Nacional Julio Martínez Prádanos|Nacional]]
+|rowspan=2|16:00
+|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|[[Everton de Viña del Mar|Everton]]
+| 1 - 3
+|bgcolor="#D0E7FF"|'''[[Club Deportivo Huachipato|Huachipato]]'''
+|[[Estadio Sausalito|Sausalito]]
+|
+|- align="center"
+|[[Club Social de Deportes Rangers|Rangers]]
+|bgcolor="#D0E7FF"|'''1 - 1'''
+|[[Club Deportivo O'Higgins|O'Higgins]]
+|[[Estadio Fiscal de Talca|Fiscal de Talca]]
+|18:30
+|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club Deportivo Universidad de Concepción (fútbol)|Universidad de Concepción]]'''
+| 4 - 1
+|[[Club de Deportes La Serena|Deportes La Serena]]
+|[[Estadio Municipal Alcaldesa Ester Roa Rebolledo|Municipal de Concepción]]
+|30 de agosto{{refn|group=n.|El duelo en un principio iba a jugarse el domingo 13 de agosto a las 15:30 horas, pero debió suspenderse debido al mal tiempo que afectaba a la [[Región del Biobío|Octava Región]] ese día, el partido se jugó en la fecha indicada.<ref>{{Cita web|url=https://m.alairelibre.cl/noticias/deportes/futbol/universidad-de-concepcion/u-de-concepcion-y-la-serena-se-pondran-al-dia-en-collao/2006-08-29/222139.html|título= U. de Concepción y La Serena se pondrán al día en Collao|fecha= 29 de agosto de 2006}}</ref>}}
+|19:00
+|
+|- align="center"
+| colspan="7" style="color:#FFFFFF; background-color:#000000;"|'''Equipo libre: {{tc|Club de Deportes Santiago Wanderers|Santiago Wanderers}}'''
+|}
+{| class="wikitable mw-collapsible mw-collapsed" style="font-size:95%; text-align: center; width: 95%;"
+! colspan="12" style="with: 100%;" | Fecha 6
+|-
+! width="110" |Local
+! width="10" |Resultado
+! width="120" |Visitante
+! width="130" |Estadio
+! width="50" |Fecha
+! width="10" |Hora
+! width="10" |TV
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club Deportivo Universidad Católica (fútbol)|Universidad Católica]]'''
+| 1 - 0
+|[[Club Deportivo Palestino|Palestino]]
+|[[Estadio San Carlos de Apoquindo|San Carlos de Apoquindo]]
+|rowspan=3|19 de agosto
+|16:00
+|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club Deportivo O'Higgins|O'Higgins]]'''
+| 3 - 0
+|[[Coquimbo Unido]]
+|[[Estadio El Teniente|El Teniente]]
+|17:00
+|
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club de Deportes Santiago Wanderers|Santiago Wanderers]]'''
+| 3 - 0
+|[[Club de Deportes Puerto Montt|Deportes Puerto Montt]]
+|[[Estadio Elías Figueroa Brander|Playa Ancha]]
+|18:30
+|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|[[Club de Deportes Santiago Morning|Santiago Morning]]
+| 3 - 4
+|bgcolor="#D0E7FF"|'''[[Club Deportivo Huachipato|Huachipato]]'''
+|[[Universidad de Santiago de Chile#El estadio USACH|USACH]]
+|rowspan=6|20 de agosto
+|15:30
+|
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club de Deportes Antofagasta|Deportes Antofagasta]]'''
+| 3 - 2
+|[[Club Deportivo Universidad de Concepción (fútbol)|Universidad de Concepción]]
+|[[Estadio Regional Calvo y Bascuñán|Regional de Antofagasta]]
+|rowspan=4|16:00
+|
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club de Deportes Cobreloa|Cobreloa]]'''
+| 3 - 0
+|[[Everton de Viña del Mar|Everton]]
+|[[Estadio Zorros del Desierto|Municipal de Calama]]
+|
+|- align="center"
+|[[Club de Deportes Cobresal|Cobresal]]
+|bgcolor="#D0E7FF"|'''0 - 0'''
+|[[Club Social de Deportes Rangers|Rangers]]
+|[[Estadio El Cobre|El Cobre]]
+|
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club Social y Deportivo Colo-Colo|Colo-Colo]]'''
+| 1 - 0
+|[[Unión Española]]
+|[[Estadio Monumental (Chile)|Monumental]]
+|rowspan=2|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club de Deportes La Serena|Deportes La Serena]]'''
+| 3 - 0
+|[[Club Universidad de Chile|Universidad de Chile]]
+|[[Estadio La Portada|La Portada]]
+|18:30
+|- align="center"
+| colspan="7" style="color:#FFFFFF; background-color:#000000;"|'''Equipo libre: {{tc|Audax Italiano La Florida|Audax Italiano}}'''
+|}
+{| class="wikitable mw-collapsible mw-collapsed" style="font-size:95%; text-align: center; width: 95%;"
+! colspan="12" style="with: 100%;" | Fecha 7
+|-
+! width="110" |Local
+! width="10" |Resultado
+! width="120" |Visitante
+! width="130" |Estadio
+! width="50" |Fecha
+! width="10" |Hora
+! width="10" |TV
+|- align="center"
+|[[Club de Deportes Puerto Montt|Deportes Puerto Montt]]
+|bgcolor="#D0E7FF"|'''1 - 1'''
+|[[Club Deportivo O'Higgins|O'Higgins]]
+|[[Estadio Regional de Chinquihue|Chinquihue]]
+|rowspan=6|26 de agosto
+|15:30
+|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|[[Unión Española]]
+|bgcolor="#D0E7FF"|'''3 - 3'''
+|[[Club de Deportes Antofagasta|Deportes Antofagasta]]
+|[[Estadio Santa Laura|Santa Laura]]
+|rowspan=3|16:00
+|
+|- align="center"
+|[[Club Deportivo Palestino|Palestino]]
+| 0 - 3
+|bgcolor="#D0E7FF"|'''[[Audax Italiano La Florida|Audax Italiano]]'''
+|[[Estadio Monumental (Chile)|Monumental]]
+|
+|- align="center"
+|[[Everton de Viña del Mar|Everton]]
+|bgcolor="#D0E7FF"|'''1 - 1'''
+|[[Club de Deportes Santiago Morning|Santiago Morning]]
+|[[Estadio Sausalito|Sausalito]]
+|
+|- align="center"
+|[[Club Deportivo Universidad de Concepción (fútbol)|Universidad de Concepción]]
+| 1 - 2
+|bgcolor="#D0E7FF"|'''[[Club de Deportes Santiago Wanderers|Santiago Wanderers]]'''
+|[[Estadio Municipal Alcaldesa Ester Roa Rebolledo|Municipal de Concepción]]
+|18:30
+|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Coquimbo Unido]]'''
+| 1 - 0
+|[[Club de Deportes Cobresal|Cobresal]]
+|[[Estadio Francisco Sánchez Rumoroso|Francisco Sánchez Rumoroso]]
+|20:00
+|
+|- align="center"
+|[[Club Social de Deportes Rangers|Rangers]]
+|bgcolor="#D0E7FF"|'''0 - 0'''
+|[[Club Social y Deportivo Colo-Colo|Colo-Colo]]
+|[[Estadio Fiscal de Talca|Fiscal de Talca]]
+|rowspan=3|27 de agosto
+|12:00
+|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club Deportivo Huachipato|Huachipato]]'''
+| 2 - 0
+|[[Club de Deportes La Serena|Deportes La Serena]]
+|[[Estadio Las Higueras|Las Higueras]]
+|15:30
+|
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club Universidad de Chile|Universidad de Chile]]'''
+| 1 - 0
+|[[Club Deportivo Universidad Católica (fútbol)|Universidad Católica]]
+|[[Estadio Nacional Julio Martínez Prádanos|Nacional]]
+|16:00
+|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+| colspan="7" style="color:#FFFFFF; background-color:#000000;"|'''Equipo libre: {{tc|Club de Deportes Cobreloa|Cobreloa}}'''
+|}
+{| class="wikitable mw-collapsible mw-collapsed" style="font-size:95%; text-align: center; width: 95%;"
+! colspan="12" style="with: 100%;" | Fecha 8
+|-
+! width="110" |Local
+! width="10" |Resultado
+! width="120" |Visitante
+! width="130" |Estadio
+! width="50" |Fecha
+! width="10" |Hora
+! width="10" |TV
+|- align="center"
+|[[Club Deportivo Universidad Católica (fútbol)|Universidad Católica]]
+|bgcolor="#D0E7FF"|'''0 - 0'''
+|[[Coquimbo Unido]]
+|[[Estadio San Carlos de Apoquindo|San Carlos de Apoquindo]]
+|rowspan=2|2 de septiembre
+|16:00
+|rowspan=2|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club Deportivo O'Higgins|O'Higgins]]'''
+| 1 - 0
+|[[Club de Deportes Santiago Wanderers|Santiago Wanderers]]
+|[[Estadio El Teniente|El Teniente]]
+|18:30
+|- align="center"
+|[[Club de Deportes Santiago Morning|Santiago Morning]]
+| 1 - 4
+|bgcolor="#D0E7FF"|'''[[Club de Deportes Antofagasta|Deportes Antofagasta]]'''
+|[[Universidad de Santiago de Chile#El estadio USACH|USACH]]
+|rowspan=7|3 de septiembre
+|12:00
+|
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club de Deportes Cobreloa|Cobreloa]]'''
+| 1 - 0
+|[[Club Deportivo Palestino|Palestino]]
+|[[Estadio Zorros del Desierto|Municipal de Calama]]
+|rowspan=4|16:00
+|
+|- align="center"
+|[[Everton de Viña del Mar|Everton]]
+| 1 - 2
+|bgcolor="#D0E7FF"|'''[[Unión Española]]'''
+|[[Estadio Sausalito|Sausalito]]
+|
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club de Deportes Cobresal|Cobresal]]'''
+| 4 - 1
+|[[Club Deportivo Universidad de Concepción (fútbol)|Universidad de Concepción]]
+|[[Estadio El Cobre|El Cobre]]
+|
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club Social y Deportivo Colo-Colo|Colo-Colo]]'''
+| 4 - 1
+|[[Club de Deportes Puerto Montt|Deportes Puerto Montt]]
+|[[Estadio Monumental (Chile)|Monumental]]
+|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|[[Club de Deportes La Serena|Deportes La Serena]]
+| 1 - 2
+|bgcolor="#D0E7FF"|'''[[Club Social de Deportes Rangers|Rangers]]'''
+|[[Estadio La Portada|La Portada]]
+|18:00
+|
+|- align="center"
+|[[Audax Italiano La Florida|Audax Italiano]]
+| 0 - 1
+|bgcolor="#D0E7FF"|'''[[Club Universidad de Chile|Universidad de Chile]]'''
+|[[Estadio Nacional Julio Martínez Prádanos|Nacional]]
+|18:30
+|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+| colspan="7" style="color:#FFFFFF; background-color:#000000;"|'''Equipo libre: {{tc|Club Deportivo Huachipato|Huachipato}}'''
+|}
+{| class="wikitable mw-collapsible mw-collapsed" style="font-size:95%; text-align: center; width: 95%;"
+! colspan="12" style="with: 100%;" | Fecha 9
+|-
+! width="110" |Local
+! width="10" |Resultado
+! width="120" |Visitante
+! width="130" |Estadio
+! width="50" |Fecha
+! width="10" |Hora
+! width="10" |TV
+|- align="center"
+|[[Unión Española]]
+| 1 - 2
+|bgcolor="#D0E7FF"|'''[[Club de Deportes Santiago Morning|Santiago Morning]]'''
+|[[Estadio Santa Laura|Santa Laura]]
+|rowspan=3|9 de septiembre
+|15:00
+|
+|- align="center"
+|[[Club Social de Deportes Rangers|Rangers]]
+|bgcolor="#D0E7FF"|'''1 - 1'''
+|[[Club Deportivo Universidad Católica (fútbol)|Universidad Católica]]
+|[[Estadio Fiscal de Talca|Fiscal de Talca]]
+|16:00
+|rowspan=3|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club Universidad de Chile|Universidad de Chile]]'''
+| 2 - 0
+|[[Club de Deportes Cobresal|Cobresal]]
+|[[Estadio Santa Laura|Santa Laura]]
+|19:00
+|- align="center"
+|[[Club de Deportes Santiago Wanderers|Santiago Wanderers]]
+| 1 - 0
+|bgcolor="#D0E7FF"|'''[[Club Social y Deportivo Colo-Colo|Colo-Colo]]'''
+|[[Estadio Elías Figueroa Brander|Playa Ancha]]
+|rowspan=6|10 de septiembre
+|rowspan=2|12:00
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club de Deportes Puerto Montt|Deportes Puerto Montt]]'''
+| 2 - 1
+|[[Club Deportivo Huachipato|Huachipato]]
+|[[Estadio Regional de Chinquihue|Chinquihue]]
+|
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Coquimbo Unido]]'''
+| 4 - 3
+|[[Club de Deportes La Serena|Deportes La Serena]]
+|[[Estadio Francisco Sánchez Rumoroso|Francisco Sánchez Rumoroso]]
+|rowspan=4|16:00
+|
+|- align="center"
+|[[Club de Deportes Antofagasta|Deportes Antofagasta]]
+|bgcolor="#D0E7FF"|'''0 - 0'''
+|[[Everton de Viña del Mar|Everton]]
+|[[Estadio Regional Calvo y Bascuñán|Regional de Antofagasta]]
+|
+|- align="center"
+|[[Club Deportivo Palestino|Palestino]]
+|bgcolor="#D0E7FF"|'''0 - 0'''
+|[[Club Deportivo O'Higgins|O'Higgins]]
+|[[Estadio Municipal de La Cisterna|Municipal de La Cisterna]]
+|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Audax Italiano La Florida|Audax Italiano]]'''
+| 5 - 3
+|[[Club de Deportes Cobreloa|Cobreloa]]
+|[[Estadio Bicentenario Municipal de La Florida|Municipal de La Florida]]
+|
+|- align="center"
+| colspan="7" style="color:#FFFFFF; background-color:#000000;"|'''Equipo libre: {{tc|Club Deportivo Universidad de Concepción (fútbol)|Universidad de Concepción}}'''
+|}
+{| class="wikitable mw-collapsible mw-collapsed" style="font-size:95%; text-align: center; width: 95%;"
+! colspan="12" style="with: 100%;" | Fecha 10
+|-
+! width="110" |Local
+! width="10" |Resultado
+! width="120" |Visitante
+! width="130" |Estadio
+! width="50" |Fecha
+! width="10" |Hora
+! width="10" |TV
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club Social y Deportivo Colo-Colo|Colo-Colo]]'''
+| 4 - 2
+|[[Club Deportivo Universidad de Concepción (fútbol)|Universidad de Concepción]]
+|[[Estadio Monumental (Chile)|Monumental]]
+|15 de septiembre
+|19:00
+|rowspan=2|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club Deportivo O'Higgins|O'Higgins]]'''
+| 2 - 0
+|[[Club Universidad de Chile|Universidad de Chile]]
+|[[Estadio El Teniente|El Teniente]]
+|rowspan=4|16 de septiembre
+|15:30
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club de Deportes Cobreloa|Cobreloa]]'''
+| 3 - 1
+|[[Club de Deportes Antofagasta|Deportes Antofagasta]]
+|[[Estadio Zorros del Desierto|Municipal de Calama]]
+|16:00
+|
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club Deportivo Universidad Católica (fútbol)|Universidad Católica]]'''
+| 5 - 1
+|[[Audax Italiano La Florida|Audax Italiano]]
+|[[Estadio San Carlos de Apoquindo|San Carlos de Apoquindo]]
+|18:00
+|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|[[Club de Deportes La Serena|Deportes La Serena]]
+|bgcolor="#D0E7FF"|'''0 - 0'''
+|[[Club de Deportes Puerto Montt|Deportes Puerto Montt]]
+|[[Estadio La Portada|La Portada]]
+|20:00
+|
+|- align="center"
+|[[Club Deportivo Huachipato|Huachipato]]
+| 2 - 3
+|bgcolor="#D0E7FF"|'''[[Club de Deportes Santiago Wanderers|Santiago Wanderers]]'''
+|[[Estadio Las Higueras|Las Higueras]]
+|rowspan=4|17 de septiembre
+|rowspan=4|16:00
+|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|[[Club de Deportes Cobresal|Cobresal]]
+| 2 - 4
+|bgcolor="#D0E7FF"|'''[[Unión Española]]'''
+|[[Estadio El Cobre|El Cobre]]
+|
+|- align="center"
+|[[Club de Deportes Santiago Morning|Santiago Morning]]
+|bgcolor="#D0E7FF"|'''2 - 2'''
+|[[Coquimbo Unido]]
+|[[Universidad de Santiago de Chile#El estadio USACH|USACH]]
+|
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Everton de Viña del Mar|Everton]]'''
+| 3 - 0
+|[[Club Social de Deportes Rangers|Rangers]]
+|[[Estadio Sausalito|Sausalito]]
+|
+|- align="center"
+| colspan="7" style="color:#FFFFFF; background-color:#000000;"|'''Equipo libre: {{tc|Club Deportivo Palestino|Palestino}}'''
+|}
+{| class="wikitable mw-collapsible mw-collapsed" style="font-size:95%; text-align: center; width: 95%;"
+! colspan="12" style="with: 100%;" | Fecha 11
+|-
+! width="110" |Local
+! width="10" |Resultado
+! width="120" |Visitante
+! width="130" |Estadio
+! width="50" |Fecha
+! width="10" |Hora
+! width="10" |TV
+|- align="center"
+|[[Unión Española]]
+| 0 - 3
+|bgcolor="#D0E7FF"|'''[[Club de Deportes Cobreloa|Cobreloa]]'''
+|[[Estadio Santa Laura|Santa Laura]]
+|rowspan=4|23 de septiembre
+|15:30
+|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Audax Italiano La Florida|Audax Italiano]]'''
+| 5 - 0
+|[[Club de Deportes Cobresal|Cobresal]]
+|[[Estadio Bicentenario Municipal de La Florida|Municipal de La Florida]]
+|17:00
+|
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club de Deportes Puerto Montt|Deportes Puerto Montt]]'''
+| 3 - 1
+|[[Club Deportivo Universidad Católica (fútbol)|Universidad Católica]]
+|[[Estadio Regional de Chinquihue|Chinquihue]]
+|18:00
+|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|[[Club de Deportes La Serena|Deportes La Serena]]
+|bgcolor="#D0E7FF"|'''1 - 1'''
+|[[Club Deportivo Palestino|Palestino]]
+|[[Estadio La Portada|La Portada]]
+|20:00
+|
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club Social de Deportes Rangers|Rangers]]'''
+| 3 - 1
+|[[Club de Deportes Santiago Morning|Santiago Morning]]
+|[[Estadio Fiscal de Talca|Fiscal de Talca]]
+|rowspan=5|24 de septiembre
+|12:00
+|
+|- align="center"
+|[[Club Deportivo Universidad de Concepción (fútbol)|Universidad de Concepción]]
+|bgcolor="#D0E7FF"|'''0 - 0'''
+|[[Club Deportivo O'Higgins|O'Higgins]]
+|[[Estadio Municipal Alcaldesa Ester Roa Rebolledo|Municipal de Concepción]]
+|15:30
+|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club de Deportes Antofagasta|Deportes Antofagasta]]'''
+| 2 - 0
+|[[Club Deportivo Huachipato|Huachipato]]
+|[[Estadio Regional Calvo y Bascuñán|Regional de Antofagasta]]
+|rowspan=2|16:00
+|
+|- align="center"
+|[[Club de Deportes Santiago Wanderers|Santiago Wanderers]]
+|bgcolor="#D0E7FF"|'''1 - 1'''
+|[[Everton de Viña del Mar|Everton]]
+|[[Estadio Elías Figueroa Brander|Playa Ancha]]
+|
+|- align="center"
+|[[Club Universidad de Chile|Universidad de Chile]]
+| 1 - 2
+|bgcolor="#D0E7FF"|'''[[Coquimbo Unido]]'''
+|[[Estadio Nacional Julio Martínez Prádanos|Nacional]]
+|18:00
+|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+| colspan="7" style="color:#FFFFFF; background-color:#000000;"|'''Equipo libre: {{tc|Club Social y Deportivo Colo-Colo|Colo-Colo}}'''
+|}
+{| class="wikitable mw-collapsible mw-collapsed" style="font-size:95%; text-align: center; width: 95%;"
+! colspan="12" style="with: 100%;" | Fecha 12
+|-
+! width="110" |Local
+! width="10" |Resultado
+! width="120" |Visitante
+! width="130" |Estadio
+! width="50" |Fecha
+! width="10" |Hora
+! width="10" |TV
+|- align="center"
+|[[Club Deportivo Huachipato|Huachipato]]
+| 1 - 2
+|bgcolor="#D0E7FF"|'''[[Club Social y Deportivo Colo-Colo|Colo-Colo]]'''
+|[[Estadio Las Higueras|Las Higueras]]
+|rowspan=5|30 de septiembre
+|15:30
+|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|[[Club Deportivo Palestino|Palestino]]
+|bgcolor="#D0E7FF"|'''2 - 2'''
+|[[Club Deportivo Universidad de Concepción (fútbol)|Universidad de Concepción]]
+|[[Estadio Municipal de La Cisterna|Municipal de La Cisterna]]
+|16:00
+|
+|- align="center"
+|[[Unión Española]]
+|bgcolor="#D0E7FF"|'''1 - 1'''
+|[[Club Deportivo Universidad Católica (fútbol)|Universidad Católica]]
+|[[Estadio Santa Laura|Santa Laura]]
+|18:00
+|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club Deportivo O'Higgins|O'Higgins]]'''
+| 3 - 1
+|[[Club de Deportes Antofagasta|Deportes Antofagasta]]
+|[[Estadio El Teniente|El Teniente]]
+|19:00
+|
+|- align="center"
+|[[Coquimbo Unido]]
+| 0 - 1
+|bgcolor="#D0E7FF"|'''[[Club de Deportes Puerto Montt|Deportes Puerto Montt]]'''
+|[[Estadio Francisco Sánchez Rumoroso|Francisco Sánchez Rumoroso]]
+|20:00
+|
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club de Deportes Cobreloa|Cobreloa]]'''
+| 3 - 1
+|[[Club de Deportes Santiago Wanderers|Santiago Wanderers]]
+|[[Estadio Zorros del Desierto|Municipal de Calama]]
+|rowspan=4|1 de octubre
+|15:30
+|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Everton de Viña del Mar|Everton]]'''
+| 4 - 3
+|[[Audax Italiano La Florida|Audax Italiano]]
+|[[Estadio Sausalito|Sausalito]]
+|16:00
+|
+|- align="center"
+|[[Club de Deportes Cobresal|Cobresal]]
+|bgcolor="#D0E7FF"|'''1 - 1'''
+|[[Club de Deportes La Serena|Deportes La Serena]]
+|[[Estadio El Cobre|El Cobre]]
+|16:30
+|
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club Universidad de Chile|Universidad de Chile]]'''
+| 4 - 0
+|[[Club Social de Deportes Rangers|Rangers]]
+|[[Estadio Nacional Julio Martínez Prádanos|Nacional]]
+|18:00
+|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+| colspan="7" style="color:#FFFFFF; background-color:#000000;"|'''Equipo libre: {{tc|Club de Deportes Santiago Morning|Santiago Morning}}'''
+|}
+{| class="wikitable mw-collapsible mw-collapsed" style="font-size:95%; text-align: center; width: 95%;"
+! colspan="12" style="with: 100%;" | Fecha 13
+|-
+! width="110" |Local
+! width="10" |Resultado
+! width="120" |Visitante
+! width="130" |Estadio
+! width="50" |Fecha
+! width="10" |Hora
+! width="10" |TV
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club de Deportes Puerto Montt|Deportes Puerto Montt]]'''
+| 2 - 0
+|[[Club de Deportes Cobresal|Cobresal]]
+|[[Estadio Regional de Chinquihue|Chinquihue]]
+|rowspan=5|14 de octubre
+|16:00
+|
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club Deportivo Universidad Católica (fútbol)|Universidad Católica]]'''
+| 2 - 1
+|[[Everton de Viña del Mar|Everton]]
+|[[Estadio San Carlos de Apoquindo|San Carlos de Apoquindo]]
+|18:00
+|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Audax Italiano La Florida|Audax Italiano]]'''
+| 2 - 1
+|[[Club Deportivo Huachipato|Huachipato]]
+|[[Estadio Bicentenario Municipal de La Florida|Municipal de La Florida]]
+|19:00
+|
+|- align="center"
+|[[Club de Deportes La Serena|Deportes La Serena]]
+|bgcolor="#D0E7FF"|'''4 - 4'''
+|[[Club Deportivo O'Higgins|O'Higgins]]
+|[[Estadio La Portada|La Portada]]
+|20:00
+|
+|- align="center"
+|[[Club Deportivo Universidad de Concepción (fútbol)|Universidad de Concepción]]
+|bgcolor="#D0E7FF"|'''2 - 2'''
+|[[Club Universidad de Chile|Universidad de Chile]]
+|[[Estadio Municipal Alcaldesa Ester Roa Rebolledo|Municipal de Concepción]]
+|20:30
+|rowspan=2|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|[[Club Social de Deportes Rangers|Rangers]]
+| 1 - 3
+|bgcolor="#D0E7FF"|'''[[Club de Deportes Cobreloa|Cobreloa]]'''
+|[[Estadio Fiscal de Talca|Fiscal de Talca]]
+|rowspan=4|15 de octubre
+|15:30
+|- align="center"
+|[[Club de Deportes Antofagasta|Deportes Antofagasta]]
+| 0 - 1
+|bgcolor="#D0E7FF"|'''[[Coquimbo Unido]]'''
+|[[Estadio Regional Calvo y Bascuñán|Regional de Antofagasta]]
+|17:00
+|
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club de Deportes Santiago Wanderers|Santiago Wanderers]]'''
+| 2 - 0
+|[[Club Deportivo Palestino|Palestino]]
+|[[Estadio Elías Figueroa Brander|Playa Ancha]]
+|rowspan=2|18:00
+|
+|- align="center"
+|[[Club Social y Deportivo Colo-Colo|Colo-Colo]]
+|bgcolor="#D0E7FF"|'''2 - 2'''
+|[[Club de Deportes Santiago Morning|Santiago Morning]]
+|[[Estadio Monumental (Chile)|Monumental]]
+|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+| colspan="7" style="color:#FFFFFF; background-color:#000000;"|'''Equipo libre: {{tc|Unión Española}}'''
+|}
+{| class="wikitable mw-collapsible mw-collapsed" style="font-size:95%; text-align: center; width: 95%;"
+! colspan="12" style="with: 100%;" | Fecha 14
+|-
+! width="110" |Local
+! width="10" |Resultado
+! width="120" |Visitante
+! width="130" |Estadio
+! width="50" |Fecha
+! width="10" |Hora
+! width="10" |TV{{refn|group=n.|Uno de los 4 partidos por fecha que iba a transmitir el [[CDF (canal de televisión)|Canal del Fútbol]] iba a ser el O'Higgins-Audax Italiano (el cuadro celeste era el líder del torneo), pero los rancagüinos se negaron a jugar a los 20:30 horas, adelantándose su partido una hora y media antes, renunciando además a los dineros por conceptos de TV, en su reemplazo se emitió el Santiago Morning-Puerto Montt.<ref>{{Cita web|url=https://m.alairelibre.cl/noticias/deportes/futbol/ohiggins/o-higgins-molesto-a-la-anfp-tras-cambiar-horario-de-su-partido-ante-audax/2006-10-18/213456.html|título= O'Higgins molestó a la ANFP tras cambiar horario de su partido ante Audax|fecha= 18 de octubre de 2006|obra= alairelibre.cl}}</ref>}}
+|- align="center"
+|[[Club de Deportes Cobresal|Cobresal]]
+| 1 - 2
+|bgcolor="#D0E7FF"|'''[[Club Deportivo Universidad Católica (fútbol)|Universidad Católica]]'''
+|[[Estadio El Cobre|El Cobre]]
+|rowspan=3|21 de octubre
+|18:30
+|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club Deportivo O'Higgins|O'Higgins]]'''
+| 1 - 0
+|[[Audax Italiano La Florida|Audax Italiano]]
+|[[Estadio El Teniente|El Teniente]]
+|19:00
+|
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Coquimbo Unido]]'''
+| 3 - 0
+|[[Club Deportivo Palestino|Palestino]]
+|[[Estadio Francisco Sánchez Rumoroso|Francisco Sánchez Rumoroso]]
+|21:00
+|
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club de Deportes Santiago Morning|Santiago Morning]]'''
+| 2 - 0
+|[[Club de Deportes Puerto Montt|Deportes Puerto Montt]]
+|[[Universidad de Santiago de Chile#El estadio USACH|USACH]]
+|rowspan=6|22 de octubre
+|12:00
+|rowspan=2|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|[[Club de Deportes Cobreloa|Cobreloa]]
+|bgcolor="#D0E7FF"|'''2 - 2'''
+|[[Club Social y Deportivo Colo-Colo|Colo-Colo]]
+|[[Estadio Zorros del Desierto|Municipal de Calama]]
+|15:30
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club Social de Deportes Rangers|Rangers]]'''
+| 2 - 1
+|[[Club Deportivo Universidad de Concepción (fútbol)|Universidad de Concepción]]
+|[[Estadio Fiscal de Talca|Fiscal de Talca]]
+|rowspan=2|16:30
+|
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club Deportivo Huachipato|Huachipato]]'''
+| 1 - 0
+|[[Unión Española]]
+|[[Estadio Las Higueras|Las Higueras]]
+|
+|- align="center"
+|[[Everton de Viña del Mar|Everton]]
+|bgcolor="#D0E7FF"|'''1 - 1'''
+|[[Club de Deportes La Serena|Deportes La Serena]]
+|[[Estadio Sausalito|Sausalito]]
+|17:00
+|
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club Universidad de Chile|Universidad de Chile]]'''
+| 2 - 0
+|[[Club de Deportes Santiago Wanderers|Santiago Wanderers]]
+|[[Estadio Nacional Julio Martínez Prádanos|Nacional]]
+|18:00
+|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+| colspan="7" style="color:#FFFFFF; background-color:#000000;"|'''Equipo libre: {{tc|Club de Deportes Antofagasta|Deportes Antofagasta}}'''
+|}
+{| class="wikitable mw-collapsible mw-collapsed" style="font-size:95%; text-align: center; width: 95%;"
+! colspan="12" style="with: 100%;" | Fecha 15
+|-
+! width="110" |Local
+! width="10" |Resultado
+! width="120" |Visitante
+! width="130" |Estadio
+! width="50" |Fecha
+! width="10" |Hora
+! width="10" |TV
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club de Deportes Cobreloa|Cobreloa]]'''
+| 3 - 1
+|[[Club Deportivo O'Higgins|O'Higgins]]
+|[[Estadio Zorros del Desierto|Municipal de Calama]]
+|rowspan=7|28 de octubre
+|15:30
+|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|[[Club Deportivo Palestino|Palestino]]
+|bgcolor="#D0E7FF"|'''1 - 1'''
+|[[Everton de Viña del Mar|Everton]]
+|[[Estadio Municipal de La Cisterna|Municipal de La Cisterna]]
+|17:00
+|
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club Deportivo Universidad Católica (fútbol)|Universidad Católica]]'''
+| 3 - 1
+|[[Club Deportivo Huachipato|Huachipato]]
+|[[Estadio San Carlos de Apoquindo|San Carlos de Apoquindo]]
+|18:00
+|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|[[Unión Española]]
+|bgcolor="#D0E7FF"|'''0 - 0'''
+|[[Club Social de Deportes Rangers|Rangers]]
+|[[Estadio Santa Laura|Santa Laura]]
+|rowspan=2|19:00
+|
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club Deportivo Universidad de Concepción (fútbol)|Universidad de Concepción]]'''
+| 3 - 2
+|[[Coquimbo Unido]]
+|[[Estadio Municipal Alcaldesa Ester Roa Rebolledo|Municipal de Concepción]]
+|
+|- align="center"
+|[[Audax Italiano La Florida|Audax Italiano]]
+| 1 - 2
+|bgcolor="#D0E7FF"|'''[[Club de Deportes Santiago Morning|Santiago Morning]]'''
+|[[Estadio Bicentenario Municipal de La Florida|Municipal de La Florida]]
+|20:00
+|
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club de Deportes Santiago Wanderers|Santiago Wanderers]]'''
+| 1 - 0
+|[[Club de Deportes Cobresal|Cobresal]]
+|[[Estadio Elías Figueroa Brander|Playa Ancha]]
+|21:00
+|
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club de Deportes Antofagasta|Deportes Antofagasta]]'''
+| 3 - 1
+|[[Club de Deportes Puerto Montt|Deportes Puerto Montt]]
+|[[Estadio Regional Calvo y Bascuñán|Regional de Antofagasta]]
+|rowspan=2|29 de octubre
+|12:00
+|rowspan=2|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club Social y Deportivo Colo-Colo|Colo-Colo]]'''
+| 4 - 2
+|[[Club Universidad de Chile|Universidad de Chile]]
+|[[Estadio Monumental (Chile)|Monumental]]
+|16:30
+|- align="center"
+| colspan="7" style="color:#FFFFFF; background-color:#000000;"|'''Equipo libre: {{tc|Club de Deportes La Serena|Deportes La Serena}}'''
+|}
+{| class="wikitable mw-collapsible mw-collapsed" style="font-size:95%; text-align: center; width: 95%;"
+! colspan="12" style="with: 100%;" | Fecha 16
+|-
+! width="110" |Local
+! width="10" |Resultado
+! width="120" |Visitante
+! width="130" |Estadio
+! width="50" |Fecha
+! width="10" |Hora
+! width="10" |TV
+|- align="center"
+|[[Coquimbo Unido]]
+|bgcolor="#D0E7FF"|'''1 - 1'''
+|[[Club de Deportes Cobreloa|Cobreloa]]
+|[[Estadio Francisco Sánchez Rumoroso|Francisco Sánchez Rumoroso]]
+|rowspan=2|31 de octubre
+|18:45
+|rowspan=2|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|[[Club de Deportes Antofagasta|Deportes Antofagasta]]
+| 1 - 2
+|bgcolor="#D0E7FF"|'''[[Club Deportivo Universidad Católica (fútbol)|Universidad Católica]]'''
+|[[Estadio Regional Calvo y Bascuñán|Regional de Antofagasta]]
+|21:15
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club de Deportes Puerto Montt|Deportes Puerto Montt]]'''
+| 1 - 0
+|[[Club Deportivo Universidad de Concepción (fútbol)|Universidad de Concepción]]
+|[[Estadio Regional de Chinquihue|Chinquihue]]
+|rowspan=7|1 de noviembre
+|16:00
+|
+|- align="center"
+|[[Club Social y Deportivo Colo-Colo|Colo-Colo]]
+|bgcolor="#D0E7FF"|'''4 - 4'''
+|[[Club de Deportes La Serena|Deportes La Serena]]
+|[[Estadio Monumental (Chile)|Monumental]]
+|rowspan=2|16:30
+|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|[[Club Deportivo Huachipato|Huachipato]]
+| 1 - 3
+|bgcolor="#D0E7FF"|'''[[Club Social de Deportes Rangers|Rangers]]'''
+|[[Estadio Las Higueras|Las Higueras]]
+|
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club de Deportes Cobresal|Cobresal]]'''
+| 2 - 1
+|[[Club Deportivo O'Higgins|O'Higgins]]
+|[[Estadio El Cobre|El Cobre]]
+|rowspan=2|17:30
+|
+|- align="center"
+|[[Club de Deportes Santiago Morning|Santiago Morning]]
+| 0 - 1
+|bgcolor="#D0E7FF"|'''[[Club Deportivo Palestino|Palestino]]'''
+|[[Universidad de Santiago de Chile#El estadio USACH|USACH]]
+|
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Audax Italiano La Florida|Audax Italiano]]'''
+| 2 - 0
+|[[Club de Deportes Santiago Wanderers|Santiago Wanderers]]
+|[[Estadio Bicentenario Municipal de La Florida|Municipal de La Florida]]
+|18:00
+|
+|- align="center"
+|[[Unión Española]]
+| 2 - 6
+|bgcolor="#D0E7FF"|'''[[Club Universidad de Chile|Universidad de Chile]]'''
+|[[Estadio Santa Laura|Santa Laura]]
+|19:00
+|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+| colspan="7" style="color:#FFFFFF; background-color:#000000;"|'''Equipo libre: {{tc|Everton de Viña del Mar|Everton}}'''
+|}
+{| class="wikitable mw-collapsible mw-collapsed" style="font-size:95%; text-align: center; width: 95%;"
+! colspan="12" style="with: 100%;" | Fecha 17
+|-
+! width="110" |Local
+! width="10" |Resultado
+! width="120" |Visitante
+! width="130" |Estadio
+! width="50" |Fecha
+! width="10" |Hora
+! width="10" |TV
+|- align="center"
+|[[Club Universidad de Chile|Universidad de Chile]]
+| 1 - 2
+|bgcolor="#D0E7FF"|'''[[Everton de Viña del Mar|Everton]]'''
+|[[Estadio Santa Laura|Santa Laura]]
+|rowspan=3|4 de noviembre
+|17:00
+|rowspan=2|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club Deportivo O'Higgins|O'Higgins]]'''
+| 3 - 2
+|[[Club Deportivo Huachipato|Huachipato]]
+|[[Estadio El Teniente|El Teniente]]
+|19:30
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club de Deportes La Serena|Deportes La Serena]]'''
+| 1 - 0
+|style="background:#FFCCCC"|'''[[Club de Deportes Santiago Morning|Santiago Morning]]''' [[Archivo:1downarrow red.svg|12px]]
+|[[Estadio La Portada|La Portada]]
+|21:00
+|
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club de Deportes Cobreloa|Cobreloa]]'''
+| 3 - 1
+|[[Club de Deportes Cobresal|Cobresal]]
+|[[Estadio Zorros del Desierto|Municipal de Calama]]
+|rowspan=6|5 de noviembre
+|16:00
+|
+|- align="center"
+|[[Club Social de Deportes Rangers|Rangers]]
+| 1 - 2
+|bgcolor="#D0E7FF"|'''[[Coquimbo Unido]]'''
+|[[Estadio Fiscal de Talca|Fiscal de Talca]]
+|16:30
+|
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club Deportivo Palestino|Palestino]]'''
+| 1 - 0
+|[[Unión Española]]
+|[[Estadio Municipal de La Cisterna|Municipal de La Cisterna]]
+|rowspan=2|17:00
+|
+|- align="center"
+|[[Club Deportivo Universidad Católica (fútbol)|Universidad Católica]]
+| 0 - 1
+|bgcolor="#D0E7FF"|'''[[Club Social y Deportivo Colo-Colo|Colo-Colo]]'''
+|[[Estadio Nacional Julio Martínez Prádanos|Nacional]]
+|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club Deportivo Universidad de Concepción (fútbol)|Universidad de Concepción]]'''
+| 1 - 0
+|[[Audax Italiano La Florida|Audax Italiano]]
+|[[Estadio Municipal Alcaldesa Ester Roa Rebolledo|Municipal de Concepción]]
+|19:15
+|
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club de Deportes Santiago Wanderers|Santiago Wanderers]]'''
+| 1 - 0
+|[[Club de Deportes Antofagasta|Deportes Antofagasta]]
+|[[Estadio Elías Figueroa Brander|Playa Ancha]]
+|19:30
+|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+| colspan="7" style="color:#FFFFFF; background-color:#000000;"|'''Equipo libre: {{tc|Club de Deportes Puerto Montt|Deportes Puerto Montt}}'''
+|}
+{| class="wikitable mw-collapsible mw-collapsed" style="font-size:95%; text-align: center; width: 95%;"
+! colspan="12" style="with: 100%;" | Fecha 18
+|-
+! width="110" |Local
+! width="10" |Resultado
+! width="120" |Visitante
+! width="130" |Estadio
+! width="50" |Fecha
+! width="10" |Hora
+! width="10" |TV
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Coquimbo Unido]]'''
+| 2 - 0
+|[[Club de Deportes Santiago Wanderers|Santiago Wanderers]]
+|[[Estadio Francisco Sánchez Rumoroso|Francisco Sánchez Rumoroso]]
+|10 de noviembre
+|21:00
+|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|[[Club Deportivo Huachipato|Huachipato]]
+| 2 - 3
+|bgcolor="#D0E7FF"|'''[[Club Deportivo Universidad de Concepción (fútbol)|Universidad de Concepción]]'''
+|[[Estadio Las Higueras|Las Higueras]]
+|rowspan=5|11 de noviembre
+|rowspan=2|16:30
+|
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club de Deportes Puerto Montt|Deportes Puerto Montt]]'''
+| 2 - 1
+|[[Club Deportivo Palestino|Palestino]]
+|[[Estadio Regional de Chinquihue|Chinquihue]]
+|
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club Deportivo Universidad Católica (fútbol)|Universidad Católica]]'''
+| 1 - 0
+|[[Club de Deportes Cobreloa|Cobreloa]]
+|[[Estadio San Carlos de Apoquindo]]
+|18:00
+|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Everton de Viña del Mar|Everton]]'''
+| 2 - 0
+|[[Club de Deportes Cobresal|Cobresal]]
+|[[Estadio Sausalito|Sausalito]]
+|19:00
+|
+|- align="center"
+|[[Club Social y Deportivo Colo-Colo|Colo-Colo]]
+| 2 - 3
+|bgcolor="#D0E7FF"|'''[[Audax Italiano La Florida|Audax Italiano]]'''
+|[[Estadio Monumental (Chile)|Monumental]]
+|20:30
+|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club de Deportes Antofagasta|Deportes Antofagasta]]'''
+| 3 - 2
+|[[Club de Deportes La Serena|Deportes La Serena]]
+|[[Estadio Regional Calvo y Bascuñán|Regional de Antofagasta]]
+|rowspan=3|12 de noviembre
+|17:00
+|
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club de Deportes Santiago Morning|Santiago Morning]]'''
+| 1 - 0
+|[[Club Universidad de Chile|Universidad de Chile]]
+|[[Estadio Nacional Julio Martínez Prádanos|Nacional]]
+|18:00
+|
+|- align="center"
+|[[Unión Española]]
+| 0 - 2
+|bgcolor="#D0E7FF"|'''[[Club Deportivo O'Higgins|O'Higgins]]'''
+|[[Estadio Santa Laura|Santa Laura]]
+|18:30
+|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+| colspan="7" style="color:#FFFFFF; background-color:#000000;"|'''Equipo libre: {{tc|Club Social de Deportes Rangers|Rangers}}'''
+|}
+{| class="wikitable mw-collapsible mw-collapsed" style="font-size:95%; text-align: center; width: 95%;"
+! colspan="12" style="with: 100%;" | Fecha 19
+|-
+! width="110" |Local
+! width="10" |Resultado
+! width="120" |Visitante
+! width="130" |Estadio
+! width="50" |Fecha
+! width="10" |Hora
+! width="10" |TV
+|- align="center"
+|[[Club Deportivo Palestino|Palestino]]
+| 2 - 4
+|bgcolor="#D0E7FF"|'''[[Club Deportivo Huachipato|Huachipato]]'''
+|[[Estadio Municipal de La Cisterna|Municipal de La Cisterna]]
+|rowspan=3|18 de noviembre
+|17:00
+|
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Audax Italiano La Florida|Audax Italiano]]'''
+| 2 - 0
+|[[Coquimbo Unido]]
+|[[Estadio Bicentenario Municipal de La Florida|Municipal de La Florida]]
+|18:00
+|
+|- align="center"
+|[[Club de Deportes La Serena|Deportes La Serena]]
+| 2 - 3
+|bgcolor="#D0E7FF"|'''[[Club Deportivo Universidad Católica (fútbol)|Universidad Católica]]'''
+|[[Estadio La Portada|La Portada]]
+|20:30
+|rowspan=2|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|[[Club Social de Deportes Rangers|Rangers]]
+| 1 - 2
+|bgcolor="#D0E7FF"|'''[[Club de Deportes Puerto Montt|Deportes Puerto Montt]]'''
+|[[Estadio Fiscal de Talca|Fiscal de Talca]]
+|rowspan=5|19 de noviembre
+|15:30
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club de Deportes Cobreloa|Cobreloa]]'''
+| 2 - 1
+|[[Club de Deportes Santiago Morning|Santiago Morning]]
+|[[Estadio Zorros del Desierto|Municipal de Calama]]
+|rowspan=2|16:00
+|
+|- align="center"
+|[[Club de Deportes Santiago Wanderers|Santiago Wanderers]]
+|bgcolor="#D0E7FF"|'''2 - 2'''
+|[[Unión Española]]
+|[[Estadio Elías Figueroa Brander|Playa Ancha]]
+|
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club Universidad de Chile|Universidad de Chile]]'''
+| 1 - 0
+|[[Club de Deportes Antofagasta|Deportes Antofagasta]]
+|[[Estadio Nacional Julio Martínez Prádanos|Nacional]]
+|rowspan=2|18:00
+|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club Deportivo Universidad de Concepción (fútbol)|Universidad de Concepción]]'''
+| 5 - 1
+|[[Everton de Viña del Mar|Everton]]
+|[[Estadio Municipal Alcaldesa Ester Roa Rebolledo|Municipal de Concepción]]
+|
+|- align="center"
+|bgcolor="#D0E7FF"|'''[[Club de Deportes Cobresal|Cobresal]]'''
+| 4 - 1
+|[[Club Social y Deportivo Colo-Colo|Colo-Colo]]
+|[[Estadio El Cobre|El Cobre]]
+|22 de noviembre
+|16:30
+|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+| colspan="7" style="color:#FFFFFF; background-color:#000000;"|'''Equipo libre: {{tc|Club Deportivo O'Higgins|O'Higgins}}'''
+|}
+
+== Play-offs ==
+Al concluir la fase regular, los primeros de cada grupo más los tres mejores segundo (2º) clasificaron automáticamente a los play-offs para luchar por el título del Torneo Clausura 2006 enfrentándose en partidos de ida y vuelta, aunque sí se necesitaba uno más para completar todos los clasificados, el cual iba a salir entre el 3º del Grupo A ([[Club de Deportes Santiago Wanderers|Santiago Wanderers]]) y el 2º del Grupo D ([[Club Universidad de Chile|Universidad de Chile]]) enfrentándose a partido único en el estadio del equipo con mejor puntaje, los azules tomaron el último boleto a cuartos con solitaria anotación de [[Adrián Rojas]]. Las parejas de cuartos de final fueron el 1° contra el 8°, el 2° contra el 7°, el 3° contra el 6° y el 4° contra el 5°.
+
+{{Copa de 8 clubes
+
+<!--Fechas-->
+| cuartos = 25 de noviembre al 6 de diciembre
+| semifinal = 8 al 17 de diciembre
+| final = 20 y 23 de diciembre
+|
+
+<!-- Cuartos de final --> 
+|RD1-equipo01 = [[Archivo:600px Azzurro.png|20px]] '''[[Club Deportivo O'Higgins|O'Higgins]]'''
+|RD1-equipo02 = [[Archivo:Giallo e Nero.svg|20px]] [[Coquimbo Unido]]
+|RD1-goles01ida = 0
+|RD1-goles02ida = 0
+|RD1-goles01vuelta = 2
+|RD1-goles02vuelta = 1
+
+|RD1-equipo03 = [[Archivo:600px Bianco con striscia Blu centrale.svg|20px]] [[Club Deportivo Universidad Católica (fútbol)|Universidad Católica]]
+|RD1-equipo04 = [[Archivo:Verde con franjas verticales roja y blanca.png|20px]] '''[[Audax Italiano La Florida|Audax Italiano]]'''
+|RD1-goles03ida = 0
+|RD1-goles04ida = 1
+|RD1-goles03vuelta = 0
+|RD1-goles04vuelta = 3
+
+|RD1-equipo05 = [[Archivo:600px Arancio.png|20px]] '''[[Club Deportes Cobreloa|Cobreloa]]'''
+|RD1-equipo06 = [[Archivo:UdeChileLogo.png|20px]] [[Club Universidad de Chile|Universidad de Chile]]
+|RD1-goles05ida = 0
+|RD1-goles06ida = 1
+|RD1-goles05vuelta = 3
+|RD1-goles06vuelta = 1
+
+|RD1-equipo07 = [[Archivo:Bianco e Verde2.svg|20px]] [[Club de Deportes Puerto Montt|Deportes Puerto Montt]]
+|RD1-equipo08 = [[Archivo:Bianco e Nero.svg|20px]] '''[[Club Social y Deportivo Colo Colo|Colo-Colo]]'''
+|RD1-goles07ida = 0
+|RD1-goles08ida = 1
+|RD1-goles07vuelta = 0
+|RD1-goles08vuelta = 4
+
+<!-- Semifinales -->
+|RD2-equipo01 = [[Archivo:600px Azzurro.png|20px]] [[Club Deportivo O'Higgins|O'Higgins]]
+|RD2-equipo02 = [[Archivo:Verde con franjas verticales roja y blanca.png|20px]] '''[[Audax Italiano La Florida|Audax Italiano]]'''
+|RD2-goles01ida = 1
+|RD2-goles02ida = 4
+|RD2-goles01vuelta = 4
+|RD2-goles02vuelta = 2
+
+|RD2-equipo03 = [[Archivo:600px Arancio.png|20px]] [[Club Deportes Cobreloa|Cobreloa]]
+|RD2-equipo04 = [[Archivo:Bianco e Nero.svg|20px]] '''[[Club Social y Deportivo Colo Colo|Colo-Colo]]'''
+|RD2-goles03ida = 0
+|RD2-goles04ida = 3
+|RD2-goles03vuelta = 3
+|RD2-goles04vuelta = 3
+
+<!-- Final -->
+| RD3-equipo01 = [[Archivo:Verde con franjas verticales roja y blanca.png|20px]] [[Audax Italiano La Florida|Audax Italiano]]
+| RD3-equipo02 = [[Archivo:Bianco e Nero.svg|20px]] '''[[Club Social y Deportivo Colo Colo|Colo-Colo]]'''
+| RD3-goles01ida = 0
+| RD3-goles02ida = 3
+| Dos finales = si
+| RD3-goles01vuelta = 2
+| RD3-goles02vuelta = 3
+}}
+
+*<small>Nota: En cada llave, el equipo que ocupa la primera línea es el que definió la serie como local.</small>
+
+=== Repechaje ===
+{{VT|Anexo:Cuartos de final del Torneo Clausura 2006 (Chile)#Repechaje|l1=Cuartos de final del Torneo Clausura 2006 (Chile) - Repechaje}}
+Jugado a partido único en el estadio del equipo con mejor puntaje.
+
+{| class="wikitable mw-collapsible mw-collapsed" style="font-size:95%; text-align: center; width: 95%;"
+! colspan="12" style="with: 100%;" | Repechaje
+|-
+! width="110" |Local
+! width="10" |Resultado
+! width="120" |Visitante
+! width="130" |Estadio
+! width="90" |Árbitro
+! width="50" |Fecha
+! width="10" |Hora
+! width="10" |TV
+|- align="center"
+|[[Club de Deportes Santiago Wanderers|Santiago Wanderers]]
+| 0 - 1
+|bgcolor="#D0E7FF"| '''[[Club Universidad de Chile|Universidad de Chile]]'''
+|[[Estadio Elías Figueroa Brander|Playa Ancha]]
+|Carlos Chandía
+|22 de noviembre
+|18:15
+|[[CDF (canal de televisión)|CDF]]
+|}
+
+=== Cuartos de final ===
+{{AP|Anexo:Cuartos de final del Torneo Clausura 2006 (Chile)}}
+{| class="wikitable mw-collapsible mw-collapsed" style="font-size:95%; text-align: center; width: 95%;"
+! colspan="12" style="with: 100%;" | Ida
+|-
+! width="110" |Local
+! width="10" |Resultado
+! width="120" |Visitante
+! width="130" |Estadio
+! width="90" |Árbitro
+! width="50" |Fecha
+! width="10" |Hora
+! width="10" |TV
+|- align="center"
+|bgcolor="#D0E7FF"| '''[[Audax Italiano La Florida|Audax Italiano]]'''
+| 1 - 0
+|[[Club Deportivo Universidad Católica (fútbol)|Universidad Católica]]
+|[[Estadio Bicentenario Municipal de La Florida|Municipal de La Florida]]
+|Pablo Pozo
+|rowspan=2|25 de noviembre
+|rowspan=2|19:45
+|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|[[Coquimbo Unido]]
+|bgcolor="#D0E7FF"|'''0 - 0'''
+|[[Club Deportivo O'Higgins|O'Higgins]]
+|[[Estadio Francisco Sánchez Rumoroso|Francisco Sánchez Rumoroso]]
+|Claudio Puga
+|
+|- align="center"
+|bgcolor="#D0E7FF"| '''[[Club Social y Deportivo Colo-Colo|Colo-Colo]]'''
+| 1 - 0
+|[[Club de Deportes Puerto Montt|Deportes Puerto Montt]]
+|[[Estadio Monumental (Chile)|Monumental]]
+|Manuel Acosta
+|rowspan=2|26 de noviembre
+|17:00
+|rowspan=2|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|bgcolor="#D0E7FF"| '''[[Club Universidad de Chile|Universidad de Chile]]'''
+| 1 - 0
+|[[Club de Deportes Cobreloa|Cobreloa]]
+|[[Estadio Nacional Julio Martínez Prádanos|Nacional]]
+|Enrique Osses
+|19:30
+|}
+
+{| class="wikitable mw-collapsible mw-collapsed" style="font-size:95%; text-align: center; width: 95%;"
+! colspan="12" style="with: 100%;" | Vuelta
+|-
+! width="110" |Local
+! width="10" |Resultado
+! width="120" |Visitante
+! width="130" |Estadio
+! width="90" |Árbitro
+! width="50" |Fecha
+! width="10" |Hora
+! width="10" |TV
+|- align="center"
+|bgcolor="#D0E7FF"| '''[[Club Deportivo O'Higgins|O'Higgins]]'''
+| 2 - 1
+|[[Coquimbo Unido]]
+|[[Estadio El Teniente|El Teniente]]
+|Eduardo Ponce
+|2 de diciembre
+|19:00
+|rowspan=4|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|bgcolor="#D0E7FF"| '''[[Club de Deportes Cobreloa|Cobreloa]]'''
+| 3 - 1
+|[[Club Universidad de Chile|Universidad de Chile]]
+|[[Estadio Zorros del Desierto|Municipal de Calama]]
+|Carlos Chandía
+|rowspan=2|3 de diciembre
+|16:00
+|- align="center"
+|[[Club Deportivo Universidad Católica (fútbol)|Universidad Católica]]
+| 0 - 3
+|bgcolor="#D0E7FF"| '''[[Audax Italiano La Florida|Audax Italiano]]'''
+|[[Estadio San Carlos de Apoquindo|San Carlos de Apoquindo]]
+|Jorge Osorio
+|18:30
+|- align="center"
+|[[Club de Deportes Puerto Montt|Deportes Puerto Montt]]
+| 0 - 4
+|bgcolor="#D0E7FF"| '''[[Club Social y Deportivo Colo-Colo|Colo-Colo]]'''
+|[[Estadio Regional de Chinquihue|Chinquihue]]
+|Guido Aros
+|6 de diciembre
+|19:00
+|}
+
+=== Semifinales ===
+{{AP|Anexo:Semifinales del Torneo Clausura 2006 (Chile)}}
+
+{| class="wikitable mw-collapsible mw-collapsed" style="font-size:95%; text-align: center; width: 95%;"
+! colspan="12" style="with: 100%;" | Ida
+|-
+! width="110" |Local
+! width="10" |Resultado
+! width="120" |Visitante
+! width="130" |Estadio
+! width="90" |Árbitro
+! width="50" |Fecha
+! width="10" |Hora
+! width="10" |TV
+|- align="center"
+|bgcolor="#D0E7FF"| '''[[Audax Italiano La Florida|Audax Italiano]]'''
+| 4 - 1
+|[[Club Deportivo O'Higgins|O'Higgins]]
+|[[Estadio Bicentenario Municipal de La Florida|Municipal de La Florida]]
+|Enrique Osses
+|8 de diciembre
+|rowspan=2|19:00
+|rowspan=2|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|bgcolor="#D0E7FF"| '''[[Club Social y Deportivo Colo-Colo|Colo-Colo]]'''
+| 3 - 0
+|[[Club de Deportes Cobreloa|Cobreloa]]
+|[[Estadio Monumental (Chile)|Monumental]]
+|Pablo Pozo
+|9 de diciembre
+|}
+
+{| class="wikitable mw-collapsible mw-collapsed" style="font-size:95%; text-align: center; width: 95%;"
+! colspan="12" style="with: 100%;" | Vuelta
+|-
+! width="110" |Local
+! width="10" |Resultado
+! width="120" |Visitante
+! width="130" |Estadio
+! width="90" |Árbitro
+! width="50" |Fecha
+! width="10" |Hora
+! width="10" |TV
+|- align="center"
+|[[Club Deportivo O'Higgins|O'Higgins]]
+| 4 - 2
+|bgcolor="#D0E7FF"| '''[[Audax Italiano La Florida|Audax Italiano]]'''
+|[[Estadio El Teniente|El Teniente]]
+|Rubén Selmán
+|16 de diciembre
+|19:00
+|rowspan=2|[[CDF (canal de televisión)|CDF]]
+|- align="center"
+|[[Club de Deportes Cobreloa|Cobreloa]]
+| 3 - 3
+|bgcolor="#D0E7FF"| '''[[Club Social y Deportivo Colo-Colo|Colo-Colo]]'''
+|[[Estadio Zorros del Desierto|Municipal de Calama]]
+|Carlos Chandía
+|17 de diciembre
+|16:00
+|}
+
+== Final ==
+{{AP|Final del Torneo Clausura 2006 (Chile)}}
+{| class="wikitable mw-collapsible mw-collapsed" style="font-size:95%; text-align: center; width: 95%;"
+! colspan="12" style="with: 100%;" | Ida
+|-
+! width="110" |Local
+! width="10" |Resultado
+! width="120" |Visitante
+! width="130" |Estadio
+! width="90" |Árbitro
+! width="50" |Fecha
+! width="10" |Hora
+! width="10" |TV
+|- align="center"
+|bgcolor="#D0E7FF"| '''[[Club Social y Deportivo Colo-Colo|Colo-Colo]]'''
+|[https://m.alairelibre.cl/noticias/deportes/futbol/colo-colo/colo-colo-acaricia-el-bicampeonato-tras-un-claro-triunfo-ante-audax/2006-12-20/220246.html 3 - 0]
+|[[Audax Italiano La Florida|Audax Italiano]]
+|[[Estadio Monumental (Chile)|Monumental]]
+|Enrique Osses
+|20 de diciembre
+|20:00
+|[[CDF (canal de televisión)|CDF]]
+|}
+
+{| class="wikitable mw-collapsible mw-collapsed" style="font-size:95%; text-align: center; width: 95%;"
+! colspan="12" style="with: 100%;" | Vuelta
+|-
+! width="110" |Local
+! width="10" |Resultado
+! width="120" |Visitante
+! width="130" |Estadio
+! width="90" |Árbitro
+! width="50" |Fecha
+! width="10" |Hora
+! width="10" |TV
+|- align="center"
+|[[Audax Italiano La Florida|Audax Italiano]]
+|[https://www.emol.com/noticias/deportes/2006/12/23/239991/colo-colo-gana-a-audax-y-se-corona-bicampeon-del-futbol-chileno-final.html 2 - 3]
+|bgcolor="#D0E7FF"| '''[[Club Social y Deportivo Colo-Colo|Colo-Colo]]'''
+|[[Estadio Nacional Julio Martínez Prádanos|Nacional]]
+|Carlos Chandía
+|23 de diciembre
+|20:10
+|[[CDF (canal de televisión)|CDF]]
+|}
+
+== Campeón ==
+{| cellspacing="0" width="100%"
+|-
+| align=center| 
+|-
+| align="center" |'''Bicampeón<br>[[Club Social y Deportivo Colo-Colo|Colo-Colo]]<br> 25.º título
+|-
+| align=center width=500|[[Archivo:Star.svg|15px]] [[Archivo:Star.svg|15px]] [[Archivo:Star.svg|15px]] [[Archivo:Star.svg|15px]] [[Archivo:Star.svg|15px]] [[Archivo:Star.svg|15px]] [[Archivo:Star.svg|15px]] [[Archivo:Star.svg|15px]] [[Archivo:Star.svg|15px]] [[Archivo:Star.svg|15px]] [[Archivo:Star.svg|15px]] [[Archivo:Star.svg|15px]] [[Archivo:Star.svg|15px]] [[Archivo:Star.svg|15px]] [[Archivo:Star.svg|15px]] [[Archivo:Star.svg|15px]] [[Archivo:Star.svg|15px]] [[Archivo:Star.svg|15px]] [[Archivo:Star.svg|15px]] [[Archivo:Star.svg|15px]] [[Archivo:Star.svg|15px]] [[Archivo:Star.svg|15px]] [[Archivo:Star.svg|15px]] [[Archivo:Star.svg|15px]] [[Archivo:Star.svg|15px]]
+|}
+
+== Goleadores ==
+{{AP|Anexo:Goleadores del Torneo Clausura 2006 (Chile)}}
+<center>
+{| class="wikitable" width=70% 
+|- style="background:#dddddd;"
+! colspan=2 align=center | Jugador
+! colspan=1 align=center | Goles
+! colspan=1 align=center | Equipo
+|- 
+|- align=center style="background:#eeeeee;"
+| align=center |[[Archivo:Flag of Chile.svg|20px|Bandera de Chile]]||align=left|'''[[Leonardo Monje]]||'''17||'''[[Club Deportivo Universidad de Concepción (fútbol)|Universidad de Concepción]]
+|- align=center style="background:#ffffff;"
+| align=center |[[Archivo:Flag of Chile.svg|20px|Bandera de Chile]]||align=left|[[Matías Fernández]]||15||[[Club Social y Deportivo Colo-Colo|Colo-Colo]]
+|- align=center style="background:#eeeeee;"
+| align=center |[[Archivo:Flag of Chile.svg|20px|Bandera de Chile]]||align=left|[[Humberto Suazo]]||15||[[Club Social y Deportivo Colo-Colo|Colo-Colo]]
+|- align=center style="background:#ffffff;"
+| align=center |[[Archivo:Flag of Chile.svg|20px|Bandera de Chile]]||align=left|[[Carlos Villanueva Rolland]]||12||[[Audax Italiano La Florida|Audax Italiano]]
+|- align=center style="background:#eeeeee;"
+| align=center |[[Archivo:Flag of Argentina.svg|20px|Bandera de Argentina]]||align=left|[[Lucas Barrios]]||12||[[Club de Deportes Cobreloa|Cobreloa]]
+|- align=center style="background:#ffffff;"
+| align=center |[[Archivo:Flag of Argentina.svg|20px|Bandera de Argentina]]||align=left|[[José Luis Díaz (futbolista)|José Luis Díaz]]||11||[[Club de Deportes Cobreloa|Cobreloa]]
+|- align=center style="background:#eeeeee;"
+| align=center |[[Archivo:Flag of Venezuela.svg|20px|Bandera de Venezuela]]||align=left|[[Giancarlo Maldonado]]||11||[[Club Deportivo O'Higgins|O'Higgins]]
+|- align=center style="background:#ffffff;"
+| align=center |[[Archivo:Flag of Chile.svg|20px|Bandera de Chile]]||align=left|[[Manuel Neira]]||11||[[Unión Española]]
+|- align=center style="background:#eeeeee;"
+| align=center |[[Archivo:Flag of Chile.svg|20px|Bandera de Chile]]||align=left|[[Renato Ramos]]||11||[[Club de Deportes Antofagasta|Deportes Antofagasta]]
+|- align=center style="background:#ffffff;"
+| align=center |[[Archivo:Flag of Argentina.svg|20px|Bandera de Argentina]]||align=left|[[Rodrigo Mannara]]||9||[[Club de Deportes Cobreloa|Cobreloa]]
+|- align=center style="background:#eeeeee;"
+| align=center |[[Archivo:Flag of Argentina.svg|20px|Bandera de Argentina]]||align=left|[[Matías Urbano]]||9||[[Club de Deportes La Serena|Deportes La Serena]]
+|}
+</center>
+
+=== Tripletas, pókers o manos ===
+Aquí se encuentra la lista de [[Tripleta#Fútbol|tripletas]] o ''hat-tricks'', ''póker de goles'' y ''manos'' (en general, tres o más goles anotados por un jugador en un mismo encuentro) convertidos durante el torneo:
+
+{| align=left cellpadding="2" cellspacing="0" style="background: #f5faff; border: 1px #aaa solid; border-collapse: collapse; font-size: 90%;" width=85%
+|- bgcolor=#006699 style="color:white;"
+!width=75px| Fecha !!width=150px| Jugador !!width=75px| Goles !!width=150px| Local !!width=25px| Resultado !!width=150px| Visitante !!width=75px| Jornada
+|- align="center" bgcolor=#DDEEFF
+| 20/08/2006 ||align="left"| {{Bandera|CHI}} '''[[Pedro Morales (futbolista)|Pedro Morales]]''' || [[Archivo:Soccer ball.svg|15px]] [[Archivo:Soccer ball.svg|15px]] [[Archivo:Soccer ball.svg|15px]] || [[Archivo:Sports flag icons - White with black V.svg|20px]] [[Club de Deportes Santiago Morning|Santiago Morning]] || 3 - 4 || [[Archivo:600px Nero e Azzurro (Strisce)2.png|20px]] '''[[Club Deportivo Huachipato|Huachipato]]''' || 6
+|- align="center" bgcolor=#DDEEFF
+| 03/09/2006 ||align="left"| {{Bandera|CHI}} '''[[César Díaz Escobar|César Díaz]]''' || [[Archivo:Soccer ball.svg|15px]] [[Archivo:Soccer ball.svg|15px]] [[Archivo:Soccer ball.svg|15px]] || [[Archivo:Orange white.png|20px|20px]] '''[[Club de Deportes Cobresal|Cobresal]]''' || 4 - 1 || [[Archivo:Giallo e Blu2.png|20px]] [[Club Deportivo Universidad de Concepción (fútbol)|Universidad de Concepción]] || 8
+|- align="center" bgcolor=#DDEEFF
+| 17/09/2006 ||align="left"| {{Bandera|CHI}} '''[[Manuel Neira]]''' || [[Archivo:Soccer ball.svg|15px]] [[Archivo:Soccer ball.svg|15px]] [[Archivo:Soccer ball.svg|15px]] || [[Archivo:Orange white.png|20px|20px]] [[Club de Deportes Cobresal|Cobresal]] || 2 - 4 || [[Archivo:Rosso e Giallo.png|20px]] '''[[Unión Española]]''' || 10
+|- align="center" bgcolor=#DDEEFF
+| 14/10/2006 ||align="left"| {{Bandera|ARG}} '''[[Matías Urbano]]''' || [[Archivo:Soccer ball.svg|15px]] [[Archivo:Soccer ball.svg|15px]] [[Archivo:Soccer ball.svg|15px]] || [[Archivo:Flag maroon HEX-7B1C20.svg|20px]] '''[[Club de Deportes La Serena|Deportes La Serena]]''' || 4 - 4 || [[Archivo:600px Azzurro.png|20px]] [[Club Deportivo O'Higgins|O'Higgins]] || 13
+|- align="center" bgcolor=#DDEEFF
+| 28/10/2006 ||align="left"| {{Bandera|CHI}} '''[[Leonardo Monje]]''' || [[Archivo:Soccer ball.svg|15px]] [[Archivo:Soccerball.svg|15px]]<span style="position:relative; left:-5px;">[[Archivo:Penal.svg|10px]]</span> [[Archivo:Soccerball.svg|15px]]<span style="position:relative; left:-5px;">[[Archivo:Penal.svg|10px]]</span> || [[Archivo:Giallo e Blu2.png|20px]] '''[[Club Deportivo Universidad de Concepción (fútbol)|Universidad de Concepción]]''' || 3 - 2 || [[Archivo:Giallo e Nero.svg|20px]] [[Coquimbo Unido]] || 15
+|- align="center" bgcolor=#DDEEFF
+| 01/11/2006 ||align="left"| {{Bandera|CHI}} '''[[Pablo Bolados]]''' || [[Archivo:Soccer ball.svg|15px]] [[Archivo:Soccer ball.svg|15px]] [[Archivo:Soccer ball.svg|15px]] || [[Archivo:Bianco e Nero.svg|20px]] [[Club Social y Deportivo Colo-Colo|Colo-Colo]] || 4 - 4 || [[Archivo:Flag maroon HEX-7B1C20.svg|20px]] '''[[Club de Deportes La Serena|Deportes La Serena]]''' || 16
+|- align="center" bgcolor=#DDEEFF
+| 01/11/2006 ||align="left"| {{Bandera|ARG}} '''[[Rodrigo Astudillo]]''' || [[Archivo:Soccer ball.svg|15px]] [[Archivo:Soccer ball.svg|15px]] [[Archivo:Soccer ball.svg|15px]]<span style="position:relative; left:-5px;">[[Archivo:Penal.svg|10px]]</span> || [[Archivo:Rosso e Giallo.png|20px]] [[Unión Española]] || 2 - 6 || [[Archivo:UdeChileLogo.png|20px]] '''[[Club Universidad de Chile|Universidad de Chile]]''' || 16
+|}
+{{clear}}
+
+== Autogoles ==
+{{AP|Anexo:Goleadores del Torneo Clausura 2006 (Chile)#Autogoles|l1=Autogoles}}
+{| class="wikitable collapsible collapsed" style="margin: auto; margin-top: 2%; font-size: 90%; text-align: left;" width="750"
+|-
+! colspan="5"  style="with:100%; text-align:center;"| Autogoles
+|-
+!width=400 align=center|Jugador
+!width=300 align=center|Equipo
+!width=300 align=center|Favorecido
+!width=80 align=center|Goles
+!width=80 align=center|Fecha
+|- 
+|{{bandera|ARG}} [[Luciano Pocrnjic]]
+|[[Club de Deportes Antofagasta|Deportes Antofagasta]]
+|[[Club Social y Deportivo Colo-Colo|Colo-Colo]]
+|<center>1
+|<center>2
+|- 
+|{{bandera|CHI}} [[Rodrigo Rivera (futbolista)|Rodrigo Rivera]]
+|[[Coquimbo Unido]]
+|[[Club de Deportes La Serena|Deportes La Serena]]
+|<center>1
+|<center>9
+|- 
+|{{bandera|CHI}} [[Lisandro Henríquez]]
+|[[Club Deportivo Universidad de Concepción (fútbol)|Universidad de Concepción]]
+|[[Club Social y Deportivo Colo-Colo|Colo-Colo]]
+|<center>1
+|<center>10
+|- 
+|{{bandera|CHI}} [[Lisandro Henríquez]]
+|[[Club Deportivo Palestino|Palestino]]
+|[[Club de Deportes La Serena|Deportes La Serena]]
+|<center>1
+|<center>11
+|- 
+|{{bandera|CHI}} [[Nicolás Larrondo]]
+|[[Club Universidad de Chile|Universidad de Chile]]
+|[[Coquimbo Unido]]
+|<center>1
+|<center>11
+|- 
+|{{bandera|CHI}} [[Marco Estrada]]
+|[[Everton de Viña del Mar|Everton]]
+|[[Club Deportivo Universidad Católica (fútbol)|Universidad Católica]]
+|<center>1
+|<center>13
+|- 
+|{{bandera|ARG}} [[Gustavo Paruolo]]
+|[[Audax Italiano La Florida|Audax Italiano]]
+|[[Club de Deportes Santiago Morning|Santiago Morning]]
+|<center>1
+|<center>15
+|- 
+|{{bandera|CHI}} [[César Yáñez]]
+|[[Club de Deportes Puerto Montt|Deportes Puerto Montt]]
+|[[Club de Deportes Antofagasta|Deportes Antofagasta]]
+|<center>1
+|<center>15
+|- 
+|{{bandera|CHI}} [[Cristián Reynero]]
+|[[Club Deportivo Huachipato|Huachipato]]
+|[[Club Deportivo O'Higgins|O'Higgins]]
+|<center>1
+|<center>17
+|- 
+|{{bandera|CHI}} [[Diego Rosende]]
+|[[Club Deportivo Universidad Católica (fútbol)|Universidad Católica]]
+|[[Audax Italiano La Florida|Audax Italiano]]
+|<center>1
+|<center>Cuartos de final (Vuelta)
+|- 
+|{{bandera|CHI}} [[Fernando Hurtado]]
+|[[Club de Deportes Cobreloa|Cobreloa]]
+|[[Club Social y Deportivo Colo-Colo|Colo-Colo]]
+|<center>1
+|<center>Semifinal (Ida)
+|- 
+|{{bandera|CHI}} [[César Santis]]
+|[[Audax Italiano La Florida|Audax Italiano]]
+|[[Club Deportivo O'Higgins|O'Higgins]]
+|<center>1
+|<center>Semifinal (Vuelta)
+|}
+
+== Liguilla de Promoción ==
+{{AP|Anexo:Liguilla de Promoción 2006 (Chile)}}
+La juegan los equipos que ocuparon los lugares 3° y 4° del torneo de [[Primera B de Chile|Primera B]] ([[Lota Schwager]] y [[Club Deportivo Ferroviario Almirante Arturo Fernández Vial|Arturo Fernández Vial]]) contra aquellos equipos que ocuparon el 17º y 18° lugar en la tabla acumulada de [[Primera División de Chile|Primera División]] ([[Club Social de Deportes Rangers de Talca|Rangers]] y [[Club Deportivo Palestino|Palestino]]). Los ganadores participarán en la Primera División durante la [[Temporada 2007 del fútbol chileno|Temporada 2007]].
+
+<center>
+{| class="wikitable" width=65% 
+|-bgcolor=#006699 style="color:red;"
+!width=6%|Llave 
+!width=30%|Equipo local
+!width=30%|Equipo visitante
+!width=10%|Ida
+!width=10%|Vuelta
+!width=14%|Global
+|- align=center bgcolor=#F5FAFF
+|1
+|[[Club Social de Deportes Rangers de Talca|Rangers]] 
+|'''[[Club de Deportes Lota Schwager|Lota Schwager]]'''
+|2 - 1
+|1 - 2
+|'''3 - 3''' <br/><small>(3-4 [[penalti|p]])</small>
+|- align=center bgcolor=#D0E7FF
+|2
+|[[Club Deportivo Ferroviario Almirante Arturo Fernández Vial|Arturo Fernández Vial]]
+|'''[[Club Deportivo Palestino|Palestino]]'''
+|1 - 3
+|0 - 1
+|'''1 - 4'''
+|}
+</center>
+
+== Tabla general [[Temporada 2006 del fútbol chileno|Temporada 2006]] ==
+{{AP|Temporada 2006 del fútbol chileno}}
+Al cabo de la [[Temporada 2006 del fútbol chileno|Temporada 2006]] se elaboró una Tabla General, con la suma de los puntajes de las [[Fase Clasificatoria Apertura y Clausura (Chile)|Fases Clasificatorias]] de los Torneos de Apertura y Clausura. A partir de esta Tabla se determinó al equipo descendido a [[Primera B (Chile)|Primera B]] ([[Santiago Morning]]) y los que jugarían la liguilla de promoción.
+
+Descendió directamente [[Santiago Morning]]. Como se había castigado a [[Deportes Concepción]] con el descenso automático, solo hubo un equipo descendido en este torneo. Su lugar fue ocupado por [[Club de Deportes Melipilla|Melipilla]] y [[Ñublense]], campeón y subcampeón de la [[Primera B (Chile)|categoría inferior]].
+
+Mediante la '''Liguilla de promoción''', ascendió Lota Schwager y descendió Rangers. Palestino y Fernández Vial mantuvieron su división de origen.
+
+=== Clasificación a [[Copa Libertadores 2007]] ===
+Los equipos clasificados fueron:
+* [[Colo-Colo]]: como '''Chile 1''' (campeón del Apertura y del Clausura)
+* [[Audax Italiano]]: como '''Chile 2''' (subcampeón mejor ubicado)
+* [[Cobreloa]]: como '''Chile 3''' (mejor ubicación en la [[Fase Clasificatoria Apertura y Clausura (Chile)|Fase Clasificatoria]])
+
+== Notas ==
+{{listaref|group="n."}}
+
+== Referencias ==
+{{listaref}}
+
+== Véase también ==
+* [[Primera B de Chile 2006]]
+
+== Enlaces externos ==
+* [http://www.rsssf.com/tablesc/chile06.html RSSSF Chile 2006]
+
+{{ sucesión
+| predecesor = [[Torneo Apertura 2006 (Chile)]]
+enero - junio de 2006
+| título = Campeonato Oficial de [[Primera división de Chile|Primera División]] de fútbol en Chile
+Torneo Clausura 2006
+| período = julio - diciembre de 2006
+| sucesor = [[Torneo Apertura 2007 (Chile)]]
+enero - junio de 2007
+}}
+
+{{Control de autoridades}}
+[[Categoría:Temporadas de la Primera División de Chile|2006-C]]
+[[Categoría:Temporada 2006 de fútbol en Chile|1ra. Division Clausura]]

@@ -3,7 +3,8 @@
 # las fichas de en.wikipedia: para cada club de out/jugadores.json.gz, su categoría de jugadores
 # (P6112 en Wikidata), todos los artículos de esa categoría y, de cada ficha, los pares
 # yearsN/clubsN que apuntan a alguno de nuestros clubes, más la fecha de nacimiento y la posición.
-# Guarda out/wikipedia.json.gz. Uso: python tools/ligas/wikipedia.py tools/ligas/out
+# Corre después de jugadores.py (usa su lista de clubes). Guarda out/wikipedia.json.gz.
+# Uso: python tools/ligas/wikipedia.py tools/ligas/out
 import gzip
 import json
 import os

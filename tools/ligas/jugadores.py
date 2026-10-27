@@ -103,6 +103,20 @@ SELECT ?p (SAMPLE(?les) AS ?es) (SAMPLE(?lpt) AS ?pt) (SAMPLE(?len) AS ?en) (GRO
     print("detalle %d/%d" % (min(i + 300, len(wanted)), len(wanted)), flush=True)
 
 result["players"] = {q: v for q, v in result["players"].items() if v is not None}
+
+# Nombres de los clubes (algunos de la tabla de posiciones son clubes polideportivos que el paso 1 no
+# reconoce como club de fútbol y no traen nombre).
+result["club_labels"] = {}
+names = sorted(result["clubs"])
+for i in range(0, len(names), 200):
+    for r in sparql("""
+SELECT ?c ?es ?pt ?en WHERE {
+  VALUES ?c { %s }
+  OPTIONAL { ?c rdfs:label ?es FILTER(lang(?es) = "es") }
+  OPTIONAL { ?c rdfs:label ?pt FILTER(lang(?pt) = "pt") }
+  OPTIONAL { ?c rdfs:label ?en FILTER(lang(?en) = "en") }
+}""" % " ".join("wd:" + q for q in names[i:i + 200])) or []:
+        result["club_labels"][qid(r["c"])] = {"es": r.get("es"), "pt": r.get("pt"), "en": r.get("en")}
 os.makedirs(OUT, exist_ok=True)
 with gzip.open(os.path.join(OUT, "jugadores.json.gz"), "wt", encoding="utf-8") as f:
     json.dump(result, f, ensure_ascii=False, separators=(",", ":"), sort_keys=True)

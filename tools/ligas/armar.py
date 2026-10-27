@@ -108,7 +108,19 @@ def main():
             wiki = json.load(f)["players"]
         for title, w in wiki.items():
             for club, a, b, loan in w["rows"]:
-                stints.setdefault(club, []).append(("wp", (title, a, min(b, LAST))))
+                stints.setdefault(club, []).append(("wp", (title, a, min(b, LAST), loan)))
+    # Préstamos por jugador: un año en medio de su paso por el club dueño en que estuvo cedido a otro
+    # club no cuenta en el club dueño.
+    loans = {}
+    for club, sts in stints.items():
+        for kind, st in sts:
+            if kind == "wd" and st[5] and st[1] and st[3]:
+                loans.setdefault(st[0], []).append((club, int(st[1][:4]), int(st[3][:4])))
+            elif kind == "wp" and st[3]:
+                loans.setdefault(wiki[st[0]].get("qid") or st[0], []).append((club, st[1], st[2]))
+
+    def on_loan_elsewhere(key, club, year, a, b):
+        return a < year < b and any(c != club and la <= year <= lb for c, la, lb in loans.get(key, []))
     resumen = {}
     for country, seasons in temporadas["seasons"].items():
         langs = LABEL_LANG[country]
@@ -125,8 +137,8 @@ def main():
         for year in range(FIRST, LAST + 1):
             equipos = []
             for club, seen in sorted(by_year.get(year, {}).items()):
-                info = clubs_info.get(club, {})
-                name = next((info.get(l) for l in langs if info.get(l)), club)
+                info = clubs_info.get(club) or data.get("club_labels", {}).get(club, {})
+                club_name = next((info.get(l) for l in langs if info.get(l)), club)
                 players = {}
                 for kind, st in stints.get(club, []):
                     if kind == "wd":
@@ -135,15 +147,19 @@ def main():
                         p = data["players"].get(key)
                         if not ok or p is None:
                             continue
+                        if not st[5] and st[1] and st[3] and on_loan_elsewhere(key, club, year, int(st[1][:4]), int(st[3][:4])):
+                            continue
                         age, approx = age_in(p["dob"], year)
                         name = next((p.get(l) for l in langs if p.get(l)), key)
                         line = line_of(p["pos"])
                     else:
-                        title, a, b = st
+                        title, a, b, loan = st
                         if not (a <= year <= b):
                             continue
                         w = wiki[title]
                         key = w.get("qid") or title
+                        if not loan and on_loan_elsewhere(key, club, year, a, b):
+                            continue
                         p = data["players"].get(key)
                         estimated = False
                         if p:
@@ -175,7 +191,7 @@ def main():
                     players[key] = row
                 order = {"POR": 0, "DEF": 1, "MED": 2, "DEL": 3, None: 4}
                 rows = sorted(players.values(), key=lambda r: (order[r["posicion"]], r["nombre"]))
-                equipos.append({"club": name, "wikidata": club, "temporadas": sorted({l for l, _ in seen}),
+                equipos.append({"club": club_name, "wikidata": club, "temporadas": sorted({l for l, _ in seen}),
                                 "clubes_por": sorted({h for _, h in seen}), "jugadores_encontrados": len(rows),
                                 "jugadores": rows})
             equipos.sort(key=lambda e: e["club"])
@@ -183,7 +199,7 @@ def main():
                    "fuente": "Wikidata (CC0) y en.wikipedia; instantánea del 27-oct-2026 (tools/ligas/)",
                    "notas": ["Datos de referencia de uso propio, no para el juego.",
                              "Clubes: los de las temporadas del campeonato que tocan este año calendario (tabla de posiciones de Wikipedia o, si no hay, los clubes más enlazados desde el artículo de la temporada).",
-                             "Jugadores: membresías P54 de Wikidata que incluyen el año y años por club de la ficha del jugador en en.wikipedia (fuente dice cuál). En Wikidata sin fecha de fin cuenta el año en que llegó (o hasta hoy si llegó desde 2023): membresia_estimada. Los años de la ficha son por temporada, así que un jugador que cambió de club a mitad de año puede salir en los dos. Los planteles pueden estar incompletos; jugadores_encontrados dice cuántos hay.",
+                             "Jugadores: membresías P54 de Wikidata que incluyen el año y años por club de la ficha del jugador en en.wikipedia (fuente dice cuál). En Wikidata sin fecha de fin cuenta el año en que llegó (o hasta hoy si llegó desde 2023): membresia_estimada. Los años de la ficha son por temporada, así que un jugador que cambió de club a mitad de año puede salir en los dos; un año en medio de su paso por un club en que estuvo cedido a otro cuenta solo en el club que lo recibió. Los planteles pueden estar incompletos; jugadores_encontrados dice cuántos hay.",
                              "posicion: línea estimada desde P413 (POR, DEF, MED, DEL; null si Wikidata no la tiene). edad: al 1 de julio; edad_aproximada si la fecha de nacimiento no tiene día o tiene fechas distintas."],
                    "equipos": equipos}
             path = os.path.join(DEST, country, "%d.json" % year)

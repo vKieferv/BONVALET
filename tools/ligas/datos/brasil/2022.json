@@ -2,11 +2,11 @@
  "liga": "Campeonato Brasileiro Série A",
  "pais": "brasil",
  "año": 2022,
- "fuente": "Wikidata (CC0) y Wikipedia; instantánea del 27-oct-2026 (tools/ligas/)",
+ "fuente": "Wikidata (CC0) y en.wikipedia; instantánea del 27-oct-2026 (tools/ligas/)",
  "notas": [
   "Datos de referencia de uso propio, no para el juego.",
   "Clubes: los de las temporadas del campeonato que tocan este año calendario (tabla de posiciones de Wikipedia o, si no hay, los clubes más enlazados desde el artículo de la temporada).",
-  "Jugadores: membresías P54 de Wikidata que incluyen el año. Sin fecha de fin cuenta el año en que llegó (o hasta hoy si llegó desde 2023): membresia_estimada. Los planteles pueden estar incompletos; jugadores_encontrados dice cuántos hay.",
+  "Jugadores: membresías P54 de Wikidata que incluyen el año y años por club de la ficha del jugador en en.wikipedia (fuente dice cuál). En Wikidata sin fecha de fin cuenta el año en que llegó (o hasta hoy si llegó desde 2023): membresia_estimada. Los años de la ficha son por temporada, así que un jugador que cambió de club a mitad de año puede salir en los dos; un año en medio de su paso por un club en que estuvo cedido a otro cuenta solo en el club que lo recibió. Los planteles pueden estar incompletos; jugadores_encontrados dice cuántos hay.",
   "posicion: línea estimada desde P413 (POR, DEF, MED, DEL; null si Wikidata no la tiene). edad: al 1 de julio; edad_aproximada si la fecha de nacimiento no tiene día o tiene fechas distintas."
  ],
  "equipos": [
@@ -19,8 +19,426 @@
    "clubes_por": [
     "tabla"
    ],
-   "jugadores_encontrados": 0,
-   "jugadores": []
+   "jugadores_encontrados": 46,
+   "jugadores": [
+    {
+     "nombre": "Airton",
+     "posicion": "POR",
+     "edad": 27,
+     "wikidata": "Q20752033",
+     "fuente": [
+      "wikipedia"
+     ],
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Jailson",
+     "posicion": "POR",
+     "edad": 40,
+     "wikidata": "Q18978130",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Jori",
+     "posicion": "POR",
+     "edad": 26,
+     "wikidata": "Q60735494",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Matheus Cavichioli",
+     "posicion": "POR",
+     "edad": 35,
+     "wikidata": "Q6786978",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Arthur",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q112182604",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Danilo Fernando Avelar",
+     "posicion": "DEF",
+     "edad": 33,
+     "wikidata": "Q971732",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Eder Ferreira Graminho",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q44285615",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Germán Conti",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q16298483",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Gustavo Marques",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q112567459",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Iago Maidana",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q19958149",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "João Paulo Gomes da Costa",
+     "posicion": "DEF",
+     "edad": 36,
+     "wikidata": "Q10311985",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Luan Patrick",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q85713545",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Marlon",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q106910767",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Mateus Henrique",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q119206749",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Márcio Rodrigues",
+     "posicion": "DEF",
+     "edad": 43,
+     "wikidata": "Q180862",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Orlando Berrío",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q6053031",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Patric Cabral Lalau",
+     "posicion": "DEF",
+     "edad": 33,
+     "wikidata": "Q3368854",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Raúl Cáceres",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q3930827",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Zé Vitor",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q109282539",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Adilson dos Anjos Oliveira",
+     "posicion": "MED",
+     "edad": 34,
+     "wikidata": "Q16231857",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Alê",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q100327655",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Flávio",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q106641792",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Gustavinho",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q106641623",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Juan Pablo Ramírez",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q24258623",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Lucas Kal",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q59207985",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Léo Passos",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q65717892",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Matheusinho",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q27662767",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Paulo Roberto Valoura Junior",
+     "posicion": "MED",
+     "edad": 36,
+     "wikidata": "Q16940500",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Rafael Jataí",
+     "posicion": "MED",
+     "edad": 33,
+     "wikidata": "Q7282181",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Rodriguinho",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q111938200",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Yan Sasse",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q27915066",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Zé Ricardo",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q55343948",
+     "fuente": [
+      "wikipedia"
+     ],
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Adyson",
+     "posicion": "DEL",
+     "edad": 16,
+     "wikidata": "Q110780768",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Aloísio",
+     "posicion": "DEL",
+     "edad": 34,
+     "wikidata": "Q3612926",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Carlos Alberto",
+     "posicion": "DEL",
+     "edad": null,
+     "wikidata": "Q105476833",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Emmanuel Martinez",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q21152705",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Everaldo Silva do Nascimento",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q56085312",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Felipe Azevedo",
+     "posicion": "DEL",
+     "edad": 35,
+     "wikidata": "Q495325",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Gonzalo Mastriani",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q1586422",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Henrique Almeida",
+     "posicion": "DEL",
+     "edad": 31,
+     "wikidata": "Q2457765",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Kawê",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q107610192",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Martín Benítez",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q6777767",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Paulinho Bóia",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q55363866",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Pedrinho",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q65029400",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Renato Marques",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q118396098",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Wellington Paulista",
+     "posicion": "DEL",
+     "edad": 38,
+     "wikidata": "Q1634101",
+     "fuente": [
+      "wikipedia"
+     ],
+     "edad_aproximada": true
+    }
+   ]
   },
   {
    "club": "Atlético Clube Goianiense",
@@ -31,19 +449,405 @@
    "clubes_por": [
     "tabla"
    ],
-   "jugadores_encontrados": 2,
+   "jugadores_encontrados": 44,
    "jugadores": [
+    {
+     "nombre": "Diego Loureiro",
+     "posicion": "POR",
+     "edad": 23,
+     "wikidata": "Q96376357",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
     {
      "nombre": "Luan Polli",
      "posicion": "POR",
      "edad": 29,
-     "wikidata": "Q19968755"
+     "wikidata": "Q19968755",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Maurício Kozlinski",
+     "posicion": "POR",
+     "edad": 31,
+     "wikidata": "Q30235467",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Renan dos Santos",
+     "posicion": "POR",
+     "edad": 33,
+     "wikidata": "Q1647420",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Ronaldo Strada",
+     "posicion": "POR",
+     "edad": 25,
+     "wikidata": "Q56065881",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Arthur Henrique Santos",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q21901354",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Camutanga",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q113169020",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Edson Felipe da Cruz",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q16337384",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Emerson Raymundo Santos",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q27825255",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Gabriel Noga",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q81815227",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Hayner William Monjardim Cordeiro",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q28363884",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Jefferson",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q64167372",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "José Jefferson Rodrigues de Oliveira",
+     "posicion": "DEF",
+     "edad": 36,
+     "wikidata": "Q6292564",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Lucas Gazal",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q113468481",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Lucas da Cruz Oliveira",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q64009394",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Luís Eduardo Marques dos Santos",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q47537794",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Paulo Henrique Martins Costa",
+     "posicion": "DEF",
+     "edad": 32,
+     "wikidata": "Q7155227",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Ramon",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q28145603",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Wanderson Santos Pereira",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q27825348",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Willian Klaus",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q28382615",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Edson Fernando",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q99658802",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Gabriel Baralhas",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q47537608",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Jorginho",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q32919929",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Lucas Lima",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q111949539",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Luis Phelipe",
      "posicion": "MED",
      "edad": 21,
-     "wikidata": "Q64762050"
+     "wikidata": "Q64762050",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Luiz Fernando Moraes dos Santos",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q28086372",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Marlon Freitas",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q19866008",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Matheus Pereira",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q104468501",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Ramon",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q59206594",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Rhaldney",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q113004777",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Rickson",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q66659012",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Shaylon",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q28777441",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Wellington Rato",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q101245811",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Willian Marlon Ferreira Moraes",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q56863226",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Airton",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q109283091",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Brian Montenegro",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q3644489",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Daniel",
+     "posicion": "DEL",
+     "edad": 17,
+     "wikidata": "Q124707218",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Diego Churín",
+     "posicion": "DEL",
+     "edad": 32,
+     "wikidata": "Q954935",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Guilherme Augusto Dellatorre",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q5254202",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "João Peglow",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q75058907",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Kelvin",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q113468831",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Leandro Barcia",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q16589813",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Léo Pereira",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q106048941",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Ricardinho",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q106002340",
+     "fuente": [
+      "wikipedia"
+     ]
     }
    ]
   },
@@ -56,13 +860,576 @@
    "clubes_por": [
     "tabla"
    ],
-   "jugadores_encontrados": 1,
+   "jugadores_encontrados": 63,
    "jugadores": [
+    {
+     "nombre": "Douglas Friedrich",
+     "posicion": "POR",
+     "edad": 33,
+     "wikidata": "Q23893103",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Glédson Ribeiro dos Santos",
+     "posicion": "POR",
+     "edad": 39,
+     "wikidata": "Q5573678",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Igor Bohn",
+     "posicion": "POR",
+     "edad": 26,
+     "wikidata": "Q124705618",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Vladimir Orlando Cardoso de Araújo Filho",
+     "posicion": "POR",
+     "edad": 32,
+     "wikidata": "Q3291857",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Alan Henrique Costa",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q16336241",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Alemão",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q35647141",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Arthur Chaves",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q110943061",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Ayrton Cougo",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q20014271",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Bressan",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q15215049",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Bruno Cortês",
+     "posicion": "DEF",
+     "edad": 35,
+     "wikidata": "Q2476736",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Bruno César Pereira da Silva",
+     "posicion": "DEF",
+     "edad": 35,
+     "wikidata": "Q4979169",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Cássio Alessandro de Souza",
+     "posicion": "DEF",
+     "edad": 35,
+     "wikidata": "Q5202358",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Diego Matos",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q110940737",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Ebert Willian Amâncio",
+     "posicion": "DEF",
+     "edad": 38,
+     "wikidata": "Q717218",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Igor Dutra",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q136805739",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "José Renato da Silva Júnior",
+     "posicion": "DEF",
+     "edad": 32,
+     "wikidata": "Q18276365",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Kevin Peterson dos Santos Silva",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q66126574",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Leonardo Leocovick",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q132204506",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Lipe",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q115804275",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Luiz Gustavo",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q127040236",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Matheus Antunes Ribeiro",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q21245150",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Natanael Batista Pimenta",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q18278581",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Rafael Vaz",
+     "posicion": "DEF",
+     "edad": 33,
+     "wikidata": "Q13780654",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Raphael Rodrigues",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q114666644",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Rodrigo Freitas",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q66675862",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Rodrigo Thiesen",
+     "posicion": "DEF",
+     "edad": 35,
+     "wikidata": "Q10363951",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Thales Oleques",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q17299907",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Wellington",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q29025350",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Eduardo",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q110944314",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Falcão",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q124625482",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Gabriel Kazu",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q30105415",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Jean Cléber",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q25714036",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Jean Pyerre",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q42371990",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Jonathan Copete",
+     "posicion": "MED",
+     "edad": 34,
+     "wikidata": "Q6272816",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Lucas de Souza Ventura",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q33026762",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Marcos Serrato",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q48914157",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Mateus Sarará",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q107021752",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Matheus Galdezani",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q28465684",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Raniele",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q106714098",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Thiaguinho",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q123684726",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Uelliton",
+     "posicion": "MED",
+     "edad": 34,
+     "wikidata": "Q10552205",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Vitinho",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q112262144",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Alemão",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q47464997",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Dentinho",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q111947787",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Diego Quirino",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q110952765",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Felipinho",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q115522039",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Gaspar",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q115803615",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Guilherme Bissoli",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q47900157",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Gustavo Santos",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q113168599",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Lourenço",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q55621336",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Lucas da Silva de Jesus",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q60736947",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Marcio Antonio de Souza Júnior",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q28939711",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Morato",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q29530017",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Muriqui",
+     "posicion": "DEL",
+     "edad": 36,
+     "wikidata": "Q1754462",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Nathan",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q113468786",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Pablo Dyego",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q15831134",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
     {
      "nombre": "Paolo Guerrero",
      "posicion": "DEL",
      "edad": 38,
-     "wikidata": "Q156802"
+     "wikidata": "Q156802",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Paulo Baya",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q105273002",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Rômulo dos Santos de Souza",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q20641405",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Saymon Cabral",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q97362634",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Vinícius Jaú",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q54254432",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Vinícius Leite",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q110550924",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "William de Oliveira Pottker",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q10393735",
+     "fuente": [
+      "wikipedia"
+     ],
+     "edad_aproximada": true
     }
    ]
   },
@@ -75,8 +1442,531 @@
    "clubes_por": [
     "tabla"
    ],
-   "jugadores_encontrados": 0,
-   "jugadores": []
+   "jugadores_encontrados": 58,
+   "jugadores": [
+    {
+     "nombre": "Douglas Borges",
+     "posicion": "POR",
+     "edad": 32,
+     "wikidata": "Q111083778",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Gatito Fernández",
+     "posicion": "POR",
+     "edad": 34,
+     "wikidata": "Q781683",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Lucas Perri",
+     "posicion": "POR",
+     "edad": 24,
+     "wikidata": "Q23893097",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Adryelson",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q55759804",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Carlos Emiliano Pereira",
+     "posicion": "DEF",
+     "edad": 35,
+     "wikidata": "Q9697039",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Daniel Borges",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q18921609",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "David Sousa Albino",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q97176079",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Douglas Teixeira",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q113169372",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Fernando Marçal",
+     "posicion": "DEF",
+     "edad": 33,
+     "wikidata": "Q15991578",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Henrique Vermudt",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q98270498",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Hugo",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q105484215",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Jonathan",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q66372381",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Lucas Mezenga",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q113252845",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Niko Hämäläinen",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q21061765",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Philipe Sampaio",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q18127731",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Renzo Saravia",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q6105612",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Victor Hugo Soares dos Santos",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q55364063",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Víctor Cuesta",
+     "posicion": "DEF",
+     "edad": 33,
+     "wikidata": "Q9093411",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Wallison",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q66124767",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Willian Klaus",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q28382615",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Breno Washington Rodrigues da Silva",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q66685048",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Bruno Leite",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q74653893",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Carlos Eduardo de Oliveira Alves",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q5042026",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Danilo Barbosa da Silva",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q18124343",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Diego Gonçalves",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q18719435",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Fábio Gonçalves",
+     "posicion": "MED",
+     "edad": 35,
+     "wikidata": "Q19945930",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Gabriel Pires",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q10545642",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Gustavo Bonatto Barreto",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q20312611",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "JP Galvão",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q116432772",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Jacob Montes",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q29056763",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Kayque",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q105683001",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Leandro dos Santos de Jesus",
+     "posicion": "MED",
+     "edad": 37,
+     "wikidata": "Q2352788",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Lucas Fernandes da Silva",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q23772475",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Lucas Piazon",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q126903",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Luiz Fernando Moraes dos Santos",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q28086372",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Luís Oyama",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q101558322",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Newton",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q123925160",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Patrick de Paula",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q84346394",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Rafael Pereira da Silva",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q189184",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Raí",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q111940678",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Romildo Del Piage",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q94732353",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Tchê Tchê",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q24049261",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Ênio",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q97177274",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Daniel Cruz",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q113023462",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Erison",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q110936974",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Felipe Ferreira",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q69982699",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Gustavo Sauer",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q23994916",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Janderson",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q118365249",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Jeffinho",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q112819181",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "João Victor Santos Sá",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q22342742",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Júnior Santos",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q56065071",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Luis Henrique",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q85782624",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Marcio Antonio de Souza Júnior",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q28939711",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Matheus Nascimento",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q98969376",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Rikelmi",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q112224439",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Sergio Mendonça",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q136403197",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Tiquinho Soares",
+     "posicion": "DEL",
+     "edad": 31,
+     "wikidata": "Q19985279",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Vinícius Lopes",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q77896468",
+     "fuente": [
+      "wikipedia"
+     ]
+    }
+   ]
   },
   {
    "club": "Ceará Sporting Club",
@@ -87,25 +1977,476 @@
    "clubes_por": [
     "tabla"
    ],
-   "jugadores_encontrados": 3,
+   "jugadores_encontrados": 52,
    "jugadores": [
+    {
+     "nombre": "João Ricardo Riedi",
+     "posicion": "POR",
+     "edad": 33,
+     "wikidata": "Q23007695",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Richard de Oliveira Costa",
+     "posicion": "POR",
+     "edad": 31,
+     "wikidata": "Q60999735",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Vinicius Machado",
+     "posicion": "POR",
+     "edad": 22,
+     "wikidata": "Q108916735",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Alyson",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q63405848",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
     {
      "nombre": "Atila",
      "posicion": "DEF",
      "edad": 20,
-     "wikidata": "Q136752770"
+     "wikidata": "Q136752770",
+     "fuente": [
+      "wikidata"
+     ]
+    },
+    {
+     "nombre": "Bruno Pacheco",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q32187582",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Buiú",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q107101906",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "David Ricardo",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q115805294",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Gabriel Lacerda",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q98839584",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Kelvyn",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q100795784",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Lucas Ribeiro",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q56600329",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Luiz Otávio Anacleto Leandro",
+     "posicion": "DEF",
+     "edad": 33,
+     "wikidata": "Q55375411",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Marcos Victor",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q112075091",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Messias Rodrigues da Silva Júnior",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q50365518",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Michel Macedo Rocha Machado",
+     "posicion": "DEF",
+     "edad": 32,
+     "wikidata": "Q2301511",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Natan Masiero",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q141112734",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Nino Paraíba",
+     "posicion": "DEF",
+     "edad": 36,
+     "wikidata": "Q10336984",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Victor Luis",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q17411267",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Diego Rigonato",
+     "posicion": "MED",
+     "edad": 34,
+     "wikidata": "Q834944",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Fernando Sobral",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q60675645",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Fábio Gonçalves",
+     "posicion": "MED",
+     "edad": 35,
+     "wikidata": "Q19945930",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Geovane",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q109251684",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Guilherme Castilho",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q96361453",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Lima",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q30084677",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Léo Rafael",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q111948174",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Marlon",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q96392091",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Pedro Naressi",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q65029716",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Richard Candido Coelho",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q41510959",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Richardson",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q47468508",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Rodrigo Lindoso",
+     "posicion": "MED",
+     "edad": 33,
+     "wikidata": "Q15054468",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Vinícius Goes Barbosa de Souza",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q20641618",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Wendell",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q124881728",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "William Oliveira",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q16850081",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Cléber",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q94748113",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Cristiano",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q113705318",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Dentinho",
+     "posicion": "DEL",
+     "edad": 33,
+     "wikidata": "Q514577",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Erick de Arruda Serafim",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q56070722",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Felipe Micael",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q99533629",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Gabriel dos Santos Francisco",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q108435726",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Iury Castilho",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q32946396",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Jael",
+     "posicion": "DEL",
+     "edad": 33,
+     "wikidata": "Q6121721",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Jhon Vásquez",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q20890175",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "José Roberto Assunção de Araújo Filho",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q37995105",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "João Hericles Nascimento De Lima",
+     "posicion": "DEL",
+     "edad": 39,
+     "wikidata": "Q495313",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "João Victor",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q107284347",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Jô",
      "posicion": "DEL",
      "edad": 35,
-     "wikidata": "Q314099"
+     "wikidata": "Q314099",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Matheus Peixoto",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q58235234",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Pedro Igor",
      "posicion": "DEL",
      "edad": 20,
-     "wikidata": "Q134518704"
+     "wikidata": "Q134518704",
+     "fuente": [
+      "wikidata"
+     ]
+    },
+    {
+     "nombre": "Stiven Mendoza",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q5933619",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Vanderlei Bernardo Oliveira",
+     "posicion": "DEL",
+     "edad": 41,
+     "wikidata": "Q7914482",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Vítor Jacaré",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q98270217",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Wescley Gomes dos Santos",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q10393419",
+     "fuente": [
+      "wikipedia"
+     ]
     }
    ]
   },
@@ -118,31 +2459,600 @@
    "clubes_por": [
     "tabla"
    ],
-   "jugadores_encontrados": 4,
+   "jugadores_encontrados": 65,
    "jugadores": [
+    {
+     "nombre": "Aderbar dos Santos Neto",
+     "posicion": "POR",
+     "edad": 32,
+     "wikidata": "Q4682353",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Anderson",
+     "posicion": "POR",
+     "edad": 24,
+     "wikidata": "Q65718450",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Bento",
+     "posicion": "POR",
+     "edad": 23,
+     "wikidata": "Q98265925",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Caio",
+     "posicion": "POR",
+     "edad": 25,
+     "wikidata": "Q65704491",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Léo Linck",
+     "posicion": "POR",
+     "edad": 21,
+     "wikidata": "Q116872137",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Abner Vinícius da Silva Santos",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q66651898",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Dani Bolt",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q106665499",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Dedé",
+     "posicion": "DEF",
+     "edad": 34,
+     "wikidata": "Q378526",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Erwin Spitzner",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q18207744",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "João Vialle",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q111569789",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Khellven",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q65718617",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Leonardo Ataíde",
+     "posicion": "DEF",
+     "edad": 18,
+     "wikidata": "Q110914599",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Lucas Eduardo Ribeiro de Souza",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q83637277",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Lucas Fasson",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q104440799",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
     {
      "nombre": "Luis Manuel Orejuela",
      "posicion": "DEF",
      "edad": 26,
-     "wikidata": "Q20015578"
+     "wikidata": "Q20015578",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Matheus Felipe",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q109971493",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Márcio Almeida de Oliveira",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q55281478",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Nicolas Vichiatto da Silva",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q27825304",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Nicolás Hernández",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q60197007",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Pedro Henrique Azevedo Pereira",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q108933987",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Pedro Henrique Ribeiro Gonçalves",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q24452269",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Raimar",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q109375524",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Thiago Heleno",
+     "posicion": "DEF",
+     "edad": 33,
+     "wikidata": "Q976476",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Vinicius Kauê",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q117879587",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Willian Rocha",
+     "posicion": "DEF",
+     "edad": 33,
+     "wikidata": "Q10393743",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Agustín Canobbio",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q26838705",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Alex Santana",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q27836019",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Bryan García",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q100995903",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Christian",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q85752255",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "David Terans",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q15438413",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Denner Fernando Melz",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q62577332",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Erick",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q65704493",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Fernandinho",
      "posicion": "MED",
      "edad": 37,
-     "wikidata": "Q459356"
+     "wikidata": "Q459356",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Hugo Moura Arruda da Silva",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q60736971",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "João Pedro",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q111938441",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Juninho",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q109282543",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Kawan",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q96385527",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Leonardo da Silva Gomes",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q56600328",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Léo Cittadini",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q15831098",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Marlos",
+     "posicion": "MED",
+     "edad": 34,
+     "wikidata": "Q681938",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Matheus Fernandes",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q29169290",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Pablo Felipe Teixeira",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q15831136",
+     "fuente": [
+      "wikipedia"
+     ],
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Pablo Siles",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q60838810",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Pedro do Rio",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q96613447",
+     "fuente": [
+      "wikipedia"
+     ],
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Pierre",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q136222999",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Reinaldo",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q65745176",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Renato Kayzer de Souza",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q22279980",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Romário",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q123399137",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Thiago de Souza",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q64009885",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Tomás Cuello",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q29477702",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Vitor Bueno",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q20641619",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Carlos Eduardo Ferreira de Souza",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q21005273",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Davi Araújo",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q100140986",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Elias Carioca",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q96106468",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Jader",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q108864779",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "John Mercado",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q111192857",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Jonathan Luiz Moreira Rosa Júnior",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q76491010",
+     "fuente": [
+      "wikipedia"
+     ],
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Julimar",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q56248484",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Kleiton",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q96386100",
+     "fuente": [
+      "wikipedia"
+     ],
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Marcelo Cirino da Silva",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q6756532",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Matheus Babi",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q96280211",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Pedro Rocha Neves",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q20828260",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Rômulo José Cardoso da Cruz",
      "posicion": "DEL",
      "edad": 20,
-     "wikidata": "Q110970778"
+     "wikidata": "Q110970778",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Vitinho",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q65704481",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Vitor Roque",
      "posicion": "DEL",
      "edad": 17,
-     "wikidata": "Q111016177"
+     "wikidata": "Q111016177",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
     }
    ]
   },
@@ -155,43 +3065,536 @@
    "clubes_por": [
     "tabla"
    ],
-   "jugadores_encontrados": 6,
+   "jugadores_encontrados": 58,
    "jugadores": [
+    {
+     "nombre": "Gabriel Delfim",
+     "posicion": "POR",
+     "edad": 19,
+     "wikidata": "Q131390321",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Matheus Mendes",
+     "posicion": "POR",
+     "edad": 23,
+     "wikidata": "Q105825021",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Michael Fracaro",
+     "posicion": "POR",
+     "edad": 27,
+     "wikidata": "Q83739999",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Rafael Pires Monteiro",
+     "posicion": "POR",
+     "edad": 33,
+     "wikidata": "Q3928964",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Éverson",
+     "posicion": "POR",
+     "edad": 31,
+     "wikidata": "Q8078540",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Cláudio Rodrigues Gomes",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q55613051",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
     {
      "nombre": "Diego Godín",
      "posicion": "DEF",
      "edad": 36,
-     "wikidata": "Q214903"
+     "wikidata": "Q214903",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Guilherme Arana",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q19559974",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Iago Maidana",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q19958149",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Igor Rabello",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q30935916",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Jemerson",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q15831045",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "José Rodolfo Pires Ribeiro",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q1573490",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "José Welison",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q18468006",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Júnior Alonso",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q11091593",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Lucas Camilo Hernández Perdomo",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q17323435",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Mariano Ferreira Filho",
+     "posicion": "DEF",
+     "edad": 36,
+     "wikidata": "Q31766",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Maílton",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q80731206",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Micael",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q110449941",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Nathan Silva",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q80672850",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Rubens",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q110671797",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Réver",
+     "posicion": "DEF",
+     "edad": 37,
+     "wikidata": "Q1363213",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Rômulo",
+     "posicion": "DEF",
+     "edad": 18,
+     "wikidata": "Q125896856",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Sandro Perpétuo",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q105722902",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Talison",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q69961108",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Vitor Mendes",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q66651101",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Adriano",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q96214738",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Allan",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q20916833",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Calebe",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q101693563",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Cristian Pavón",
      "posicion": "MED",
      "edad": 26,
-     "wikidata": "Q16553648"
+     "wikidata": "Q16553648",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Dani Borges",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q131453676",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Daniel Penha",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q66541468",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Eduardo Vargas",
      "posicion": "MED",
      "edad": 32,
-     "wikidata": "Q2268949"
+     "wikidata": "Q2268949",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Guilherme Castilho",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q96361453",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Gustavo Blanco",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q46998392",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Ignacio Martín Fernández",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q6447402",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Jair Rodrigues Júnior",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q23771909",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Jefferson Savarino",
      "posicion": "MED",
      "edad": 25,
-     "wikidata": "Q20735677"
+     "wikidata": "Q20735677",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Marquinhos",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q56248407",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Matías Zaracho",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q28485651",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Neto",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q65030450",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Otávio Henrique Santos",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q16849440",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Ramón Martínez",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q65030391",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Rocyan",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q56640518",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Tchê Tchê",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q24049261",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Wesley",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q105246316",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Ademir da Silva Santos Júnior",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q58128182",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Alan Kardec",
+     "posicion": "DEL",
+     "edad": 33,
+     "wikidata": "Q736325",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Diego Costa",
+     "posicion": "DEL",
+     "edad": 33,
+     "wikidata": "Q459707",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Dylan Borrero",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q64740257",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Echaporã",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q107537589",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Eduardo Sasha",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q5340762",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Felipe Felicio",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q99836869",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Fábio Gomes",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q66697751",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Hulk",
      "posicion": "DEL",
      "edad": 35,
-     "wikidata": "Q62786"
+     "wikidata": "Q62786",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Marcos da Silva França",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q17180926",
+     "fuente": [
+      "wikipedia"
+     ],
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Pedro Victor Delmino da Silva",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q28971555",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Sávio Moreira de Oliveira",
      "posicion": "DEL",
      "edad": 18,
-     "wikidata": "Q99485542"
+     "wikidata": "Q99485542",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Yan Phillipe",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q130740665",
+     "fuente": [
+      "wikipedia"
+     ]
     }
    ]
   },
@@ -204,80 +3607,596 @@
    "clubes_por": [
     "tabla"
    ],
-   "jugadores_encontrados": 12,
+   "jugadores_encontrados": 64,
    "jugadores": [
+    {
+     "nombre": "Aderbar dos Santos Neto",
+     "posicion": "POR",
+     "edad": 32,
+     "wikidata": "Q4682353",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
     {
      "nombre": "Diego Alves",
      "posicion": "POR",
      "edad": 37,
-     "wikidata": "Q313082"
+     "wikidata": "Q313082",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Diego Lima",
+     "posicion": "POR",
+     "edad": 32,
+     "wikidata": "Q5274720",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Hugo Souza",
+     "posicion": "POR",
+     "edad": 23,
+     "wikidata": "Q64577950",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Matheus Cunha Queiroz",
      "posicion": "POR",
      "edad": 21,
-     "wikidata": "Q110882015"
+     "wikidata": "Q110882015",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Ayrton Lucas Dantas de Medeiros",
      "posicion": "DEF",
      "edad": 25,
-     "wikidata": "Q23638974"
+     "wikidata": "Q23638974",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Cleiton Santana",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q110881805",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "David Luiz",
      "posicion": "DEF",
      "edad": 35,
-     "wikidata": "Q193706"
+     "wikidata": "Q193706",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Erick Pulgar",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q16911636",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Fabrício Bruno",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q28531145",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Filipe Luís",
      "posicion": "DEF",
      "edad": 36,
-     "wikidata": "Q350547"
+     "wikidata": "Q350547",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Guillermo Varela",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q13422031",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Gustavo Henrique",
      "posicion": "DEF",
      "edad": 29,
-     "wikidata": "Q5621422"
+     "wikidata": "Q5621422",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Léo Pereira",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q18199184",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Marcos Paulo",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q110884250",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Matheus Thuler",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q55081237",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Matheuzinho",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q59656516",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Mauricio Isla",
      "posicion": "DEF",
      "edad": 34,
-     "wikidata": "Q296222"
+     "wikidata": "Q296222",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Otávio",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q104839804",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Pablo Nascimento Castro",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q7121706",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Patrick",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q55363852",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Rafael Santos",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q59206199",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Renê Rodrigues Martins",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q20048330",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Richard",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q110884248",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Rodinei",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q20048828",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Rodrigo Caio",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q3438450",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Santiago Ocampos",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q105758914",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Wesley França",
+     "posicion": "DEF",
+     "edad": 18,
+     "wikidata": "Q110882542",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Andreas Pereira",
      "posicion": "MED",
      "edad": 26,
-     "wikidata": "Q17619350"
+     "wikidata": "Q17619350",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Antônio Carlos Rodrigues dos Santos Júnior",
+     "posicion": "MED",
+     "edad": 33,
+     "wikidata": "Q4777655",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Arturo Vidal",
      "posicion": "MED",
      "edad": 35,
-     "wikidata": "Q192671"
+     "wikidata": "Q192671",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Daniel Cabral",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q78319542",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Diego Ribas da Cunha",
+     "posicion": "MED",
+     "edad": 37,
+     "wikidata": "Q109428",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Everton Ribeiro",
+     "posicion": "MED",
+     "edad": 33,
+     "wikidata": "Q4025436",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Giorgian De Arrascaeta",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q13578003",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Hugo Moura Arruda da Silva",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q60736971",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Igor Jesus",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q110884245",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "João Gomes",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q103312425",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Kayke David",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q110884226",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Lucas André",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q140391177",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Matheus França",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q109318489",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Matheus Gonçalves",
+     "posicion": "MED",
+     "edad": 16,
+     "wikidata": "Q114658064",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Max Alves",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q106588186",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Mário Sérgio Santos Costa",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q3869209",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Richard Ríos",
      "posicion": "MED",
      "edad": 22,
-     "wikidata": "Q117322318"
+     "wikidata": "Q117322318",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Robert Kenedy Nunes do Nascimento",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q14755604",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Thiago Fernandes Rodrigues",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q81672427",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Thiago Maia",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q18394141",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Victor Hugo Gomes Silva",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q111983266",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Willian Arão",
      "posicion": "MED",
      "edad": 29,
      "wikidata": "Q2035459",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ],
      "edad_aproximada": true
+    },
+    {
+     "nombre": "Yuri de Oliveira",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q59206217",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "André Luiz",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q110882527",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Bruno Henrique",
+     "posicion": "DEL",
+     "edad": 31,
+     "wikidata": "Q19956526",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Everton Sousa Soares",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q17385902",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Gabigol",
      "posicion": "DEL",
      "edad": 25,
-     "wikidata": "Q13646572"
+     "wikidata": "Q13646572",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Gabriel Batista",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q47495833",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Lázaro",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q84314136",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Mateusão",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q114642457",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Pedrinho",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q123399288",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Pedro Guilherme Abreu dos Santos",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q47491410",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Petterson Novaes",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q110884224",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Ryan Luka",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q107387978",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Vitinho (futebolista)",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q14584722",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Werton",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q107445332",
+     "fuente": [
+      "wikipedia"
+     ]
     }
    ]
   },
@@ -290,8 +4209,488 @@
    "clubes_por": [
     "tabla"
    ],
-   "jugadores_encontrados": 0,
-   "jugadores": []
+   "jugadores_encontrados": 53,
+   "jugadores": [
+    {
+     "nombre": "Alex Roberto Santana Rafael",
+     "posicion": "POR",
+     "edad": 32,
+     "wikidata": "Q15401973",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Gabriel Vasconcellos Ferreira",
+     "posicion": "POR",
+     "edad": 29,
+     "wikidata": "Q961889",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Rafael William",
+     "posicion": "POR",
+     "edad": 20,
+     "wikidata": "Q112740550",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Wilson Rodrigues de Moura Júnior",
+     "posicion": "POR",
+     "edad": 38,
+     "wikidata": "Q8023194",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Angelo Chaves",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q107373859",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Diego Porfírio",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q112181174",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Egídio de Araújo Pereira Júnior",
+     "posicion": "DEF",
+     "edad": 36,
+     "wikidata": "Q3720578",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Guilherme Biro",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q104042194",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Guillermo de los Santos",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q2708551",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Henrique Adriano Buss",
+     "posicion": "DEF",
+     "edad": 35,
+     "wikidata": "Q313576",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Henrique Vermudt",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q98270498",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Jesús Trindade",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q60828173",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Jhon Chancellor",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q20085270",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Kazu",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q86753675",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Luciano Castán",
+     "posicion": "DEF",
+     "edad": 32,
+     "wikidata": "Q6696793",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Matheus Alexandre Anastácio de Souza",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q80391903",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Márcio Silva",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q107373857",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Natanael (futebolista, 2002)",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q86445352",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Nathan Mendes",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q111913921",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Rafael Santos",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q65030007",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Thalisson Gabriel",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q123218366",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Thiago Dombroski",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q118353147",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Warley",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q96414286",
+     "fuente": [
+      "wikipedia"
+     ],
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Andrey Ramos do Nascimento",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q30091513",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Bernardo Lemes",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q111031917",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Biel",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q111913161",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Bruno Gomes",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q69982022",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Edson Carioca",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q108010748",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Gabriel Boschilia",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q15878652",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Jefferson Luis Teixeira Silva",
+     "posicion": "MED",
+     "edad": 38,
+     "wikidata": "Q6175534",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Jhony Douglas",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q58821132",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Matías Galarza",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q106804819",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Neilton Mestzk",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q10555964",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Pablo García",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q23679917",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Régis Augusto Salmazzo",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q17037521",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Róbson Michael Signorini",
+     "posicion": "MED",
+     "edad": 34,
+     "wikidata": "Q7386520",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Thonny Anderson",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q54858439",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Valdemir de Oliveira Soares",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q108016024",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Willian Farias",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q10393744",
+     "fuente": [
+      "wikipedia"
+     ],
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Adrián Emmanuel Martínez",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q62064989",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Alef Manga",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q106643466",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Clayton",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q111947959",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Fabrício Daniel",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q63248045",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Hernán Pérez",
+     "posicion": "DEL",
+     "edad": 33,
+     "wikidata": "Q1340644",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Igor Paixão",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q65548497",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "José Hugo",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q112262152",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Juan Carlos Díaz",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q65159360",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Luizão",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q111040170",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Léo Gamalho",
+     "posicion": "DEL",
+     "edad": 36,
+     "wikidata": "Q6710999",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Matheus Cadorini",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q109619483",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Nathan Fogaça",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q55760880",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Vinícius Ribeiro",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q124614939",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "William Alves de Oliveira",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q4501756",
+     "fuente": [
+      "wikipedia"
+     ]
+    }
+   ]
   },
   {
    "club": "Cuiabá Esporte Clube",
@@ -302,13 +4701,448 @@
    "clubes_por": [
     "tabla"
    ],
-   "jugadores_encontrados": 1,
+   "jugadores_encontrados": 49,
    "jugadores": [
+    {
+     "nombre": "João Carlos Heidemann",
+     "posicion": "POR",
+     "edad": 34,
+     "wikidata": "Q6298073",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Matheus Nogueira",
+     "posicion": "POR",
+     "edad": 24,
+     "wikidata": "Q85875432",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Vinícius Teodoro Barreta Melo",
+     "posicion": "POR",
+     "edad": 23,
+     "wikidata": "Q63229330",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Walter Leandro Capeloza Artune",
+     "posicion": "POR",
+     "edad": 34,
+     "wikidata": "Q15093124",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Alan Empereur",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q33594297",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Alexandre Melo",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q96371732",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Daniel Guedes",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q18637281",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Igor Cariús",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q58821137",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Joaquim Henrique",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q112161770",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "João Lucas",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q65666360",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Juan Ojeda",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q110772671",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Lenon Fernandes Ribeiro",
+     "posicion": "DEF",
+     "edad": 32,
+     "wikidata": "Q6523063",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Lucão",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q108704114",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Marllon Borges",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q6771886",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Paulo Marcos de Jesus Ribeiro",
+     "posicion": "DEF",
+     "edad": 36,
+     "wikidata": "Q2092700",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Ricardo Cerqueira",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q118903044",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Rikelme",
+     "posicion": "DEF",
+     "edad": 18,
+     "wikidata": "Q115492462",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Sidcley Ferreira Pereira",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q18199197",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Uendel Pereira Gonçalves",
+     "posicion": "DEF",
+     "edad": 33,
+     "wikidata": "Q7877456",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Uillian Correia Granemann",
+     "posicion": "DEF",
+     "edad": 32,
+     "wikidata": "Q20048418",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Weverton Almeida Santos",
+     "posicion": "DEF",
+     "edad": 34,
+     "wikidata": "Q16941076",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Alesson",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q59114305",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Camilo Reijers",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q83880808",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Clayson Henrique da Silva Vieira",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q19879773",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Cleverson Rosário dos Santos",
+     "posicion": "MED",
+     "edad": 38,
+     "wikidata": "Q15427886",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Cristhian Rivas",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q30345695",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Denilson",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q113588365",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Fernando Ribeiro Fernandes",
+     "posicion": "MED",
+     "edad": 35,
+     "wikidata": "Q5444902",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Gabriel Pierini",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q106782523",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Gabriel Pirani",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q105688568",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Jonathan Cafu",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q18719321",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "João Pedro Vilardi Pinto",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q60736566",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Kelvin Osorio",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q24579391",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
     {
      "nombre": "Lucas Mineiro",
      "posicion": "MED",
      "edad": 26,
-     "wikidata": "Q27929671"
+     "wikidata": "Q27929671",
+     "fuente": [
+      "wikidata"
+     ]
+    },
+    {
+     "nombre": "Marcão",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q24896854",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Rodrigo Eduardo Costa Marinho",
+     "posicion": "MED",
+     "edad": 34,
+     "wikidata": "Q3940035",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Valdívia",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q18176477",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Vinícius Boff",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q115097565",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Yesus Cabrera",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q11096409",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Éverton Cardoso da Silva",
+     "posicion": "MED",
+     "edad": 33,
+     "wikidata": "Q488139",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "André Balada",
+     "posicion": "DEL",
+     "edad": 31,
+     "wikidata": "Q518525",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "André Luis",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q47540889",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Deyverson",
+     "posicion": "DEL",
+     "edad": 31,
+     "wikidata": "Q10552615",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Elton Rodrigues Brandão",
+     "posicion": "DEL",
+     "edad": 36,
+     "wikidata": "Q2507087",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Felipe Marques",
+     "posicion": "DEL",
+     "edad": 32,
+     "wikidata": "Q106602452",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Kennyd",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q116963141",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Marquinhos",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q98594769",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Rafael Gustavo Meneghel Gava",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q62081707",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Raul",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q106782532",
+     "fuente": [
+      "wikipedia"
+     ]
     }
    ]
   },
@@ -321,13 +5155,512 @@
    "clubes_por": [
     "tabla"
    ],
-   "jugadores_encontrados": 1,
+   "jugadores_encontrados": 56,
    "jugadores": [
+    {
+     "nombre": "César",
+     "posicion": "POR",
+     "edad": 27,
+     "wikidata": "Q110761637",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Felipe Alves",
+     "posicion": "POR",
+     "edad": 34,
+     "wikidata": "Q58494613",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Pegorari",
+     "posicion": "POR",
+     "edad": 30,
+     "wikidata": "Q113588532",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Danilo Boza",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q106961103",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Dudu",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q115805560",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Gabriel Busanello",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q105641906",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Odivan Koerich",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q135169661",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Onitlasi Moraes",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q53678050",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Paulo Henrique",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q106925417",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Paulo Miranda (zagueiro)",
+     "posicion": "DEF",
+     "edad": 33,
+     "wikidata": "Q7155258",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Rafael Forster",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q16940565",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Renato Chaves",
+     "posicion": "DEF",
+     "edad": 32,
+     "wikidata": "Q436160",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Rodrigo Crasso Cordeiro",
+     "posicion": "DEF",
+     "edad": 35,
+     "wikidata": "Q7357314",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Rodrigo Soares",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q29141646",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
     {
      "nombre": "Thalisson Kelven",
      "posicion": "DEF",
      "edad": 24,
-     "wikidata": "Q42153217"
+     "wikidata": "Q42153217",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "William Matheus",
+     "posicion": "DEF",
+     "edad": 32,
+     "wikidata": "Q8015227",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Ygor Nogueira de Paula",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q18169505",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Anderson Leite Moraes",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q28114249",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Bruno Nazário",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q15060011",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Bruno Roberto",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q55081205",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Chico",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q28699492",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Darlan Mendes",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q66563856",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Elton Junior Melo Ataíde",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q28729624",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Francisco Edson Moreira da Silva",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q55610516",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Gabriel Tota",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q110802915",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Jadson Alves",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q3806090",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Jean Carlos de Souza Irmer",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q26706906",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Juninho Botelho",
+     "posicion": "MED",
+     "edad": 35,
+     "wikidata": "Q6313107",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Kelvi",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q133189826",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Marlon",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q96392091",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Moisés Wolschik",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q23765773",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Pará",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q115517116",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Ricardo Ribeiro de Lima",
+     "posicion": "MED",
+     "edad": 33,
+     "wikidata": "Q23639373",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Rodrigo Bassani",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q70749303",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Rômulo Zwarg",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q66680179",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Wagner Ferreira dos Santos",
+     "posicion": "MED",
+     "edad": 37,
+     "wikidata": "Q652849",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Yuri Oliveira Lima",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q24007572",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Óscar Ruiz",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q18637933",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Braian Rodríguez",
+     "posicion": "DEL",
+     "edad": 35,
+     "wikidata": "Q4955633",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Dalberto",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q69963610",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Felipe Pires",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q19279527",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Guilherme Parede",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q27925502",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Hélio Borges",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q107400159",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Isidro Pitta",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q99096411",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "João Victor da Vitória Fernandes",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q58129046",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Lucas Ramos Roggia",
+     "posicion": "DEL",
+     "edad": 31,
+     "wikidata": "Q4395710",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Mauro Zárate",
+     "posicion": "DEL",
+     "edad": 35,
+     "wikidata": "Q80132",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Paulo Roberto Moccelin",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q15441909",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Rafael Grampola",
+     "posicion": "DEL",
+     "edad": 34,
+     "wikidata": "Q43193032",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Rafael Rech",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q114054995",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Ricardo Bueno",
+     "posicion": "DEL",
+     "edad": 34,
+     "wikidata": "Q3956606",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Ruan",
+     "posicion": "DEL",
+     "edad": 17,
+     "wikidata": "Q115516916",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Sorriso",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q107062526",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Vitor Gabriel",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q63064186",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Vitor Leque",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q105176278",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Weliton",
+     "posicion": "DEL",
+     "edad": 17,
+     "wikidata": "Q115516917",
+     "fuente": [
+      "wikipedia"
+     ]
     }
    ]
   },
@@ -340,55 +5673,520 @@
    "clubes_por": [
     "tabla"
    ],
-   "jugadores_encontrados": 8,
+   "jugadores_encontrados": 56,
    "jugadores": [
+    {
+     "nombre": "Fábio",
+     "posicion": "POR",
+     "edad": 41,
+     "wikidata": "Q677923",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Marcos Felipe de Freitas Monteiro",
+     "posicion": "POR",
+     "edad": 26,
+     "wikidata": "Q20142392",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Muriel",
+     "posicion": "POR",
+     "edad": 35,
+     "wikidata": "Q481370",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Pedro Rangel",
+     "posicion": "POR",
+     "edad": 22,
+     "wikidata": "Q117210030",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Rodolfo de Melo",
+     "posicion": "POR",
+     "edad": 31,
+     "wikidata": "Q18280596",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Cristiano da Silva Leite",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q33108262",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Dani Bolt",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q106665499",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "David Braz de Oliveira Filho",
+     "posicion": "DEF",
+     "edad": 35,
+     "wikidata": "Q939542",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "David Duarte",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q64167374",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Gustavo Nonato Santana",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q59206576",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Húdson Rodrigues dos Santos",
+     "posicion": "DEF",
+     "edad": 34,
+     "wikidata": "Q17466192",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Luan Freitas",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q117209979",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Lucas Calegari",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q98696683",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Luccas Claro dos Santos",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q3178438",
+     "fuente": [
+      "wikipedia"
+     ],
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Manoel Messias Silva Carvalho",
+     "posicion": "DEF",
+     "edad": 32,
+     "wikidata": "Q3844793",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Marcilio Florencio Mota Filho",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q63871021",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Marcus Vinicius da Cruz Alves Nóbrega",
+     "posicion": "DEF",
+     "edad": 39,
+     "wikidata": "Q6758528",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
     {
      "nombre": "Mario Pineida",
      "posicion": "DEF",
      "edad": 29,
-     "wikidata": "Q3848970"
+     "wikidata": "Q3848970",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Matheus Ferraz",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q10327357",
+     "fuente": [
+      "wikipedia"
+     ],
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Matheus Mascarenhas",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q55759820",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Samuel Xavier Brito",
+     "posicion": "DEF",
+     "edad": 32,
+     "wikidata": "Q28113226",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Wesley Frazan Bernardo",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q48838825",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Alexandre de Jesus",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q83638286",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Alexsander",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q115804294",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "André",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q103876000",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Arthur Wenderroscky",
+     "posicion": "MED",
+     "edad": 17,
+     "wikidata": "Q106281614",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Edinho",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q139672558",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Felipe Melo",
      "posicion": "MED",
      "edad": 39,
-     "wikidata": "Q204450"
+     "wikidata": "Q204450",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Freitas",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q120015668",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Jhon Arias",
      "posicion": "MED",
      "edad": 24,
-     "wikidata": "Q65378670"
+     "wikidata": "Q65378670",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Kayky da Silva Chagas",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q105969622",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Lucas Patinho",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q6696269",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Lucca",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q10552199",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Marlon Rodrigues Xavier",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q23639381",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Matheus Martinelli",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q104851900",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Michel Araújo",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q58011292",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Nathan Allan de Souza",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q16679775",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Paulo Henrique Ganso",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q313835",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Wellington Aparecido Martins",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q972942",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Wiris",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q62605681",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Yago Felipe da Costa Rocha",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q19884219",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Yuri Oliveira Lima",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q24007572",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Abel Hernández",
      "posicion": "DEL",
      "edad": 31,
-     "wikidata": "Q318456"
+     "wikidata": "Q318456",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Alan Douglas Borges de Carvalho",
+     "posicion": "DEL",
+     "edad": 32,
+     "wikidata": "Q180164",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Caio Paulista",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q66372460",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Fred",
      "posicion": "DEL",
      "edad": 38,
-     "wikidata": "Q312772"
+     "wikidata": "Q312772",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Gabriel Teixeira",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q106734264",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Germán Ezequiel Cano",
+     "posicion": "DEL",
+     "edad": 34,
+     "wikidata": "Q3761170",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "John Kennedy",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q105393903",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "João Neto",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q106838779",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Lucas Barcellos",
      "posicion": "DEL",
      "edad": 23,
-     "wikidata": "Q84339468"
+     "wikidata": "Q84339468",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Luiz Henrique André Rosa da Silva",
      "posicion": "DEL",
      "edad": 21,
-     "wikidata": "Q101764291"
+     "wikidata": "Q101764291",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Marrony",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q64617410",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Matheus Martins",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q105977735",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Willian Gomes de Siqueira",
+     "posicion": "DEL",
+     "edad": 35,
+     "wikidata": "Q1031647",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Raí Lopes de Oliveira",
      "posicion": null,
      "edad": 22,
-     "wikidata": "Q125377996"
+     "wikidata": "Q125377996",
+     "fuente": [
+      "wikidata"
+     ]
     }
    ]
   },
@@ -401,19 +6199,468 @@
    "clubes_por": [
     "tabla"
    ],
-   "jugadores_encontrados": 2,
+   "jugadores_encontrados": 51,
    "jugadores": [
+    {
+     "nombre": "Fernando Miguel Kaufmann",
+     "posicion": "POR",
+     "edad": 37,
+     "wikidata": "Q20048031",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
     {
      "nombre": "Luan Polli",
      "posicion": "POR",
      "edad": 29,
-     "wikidata": "Q19968755"
+     "wikidata": "Q19968755",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Marcelo Boeck",
+     "posicion": "POR",
+     "edad": 37,
+     "wikidata": "Q737296",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Max Walef",
+     "posicion": "POR",
+     "edad": 28,
+     "wikidata": "Q66683739",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Alix Vinicius",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q124436403",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Anthony Landázuri",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q28028554",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Brayan Ceballos",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q110509992",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Cristian Chagas Tarouco",
+     "posicion": "DEF",
+     "edad": 34,
+     "wikidata": "Q5186167",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Emanuel Brítez",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q52418817",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Felipe",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q66683921",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Francisco Everton de Almeida Andrade",
+     "posicion": "DEF",
+     "edad": 37,
+     "wikidata": "Q5483348",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Guilherme de Jesus da Silva",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q18218092",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Habraão",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q112842951",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "José Welison",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q18468006",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "João Paulo",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q84340462",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Juan Quintero Fletcher",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q16585144",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Juninho Capixaba",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q47011424",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Marcelo da Conceição Benevenuto Malaquias",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q29169288",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Vitor Ricardo",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q111601935",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Wagner Leonardo",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q61995785",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Caio Alexandre",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q94731943",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Danilo Rios",
+     "posicion": "MED",
+     "edad": 34,
+     "wikidata": "Q5219628",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Dudu",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q117422068",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Fabricio Santos de Jesus",
      "posicion": "MED",
      "edad": 30,
-     "wikidata": "Q15831001"
+     "wikidata": "Q15831001",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Hércules",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q111948991",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Jaílton da Cruz Alves",
+     "posicion": "MED",
+     "edad": 40,
+     "wikidata": "Q9297334",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Lucas Crispim",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q19668602",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Lucas Lima",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q15207061",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Lucas Sasha",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q6696266",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Matheus Jussa",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q18637712",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Matheus de Vargas",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q43266659",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Pablo Pardal",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q53861651",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Renato Kayzer de Souza",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q22279980",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Rocyan",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q56640518",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Ronald",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q99530459",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Ryan Guilherme",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q136306881",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Rómulo Otero",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q5938594",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Thiago Galhardo",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q20050532",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Yago Pikachu",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q10394490",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "David",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q113168905",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "David Corrêa da Fonseca",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q27839473",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Diego Neves",
+     "posicion": "DEL",
+     "edad": 36,
+     "wikidata": "Q15830972",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Moisés",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q98492414",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Pedro Rocha Neves",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q20828260",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Riquelmo",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q98346313",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Robson dos Santos Fernandes",
+     "posicion": "DEL",
+     "edad": 31,
+     "wikidata": "Q27662797",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Romarinho",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q39079194",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Silvio Romero",
+     "posicion": "DEL",
+     "edad": 33,
+     "wikidata": "Q3960943",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Valentín Depietri",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q104649871",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Vinícius Santana da Silva",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q62022586",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Ángelo Henríquez",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q1112164",
+     "fuente": [
+      "wikipedia"
+     ]
     }
    ]
   },
@@ -426,8 +6673,488 @@
    "clubes_por": [
     "tabla"
    ],
-   "jugadores_encontrados": 0,
-   "jugadores": []
+   "jugadores_encontrados": 53,
+   "jugadores": [
+    {
+     "nombre": "Marcelo Rangel",
+     "posicion": "POR",
+     "edad": 34,
+     "wikidata": "Q76822551",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Tadeu Antonio Ferreira",
+     "posicion": "POR",
+     "edad": 30,
+     "wikidata": "Q66684961",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Apodi",
+     "posicion": "DEF",
+     "edad": 35,
+     "wikidata": "Q1027483",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Artur Sérgio Batista de Souza",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q22959551",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Da Silva",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q111942938",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Danilo Cardoso",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q113501472",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Diego",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q110761645",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Douglas Silva",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q115815960",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Everson Bispo Pereira",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q56011039",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Heron",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q66685054",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Hugo",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q110761622",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Iago Mendonça",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q105069381",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Juan Tavares",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q112182551",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Juninho",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q97836070",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Lucas Halter",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q61130844",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Maguinho",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q60685378",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Reynaldo Cesar Moraes",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q29349155",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Sidimar",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q7508837",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Sidnei Rechel da Silva Junior",
+     "posicion": "DEF",
+     "edad": 32,
+     "wikidata": "Q1365706",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Sávio",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q64009356",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Yan Souto",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q112819194",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Alan Stence",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q138178298",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Antonio Caio da Silva Souza",
+     "posicion": "MED",
+     "edad": 41,
+     "wikidata": "Q4777651",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Auremir Evangelista",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q4822286",
+     "fuente": [
+      "wikipedia"
+     ],
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Caio Vinícius",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q63198089",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Danilo",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q26132957",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Fellipe Bastos",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q1404095",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Henrique Lordelo",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q104415836",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Kauan",
+     "posicion": "MED",
+     "edad": 17,
+     "wikidata": "Q117253641",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Leonardo de Souza Sena",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q60048701",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Luan Dias",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q112570502",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Marco Antônio",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q66680394",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Marquinhos Gabriel",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q3849814",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Matheus Sales",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q22006724",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Matheus Santos",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q112702150",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Miguel Figueira",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q84342505",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Thalles Gabriel Morais dos Reis",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q75133413",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Élvis Vieira Araújo",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q5368248",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Breno Herculano",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q123573829",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Bruno Mezenga",
+     "posicion": "DEL",
+     "edad": 33,
+     "wikidata": "Q993576",
+     "fuente": [
+      "wikipedia"
+     ],
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Dadá Belmonte",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q107062492",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Fernandinho",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q59205801",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "João Victor Andrade Caetano",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q84367577",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Luan Madson Gedeão de Paiva",
+     "posicion": "DEL",
+     "edad": 31,
+     "wikidata": "Q3837942",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Lucas Emmanuel",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q120012320",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Luiz Filipe",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q109905798",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Nicolas",
+     "posicion": "DEL",
+     "edad": 32,
+     "wikidata": "Q75550684",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Pedro Junqueira",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q112224411",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Pedro Raul",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q63699796",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Renato Júnior",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q108332873",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Samuel",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q65666314",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Vinícius Santos Silva",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q4013742",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Vitor Hugo",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q112860746",
+     "fuente": [
+      "wikipedia"
+     ]
+    }
+   ]
   },
   {
    "club": "Red Bull Bragantino",
@@ -438,55 +7165,426 @@
    "clubes_por": [
     "tabla"
    ],
-   "jugadores_encontrados": 8,
+   "jugadores_encontrados": 46,
    "jugadores": [
+    {
+     "nombre": "Cleiton Schwengber",
+     "posicion": "POR",
+     "edad": 24,
+     "wikidata": "Q31763107",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Júlio César de Souza Santos",
+     "posicion": "POR",
+     "edad": 37,
+     "wikidata": "Q1097574",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Lucas Alexandre Galdino de Azevedo",
+     "posicion": "POR",
+     "edad": 21,
+     "wikidata": "Q84346821",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Maycon Cleiton",
+     "posicion": "POR",
+     "edad": 23,
+     "wikidata": "Q105093707",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Aderlan Silva",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q18128072",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Bruno Tubarão",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q64010028",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Douglas Mendes",
+     "posicion": "DEF",
+     "edad": 18,
+     "wikidata": "Q115522187",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
     {
      "nombre": "Edimar Curitiba Fraga",
      "posicion": "DEF",
      "edad": 36,
-     "wikidata": "Q2080087"
+     "wikidata": "Q2080087",
+     "fuente": [
+      "wikidata"
+     ]
+    },
+    {
+     "nombre": "Fabrício Bruno",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q28531145",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "José Hurtado",
      "posicion": "DEF",
      "edad": 20,
-     "wikidata": "Q106638309"
+     "wikidata": "Q106638309",
+     "fuente": [
+      "wikidata"
+     ]
+    },
+    {
+     "nombre": "Kevin Lomónaco",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q71734964",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Luan Cândido",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q59207116",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Lucas Ramon",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q58414178",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Léo Ortiz",
      "posicion": "DEF",
      "edad": 26,
-     "wikidata": "Q55816003"
+     "wikidata": "Q55816003",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Natan Bernardo de Souza",
      "posicion": "DEF",
      "edad": 21,
-     "wikidata": "Q99738875"
+     "wikidata": "Q99738875",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Ramon",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q97169033",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Renan",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q81820602",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Weverson",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q97671459",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Bruno Praxedes",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q94583591",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Cristiano",
      "posicion": "MED",
      "edad": 22,
-     "wikidata": "Q131036322"
+     "wikidata": "Q131036322",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Emiliano Martínez",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q97608024",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Eric dos Santos Rodrigues",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q56826476",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Hyoran",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q19958146",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Hélio Junio Nunes de Castro",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q58436335",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Jadsom",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q66680109",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Leandro Henrique do Nascimento",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q20900256",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Lucas Evangelista Santana de Oliveira",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q14755607",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Miguel Silveira",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q64746236",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Nathan Camargo",
+     "posicion": "MED",
+     "edad": 16,
+     "wikidata": "Q112079904",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Raul Lô",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q56382170",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Alerrandro Barra Mansa Realino de Souza",
      "posicion": "DEL",
      "edad": 22,
-     "wikidata": "Q55081204"
+     "wikidata": "Q55081204",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Artur",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q28665426",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Carlos Eduardo Ferreira de Souza",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q21005273",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Eduardo Sasha",
      "posicion": "DEL",
      "edad": 30,
-     "wikidata": "Q5340762"
+     "wikidata": "Q5340762",
+     "fuente": [
+      "wikidata"
+     ]
     },
     {
-     "nombre": "Douglas Mendes",
-     "posicion": null,
-     "edad": 18,
-     "wikidata": "Q115522187"
+     "nombre": "Gabriel Novaes",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q104708318",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Guilherme Santos",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q102182323",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Iago Teles",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q130545520",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Jan Hurtado",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q30126774",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Kawê",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q107610192",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Marcos André",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q125146248",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Morato",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q29530017",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Pedrinho",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q65029400",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Robson José Brilhante Martins",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q55081577",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Sorriso",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q107062526",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Welliton",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q111493111",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Werik Popó",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q110826627",
+     "fuente": [
+      "wikipedia"
+     ]
     }
    ]
   },
@@ -499,31 +7597,622 @@
    "clubes_por": [
     "tabla"
    ],
-   "jugadores_encontrados": 4,
+   "jugadores_encontrados": 68,
    "jugadores": [
     {
-     "nombre": "Anderson Ceará",
+     "nombre": "Diógenes",
+     "posicion": "POR",
+     "edad": 21,
+     "wikidata": "Q124528484",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "John Victor",
+     "posicion": "POR",
+     "edad": 26,
+     "wikidata": "Q66685965",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "João Paulo Silva Martins",
+     "posicion": "POR",
+     "edad": 27,
+     "wikidata": "Q33103770",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Paulo Mazoti",
+     "posicion": "POR",
+     "edad": 21,
+     "wikidata": "Q133500313",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Alex de Oliveira Nascimento",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q64010056",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Auro",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q18014853",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Cleber Janderson Pereira Reis",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q15830952",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Daniel Guedes",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q18637281",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Derick",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q99122120",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Eduardo Bauermann",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q18719710",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Emiliano Velázquez",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q5371729",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Felipe Jonatan",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q58011469",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Guilherme Aguiar Camacho",
+     "posicion": "DEF",
+     "edad": 32,
+     "wikidata": "Q5615958",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Jhonnathan",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q105755605",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Kaiky",
+     "posicion": "DEF",
+     "edad": 18,
+     "wikidata": "Q105722883",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Lucas Pires Silva",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q110823206",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Lucas Sena",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q110730469",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Luiz Felipe do Nascimento dos Santos",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q22814274",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Madson Ferreira dos Santos",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q16234987",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Maicon Pereira Roque",
+     "posicion": "DEF",
+     "edad": 33,
+     "wikidata": "Q560329",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Mikael Doka",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q110735502",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Nathan Santos",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q104538050",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Robson Reis",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q105722901",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Romário Guilherme dos Santos",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q20048349",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Sandro Perpétuo",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q105722902",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Wagner Leonardo",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q61995785",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Alexandre Tam",
      "posicion": "MED",
      "edad": 23,
-     "wikidata": "Q59179753"
+     "wikidata": "Q66685946",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Augusto Galvan",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q108120848",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Bruno Oliveira",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q109908675",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Carlos Sánchez",
      "posicion": "MED",
      "edad": 37,
-     "wikidata": "Q5041766"
+     "wikidata": "Q5041766",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Ed Carlos",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q114344963",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Gabriel Carabajal",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q5873250",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Guilherme Nunes",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q49385977",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Ivonei",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q66685969",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Jhojan Julio",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q53951763",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Jobson Souza Santos",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q61642127",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Kevin Malthus",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q105722885",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Luan",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q16919481",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Lucas Barbosa",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q106560616",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Marcos Guilherme",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q16731977",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Miguel Terceros",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q113662045",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Mário Sérgio Santos Costa",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q3869209",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Ricardo Goulart",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q7322659",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Rodrigo Fernández",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q27922050",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Sandry Roberto",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q61336080",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Victor Yan",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q50505162",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Vinicius Balieiro",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q101808484",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Vinicius Zanocelo",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q100188065",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Willian Marlon Ferreira Moraes",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q56863226",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Yeferson Soteldo",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q20976280",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Ângelo Gabriel",
+     "posicion": "MED",
+     "edad": 17,
+     "wikidata": "Q100879633",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Allanzinho",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q66685974",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Bruno Marques",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q102428673",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Bryan Angulo",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q21094912",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Felippe Cardoso",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q56486637",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Fernandinho",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q106010259",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Lucas Braga",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q60286900",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Lucas Venuto",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q18915169",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Léo Baptistão",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q326387",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Marcos Leonardo",
      "posicion": "DEL",
      "edad": 19,
-     "wikidata": "Q98534760"
+     "wikidata": "Q98534760",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Matheus Moraes",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q106162132",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Matías Lacava",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q66309987",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Pablo Thomaz",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q55081327",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Renyer",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q84056478",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Rodrigão",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q23771333",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Rwan Cruz",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q110818507",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Tailson Pinto Gonçalves",
      "posicion": "DEL",
      "edad": 23,
-     "wikidata": "Q69949602"
+     "wikidata": "Q69949602",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Weslley Patati",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q113130088",
+     "fuente": [
+      "wikipedia"
+     ]
     }
    ]
   },
@@ -536,43 +8225,554 @@
    "clubes_por": [
     "tabla"
    ],
-   "jugadores_encontrados": 6,
+   "jugadores_encontrados": 60,
    "jugadores": [
+    {
+     "nombre": "Marcelo Lomba",
+     "posicion": "POR",
+     "edad": 35,
+     "wikidata": "Q6756582",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Vinicius Silvestre da Costa",
+     "posicion": "POR",
+     "edad": 28,
+     "wikidata": "Q26256234",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Weverton",
+     "posicion": "POR",
+     "edad": 34,
+     "wikidata": "Q8040741",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Benjamín Kuscevic",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q18618525",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Gustavo Garcia",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q81826968",
+     "fuente": [
+      "wikipedia"
+     ],
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Gustavo Gómez",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q1033783",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Henri Marinho",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q75059813",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Jorge Marco de Oliveira Moraes",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q20048114",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Kaiky Naves",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q112144292",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Luan Garcia Teixeira",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q3087907",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Lucas Esteves",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q78069297",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Lucas Freitas",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q124340471",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Marcos Rocha",
+     "posicion": "DEF",
+     "edad": 33,
+     "wikidata": "Q218611",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Mayke",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q15690175",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Michel",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q110028664",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Murilo Cerqueira",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q32984822",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Pedrão",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q48850810",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Renan",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q81820602",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Vanderlan",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q112082231",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Victor Luis",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q17411267",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Bruno Tabata",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q29117869",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Danilo dos Santos de Oliveira",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q99557093",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Diego de Souza Xavier",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q19957455",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Dudu",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q1341709",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Eduard Atuesta",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q27728364",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Fabinho",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q109283084",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Gabriel Furtado",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q60498462",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Gabriel Menino",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q60842145",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Gustavo Scarpa",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q19709176",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
     {
      "nombre": "Jailson",
      "posicion": "MED",
      "edad": 26,
-     "wikidata": "Q28145562"
+     "wikidata": "Q28145562",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Jhonatan dos Santos Rosa",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q116536519",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Joaquín Piquerez",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q35066458",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Luan Silva",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q55363782",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Lucas Lima",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q15207061",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Léo Passos",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q65717892",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Marino Hinestroza",
      "posicion": "MED",
      "edad": 19,
-     "wikidata": "Q106766381"
+     "wikidata": "Q106766381",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Patrick de Paula",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q84346394",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Pedro Bicalho",
      "posicion": "MED",
      "edad": 21,
-     "wikidata": "Q96361581"
+     "wikidata": "Q96361581",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Raphael Veiga",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q27443365",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Wesley Ribeiro da Silva",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q65718438",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Yago Santos",
+     "posicion": "MED",
+     "edad": null,
+     "wikidata": "Q110050775",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Zé Rafael",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q19519846",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Aníbal Vega",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q60842102",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Breno Lopes",
      "posicion": "DEL",
      "edad": 26,
-     "wikidata": "Q101230488"
+     "wikidata": "Q101230488",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Deyverson",
+     "posicion": "DEL",
+     "edad": 31,
+     "wikidata": "Q10552615",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Endrick",
      "posicion": "DEL",
      "edad": 15,
-     "wikidata": "Q110644260"
+     "wikidata": "Q110644260",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Gabriel Silva",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q98905196",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Gabriel Veron",
      "posicion": "DEL",
      "edad": 19,
-     "wikidata": "Q75059692"
+     "wikidata": "Q75059692",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Giovani",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q106766464",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Iván Angulo",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q60737114",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "José Manuel López",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q104903216",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Kevin",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q110056642",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Luiz Adriano",
+     "posicion": "DEL",
+     "edad": 35,
+     "wikidata": "Q72904",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Miguel Merentiel",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q35066509",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Rafael Elias da Silva",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q55081250",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Rafael Navarro",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q94733205",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Rony",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q28748046",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Tiago Coimbra",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q117317938",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Vitor Hugo",
+     "posicion": "DEL",
+     "edad": null,
+     "wikidata": "Q110028582",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Yan Matheus Santos Souza",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q59207144",
+     "fuente": [
+      "wikipedia"
+     ]
     }
    ]
   },
@@ -585,43 +8785,556 @@
    "clubes_por": [
     "tabla"
    ],
-   "jugadores_encontrados": 6,
+   "jugadores_encontrados": 60,
    "jugadores": [
+    {
+     "nombre": "Carlos Miguel",
+     "posicion": "POR",
+     "edad": 23,
+     "wikidata": "Q115518500",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Cássio Ramos",
+     "posicion": "POR",
+     "edad": 35,
+     "wikidata": "Q920039",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Ivan Quaresma da Silva",
+     "posicion": "POR",
+     "edad": 24,
+     "wikidata": "Q65030052",
+     "fuente": [
+      "wikipedia"
+     ],
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Matheus Donelli",
+     "posicion": "POR",
+     "edad": 20,
+     "wikidata": "Q75604672",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Bruno Ferreira Melo",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q61596074",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Carlos Henrique",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q127414793",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Danilo Fernando Avelar",
+     "posicion": "DEF",
+     "edad": 33,
+     "wikidata": "Q971732",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Fabián Balbuena",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q16297591",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Fagner",
+     "posicion": "DEF",
+     "edad": 33,
+     "wikidata": "Q932827",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Fábio Santos",
+     "posicion": "DEF",
+     "edad": 36,
+     "wikidata": "Q2316179",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Gabriel Girotto Franco",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q14921884",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Gustavo Mantuan",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q99614996",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Igor Formiga",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q118903038",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "João Pedro Maturano dos Santos",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q18285217",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "João Victor",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q66678529",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Lucas Piton",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q66678685",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Léo Mana",
+     "posicion": "DEF",
+     "edad": 18,
+     "wikidata": "Q115492335",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Matheus Alexandre Anastácio de Souza",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q80391903",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Murillo",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q118220069",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Rafael Ramos",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q17612777",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Raul Gustavo",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q106664459",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Robert Renan",
+     "posicion": "DEF",
+     "edad": 18,
+     "wikidata": "Q112914550",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Robson Bambu",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q31763164",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Adson",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q107004368",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Carlos Gilberto Nascimento Silva",
+     "posicion": "MED",
+     "edad": 35,
+     "wikidata": "Q116560",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Du Queiroz",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q108932949",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Fausto Vera",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q58754692",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Gabriel Pereira",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q98270254",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
     {
      "nombre": "Giuliano",
      "posicion": "MED",
      "edad": 32,
-     "wikidata": "Q713886"
+     "wikidata": "Q713886",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Janderson",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q68327658",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Luis Mandaca",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q124608292",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Mateus Vital",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q22006723",
+     "fuente": [
+      "wikipedia"
+     ],
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Matheus Araújo",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q81742761",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Maycon de Andrade Barberan",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q22958501",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Paulinho",
      "posicion": "MED",
      "edad": 33,
-     "wikidata": "Q73082"
+     "wikidata": "Q73082",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Ramiro Moschen Benetti",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q15241347",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Renato Augusto",
      "posicion": "MED",
      "edad": 34,
-     "wikidata": "Q357844"
+     "wikidata": "Q357844",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Roni",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q98270367",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Ruan Oliveira",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q98270369",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Vitinho",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q107211123",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Víctor Cantillo",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q28151216",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Willian Borges da Silva",
      "posicion": "MED",
      "edad": 33,
-     "wikidata": "Q73480"
+     "wikidata": "Q73480",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Xavier",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q98270335",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Éderson José dos Santos Lourenço da Silva",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q59150057",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Aluísio Chaves Ribeiro Moraes Júnior",
+     "posicion": "DEL",
+     "edad": 35,
+     "wikidata": "Q2529972",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Arthur Sousa",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q115491985",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Cauê",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q99611513",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Felipe Augusto",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q107598822",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Giovane",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q111944826",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Guilherme Biro",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q113625829",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Gustavo Silva",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q61756460",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Jô",
      "posicion": "DEL",
      "edad": 35,
-     "wikidata": "Q314099"
+     "wikidata": "Q314099",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Léo Natel",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q30123207",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Madson",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q84314014",
+     "fuente": [
+      "wikipedia"
+     ],
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Matheus Alvarenga de Oliveira",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q71011125",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Matheus Matias Ferreira",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q49994731",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Roger Guedes",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q10364015",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Taubaté",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q7688643",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Wesley Gassova",
      "posicion": "DEL",
      "edad": 17,
-     "wikidata": "Q112620020"
+     "wikidata": "Q112620020",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Yuri Alberto",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q43252427",
+     "fuente": [
+      "wikipedia"
+     ]
     }
    ]
   },
@@ -634,25 +9347,495 @@
    "clubes_por": [
     "tabla"
    ],
-   "jugadores_encontrados": 3,
+   "jugadores_encontrados": 54,
    "jugadores": [
+    {
+     "nombre": "Daniel de Sousa Brito",
+     "posicion": "POR",
+     "edad": 28,
+     "wikidata": "Q61749507",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Keiller",
+     "posicion": "POR",
+     "edad": 25,
+     "wikidata": "Q59206553",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Bruno Méndez Cittadini",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q58806645",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Gabriel Girotto Franco",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q14921884",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Gabriel Mercado",
+     "posicion": "DEF",
+     "edad": 35,
+     "wikidata": "Q1372491",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Gustavo Nonato Santana",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q59206576",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Heitor Rodrigues da Fonseca",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q66309096",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Huenes Marcelo Lemos",
+     "posicion": "DEF",
+     "edad": 40,
+     "wikidata": "Q1010218",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Igor Gomes",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q114554397",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Kaique Rocha",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q66685929",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Léo Borges",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q104774584",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Moisés",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q29017171",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Natanael Batista Pimenta",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q18278581",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Pedro Henrique",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q84345880",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Renê Rodrigues Martins",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q20048330",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Ricardo Thalheimer",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q66618981",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Roberto Rosa",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q65029627",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Rodrigo Moledo",
+     "posicion": "DEF",
+     "edad": 34,
+     "wikidata": "Q2073247",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Thauan Lara",
+     "posicion": "DEF",
+     "edad": 18,
+     "wikidata": "Q111452027",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Vitão",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q60841629",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Wesley Claudio Campos",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q22958699",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Weverton Guilherme Souza",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q65030005",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Alan Patrick",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q923402",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Andrés D'Alessandro",
+     "posicion": "MED",
+     "edad": 41,
+     "wikidata": "Q313741",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Bruno Gomes",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q69982022",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Carlos Palacios",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q56248486",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Carlos de Pena",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q5752209",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
     {
      "nombre": "Edenilson",
      "posicion": "MED",
      "edad": 32,
-     "wikidata": "Q1707749"
+     "wikidata": "Q1707749",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Estêvão",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q112050912",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Fabricio Bustos",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q29005699",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Gabriel Boschilia",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q15878652",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "João Afonso Crispim",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q18719353",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Liziero",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q50948979",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Lucas Ramos",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q113427951",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Marcos Guilherme",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q16731977",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Matheus Dias",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q118220047",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Pedro Henrique Konzen",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q7159635",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Rodrigo Dourado Cunha",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q19928264",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Rodrigo Lindoso",
+     "posicion": "MED",
+     "edad": 33,
+     "wikidata": "Q15054468",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Taison",
+     "posicion": "MED",
+     "edad": 34,
+     "wikidata": "Q303108",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Thiago Galhardo",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q20050532",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Alemão",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q47464997",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Braian Ezequiel Romero",
+     "posicion": "DEL",
+     "edad": 31,
+     "wikidata": "Q19060912",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Caio Vidal",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q104718095",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "David Corrêa da Fonseca",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q27839473",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Gustavo Maia",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q108753317",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Johnny Cardoso",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q72219351",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Martín Sarrafiore",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q19844288",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Maurício",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q65718498",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Mikael",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q102261101",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Wanderson",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q17327541",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Wesley Moraes",
      "posicion": "DEL",
      "edad": 25,
-     "wikidata": "Q20716703"
+     "wikidata": "Q20716703",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Yuri Alberto",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q43252427",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Gabi Barbieri",
      "posicion": null,
      "edad": 19,
-     "wikidata": "Q116450248"
+     "wikidata": "Q116450248",
+     "fuente": [
+      "wikidata"
+     ]
     }
    ]
   },
@@ -665,55 +9848,567 @@
    "clubes_por": [
     "tabla"
    ],
-   "jugadores_encontrados": 8,
+   "jugadores_encontrados": 61,
    "jugadores": [
+    {
+     "nombre": "Felipe Alves",
+     "posicion": "POR",
+     "edad": 34,
+     "wikidata": "Q58494613",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Jandrei Chitolina Carniel",
+     "posicion": "POR",
+     "edad": 29,
+     "wikidata": "Q29224175",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Jean Paulo Fernandes Filho",
+     "posicion": "POR",
+     "edad": 26,
+     "wikidata": "Q19958242",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Lucas Perri",
+     "posicion": "POR",
+     "edad": 24,
+     "wikidata": "Q23893097",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Rokenedy",
+     "posicion": "POR",
+     "edad": 19,
+     "wikidata": "Q132759248",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Thiago Couto",
+     "posicion": "POR",
+     "edad": 23,
+     "wikidata": "Q84346661",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Tiago Volpi",
+     "posicion": "POR",
+     "edad": 31,
+     "wikidata": "Q7800068",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Young",
+     "posicion": "POR",
+     "edad": 20,
+     "wikidata": "Q126709594",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
     {
      "nombre": "Beraldo",
      "posicion": "DEF",
      "edad": 18,
-     "wikidata": "Q112604843"
+     "wikidata": "Q112604843",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Caio Felipe",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q94750961",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Diego Henrique Costa Barbosa",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q96376358",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Húdson Rodrigues dos Santos",
+     "posicion": "DEF",
+     "edad": 34,
+     "wikidata": "Q17466192",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "João Moreira",
+     "posicion": "DEF",
+     "edad": 18,
+     "wikidata": "Q111936083",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Luan Santos",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q57561966",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Luizão",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q112228314",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Léo Pelé",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q23008026",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Miranda",
      "posicion": "DEF",
      "edad": 37,
-     "wikidata": "Q318119"
+     "wikidata": "Q318119",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Nahuel Ferraresi",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q30301948",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Patryck Lanza",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q85708342",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Rafinha",
      "posicion": "DEF",
      "edad": 36,
-     "wikidata": "Q174926"
+     "wikidata": "Q174926",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Reinaldo Manoel da Silva",
+     "posicion": "DEF",
+     "edad": 32,
+     "wikidata": "Q16232876",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Robert Arboleda",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q22082660",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Walce",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q60842150",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Welington",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q104840356",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Alisson",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q4727251",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "André Anderson",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q60735648",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Andrés Colorado",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q85478935",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Danilo Gomes Magalhães",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q96375934",
+     "fuente": [
+      "wikipedia"
+     ],
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Emiliano Rigoni",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q5830920",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Gabriel Neves Perdomo",
      "posicion": "MED",
      "edad": 24,
-     "wikidata": "Q58011128"
+     "wikidata": "Q58011128",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Gabriel Sara",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q86493810",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Giuliano Galoppo",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q59209535",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Igor Gomes",
      "posicion": "MED",
      "edad": 23,
-     "wikidata": "Q59207905"
+     "wikidata": "Q59207905",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Igor Vinícius",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q24006191",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "João Pedro Palmberg",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q125446308",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Léo Silva",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q125483964",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Marcos Guilherme",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q16731977",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Nikão",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q2605478",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Pablo Felipe Teixeira",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q15831136",
+     "fuente": [
+      "wikipedia"
+     ],
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Pablo Maia",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q110914598",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Patrick Bezerra do Nascimento",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q17619227",
+     "fuente": [
+      "wikipedia"
+     ],
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Rafael Silva",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q123125358",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Rodrigo Nestor",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q64746890",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Rodriguinho",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q112998957",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Talles Costa",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q81812919",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Tchê Tchê",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q24049261",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Vitor Bueno",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q20641619",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Caio Matheus",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q110914601",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Caíque da Silva Maria",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q48862517",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Denzel",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q123018662",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Dorlan Pabón",
      "posicion": "DEL",
      "edad": 34,
-     "wikidata": "Q520695"
+     "wikidata": "Q520695",
+     "fuente": [
+      "wikidata"
+     ]
+    },
+    {
+     "nombre": "Gabriel Maioli",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q126961383",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Jonas Toró",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q65030454",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Jonathan Calleri",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q16298050",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Juan",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q84837520",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Luciano da Rocha Neves",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q15966749",
+     "fuente": [
+      "wikipedia"
+     ],
+     "edad_aproximada": true
     },
     {
      "nombre": "Marcus Vinicius Oliveira Alencar",
      "posicion": "DEL",
      "edad": 19,
-     "wikidata": "Q107584170"
+     "wikidata": "Q107584170",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Nahuel Bustos",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q23679896",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Paulinho Bóia",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q55363866",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Vitinho",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q112762064",
+     "fuente": [
+      "wikipedia"
+     ]
     },
     {
      "nombre": "Éder Citadin Martins",
      "posicion": "DEL",
      "edad": 35,
-     "wikidata": "Q167698"
+     "wikidata": "Q167698",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
     }
    ]
   }

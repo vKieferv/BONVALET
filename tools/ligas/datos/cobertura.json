@@ -2,123 +2,123 @@
  "argentina": {
   "2006": {
    "clubes": 23,
-   "jugadores": 709,
-   "mediana_por_club": 35,
-   "clubes_con_menos_de_15": 4
+   "jugadores": 921,
+   "mediana_por_club": 39,
+   "clubes_con_menos_de_15": 0
   },
   "2007": {
    "clubes": 20,
-   "jugadores": 647,
-   "mediana_por_club": 36,
-   "clubes_con_menos_de_15": 3
+   "jugadores": 833,
+   "mediana_por_club": 41,
+   "clubes_con_menos_de_15": 0
   },
   "2008": {
    "clubes": 20,
-   "jugadores": 657,
-   "mediana_por_club": 41,
-   "clubes_con_menos_de_15": 4
+   "jugadores": 876,
+   "mediana_por_club": 43,
+   "clubes_con_menos_de_15": 0
   },
   "2009": {
    "clubes": 20,
-   "jugadores": 644,
-   "mediana_por_club": 38,
-   "clubes_con_menos_de_15": 4
+   "jugadores": 904,
+   "mediana_por_club": 44,
+   "clubes_con_menos_de_15": 0
   },
   "2010": {
    "clubes": 23,
-   "jugadores": 715,
-   "mediana_por_club": 37,
-   "clubes_con_menos_de_15": 5
+   "jugadores": 1067,
+   "mediana_por_club": 46,
+   "clubes_con_menos_de_15": 0
   },
   "2011": {
    "clubes": 20,
-   "jugadores": 519,
-   "mediana_por_club": 36,
-   "clubes_con_menos_de_15": 6
+   "jugadores": 885,
+   "mediana_por_club": 43,
+   "clubes_con_menos_de_15": 0
   },
   "2012": {
    "clubes": 20,
-   "jugadores": 526,
-   "mediana_por_club": 35,
-   "clubes_con_menos_de_15": 6
+   "jugadores": 935,
+   "mediana_por_club": 47,
+   "clubes_con_menos_de_15": 0
   },
   "2013": {
    "clubes": 23,
-   "jugadores": 597,
-   "mediana_por_club": 31,
-   "clubes_con_menos_de_15": 6
+   "jugadores": 1092,
+   "mediana_por_club": 46,
+   "clubes_con_menos_de_15": 0
   },
   "2014": {
    "clubes": 23,
-   "jugadores": 537,
-   "mediana_por_club": 27,
-   "clubes_con_menos_de_15": 6
+   "jugadores": 1099,
+   "mediana_por_club": 46,
+   "clubes_con_menos_de_15": 0
   },
   "2015": {
    "clubes": 30,
-   "jugadores": 509,
-   "mediana_por_club": 17,
-   "clubes_con_menos_de_15": 11
+   "jugadores": 1272,
+   "mediana_por_club": 42,
+   "clubes_con_menos_de_15": 0
   },
   "2016": {
    "clubes": 31,
-   "jugadores": 343,
-   "mediana_por_club": 13,
-   "clubes_con_menos_de_15": 17
+   "jugadores": 1562,
+   "mediana_por_club": 50,
+   "clubes_con_menos_de_15": 0
   },
   "2017": {
    "clubes": 32,
-   "jugadores": 109,
-   "mediana_por_club": 3,
-   "clubes_con_menos_de_15": 31
+   "jugadores": 1585,
+   "mediana_por_club": 49,
+   "clubes_con_menos_de_15": 0
   },
   "2018": {
    "clubes": 30,
-   "jugadores": 105,
-   "mediana_por_club": 3,
-   "clubes_con_menos_de_15": 29
+   "jugadores": 1480,
+   "mediana_por_club": 49,
+   "clubes_con_menos_de_15": 0
   },
   "2019": {
    "clubes": 28,
-   "jugadores": 97,
-   "mediana_por_club": 4,
-   "clubes_con_menos_de_15": 27
+   "jugadores": 1400,
+   "mediana_por_club": 51,
+   "clubes_con_menos_de_15": 0
   },
   "2020": {
    "clubes": 24,
-   "jugadores": 75,
-   "mediana_por_club": 2,
-   "clubes_con_menos_de_15": 24
+   "jugadores": 1174,
+   "mediana_por_club": 50,
+   "clubes_con_menos_de_15": 0
   },
   "2021": {
    "clubes": 26,
-   "jugadores": 70,
-   "mediana_por_club": 2,
-   "clubes_con_menos_de_15": 26
+   "jugadores": 1235,
+   "mediana_por_club": 49,
+   "clubes_con_menos_de_15": 0
   },
   "2022": {
    "clubes": 28,
-   "jugadores": 69,
-   "mediana_por_club": 2,
-   "clubes_con_menos_de_15": 27
+   "jugadores": 1193,
+   "mediana_por_club": 42,
+   "clubes_con_menos_de_15": 0
   },
   "2023": {
    "clubes": 28,
-   "jugadores": 58,
-   "mediana_por_club": 2,
-   "clubes_con_menos_de_15": 28
+   "jugadores": 1163,
+   "mediana_por_club": 41,
+   "clubes_con_menos_de_15": 0
   },
   "2024": {
    "clubes": 28,
-   "jugadores": 49,
-   "mediana_por_club": 1,
-   "clubes_con_menos_de_15": 28
+   "jugadores": 1176,
+   "mediana_por_club": 42,
+   "clubes_con_menos_de_15": 0
   },
   "2025": {
    "clubes": 30,
-   "jugadores": 53,
-   "mediana_por_club": 1,
-   "clubes_con_menos_de_15": 30
+   "jugadores": 1129,
+   "mediana_por_club": 38,
+   "clubes_con_menos_de_15": 0
   },
   "2026": {
    "clubes": 0,
@@ -130,257 +130,257 @@
  "brasil": {
   "2006": {
    "clubes": 20,
-   "jugadores": 994,
-   "mediana_por_club": 47,
+   "jugadores": 1024,
+   "mediana_por_club": 49,
    "clubes_con_menos_de_15": 0
   },
   "2007": {
    "clubes": 20,
-   "jugadores": 1197,
-   "mediana_por_club": 62,
+   "jugadores": 1183,
+   "mediana_por_club": 61,
    "clubes_con_menos_de_15": 0
   },
   "2008": {
    "clubes": 20,
-   "jugadores": 1121,
+   "jugadores": 1106,
    "mediana_por_club": 56,
    "clubes_con_menos_de_15": 0
   },
   "2009": {
    "clubes": 20,
-   "jugadores": 1107,
-   "mediana_por_club": 56,
+   "jugadores": 1089,
+   "mediana_por_club": 55,
    "clubes_con_menos_de_15": 0
   },
   "2010": {
    "clubes": 20,
-   "jugadores": 1180,
-   "mediana_por_club": 59,
+   "jugadores": 1204,
+   "mediana_por_club": 61,
    "clubes_con_menos_de_15": 0
   },
   "2011": {
    "clubes": 20,
-   "jugadores": 1077,
+   "jugadores": 1121,
    "mediana_por_club": 55,
    "clubes_con_menos_de_15": 0
   },
   "2012": {
    "clubes": 20,
-   "jugadores": 1033,
-   "mediana_por_club": 50,
+   "jugadores": 1132,
+   "mediana_por_club": 57,
    "clubes_con_menos_de_15": 0
   },
   "2013": {
    "clubes": 20,
-   "jugadores": 949,
-   "mediana_por_club": 49,
+   "jugadores": 1134,
+   "mediana_por_club": 57,
    "clubes_con_menos_de_15": 0
   },
   "2014": {
    "clubes": 20,
-   "jugadores": 852,
-   "mediana_por_club": 45,
+   "jugadores": 1154,
+   "mediana_por_club": 59,
    "clubes_con_menos_de_15": 0
   },
   "2015": {
    "clubes": 20,
-   "jugadores": 696,
-   "mediana_por_club": 35,
+   "jugadores": 1186,
+   "mediana_por_club": 60,
    "clubes_con_menos_de_15": 0
   },
   "2016": {
    "clubes": 20,
-   "jugadores": 357,
-   "mediana_por_club": 20,
-   "clubes_con_menos_de_15": 5
+   "jugadores": 1180,
+   "mediana_por_club": 61,
+   "clubes_con_menos_de_15": 0
   },
   "2017": {
    "clubes": 20,
-   "jugadores": 128,
-   "mediana_por_club": 5,
-   "clubes_con_menos_de_15": 20
+   "jugadores": 1199,
+   "mediana_por_club": 59,
+   "clubes_con_menos_de_15": 0
   },
   "2018": {
    "clubes": 20,
-   "jugadores": 112,
-   "mediana_por_club": 6,
-   "clubes_con_menos_de_15": 20
+   "jugadores": 1191,
+   "mediana_por_club": 59,
+   "clubes_con_menos_de_15": 0
   },
   "2019": {
    "clubes": 20,
-   "jugadores": 123,
-   "mediana_por_club": 6,
-   "clubes_con_menos_de_15": 20
+   "jugadores": 1184,
+   "mediana_por_club": 58,
+   "clubes_con_menos_de_15": 0
   },
   "2020": {
    "clubes": 20,
-   "jugadores": 114,
-   "mediana_por_club": 6,
-   "clubes_con_menos_de_15": 20
+   "jugadores": 1116,
+   "mediana_por_club": 56,
+   "clubes_con_menos_de_15": 0
   },
   "2021": {
    "clubes": 24,
-   "jugadores": 96,
-   "mediana_por_club": 4,
-   "clubes_con_menos_de_15": 24
+   "jugadores": 1430,
+   "mediana_por_club": 60,
+   "clubes_con_menos_de_15": 0
   },
   "2022": {
    "clubes": 20,
-   "jugadores": 75,
-   "mediana_por_club": 3,
-   "clubes_con_menos_de_15": 20
+   "jugadores": 1117,
+   "mediana_por_club": 56,
+   "clubes_con_menos_de_15": 0
   },
   "2023": {
    "clubes": 20,
-   "jugadores": 80,
-   "mediana_por_club": 4,
-   "clubes_con_menos_de_15": 20
+   "jugadores": 1124,
+   "mediana_por_club": 56,
+   "clubes_con_menos_de_15": 0
   },
   "2024": {
    "clubes": 20,
-   "jugadores": 97,
-   "mediana_por_club": 5,
-   "clubes_con_menos_de_15": 20
+   "jugadores": 1073,
+   "mediana_por_club": 54,
+   "clubes_con_menos_de_15": 0
   },
   "2025": {
    "clubes": 20,
-   "jugadores": 93,
-   "mediana_por_club": 6,
-   "clubes_con_menos_de_15": 20
+   "jugadores": 1106,
+   "mediana_por_club": 57,
+   "clubes_con_menos_de_15": 0
   },
   "2026": {
    "clubes": 20,
-   "jugadores": 97,
-   "mediana_por_club": 6,
-   "clubes_con_menos_de_15": 20
+   "jugadores": 1136,
+   "mediana_por_club": 56,
+   "clubes_con_menos_de_15": 0
   }
  },
  "chile": {
   "2006": {
    "clubes": 19,
-   "jugadores": 388,
-   "mediana_por_club": 18,
-   "clubes_con_menos_de_15": 3
+   "jugadores": 507,
+   "mediana_por_club": 26,
+   "clubes_con_menos_de_15": 0
   },
   "2007": {
    "clubes": 23,
-   "jugadores": 438,
-   "mediana_por_club": 19,
-   "clubes_con_menos_de_15": 8
+   "jugadores": 578,
+   "mediana_por_club": 26,
+   "clubes_con_menos_de_15": 2
   },
   "2008": {
    "clubes": 20,
-   "jugadores": 417,
-   "mediana_por_club": 20,
-   "clubes_con_menos_de_15": 5
+   "jugadores": 558,
+   "mediana_por_club": 28,
+   "clubes_con_menos_de_15": 0
   },
   "2009": {
    "clubes": 18,
-   "jugadores": 437,
-   "mediana_por_club": 23,
-   "clubes_con_menos_de_15": 2
+   "jugadores": 568,
+   "mediana_por_club": 32,
+   "clubes_con_menos_de_15": 0
   },
   "2010": {
    "clubes": 19,
-   "jugadores": 466,
-   "mediana_por_club": 22,
-   "clubes_con_menos_de_15": 1
+   "jugadores": 603,
+   "mediana_por_club": 29,
+   "clubes_con_menos_de_15": 0
   },
   "2011": {
    "clubes": 19,
-   "jugadores": 516,
-   "mediana_por_club": 24,
+   "jugadores": 651,
+   "mediana_por_club": 33,
    "clubes_con_menos_de_15": 0
   },
   "2012": {
    "clubes": 18,
-   "jugadores": 492,
-   "mediana_por_club": 24,
+   "jugadores": 656,
+   "mediana_por_club": 35,
    "clubes_con_menos_de_15": 0
   },
   "2013": {
    "clubes": 20,
-   "jugadores": 461,
-   "mediana_por_club": 22,
+   "jugadores": 685,
+   "mediana_por_club": 33,
    "clubes_con_menos_de_15": 1
   },
   "2014": {
    "clubes": 21,
-   "jugadores": 455,
-   "mediana_por_club": 21,
-   "clubes_con_menos_de_15": 3
+   "jugadores": 745,
+   "mediana_por_club": 35,
+   "clubes_con_menos_de_15": 1
   },
   "2015": {
    "clubes": 19,
-   "jugadores": 358,
-   "mediana_por_club": 17,
-   "clubes_con_menos_de_15": 5
+   "jugadores": 721,
+   "mediana_por_club": 36,
+   "clubes_con_menos_de_15": 0
   },
   "2016": {
    "clubes": 18,
-   "jugadores": 72,
-   "mediana_por_club": 3,
-   "clubes_con_menos_de_15": 18
+   "jugadores": 633,
+   "mediana_por_club": 34,
+   "clubes_con_menos_de_15": 0
   },
   "2017": {
    "clubes": 17,
-   "jugadores": 23,
-   "mediana_por_club": 1,
-   "clubes_con_menos_de_15": 17
+   "jugadores": 622,
+   "mediana_por_club": 36,
+   "clubes_con_menos_de_15": 0
   },
   "2018": {
    "clubes": 16,
-   "jugadores": 23,
-   "mediana_por_club": 1,
-   "clubes_con_menos_de_15": 16
+   "jugadores": 518,
+   "mediana_por_club": 32,
+   "clubes_con_menos_de_15": 0
   },
   "2019": {
    "clubes": 16,
-   "jugadores": 17,
-   "mediana_por_club": 1,
-   "clubes_con_menos_de_15": 16
+   "jugadores": 500,
+   "mediana_por_club": 29,
+   "clubes_con_menos_de_15": 0
   },
   "2020": {
    "clubes": 18,
-   "jugadores": 11,
-   "mediana_por_club": 0,
-   "clubes_con_menos_de_15": 18
+   "jugadores": 550,
+   "mediana_por_club": 29,
+   "clubes_con_menos_de_15": 0
   },
   "2021": {
    "clubes": 17,
-   "jugadores": 13,
-   "mediana_por_club": 0,
-   "clubes_con_menos_de_15": 17
+   "jugadores": 593,
+   "mediana_por_club": 33,
+   "clubes_con_menos_de_15": 0
   },
   "2022": {
    "clubes": 16,
-   "jugadores": 12,
-   "mediana_por_club": 0,
-   "clubes_con_menos_de_15": 16
+   "jugadores": 482,
+   "mediana_por_club": 29,
+   "clubes_con_menos_de_15": 0
   },
   "2023": {
    "clubes": 16,
-   "jugadores": 7,
-   "mediana_por_club": 0,
-   "clubes_con_menos_de_15": 16
+   "jugadores": 461,
+   "mediana_por_club": 30,
+   "clubes_con_menos_de_15": 0
   },
   "2024": {
    "clubes": 16,
-   "jugadores": 11,
-   "mediana_por_club": 0,
-   "clubes_con_menos_de_15": 16
+   "jugadores": 474,
+   "mediana_por_club": 29,
+   "clubes_con_menos_de_15": 0
   },
   "2025": {
    "clubes": 16,
-   "jugadores": 10,
-   "mediana_por_club": 0,
-   "clubes_con_menos_de_15": 16
+   "jugadores": 459,
+   "mediana_por_club": 29,
+   "clubes_con_menos_de_15": 0
   },
   "2026": {
    "clubes": 16,
-   "jugadores": 9,
-   "mediana_por_club": 0,
-   "clubes_con_menos_de_15": 16
+   "jugadores": 472,
+   "mediana_por_club": 28,
+   "clubes_con_menos_de_15": 0
   }
  }
 }

@@ -24,6 +24,7 @@ func _initialize() -> void:
 	_test_action_points()
 	_test_planner()
 	_test_hold_ball()
+	_test_card_effects()
 	_test_signature_styles()
 	_test_bot_defense_styles()
 	_test_duel_runner()
@@ -489,6 +490,83 @@ func _test_hold_ball() -> void:
 	d.holds = MatchEngine.MAX_HOLDS
 	d._end_if_stuck({})
 	_check(d.moment_over, "sin jugadas y sin Aguantar, la jugada se pierde")
+
+
+# Efectos opcionales de carta (pensados para las cartas de rasgo del DT): avances, robo, fuerza de
+# Presión/Bloqueo y contragolpe. Sin ellos, todo se comporta como siempre.
+func _test_card_effects() -> void:
+	var plain := Card.from_dict(CardDB.load_templates(DECK_PATH)[0])
+	_check(plain.steps == 1 and plain.draw == 0 and plain.effect < 0.0 and not plain.counter,
+			"una carta sin efectos debería avanzar 1, no robar, usar la fuerza de su tipo y no dar contragolpe")
+
+	var e := _new_engine(81)
+	e.start()
+	e.begin_moment()
+	e.streak = -10   # que no arranque el Flow (la carta volvería a la mano)
+	var pelotazo := _card(Card.Kind.PASS, 0.0, 1)
+	pelotazo.steps = 2
+	e.deck.hand.append(pelotazo)
+	var before := e.progress
+	e._resolve_attack(pelotazo, true, false, {})
+	_check(e.progress == before + 2, "una jugada de 2 avances debería sumar 2 al progreso del Momento")
+
+	var t := _new_engine(82)
+	t.start()
+	t.begin_moment()
+	t.streak = -10
+	var toque := _card(Card.Kind.PASS, 0.0, 0)
+	toque.draw = 1
+	t.deck.hand.append(toque)
+	var ev := {}
+	t._resolve_attack(toque, true, false, ev)
+	_check(int(ev.get("drawn", 0)) == 1, "una carta que roba 1 debería robar una carta al salir bien")
+	var miss := {}
+	t._resolve_attack(toque, false, false, miss)
+	_check(not miss.has("drawn"), "si la jugada falla no se roba")
+
+	var d := _new_engine(83)
+	d.start()
+	d.begin_defense(0.15)
+	var total := _card(Card.Kind.PRESS, 0.0, 1)
+	total.effect = 0.12
+	d._resolve_defense(total, true, {})
+	_check(is_equal_approx(d.defense_result["pressure"], 0.12), "una Presión reforzada debería sumar su propia fuerza")
+	var d2 := _new_engine(84)
+	d2.start()
+	d2.begin_defense(0.15)
+	d2._resolve_defense(_card(Card.Kind.BLOCK, 0.0, 1), true, {})
+	_check(is_equal_approx(d2.defense_result["block"], MatchEngine.BLOCK_EFFECT), "un Bloqueo normal suma la fuerza de su tipo")
+	var salida := _card(Card.Kind.PRESS, 0.0, 1)
+	salida.counter = true
+	d2.begin_defense(0.15)
+	d2._resolve_defense(salida, true, {})
+	_check(d2.counter_ready and not d2.defense_result["cancelled"],
+			"una carta de contragolpe debería dejar listo el próximo ataque sin cortar el actual")
+
+	# El planificador cuenta los avances: Pelotazo + remate completa un Momento de 3 jugadas.
+	var p := _new_engine(85)
+	p.start()
+	p.begin_moment()
+	p.current_moment()["steps_required"] = 3
+	p.progress = 0
+	p.ap = 3
+	p.deck.hand.clear()
+	var largo := _card(Card.Kind.PASS, 0.0, 1)
+	largo.steps = 2
+	p.deck.hand.append(largo)
+	p.deck.hand.append(_card(Card.Kind.SHOT, 0.10, 1))
+	var plan := CoachBot.best_plan(p, BotProfile.directo())
+	_check(not plan.is_empty() and plan["cards"].size() == 2, "con Pelotazo + remate el bot debería ver un plan de 2 cartas")
+	largo.steps = 1
+	_check(CoachBot.best_plan(p, BotProfile.directo()).is_empty(), "sin el Pelotazo, un pase + remate no alcanza para 3 jugadas")
+
+	# Sin plan de gol, una carta que roba se juega antes de aguantar el balón.
+	p.deck.hand.clear()
+	var cava := _card(Card.Kind.PASS, 0.30, 0)
+	cava.draw = 1
+	p.deck.hand.append(cava)
+	p.deck.hand.append(_card(Card.Kind.PASS, 0.0, 0))
+	_check(CoachBot.choose(p, BotProfile.directo()) == 0, "sin remate en la mano, el bot debería jugar la carta que roba")
 
 
 # Estilos de carta firma: potencia (bloqueo rival a la mitad) y sangre fría (+10 a un fallo).

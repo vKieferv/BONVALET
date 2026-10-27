@@ -394,7 +394,7 @@ func _resolve_attack(card: Card, success: bool, natural: bool, ev: Dictionary) -
 		player.energy = minf(player.max_energy(), player.energy + player.max_energy() * PAUSE_STAMINA_PCT)
 		deck.discard_from_hand(card)
 	elif success:
-		progress += 1
+		progress += card.steps   # casi siempre 1; un Pelotazo vale 2
 		streak += NATURAL_FLOW_CHARGE if natural else 1
 		if not flow_active and streak >= player.flow_threshold():
 			flow_active = true
@@ -409,6 +409,8 @@ func _resolve_attack(card: Card, success: bool, natural: bool, ev: Dictionary) -
 		if card.kind == Card.Kind.SHOT and progress >= current_moment()["steps_required"]:
 			ev["goal"] = true
 			_finish_moment(true)
+		if card.draw > 0 and not moment_over:
+			ev["drawn"] = deck.draw(card.draw)   # la jugada abre opciones: roba cartas de ataque
 	else:
 		fails += 1
 		streak = 0
@@ -592,11 +594,13 @@ func _resolve_defense(card: Card, success: bool, ev: Dictionary) -> void:
 	defense_plays += 1
 	deck.discard_from_hand(card)
 	if success:
+		if card.counter:
+			counter_ready = true   # recuperas arriba: tu próximo Momento arranca con 1 jugada
 		match card.kind:
 			Card.Kind.PRESS:
-				defense_result["pressure"] += PRESS_EFFECT
+				defense_result["pressure"] += card.effect if card.effect >= 0.0 else PRESS_EFFECT
 			Card.Kind.BLOCK:
-				defense_result["block"] += BLOCK_EFFECT
+				defense_result["block"] += card.effect if card.effect >= 0.0 else BLOCK_EFFECT
 			Card.Kind.INTERCEPT:
 				defense_result["cancelled"] = true
 				counter_ready = true

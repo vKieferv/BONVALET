@@ -23,14 +23,27 @@
 #                                    ganar, quitar o mejorar una carta
 #   player_for: {"colo_colo": {"vision": 75}}   atributos de PlayerStats de un club (vision = tamaño
 #                                    de mano, tecnica = acierto base, stamina = tope de estamina)
+# Mazos completos (diseño de M2):
+#   card_defs: {"remate_simple": {...carta completa...}}   cartas nuevas o redefinidas (se suman a
+#                                    las de cards.json, por id)
+#   deck: ["pase_corto", "pase_corto", ..., "@rasgo"]   reemplaza las cartas del DT de todos los
+#                                    clubes (una entrada por copia); las firmas de los titulares y la
+#                                    asignación de canteranos siguen igual. false = el mazo de cards.json
+#   rasgos: {"Tiki-Taka": "toque_toque", ...}   a qué carta se convierte "@rasgo" según el arquetipo
+#   picks: 4 + pick_pools: {"Tiki-Taka": [ids en orden]}   suma las primeras N cartas del estilo de
+#                                    cada arquetipo (cómo crecería el mazo a mitad de temporada)
+# Un elemento {"defaults": {...}} en la lista se aplica a todas las variantes que lo siguen (las
+# claves de la variante mandan; los diccionarios se mezclan).
 # Además de la línea total, imprime una línea por club: goles a favor-en contra, % de partidos con
-# lesión y ataques que le cortaron por partido.
+# lesión, ataques que le cortaron por partido, tamaño del mazo y constructibilidad (% de inicios de
+# Momento con plan de gol, estamina llena, con su propio perfil).
 # Las constantes del motor (INJURY_CHANCE_*, HOLD_*, AP_BY_POSTURE...) no se pueden variar desde
 # aquí: se cambian en match_engine.gd, se corre el laboratorio y se restauran.
 extends SceneTree
 
 const BASE_DIFFICULTY := 0.15
 const DEFAULT_PER_PAIR := 400
+const CONSTRUCT_SAMPLES := 600
 
 
 func _init() -> void:
@@ -51,7 +64,13 @@ func _init() -> void:
 				print("%s debe ser una lista de variantes" % path)
 				quit(1)
 				return
-			variants = parsed
+			variants = []
+			var defaults := {}
+			for item in parsed:
+				if (item as Dictionary).has("defaults"):
+					defaults = item["defaults"]
+				else:
+					variants.append(_merge(defaults, item))
 
 	var tpl := CardDB.load_templates("res://data/cards.json")
 	var league := LeagueManager.new()
@@ -76,6 +95,12 @@ func _init() -> void:
 		for id in clubs:
 			per_club[id] = {"gf": 0, "ga": 0, "inj": 0, "cut": 0, "n": 0}
 		var hooks := _hooks(v)
+		var deck_size := {}
+		var construct := {}
+		for id in clubs:
+			var own := _side(league, squads, tpl, id, clubs[0] if id != clubs[0] else clubs[1], v)
+			deck_size[id] = (own["templates"] as Array).size()
+			construct[id] = _constructibility(own, v)
 		for i in clubs.size():
 			for j in range(i + 1, clubs.size()):
 				var r := DuelRunner.run(_side(league, squads, tpl, clubs[i], clubs[j], v),
@@ -105,19 +130,84 @@ func _init() -> void:
 			var c: Dictionary = per_club[id]
 			var team := league.get_team(id)
 			var cn := float(c["n"])
-			cells.append("%s (%s) %.2f-%.2f les %d%% cortes %.1f" % [team["short_name"], String(team["archetype"]).left(5),
-				c["gf"] / cn, c["ga"] / cn, roundi(100.0 * c["inj"] / cn), c["cut"] / cn])
+			cells.append("%s (%s) %.2f-%.2f les %d%% cortes %.1f mazo %d constr %d%%" % [team["short_name"], String(team["archetype"]).left(5),
+				c["gf"] / cn, c["ga"] / cn, roundi(100.0 * c["inj"] / cn), c["cut"] / cn, deck_size[id], construct[id]])
 		print("    " + " · ".join(cells))
 	quit()
+
+
+# Mezcla superficial: las claves de b mandan; si ambas son diccionarios, se combinan.
+func _merge(a: Dictionary, b: Dictionary) -> Dictionary:
+	var out := a.duplicate(true)
+	for k in b:
+		if out.has(k) and out[k] is Dictionary and b[k] is Dictionary:
+			var inner: Dictionary = (out[k] as Dictionary).duplicate(true)
+			inner.merge(b[k], true)
+			out[k] = inner
+		else:
+			out[k] = b[k]
+	return out
+
+
+# Cartas del DT de un club según "deck" (+ rasgo de su arquetipo + picks de su estilo), como
+# plantillas de cards.json. Las cartas desconocidas se avisan y se omiten.
+func _club_deck(tpl: Array, v: Dictionary, arch: String) -> Array:
+	var defs := {}
+	for d in tpl:
+		if not defs.has(d["id"]):
+			defs[d["id"]] = d
+	defs.merge(v.get("card_defs", {}), true)
+	var ids: Array = []
+	for id in v["deck"]:
+		if id == "@rasgo":
+			if v.get("rasgos", {}).has(arch):
+				ids.append(v["rasgos"][arch])
+		else:
+			ids.append(id)
+	var pool: Array = v.get("pick_pools", {}).get(arch, [])
+	ids.append_array(pool.slice(0, mini(int(v.get("picks", 0)), pool.size())))
+	var out: Array = []
+	for id in ids:
+		if not defs.has(id):
+			print("  AVISO: carta desconocida '%s' (se omite)" % id)
+			continue
+		var d: Dictionary = (defs[id] as Dictionary).duplicate(true)
+		d["id"] = id
+		out.append(d)
+	return out
+
+
+# % de inicios de Momento con plan de gol para un club (estamina llena, su perfil y su postura).
+func _constructibility(side: Dictionary, v: Dictionary) -> int:
+	var profile: BotProfile = side["profile"]
+	var attrs: Dictionary = v.get("player_for", {}).get(side["id"], {})
+	var ok := 0
+	for i in CONSTRUCT_SAMPLES:
+		var rng := RandomNumberGenerator.new()
+		rng.seed = 100000 + i
+		var player := PlayerStats.new()
+		player.lineup.assign(side["lineup"])
+		for attr in attrs:
+			player.set(attr, attrs[attr])
+		var e := MatchEngine.new(player, DeckManager.new(CardDB.build_deck(side["templates"]), [], rng), rng,
+				side["attack_difficulty"])
+		profile.configure_engine(e)
+		e.start()
+		e.begin_moment()
+		if not e.moment_over and not CoachBot.best_plan(e, profile).is_empty():
+			ok += 1
+	return roundi(100.0 * ok / CONSTRUCT_SAMPLES)
 
 
 func _side(league: LeagueManager, squads: SquadManager, tpl: Array, id: String, opp_id: String, v: Dictionary) -> Dictionary:
 	var team := league.get_team(id)
 	var opp := league.get_team(opp_id)
+	var arch := String(team["archetype"])
 	var overrides: Dictionary = v.get("cards", {})
 	var club_overrides: Dictionary = v.get("cards_for", {}).get(id, {})
+	var club_tpl: Array = _club_deck(tpl, v, arch) if v.get("deck") is Array else tpl
 	var cards: Array = []
-	for d in squads.build_match_templates(id, tpl):
+	for d in squads.build_match_templates(id, club_tpl):
 		var c: Dictionary = (d as Dictionary).duplicate(true)
 		var key: String = "@sello" if String(c.get("name", "")).begins_with("Sello de") else String(c.get("id", ""))
 		for o in [overrides, club_overrides]:
@@ -143,7 +233,6 @@ func _side(league: LeagueManager, squads: SquadManager, tpl: Array, id: String, 
 				copies.append(extra)
 				cards.append(extra)
 	var profile: BotProfile = league.profile_for_team(team)   # su profile_name es el nombre del club
-	var arch := String(team["archetype"])
 	var prof_overrides: Dictionary = v.get("profile", {})
 	if prof_overrides.has(arch):
 		for field in prof_overrides[arch]:

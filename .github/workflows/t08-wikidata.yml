@@ -1,0 +1,34 @@
+# Temporal (T-08): la sesión en la nube no llega a query.wikidata.org, así que la consulta corre aquí
+# y la instantánea se sube a la misma rama. Autorizado por el usuario; se borra antes de cerrar la tarea.
+name: t08-wikidata
+
+on:
+  push:
+    branches: [tarea/t-08-planteles-2006]
+    paths: [tools/t08/fetch.py, .github/workflows/t08-wikidata.yml]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: t08-wikidata
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Consultar Wikidata y es.wikipedia
+        run: python3 tools/t08/fetch.py tools/t08/out
+
+      - name: Subir la instantánea a la rama
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          git add tools/t08/out
+          git commit -q -m "chore(t-08): instantánea de Wikidata (${GITHUB_SHA::7})" || { echo "sin cambios"; exit 0; }
+          git pull --rebase -q origin "${GITHUB_REF_NAME}"
+          git push -q origin "HEAD:${GITHUB_REF_NAME}"

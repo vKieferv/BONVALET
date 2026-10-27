@@ -160,6 +160,56 @@ y documentada. Sin fuente, `null` y una entrada en `review` (D-02). Descartado: 
 juegos (Football Manager, archivos de PES): son propiedad de sus estudios o de origen dudoso, y sus
 puntajes son trabajo creativo ajeno.
 
+**D-28 · 2026-10-27 · Complejidad progresiva, como Slay the Spire** · VIGENTE
+Se empieza con jugadas básicas: el mazo inicial solo tiene cartas cuyo efecto es su verbo y su %, sin
+texto extra. Las cartas con más texto y combinaciones (transición, saltar una línea, marcaje al hombre)
+se desbloquean jugando. Por qué: decisión del usuario; agregar mecánicas puede enredar el partido, y
+así cada mecánica llega cuando el jugador ya domina las anteriores. Mecanismo propuesto: el nivel del
+DT, que sube con la experiencia (I-46). Coincide con el mazo estándar de D-23.
+
+**D-29 · 2026-10-27 · Habilidades de los jugadores** · VIGENTE (diseño de I-45, sin código)
+Cinco habilidades de campo (Pase, Regate, Remate, Quite, Lectura) y la Atajada del arquero; el Físico es
+el `stamina_max` que ya existe. En el duelo, el regate se mide con el quite, el pase con la lectura y el
+remate con la atajada, así cada defensa tiene un lado débil. Salen de una fórmula propia: nivel
+(`skill_rating`) + ajuste del puesto + perfil (+10). Solo la élite lleva perfil (1-2 por club): es lo que
+separa a los buenos de la élite. Valor de prueba: cada punto de diferencia vale 0,5 pts de acierto. Por
+qué: que importen los jugadores reales (pilares 1 y 4) con una lámina que se lee de un vistazo.
+Descartado: 3 habilidades (sin lado débil) y 8 o más (no caben en una lámina y habría que asignarlas a
+~340 jugadores). Detalle y ejemplos: `cartas.md`.
+
+**D-30 · 2026-10-27 · Cinco formaciones, una por estilo** · VIGENTE (diseño de I-45, sin código)
+5-3-2, 4-4-2, 4-1-2-1-2, 4-3-3 y 3-5-2, una por estilo de DT. Dicen cuántos hay en cada línea (la
+superioridad numérica de cada jugada, I-44) y a quién enfrentas. Más adelante se podrán mezclar estilos
+(I-47). Asignación (confirmada por el usuario): Catenaccio 5-3-2, Directo 4-4-2, Tiki-Taka 4-1-2-1-2,
+Contragolpe 4-3-3, Kamikaze 3-5-2. Salen del estilo, no de la formación real de cada club en 2006.
+
+**D-31 · 2026-10-27 · Reglas de los duelos** · VIGENTE (diseño de I-45, sin código)
+Respuestas del usuario a la maqueta de la pantalla (`cartas.md`, "Pantalla de duelos"):
+1. A quién enfrentas se decide al empezar el Momento; cualquier rival puede salirte, pero es más
+   probable el más cercano.
+2. **Fallar no corta el Momento:** sigues hasta que se te acaben los PA o te la roben. Reemplaza, en el
+   modelo de duelos, el "2 fallos lo pierden" de GDD 2.1; el juego actual lo mantiene hasta implementarlo.
+3. Los remates solo se juegan en la definición, salvo las cartas de tiro lejano, que se juegan desde más
+   atrás con castigo por la distancia.
+4. Duelos de defensa: Presión y Bloqueo con el Quite, Despeje con la Lectura.
+5. La carta la juega el que tiene el balón; al pasar se elige a quién; los rechazos caen al azar.
+6. Cada jugador se cansa por separado, para obligar a rotar.
+Los valores (probabilidades de quién te sale, parte de los fallos que son robo, castigo por distancia,
+cómo actúa el cansancio sin romper D-04) son propuestas de prueba en `cartas.md`.
+
+**D-32 · 2026-10-27 · Ajustes de los duelos tras la maqueta** · VIGENTE (diseño de I-45, sin código)
+- **Fórmula de habilidades más corta:** ajuste del puesto hasta +3, perfil +6, tope 95. Reemplaza los
+  números de D-29 (+5, +10, tope 99). Por qué: Alcázar con 95 de Remate era excesivo (usuario). Quedan
+  Alcázar 89, Suazo 95, M14 90 de Regate.
+- **Bravo lleva perfil** de arquero (Atajador): Atajada 86.
+- **El Ejecutor Natural se mantiene, más chico:** es la carta del jugador, pero +15 era mucho (usuario).
+  Valor de prueba: +5. En el modelo de duelos reemplaza el +15 de GDD 2.5.
+- **Robo según la línea:** en la salida 1 de cada 3 fallos, en el medio 1 de cada 5 (usuario). La
+  definición queda por decidir (propuesta en `cartas.md`).
+- **El cansancio quita PA** (idea del usuario, a probar): las cartas de un jugador cansado cuestan +1 PA.
+  No toca el % de acierto; amplía D-04, que hasta ahora solo dejaba al cansancio cambiar el robo de
+  cartas, las lesiones y las penalizaciones.
+
 ### Descartadas (para no reabrirlas sin datos nuevos)
 - **Tempo ofensivo +7 / regen +3** (2026-10-26): no llegaba al objetivo de goles y quedó obsoleto con
   PA + Estamina; el stash se borró.

@@ -29,6 +29,8 @@ extends Resource
 @export_range(0, 5, 1) var late_from_moment := 5
 @export_range(1.0, 3.0, 0.05) var late_stamina_mult := 1.0
 @export_range(1.0, 10.0, 0.5) var late_injury_mult := 1.0
+## Jugadas exitosas que pide cada Momento propio (la última, un remate). Catenaccio 2 (D-16).
+@export_range(2, 4, 1) var moment_steps := MatchEngine.MOMENT_STEPS
 ## Postura entre Momentos Clave: 0 = Baja (LOW), 1 = Normal, 2 = Alta (HIGH).
 @export_enum("Baja (LOW)", "Normal", "Alta (HIGH)") var default_posture := 1
 ## Regla de emparejamiento: si el rival juega en postura LOW, este perfil aprovecha los espacios
@@ -52,6 +54,7 @@ func configure_engine(e: MatchEngine) -> void:
     e.late_from_moment = late_from_moment
     e.late_stamina_mult = late_stamina_mult
     e.late_injury_mult = late_injury_mult
+    e.moment_steps = moment_steps
     e.exploit_shot_bonus = passivity_shot_bonus
 
 
@@ -84,6 +87,8 @@ func describe() -> String:
         s += "  |  +%d%% acierto en M1-M%d" % [roundi(opening_bonus * 100.0), opening_moments]
     if late_from_moment < MatchEngine.MAX_MOMENTS and (late_stamina_mult > 1.0 or late_injury_mult > 1.0):
         s += "  |  Desde M%d: desgaste x%.1f, lesión x%.1f" % [late_from_moment + 1, late_stamina_mult, late_injury_mult]
+    if moment_steps != MatchEngine.MOMENT_STEPS:
+        s += "  |  Momentos de %d jugadas" % moment_steps
     if shot_min_chance >= 0.0:
         s += "  |  Remata desde %d%%" % roundi(shot_min_chance * 100.0)
     if punishes_passivity:
@@ -114,6 +119,7 @@ static func catenaccio() -> BotProfile:
     p.shot_min_chance = 0.40
     p.stall_plays = 2
     p.defense_focus = 2
+    p.moment_steps = 2   # jugada ultra corta (D-16)
     return p
 
 static func directo() -> BotProfile:
@@ -121,7 +127,8 @@ static func directo() -> BotProfile:
     p.defense_focus = 4
     return p
 
-# Presión asfixiante: +20 pts de acierto en M1-M2; desde M3, fatiga doble y lesiones disparadas.
+# Presión asfixiante: +20 pts de acierto en M1-M2; desde M3, fatiga doble y lesión ×2.5 (D-17:
+# La Serena se lesiona en ~15% de sus partidos, el "hasta 15%" del diseño).
 static func kamikaze() -> BotProfile:
     var p := make("Kamikaze", 1.0, 0.0, 1.0, 2)
     p.energy_reserve_threshold = 0.10
@@ -129,7 +136,7 @@ static func kamikaze() -> BotProfile:
     p.opening_moments = 2
     p.late_from_moment = 2
     p.late_stamina_mult = 2.0
-    p.late_injury_mult = 4.0
+    p.late_injury_mult = 2.5
     p.defense_focus = 1
     return p
 

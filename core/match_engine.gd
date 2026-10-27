@@ -37,8 +37,9 @@ const EXHAUSTION_PCT := 0.30      # la zona de agotamiento empieza por debajo de
 const EXTRA_MOMENT_CHANCE_HIGH := 0.35
 const MAX_MOMENTS := 5
 # Jugadas exitosas que pide cada Momento (la última, un remate). Con remates a 2 PA y Aguantar el
-# Balón, 3 fijas sostienen 2.3-2.6 goles; los Momentos de 2 salen solo del contragolpe
-# (counter_ready) o del espacio rival (exploit_rival_space).
+# Balón, 3 sostienen 2.3-2.6 goles (D-12). Es el valor por defecto de `moment_steps`: Catenaccio
+# pide 2 (D-16, sube a Palestino de 0.72 a 1.18 goles). El contragolpe (counter_ready) y el espacio
+# rival (exploit_rival_space) acortan el Momento, pero nunca por debajo de 2 jugadas.
 const MOMENT_STEPS := 3
 # Regla de emparejamiento anti-pasividad (perfil que castiga + rival en postura LOW):
 # los REMATES ganan +exploit_shot_bonus puntos (por defecto 10), cuestan 1 PA menos (mínimo 1)
@@ -96,6 +97,7 @@ var opening_moments := 0
 var late_from_moment := MAX_MOMENTS   # desde este Momento (0 = primero) se aplica el desgaste tardío
 var late_stamina_mult := 1.0
 var late_injury_mult := 1.0
+var moment_steps := MOMENT_STEPS   # jugadas que pide cada Momento propio (Catenaccio 2: más goles para el bloque bajo)
 # Semana previa (modo carrera): forma del entrenamiento y jugadores funados.
 var form_bonus := 0.0            # puntos de acierto en todas las jugadas (ataque y defensa)
 var owner_stamina_mult := {}     # owner_id -> multiplicador de desgaste en sus cartas (funado: 1.5)
@@ -118,7 +120,7 @@ var moment_had_flow := false
 var exhausted_flagged := false
 var pauses := 0
 var holds := 0
-var counter_ready := false   # tras una intercepción, el próximo Momento propio arranca con 1 jugada
+var counter_ready := false   # tras una intercepción, el próximo Momento propio arranca con 1 jugada (si pide más de 2)
 
 # Estado de la defensa en curso
 var in_defense := false
@@ -168,12 +170,12 @@ func start() -> void:
 	ap_max = 0
 
 
-# Un Momento pide MOMENT_STEPS jugadas exitosas (la última, un remate); el contragolpe y el espacio
-# rival lo acortan a 2.
+# Un Momento pide moment_steps jugadas exitosas (la última, un remate); el contragolpe y el espacio
+# rival lo acortan, con un mínimo de 2.
 func _make_moment(minute: int) -> Dictionary:
 	return {
 		"minute": minute,
-		"steps_required": MOMENT_STEPS,
+		"steps_required": moment_steps,
 		"difficulty": rival_difficulty + rng.randf_range(-0.05, 0.05),
 	}
 
@@ -212,7 +214,8 @@ func begin_moment() -> Dictionary:
 		var m: Dictionary = current_moment()
 		m["steps_required"] = maxi(2, int(m["steps_required"]) - 1)
 	if counter_ready:
-		progress = 1
+		if moment_steps > 2:   # con Momentos de 2 (Catenaccio) el contragolpe no lo acorta más
+			progress = 1
 		counter_ready = false
 	deck.reset_flow_uses()
 	deck.set_possession(DeckManager.Possession.POSSESSION_ATTACK)

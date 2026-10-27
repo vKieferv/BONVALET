@@ -55,7 +55,18 @@ Tareas (en este orden; cada una termina en un PR):
 - [ ] T-05 · Bloque 2 con carta, video o kinesiología y mazo propio guardado (`T-05-bloque2-mazo.md`, tras T-04)
 - [ ] T-06 · los rivales crecen durante la temporada (`T-06-rivales-crecen.md`, tras T-04; mejor después de T-05)
 
+## M3 · Una temporada (diseño decidido, datos en preparación)
+- [x] Formato fiel a 2006 (D-24), los demás partidos simulados (D-25), comparar con la realidad (I-36).
+- [x] Nombres reales en desarrollo, inventados al lanzar, datos reemplazables (D-26); base de jugadores
+      con Wikidata y atributos propios (D-27).
+- [ ] T-07 · datos históricos del Apertura y Clausura 2006 (`docs/tareas/T-07-historia-2006.md`, datos)
+- [ ] T-08 · planteles 2006 de Primera A desde Wikidata (`T-08-planteles-2006.md`, datos)
+- [ ] Implementación de la temporada (fixture real, tabla, grupos, repechaje, playoffs, descenso,
+      comparación): briefs después de M2.
+
 ## Antes de M4 (comercial, del estudio `docs/mercado.md`)
+- [ ] Paquetes de datos reemplazables y Steam Workshop (I-37, D-26): el paquete por defecto, con nombres
+      inventados; lo público (página, tráiler, demo) nunca con nombres reales.
 - [ ] Textos traducibles con las tablas de Godot, para una demo en inglés y español (I-33, tarea autónoma)
 - [ ] Consulta con un abogado sobre nombres reales (I-20, la hace el usuario) y paquete de datos
       ficticio que pase todas las pruebas, para que cualquier respuesta se resuelva cambiando datos

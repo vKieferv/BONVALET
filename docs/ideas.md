@@ -21,9 +21,9 @@ Para agregar una, la skill `idea-nueva` hace el análisis y la anota aquí.
 | I-07 | Largo de jugada por arquetipo (Tiki-Taka 3-4, Directo 1-2, Contragolpe 2, Catenaccio 1) en vez de 3 fijas | GDD / pizarra | 1 | DESCARTADA en su forma literal (D-16: solo Catenaccio 2) | — |
 | I-08 | Kamikaze: "Presión Asfixiante", en HIGH el rival gasta +1 de estamina para responder | Pizarra | 1 | NUEVA | — |
 | I-09 | Tiki-Taka con jugadas de 3-4 pases que premien el pase largo (p. ej. Flow o acierto que crece con cada pase) — sin compensación, alargar la jugada lo hunde (D-16) | M1 | 1 | EN ESPERA | M2 |
-| I-10 | Fixture completo del Apertura 2006, tabla y fin del torneo | GDD original | 3 | ACEPTADA | M3 |
+| I-10 | Fixture completo del Apertura 2006, tabla y fin del torneo | GDD original | 3 | DECIDIDA: formato fiel 2006 (D-24), otros partidos simulados (D-25) | M3 |
 | I-11 | Guardar y cargar la carrera | Necesario | — | ACEPTADA · implementada en T-01 | M3 |
-| I-12 | Clausura y Primera B (ascensos/descensos) | GDD original | 4 | EN ESPERA | M5 |
+| I-12 | Clausura y Primera B (ascensos/descensos) | GDD original | 4 | Clausura y descenso entran en M3 (D-24); Primera B jugable sigue EN ESPERA | M5 |
 | I-13 | Ojeo por niveles (nivel 1: edad, posición, promedio; máximo: stats, arquetipo ideal, fragilidad) | Pizarra | 3 | NUEVA | M3+ |
 | I-14 | Agentes que ofrecen jugadores en eventos (joyas baratas o conflictivos que suben el riesgo de funa) | Pizarra | 3, 4 | NUEVA | M3+ |
 | I-15 | Infraestructura: grandes invierten en estadio y cracks; chicos en gimnasio y centro médico (menos fatiga y lesiones) | GDD original | 3 | NUEVA | M3+ |
@@ -39,3 +39,5 @@ Para agregar una, la skill `idea-nueva` hace el análisis y la anota aquí.
 | I-33 | Textos traducibles (tablas de traducción de Godot) y demo en inglés + español: el público hispanohablante es ~5% de Steam (`mercado.md`) | Estudio de mercado | 4 | ACEPTADA (tarea autónoma) | antes de M4 |
 | I-34 | Modo Copa: partida corta de 5-6 partidos con mazo que crece, para la demo y el público roguelike (como Clutchtime, Goaldeck, Super Kickmen) | Estudio de mercado | 1, 3 | ACEPTADA | M2 |
 | I-35 | Resumen post-partido con el % de cada jugada y goles esperados vs. reales, para que el azar se vea justo (queja n.º 1 contra NUTMEG y FT&G) | Estudio de mercado | 2 | ACEPTADA | M1 |
+| I-36 | Comparar con la realidad: tras cada fecha, el resultado real de 2006 del mismo partido; al final, tu tabla contra la real y titulares de "historia alternativa" (Diario El Chisme); objetivos de la directiva sacados de la historia (Colo-Colo: bicampeonato; U. de Chile: ganar la final que perdió; Santiago Morning: no descender) | Usuario (2026-10-27) | 3, 4 | ACEPTADA | M3 |
+| I-37 | Paquetes de datos reemplazables: clubes, DT, jugadores, cartas firma y textos con nombres en un paquete (por defecto, uno inventado), cargable desde Steam Workshop (GodotSteam) para bases con equipos reales (D-26) | Usuario (2026-10-27) | 4 | ACEPTADA | antes de M4 |

@@ -131,6 +131,34 @@ final de la temporada. Reemplaza I-04 (perfiles de DT con mazos de 12-22). Los n
 son iniciales y se validan con playtests. Descartado: rasgos de Presión o Bloqueo reforzados (diluyen
 el Despeje y empeoraban la defensa de su propio club) y 2 Remates simples (constructibilidad 99-100%).
 
+**D-24 · 2026-10-27 · Temporada fiel al formato 2006** · VIGENTE
+Apertura y Clausura como en 2006: 19 clubes (Deportes Concepción suspendido), todos contra todos a una
+vuelta (19 fechas, 18 partidos y una fecha libre por club), 4 grupos para clasificar (los 2 mejores de
+cada grupo, repechaje si un tercero supera en puntos a un segundo de otro grupo), cuartos, semis y final
+a ida y vuelta (penales si hay empate global) y descenso por tabla acumulada del año (último directo,
+penúltimo a liguilla de promoción). El calendario es el real de 2006 (mismo orden, local y fecha libre),
+para poder comparar con la realidad (I-36). Descartado: playoffs a partido único y liga sin playoffs.
+Fuente del formato: es.wikipedia, "Torneo Apertura 2006 (Chile)" y "Torneo Clausura 2006 (Chile)".
+
+**D-25 · 2026-10-27 · Los demás partidos de la fecha se simulan** · VIGENTE
+Los partidos entre otros clubes se juegan con los bots (`DuelRunner`), no se copian de 2006. La
+realidad se muestra solo como comparación (I-36). Descartado: repetir los resultados reales.
+
+**D-26 · 2026-10-27 · Nombres reales en desarrollo, inventados al lanzar, y datos reemplazables** · VIGENTE
+Mientras se desarrolla, el juego usa clubes, DT y jugadores reales para que sea familiar. La versión
+que se publique (y todo lo público: página de Steam, tráiler, demo) usa nombres inventados, y la
+comunidad podrá cargar sus propias bases con equipos reales (Steam Workshop). Por eso **todo nombre de
+club, DT y jugador tiene que salir de datos fáciles de reemplazar**, nunca del código. Reemplaza la
+parte de I-20 sobre qué nombres llevar; la consulta con un abogado sigue pendiente (I-20). Paquetes de
+datos y Workshop: I-37.
+
+**D-27 · 2026-10-27 · Base de jugadores: Wikidata y atributos propios** · VIGENTE
+Los hechos (club en 2006, posición, nacimiento, nacionalidad) salen de fuentes libres: Wikidata (CC0)
+y, para cruzar, Wikipedia. Los atributos de juego (rol, estamina, nivel) los calcula una fórmula propia
+y documentada. Sin fuente, `null` y una entrada en `review` (D-02). Descartado: copiar bases de otros
+juegos (Football Manager, archivos de PES): son propiedad de sus estudios o de origen dudoso, y sus
+puntajes son trabajo creativo ajeno.
+
 ### Descartadas (para no reabrirlas sin datos nuevos)
 - **Tempo ofensivo +7 / regen +3** (2026-10-26): no llegaba al objetivo de goles y quedó obsoleto con
   PA + Estamina; el stash se borró.

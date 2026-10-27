@@ -188,15 +188,18 @@ Faltan más eventos (conferencia polémica, charla técnica, agentes): `ideas.md
 La estamina gastada deja fatiga (6 + 18 × desgaste), que define con cuánta estamina arrancas el
 siguiente partido.
 
-### 5.4 Temporada · guardado [DECIDIDO] · fixture y tabla [IDEA] · prioridad M3
-Fixture completo del Apertura 2006, tabla de posiciones y fin del torneo. Hoy la carrera es una
-sucesión de semanas sin tabla.
+### 5.4 Temporada [DECIDIDO · D-24, D-25] · se implementa en M3 · guardado [DECIDIDO]
+Apertura y Clausura fieles a 2006: 19 clubes, una vuelta de 19 fechas (cada club tiene una fecha
+libre), 4 grupos para clasificar, repechaje, cuartos, semis y final a ida y vuelta, y descenso por tabla
+acumulada (último directo, penúltimo a liguilla). El calendario es el real de 2006; los demás partidos
+de la fecha se simulan con los bots. La realidad se muestra como comparación (I-36). Datos históricos:
+`data/history_2006.json` (T-07). Hoy la carrera es una sucesión de semanas contra una lista fija de
+rivales, sin tabla ni final.
 
 **Guardado (T-01):** una sola ranura, automática: se guarda tras cada acción de bloque, al ir al
 partido y al volver al calendario. "Continuar carrera" retoma la misma semana con el mismo estado,
 incluido el azar (los eventos siguen saliendo igual). No se guarda a mitad de partido: si el juego se
-cierra durante el partido, se vuelve al Bloque 3 y ese partido se juega desde el principio
-(pendiente: ¿contarlo como derrota provisional para que no se pueda repetir?).
+cierra durante el partido, se vuelve al Bloque 3 y ese partido se juega desde el principio (D-19).
 
 ### 5.5 Economía, fichajes, ojeo, infraestructura [IDEA] · M3+
 Presupuesto y masa salarial existen en los datos pero casi no se usan. Diseño: ojeo por niveles,

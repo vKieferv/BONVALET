@@ -85,14 +85,17 @@ Catálogo por familia, nombres, variantes y jugadas anotadas: `cartas.md` (bloc 
 **Complejidad progresiva [DECIDIDO · D-28]:** se empieza con cartas básicas (verbo y %, sin texto); las
 cartas con más texto se desbloquean jugando, con el nivel del DT (I-46).
 
-### 3.1 Mazo unificado [DECIDIDO] · tamaño EN DISEÑO (ver 3.5)
-Hoy 18-20 cartas: cartas del DT (`data/cards.json`) + cartas firma de los titulares
-(`data/signature_cards.json`). Reglas de liga: máx. 6 extranjeros, mín. 2 Sub-21.
+### 3.1 Mazo unificado [DECIDIDO] · tamaño 10-20 (T-04)
+Se arranca con 12 cartas (3.5): el mazo estándar y la carta de rasgo del DT (`data/decks.json`, por id
+del catálogo `data/cards.json`) + las cartas firma de los titulares (`data/signature_cards.json`). El
+tope es 20. Reglas de liga: máx. 6 extranjeros, mín. 2 Sub-21.
 
 ### 3.2 Cartas del DT [EN PRUEBA]
 Ataque: Pase corto, Promesa: Control (canterano), Desmarque, Pase al pie, Pausa, Pase filtrado,
-Amague, Centro al área, Tiro de lejos, Chilena, Remate de primera. Defensa: Presión, Bloqueo,
-Intercepción, Despeje.
+Amague, Centro al área, Tiro de lejos, Chilena, Remate de primera, Remate simple. Defensa: Presión,
+Marca, Bloqueo, Intercepción, Despeje. De rasgo (una por arquetipo, 3.5): Toque-toque, Pelotazo,
+Cerrojo, Remate en carrera, Anticipo. Cada carta muestra su efecto además de su % (T-04): "Avanza 2",
+"Si sale, robas 1 carta", "Corta el ataque", "Corta + contragolpe".
 
 ### 3.3 Cartas firma [EN PRUEBA]
 Propias de una figura (Zapatazo de Suazo, Arremetida de Alcázar, Sangre fría de Aróstegui) o la
@@ -110,7 +113,7 @@ Decidido el 2026-10-27 (D-20 a D-22):
 Datos (`tests/lab/m2_cartas.json`, `m2_estandar.json`): con un mazo de 20, una carta mueve ~±0.04-0.11
 goles por partido; con uno de 13, el doble. La mano pesa más que una carta (mano 7: +0.18; mano 5: −0.23).
 
-### 3.5 Mazo inicial estándar y carta de rasgo del DT [EN PRUEBA · D-23] · se implementa en M2 (T-04 a T-06)
+### 3.5 Mazo inicial estándar y carta de rasgo del DT [EN PRUEBA · D-23] · en el juego desde T-04; crece con T-05 y T-06
 Idea del usuario (2026-10-27): como en Slay the Spire, todos empiezan con un **mazo estándar de
 cartas básicas** más **una carta de acción con el rasgo del DT**, y el mazo crece con las elecciones.
 Reemplaza los "perfiles de DT con mazos de 12-22" del GDD original. Aprobada el 2026-10-27 (D-23)
@@ -136,12 +139,14 @@ tras medirla con `balance-lab` (`tests/lab/m2_propuesta.json`; cada rasgo por se
 | Kamikaze | **Remate en carrera** | remate de 1 PA, +25, desgaste muy alto (10) | +0.14 a favor y +0.12 en contra: partidos locos |
 | Contragolpe | **Anticipo** | intercepción de 1 PA: corta y deja listo el contragolpe | +0.09 a favor, defensa igual |
 
-**Resultados (matriz neutral, 400 partidos por cruce):**
-| Momento de la temporada | Goles | Lesiones | Cansancio 1T/2T | Constructibilidad |
+**Resultados (medición oficial de T-04, `godot-check -Balance`: matriz neutral, 400 partidos por cruce;
+mitad y final con las 8 cartas de crecimiento de `decks.json`, en orden):**
+| Momento de la temporada | Goles | Lesiones | Cansancio 1T/2T | Constructibilidad (por club) |
 |---|---|---|---|---|
+| Antes de T-04 (mazo clásico de 19-20) | 2.55 | 3.3% | 18% / 56% | 88-91% |
 | Inicio (12 cartas) | **2.47** | 2.8% | 16% / 49% | 91-99% |
-| Mitad (+4 cartas de su estilo) | 2.71 | 3.4% | 17% / 53% | 88-99% |
-| Final (+8 cartas) | 2.61 | 3.2% | 18% / 57% | 80-98% |
+| Mitad (+4 cartas de su estilo) | 2.73 | 3.2% | 17% / 53% | 93-100% |
+| Final (+8 cartas) | 2.65 | 3.5% | 16% / 53% | 93-99% |
 
 **Lo que se aprendió midiendo (para no repetir experimentos):**
 - **Sin un Despeje en el mazo estándar no hay cortes:** cada equipo ataca ~3.9 veces por partido en
@@ -156,15 +161,21 @@ tras medirla con `balance-lab` (`tests/lab/m2_propuesta.json`; cada rasgo por se
 - Con 2 Remates simples en vez de 1: inicio 2.51 y constructibilidad 99-100% (demasiado parejo).
 
 Preguntas abiertas (cada una con la tarea que la resuelve):
-1. **La mitad de temporada queda alta (2.71)** (T-04): las primeras cartas que suman los bots son de
-   ataque. Ajustar el orden de sus elecciones (alternar ataque y defensa) o aceptar un pico leve.
-2. **Tiki-Taka termina con constructibilidad 80%** (T-04 y T-05): su lista de cartas tiene muchos pases y un solo
-   remate; definir bien qué ofrece el entrenamiento a cada estilo (las 3 cartas de D-20).
-3. **Tamaño** (T-04): se empieza en 12 y el tope es 20; la regla de hoy (18-20, `DeckManager`) pasa a 10-20.
+1. **La mitad y el final de temporada quedan sobre el rango** (medición oficial de T-04: 2.73 y 2.65):
+   los mazos mejoran y se ataca mejor; ninguna lista de crecimiento lo evitó. Se decide con el usuario:
+   aceptar la curva, bajar el inicio o un ajuste global.
+2. **Tiki-Taka y su constructibilidad:** con las listas de crecimiento de `decks.json`, Colo-Colo
+   termina en 93% (con las de `m2_propuesta.json` caía a 80%). Falta definir qué ofrece el
+   entrenamiento a cada estilo (las 3 cartas de D-20, T-05).
+3. **Tamaño:** resuelto en T-04: `DeckManager` acepta 10-20.
 4. **Firmas de los titulares:** entran al mazo inicial (una por club), como en la medición.
 5. **Reglas de liga:** las 2 Promesas cubren los Sub-21; los extranjeros no son problema con 12 cartas.
-6. **Motor:** los efectos `steps`, `draw`, `effect` y `counter` de `Card` y el planificador que los
-   entiende ya están en `main` (sin uso en los datos del juego hasta T-04).
+6. **Motor:** los efectos `steps`, `draw`, `effect` y `counter` de `Card` están en uso desde T-04, y la
+   carta los muestra.
+7. **Clubes sin figura** (T-04): 12 clubes, casi todos de Primera B, no tienen carta firma y arrancan
+   con 11 cartas. Los tres Catenaccio entre ellos (Magallanes, Curicó Unido, Deportes Temuco) no atacan
+   nunca: sin un remate de 2 PA, su bot prudente no acepta ninguna jugada (0.00 goles por partido).
+   Por decidir: darles la firma genérica a su mejor delantero, o esperar a Primera B (I-12).
 ### 3.6 Canteranos y progresión [IDEA] · M2
 Cualquier jugador (también Sub-21) mejora con entrenamientos y puede desbloquear su propia carta
 privada. Hoy las cartas "canterano" solo se asignan a un Sub-21 del plantel.

@@ -21,9 +21,9 @@ GitHub Actions (`.github/workflows/godot-check.yml`) lo corre en cada push a `ma
 
 Opciones de `check.ps1`:
 - `-Matches N` — partidos de la prueba de humo (5 por defecto; uno por arquetipo, rotando la postura).
-- `-Balance` — además corre `core/sim.gd` (2000 partidos por perfil, semillas fijas): goles, Flow, cansancio, lesiones por arquetipo. Tarda más; úsalo al tocar constantes de balance, `coach_bot.gd`, `bot_profile.gd` o `cards.json`.
+- `-Balance` — además corre `core/sim.gd` (2000 partidos por perfil, semillas fijas): goles, Flow, cansancio, lesiones por arquetipo, y la matriz neutral bot vs bot en tres etapas de la temporada (mazo estándar, +4 y +8 cartas de crecimiento), cada una con su línea EN RANGO / FUERA DE RANGO. Tarda más; úsalo al tocar constantes de balance, `coach_bot.gd`, `bot_profile.gd`, `cards.json` o `decks.json`.
 - `-SkipSmoke` — solo compilar (rápido, para cambios que no tocan la escena del partido).
-- `-TimeoutSec N` (240) por paso y `-BalanceTimeoutSec N` (600) para `sim.gd`, que con el planificador de `CoachBot` tarda unos 4-5 minutos.
+- `-TimeoutSec N` (240) por paso y `-BalanceTimeoutSec N` (600) para `sim.gd`, que con el planificador de `CoachBot` y las tres etapas de la matriz tarda unos 5-7 minutos.
 - Para comparar palancas de balance antes de tocar constantes, usa la skill `balance-lab` (más rápida que `-Balance` y con variantes lado a lado).
 
 ## Qué hace

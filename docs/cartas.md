@@ -36,8 +36,8 @@ Nombres de las cartas de T-04 confirmados tal como están en el brief (2026-10-2
 
 ## Catálogo actual por familia
 Estado: **estándar** = mazo inicial de todos (D-23) · **rasgo** = carta de rasgo de un arquetipo (D-23)
-· **catálogo** = se gana en el entrenamiento (D-20) · **firma** = de un jugador · **T-04** = definida,
-todavía no está en el juego.
+· **catálogo** = se gana en el entrenamiento (D-20) · **firma** = de un jugador · **T-04** = nueva,
+en el juego desde T-04 (mazo estándar).
 
 ### Ataque · armar la jugada
 | Carta | Qué hace | PA | Desgaste | Bono | Estado | Otros nombres |

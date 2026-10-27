@@ -1,6 +1,5 @@
-# T-08, segunda pasada: cruce con es.wikipedia. Para cada jugador con membresía fechada en 2006 en
-# alguno de los 16 clubes (según la instantánea de fetch.py) guarda la ficha de su artículo en
-# es.wikipedia (plantilla de futbolista: trayectoria por años). Guarda también el wikitexto de las
+# T-08, segunda pasada: es.wikipedia. Para cada jugador consultado por fetch.py guarda la ficha de su
+# artículo (trayectoria por años, posición, fecha de nacimiento, selección). Guarda también el wikitexto de las
 # finales y torneos 2006. Uso: python tools/t08/fetch_wiki.py tools/t08/out
 import json
 import os
@@ -77,19 +76,8 @@ def infobox(text):
     return text[i:]
 
 
-def year(v):
-    return int(v[:4]) if v else None
-
-
-chosen = json.load(open(os.path.join(OUT, "clubs_elegidos.json"), encoding="utf-8"))
 players = json.load(open(os.path.join(OUT, "jugadores.json"), encoding="utf-8"))
-wanted = set()
-for key, info in chosen.items():
-    rows = json.load(open(os.path.join(OUT, "membresias", key + ".json"), encoding="utf-8"))
-    for r in rows:
-        s, e = year(r.get("start")), year(r.get("end"))
-        if r["club"] == info["qid"] and s is not None and e is not None and s <= 2006 <= e:
-            wanted.add(r["player"])
+wanted = set(players)
 titles = {}
 for q in sorted(wanted):
     url = (players.get(q) or {}).get("eswiki")

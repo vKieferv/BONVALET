@@ -155,14 +155,17 @@ def year(v):
     return int(v[:4]) if v else None
 
 
-# Jugadores con alguna membresía que toque 2005-2007 (o sin fechas: se guardan, pero sin detalle).
+# Jugadores con alguna membresía que toque 2005-2007, o con una membresía al club sin fecha de inicio
+# o de fin (esas se fechan después con la trayectoria de su artículo en es.wikipedia).
 cand_players = set()
 for key, rows in members.items():
     for r in rows:
         s, e = year(r.get("start")), year(r.get("end"))
-        if s is None and e is None:
+        if s is None or e is None:
+            if r["club"] == chosen[key]["qid"] and r["rank"] != "DeprecatedRank":
+                cand_players.add(r["player"])
             continue
-        if (s if s is not None else 0) <= 2007 and (e if e is not None else 9999) >= 2005:
+        if s <= 2007 and e >= 2005:
             cand_players.add(r["player"])
 
 # 3. Figuras de teams_chile_2006.json: se buscan por nombre por si no salen en el paso 2.

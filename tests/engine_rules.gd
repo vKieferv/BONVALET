@@ -245,6 +245,28 @@ func _test_standard_deck() -> void:
 		var mid := CardDB.deck_ids(lists, arch, 4)
 		_check(mid.size() == 15 and mid.slice(11) == pool.slice(0, 4), "%s +4: las primeras 4 de su crecimiento, en orden" % arch)
 		_check(CardDB.deck_ids(lists, arch, 99).size() == 19, "%s: el crecimiento no suma más de sus 8 cartas" % arch)
+	# Ofertas del entrenamiento táctico (D-20, T-05): una lista por arquetipo y una general, solo cartas
+	# del catálogo, sin repetir y nunca una carta de rasgo; alcanzan para 2 de tu estilo + 1 general.
+	var offers: Dictionary = lists.get("ofertas", {})
+	for list_name in archetypes + ["general"]:
+		var pool: Array = offers.get(list_name, [])
+		var unique := {}
+		for id in pool:
+			_check(catalog.has(id), "decks.json ofertas de %s: carta desconocida %s" % [list_name, id])
+			_check(not rasgos.values().has(id), "decks.json ofertas de %s: %s es una carta de rasgo y no se ofrece" % [list_name, id])
+			unique[id] = true
+		_check(unique.size() == pool.size(), "decks.json ofertas de %s: cartas repetidas" % list_name)
+		var needed := Career.OFFER_SIZE if list_name == "general" else Career.OFFER_STYLE
+		_check(pool.size() >= needed, "decks.json ofertas de %s: tiene %d cartas y la oferta pide %d" % [list_name, pool.size(), needed])
+	var base_shot: Dictionary = catalog.get("remate_simple", {})
+	if not base_shot.is_empty():
+		var sharper := CardDB.upgraded(base_shot, "acierto")
+		var cheaper := CardDB.upgraded(base_shot, "pa")
+		_check(is_equal_approx(float(sharper["bonus"]), float(base_shot["bonus"]) + CardDB.UPGRADE_BONUS) and sharper["ap"] == base_shot["ap"]
+				and int(cheaper["ap"]) == int(base_shot["ap"]) - CardDB.UPGRADE_AP and cheaper["bonus"] == base_shot["bonus"],
+				"las mejoras de video suman %d pts o restan %d PA" % [roundi(CardDB.UPGRADE_BONUS * 100.0), CardDB.UPGRADE_AP])
+		_check(String(sharper["name"]).ends_with(CardDB.UPGRADE_SUFFIX) and not base_shot.has("mejora"), "la carta mejorada lleva + y el catálogo no cambia")
+	_check(not CardDB.can_upgrade(catalog.get("pase_corto", {}), "pa"), "una carta de 0 PA no admite la mejora de PA")
 
 	# El mazo de inicio de un club de cada arquetipo: 12 cartas con su rasgo y la firma de su figura.
 	var league := _league()

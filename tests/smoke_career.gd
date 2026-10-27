@@ -1,6 +1,8 @@
 # Prueba de humo del bucle semanal: calendario → partido → calendario, dos semanas seguidas.
-# Semana 1: Telnet, acepta la fiesta, entrenamiento táctico. Semana 2: Cerveza Glaciar, rechaza, kinesiología.
-# Al final reabre el calendario como si se hubiera cerrado el juego y usa "Continuar carrera".
+# Semana 1: Telnet, acepta la fiesta, entrenamiento táctico (se queda con la primera carta ofrecida).
+# Semana 2: Cerveza Glaciar, rechaza, abre la sesión de video y "Ver mazo" y termina en kinesiología.
+# Al final reabre el calendario como si se hubiera cerrado el juego, usa "Continuar carrera" y
+# comprueba que el mazo vuelve con la carta nueva.
 # Guarda en su propia ruta (TEST_SAVE), nunca en la partida real del usuario, y la borra al final.
 # Uso: godot --headless --path . -s res://tests/smoke_career.gd
 # Sale con código 1 si algún paso no ocurre o el partido se cuelga.
@@ -21,6 +23,7 @@ var errors: Array[String] = []
 var _wait := 0
 var _real_save_time := 0   # fecha de modificación de la partida real (0 = no existe)
 var _closed_scene_id := 0  # calendario de antes de "cerrar el juego"
+var _new_card := ""        # id de la carta que se tomó en el entrenamiento táctico de la semana 1
 
 
 func _initialize() -> void:
@@ -62,7 +65,12 @@ func _process(_delta: float) -> bool:
 			scene._sponsor_option.select(sponsor_index)
 			scene._on_sponsor_selected(sponsor_index)
 			scene._on_event(first)
-			scene._on_training("tactical" if first else "physio")
+			if first:
+				_take_first_offer(scene, c)
+			else:
+				_look_and_rest(scene, c)
+			if not errors.is_empty():
+				return _finish()
 			if not c.blocks_done()["block1"] or not c.blocks_done()["block2"]:
 				errors.append("Semana %d: los bloques 1 y 2 deberían quedar completos" % c.week)
 				return _finish()
@@ -116,10 +124,59 @@ func _process(_delta: float) -> bool:
 				errors.append("Continuar debería recuperar la semana %d con los bloques por hacer" % (WEEKS + 1))
 			elif scene._club_option.get_item_metadata(scene._club_option.selected) != c.team_id:
 				errors.append("Al continuar, el selector debería mostrar el club de la carrera (%s)" % c.team_id)
+			elif c.deck.size() != 12 or c.deck[11]["id"] != _new_card or c.build_deck().size() != 13:
+				errors.append("Continuar debería recuperar el mazo con la carta nueva (%s): %s" % [_new_card, c.deck])
+			elif not _deck_shows(scene, String(c.squads.catalog[_new_card]["name"])):
+				errors.append("Al continuar, Ver mazo debería mostrar la carta nueva")
 			else:
-				print("smoke_career: continuar · %s" % button.text)
+				print("smoke_career: continuar · %s · mazo de %d cartas con %s" % [
+					button.text, c.deck_size(), c.squads.catalog[_new_card]["name"]])
 			return _finish()
 	return false
+
+
+# Semana 1, Bloque 2: abre el entrenamiento táctico (3 cartas + "No tomar ninguna") y se queda con la primera.
+func _take_first_offer(scene: Node, c: Career) -> void:
+	scene._on_training("tactical")
+	var buttons: Array = scene._b2_detail.get_children().filter(func(n): return n is Button)
+	if buttons.size() != Career.OFFER_SIZE + 1:
+		errors.append("El táctico debería mostrar %d cartas y \"No tomar ninguna\" (hay %d botones)" % [Career.OFFER_SIZE, buttons.size()])
+		return
+	if c.blocks_done()["block2"]:
+		errors.append("Abrir el táctico no debería resolver el Bloque 2 antes de elegir")
+		return
+	_new_card = String(c.training_offer[0])
+	scene._on_offer_chosen(0)
+	if c.deck.size() != 12 or c.deck.back()["id"] != _new_card or c.training != "tactical":
+		errors.append("Elegir la primera carta debería agregarla al mazo (%s): %s" % [_new_card, c.deck])
+	print("  Bloque 2 · semana 1: %s" % scene._training_status.text.get_slice("\n", 0))
+
+
+# Semana 2, Bloque 2: mira la sesión de video y "Ver mazo" (con la carta de la semana 1) y se va a kinesiología.
+func _look_and_rest(scene: Node, c: Career) -> void:
+	scene._on_training("video")
+	var upgrade_buttons: Array = []
+	for row in scene._b2_detail.get_children():
+		if row is HBoxContainer:
+			upgrade_buttons.append_array(row.get_children())
+	if upgrade_buttons.is_empty() or c.blocks_done()["block2"]:
+		errors.append("La sesión de video debería mostrar tu mazo con sus mejoras, sin resolver el Bloque 2")
+		return
+	scene._on_view_deck()
+	if not _deck_shows(scene, String(c.squads.catalog[_new_card]["name"])):
+		errors.append("Ver mazo debería mostrar la carta tomada en la semana 1")
+	scene._on_view_deck()
+	scene._on_training("physio")
+	if c.training != "physio" or c.deck.size() != 12:
+		errors.append("La kinesiología debería resolver el Bloque 2 sin tocar el mazo")
+
+
+# ¿El panel "Ver mazo" está abierto y nombra la carta?
+func _deck_shows(scene: Node, card_name: String) -> bool:
+	if not scene._deck_panel.visible:
+		scene._on_view_deck()
+	return scene._deck_panel.visible and scene._deck_list.get_children().any(
+			func(n): return n is Label and n.text.contains(card_name))
 
 
 # Mismo criterio que smoke_match: primera carta jugable; si no hay, en defensa deja pasar y en

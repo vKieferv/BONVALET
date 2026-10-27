@@ -3,7 +3,8 @@
     "Modo carrera: datos de la semana. Marcas, diarios y canales siempre paródicos (nunca nombres reales).",
     "Montos en millones de CLP por semana: valores de diseño, no cifras reales. Oferta real = monto x escala de división x (1 + per_facility_level x nivel de instalaciones).",
     "Efectos de partido en puntos de acierto (0.05 = +5%). Fatiga 0-100: reduce la Estamina Global con que se arranca cada partido (tope x (1 - fatiga/200)); la estamina vuelve a ese valor en cada partido, la fatiga es lo que se arrastra entre semanas.",
-    "Fatiga tras el partido = fatigue_base + fatigue_from_wear x (estamina gastada al final, 0-1): terminar agotado cansa más que terminar entero."
+    "Fatiga tras el partido = fatigue_base + fatigue_from_wear x (estamina gastada al final, 0-1): terminar agotado cansa más que terminar entero.",
+    "training = opciones del Bloque 2, se elige UNA por semana (D-21): tactical (1 de 3 cartas nuevas, ofertas en data/decks.json), video (mejorar una carta: CardDB.UPGRADE_BONUS o CardDB.UPGRADE_AP) y physio. fatigue = fatiga que suma o resta antes del partido. El táctico ya no da forma (+3%): la carta la reemplaza."
   ],
   "start": {"popularity": 50, "discipline": 50, "fatigue": 0},
   "sponsors": [
@@ -26,8 +27,9 @@
     }
   ],
   "training": {
-    "tactical": {"name": "Entrenamiento táctico", "form_bonus": 0.03, "fatigue": 10},
-    "physio": {"name": "Kinesiología", "form_bonus": 0.0, "fatigue": -25}
+    "tactical": {"name": "Entrenamiento táctico", "fatigue": 10},
+    "video": {"name": "Sesión de video", "fatigue": 0},
+    "physio": {"name": "Kinesiología", "fatigue": -25}
   },
   "match": {"fatigue_base": 6, "fatigue_from_wear": 18, "popularity_win": 3, "popularity_loss": -3}
 }

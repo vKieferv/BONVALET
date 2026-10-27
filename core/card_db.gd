@@ -4,13 +4,21 @@ extends RefCounted
 # Cartas como datos. Dos fuentes:
 # - data/cards.json: el catálogo de cartas del DT (load_catalog, por id) y el mazo clásico de 19
 #   (load_templates/load_deck, que respetan "count"; el de antes de M2, para pruebas y comparaciones).
-# - data/decks.json: el mazo estándar, las cartas de rasgo y el crecimiento por arquetipo (D-23).
-#   archetype_templates arma las cartas del DT de un arquetipo; el mazo de un club (con las firmas de
-#   sus titulares y los canteranos asignados) lo arma SquadManager.
+# - data/decks.json: el mazo estándar, las cartas de rasgo, el crecimiento por arquetipo (D-23) y
+#   las ofertas del entrenamiento táctico (D-20). archetype_templates arma las cartas del DT de un
+#   arquetipo; el mazo de un club (con las firmas de sus titulares y los canteranos asignados) lo
+#   arma SquadManager.
 
 const CARDS_PATH := "res://data/cards.json"
 const DECKS_PATH := "res://data/decks.json"
 const TRAIT_SLOT := "@rasgo"   # en decks.json "estandar": el lugar de la carta de rasgo del arquetipo
+
+# Mejoras de la sesión de video (D-21): una por carta, se aplican a la plantilla al armar el mazo
+# (upgraded) y el motor no cambia. La carta mejorada lleva UPGRADE_SUFFIX al final del nombre.
+const UPGRADES := ["acierto", "pa"]
+const UPGRADE_BONUS := 0.10    # "acierto": +10 pts al bono de la carta, en todas sus tiradas
+const UPGRADE_AP := 1          # "pa": cuesta 1 PA menos (solo cartas que cuestan 1 o más)
+const UPGRADE_SUFFIX := "+"
 
 const PENALTY_NAMES := {
 	"calambre": "Calambre",
@@ -60,7 +68,7 @@ static func load_catalog(path: String = CARDS_PATH) -> Dictionary:
 	return out
 
 
-# decks.json: {estandar, rasgos, crecimiento}. {} si no existe o no se puede leer.
+# decks.json: {estandar, rasgos, crecimiento, ofertas}. {} si no existe o no se puede leer.
 static func load_deck_lists(path: String = DECKS_PATH) -> Dictionary:
 	var data = _read_json(path)
 	return data if data is Dictionary else {}
@@ -97,6 +105,29 @@ static func templates_from_ids(ids: Array, catalog: Dictionary) -> Array:
 # de simulación por arquetipo.
 static func archetype_templates(catalog: Dictionary, lists: Dictionary, archetype: String, extra: int = 0) -> Array:
 	return templates_from_ids(deck_ids(lists, archetype, extra), catalog)
+
+
+# ¿Se le puede dar esta mejora a la carta? "pa" solo si cuesta UPGRADE_AP o más.
+static func can_upgrade(d: Dictionary, mejora: String) -> bool:
+	if mejora == "pa":
+		return int(d.get("ap", 0)) >= UPGRADE_AP
+	return mejora == "acierto"
+
+
+# Copia de la plantilla con la mejora aplicada ("" = sin mejora): bono + UPGRADE_BONUS o PA −
+# UPGRADE_AP, el nombre con UPGRADE_SUFFIX y la mejora en "mejora" (build_match_templates la
+# conserva al renombrar las Promesas).
+static func upgraded(d: Dictionary, mejora: String) -> Dictionary:
+	var out := d.duplicate(true)
+	if mejora == "" or not can_upgrade(d, mejora):
+		return out
+	if mejora == "acierto":
+		out["bonus"] = float(out["bonus"]) + UPGRADE_BONUS
+	else:
+		out["ap"] = int(out["ap"]) - UPGRADE_AP
+	out["name"] = String(out["name"]) + UPGRADE_SUFFIX
+	out["mejora"] = mejora
+	return out
 
 
 static func _read_json(path: String) -> Variant:

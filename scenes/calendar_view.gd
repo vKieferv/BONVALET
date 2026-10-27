@@ -2,7 +2,9 @@ extends Control
 
 # Calendario semanal del modo carrera. La UI se construye por código; las reglas viven en Career.
 #   Bloque 1 · Sponsor y prensa: contrato con un sponsor paródico y el evento social de la semana.
-#   Bloque 2 · Entrenamiento o kinesiología.
+#   Bloque 2 · UNA por semana (D-21): entrenamiento táctico (1 de 3 cartas nuevas; con el mazo en su
+#              tope, eliges cuál sale), sesión de video (mejorar una carta) o kinesiología.
+#              "Ver mazo" muestra tu mazo actual.
 #   Bloque 3 · El partido: valida el mazo (validate_deck) y abre match_view.
 # La carrera se guarda sola (Career.save_path) tras cada acción de bloque y al volver del partido;
 # "Continuar carrera" la recupera en la misma semana.
@@ -40,6 +42,15 @@ var _decline_button: Button
 var _event_result: Label
 var _training_buttons := {}
 var _training_status: Label
+var _b2_detail: VBoxContainer   # lo que pide la opción abierta: las cartas ofrecidas o tu mazo para el video
+var _b2_view := ""              # opción del Bloque 2 abierta y sin resolver ("tactical" | "video")
+var _replace_for := -1          # carta de la oferta que espera elegir cuál sale (mazo en su tope)
+var _b2_result := ""            # qué dejó el Bloque 2 al resolverse (solo en pantalla)
+var _deck_button: Button
+var _deck_panel: PanelContainer
+var _deck_title: Label
+var _deck_list: VBoxContainer
+var _deck_open := false
 var _rival_label: Label
 var _lineup_label: Label
 var _check_label: Label
@@ -195,21 +206,24 @@ func _build_ui() -> void:
     _event_result = _label("", 14)
     b1.add_child(_event_result)
 
-    # Bloque 2 · Entrenamiento y kinesiología
-    var b2 := _block("BLOQUE 2 · ENTRENAMIENTO Y KINESIOLOGÍA")
-    b2.add_child(_label("Una sesión por semana.", 15, COLOR_MUTED))
-    var group := ButtonGroup.new()
-    for kind in ["tactical", "physio"]:
+    # Bloque 2 · Entrenamiento táctico, sesión de video o kinesiología
+    var b2 := _block("BLOQUE 2 · ENTRENAMIENTO, VIDEO O KINESIOLOGÍA")
+    b2.add_child(_label("Elige UNA por semana: una carta nueva, mejorar una carta o descansar.", 15, COLOR_MUTED))
+    for kind in Career.TRAINING_KINDS:
         var b := _button("", _on_training.bind(kind))
         b.toggle_mode = true
-        b.button_group = group
         b.alignment = HORIZONTAL_ALIGNMENT_LEFT
         b.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
         b.custom_minimum_size = Vector2(0, 56)
         _training_buttons[kind] = b
         b2.add_child(b)
+    _b2_detail = VBoxContainer.new()
+    _b2_detail.add_theme_constant_override("separation", 8)
+    b2.add_child(_b2_detail)
     _training_status = _label("", 14, COLOR_MUTED)
     b2.add_child(_training_status)
+    _deck_button = _button("VER MAZO", _on_view_deck)
+    b2.add_child(_deck_button)
 
     # Bloque 3 · El partido
     var b3 := _block("BLOQUE 3 · EL PARTIDO (DOMINGO)")
@@ -222,6 +236,24 @@ func _build_ui() -> void:
     _go_button = _button("IR AL PARTIDO", _on_go)
     _go_button.custom_minimum_size = Vector2(0, 52)
     b3.add_child(_go_button)
+
+    # Ver mazo: tu mazo actual (cartas, mejoras, tamaño), a lo ancho bajo los bloques.
+    _deck_panel = PanelContainer.new()
+    var deck_sb := _flat(COLOR_PANEL)
+    deck_sb.border_color = COLOR_GOLD
+    deck_sb.border_width_top = 4
+    deck_sb.set_content_margin_all(16)
+    _deck_panel.add_theme_stylebox_override("panel", deck_sb)
+    _deck_panel.visible = false
+    var deck_box := VBoxContainer.new()
+    deck_box.add_theme_constant_override("separation", 6)
+    _deck_panel.add_child(deck_box)
+    _deck_title = _label("", 18, COLOR_GOLD)
+    deck_box.add_child(_deck_title)
+    _deck_list = VBoxContainer.new()
+    _deck_list.add_theme_constant_override("separation", 4)
+    deck_box.add_child(_deck_list)
+    root.add_child(_deck_panel)
 
     _history_label = _label("", 14, COLOR_MUTED)
     root.add_child(_history_label)
@@ -255,6 +287,7 @@ func _refresh() -> void:
             if FileAccess.file_exists(Career.save_path):   # hay archivo pero no se pudo leer
                 _status.text += " No se pudo leer la carrera guardada: " + "; ".join(Career.last_load_errors)
         _set_blocks_enabled(false)
+        _deck_panel.visible = false
         return
 
     var t := _career.team()
@@ -264,6 +297,7 @@ func _refresh() -> void:
     _refresh_block1()
     _refresh_block2()
     _refresh_block3()
+    _refresh_deck_panel()
     _refresh_history()
 
 
@@ -273,6 +307,7 @@ func _set_blocks_enabled(on: bool) -> void:
     _decline_button.disabled = not on
     for b in _training_buttons.values():
         b.disabled = not on
+    _deck_button.disabled = not on
     _go_button.disabled = not on
 
 
@@ -307,18 +342,162 @@ func _refresh_block1() -> void:
 
 
 func _refresh_block2() -> void:
+    var open := _career.block2_open()
+    if not open:
+        _b2_view = ""
+        _replace_for = -1
     for kind in _training_buttons:
         var b: Button = _training_buttons[kind]
         var chosen: bool = _career.training == kind
+        var shown: bool = chosen or _b2_view == kind
         b.text = ("✓ " if chosen else "") + _career.training_terms(kind)
-        b.set_pressed_no_signal(chosen)
+        b.set_pressed_no_signal(shown)
         for state in ["font_color", "font_pressed_color", "font_hover_pressed_color"]:
-            b.add_theme_color_override(state, COLOR_GOLD if chosen else Color.WHITE)
-        b.disabled = _career.pending_match
+            b.add_theme_color_override(state, COLOR_GOLD if shown else Color.WHITE)
+        b.disabled = not open
+    _clear(_b2_detail)
+    if _b2_view == "tactical":
+        _fill_offer()
+    elif _b2_view == "video":
+        _fill_video()
     var now := _career.start_stamina_preview()
-    _training_status.text = ("Fatiga actual: %d%%. Sin cambios arrancarías con %d%% de estamina (%s, Mano: %d). " +
+    var done := ""
+    if _career.training != "":
+        var t: Dictionary = _career.data.get("training", {}).get(_career.training, {})
+        done = "✓ Bloque 2: %s. %s\n" % [t.get("name", _career.training), _b2_result]
+    _training_status.text = done + ("Fatiga actual: %d%%. Sin cambios arrancarías con %d%% de estamina (%s, Mano: %d). " +
             "La estamina vuelve a ese valor en cada partido; la fatiga se arrastra y sube más si terminas agotado.") % [
             int(_career.fatigue), now["pct"], now["zone"], now["hand"]]
+    _deck_button.disabled = false
+    _deck_button.text = "OCULTAR MAZO" if _deck_open else "VER MAZO (%d CARTAS)" % _career.deck_size()
+
+
+# Entrenamiento táctico: las cartas ofrecidas y "No tomar ninguna"; con el mazo en su tope, después
+# de elegir, cuál de tus cartas sale.
+func _fill_offer() -> void:
+    if _replace_for >= 0:
+        _fill_replace()
+        return
+    _b2_detail.add_child(_label("Te ofrecen estas cartas: elige una (tu mazo: %d de %d)." % [
+            _career.deck_size(), DeckManager.DECK_MAX], 14, COLOR_GOLD))
+    if _career.deck_full():
+        _b2_detail.add_child(_label("Tu mazo está en el tope: la que elijas reemplaza a una de tus cartas.", 14, COLOR_WARN))
+    for i in _career.training_offer.size():
+        var id := String(_career.training_offer[i])
+        var copies := _career.deck.filter(func(e): return e["id"] == id).size()
+        var text := _card_text(Card.from_dict(_squads.catalog[id]))
+        if copies > 0:
+            text += "\nYa tienes %d en el mazo." % copies
+        _b2_detail.add_child(_choice_button(text, _on_offer_chosen.bind(i)))
+    _b2_detail.add_child(_button("No tomar ninguna", _on_offer_declined))
+
+
+func _fill_replace() -> void:
+    var incoming := Card.from_dict(_squads.catalog[_career.training_offer[_replace_for]])
+    _b2_detail.add_child(_label("Tu mazo está en el tope (%d). Elige cuál de tus cartas sale para que entre %s:" % [
+            DeckManager.DECK_MAX, incoming.display_name], 14, COLOR_WARN))
+    for g in _deck_groups(false):
+        var index: int = g["indices"][0]
+        var reason := _career.replace_error(_replace_for, index)
+        var text := "Sacar %s%s" % [g["card"].display_name, " (tienes %d)" % g["indices"].size() if g["indices"].size() > 1 else ""]
+        if reason != "":
+            text += "\nNo se puede: %s" % reason
+        var b := _choice_button(text, _on_replace_chosen.bind(index))
+        b.disabled = reason != ""
+        _b2_detail.add_child(b)
+    _b2_detail.add_child(_button("Cancelar", _on_replace_cancel))
+
+
+# Sesión de video: tus cartas del DT con sus dos mejoras (las copias iguales en una fila: se mejora una).
+func _fill_video() -> void:
+    _b2_detail.add_child(_label("Elige una carta y su mejora (una por carta): +%d%% de acierto en todas sus tiradas o %d PA menos." % [
+            roundi(CardDB.UPGRADE_BONUS * 100.0), CardDB.UPGRADE_AP], 14, COLOR_GOLD))
+    for g in _deck_groups(false):
+        var index: int = g["indices"][0]
+        var count: int = g["indices"].size()
+        _b2_detail.add_child(_label(_card_text(g["card"]) + (" · tienes %d" % count if count > 1 else ""), 13))
+        var mejora := String(_career.deck[index]["mejora"])
+        if mejora != "":
+            _b2_detail.add_child(_label("Ya mejorada: %s." % _upgrade_text(mejora), 13, COLOR_MUTED))
+            continue
+        var row := HBoxContainer.new()
+        row.add_theme_constant_override("separation", 8)
+        for m in CardDB.UPGRADES:
+            var b := _button(_upgrade_text(m), _on_upgrade.bind(index, m))
+            b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+            b.disabled = not _career.can_upgrade(index, m)
+            if b.disabled:
+                b.tooltip_text = "Solo cartas que cuestan %d PA o más." % CardDB.UPGRADE_AP
+            row.add_child(b)
+        _b2_detail.add_child(row)
+
+
+# Ver mazo: todas las cartas del partido (las tuyas del DT y las firmas de los titulares), con sus mejoras.
+func _refresh_deck_panel() -> void:
+    _deck_panel.visible = _deck_open
+    if not _deck_open:
+        return
+    _clear(_deck_list)
+    var cards := _career.build_deck()
+    var defense := cards.filter(func(c: Card) -> bool: return c.is_defensive()).size()
+    _deck_title.text = "TU MAZO · %d CARTAS (TOPE %d) · %d DE ATAQUE Y %d DE DEFENSA" % [
+            cards.size(), DeckManager.DECK_MAX, cards.size() - defense, defense]
+    for g in _deck_groups(true):
+        var c: Card = g["card"]
+        var index: int = g["indices"][0]
+        var text := "×%d  %s" % [g["indices"].size(), _card_text(c).replace("\n", " · ")]
+        if index >= _career.deck.size():
+            text += " · firma de %s (titular)" % _squads.find_player(_career.team_id, c.owner_id).get("name", c.owner_id)
+        elif String(_career.deck[index]["mejora"]) != "":
+            text += " · mejorada: %s" % _upgrade_text(String(_career.deck[index]["mejora"]))
+        _deck_list.add_child(_label(text, 14, COLOR_GOLD if c.type == Card.Type.ELITE else Color.WHITE))
+    _deck_list.add_child(_label("★ = carta de un jugador del plantel (Ejecutor Natural si es titular). Las firmas de tus titulares no se sacan ni se mejoran.", 13, COLOR_MUTED))
+
+
+# Cartas del mazo del partido agrupadas por nombre (las copias iguales en una fila, en el orden del
+# mazo): [{card, indices}]. Los índices < deck.size() son tus cartas del DT; con firmas, también las de
+# los titulares.
+func _deck_groups(with_signatures: bool) -> Array:
+    var cards := _career.build_deck()
+    var groups: Array = []
+    var by_name := {}
+    for i in (cards.size() if with_signatures else _career.deck.size()):
+        var c: Card = cards[i]
+        if not by_name.has(c.display_name):
+            by_name[c.display_name] = groups.size()
+            groups.append({"card": c, "indices": []})
+        groups[by_name[c.display_name]]["indices"].append(i)
+    return groups
+
+
+# Una carta en dos líneas: nombre, tipo y jugada; PA, bono de acierto, desgaste y efecto (lo mismo
+# que muestra la carta en el partido, sin los modificadores del rival).
+func _card_text(c: Card) -> String:
+    var head := "%s%s · %s · %s" % [c.display_name, " ★" if c.owner_id != "" else "",
+            CardUI.TYPE_NAMES[c.type], CardUI.KIND_NAMES.get(c.kind, "")]
+    var wear := "Recupera %d%% Est." % roundi(MatchEngine.PAUSE_STAMINA_PCT * 100.0) if c.kind == Card.Kind.PAUSE \
+            else "Desgaste %d Est." % roundi(c.stamina_cost * MatchEngine.STAMINA_SCALE)
+    var stats := "%d PA · %+d%% de acierto · %s" % [c.ap_cost, roundi(c.bonus * 100.0), wear]
+    var effect := CardUI.effect_text(c)
+    return head + "\n" + stats + ("" if effect == "" else " · " + effect)
+
+
+func _upgrade_text(mejora: String) -> String:
+    return "+%d%% de acierto" % roundi(CardDB.UPGRADE_BONUS * 100.0) if mejora == "acierto" else "−%d PA" % CardDB.UPGRADE_AP
+
+
+func _choice_button(text: String, handler: Callable) -> Button:
+    var b := _button(text, handler)
+    b.alignment = HORIZONTAL_ALIGNMENT_LEFT
+    b.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+    b.custom_minimum_size = Vector2(0, 56)
+    return b
+
+
+func _clear(box: Container) -> void:
+    for child in box.get_children():
+        box.remove_child(child)
+        child.queue_free()
 
 
 func _refresh_block3() -> void:
@@ -375,6 +554,7 @@ func _on_start_career() -> void:
         return
     Career.current = c
     _career = c
+    _reset_block2_view()
     _save()   # reemplaza la carrera guardada
     _set_blocks_enabled(true)
     _refresh()
@@ -386,6 +566,7 @@ func _on_continue_career() -> void:
     Career.current = _saved
     _career = _saved
     _saved = null
+    _reset_block2_view()
     _set_blocks_enabled(true)
     _refresh()
 
@@ -418,11 +599,78 @@ func _on_event(accept: bool) -> void:
     _refresh()
 
 
+func _reset_block2_view() -> void:
+    _b2_view = ""
+    _replace_for = -1
+    _b2_result = ""
+
+
+# Kinesiología se resuelve al tiro; táctico y video abren lo que piden elegir (nada se aplica hasta
+# elegir la carta o la mejora, y se puede cambiar de opción mientras tanto).
 func _on_training(kind: String) -> void:
+    if _career == null or not _career.block2_open():
+        _refresh()
+        return
+    if kind == "physio":
+        if _career.choose_physio():
+            _b2_result = ""
+            _save()
+    else:
+        _b2_view = kind
+        _replace_for = -1
+    _refresh()
+
+
+func _on_offer_chosen(offer_index: int) -> void:
     if _career == null:
         return
-    if _career.choose_training(kind):
+    if _career.deck_full():
+        _replace_for = offer_index   # primero hay que elegir cuál sale
+        _refresh()
+        return
+    var name := String(_squads.catalog[_career.training_offer[offer_index]]["name"])
+    if _career.take_offer(offer_index):
+        _b2_result = "%s entra a tu mazo (%d cartas)." % [name, _career.deck_size()]
         _save()
+    _refresh()
+
+
+func _on_replace_chosen(replace_index: int) -> void:
+    if _career == null or _replace_for < 0:
+        return
+    var incoming := String(_squads.catalog[_career.training_offer[_replace_for]]["name"])
+    var outgoing: String = _career.build_deck()[replace_index].display_name
+    if _career.take_offer(_replace_for, replace_index):
+        _b2_result = "%s entra a tu mazo y sale %s." % [incoming, outgoing]
+        _save()
+    _replace_for = -1
+    _refresh()
+
+
+func _on_replace_cancel() -> void:
+    _replace_for = -1
+    _refresh()
+
+
+func _on_offer_declined() -> void:
+    if _career != null and _career.decline_offer():
+        _b2_result = "No tomaste ninguna carta esta semana."
+        _save()
+    _refresh()
+
+
+func _on_upgrade(index: int, mejora: String) -> void:
+    if _career == null:
+        return
+    var name: String = _career.build_deck()[index].display_name
+    if _career.upgrade_card(index, mejora):
+        _b2_result = "%s queda mejorada: %s." % [name, _upgrade_text(mejora)]
+        _save()
+    _refresh()
+
+
+func _on_view_deck() -> void:
+    _deck_open = not _deck_open
     _refresh()
 
 

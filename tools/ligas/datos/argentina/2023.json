@@ -19,7 +19,7 @@
    "clubes_por": [
     "tabla"
    ],
-   "jugadores_encontrados": 39,
+   "jugadores_encontrados": 38,
    "jugadores": [
     {
      "nombre": "Pablo Santillo",
@@ -234,15 +234,6 @@
      "posicion": "MED",
      "edad": 33,
      "wikidata": "Q6042081",
-     "fuente": [
-      "wikipedia"
-     ]
-    },
-    {
-     "nombre": "Ramiro Balbuena",
-     "posicion": "MED",
-     "edad": 23,
-     "wikidata": "Q101800404",
      "fuente": [
       "wikipedia"
      ]
@@ -1384,7 +1375,7 @@
    "clubes_por": [
     "tabla"
    ],
-   "jugadores_encontrados": 55,
+   "jugadores_encontrados": 54,
    "jugadores": [
     {
      "nombre": "Agustín Rossi",
@@ -1483,6 +1474,15 @@
      "posicion": "DEF",
      "edad": 26,
      "wikidata": "Q28341354",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Luis Advíncula",
+     "posicion": "DEF",
+     "edad": 33,
+     "wikidata": "Q2655086",
      "fuente": [
       "wikipedia"
      ]
@@ -1672,15 +1672,6 @@
      ]
     },
     {
-     "nombre": "Luis Advíncula",
-     "posicion": "MED",
-     "edad": 33,
-     "wikidata": "Q2655086",
-     "fuente": [
-      "wikipedia"
-     ]
-    },
-    {
      "nombre": "Martín Payero",
      "posicion": "MED",
      "edad": 24,
@@ -1740,15 +1731,6 @@
      "posicion": "DEL",
      "edad": 22,
      "wikidata": "Q58100448",
-     "fuente": [
-      "wikipedia"
-     ]
-    },
-    {
-     "nombre": "Israel Escalante",
-     "posicion": "DEL",
-     "edad": 24,
-     "wikidata": "Q97074248",
      "fuente": [
       "wikipedia"
      ]
@@ -1903,7 +1885,7 @@
    "clubes_por": [
     "tabla"
    ],
-   "jugadores_encontrados": 44,
+   "jugadores_encontrados": 43,
    "jugadores": [
     {
      "nombre": "Enrique Bologna",
@@ -2019,15 +2001,6 @@
      "posicion": "DEF",
      "edad": 40,
      "wikidata": "Q537978",
-     "fuente": [
-      "wikipedia"
-     ]
-    },
-    {
-     "nombre": "Leonardo Flores",
-     "posicion": "DEF",
-     "edad": 26,
-     "wikidata": "Q60734429",
      "fuente": [
       "wikipedia"
      ]
@@ -5483,7 +5456,7 @@
    "clubes_por": [
     "tabla"
    ],
-   "jugadores_encontrados": 39,
+   "jugadores_encontrados": 38,
    "jugadores": [
     {
      "nombre": "Enzo Pérez",
@@ -5511,15 +5484,6 @@
      "wikidata": "Q5484508",
      "fuente": [
       "wikidata",
-      "wikipedia"
-     ]
-    },
-    {
-     "nombre": "Franco Petroli",
-     "posicion": "POR",
-     "edad": 25,
-     "wikidata": "Q19333417",
-     "fuente": [
       "wikipedia"
      ]
     },
@@ -6532,7 +6496,7 @@
    "clubes_por": [
     "tabla"
    ],
-   "jugadores_encontrados": 39,
+   "jugadores_encontrados": 38,
    "jugadores": [
     {
      "nombre": "Fernando Monetti",
@@ -6593,15 +6557,6 @@
      "posicion": "DEF",
      "edad": 25,
      "wikidata": "Q88094789",
-     "fuente": [
-      "wikipedia"
-     ]
-    },
-    {
-     "nombre": "Facundo Castet",
-     "posicion": "DEF",
-     "edad": 24,
-     "wikidata": "Q62393536",
      "fuente": [
       "wikipedia"
      ]

@@ -2361,6 +2361,15 @@
      ]
     },
     {
+     "nombre": "Humberto Bustamante",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q16297979",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
      "nombre": "Jayson Mena",
      "posicion": "DEF",
      "edad": 21,
@@ -2508,15 +2517,6 @@
      "posicion": "DEL",
      "edad": 29,
      "wikidata": "Q2056903",
-     "fuente": [
-      "wikipedia"
-     ]
-    },
-    {
-     "nombre": "Humberto Bustamante",
-     "posicion": "DEL",
-     "edad": 23,
-     "wikidata": "Q16297979",
      "fuente": [
       "wikipedia"
      ]

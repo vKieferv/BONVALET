@@ -5835,6 +5835,16 @@
      "edad_aproximada": true
     },
     {
+     "nombre": "Luis Advíncula",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q2655086",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
      "nombre": "Marcos Cáceres",
      "posicion": "DEF",
      "edad": 30,
@@ -6036,16 +6046,6 @@
      "posicion": "MED",
      "edad": 24,
      "wikidata": "Q3838361",
-     "fuente": [
-      "wikidata",
-      "wikipedia"
-     ]
-    },
-    {
-     "nombre": "Luis Advíncula",
-     "posicion": "MED",
-     "edad": 26,
-     "wikidata": "Q2655086",
      "fuente": [
       "wikidata",
       "wikipedia"

@@ -3711,6 +3711,15 @@
      ]
     },
     {
+     "nombre": "Humberto Bustamante",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q16297979",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
      "nombre": "Matías Blázquez",
      "posicion": "DEF",
      "edad": 26,
@@ -3904,15 +3913,6 @@
      "posicion": "DEL",
      "edad": 26,
      "wikidata": "Q28373180",
-     "fuente": [
-      "wikipedia"
-     ]
-    },
-    {
-     "nombre": "Humberto Bustamante",
-     "posicion": "DEL",
-     "edad": 27,
-     "wikidata": "Q16297979",
      "fuente": [
       "wikipedia"
      ]

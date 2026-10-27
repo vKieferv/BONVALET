@@ -1248,16 +1248,6 @@
      ]
     },
     {
-     "nombre": "Marcos Mondaini",
-     "posicion": "MED",
-     "edad": 23,
-     "wikidata": "Q545382",
-     "fuente": [
-      "wikidata",
-      "wikipedia"
-     ]
-    },
-    {
      "nombre": "Neri Cardozo",
      "posicion": "MED",
      "edad": 21,
@@ -1428,6 +1418,16 @@
      "posicion": "DEL",
      "edad": 27,
      "wikidata": "Q503165",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Marcos Mondaini",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q545382",
      "fuente": [
       "wikidata",
       "wikipedia"

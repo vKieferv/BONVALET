@@ -885,7 +885,7 @@
    "clubes_por": [
     "tabla"
    ],
-   "jugadores_encontrados": 44,
+   "jugadores_encontrados": 43,
    "jugadores": [
     {
      "nombre": "Alejandro Miguel Sánchez",
@@ -1253,15 +1253,6 @@
      "posicion": "DEL",
      "edad": 26,
      "wikidata": "Q3560220",
-     "fuente": [
-      "wikipedia"
-     ]
-    },
-    {
-     "nombre": "Martín Peralta",
-     "posicion": "DEL",
-     "edad": 22,
-     "wikidata": "Q43306586",
      "fuente": [
       "wikipedia"
      ]

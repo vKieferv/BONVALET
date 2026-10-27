@@ -19,7 +19,7 @@
    "clubes_por": [
     "tabla"
    ],
-   "jugadores_encontrados": 35,
+   "jugadores_encontrados": 34,
    "jugadores": [
     {
      "nombre": "Alex Werner",
@@ -217,15 +217,6 @@
      "posicion": "MED",
      "edad": 32,
      "wikidata": "Q65029221",
-     "fuente": [
-      "wikipedia"
-     ]
-    },
-    {
-     "nombre": "Ramiro Balbuena",
-     "posicion": "MED",
-     "edad": 22,
-     "wikidata": "Q101800404",
      "fuente": [
       "wikipedia"
      ]
@@ -1589,6 +1580,15 @@
      ]
     },
     {
+     "nombre": "Luis Advíncula",
+     "posicion": "DEF",
+     "edad": 32,
+     "wikidata": "Q2655086",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
      "nombre": "Marcelo Weigandt",
      "posicion": "DEF",
      "edad": 22,
@@ -1769,15 +1769,6 @@
      "posicion": "MED",
      "edad": 20,
      "wikidata": "Q108219718",
-     "fuente": [
-      "wikipedia"
-     ]
-    },
-    {
-     "nombre": "Luis Advíncula",
-     "posicion": "MED",
-     "edad": 32,
-     "wikidata": "Q2655086",
      "fuente": [
       "wikipedia"
      ]
@@ -5446,7 +5437,7 @@
    "clubes_por": [
     "tabla"
    ],
-   "jugadores_encontrados": 51,
+   "jugadores_encontrados": 50,
    "jugadores": [
     {
      "nombre": "Alejandro Miguel Sánchez",
@@ -5633,15 +5624,6 @@
      "posicion": "DEF",
      "edad": 31,
      "wikidata": "Q46023212",
-     "fuente": [
-      "wikipedia"
-     ]
-    },
-    {
-     "nombre": "Sasha Marcich",
-     "posicion": "DEF",
-     "edad": 24,
-     "wikidata": "Q118189174",
      "fuente": [
       "wikipedia"
      ]
@@ -7226,7 +7208,7 @@
    "clubes_por": [
     "tabla"
    ],
-   "jugadores_encontrados": 38,
+   "jugadores_encontrados": 37,
    "jugadores": [
     {
      "nombre": "Facundo Ferrero",
@@ -7351,15 +7333,6 @@
      "posicion": "DEF",
      "edad": 42,
      "wikidata": "Q6756515",
-     "fuente": [
-      "wikipedia"
-     ]
-    },
-    {
-     "nombre": "Martín García",
-     "posicion": "DEF",
-     "edad": 23,
-     "wikidata": "Q65029217",
      "fuente": [
       "wikipedia"
      ]
@@ -10757,7 +10730,7 @@
    "clubes_por": [
     "tabla"
    ],
-   "jugadores_encontrados": 51,
+   "jugadores_encontrados": 50,
    "jugadores": [
     {
      "nombre": "Alan Aguerre",
@@ -11146,15 +11119,6 @@
      "posicion": "DEL",
      "edad": 22,
      "wikidata": "Q58010365",
-     "fuente": [
-      "wikipedia"
-     ]
-    },
-    {
-     "nombre": "Marcos Arturia",
-     "posicion": "DEL",
-     "edad": 24,
-     "wikidata": "Q47581311",
      "fuente": [
       "wikipedia"
      ]

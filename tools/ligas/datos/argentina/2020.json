@@ -9614,7 +9614,7 @@
    "clubes_por": [
     "tabla"
    ],
-   "jugadores_encontrados": 46,
+   "jugadores_encontrados": 45,
    "jugadores": [
     {
      "nombre": "Jorge Broun",
@@ -9956,15 +9956,6 @@
      "posicion": "DEL",
      "edad": 35,
      "wikidata": "Q2404742",
-     "fuente": [
-      "wikipedia"
-     ]
-    },
-    {
-     "nombre": "Maximiliano Comba",
-     "posicion": "DEL",
-     "edad": 26,
-     "wikidata": "Q57313846",
      "fuente": [
       "wikipedia"
      ]

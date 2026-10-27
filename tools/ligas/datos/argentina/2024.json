@@ -1018,7 +1018,7 @@
    "clubes_por": [
     "tabla"
    ],
-   "jugadores_encontrados": 58,
+   "jugadores_encontrados": 57,
    "jugadores": [
     {
      "nombre": "Javier Hernán García",
@@ -1146,6 +1146,15 @@
      "posicion": "DEF",
      "edad": 27,
      "wikidata": "Q28341354",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Luis Advíncula",
+     "posicion": "DEF",
+     "edad": 34,
+     "wikidata": "Q2655086",
      "fuente": [
       "wikipedia"
      ]
@@ -1364,15 +1373,6 @@
      ]
     },
     {
-     "nombre": "Luis Advíncula",
-     "posicion": "MED",
-     "edad": 34,
-     "wikidata": "Q2655086",
-     "fuente": [
-      "wikipedia"
-     ]
-    },
-    {
      "nombre": "Mauricio Benítez",
      "posicion": "MED",
      "edad": 20,
@@ -1461,15 +1461,6 @@
      "wikidata": "Q133818545",
      "fuente": [
       "wikidata"
-     ]
-    },
-    {
-     "nombre": "Israel Escalante",
-     "posicion": "DEL",
-     "edad": 25,
-     "wikidata": "Q97074248",
-     "fuente": [
-      "wikipedia"
      ]
     },
     {

@@ -1719,16 +1719,6 @@
      ]
     },
     {
-     "nombre": "Marcos Mondaini",
-     "posicion": "MED",
-     "edad": 25,
-     "wikidata": "Q545382",
-     "fuente": [
-      "wikidata",
-      "wikipedia"
-     ]
-    },
-    {
      "nombre": "Matías Giménez",
      "posicion": "MED",
      "edad": 25,
@@ -1848,6 +1838,16 @@
      "posicion": "DEL",
      "edad": 24,
      "wikidata": "Q6700865",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Marcos Mondaini",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q545382",
      "fuente": [
       "wikidata",
       "wikipedia"

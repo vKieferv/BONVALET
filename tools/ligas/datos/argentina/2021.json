@@ -1393,6 +1393,15 @@
      ]
     },
     {
+     "nombre": "Luis Advíncula",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q2655086",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
      "nombre": "Marcos Rojo",
      "posicion": "DEF",
      "edad": 31,
@@ -1639,15 +1648,6 @@
      "posicion": "MED",
      "edad": 22,
      "wikidata": "Q62394067",
-     "fuente": [
-      "wikipedia"
-     ]
-    },
-    {
-     "nombre": "Luis Advíncula",
-     "posicion": "MED",
-     "edad": 31,
-     "wikidata": "Q2655086",
      "fuente": [
       "wikipedia"
      ]
@@ -11097,7 +11097,7 @@
    "clubes_por": [
     "tabla"
    ],
-   "jugadores_encontrados": 52,
+   "jugadores_encontrados": 51,
    "jugadores": [
     {
      "nombre": "Guido Herrera",
@@ -11486,15 +11486,6 @@
      "posicion": "DEL",
      "edad": 18,
      "wikidata": "Q63340535",
-     "fuente": [
-      "wikipedia"
-     ]
-    },
-    {
-     "nombre": "Marcos Arturia",
-     "posicion": "DEL",
-     "edad": 23,
-     "wikidata": "Q47581311",
      "fuente": [
       "wikipedia"
      ]

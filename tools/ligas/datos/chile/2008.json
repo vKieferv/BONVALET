@@ -2115,6 +2115,15 @@
      ]
     },
     {
+     "nombre": "Humberto Bustamante",
+     "posicion": "DEF",
+     "edad": 18,
+     "wikidata": "Q16297979",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
      "nombre": "Lisandro Henríquez",
      "posicion": "DEF",
      "edad": 25,
@@ -2267,15 +2276,6 @@
      "wikidata": "Q2056903",
      "fuente": [
       "wikidata",
-      "wikipedia"
-     ]
-    },
-    {
-     "nombre": "Humberto Bustamante",
-     "posicion": "DEL",
-     "edad": 18,
-     "wikidata": "Q16297979",
-     "fuente": [
       "wikipedia"
      ]
     },

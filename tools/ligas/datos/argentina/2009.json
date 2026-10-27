@@ -1623,16 +1623,6 @@
      ]
     },
     {
-     "nombre": "Marcos Mondaini",
-     "posicion": "MED",
-     "edad": 24,
-     "wikidata": "Q545382",
-     "fuente": [
-      "wikidata",
-      "wikipedia"
-     ]
-    },
-    {
      "nombre": "Mariano Torres",
      "posicion": "MED",
      "edad": 22,
@@ -1764,6 +1754,16 @@
      "posicion": "DEL",
      "edad": 28,
      "wikidata": "Q503165",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
+     "nombre": "Marcos Mondaini",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q545382",
      "fuente": [
       "wikidata",
       "wikipedia"

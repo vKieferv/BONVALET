@@ -80,50 +80,50 @@
   },
   "2019": {
    "clubes": 28,
-   "jugadores": 1400,
+   "jugadores": 1399,
    "mediana_por_club": 51,
    "clubes_con_menos_de_15": 0
   },
   "2020": {
    "clubes": 24,
-   "jugadores": 1174,
+   "jugadores": 1173,
    "mediana_por_club": 50,
    "clubes_con_menos_de_15": 0
   },
   "2021": {
    "clubes": 26,
-   "jugadores": 1235,
+   "jugadores": 1234,
    "mediana_por_club": 49,
    "clubes_con_menos_de_15": 0
   },
   "2022": {
    "clubes": 28,
-   "jugadores": 1193,
+   "jugadores": 1189,
    "mediana_por_club": 42,
    "clubes_con_menos_de_15": 0
   },
   "2023": {
    "clubes": 28,
-   "jugadores": 1163,
+   "jugadores": 1158,
    "mediana_por_club": 41,
    "clubes_con_menos_de_15": 0
   },
   "2024": {
    "clubes": 28,
-   "jugadores": 1176,
+   "jugadores": 1175,
    "mediana_por_club": 42,
    "clubes_con_menos_de_15": 0
   },
   "2025": {
    "clubes": 30,
-   "jugadores": 1129,
-   "mediana_por_club": 38,
+   "jugadores": 1127,
+   "mediana_por_club": 37,
    "clubes_con_menos_de_15": 0
   },
   "2026": {
-   "clubes": 0,
-   "jugadores": 0,
-   "mediana_por_club": 0,
+   "clubes": 30,
+   "jugadores": 1194,
+   "mediana_por_club": 36,
    "clubes_con_menos_de_15": 0
   }
  },

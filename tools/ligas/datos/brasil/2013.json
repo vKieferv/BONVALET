@@ -181,6 +181,16 @@
      ]
     },
     {
+     "nombre": "Luis Advíncula",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q2655086",
+     "fuente": [
+      "wikidata",
+      "wikipedia"
+     ]
+    },
+    {
      "nombre": "Luiz Antonio Linhares Garcia",
      "posicion": "DEF",
      "edad": 27,
@@ -398,16 +408,6 @@
      "posicion": "MED",
      "edad": 22,
      "wikidata": "Q20986970",
-     "fuente": [
-      "wikidata",
-      "wikipedia"
-     ]
-    },
-    {
-     "nombre": "Luis Advíncula",
-     "posicion": "MED",
-     "edad": 23,
-     "wikidata": "Q2655086",
      "fuente": [
       "wikidata",
       "wikipedia"

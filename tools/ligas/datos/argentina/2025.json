@@ -1131,6 +1131,15 @@
      ]
     },
     {
+     "nombre": "Luis Advíncula",
+     "posicion": "DEF",
+     "edad": 35,
+     "wikidata": "Q2655086",
+     "fuente": [
+      "wikipedia"
+     ]
+    },
+    {
      "nombre": "Marcelo Saracchi",
      "posicion": "DEF",
      "edad": 27,
@@ -1314,15 +1323,6 @@
      "wikidata": "Q630170",
      "fuente": [
       "wikidata",
-      "wikipedia"
-     ]
-    },
-    {
-     "nombre": "Luis Advíncula",
-     "posicion": "MED",
-     "edad": 35,
-     "wikidata": "Q2655086",
-     "fuente": [
       "wikipedia"
      ]
     },
@@ -1815,7 +1815,7 @@
    "clubes_por": [
     "tabla"
    ],
-   "jugadores_encontrados": 38,
+   "jugadores_encontrados": 37,
    "jugadores": [
     {
      "nombre": "Diego Romero",
@@ -1922,15 +1922,6 @@
      "posicion": "DEF",
      "edad": 21,
      "wikidata": "Q130564849",
-     "fuente": [
-      "wikipedia"
-     ]
-    },
-    {
-     "nombre": "Alejandro Cabrera",
-     "posicion": "MED",
-     "edad": 32,
-     "wikidata": "Q104172709",
      "fuente": [
       "wikipedia"
      ]
@@ -7870,7 +7861,7 @@
    "clubes_por": [
     "tabla"
    ],
-   "jugadores_encontrados": 44,
+   "jugadores_encontrados": 43,
    "jugadores": [
     {
      "nombre": "Enzo Pérez",
@@ -8046,15 +8037,6 @@
      "posicion": "MED",
      "edad": 24,
      "wikidata": "Q108906287",
-     "fuente": [
-      "wikipedia"
-     ]
-    },
-    {
-     "nombre": "Brian Orosco",
-     "posicion": "MED",
-     "edad": 27,
-     "wikidata": "Q60894863",
      "fuente": [
       "wikipedia"
      ]

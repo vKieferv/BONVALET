@@ -1,9 +1,10 @@
 # Reglas de los datos históricos de 2006 (data/history_2006.json, T-07): calendario de una vuelta
 # (9 partidos y un club libre por fecha, 18 partidos por club, cada par una vez), tablas que salen de
 # los resultados (una diferencia solo vale si review la explica como sanción), llaves de repechaje,
-# playoffs y liguilla coherentes con sus marcadores, tabla acumulada, descenso e ids que existen en
-# teams_chile_2006.json. Cada sección se comprueba si tiene datos; con "estado": "completo" se exigen
-# todas. Antes, las mismas reglas se prueban con temporadas sintéticas para que fallen cuando deben.
+# playoffs y liguillas coherentes con sus marcadores, tabla acumulada, descenso (directo, administrativo
+# y liguillas por puesto en la acumulada), ascensos e ids que existen en teams_chile_2006.json. Cada
+# sección se comprueba si tiene datos; con "estado": "completo" se exigen todas. Antes, las mismas reglas
+# se prueban con temporadas sintéticas para que fallen cuando deben.
 # Uso: godot --headless --path . -s res://tests/data_rules.gd
 extends SceneTree
 
@@ -102,15 +103,38 @@ func _history_errors(h: Dictionary) -> Array[String]:
 		e.append("un archivo sin terminar tiene que explicar en review qué falta")
 	e.append_array(_sources_errors(_as_array(h["sources"], "sources", e), completo))
 	var tablas := {}
+	var equipos := {}      # torneo -> {id: true}
 	for nombre in TORNEOS:
 		var t := _as_dict(h[nombre], nombre, e)
 		e.append_array(_torneo_errors(t, nombre, review, completo))
 		tablas[nombre] = t.get("tabla", [])
+		equipos[nombre] = {}
+		if t.get("equipos") is Array:
+			for id in t["equipos"]:
+				equipos[nombre][id] = true
 	var acumulada := _as_array(h["tabla_acumulada"], "tabla_acumulada", e)
 	e.append_array(_acumulada_errors(acumulada, tablas, review, completo))
 	var ascensos := _as_array(h["ascensos"], "ascensos", e)
 	e.append_array(_ascensos_errors(ascensos, completo))
-	e.append_array(_descenso_errors(_as_dict(h["descenso"], "descenso", e), acumulada, ascensos, review, completo))
+	var descenso := _as_dict(h["descenso"], "descenso", e)
+	e.append_array(_descenso_errors(descenso, acumulada, ascensos, equipos, review, completo))
+	e.append_array(_clubes_del_ano_errors(equipos, descenso))
+	return e
+
+
+# Los dos torneos los juegan los mismos clubes, y cada club de Primera A de teams_chile_2006.json jugó el
+# año o bajó sin jugarlo (descenso.administrativo; en 2006, Deportes Concepción).
+func _clubes_del_ano_errors(equipos: Dictionary, descenso: Dictionary) -> Array[String]:
+	var e: Array[String] = []
+	var a: Dictionary = equipos["apertura"]
+	if a.is_empty() or equipos["clausura"].is_empty():
+		return e
+	if not _mismas_claves(a, equipos["clausura"]):
+		e.append("apertura y clausura tienen equipos distintos")
+	var admin: Variant = descenso.get("administrativo")
+	for t in league.get_teams("Primera A"):
+		if not a.has(t["id"]) and not (admin is Array and t["id"] in admin):
+			e.append("%s es de Primera A, no jugó 2006 y descenso.administrativo no lo explica" % t["id"])
 	return e
 
 
@@ -233,8 +257,8 @@ func _fechas_errors(fechas: Array, nombre: String, en_torneo: Dictionary, inicio
 	return e
 
 
-# Un partido {local, visita, goles_local, goles_visita, dia, estadio}. Goles null solo si review lo
-# explica (tipo "sin_fuente" con este mismo donde).
+# Un partido {local, visita, goles_local, goles_visita, dia, estadio} y nota opcional. Goles null solo si
+# review lo explica (tipo "sin_fuente" con este mismo donde).
 func _partido_errors(p: Variant, donde: String, validos: Dictionary, inicio: Variant, fin: Variant,
 		review: Array) -> Array[String]:
 	if not (p is Dictionary):
@@ -264,6 +288,8 @@ func _partido_errors(p: Variant, donde: String, validos: Dictionary, inicio: Var
 			e.append("%s: dia %s fuera del torneo (%s a %s)" % [quien, p["dia"], inicio, fin])
 	if p["estadio"] != null and not (p["estadio"] is String):
 		e.append("%s: estadio debería ser texto o null" % quien)
+	if p.has("nota") and (not (p["nota"] is String) or String(p["nota"]).is_empty()):
+		e.append("%s: nota, si está, debería ser un texto" % quien)
 	return e
 
 
@@ -532,48 +558,65 @@ func _acumulada_errors(acumulada: Array, tablas: Dictionary, review: Array, comp
 	return e
 
 
-# Descenso por la acumulada (D-24): el último baja directo y el penúltimo va a la liguilla de promoción
-# contra un club de Primera B. Si la pierde, su rival sube.
-func _descenso_errors(d: Dictionary, acumulada: Array, ascensos: Array, review: Array,
+# Descenso por la acumulada, como fue en 2006 (D-24 decía otra cosa; ver review del archivo): el último
+# baja directo, los de administrativo bajan sin haber jugado el año y los de la liguilla (los puestos
+# justo encima del último, en el orden de la acumulada) juegan una llave contra un club de Primera B.
+# El club de Primera B que gana su llave está en ascensos; el que la pierde, no.
+func _descenso_errors(d: Dictionary, acumulada: Array, ascensos: Array, equipos: Dictionary, review: Array,
 		completo: bool) -> Array[String]:
 	var e: Array[String] = []
-	if not d.has_all(["directo", "liguilla"]):
-		return ["descenso debería tener directo y liguilla"]
-	var ultimos: Array = []
-	for f in acumulada.slice(-2):
-		ultimos.append(f.get("club") if f is Dictionary else null)
+	if not d.has_all(["directo", "administrativo", "liguilla"]):
+		return ["descenso debería tener directo, administrativo y liguilla"]
+	var orden: Array = acumulada.map(func(f: Variant) -> Variant: return f.get("club") if f is Dictionary else null)
 	if d["directo"] == null:
 		_vacia("descenso.directo", completo, e)
 	elif not _es_club(d["directo"], "Primera A"):
 		e.append("descenso.directo: %s no es un club de Primera A" % d["directo"])
-	elif ultimos.size() == 2 and d["directo"] != ultimos[1]:
-		e.append("descenso.directo es %s pero el último de la acumulada es %s" % [d["directo"], ultimos[1]])
-	var lig: Variant = d["liguilla"]
-	if lig == null:
+	elif not orden.is_empty() and d["directo"] != orden[-1]:
+		e.append("descenso.directo es %s pero el último de la acumulada es %s" % [d["directo"], orden[-1]])
+
+	for id in _as_array(d["administrativo"], "descenso.administrativo", e):
+		if not _es_club(id, "Primera A"):
+			e.append("descenso.administrativo: %s no es un club de Primera A" % id)
+		elif equipos["apertura"].has(id) or equipos["clausura"].has(id):
+			e.append("descenso.administrativo: %s jugó el año" % id)
+
+	var ligas := _as_array(d["liguilla"], "descenso.liguilla", e)
+	if ligas.is_empty():
 		_vacia("descenso.liguilla", completo, e)
 		return e
-	if not (lig is Dictionary) or not lig.has_all(["club", "llave", "se_mantiene"]):
-		e.append("descenso.liguilla debería ser {club, llave, se_mantiene}")
-		return e
-	if not _es_club(lig["club"], "Primera A"):
-		e.append("descenso.liguilla: %s no es un club de Primera A" % lig["club"])
-	elif ultimos.size() == 2 and lig["club"] != ultimos[0]:
-		e.append("descenso.liguilla es para %s pero el penúltimo de la acumulada es %s" % [lig["club"], ultimos[0]])
-	var llave_errors := _llave_errors(lig["llave"], "descenso.liguilla", _todos, null, null, review, {})
-	e.append_array(llave_errors)
-	if not llave_errors.is_empty():
-		return e
-	var jugaron := _participantes(lig["llave"])
-	if not (lig["club"] in jugaron):
-		e.append("descenso.liguilla: la llave no la juega %s" % lig["club"])
-		return e
-	var rival: Variant = jugaron[1] if jugaron[0] == lig["club"] else jugaron[0]
-	if not _es_club(rival, "Primera B"):
-		e.append("descenso.liguilla: el rival %s no es de Primera B" % rival)
-	if not (lig["se_mantiene"] is bool) or lig["se_mantiene"] != (lig["llave"]["avanza"] == lig["club"]):
-		e.append("descenso.liguilla: se_mantiene no coincide con quién ganó la llave")
-	elif not lig["se_mantiene"] and not (rival in ascensos):
-		e.append("descenso.liguilla: %s ganó la liguilla y no está en ascensos" % rival)
+	var esperados: Array = orden.slice(-1 - ligas.size(), -1) if orden.size() > ligas.size() else []
+	var rivales := {}
+	for i in ligas.size():
+		var lig: Variant = ligas[i]
+		var donde := "descenso.liguilla %d" % (i + 1)
+		if not (lig is Dictionary) or not lig.has_all(["club", "llave", "se_mantiene"]):
+			e.append(donde + " debería ser {club, llave, se_mantiene}")
+			continue
+		if not _es_club(lig["club"], "Primera A"):
+			e.append("%s: %s no es un club de Primera A" % [donde, lig["club"]])
+			continue
+		if not esperados.is_empty() and lig["club"] != esperados[i]:
+			e.append("%s es para %s pero en ese puesto de la acumulada está %s" % [donde, lig["club"], esperados[i]])
+		var llave_errors := _llave_errors(lig["llave"], donde, _todos, null, null, review, {})
+		e.append_array(llave_errors)
+		if not llave_errors.is_empty():
+			continue
+		var jugaron := _participantes(lig["llave"])
+		if not (lig["club"] in jugaron):
+			e.append("%s: la llave no la juega %s" % [donde, lig["club"]])
+			continue
+		var rival: Variant = jugaron[1] if jugaron[0] == lig["club"] else jugaron[0]
+		if not _es_club(rival, "Primera B"):
+			e.append("%s: el rival %s no es de Primera B" % [donde, rival])
+		elif rivales.has(rival):
+			e.append("%s: %s juega dos liguillas" % [donde, rival])
+		rivales[rival] = true
+		if not (lig["se_mantiene"] is bool) or lig["se_mantiene"] != (lig["llave"]["avanza"] == lig["club"]):
+			e.append("%s: se_mantiene no coincide con quién ganó la llave" % donde)
+		elif lig["se_mantiene"] == (rival in ascensos):
+			e.append("%s: %s %s" % [donde, rival, "perdió la liguilla y está en ascensos" if lig["se_mantiene"]
+					else "ganó la liguilla y no está en ascensos"])
 	return e
 
 
@@ -628,6 +671,8 @@ func _sources_errors(sources: Array, completo: bool) -> Array[String]:
 				e.append("%s: falta %s" % [quien, key])
 		if s.get("url") is String and not String(s["url"]).begins_with("https://"):
 			e.append("%s: url debería empezar con https://" % quien)
+		if s.get("revision") != null and not (_es_entero(s["revision"]) and s["revision"] > 0):
+			e.append("%s: revision debería ser el número de revisión (oldid) o null" % quien)
 		if ids.has(s.get("id")):
 			e.append("%s: id %s repetido" % [quien, s.get("id")])
 		ids[s.get("id")] = true
@@ -858,6 +903,12 @@ func _test_torneo_sintetico() -> void:
 	_expect_ok(_torneo_errors(mal, "apertura", sin_fuente, true), "un resultado null explicado en review")
 
 	mal = t.duplicate(true)
+	mal["fechas"][0]["partidos"][0]["nota"] = "Se jugó con lluvia."
+	_expect_ok(_torneo_errors(mal, "apertura", [], true), "un partido con nota")
+	mal["fechas"][0]["partidos"][0]["nota"] = 3
+	_expect_error(_torneo_errors(mal, "apertura", [], true), "una nota que no es texto", "nota")
+
+	mal = t.duplicate(true)
 	mal["equipos"][0] = "club_inexistente"
 	_expect_error(_torneo_errors(mal, "apertura", [], true), "un id que no existe", "club_inexistente")
 	mal = t.duplicate(true)
@@ -904,11 +955,38 @@ func _test_temporada_sintetica() -> void:
 	mal["descenso"]["directo"] = mal["tabla_acumulada"][0]["club"]
 	_expect_error(_history_errors(mal), "baja el primero de la acumulada", "último")
 	mal = h.duplicate(true)
-	mal["descenso"]["liguilla"]["se_mantiene"] = not mal["descenso"]["liguilla"]["se_mantiene"]
+	var lig: Dictionary = mal["descenso"]["liguilla"][0]
+	lig["se_mantiene"] = not lig["se_mantiene"]
 	_expect_error(_history_errors(mal), "se_mantiene al revés", "se_mantiene")
+	mal = h.duplicate(true)
+	mal["descenso"]["liguilla"].reverse()
+	_expect_error(_history_errors(mal), "las liguillas en otro orden que la acumulada", "puesto de la acumulada")
+	mal = h.duplicate(true)
+	lig = mal["descenso"]["liguilla"][0]
+	var rival: String = _participantes(lig["llave"])[1]
+	if lig["se_mantiene"]:
+		mal["ascensos"].append(rival)
+	else:
+		mal["ascensos"].erase(rival)
+	_expect_error(_history_errors(mal), "ascensos que no siguen a la liguilla", "ascensos")
+	mal = h.duplicate(true)
+	mal["descenso"]["liguilla"][1]["llave"] = mal["descenso"]["liguilla"][0]["llave"].duplicate(true)
+	_expect_error(_history_errors(mal), "una liguilla que no juega su club", "no la juega")
+	mal = h.duplicate(true)
+	mal["descenso"]["administrativo"].clear()
+	_expect_error(_history_errors(mal), "un club de Primera A que no jugó sin explicar", "administrativo")
+	mal = h.duplicate(true)
+	mal["descenso"]["administrativo"].append(mal["apertura"]["equipos"][0])
+	_expect_error(_history_errors(mal), "un descenso administrativo de un club que jugó", "jugó el año")
+	mal = h.duplicate(true)
+	mal["clausura"]["equipos"][0] = mal["descenso"]["administrativo"][0]
+	_expect_error(_history_errors(mal), "torneos con clubes distintos", "equipos distintos")
 	mal = h.duplicate(true)
 	mal["ascensos"].append("colo_colo")
 	_expect_error(_history_errors(mal), "un club de Primera A que asciende", "Primera B")
+	mal = h.duplicate(true)
+	mal["sources"][0]["revision"] = "ayer"
+	_expect_error(_history_errors(mal), "una revisión que no es un número", "revision")
 	mal = h.duplicate(true)
 	mal["ascensos"].clear()
 	_expect_error(_history_errors(mal), "un archivo completo sin ascensos", "ascensos")
@@ -925,7 +1003,8 @@ func _test_archivo_pendiente() -> void:
 			"repechaje": [], "playoffs": {"cuartos": [], "semis": [], "final": null}, "campeon": null,
 			"goleadores": []}
 	var h := {"_notes": [], "estado": "pendiente", "sources": [_fuente(null)], "apertura": torneo,
-			"clausura": torneo.duplicate(true), "tabla_acumulada": [], "descenso": {"directo": null, "liguilla": null},
+			"clausura": torneo.duplicate(true), "tabla_acumulada": [],
+			"descenso": {"directo": null, "administrativo": [], "liguilla": []},
 			"ascensos": [], "review": [{"tipo": "bloqueo", "donde": "*", "detalle": "prueba"}]}
 	_expect_ok(_history_errors(h), "un archivo pendiente con el bloqueo en review")
 	var mal := h.duplicate(true)
@@ -1036,15 +1115,22 @@ func _temporada_sintetica() -> Dictionary:
 		fila["club"] = club
 		acumulada.append(fila)
 	acumulada.sort_custom(func(x: Dictionary, y: Dictionary) -> bool: return x["pts"] > y["pts"])
-	var penultimo: String = acumulada[-2]["club"]
+	# Como en 2006: el 17.º y el 18.º a liguilla contra dos clubes de Primera B, y uno de Primera B sube directo.
 	var primera_b: Array = league.get_teams("Primera B")
-	var llave := _llave_sintetica(penultimo, primera_b[0]["id"], _rng(3))
-	var se_mantiene: bool = llave["avanza"] == penultimo
-	var ascensos: Array = [primera_b[1]["id"]]
-	if not se_mantiene:
-		ascensos.append(primera_b[0]["id"])
+	var ascensos: Array = [primera_b[0]["id"]]
+	var liguilla: Array = []
+	for i in 2:
+		var club: String = acumulada[-3 + i]["club"]
+		var llave := _llave_sintetica(club, primera_b[1 + i]["id"], _rng(3 + i))
+		var se_mantiene: bool = llave["avanza"] == club
+		liguilla.append({"club": club, "llave": llave, "se_mantiene": se_mantiene})
+		if not se_mantiene:
+			ascensos.append(primera_b[1 + i]["id"])
+	var administrativo: Array = []
+	for t in league.get_teams("Primera A"):
+		if not (t["id"] in apertura["equipos"]):
+			administrativo.append(t["id"])
 	return {"_notes": [], "estado": "completo", "sources": [_fuente("2026-10-27")], "apertura": apertura,
 			"clausura": clausura, "tabla_acumulada": acumulada,
-			"descenso": {"directo": acumulada[-1]["club"],
-					"liguilla": {"club": penultimo, "llave": llave, "se_mantiene": se_mantiene}},
+			"descenso": {"directo": acumulada[-1]["club"], "administrativo": administrativo, "liguilla": liguilla},
 			"ascensos": ascensos, "review": []}

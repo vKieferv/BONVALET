@@ -1,87 +1,931 @@
 {
   "_notes": [
     "Historia real del Apertura y el Clausura 2006 de Primera División de Chile (T-07; D-24, D-25, D-02). El juego no copia estos resultados: en M3 sirven para el calendario real y para mostrar 'en la realidad pasó esto' (I-36).",
-    "ESTADO PENDIENTE: la sesión en la nube del 2026-10-27 no pudo abrir las fuentes (ver review). Solo están el formato y la prueba tests/data_rules.gd; ningún dato histórico se cargó todavía.",
+    "Cargado el 2026-10-27 desde es.wikipedia (páginas de cada torneo y anexos de resultados y de la liguilla, con el número de revisión en sources) y cruzado con RSSSF. Los tres coinciden en los 342 partidos de la fase regular (local, visita, marcador, día y club libre) y en todos los playoffs; las tablas publicadas salen exactas de los resultados. Las pocas diferencias (dos estadios y el día de un partido suspendido) están en review.",
     "estado: 'pendiente' (sin datos), 'parcial' o 'completo'. tests/data_rules.gd comprueba cada sección que tenga datos; con 'completo' exige todas y la fecha de consulta de cada fuente.",
-    "Ids de clubes: los de data/teams_chile_2006.json (Primera A en los torneos, Primera B en ascensos y en el rival de la liguilla). Un club de 2006 que no esté ahí va a review, no se agrega.",
-    "Torneo (apertura, clausura): inicio y fin (AAAA-MM-DD); equipos (19 ids); grupos {A, B, C, D: [ids]}; fechas [{numero 1-19, libre: id, partidos: [9 partidos]}]; tabla de la fase regular en el orden publicado [{club, pj, pg, pe, pp, gf, gc, pts}]; repechaje [llaves], vacío si no hubo; playoffs {cuartos: [4 llaves], semis: [2 llaves], final: llave}; campeon: id; goleadores [{nombre, club, goles}] (más de uno si empataron).",
-    "Partido: {local, visita, goles_local, goles_visita, dia (AAAA-MM-DD), estadio}. dia y estadio pueden ser null; goles null solo con una entrada de review tipo 'sin_fuente' cuyo donde sea '<torneo>.fecha N' (la tabla de esos clubes solo se compara en pj).",
-    "Llave: {ida: partido, vuelta: partido o null si fue a partido único (la vuelta invierte local y visita), global: {id: goles, id: goles}, penales: null o {id: goles, id: goles}, avanza: id, criterio}. criterio null = lo decide el global o los penales; 'gol_de_visita' o 'ventaja_deportiva' (mejor puesto en la tabla de la fase regular) cuando el global quedó empatado sin penales.",
-    "tabla_acumulada: suma de las tablas de la fase regular de ambos torneos, en el orden publicado. descenso: {directo: último de la acumulada, liguilla: {club: penúltimo, llave contra un club de Primera B, se_mantiene: bool}}. ascensos: [ids de Primera B]; si el club de Primera A pierde la liguilla, su rival tiene que estar en ascensos.",
-    "review: [{tipo, donde, detalle}] con tipo 'bloqueo', 'sin_fuente', 'discrepancia' o 'sancion'. Una 'sancion' lleva además club y pts (puntos sumados o descontados, p. ej. -3) y donde ('apertura.tabla', 'clausura.tabla' o 'tabla_acumulada'): es la única forma en que la prueba acepta que una tabla publicada no salga de los resultados.",
-    "sources: [{id, titulo, url, consultada (AAAA-MM-DD o null si no se pudo abrir), uso}]. Se copian hechos (equipos, días, marcadores), no textos."
+    "Ids de clubes: los de data/teams_chile_2006.json (Primera A en los torneos, Primera B en ascensos y en los rivales de la liguilla). Un club de 2006 que no esté ahí va a review, no se agrega.",
+    "Torneo (apertura, clausura): inicio y fin (AAAA-MM-DD, primer y último partido); equipos (19 ids, orden de teams_chile_2006.json); grupos {A, B, C, D: [ids en el orden de la tabla del grupo]}; fechas [{numero 1-19, libre: id, partidos: [9 partidos]}]; tabla de la fase regular en el orden publicado [{club, pj, pg, pe, pp, gf, gc, pts}]; repechaje [llaves], vacío si no hubo; playoffs {cuartos: [4 llaves], semis: [2 llaves], final: llave}, en el orden del cuadro de es.wikipedia (las semis cruzan a los ganadores de las llaves 1-2 y 3-4); campeon: id; goleadores [{nombre, club, goles}] (más de uno si empataron).",
+    "goleadores cuenta los goles de todo el torneo, fase regular y playoffs, como lo publican es.wikipedia y RSSSF (Suazo hizo 12 + 7 en el Apertura, contados en los partidos de RSSSF).",
+    "Partido: {local, visita, goles_local, goles_visita, dia (AAAA-MM-DD), estadio} y nota opcional (texto propio sobre algo que pasó en el partido). estadio es el nombre corto que usa la página del torneo en es.wikipedia (sin la palabra 'Estadio'); cuando un club jugó de local en otra cancha, es esa cancha (RSSSF lo marca con 'at'). dia y estadio pueden ser null; goles null solo con una entrada de review tipo 'sin_fuente' cuyo donde sea '<torneo>.fecha N' (la tabla de esos clubes solo se compara en pj).",
+    "Llave: {ida: partido, vuelta: partido o null si fue a partido único, global: {id: goles, id: goles}, penales: null o {id: goles, id: goles}, avanza: id, criterio}. criterio null = lo decide el global o los penales; 'gol_de_visita' o 'ventaja_deportiva' (mejor puesto en la tabla de la fase regular) cuando el global quedó empatado sin penales. En los playoffs la ida la jugó de local el peor ubicado. El repechaje fue a partido único en la cancha del mejor ubicado y, con empate, avanzó ese mismo (RSSSF: 'qualified on better season record').",
+    "tabla_acumulada: suma de las tablas de la fase regular de ambos torneos, en el orden publicado (es.wikipedia, Clausura; igual en RSSSF).",
+    "descenso (formato ajustado a lo que pasó en 2006, distinto de D-24; ver review): {directo: último de la acumulada, administrativo: [clubes de Primera A que bajaron sin jugar el año], liguilla: [{club, llave contra un club de Primera B, se_mantiene}]}, con los clubes de la liguilla en el orden de la acumulada, justo encima del último (en 2006, el 17.º y el 18.º contra el 3.º y el 4.º de la liguilla de campeonato de Primera B). ascensos: [ids de Primera B que subieron]; quien gana la liguilla contra un club de Primera A está en ascensos y quien la pierde no.",
+    "review: [{tipo, donde, detalle}] con tipo 'bloqueo', 'sin_fuente', 'discrepancia' o 'sancion'. Una 'sancion' lleva además club y pts (puntos sumados o descontados, p. ej. -3) y donde ('apertura.tabla', 'clausura.tabla' o 'tabla_acumulada'): es la única forma en que la prueba acepta que una tabla publicada no salga de los resultados. En 2006 no hizo falta ninguna.",
+    "sources: [{id, titulo, url, revision (oldid de es.wikipedia, o null), consultada (AAAA-MM-DD o null si no se pudo abrir), uso}]. Se copian hechos (equipos, días, marcadores, estadios), no textos."
   ],
-  "estado": "pendiente",
+  "estado": "completo",
   "sources": [
-    {
-      "id": "es_wiki_apertura",
-      "titulo": "Torneo Apertura 2006 (Chile), es.wikipedia",
-      "url": "https://es.wikipedia.org/wiki/Torneo_Apertura_2006_(Chile)",
-      "consultada": null,
-      "uso": "Apertura: equipos, grupos, tabla, repechaje, playoffs, campeón y goleador; enlaza al anexo de resultados de la fase regular (calendario fecha por fecha)."
-    },
-    {
-      "id": "es_wiki_clausura",
-      "titulo": "Torneo Clausura 2006 (Chile), es.wikipedia",
-      "url": "https://es.wikipedia.org/wiki/Torneo_Clausura_2006_(Chile)",
-      "consultada": null,
-      "uso": "Clausura: lo mismo que el Apertura, más tabla acumulada, descenso y liguilla de promoción."
-    },
-    {
-      "id": "rsssf_chile_2006",
-      "titulo": "Chile 2006, RSSSF",
-      "url": "https://www.rsssf.org/tablesc/chile06.html",
-      "consultada": null,
-      "uso": "Cruce de resultados fecha por fecha, tablas y playoffs de ambos torneos."
-    }
+    {"id": "es_wiki_apertura", "titulo": "Torneo Apertura 2006 (Chile), es.wikipedia", "url": "https://es.wikipedia.org/wiki/Torneo_Apertura_2006_(Chile)", "revision": 172584912, "consultada": "2026-10-27", "uso": "Apertura: grupos, tabla general, estadio de cada partido, repechaje, playoffs (cuadro, días y estadios), campeón y goleador; fechas y resultados para cruzar con el anexo."},
+    {"id": "es_wiki_clausura", "titulo": "Torneo Clausura 2006 (Chile), es.wikipedia", "url": "https://es.wikipedia.org/wiki/Torneo_Clausura_2006_(Chile)", "revision": 165252460, "consultada": "2026-10-27", "uso": "Clausura: lo mismo que el Apertura, más tabla acumulada, descenso, liguilla de promoción y ascensos."},
+    {"id": "es_wiki_anexo_apertura", "titulo": "Anexo:Torneo Apertura 2006 (Chile) - Resultados de la fase regular, es.wikipedia", "url": "https://es.wikipedia.org/wiki/Anexo:Torneo_Apertura_2006_(Chile)_-_Resultados_de_la_fase_regular", "revision": 169340998, "consultada": "2026-10-27", "uso": "Apertura: calendario fecha por fecha (local, visita, resultado, día, club libre)."},
+    {"id": "es_wiki_anexo_clausura", "titulo": "Anexo:Torneo Clausura 2006 (Chile) - Resultados de la fase regular, es.wikipedia", "url": "https://es.wikipedia.org/wiki/Anexo:Torneo_Clausura_2006_(Chile)_-_Resultados_de_la_fase_regular", "revision": 169341374, "consultada": "2026-10-27", "uso": "Clausura: calendario fecha por fecha (local, visita, resultado, día, club libre)."},
+    {"id": "es_wiki_liguilla", "titulo": "Anexo:Liguilla de Promoción 2006 (Chile), es.wikipedia", "url": "https://es.wikipedia.org/wiki/Anexo:Liguilla_de_Promoci%C3%B3n_2006_(Chile)", "revision": 164687841, "consultada": "2026-10-27", "uso": "Liguilla de promoción: días, estadios, marcadores y penales."},
+    {"id": "es_wiki_primera_b", "titulo": "Primera B de Chile 2006, es.wikipedia", "url": "https://es.wikipedia.org/wiki/Primera_B_de_Chile_2006", "revision": 175421975, "consultada": "2026-10-27", "uso": "Ascensos (campeón, subcampeón y ganador de la liguilla)."},
+    {"id": "rsssf_chile_2006", "titulo": "Chile 2006, RSSSF (Juan Pablo Andrés, actualizada el 21 de febrero de 2007)", "url": "https://www.rsssf.org/tablesc/chile06.html", "revision": null, "consultada": "2026-10-27", "uso": "Cruce independiente de los 342 partidos de la fase regular (resultado, día, club libre y cancha prestada), tablas de grupo, acumulada, playoffs, liguilla, goleadores y Primera B."}
   ],
   "apertura": {
-    "inicio": null,
-    "fin": null,
-    "equipos": [],
-    "grupos": {},
-    "fechas": [],
-    "tabla": [],
-    "repechaje": [],
-    "playoffs": {"cuartos": [], "semis": [], "final": null},
-    "campeon": null,
-    "goleadores": []
+    "inicio": "2006-01-27",
+    "fin": "2006-07-02",
+    "equipos": [
+      "colo_colo",
+      "universidad_de_chile",
+      "universidad_catolica",
+      "cobreloa",
+      "audax_italiano",
+      "huachipato",
+      "union_espanola",
+      "everton",
+      "santiago_wanderers",
+      "universidad_de_concepcion",
+      "o_higgins",
+      "cobresal",
+      "palestino",
+      "deportes_antofagasta",
+      "deportes_la_serena",
+      "coquimbo_unido",
+      "deportes_puerto_montt",
+      "rangers",
+      "santiago_morning"
+    ],
+    "grupos": {
+      "A": ["universidad_de_concepcion", "audax_italiano", "universidad_catolica", "cobresal", "santiago_wanderers"],
+      "B": ["universidad_de_chile", "deportes_la_serena", "everton", "coquimbo_unido", "santiago_morning"],
+      "C": ["colo_colo", "cobreloa", "union_espanola", "deportes_antofagasta", "deportes_puerto_montt"],
+      "D": ["huachipato", "o_higgins", "palestino", "rangers"]
+    },
+    "fechas": [
+      {
+        "numero": 1,
+        "libre": "deportes_la_serena",
+        "partidos": [
+          {"local": "o_higgins", "visita": "colo_colo", "goles_local": 1, "goles_visita": 3, "dia": "2006-01-27", "estadio": "El Teniente"},
+          {"local": "palestino", "visita": "santiago_wanderers", "goles_local": 3, "goles_visita": 0, "dia": "2006-01-28", "estadio": "Santa Laura"},
+          {"local": "huachipato", "visita": "deportes_antofagasta", "goles_local": 2, "goles_visita": 0, "dia": "2006-01-28", "estadio": "Las Higueras"},
+          {"local": "deportes_puerto_montt", "visita": "audax_italiano", "goles_local": 0, "goles_visita": 3, "dia": "2006-01-28", "estadio": "Chinquihue"},
+          {"local": "universidad_de_chile", "visita": "union_espanola", "goles_local": 1, "goles_visita": 0, "dia": "2006-01-28", "estadio": "Nacional"},
+          {"local": "coquimbo_unido", "visita": "universidad_de_concepcion", "goles_local": 1, "goles_visita": 1, "dia": "2006-01-28", "estadio": "Francisco Sánchez Rumoroso"},
+          {"local": "cobresal", "visita": "cobreloa", "goles_local": 2, "goles_visita": 4, "dia": "2006-01-29", "estadio": "El Cobre"},
+          {"local": "santiago_morning", "visita": "rangers", "goles_local": 4, "goles_visita": 3, "dia": "2006-01-29", "estadio": "USACH"},
+          {"local": "everton", "visita": "universidad_catolica", "goles_local": 1, "goles_visita": 0, "dia": "2006-01-29", "estadio": "Sausalito"}
+        ]
+      },
+      {
+        "numero": 2,
+        "libre": "union_espanola",
+        "partidos": [
+          {"local": "audax_italiano", "visita": "everton", "goles_local": 3, "goles_visita": 0, "dia": "2006-02-03", "estadio": "Municipal de La Florida"},
+          {"local": "santiago_wanderers", "visita": "o_higgins", "goles_local": 0, "goles_visita": 0, "dia": "2006-02-04", "estadio": "Playa Ancha"},
+          {"local": "rangers", "visita": "universidad_de_chile", "goles_local": 1, "goles_visita": 2, "dia": "2006-02-04", "estadio": "Fiscal de Talca"},
+          {"local": "universidad_catolica", "visita": "deportes_puerto_montt", "goles_local": 1, "goles_visita": 1, "dia": "2006-02-04", "estadio": "San Carlos de Apoquindo"},
+          {"local": "cobreloa", "visita": "coquimbo_unido", "goles_local": 3, "goles_visita": 1, "dia": "2006-02-05", "estadio": "Municipal de Calama"},
+          {"local": "deportes_antofagasta", "visita": "palestino", "goles_local": 3, "goles_visita": 1, "dia": "2006-02-05", "estadio": "Regional de Antofagasta"},
+          {"local": "colo_colo", "visita": "huachipato", "goles_local": 0, "goles_visita": 2, "dia": "2006-02-05", "estadio": "Monumental"},
+          {"local": "universidad_de_concepcion", "visita": "santiago_morning", "goles_local": 1, "goles_visita": 0, "dia": "2006-02-05", "estadio": "Municipal de Concepción"},
+          {"local": "deportes_la_serena", "visita": "cobresal", "goles_local": 1, "goles_visita": 1, "dia": "2006-02-05", "estadio": "La Portada"}
+        ]
+      },
+      {
+        "numero": 3,
+        "libre": "santiago_wanderers",
+        "partidos": [
+          {"local": "santiago_morning", "visita": "cobreloa", "goles_local": 1, "goles_visita": 1, "dia": "2006-02-10", "estadio": "Santa Laura"},
+          {"local": "huachipato", "visita": "audax_italiano", "goles_local": 1, "goles_visita": 3, "dia": "2006-02-11", "estadio": "Las Higueras"},
+          {"local": "palestino", "visita": "coquimbo_unido", "goles_local": 3, "goles_visita": 1, "dia": "2006-02-11", "estadio": "Santa Laura"},
+          {"local": "universidad_catolica", "visita": "union_espanola", "goles_local": 2, "goles_visita": 1, "dia": "2006-02-11", "estadio": "San Carlos de Apoquindo"},
+          {"local": "deportes_puerto_montt", "visita": "rangers", "goles_local": 4, "goles_visita": 1, "dia": "2006-02-11", "estadio": "Chinquihue"},
+          {"local": "o_higgins", "visita": "cobresal", "goles_local": 0, "goles_visita": 1, "dia": "2006-02-11", "estadio": "El Teniente"},
+          {"local": "everton", "visita": "deportes_antofagasta", "goles_local": 2, "goles_visita": 0, "dia": "2006-02-11", "estadio": "Sausalito"},
+          {"local": "deportes_la_serena", "visita": "colo_colo", "goles_local": 3, "goles_visita": 3, "dia": "2006-02-11", "estadio": "La Portada"},
+          {"local": "universidad_de_chile", "visita": "universidad_de_concepcion", "goles_local": 2, "goles_visita": 1, "dia": "2006-02-12", "estadio": "Nacional"}
+        ]
+      },
+      {
+        "numero": 4,
+        "libre": "cobreloa",
+        "partidos": [
+          {"local": "union_espanola", "visita": "huachipato", "goles_local": 1, "goles_visita": 0, "dia": "2006-02-17", "estadio": "Santa Laura"},
+          {"local": "rangers", "visita": "deportes_la_serena", "goles_local": 1, "goles_visita": 0, "dia": "2006-02-18", "estadio": "Fiscal de Talca"},
+          {"local": "colo_colo", "visita": "everton", "goles_local": 5, "goles_visita": 3, "dia": "2006-02-18", "estadio": "Monumental"},
+          {"local": "audax_italiano", "visita": "o_higgins", "goles_local": 3, "goles_visita": 0, "dia": "2006-02-18", "estadio": "Municipal de La Florida"},
+          {"local": "coquimbo_unido", "visita": "universidad_catolica", "goles_local": 1, "goles_visita": 1, "dia": "2006-02-18", "estadio": "Francisco Sánchez Rumoroso"},
+          {"local": "cobresal", "visita": "deportes_puerto_montt", "goles_local": 3, "goles_visita": 2, "dia": "2006-02-19", "estadio": "El Cobre"},
+          {"local": "deportes_antofagasta", "visita": "santiago_morning", "goles_local": 1, "goles_visita": 1, "dia": "2006-02-19", "estadio": "Regional de Antofagasta"},
+          {"local": "universidad_de_concepcion", "visita": "palestino", "goles_local": 3, "goles_visita": 2, "dia": "2006-02-19", "estadio": "Municipal de Concepción"},
+          {"local": "santiago_wanderers", "visita": "universidad_de_chile", "goles_local": 0, "goles_visita": 1, "dia": "2006-02-19", "estadio": "Playa Ancha"}
+        ]
+      },
+      {
+        "numero": 5,
+        "libre": "universidad_de_concepcion",
+        "partidos": [
+          {"local": "universidad_de_chile", "visita": "audax_italiano", "goles_local": 2, "goles_visita": 2, "dia": "2006-02-24", "estadio": "Santa Laura"},
+          {"local": "huachipato", "visita": "everton", "goles_local": 2, "goles_visita": 0, "dia": "2006-02-25", "estadio": "Las Higueras"},
+          {"local": "santiago_morning", "visita": "cobresal", "goles_local": 1, "goles_visita": 1, "dia": "2006-02-25", "estadio": "USACH"},
+          {"local": "deportes_puerto_montt", "visita": "coquimbo_unido", "goles_local": 0, "goles_visita": 1, "dia": "2006-02-25", "estadio": "Chinquihue"},
+          {"local": "o_higgins", "visita": "cobreloa", "goles_local": 0, "goles_visita": 3, "dia": "2006-02-25", "estadio": "El Teniente"},
+          {"local": "deportes_la_serena", "visita": "union_espanola", "goles_local": 3, "goles_visita": 0, "dia": "2006-02-25", "estadio": "La Portada"},
+          {"local": "palestino", "visita": "colo_colo", "goles_local": 1, "goles_visita": 4, "dia": "2006-02-25", "estadio": "Santa Laura"},
+          {"local": "santiago_wanderers", "visita": "rangers", "goles_local": 1, "goles_visita": 1, "dia": "2006-02-26", "estadio": "Playa Ancha"},
+          {"local": "universidad_catolica", "visita": "deportes_antofagasta", "goles_local": 5, "goles_visita": 2, "dia": "2006-02-26", "estadio": "San Carlos de Apoquindo"}
+        ]
+      },
+      {
+        "numero": 6,
+        "libre": "everton",
+        "partidos": [
+          {"local": "audax_italiano", "visita": "deportes_la_serena", "goles_local": 3, "goles_visita": 2, "dia": "2006-03-03", "estadio": "Municipal de La Florida"},
+          {"local": "cobreloa", "visita": "universidad_catolica", "goles_local": 2, "goles_visita": 3, "dia": "2006-03-04", "estadio": "Municipal de Calama"},
+          {"local": "coquimbo_unido", "visita": "huachipato", "goles_local": 2, "goles_visita": 2, "dia": "2006-03-04", "estadio": "Francisco Sánchez Rumoroso"},
+          {"local": "colo_colo", "visita": "santiago_wanderers", "goles_local": 5, "goles_visita": 0, "dia": "2006-03-04", "estadio": "Monumental"},
+          {"local": "deportes_puerto_montt", "visita": "santiago_morning", "goles_local": 3, "goles_visita": 1, "dia": "2006-03-05", "estadio": "Chinquihue"},
+          {"local": "deportes_antofagasta", "visita": "o_higgins", "goles_local": 1, "goles_visita": 2, "dia": "2006-03-05", "estadio": "Regional de Antofagasta"},
+          {"local": "universidad_de_concepcion", "visita": "rangers", "goles_local": 1, "goles_visita": 3, "dia": "2006-03-05", "estadio": "Municipal de Concepción"},
+          {"local": "cobresal", "visita": "universidad_de_chile", "goles_local": 3, "goles_visita": 3, "dia": "2006-03-05", "estadio": "El Cobre"},
+          {"local": "union_espanola", "visita": "palestino", "goles_local": 2, "goles_visita": 3, "dia": "2006-03-05", "estadio": "Santa Laura"}
+        ]
+      },
+      {
+        "numero": 7,
+        "libre": "colo_colo",
+        "partidos": [
+          {"local": "santiago_morning", "visita": "audax_italiano", "goles_local": 1, "goles_visita": 2, "dia": "2006-03-10", "estadio": "Santa Laura"},
+          {"local": "cobresal", "visita": "everton", "goles_local": 0, "goles_visita": 0, "dia": "2006-03-11", "estadio": "El Cobre"},
+          {"local": "huachipato", "visita": "cobreloa", "goles_local": 4, "goles_visita": 2, "dia": "2006-03-11", "estadio": "Las Higueras"},
+          {"local": "o_higgins", "visita": "universidad_de_concepcion", "goles_local": 0, "goles_visita": 2, "dia": "2006-03-11", "estadio": "El Teniente"},
+          {"local": "deportes_la_serena", "visita": "deportes_antofagasta", "goles_local": 3, "goles_visita": 1, "dia": "2006-03-11", "estadio": "La Portada"},
+          {"local": "rangers", "visita": "union_espanola", "goles_local": 1, "goles_visita": 3, "dia": "2006-03-11", "estadio": "Fiscal de Talca"},
+          {"local": "santiago_wanderers", "visita": "coquimbo_unido", "goles_local": 2, "goles_visita": 1, "dia": "2006-03-12", "estadio": "Playa Ancha"},
+          {"local": "universidad_de_chile", "visita": "deportes_puerto_montt", "goles_local": 2, "goles_visita": 1, "dia": "2006-03-12", "estadio": "Nacional"},
+          {"local": "palestino", "visita": "universidad_catolica", "goles_local": 0, "goles_visita": 1, "dia": "2006-03-12", "estadio": "Santa Laura"}
+        ]
+      },
+      {
+        "numero": 8,
+        "libre": "audax_italiano",
+        "partidos": [
+          {"local": "universidad_catolica", "visita": "deportes_la_serena", "goles_local": 2, "goles_visita": 0, "dia": "2006-03-17", "estadio": "San Carlos de Apoquindo"},
+          {"local": "huachipato", "visita": "santiago_morning", "goles_local": 3, "goles_visita": 1, "dia": "2006-03-18", "estadio": "Las Higueras"},
+          {"local": "union_espanola", "visita": "santiago_wanderers", "goles_local": 1, "goles_visita": 0, "dia": "2006-03-18", "estadio": "Santa Laura"},
+          {"local": "colo_colo", "visita": "cobresal", "goles_local": 3, "goles_visita": 0, "dia": "2006-03-18", "estadio": "Monumental"},
+          {"local": "coquimbo_unido", "visita": "o_higgins", "goles_local": 2, "goles_visita": 1, "dia": "2006-03-18", "estadio": "Francisco Sánchez Rumoroso"},
+          {"local": "cobreloa", "visita": "rangers", "goles_local": 5, "goles_visita": 1, "dia": "2006-03-19", "estadio": "Municipal de Calama"},
+          {"local": "universidad_de_concepcion", "visita": "deportes_puerto_montt", "goles_local": 2, "goles_visita": 2, "dia": "2006-03-19", "estadio": "Municipal de Concepción"},
+          {"local": "deportes_antofagasta", "visita": "universidad_de_chile", "goles_local": 0, "goles_visita": 1, "dia": "2006-03-19", "estadio": "Regional de Antofagasta"},
+          {"local": "everton", "visita": "palestino", "goles_local": 1, "goles_visita": 1, "dia": "2006-03-19", "estadio": "Sausalito"}
+        ]
+      },
+      {
+        "numero": 9,
+        "libre": "deportes_antofagasta",
+        "partidos": [
+          {"local": "union_espanola", "visita": "universidad_de_concepcion", "goles_local": 1, "goles_visita": 0, "dia": "2006-03-24", "estadio": "Santa Laura"},
+          {"local": "rangers", "visita": "audax_italiano", "goles_local": 3, "goles_visita": 0, "dia": "2006-03-24", "estadio": "Fiscal de Talca"},
+          {"local": "o_higgins", "visita": "universidad_catolica", "goles_local": 2, "goles_visita": 2, "dia": "2006-03-25", "estadio": "El Teniente"},
+          {"local": "deportes_la_serena", "visita": "huachipato", "goles_local": 1, "goles_visita": 2, "dia": "2006-03-25", "estadio": "La Portada"},
+          {"local": "deportes_puerto_montt", "visita": "everton", "goles_local": 1, "goles_visita": 1, "dia": "2006-03-26", "estadio": "Chinquihue"},
+          {"local": "cobresal", "visita": "coquimbo_unido", "goles_local": 2, "goles_visita": 0, "dia": "2006-03-26", "estadio": "El Cobre"},
+          {"local": "santiago_wanderers", "visita": "cobreloa", "goles_local": 3, "goles_visita": 0, "dia": "2006-03-26", "estadio": "Playa Ancha"},
+          {"local": "universidad_de_chile", "visita": "palestino", "goles_local": 2, "goles_visita": 1, "dia": "2006-03-26", "estadio": "Nacional"},
+          {"local": "santiago_morning", "visita": "colo_colo", "goles_local": 0, "goles_visita": 3, "dia": "2006-05-11", "estadio": "Nacional"}
+        ]
+      },
+      {
+        "numero": 10,
+        "libre": "universidad_catolica",
+        "partidos": [
+          {"local": "universidad_de_concepcion", "visita": "cobresal", "goles_local": 2, "goles_visita": 1, "dia": "2006-03-31", "estadio": "Municipal de Concepción"},
+          {"local": "huachipato", "visita": "universidad_de_chile", "goles_local": 2, "goles_visita": 0, "dia": "2006-04-01", "estadio": "Las Higueras"},
+          {"local": "cobreloa", "visita": "deportes_la_serena", "goles_local": 2, "goles_visita": 2, "dia": "2006-04-01", "estadio": "Municipal de Calama"},
+          {"local": "palestino", "visita": "deportes_puerto_montt", "goles_local": 1, "goles_visita": 5, "dia": "2006-04-01", "estadio": "Municipal de La Cisterna"},
+          {"local": "coquimbo_unido", "visita": "santiago_morning", "goles_local": 1, "goles_visita": 1, "dia": "2006-04-01", "estadio": "Francisco Sánchez Rumoroso"},
+          {"local": "deportes_antofagasta", "visita": "santiago_wanderers", "goles_local": 2, "goles_visita": 1, "dia": "2006-04-02", "estadio": "Regional de Antofagasta"},
+          {"local": "everton", "visita": "o_higgins", "goles_local": 0, "goles_visita": 2, "dia": "2006-04-02", "estadio": "Sausalito"},
+          {"local": "colo_colo", "visita": "rangers", "goles_local": 7, "goles_visita": 2, "dia": "2006-04-02", "estadio": "Monumental"},
+          {"local": "audax_italiano", "visita": "union_espanola", "goles_local": 1, "goles_visita": 1, "dia": "2006-04-02", "estadio": "Municipal de La Florida"}
+        ]
+      },
+      {
+        "numero": 11,
+        "libre": "deportes_puerto_montt",
+        "partidos": [
+          {"local": "union_espanola", "visita": "everton", "goles_local": 3, "goles_visita": 3, "dia": "2006-04-07", "estadio": "Santa Laura"},
+          {"local": "santiago_wanderers", "visita": "huachipato", "goles_local": 1, "goles_visita": 0, "dia": "2006-04-08", "estadio": "Playa Ancha"},
+          {"local": "o_higgins", "visita": "deportes_la_serena", "goles_local": 3, "goles_visita": 2, "dia": "2006-04-08", "estadio": "El Teniente"},
+          {"local": "universidad_de_concepcion", "visita": "cobreloa", "goles_local": 1, "goles_visita": 0, "dia": "2006-04-08", "estadio": "Municipal de Concepción"},
+          {"local": "coquimbo_unido", "visita": "audax_italiano", "goles_local": 1, "goles_visita": 0, "dia": "2006-04-08", "estadio": "Francisco Sánchez Rumoroso"},
+          {"local": "rangers", "visita": "deportes_antofagasta", "goles_local": 2, "goles_visita": 2, "dia": "2006-04-08", "estadio": "Fiscal de Talca"},
+          {"local": "universidad_de_chile", "visita": "colo_colo", "goles_local": 1, "goles_visita": 3, "dia": "2006-04-09", "estadio": "Nacional"},
+          {"local": "cobresal", "visita": "palestino", "goles_local": 4, "goles_visita": 0, "dia": "2006-04-09", "estadio": "El Cobre"},
+          {"local": "santiago_morning", "visita": "universidad_catolica", "goles_local": 1, "goles_visita": 0, "dia": "2006-04-09", "estadio": "Santa Laura"}
+        ]
+      },
+      {
+        "numero": 12,
+        "libre": "coquimbo_unido",
+        "partidos": [
+          {"local": "deportes_la_serena", "visita": "santiago_wanderers", "goles_local": 2, "goles_visita": 1, "dia": "2006-04-13", "estadio": "La Portada"},
+          {"local": "cobreloa", "visita": "union_espanola", "goles_local": 1, "goles_visita": 0, "dia": "2006-04-14", "estadio": "Municipal de Calama"},
+          {"local": "universidad_catolica", "visita": "rangers", "goles_local": 2, "goles_visita": 1, "dia": "2006-04-15", "estadio": "San Carlos de Apoquindo"},
+          {"local": "palestino", "visita": "santiago_morning", "goles_local": 1, "goles_visita": 0, "dia": "2006-04-15", "estadio": "Municipal de La Cisterna"},
+          {"local": "universidad_de_chile", "visita": "o_higgins", "goles_local": 2, "goles_visita": 2, "dia": "2006-04-15", "estadio": "Santa Laura"},
+          {"local": "huachipato", "visita": "deportes_puerto_montt", "goles_local": 3, "goles_visita": 2, "dia": "2006-04-16", "estadio": "Las Higueras"},
+          {"local": "deportes_antofagasta", "visita": "cobresal", "goles_local": 3, "goles_visita": 1, "dia": "2006-04-16", "estadio": "Regional de Antofagasta"},
+          {"local": "everton", "visita": "universidad_de_concepcion", "goles_local": 1, "goles_visita": 2, "dia": "2006-04-16", "estadio": "Sausalito"},
+          {"local": "audax_italiano", "visita": "colo_colo", "goles_local": 1, "goles_visita": 3, "dia": "2006-04-16", "estadio": "Nacional"}
+        ]
+      },
+      {
+        "numero": 13,
+        "libre": "rangers",
+        "partidos": [
+          {"local": "cobresal", "visita": "huachipato", "goles_local": 1, "goles_visita": 2, "dia": "2006-04-21", "estadio": "El Cobre"},
+          {"local": "santiago_wanderers", "visita": "audax_italiano", "goles_local": 1, "goles_visita": 2, "dia": "2006-04-22", "estadio": "Playa Ancha"},
+          {"local": "palestino", "visita": "cobreloa", "goles_local": 0, "goles_visita": 2, "dia": "2006-04-22", "estadio": "Municipal de La Cisterna"},
+          {"local": "universidad_de_concepcion", "visita": "deportes_antofagasta", "goles_local": 2, "goles_visita": 2, "dia": "2006-04-22", "estadio": "Municipal de Concepción"},
+          {"local": "coquimbo_unido", "visita": "universidad_de_chile", "goles_local": 0, "goles_visita": 0, "dia": "2006-04-22", "estadio": "Francisco Sánchez Rumoroso"},
+          {"local": "o_higgins", "visita": "union_espanola", "goles_local": 1, "goles_visita": 3, "dia": "2006-04-22", "estadio": "El Teniente"},
+          {"local": "santiago_morning", "visita": "everton", "goles_local": 1, "goles_visita": 2, "dia": "2006-04-23", "estadio": "USACH"},
+          {"local": "deportes_puerto_montt", "visita": "deportes_la_serena", "goles_local": 2, "goles_visita": 3, "dia": "2006-04-23", "estadio": "Chinquihue"},
+          {"local": "colo_colo", "visita": "universidad_catolica", "goles_local": 2, "goles_visita": 3, "dia": "2006-04-23", "estadio": "Monumental"}
+        ]
+      },
+      {
+        "numero": 14,
+        "libre": "o_higgins",
+        "partidos": [
+          {"local": "union_espanola", "visita": "colo_colo", "goles_local": 1, "goles_visita": 0, "dia": "2006-04-29", "estadio": "Nacional"},
+          {"local": "rangers", "visita": "cobresal", "goles_local": 1, "goles_visita": 2, "dia": "2006-04-29", "estadio": "Fiscal de Talca"},
+          {"local": "universidad_catolica", "visita": "santiago_wanderers", "goles_local": 0, "goles_visita": 2, "dia": "2006-04-29", "estadio": "San Carlos de Apoquindo"},
+          {"local": "deportes_la_serena", "visita": "universidad_de_concepcion", "goles_local": 1, "goles_visita": 1, "dia": "2006-04-29", "estadio": "La Portada"},
+          {"local": "huachipato", "visita": "palestino", "goles_local": 1, "goles_visita": 0, "dia": "2006-04-30", "estadio": "Las Higueras"},
+          {"local": "cobreloa", "visita": "deportes_puerto_montt", "goles_local": 2, "goles_visita": 1, "dia": "2006-04-30", "estadio": "Municipal de Calama"},
+          {"local": "deportes_antofagasta", "visita": "audax_italiano", "goles_local": 1, "goles_visita": 1, "dia": "2006-04-30", "estadio": "Regional de Antofagasta"},
+          {"local": "universidad_de_chile", "visita": "santiago_morning", "goles_local": 2, "goles_visita": 0, "dia": "2006-04-30", "estadio": "Nacional"},
+          {"local": "everton", "visita": "coquimbo_unido", "goles_local": 1, "goles_visita": 0, "dia": "2006-04-30", "estadio": "Sausalito"}
+        ]
+      },
+      {
+        "numero": 15,
+        "libre": "palestino",
+        "partidos": [
+          {"local": "audax_italiano", "visita": "universidad_catolica", "goles_local": 0, "goles_visita": 0, "dia": "2006-05-06", "estadio": "Municipal de La Florida"},
+          {"local": "o_higgins", "visita": "rangers", "goles_local": 2, "goles_visita": 0, "dia": "2006-05-06", "estadio": "El Teniente"},
+          {"local": "universidad_de_concepcion", "visita": "huachipato", "goles_local": 2, "goles_visita": 2, "dia": "2006-05-06", "estadio": "Municipal de Concepción"},
+          {"local": "coquimbo_unido", "visita": "union_espanola", "goles_local": 1, "goles_visita": 1, "dia": "2006-05-06", "estadio": "Francisco Sánchez Rumoroso"},
+          {"local": "santiago_morning", "visita": "deportes_la_serena", "goles_local": 2, "goles_visita": 2, "dia": "2006-05-07", "estadio": "USACH"},
+          {"local": "deportes_puerto_montt", "visita": "deportes_antofagasta", "goles_local": 3, "goles_visita": 3, "dia": "2006-05-07", "estadio": "Chinquihue"},
+          {"local": "colo_colo", "visita": "cobreloa", "goles_local": 2, "goles_visita": 0, "dia": "2006-05-07", "estadio": "Monumental"},
+          {"local": "cobresal", "visita": "santiago_wanderers", "goles_local": 2, "goles_visita": 1, "dia": "2006-05-07", "estadio": "El Cobre"},
+          {"local": "everton", "visita": "universidad_de_chile", "goles_local": 1, "goles_visita": 1, "dia": "2006-05-07", "estadio": "Sausalito"}
+        ]
+      },
+      {
+        "numero": 16,
+        "libre": "santiago_morning",
+        "partidos": [
+          {"local": "rangers", "visita": "huachipato", "goles_local": 1, "goles_visita": 3, "dia": "2006-05-13", "estadio": "Fiscal de Talca"},
+          {"local": "union_espanola", "visita": "cobresal", "goles_local": 3, "goles_visita": 0, "dia": "2006-05-13", "estadio": "Santa Laura"},
+          {"local": "audax_italiano", "visita": "palestino", "goles_local": 2, "goles_visita": 2, "dia": "2006-05-13", "estadio": "Municipal de La Florida"},
+          {"local": "o_higgins", "visita": "deportes_puerto_montt", "goles_local": 1, "goles_visita": 1, "dia": "2006-05-13", "estadio": "El Teniente"},
+          {"local": "deportes_la_serena", "visita": "everton", "goles_local": 2, "goles_visita": 2, "dia": "2006-05-13", "estadio": "La Portada"},
+          {"local": "universidad_catolica", "visita": "universidad_de_chile", "goles_local": 0, "goles_visita": 2, "dia": "2006-05-14", "estadio": "Nacional"},
+          {"local": "deportes_antofagasta", "visita": "cobreloa", "goles_local": 1, "goles_visita": 1, "dia": "2006-05-14", "estadio": "Regional de Antofagasta"},
+          {"local": "santiago_wanderers", "visita": "universidad_de_concepcion", "goles_local": 1, "goles_visita": 4, "dia": "2006-05-14", "estadio": "Playa Ancha"},
+          {"local": "colo_colo", "visita": "coquimbo_unido", "goles_local": 5, "goles_visita": 1, "dia": "2006-05-14", "estadio": "Monumental"}
+        ]
+      },
+      {
+        "numero": 17,
+        "libre": "cobresal",
+        "partidos": [
+          {"local": "universidad_de_chile", "visita": "deportes_la_serena", "goles_local": 2, "goles_visita": 1, "dia": "2006-05-18", "estadio": "Nacional"},
+          {"local": "deportes_puerto_montt", "visita": "colo_colo", "goles_local": 0, "goles_visita": 1, "dia": "2006-05-19", "estadio": "Chinquihue"},
+          {"local": "universidad_de_concepcion", "visita": "universidad_catolica", "goles_local": 1, "goles_visita": 1, "dia": "2006-05-20", "estadio": "Municipal de Concepción"},
+          {"local": "palestino", "visita": "rangers", "goles_local": 2, "goles_visita": 2, "dia": "2006-05-20", "estadio": "Municipal de La Cisterna"},
+          {"local": "everton", "visita": "santiago_wanderers", "goles_local": 2, "goles_visita": 0, "dia": "2006-05-20", "estadio": "Sausalito"},
+          {"local": "coquimbo_unido", "visita": "deportes_antofagasta", "goles_local": 0, "goles_visita": 1, "dia": "2006-05-20", "estadio": "Francisco Sánchez Rumoroso"},
+          {"local": "santiago_morning", "visita": "union_espanola", "goles_local": 0, "goles_visita": 0, "dia": "2006-05-21", "estadio": null},
+          {"local": "huachipato", "visita": "o_higgins", "goles_local": 0, "goles_visita": 0, "dia": "2006-05-21", "estadio": "Las Higueras"},
+          {"local": "cobreloa", "visita": "audax_italiano", "goles_local": 0, "goles_visita": 1, "dia": "2006-05-21", "estadio": "Municipal de Calama"}
+        ]
+      },
+      {
+        "numero": 18,
+        "libre": "huachipato",
+        "partidos": [
+          {"local": "cobreloa", "visita": "universidad_de_chile", "goles_local": 2, "goles_visita": 1, "dia": "2006-05-27", "estadio": "Municipal de Calama"},
+          {"local": "audax_italiano", "visita": "universidad_de_concepcion", "goles_local": 1, "goles_visita": 2, "dia": "2006-05-27", "estadio": "Municipal de La Florida"},
+          {"local": "union_espanola", "visita": "deportes_puerto_montt", "goles_local": 3, "goles_visita": 1, "dia": "2006-05-27", "estadio": "Santa Laura"},
+          {"local": "o_higgins", "visita": "palestino", "goles_local": 0, "goles_visita": 0, "dia": "2006-05-27", "estadio": "El Teniente"},
+          {"local": "santiago_wanderers", "visita": "santiago_morning", "goles_local": 2, "goles_visita": 0, "dia": "2006-05-28", "estadio": "Playa Ancha"},
+          {"local": "colo_colo", "visita": "deportes_antofagasta", "goles_local": 3, "goles_visita": 0, "dia": "2006-05-28", "estadio": "Monumental"},
+          {"local": "rangers", "visita": "everton", "goles_local": 2, "goles_visita": 0, "dia": "2006-05-28", "estadio": "Fiscal de Talca"},
+          {"local": "universidad_catolica", "visita": "cobresal", "goles_local": 2, "goles_visita": 0, "dia": "2006-05-28", "estadio": "San Carlos de Apoquindo"},
+          {"local": "deportes_la_serena", "visita": "coquimbo_unido", "goles_local": 2, "goles_visita": 2, "dia": "2006-05-28", "estadio": "La Portada", "nota": "Suspendido por incidentes en el minuto 77 con 2-1; los 13 minutos restantes se jugaron el 2006-05-31 a puertas cerradas y terminó 2-2."}
+        ]
+      },
+      {
+        "numero": 19,
+        "libre": "universidad_de_chile",
+        "partidos": [
+          {"local": "deportes_puerto_montt", "visita": "santiago_wanderers", "goles_local": 4, "goles_visita": 0, "dia": "2006-06-03", "estadio": "Chinquihue"},
+          {"local": "huachipato", "visita": "universidad_catolica", "goles_local": 1, "goles_visita": 2, "dia": "2006-06-03", "estadio": "Las Higueras"},
+          {"local": "coquimbo_unido", "visita": "rangers", "goles_local": 0, "goles_visita": 0, "dia": "2006-06-03", "estadio": "Francisco Sánchez Rumoroso"},
+          {"local": "everton", "visita": "cobreloa", "goles_local": 0, "goles_visita": 2, "dia": "2006-06-04", "estadio": "Sausalito"},
+          {"local": "palestino", "visita": "deportes_la_serena", "goles_local": 1, "goles_visita": 2, "dia": "2006-06-04", "estadio": "Municipal de La Cisterna"},
+          {"local": "santiago_morning", "visita": "o_higgins", "goles_local": 0, "goles_visita": 3, "dia": "2006-06-04", "estadio": "USACH"},
+          {"local": "deportes_antofagasta", "visita": "union_espanola", "goles_local": 3, "goles_visita": 0, "dia": "2006-06-04", "estadio": "Regional de Antofagasta"},
+          {"local": "universidad_de_concepcion", "visita": "colo_colo", "goles_local": 3, "goles_visita": 2, "dia": "2006-06-04", "estadio": "Municipal de Concepción"},
+          {"local": "cobresal", "visita": "audax_italiano", "goles_local": 2, "goles_visita": 4, "dia": "2006-06-04", "estadio": "El Cobre"}
+        ]
+      }
+    ],
+    "tabla": [
+      {"club": "colo_colo", "pj": 18, "pg": 13, "pe": 1, "pp": 4, "gf": 54, "gc": 22, "pts": 40},
+      {"club": "huachipato", "pj": 18, "pg": 11, "pe": 3, "pp": 4, "gf": 32, "gc": 19, "pts": 36},
+      {"club": "universidad_de_chile", "pj": 18, "pg": 10, "pe": 5, "pp": 3, "gf": 27, "gc": 20, "pts": 35},
+      {"club": "universidad_de_concepcion", "pj": 18, "pg": 9, "pe": 6, "pp": 3, "gf": 31, "gc": 23, "pts": 33},
+      {"club": "audax_italiano", "pj": 18, "pg": 9, "pe": 5, "pp": 4, "gf": 32, "gc": 22, "pts": 32},
+      {"club": "universidad_catolica", "pj": 18, "pg": 9, "pe": 5, "pp": 4, "gf": 27, "gc": 20, "pts": 32},
+      {"club": "cobreloa", "pj": 18, "pg": 9, "pe": 3, "pp": 6, "gf": 32, "gc": 24, "pts": 30},
+      {"club": "union_espanola", "pj": 18, "pg": 8, "pe": 4, "pp": 6, "gf": 24, "gc": 21, "pts": 28},
+      {"club": "deportes_la_serena", "pj": 18, "pg": 5, "pe": 7, "pp": 6, "gf": 32, "gc": 31, "pts": 22},
+      {"club": "cobresal", "pj": 18, "pg": 6, "pe": 4, "pp": 8, "gf": 26, "gc": 32, "pts": 22},
+      {"club": "deportes_antofagasta", "pj": 18, "pg": 5, "pe": 6, "pp": 7, "gf": 26, "gc": 31, "pts": 21},
+      {"club": "o_higgins", "pj": 18, "pg": 5, "pe": 6, "pp": 7, "gf": 20, "gc": 25, "pts": 21},
+      {"club": "everton", "pj": 18, "pg": 5, "pe": 6, "pp": 7, "gf": 20, "gc": 27, "pts": 21},
+      {"club": "deportes_puerto_montt", "pj": 18, "pg": 4, "pe": 5, "pp": 9, "gf": 33, "gc": 32, "pts": 17},
+      {"club": "coquimbo_unido", "pj": 18, "pg": 3, "pe": 8, "pp": 7, "gf": 16, "gc": 26, "pts": 17},
+      {"club": "santiago_wanderers", "pj": 18, "pg": 5, "pe": 2, "pp": 11, "gf": 16, "gc": 30, "pts": 17},
+      {"club": "palestino", "pj": 18, "pg": 4, "pe": 4, "pp": 10, "gf": 22, "gc": 35, "pts": 16},
+      {"club": "rangers", "pj": 18, "pg": 4, "pe": 4, "pp": 10, "gf": 26, "gc": 40, "pts": 16},
+      {"club": "santiago_morning", "pj": 18, "pg": 2, "pe": 6, "pp": 10, "gf": 15, "gc": 31, "pts": 12}
+    ],
+    "repechaje": [
+      {
+        "ida": {"local": "union_espanola", "visita": "deportes_la_serena", "goles_local": 2, "goles_visita": 2, "dia": "2006-06-07", "estadio": "Santa Laura"},
+        "vuelta": null,
+        "global": {"union_espanola": 2, "deportes_la_serena": 2},
+        "penales": null,
+        "avanza": "union_espanola",
+        "criterio": "ventaja_deportiva"
+      },
+      {
+        "ida": {"local": "universidad_catolica", "visita": "o_higgins", "goles_local": 1, "goles_visita": 1, "dia": "2006-06-09", "estadio": "San Carlos de Apoquindo"},
+        "vuelta": null,
+        "global": {"universidad_catolica": 1, "o_higgins": 1},
+        "penales": null,
+        "avanza": "universidad_catolica",
+        "criterio": "ventaja_deportiva"
+      }
+    ],
+    "playoffs": {
+      "cuartos": [
+        {
+          "ida": {"local": "union_espanola", "visita": "colo_colo", "goles_local": 0, "goles_visita": 4, "dia": "2006-06-11", "estadio": "Santa Laura"},
+          "vuelta": {"local": "colo_colo", "visita": "union_espanola", "goles_local": 5, "goles_visita": 0, "dia": "2006-06-17", "estadio": "Monumental"},
+          "global": {"union_espanola": 0, "colo_colo": 9},
+          "penales": null,
+          "avanza": "colo_colo",
+          "criterio": null
+        },
+        {
+          "ida": {"local": "audax_italiano", "visita": "universidad_de_concepcion", "goles_local": 2, "goles_visita": 1, "dia": "2006-06-11", "estadio": "Municipal de La Florida"},
+          "vuelta": {"local": "universidad_de_concepcion", "visita": "audax_italiano", "goles_local": 2, "goles_visita": 0, "dia": "2006-06-18", "estadio": "Municipal de Concepción"},
+          "global": {"audax_italiano": 2, "universidad_de_concepcion": 3},
+          "penales": null,
+          "avanza": "universidad_de_concepcion",
+          "criterio": null
+        },
+        {
+          "ida": {"local": "cobreloa", "visita": "huachipato", "goles_local": 3, "goles_visita": 1, "dia": "2006-06-10", "estadio": "Municipal de Calama"},
+          "vuelta": {"local": "huachipato", "visita": "cobreloa", "goles_local": 4, "goles_visita": 0, "dia": "2006-06-17", "estadio": "Las Higueras"},
+          "global": {"cobreloa": 3, "huachipato": 5},
+          "penales": null,
+          "avanza": "huachipato",
+          "criterio": null
+        },
+        {
+          "ida": {"local": "universidad_catolica", "visita": "universidad_de_chile", "goles_local": 2, "goles_visita": 2, "dia": "2006-06-13", "estadio": "Nacional"},
+          "vuelta": {"local": "universidad_de_chile", "visita": "universidad_catolica", "goles_local": 3, "goles_visita": 1, "dia": "2006-06-18", "estadio": "Nacional"},
+          "global": {"universidad_catolica": 3, "universidad_de_chile": 5},
+          "penales": null,
+          "avanza": "universidad_de_chile",
+          "criterio": null
+        }
+      ],
+      "semis": [
+        {
+          "ida": {"local": "universidad_de_concepcion", "visita": "colo_colo", "goles_local": 3, "goles_visita": 4, "dia": "2006-06-21", "estadio": "Municipal de Concepción"},
+          "vuelta": {"local": "colo_colo", "visita": "universidad_de_concepcion", "goles_local": 2, "goles_visita": 0, "dia": "2006-06-25", "estadio": "Monumental"},
+          "global": {"universidad_de_concepcion": 3, "colo_colo": 6},
+          "penales": null,
+          "avanza": "colo_colo",
+          "criterio": null
+        },
+        {
+          "ida": {"local": "universidad_de_chile", "visita": "huachipato", "goles_local": 6, "goles_visita": 1, "dia": "2006-06-22", "estadio": "Nacional"},
+          "vuelta": {"local": "huachipato", "visita": "universidad_de_chile", "goles_local": 2, "goles_visita": 2, "dia": "2006-06-25", "estadio": "Las Higueras"},
+          "global": {"universidad_de_chile": 8, "huachipato": 3},
+          "penales": null,
+          "avanza": "universidad_de_chile",
+          "criterio": null
+        }
+      ],
+      "final": {
+        "ida": {"local": "universidad_de_chile", "visita": "colo_colo", "goles_local": 1, "goles_visita": 2, "dia": "2006-06-28", "estadio": "Nacional"},
+        "vuelta": {"local": "colo_colo", "visita": "universidad_de_chile", "goles_local": 0, "goles_visita": 1, "dia": "2006-07-02", "estadio": "Nacional"},
+        "global": {"universidad_de_chile": 2, "colo_colo": 2},
+        "penales": {"colo_colo": 4, "universidad_de_chile": 2},
+        "avanza": "colo_colo",
+        "criterio": null
+      }
+    },
+    "campeon": "colo_colo",
+    "goleadores": [
+      {"nombre": "Humberto Suazo", "club": "colo_colo", "goles": 19}
+    ]
   },
   "clausura": {
-    "inicio": null,
-    "fin": null,
-    "equipos": [],
-    "grupos": {},
-    "fechas": [],
-    "tabla": [],
-    "repechaje": [],
-    "playoffs": {"cuartos": [], "semis": [], "final": null},
-    "campeon": null,
-    "goleadores": []
+    "inicio": "2006-07-15",
+    "fin": "2006-12-23",
+    "equipos": [
+      "colo_colo",
+      "universidad_de_chile",
+      "universidad_catolica",
+      "cobreloa",
+      "audax_italiano",
+      "huachipato",
+      "union_espanola",
+      "everton",
+      "santiago_wanderers",
+      "universidad_de_concepcion",
+      "o_higgins",
+      "cobresal",
+      "palestino",
+      "deportes_antofagasta",
+      "deportes_la_serena",
+      "coquimbo_unido",
+      "deportes_puerto_montt",
+      "rangers",
+      "santiago_morning"
+    ],
+    "grupos": {
+      "A": ["cobreloa", "colo_colo", "santiago_wanderers", "palestino", "cobresal"],
+      "B": ["o_higgins", "coquimbo_unido", "rangers", "huachipato", "union_espanola"],
+      "C": [
+        "deportes_puerto_montt",
+        "audax_italiano",
+        "universidad_de_concepcion",
+        "deportes_la_serena",
+        "santiago_morning"
+      ],
+      "D": ["universidad_catolica", "universidad_de_chile", "deportes_antofagasta", "everton"]
+    },
+    "fechas": [
+      {
+        "numero": 1,
+        "libre": "universidad_de_chile",
+        "partidos": [
+          {"local": "union_espanola", "visita": "coquimbo_unido", "goles_local": 1, "goles_visita": 1, "dia": "2006-07-15", "estadio": "Santa Laura"},
+          {"local": "rangers", "visita": "palestino", "goles_local": 3, "goles_visita": 1, "dia": "2006-07-16", "estadio": "Fiscal de Talca"},
+          {"local": "santiago_morning", "visita": "santiago_wanderers", "goles_local": 1, "goles_visita": 1, "dia": "2006-07-16", "estadio": "Municipal de La Florida"},
+          {"local": "cobreloa", "visita": "huachipato", "goles_local": 1, "goles_visita": 1, "dia": "2006-07-16", "estadio": "Municipal de Calama"},
+          {"local": "cobresal", "visita": "deportes_antofagasta", "goles_local": 1, "goles_visita": 0, "dia": "2006-07-16", "estadio": "El Cobre"},
+          {"local": "deportes_la_serena", "visita": "audax_italiano", "goles_local": 2, "goles_visita": 1, "dia": "2006-07-16", "estadio": "La Portada"},
+          {"local": "everton", "visita": "deportes_puerto_montt", "goles_local": 1, "goles_visita": 2, "dia": "2006-07-16", "estadio": "Sausalito"},
+          {"local": "universidad_catolica", "visita": "universidad_de_concepcion", "goles_local": 0, "goles_visita": 2, "dia": "2006-08-02", "estadio": "San Carlos de Apoquindo"},
+          {"local": "colo_colo", "visita": "o_higgins", "goles_local": 4, "goles_visita": 1, "dia": "2006-08-09", "estadio": "Monumental"}
+        ]
+      },
+      {
+        "numero": 2,
+        "libre": "universidad_catolica",
+        "partidos": [
+          {"local": "santiago_wanderers", "visita": "deportes_la_serena", "goles_local": 2, "goles_visita": 0, "dia": "2006-07-22", "estadio": "Playa Ancha"},
+          {"local": "audax_italiano", "visita": "rangers", "goles_local": 1, "goles_visita": 0, "dia": "2006-07-22", "estadio": "Municipal de La Florida"},
+          {"local": "o_higgins", "visita": "santiago_morning", "goles_local": 4, "goles_visita": 2, "dia": "2006-07-22", "estadio": "El Teniente"},
+          {"local": "coquimbo_unido", "visita": "everton", "goles_local": 0, "goles_visita": 0, "dia": "2006-07-22", "estadio": "Francisco Sánchez Rumoroso"},
+          {"local": "deportes_puerto_montt", "visita": "cobreloa", "goles_local": 4, "goles_visita": 1, "dia": "2006-07-23", "estadio": "Chinquihue"},
+          {"local": "universidad_de_concepcion", "visita": "union_espanola", "goles_local": 4, "goles_visita": 2, "dia": "2006-07-23", "estadio": "Municipal de Concepción"},
+          {"local": "huachipato", "visita": "cobresal", "goles_local": 1, "goles_visita": 1, "dia": "2006-07-23", "estadio": "Las Higueras"},
+          {"local": "deportes_antofagasta", "visita": "colo_colo", "goles_local": 1, "goles_visita": 1, "dia": "2006-07-23", "estadio": "Regional de Antofagasta"},
+          {"local": "palestino", "visita": "universidad_de_chile", "goles_local": 1, "goles_visita": 0, "dia": "2006-07-23", "estadio": "Santa Laura"}
+        ]
+      },
+      {
+        "numero": 3,
+        "libre": "coquimbo_unido",
+        "partidos": [
+          {"local": "palestino", "visita": "deportes_antofagasta", "goles_local": 1, "goles_visita": 1, "dia": "2006-07-29", "estadio": "Municipal de La Cisterna"},
+          {"local": "universidad_catolica", "visita": "o_higgins", "goles_local": 0, "goles_visita": 1, "dia": "2006-07-29", "estadio": "San Carlos de Apoquindo"},
+          {"local": "audax_italiano", "visita": "deportes_puerto_montt", "goles_local": 1, "goles_visita": 1, "dia": "2006-07-29", "estadio": "Municipal de La Florida"},
+          {"local": "union_espanola", "visita": "deportes_la_serena", "goles_local": 1, "goles_visita": 3, "dia": "2006-07-29", "estadio": "Santa Laura"},
+          {"local": "rangers", "visita": "santiago_wanderers", "goles_local": 3, "goles_visita": 1, "dia": "2006-07-30", "estadio": "Fiscal de Talca"},
+          {"local": "cobreloa", "visita": "universidad_de_concepcion", "goles_local": 1, "goles_visita": 0, "dia": "2006-07-30", "estadio": "Municipal de Calama"},
+          {"local": "everton", "visita": "colo_colo", "goles_local": 3, "goles_visita": 0, "dia": "2006-07-30", "estadio": "Sausalito"},
+          {"local": "cobresal", "visita": "santiago_morning", "goles_local": 3, "goles_visita": 0, "dia": "2006-07-30", "estadio": "El Cobre"},
+          {"local": "universidad_de_chile", "visita": "huachipato", "goles_local": 0, "goles_visita": 2, "dia": "2006-07-30", "estadio": "Nacional"}
+        ]
+      },
+      {
+        "numero": 4,
+        "libre": "cobresal",
+        "partidos": [
+          {"local": "union_espanola", "visita": "audax_italiano", "goles_local": 0, "goles_visita": 1, "dia": "2006-08-05", "estadio": "Santa Laura"},
+          {"local": "deportes_puerto_montt", "visita": "universidad_de_chile", "goles_local": 3, "goles_visita": 0, "dia": "2006-08-05", "estadio": "Chinquihue"},
+          {"local": "o_higgins", "visita": "everton", "goles_local": 2, "goles_visita": 0, "dia": "2006-08-05", "estadio": "El Teniente"},
+          {"local": "santiago_morning", "visita": "universidad_de_concepcion", "goles_local": 1, "goles_visita": 1, "dia": "2006-08-06", "estadio": "USACH"},
+          {"local": "deportes_antofagasta", "visita": "rangers", "goles_local": 1, "goles_visita": 1, "dia": "2006-08-06", "estadio": "Regional de Antofagasta"},
+          {"local": "colo_colo", "visita": "palestino", "goles_local": 1, "goles_visita": 3, "dia": "2006-08-06", "estadio": "Monumental"},
+          {"local": "deportes_la_serena", "visita": "cobreloa", "goles_local": 3, "goles_visita": 6, "dia": "2006-08-06", "estadio": "La Portada"},
+          {"local": "santiago_wanderers", "visita": "universidad_catolica", "goles_local": 1, "goles_visita": 1, "dia": "2006-08-06", "estadio": "Sausalito"},
+          {"local": "huachipato", "visita": "coquimbo_unido", "goles_local": 0, "goles_visita": 1, "dia": "2006-11-15", "estadio": "Las Higueras"}
+        ]
+      },
+      {
+        "numero": 5,
+        "libre": "santiago_wanderers",
+        "partidos": [
+          {"local": "palestino", "visita": "cobresal", "goles_local": 1, "goles_visita": 0, "dia": "2006-08-12", "estadio": "Santa Laura"},
+          {"local": "universidad_catolica", "visita": "santiago_morning", "goles_local": 1, "goles_visita": 0, "dia": "2006-08-12", "estadio": "San Carlos de Apoquindo"},
+          {"local": "audax_italiano", "visita": "deportes_antofagasta", "goles_local": 1, "goles_visita": 1, "dia": "2006-08-12", "estadio": "Municipal de La Florida"},
+          {"local": "coquimbo_unido", "visita": "colo_colo", "goles_local": 1, "goles_visita": 4, "dia": "2006-08-12", "estadio": "Francisco Sánchez Rumoroso"},
+          {"local": "deportes_puerto_montt", "visita": "union_espanola", "goles_local": 0, "goles_visita": 1, "dia": "2006-08-13", "estadio": "Chinquihue"},
+          {"local": "universidad_de_chile", "visita": "cobreloa", "goles_local": 1, "goles_visita": 1, "dia": "2006-08-13", "estadio": "Nacional"},
+          {"local": "everton", "visita": "huachipato", "goles_local": 1, "goles_visita": 3, "dia": "2006-08-13", "estadio": "Sausalito"},
+          {"local": "rangers", "visita": "o_higgins", "goles_local": 1, "goles_visita": 1, "dia": "2006-08-13", "estadio": "Fiscal de Talca"},
+          {"local": "universidad_de_concepcion", "visita": "deportes_la_serena", "goles_local": 4, "goles_visita": 1, "dia": "2006-08-30", "estadio": "Municipal de Concepción"}
+        ]
+      },
+      {
+        "numero": 6,
+        "libre": "audax_italiano",
+        "partidos": [
+          {"local": "universidad_catolica", "visita": "palestino", "goles_local": 1, "goles_visita": 0, "dia": "2006-08-19", "estadio": "San Carlos de Apoquindo"},
+          {"local": "o_higgins", "visita": "coquimbo_unido", "goles_local": 3, "goles_visita": 0, "dia": "2006-08-19", "estadio": "El Teniente"},
+          {"local": "santiago_wanderers", "visita": "deportes_puerto_montt", "goles_local": 3, "goles_visita": 0, "dia": "2006-08-19", "estadio": "Playa Ancha"},
+          {"local": "santiago_morning", "visita": "huachipato", "goles_local": 3, "goles_visita": 4, "dia": "2006-08-20", "estadio": "USACH"},
+          {"local": "deportes_antofagasta", "visita": "universidad_de_concepcion", "goles_local": 3, "goles_visita": 2, "dia": "2006-08-20", "estadio": "Regional de Antofagasta"},
+          {"local": "cobreloa", "visita": "everton", "goles_local": 3, "goles_visita": 0, "dia": "2006-08-20", "estadio": "Municipal de Calama"},
+          {"local": "cobresal", "visita": "rangers", "goles_local": 0, "goles_visita": 0, "dia": "2006-08-20", "estadio": "El Cobre"},
+          {"local": "colo_colo", "visita": "union_espanola", "goles_local": 1, "goles_visita": 0, "dia": "2006-08-20", "estadio": "Monumental"},
+          {"local": "deportes_la_serena", "visita": "universidad_de_chile", "goles_local": 3, "goles_visita": 0, "dia": "2006-08-20", "estadio": "La Portada"}
+        ]
+      },
+      {
+        "numero": 7,
+        "libre": "cobreloa",
+        "partidos": [
+          {"local": "deportes_puerto_montt", "visita": "o_higgins", "goles_local": 1, "goles_visita": 1, "dia": "2006-08-26", "estadio": "Chinquihue"},
+          {"local": "union_espanola", "visita": "deportes_antofagasta", "goles_local": 3, "goles_visita": 3, "dia": "2006-08-26", "estadio": "Santa Laura"},
+          {"local": "palestino", "visita": "audax_italiano", "goles_local": 0, "goles_visita": 3, "dia": "2006-08-26", "estadio": "Monumental"},
+          {"local": "everton", "visita": "santiago_morning", "goles_local": 1, "goles_visita": 1, "dia": "2006-08-26", "estadio": "Sausalito"},
+          {"local": "universidad_de_concepcion", "visita": "santiago_wanderers", "goles_local": 1, "goles_visita": 2, "dia": "2006-08-26", "estadio": "Municipal de Concepción"},
+          {"local": "coquimbo_unido", "visita": "cobresal", "goles_local": 1, "goles_visita": 0, "dia": "2006-08-26", "estadio": "Francisco Sánchez Rumoroso"},
+          {"local": "rangers", "visita": "colo_colo", "goles_local": 0, "goles_visita": 0, "dia": "2006-08-27", "estadio": "Fiscal de Talca"},
+          {"local": "huachipato", "visita": "deportes_la_serena", "goles_local": 2, "goles_visita": 0, "dia": "2006-08-27", "estadio": "Las Higueras"},
+          {"local": "universidad_de_chile", "visita": "universidad_catolica", "goles_local": 1, "goles_visita": 0, "dia": "2006-08-27", "estadio": "Nacional"}
+        ]
+      },
+      {
+        "numero": 8,
+        "libre": "huachipato",
+        "partidos": [
+          {"local": "universidad_catolica", "visita": "coquimbo_unido", "goles_local": 0, "goles_visita": 0, "dia": "2006-09-02", "estadio": "San Carlos de Apoquindo"},
+          {"local": "o_higgins", "visita": "santiago_wanderers", "goles_local": 1, "goles_visita": 0, "dia": "2006-09-02", "estadio": "El Teniente"},
+          {"local": "santiago_morning", "visita": "deportes_antofagasta", "goles_local": 1, "goles_visita": 4, "dia": "2006-09-03", "estadio": "USACH"},
+          {"local": "cobreloa", "visita": "palestino", "goles_local": 1, "goles_visita": 0, "dia": "2006-09-03", "estadio": "Municipal de Calama"},
+          {"local": "everton", "visita": "union_espanola", "goles_local": 1, "goles_visita": 2, "dia": "2006-09-03", "estadio": "Sausalito"},
+          {"local": "cobresal", "visita": "universidad_de_concepcion", "goles_local": 4, "goles_visita": 1, "dia": "2006-09-03", "estadio": "El Cobre"},
+          {"local": "colo_colo", "visita": "deportes_puerto_montt", "goles_local": 4, "goles_visita": 1, "dia": "2006-09-03", "estadio": "Monumental"},
+          {"local": "deportes_la_serena", "visita": "rangers", "goles_local": 1, "goles_visita": 2, "dia": "2006-09-03", "estadio": "La Portada"},
+          {"local": "audax_italiano", "visita": "universidad_de_chile", "goles_local": 0, "goles_visita": 1, "dia": "2006-09-03", "estadio": "Nacional"}
+        ]
+      },
+      {
+        "numero": 9,
+        "libre": "universidad_de_concepcion",
+        "partidos": [
+          {"local": "union_espanola", "visita": "santiago_morning", "goles_local": 1, "goles_visita": 2, "dia": "2006-09-09", "estadio": "Santa Laura"},
+          {"local": "rangers", "visita": "universidad_catolica", "goles_local": 1, "goles_visita": 1, "dia": "2006-09-09", "estadio": "Fiscal de Talca"},
+          {"local": "universidad_de_chile", "visita": "cobresal", "goles_local": 2, "goles_visita": 0, "dia": "2006-09-09", "estadio": "Santa Laura"},
+          {"local": "santiago_wanderers", "visita": "colo_colo", "goles_local": 1, "goles_visita": 0, "dia": "2006-09-10", "estadio": "Playa Ancha"},
+          {"local": "deportes_puerto_montt", "visita": "huachipato", "goles_local": 2, "goles_visita": 1, "dia": "2006-09-10", "estadio": "Chinquihue"},
+          {"local": "coquimbo_unido", "visita": "deportes_la_serena", "goles_local": 4, "goles_visita": 3, "dia": "2006-09-10", "estadio": "Francisco Sánchez Rumoroso"},
+          {"local": "deportes_antofagasta", "visita": "everton", "goles_local": 0, "goles_visita": 0, "dia": "2006-09-10", "estadio": "Regional de Antofagasta"},
+          {"local": "palestino", "visita": "o_higgins", "goles_local": 0, "goles_visita": 0, "dia": "2006-09-10", "estadio": "Municipal de La Cisterna"},
+          {"local": "audax_italiano", "visita": "cobreloa", "goles_local": 5, "goles_visita": 3, "dia": "2006-09-10", "estadio": "Municipal de La Florida"}
+        ]
+      },
+      {
+        "numero": 10,
+        "libre": "palestino",
+        "partidos": [
+          {"local": "colo_colo", "visita": "universidad_de_concepcion", "goles_local": 4, "goles_visita": 2, "dia": "2006-09-15", "estadio": "Monumental"},
+          {"local": "o_higgins", "visita": "universidad_de_chile", "goles_local": 2, "goles_visita": 0, "dia": "2006-09-16", "estadio": "El Teniente"},
+          {"local": "cobreloa", "visita": "deportes_antofagasta", "goles_local": 3, "goles_visita": 1, "dia": "2006-09-16", "estadio": "Municipal de Calama"},
+          {"local": "universidad_catolica", "visita": "audax_italiano", "goles_local": 5, "goles_visita": 1, "dia": "2006-09-16", "estadio": "San Carlos de Apoquindo"},
+          {"local": "deportes_la_serena", "visita": "deportes_puerto_montt", "goles_local": 0, "goles_visita": 0, "dia": "2006-09-16", "estadio": "La Portada"},
+          {"local": "huachipato", "visita": "santiago_wanderers", "goles_local": 2, "goles_visita": 3, "dia": "2006-09-17", "estadio": "Las Higueras"},
+          {"local": "cobresal", "visita": "union_espanola", "goles_local": 2, "goles_visita": 4, "dia": "2006-09-17", "estadio": "El Cobre"},
+          {"local": "santiago_morning", "visita": "coquimbo_unido", "goles_local": 2, "goles_visita": 2, "dia": "2006-09-17", "estadio": "Santa Laura"},
+          {"local": "everton", "visita": "rangers", "goles_local": 3, "goles_visita": 0, "dia": "2006-09-17", "estadio": "Sausalito"}
+        ]
+      },
+      {
+        "numero": 11,
+        "libre": "colo_colo",
+        "partidos": [
+          {"local": "union_espanola", "visita": "cobreloa", "goles_local": 0, "goles_visita": 3, "dia": "2006-09-23", "estadio": "Santa Laura"},
+          {"local": "audax_italiano", "visita": "cobresal", "goles_local": 5, "goles_visita": 0, "dia": "2006-09-23", "estadio": "Municipal de La Florida"},
+          {"local": "deportes_puerto_montt", "visita": "universidad_catolica", "goles_local": 3, "goles_visita": 1, "dia": "2006-09-23", "estadio": "Chinquihue"},
+          {"local": "deportes_la_serena", "visita": "palestino", "goles_local": 1, "goles_visita": 1, "dia": "2006-09-23", "estadio": "La Portada"},
+          {"local": "rangers", "visita": "santiago_morning", "goles_local": 3, "goles_visita": 1, "dia": "2006-09-24", "estadio": "Fiscal de Talca"},
+          {"local": "universidad_de_concepcion", "visita": "o_higgins", "goles_local": 0, "goles_visita": 0, "dia": "2006-09-24", "estadio": "Municipal de Concepción"},
+          {"local": "deportes_antofagasta", "visita": "huachipato", "goles_local": 2, "goles_visita": 0, "dia": "2006-09-24", "estadio": "Regional de Antofagasta"},
+          {"local": "santiago_wanderers", "visita": "everton", "goles_local": 1, "goles_visita": 1, "dia": "2006-09-24", "estadio": "Playa Ancha"},
+          {"local": "universidad_de_chile", "visita": "coquimbo_unido", "goles_local": 1, "goles_visita": 2, "dia": "2006-09-24", "estadio": "Nacional"}
+        ]
+      },
+      {
+        "numero": 12,
+        "libre": "santiago_morning",
+        "partidos": [
+          {"local": "huachipato", "visita": "colo_colo", "goles_local": 1, "goles_visita": 2, "dia": "2006-09-30", "estadio": "Las Higueras"},
+          {"local": "palestino", "visita": "universidad_de_concepcion", "goles_local": 2, "goles_visita": 2, "dia": "2006-09-30", "estadio": "Municipal de La Cisterna"},
+          {"local": "union_espanola", "visita": "universidad_catolica", "goles_local": 1, "goles_visita": 1, "dia": "2006-09-30", "estadio": "Santa Laura"},
+          {"local": "o_higgins", "visita": "deportes_antofagasta", "goles_local": 3, "goles_visita": 1, "dia": "2006-09-30", "estadio": "El Teniente"},
+          {"local": "coquimbo_unido", "visita": "deportes_puerto_montt", "goles_local": 0, "goles_visita": 1, "dia": "2006-09-30", "estadio": "Francisco Sánchez Rumoroso"},
+          {"local": "cobreloa", "visita": "santiago_wanderers", "goles_local": 3, "goles_visita": 1, "dia": "2006-10-01", "estadio": "Municipal de Calama"},
+          {"local": "everton", "visita": "audax_italiano", "goles_local": 4, "goles_visita": 3, "dia": "2006-10-01", "estadio": "Sausalito"},
+          {"local": "cobresal", "visita": "deportes_la_serena", "goles_local": 1, "goles_visita": 1, "dia": "2006-10-01", "estadio": "El Cobre"},
+          {"local": "universidad_de_chile", "visita": "rangers", "goles_local": 4, "goles_visita": 0, "dia": "2006-10-01", "estadio": "Nacional"}
+        ]
+      },
+      {
+        "numero": 13,
+        "libre": "union_espanola",
+        "partidos": [
+          {"local": "deportes_puerto_montt", "visita": "cobresal", "goles_local": 2, "goles_visita": 0, "dia": "2006-10-14", "estadio": "Chinquihue"},
+          {"local": "universidad_catolica", "visita": "everton", "goles_local": 2, "goles_visita": 1, "dia": "2006-10-14", "estadio": "San Carlos de Apoquindo"},
+          {"local": "audax_italiano", "visita": "huachipato", "goles_local": 2, "goles_visita": 1, "dia": "2006-10-14", "estadio": "Municipal de La Florida"},
+          {"local": "deportes_la_serena", "visita": "o_higgins", "goles_local": 4, "goles_visita": 4, "dia": "2006-10-14", "estadio": "La Portada"},
+          {"local": "universidad_de_concepcion", "visita": "universidad_de_chile", "goles_local": 2, "goles_visita": 2, "dia": "2006-10-14", "estadio": "Municipal de Concepción"},
+          {"local": "rangers", "visita": "cobreloa", "goles_local": 1, "goles_visita": 3, "dia": "2006-10-15", "estadio": "Fiscal de Talca"},
+          {"local": "deportes_antofagasta", "visita": "coquimbo_unido", "goles_local": 0, "goles_visita": 1, "dia": "2006-10-15", "estadio": "Regional de Antofagasta"},
+          {"local": "santiago_wanderers", "visita": "palestino", "goles_local": 2, "goles_visita": 0, "dia": "2006-10-15", "estadio": "Playa Ancha"},
+          {"local": "colo_colo", "visita": "santiago_morning", "goles_local": 2, "goles_visita": 2, "dia": "2006-10-15", "estadio": "Monumental"}
+        ]
+      },
+      {
+        "numero": 14,
+        "libre": "deportes_antofagasta",
+        "partidos": [
+          {"local": "cobresal", "visita": "universidad_catolica", "goles_local": 1, "goles_visita": 2, "dia": "2006-10-21", "estadio": "El Cobre"},
+          {"local": "o_higgins", "visita": "audax_italiano", "goles_local": 1, "goles_visita": 0, "dia": "2006-10-21", "estadio": "El Teniente"},
+          {"local": "coquimbo_unido", "visita": "palestino", "goles_local": 3, "goles_visita": 0, "dia": "2006-10-21", "estadio": "Francisco Sánchez Rumoroso"},
+          {"local": "santiago_morning", "visita": "deportes_puerto_montt", "goles_local": 2, "goles_visita": 0, "dia": "2006-10-22", "estadio": "USACH"},
+          {"local": "cobreloa", "visita": "colo_colo", "goles_local": 2, "goles_visita": 2, "dia": "2006-10-22", "estadio": "Municipal de Calama"},
+          {"local": "rangers", "visita": "universidad_de_concepcion", "goles_local": 2, "goles_visita": 1, "dia": "2006-10-22", "estadio": "Fiscal de Talca"},
+          {"local": "huachipato", "visita": "union_espanola", "goles_local": 1, "goles_visita": 0, "dia": "2006-10-22", "estadio": "Las Higueras"},
+          {"local": "everton", "visita": "deportes_la_serena", "goles_local": 1, "goles_visita": 1, "dia": "2006-10-22", "estadio": "Sausalito"},
+          {"local": "universidad_de_chile", "visita": "santiago_wanderers", "goles_local": 2, "goles_visita": 0, "dia": "2006-10-22", "estadio": "Nacional"}
+        ]
+      },
+      {
+        "numero": 15,
+        "libre": "deportes_la_serena",
+        "partidos": [
+          {"local": "cobreloa", "visita": "o_higgins", "goles_local": 3, "goles_visita": 1, "dia": "2006-10-28", "estadio": "Municipal de Calama"},
+          {"local": "palestino", "visita": "everton", "goles_local": 1, "goles_visita": 1, "dia": "2006-10-28", "estadio": "Municipal de La Cisterna"},
+          {"local": "universidad_catolica", "visita": "huachipato", "goles_local": 3, "goles_visita": 1, "dia": "2006-10-28", "estadio": "San Carlos de Apoquindo"},
+          {"local": "union_espanola", "visita": "rangers", "goles_local": 0, "goles_visita": 0, "dia": "2006-10-28", "estadio": "Santa Laura"},
+          {"local": "universidad_de_concepcion", "visita": "coquimbo_unido", "goles_local": 3, "goles_visita": 2, "dia": "2006-10-28", "estadio": "Municipal de Concepción"},
+          {"local": "audax_italiano", "visita": "santiago_morning", "goles_local": 1, "goles_visita": 2, "dia": "2006-10-28", "estadio": "Municipal de La Florida"},
+          {"local": "santiago_wanderers", "visita": "cobresal", "goles_local": 1, "goles_visita": 0, "dia": "2006-10-28", "estadio": "Playa Ancha"},
+          {"local": "deportes_antofagasta", "visita": "deportes_puerto_montt", "goles_local": 3, "goles_visita": 1, "dia": "2006-10-29", "estadio": "Regional de Antofagasta"},
+          {"local": "colo_colo", "visita": "universidad_de_chile", "goles_local": 4, "goles_visita": 2, "dia": "2006-10-29", "estadio": "Monumental"}
+        ]
+      },
+      {
+        "numero": 16,
+        "libre": "everton",
+        "partidos": [
+          {"local": "coquimbo_unido", "visita": "cobreloa", "goles_local": 1, "goles_visita": 1, "dia": "2006-10-31", "estadio": "Francisco Sánchez Rumoroso"},
+          {"local": "deportes_antofagasta", "visita": "universidad_catolica", "goles_local": 1, "goles_visita": 2, "dia": "2006-10-31", "estadio": "Regional de Antofagasta"},
+          {"local": "deportes_puerto_montt", "visita": "universidad_de_concepcion", "goles_local": 1, "goles_visita": 0, "dia": "2006-11-01", "estadio": "Chinquihue"},
+          {"local": "colo_colo", "visita": "deportes_la_serena", "goles_local": 4, "goles_visita": 4, "dia": "2006-11-01", "estadio": "Monumental"},
+          {"local": "huachipato", "visita": "rangers", "goles_local": 1, "goles_visita": 3, "dia": "2006-11-01", "estadio": "Las Higueras"},
+          {"local": "cobresal", "visita": "o_higgins", "goles_local": 2, "goles_visita": 1, "dia": "2006-11-01", "estadio": "El Cobre"},
+          {"local": "santiago_morning", "visita": "palestino", "goles_local": 0, "goles_visita": 1, "dia": "2006-11-01", "estadio": "USACH"},
+          {"local": "audax_italiano", "visita": "santiago_wanderers", "goles_local": 2, "goles_visita": 0, "dia": "2006-11-01", "estadio": "Municipal de La Florida"},
+          {"local": "union_espanola", "visita": "universidad_de_chile", "goles_local": 2, "goles_visita": 6, "dia": "2006-11-01", "estadio": "Santa Laura"}
+        ]
+      },
+      {
+        "numero": 17,
+        "libre": "deportes_puerto_montt",
+        "partidos": [
+          {"local": "universidad_de_chile", "visita": "everton", "goles_local": 1, "goles_visita": 2, "dia": "2006-11-04", "estadio": "Santa Laura"},
+          {"local": "o_higgins", "visita": "huachipato", "goles_local": 3, "goles_visita": 2, "dia": "2006-11-04", "estadio": "El Teniente"},
+          {"local": "deportes_la_serena", "visita": "santiago_morning", "goles_local": 1, "goles_visita": 0, "dia": "2006-11-04", "estadio": "La Portada"},
+          {"local": "cobreloa", "visita": "cobresal", "goles_local": 3, "goles_visita": 1, "dia": "2006-11-05", "estadio": "Municipal de Calama"},
+          {"local": "rangers", "visita": "coquimbo_unido", "goles_local": 1, "goles_visita": 2, "dia": "2006-11-05", "estadio": "Fiscal de Talca"},
+          {"local": "palestino", "visita": "union_espanola", "goles_local": 1, "goles_visita": 0, "dia": "2006-11-05", "estadio": "Municipal de La Cisterna"},
+          {"local": "universidad_catolica", "visita": "colo_colo", "goles_local": 0, "goles_visita": 1, "dia": "2006-11-05", "estadio": "Nacional"},
+          {"local": "universidad_de_concepcion", "visita": "audax_italiano", "goles_local": 1, "goles_visita": 0, "dia": "2006-11-05", "estadio": "Municipal de Concepción"},
+          {"local": "santiago_wanderers", "visita": "deportes_antofagasta", "goles_local": 1, "goles_visita": 0, "dia": "2006-11-05", "estadio": "Playa Ancha"}
+        ]
+      },
+      {
+        "numero": 18,
+        "libre": "rangers",
+        "partidos": [
+          {"local": "coquimbo_unido", "visita": "santiago_wanderers", "goles_local": 2, "goles_visita": 0, "dia": "2006-11-10", "estadio": "Francisco Sánchez Rumoroso"},
+          {"local": "huachipato", "visita": "universidad_de_concepcion", "goles_local": 2, "goles_visita": 3, "dia": "2006-11-11", "estadio": "Las Higueras"},
+          {"local": "deportes_puerto_montt", "visita": "palestino", "goles_local": 2, "goles_visita": 1, "dia": "2006-11-11", "estadio": "Chinquihue"},
+          {"local": "universidad_catolica", "visita": "cobreloa", "goles_local": 1, "goles_visita": 0, "dia": "2006-11-11", "estadio": "San Carlos de Apoquindo"},
+          {"local": "everton", "visita": "cobresal", "goles_local": 2, "goles_visita": 0, "dia": "2006-11-11", "estadio": "Sausalito"},
+          {"local": "colo_colo", "visita": "audax_italiano", "goles_local": 2, "goles_visita": 3, "dia": "2006-11-11", "estadio": "Monumental"},
+          {"local": "deportes_antofagasta", "visita": "deportes_la_serena", "goles_local": 3, "goles_visita": 2, "dia": "2006-11-12", "estadio": "Regional de Antofagasta"},
+          {"local": "santiago_morning", "visita": "universidad_de_chile", "goles_local": 1, "goles_visita": 0, "dia": "2006-11-12", "estadio": "Nacional"},
+          {"local": "union_espanola", "visita": "o_higgins", "goles_local": 0, "goles_visita": 2, "dia": "2006-11-12", "estadio": "Santa Laura"}
+        ]
+      },
+      {
+        "numero": 19,
+        "libre": "o_higgins",
+        "partidos": [
+          {"local": "palestino", "visita": "huachipato", "goles_local": 2, "goles_visita": 4, "dia": "2006-11-18", "estadio": "Municipal de La Cisterna"},
+          {"local": "audax_italiano", "visita": "coquimbo_unido", "goles_local": 2, "goles_visita": 0, "dia": "2006-11-18", "estadio": "Municipal de La Florida"},
+          {"local": "deportes_la_serena", "visita": "universidad_catolica", "goles_local": 2, "goles_visita": 3, "dia": "2006-11-18", "estadio": "La Portada"},
+          {"local": "rangers", "visita": "deportes_puerto_montt", "goles_local": 1, "goles_visita": 2, "dia": "2006-11-19", "estadio": "Fiscal de Talca"},
+          {"local": "cobreloa", "visita": "santiago_morning", "goles_local": 2, "goles_visita": 1, "dia": "2006-11-19", "estadio": "Municipal de Calama"},
+          {"local": "santiago_wanderers", "visita": "union_espanola", "goles_local": 2, "goles_visita": 2, "dia": "2006-11-19", "estadio": "Playa Ancha"},
+          {"local": "universidad_de_chile", "visita": "deportes_antofagasta", "goles_local": 1, "goles_visita": 0, "dia": "2006-11-19", "estadio": "Nacional"},
+          {"local": "universidad_de_concepcion", "visita": "everton", "goles_local": 5, "goles_visita": 1, "dia": "2006-11-19", "estadio": "Municipal de Concepción"},
+          {"local": "cobresal", "visita": "colo_colo", "goles_local": 4, "goles_visita": 1, "dia": "2006-11-22", "estadio": "El Cobre"}
+        ]
+      }
+    ],
+    "tabla": [
+      {"club": "cobreloa", "pj": 18, "pg": 11, "pe": 4, "pp": 3, "gf": 40, "gc": 24, "pts": 37},
+      {"club": "o_higgins", "pj": 18, "pg": 10, "pe": 5, "pp": 3, "gf": 31, "gc": 20, "pts": 35},
+      {"club": "deportes_puerto_montt", "pj": 18, "pg": 10, "pe": 3, "pp": 5, "gf": 26, "gc": 21, "pts": 33},
+      {"club": "universidad_catolica", "pj": 18, "pg": 9, "pe": 4, "pp": 5, "gf": 24, "gc": 18, "pts": 31},
+      {"club": "audax_italiano", "pj": 18, "pg": 9, "pe": 2, "pp": 7, "gf": 32, "gc": 24, "pts": 29},
+      {"club": "colo_colo", "pj": 18, "pg": 8, "pe": 5, "pp": 5, "gf": 37, "gc": 31, "pts": 29},
+      {"club": "coquimbo_unido", "pj": 18, "pg": 8, "pe": 5, "pp": 5, "gf": 23, "gc": 22, "pts": 29},
+      {"club": "santiago_wanderers", "pj": 18, "pg": 8, "pe": 4, "pp": 6, "gf": 22, "gc": 21, "pts": 28},
+      {"club": "universidad_de_concepcion", "pj": 18, "pg": 7, "pe": 4, "pp": 7, "gf": 34, "gc": 30, "pts": 25},
+      {"club": "rangers", "pj": 18, "pg": 6, "pe": 6, "pp": 6, "gf": 22, "gc": 24, "pts": 24},
+      {"club": "universidad_de_chile", "pj": 18, "pg": 7, "pe": 2, "pp": 9, "gf": 24, "gc": 25, "pts": 23},
+      {"club": "deportes_antofagasta", "pj": 18, "pg": 5, "pe": 6, "pp": 7, "gf": 25, "gc": 25, "pts": 21},
+      {"club": "everton", "pj": 18, "pg": 5, "pe": 6, "pp": 7, "gf": 23, "gc": 27, "pts": 21},
+      {"club": "huachipato", "pj": 18, "pg": 6, "pe": 2, "pp": 10, "gf": 29, "gc": 32, "pts": 20},
+      {"club": "palestino", "pj": 18, "pg": 5, "pe": 5, "pp": 8, "gf": 16, "gc": 25, "pts": 20},
+      {"club": "deportes_la_serena", "pj": 18, "pg": 4, "pe": 6, "pp": 8, "gf": 32, "gc": 39, "pts": 18},
+      {"club": "cobresal", "pj": 18, "pg": 5, "pe": 3, "pp": 10, "gf": 20, "gc": 28, "pts": 18},
+      {"club": "santiago_morning", "pj": 18, "pg": 4, "pe": 5, "pp": 9, "gf": 22, "gc": 32, "pts": 17},
+      {"club": "union_espanola", "pj": 18, "pg": 3, "pe": 5, "pp": 10, "gf": 20, "gc": 34, "pts": 14}
+    ],
+    "repechaje": [
+      {
+        "ida": {"local": "santiago_wanderers", "visita": "universidad_de_chile", "goles_local": 0, "goles_visita": 1, "dia": "2006-11-22", "estadio": "Playa Ancha"},
+        "vuelta": null,
+        "global": {"santiago_wanderers": 0, "universidad_de_chile": 1},
+        "penales": null,
+        "avanza": "universidad_de_chile",
+        "criterio": null
+      }
+    ],
+    "playoffs": {
+      "cuartos": [
+        {
+          "ida": {"local": "coquimbo_unido", "visita": "o_higgins", "goles_local": 0, "goles_visita": 0, "dia": "2006-11-25", "estadio": "Francisco Sánchez Rumoroso"},
+          "vuelta": {"local": "o_higgins", "visita": "coquimbo_unido", "goles_local": 2, "goles_visita": 1, "dia": "2006-12-02", "estadio": "El Teniente"},
+          "global": {"coquimbo_unido": 1, "o_higgins": 2},
+          "penales": null,
+          "avanza": "o_higgins",
+          "criterio": null
+        },
+        {
+          "ida": {"local": "audax_italiano", "visita": "universidad_catolica", "goles_local": 1, "goles_visita": 0, "dia": "2006-11-25", "estadio": "Municipal de La Florida"},
+          "vuelta": {"local": "universidad_catolica", "visita": "audax_italiano", "goles_local": 0, "goles_visita": 3, "dia": "2006-12-03", "estadio": "San Carlos de Apoquindo"},
+          "global": {"audax_italiano": 4, "universidad_catolica": 0},
+          "penales": null,
+          "avanza": "audax_italiano",
+          "criterio": null
+        },
+        {
+          "ida": {"local": "universidad_de_chile", "visita": "cobreloa", "goles_local": 1, "goles_visita": 0, "dia": "2006-11-26", "estadio": "Nacional"},
+          "vuelta": {"local": "cobreloa", "visita": "universidad_de_chile", "goles_local": 3, "goles_visita": 1, "dia": "2006-12-03", "estadio": "Municipal de Calama"},
+          "global": {"universidad_de_chile": 2, "cobreloa": 3},
+          "penales": null,
+          "avanza": "cobreloa",
+          "criterio": null
+        },
+        {
+          "ida": {"local": "colo_colo", "visita": "deportes_puerto_montt", "goles_local": 1, "goles_visita": 0, "dia": "2006-11-26", "estadio": "Monumental"},
+          "vuelta": {"local": "deportes_puerto_montt", "visita": "colo_colo", "goles_local": 0, "goles_visita": 4, "dia": "2006-12-06", "estadio": "Chinquihue"},
+          "global": {"colo_colo": 5, "deportes_puerto_montt": 0},
+          "penales": null,
+          "avanza": "colo_colo",
+          "criterio": null
+        }
+      ],
+      "semis": [
+        {
+          "ida": {"local": "audax_italiano", "visita": "o_higgins", "goles_local": 4, "goles_visita": 1, "dia": "2006-12-08", "estadio": "Municipal de La Florida"},
+          "vuelta": {"local": "o_higgins", "visita": "audax_italiano", "goles_local": 4, "goles_visita": 2, "dia": "2006-12-16", "estadio": "El Teniente"},
+          "global": {"audax_italiano": 6, "o_higgins": 5},
+          "penales": null,
+          "avanza": "audax_italiano",
+          "criterio": null
+        },
+        {
+          "ida": {"local": "colo_colo", "visita": "cobreloa", "goles_local": 3, "goles_visita": 0, "dia": "2006-12-09", "estadio": "Monumental"},
+          "vuelta": {"local": "cobreloa", "visita": "colo_colo", "goles_local": 3, "goles_visita": 3, "dia": "2006-12-17", "estadio": "Municipal de Calama"},
+          "global": {"colo_colo": 6, "cobreloa": 3},
+          "penales": null,
+          "avanza": "colo_colo",
+          "criterio": null
+        }
+      ],
+      "final": {
+        "ida": {"local": "colo_colo", "visita": "audax_italiano", "goles_local": 3, "goles_visita": 0, "dia": "2006-12-20", "estadio": "Monumental"},
+        "vuelta": {"local": "audax_italiano", "visita": "colo_colo", "goles_local": 2, "goles_visita": 3, "dia": "2006-12-23", "estadio": "Nacional"},
+        "global": {"colo_colo": 6, "audax_italiano": 2},
+        "penales": null,
+        "avanza": "colo_colo",
+        "criterio": null
+      }
+    },
+    "campeon": "colo_colo",
+    "goleadores": [
+      {"nombre": "Leonardo Monje", "club": "universidad_de_concepcion", "goles": 17}
+    ]
   },
-  "tabla_acumulada": [],
-  "descenso": {"directo": null, "liguilla": null},
-  "ascensos": [],
+  "tabla_acumulada": [
+    {"club": "colo_colo", "pj": 36, "pg": 21, "pe": 6, "pp": 9, "gf": 91, "gc": 53, "pts": 69},
+    {"club": "cobreloa", "pj": 36, "pg": 20, "pe": 7, "pp": 9, "gf": 72, "gc": 48, "pts": 67},
+    {"club": "universidad_catolica", "pj": 36, "pg": 18, "pe": 9, "pp": 9, "gf": 51, "gc": 38, "pts": 63},
+    {"club": "audax_italiano", "pj": 36, "pg": 18, "pe": 7, "pp": 11, "gf": 64, "gc": 46, "pts": 61},
+    {"club": "universidad_de_concepcion", "pj": 36, "pg": 16, "pe": 10, "pp": 10, "gf": 65, "gc": 53, "pts": 58},
+    {"club": "universidad_de_chile", "pj": 36, "pg": 17, "pe": 7, "pp": 12, "gf": 51, "gc": 45, "pts": 58},
+    {"club": "huachipato", "pj": 36, "pg": 17, "pe": 5, "pp": 14, "gf": 61, "gc": 51, "pts": 56},
+    {"club": "o_higgins", "pj": 36, "pg": 15, "pe": 11, "pp": 10, "gf": 51, "gc": 45, "pts": 56},
+    {"club": "deportes_puerto_montt", "pj": 36, "pg": 14, "pe": 8, "pp": 14, "gf": 59, "gc": 53, "pts": 50},
+    {"club": "coquimbo_unido", "pj": 36, "pg": 11, "pe": 13, "pp": 12, "gf": 39, "gc": 48, "pts": 46},
+    {"club": "santiago_wanderers", "pj": 36, "pg": 13, "pe": 6, "pp": 17, "gf": 38, "gc": 51, "pts": 45},
+    {"club": "deportes_antofagasta", "pj": 36, "pg": 10, "pe": 12, "pp": 14, "gf": 51, "gc": 56, "pts": 42},
+    {"club": "union_espanola", "pj": 36, "pg": 11, "pe": 9, "pp": 16, "gf": 44, "gc": 55, "pts": 42},
+    {"club": "everton", "pj": 36, "pg": 10, "pe": 12, "pp": 14, "gf": 43, "gc": 54, "pts": 42},
+    {"club": "deportes_la_serena", "pj": 36, "pg": 9, "pe": 13, "pp": 14, "gf": 64, "gc": 70, "pts": 40},
+    {"club": "cobresal", "pj": 36, "pg": 11, "pe": 7, "pp": 18, "gf": 46, "gc": 60, "pts": 40},
+    {"club": "rangers", "pj": 36, "pg": 10, "pe": 10, "pp": 16, "gf": 48, "gc": 64, "pts": 40},
+    {"club": "palestino", "pj": 36, "pg": 9, "pe": 9, "pp": 18, "gf": 38, "gc": 60, "pts": 36},
+    {"club": "santiago_morning", "pj": 36, "pg": 6, "pe": 11, "pp": 19, "gf": 37, "gc": 63, "pts": 29}
+  ],
+  "descenso": {
+    "directo": "santiago_morning",
+    "administrativo": ["deportes_concepcion"],
+    "liguilla": [
+      {
+        "club": "rangers",
+        "llave": {
+          "ida": {"local": "rangers", "visita": "lota_schwager", "goles_local": 2, "goles_visita": 1, "dia": "2006-11-26", "estadio": "Fiscal de Talca"},
+          "vuelta": {"local": "lota_schwager", "visita": "rangers", "goles_local": 2, "goles_visita": 1, "dia": "2006-12-08", "estadio": "Federico Schwager"},
+          "global": {"rangers": 3, "lota_schwager": 3},
+          "penales": {"lota_schwager": 4, "rangers": 3},
+          "avanza": "lota_schwager",
+          "criterio": null
+        },
+        "se_mantiene": false
+      },
+      {
+        "club": "palestino",
+        "llave": {
+          "ida": {"local": "fernandez_vial", "visita": "palestino", "goles_local": 1, "goles_visita": 3, "dia": "2006-11-25", "estadio": "Municipal de Concepción"},
+          "vuelta": {"local": "palestino", "visita": "fernandez_vial", "goles_local": 1, "goles_visita": 0, "dia": "2006-12-03", "estadio": "Municipal de La Cisterna"},
+          "global": {"fernandez_vial": 1, "palestino": 4},
+          "penales": null,
+          "avanza": "palestino",
+          "criterio": null
+        },
+        "se_mantiene": true
+      }
+    ]
+  },
+  "ascensos": ["deportes_melipilla", "nublense", "lota_schwager"],
   "review": [
-    {
-      "tipo": "bloqueo",
-      "donde": "*",
-      "detalle": "2026-10-27, sesión en la nube: la política de red del entorno rechaza es.wikipedia.org, en.wikipedia.org, wikidata.org, rsssf.org y web.archive.org (solo responde el buscador, con fragmentos sueltos). Por D-02 y el brief de T-07 no se armó el archivo con esos fragmentos. Para completarlo: correr T-07 desde el PC del usuario o permitir esos dominios en la red del entorno."
-    },
-    {
-      "tipo": "sin_fuente",
-      "donde": "apertura.inicio",
-      "detalle": "El brief de T-07 trae 2006-01-27 y 2006-07-02 como ejemplo de formato; confirmarlos con la fuente antes de usarlos."
-    },
-    {
-      "tipo": "sin_fuente",
-      "donde": "playoffs",
-      "detalle": "Falta confirmar cómo se desempataba cada ronda (penales, gol de visita o ventaja deportiva). D-24 dice penales si hay empate global; la prueba acepta cualquiera de los tres si el campo criterio lo declara."
-    },
-    {
-      "tipo": "sin_fuente",
-      "donde": "descenso.liguilla",
-      "detalle": "Falta confirmar el formato de la liguilla de promoción. El formato supone una llave contra un club de Primera B (D-24: penúltimo a liguilla); si fue otro (p. ej. un cuadrangular), ajustar el formato y la prueba."
-    }
+    {"tipo": "discrepancia", "donde": "descenso", "detalle": "D-24 dice último directo y penúltimo a liguilla. En 2006 bajó directo el último de la acumulada (Santiago Morning), Deportes Concepción bajó castigado sin jugar el año, y el 17.º (Rangers) y el 18.º (Palestino) jugaron la liguilla de promoción contra el 3.º y el 4.º de Primera B; subieron directo los dos primeros de Primera B. El formato de descenso se ajustó a eso (liguilla es una lista y se agregó administrativo). Decisión pendiente para el usuario: si el juego sigue D-24 o el formato real."},
+    {"tipo": "sin_fuente", "donde": "playoffs", "detalle": "Ninguna fuente dice cómo se desempataba un global igualado en cuartos o semis (en 2006 no pasó). La final del Apertura se definió por penales sin alargue (RSSSF: 'no extra time played') y el repechaje empatado por ventaja deportiva. D-24 asume penales en todas las llaves."},
+    {"tipo": "discrepancia", "donde": "apertura.fecha 17", "detalle": "Santiago Morning-Unión Española (0-0, 2006-05-21): es.wikipedia (página y anexo) dice estadio USACH; RSSSF dice que se jugó en la cancha de Colo-Colo (Monumental). Sin una tercera fuente, estadio queda null."},
+    {"tipo": "discrepancia", "donde": "clausura.fecha 10", "detalle": "Santiago Morning-Coquimbo Unido (2-2, 2006-09-17): la página del Clausura dice USACH; el anexo dice Santa Laura y RSSSF que se jugó en la cancha de Unión Española (Santa Laura). Se usa Santa Laura."},
+    {"tipo": "discrepancia", "donde": "apertura.fecha 18", "detalle": "Deportes La Serena-Coquimbo Unido: el anexo pone el partido el 2006-05-31; RSSSF lo pone el 2006-05-28, suspendido en el minuto 77, y los 13 minutos restantes el 31. Se usa el 28 (el día de la fecha) y la nota del partido explica el resto. El resultado (2-2) coincide."},
+    {"tipo": "discrepancia", "donde": "descenso.administrativo", "detalle": "La introducción de ambos artículos de es.wikipedia dice que Deportes Concepción 'retornaría a la competencia para el Apertura 2007', sin decir en qué división; la sección de tabla general del Clausura dice que fue castigado con el descenso automático y RSSSF lo marca 'Relegated' (entra a la segunda división en 2007). Se registra como descenso administrativo."},
+    {"tipo": "discrepancia", "donde": "descenso.liguilla", "detalle": "En el anexo de la liguilla, el detalle tiro a tiro de los penales de Lota Schwager-Rangers termina en 3:5, pero el resultado del mismo anexo, su relato, la página del Clausura y RSSSF dicen 4-3 para Lota Schwager. Se usa 4-3."}
   ]
 }

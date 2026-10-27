@@ -159,11 +159,11 @@ contra Quite 77 · +8,5" (pilar 2). Jugada 2, te toca Kalule (Quite 77, Lectura 
 - Con el nivel del DT (I-46): con nivel bajo ves el nivel general del rival; con nivel alto, sus
   habilidades (su lado débil).
 
-## Formaciones (D-30; la asignación a cada estilo está por confirmar)
+## Formaciones (D-30, asignación confirmada)
 Decidido (usuario, 2026-10-27): cinco formaciones, una por estilo de DT. Más adelante se podrán mezclar
 estilos (I-47). Las formaciones salen del estilo (diseño), no de la formación real de cada club en 2006.
 
-| Formación | Estilo (propuesta) | Atrás · Medio · Arriba | Puestos | Identidad en los duelos |
+| Formación | Estilo | Atrás · Medio · Arriba | Puestos | Identidad en los duelos |
 |---|---|---|---|---|
 | 5-3-2 | Catenaccio | 5 · 3 · 2 | 3 DFC, 2 LAT · 2 MCD, MCO · 2 DEL | definir contra ellos es lo más difícil; arriba nunca más de 3, aun en HIGH; sus Momentos de 2 se saltan el medio |
 | 4-4-2 | Directo | 4 · 4 · 2 | 2 DFC, 2 LAT · 2 MCD, 2 EXT · 2 DEL | equilibrada; extremos para el centro y dos puntas para el pelotazo |
@@ -206,10 +206,51 @@ revés, Palestino (2 jugadas) sale con 5 contra tus 2 de arriba (+18) y define c
 hay que medir cuánto con `balance-lab`.
 
 **Por decidir o medir:**
-- La asignación estilo → formación (propuesta arriba).
 - 1 jugador = 6 pts y el azar de ±1: valores de prueba.
 - La postura no puede contar dos veces: si en LOW un volante baja (−6 arriba), el −15 de LOW en los
   remates de hoy sobra o se achica.
+
+## Pantalla de duelos (borrador, 2026-10-27)
+Maqueta en el lienzo "Pantalla de duelos" (privado del usuario):
+https://claude.ai/artifact/AeeGQGHLiq8XzefCjZ1nFW. Ejemplo: Colo-Colo (4-1-2-1-2) contra U. de Chile
+(4-3-3), con los valores de prueba (duelo ×0,5, 1 jugador = 6 pts). Mismo tamaño que el juego (1280×720).
+
+**Ataque (de arriba abajo):**
+- **Marcador y postura**, como hoy, más el nivel del DT.
+- **Camino del Momento:** una franja con las 3 jugadas (salida, medio, definición). Cada una muestra
+  cuántos hay ("4 contra 3", con puntos de los dos colores), el + o − que da y a quién enfrentas. La
+  jugada actual va marcada; la hecha, con su resultado.
+- **Duelo al centro:** tu lámina contra la suya, con la habilidad en juego resaltada (Regate de M14
+  contra Quite de Iturra), la cuenta del duelo y los números de esa línea.
+- **Desglose** (al pasar sobre una carta): base, carta, duelo y números, y el total que se tira.
+- **Transmisión:** lo que pasó, lo que pasa y lo que viene, en texto de relato.
+- **Mano:** cada carta muestra PA, tipo, nombre, verbo y contra qué habilidad va, **quién la juega**, el
+  %, su efecto o los modificadores, y el desgaste. Los remates aparecen apagados fuera de la definición.
+
+**Defensa:** la franja pasa a ser la **intención del rival** (su camino por tus líneas, con lo que le
+suma o le resta cada línea). Al pasar sobre una carta defensiva se ve cómo cambian los números
+("antes 4 contra 2"). Al centro, su remate contra tu arquero.
+
+**Nivel del DT:** 1 = ves la jugada que tiras; 2 = los números de todo el camino y del ataque rival;
+3 = a quién vas a enfrentar y quién remata. **Lo que tiras siempre se ve completo** (pilar 2): el nivel
+solo muestra lo que viene.
+
+**Láminas:** nivel, puesto, club, edad, las 5 habilidades con barras y el Físico en celeste. La élite
+lleva marco dorado y su perfil ("Gambeteador: +10 a Regate"); los demás, "sin perfil". El arquero
+muestra Atajada y Físico.
+
+**Reglas que la maqueta da por hechas (por confirmar):**
+1. El camino se arma al empezar el Momento (cuántos hay y a quién enfrentas en cada línea); el nivel del
+   DT decide cuánto ves antes de llegar.
+2. Si fallas una jugada, sigues frente al mismo rival hasta pasar su línea.
+3. Los remates solo se juegan en la definición (hoy se pueden jugar antes y cuentan como avance).
+4. Duelos de las cartas de defensa: Presión = tu Quite contra el Regate de su creador; Bloqueo = tu Quite
+   contra el Remate de su rematador; Despeje = tu Lectura contra el Pase de su creador.
+5. Quién juega: el mejor de tu línea en esa habilidad. En el medio de Colo-Colo eso es casi siempre M14.
+
+**Alerta de balance:** una figura con perfil, carta firma y Ejecutor Natural llega al tope: la
+Arremetida de Alcázar contra Bravo da 95%. Va con la revisión del Ejecutor Natural (Habilidades, "Por
+decidir o medir").
 
 ## Intención del rival y superioridad numérica (I-41, I-44)
 - **Qué ves depende del nivel de tu DT frente al del rival** (usuario). El tuyo sube con la experiencia;

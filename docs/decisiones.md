@@ -179,7 +179,7 @@ Descartado: 3 habilidades (sin lado débil) y 8 o más (no caben en una lámina 
 **D-30 · 2026-10-27 · Cinco formaciones, una por estilo** · VIGENTE (diseño de I-45, sin código)
 5-3-2, 4-4-2, 4-1-2-1-2, 4-3-3 y 3-5-2, una por estilo de DT. Dicen cuántos hay en cada línea (la
 superioridad numérica de cada jugada, I-44) y a quién enfrentas. Más adelante se podrán mezclar estilos
-(I-47). Asignación propuesta, por confirmar: Catenaccio 5-3-2, Directo 4-4-2, Tiki-Taka 4-1-2-1-2,
+(I-47). Asignación (confirmada por el usuario): Catenaccio 5-3-2, Directo 4-4-2, Tiki-Taka 4-1-2-1-2,
 Contragolpe 4-3-3, Kamikaze 3-5-2. Salen del estilo, no de la formación real de cada club en 2006.
 
 ### Descartadas (para no reabrirlas sin datos nuevos)

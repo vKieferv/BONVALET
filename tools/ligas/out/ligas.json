@@ -1,0 +1,224 @@
+{
+ "argentina": {
+  "candidates": [
+   {
+    "en": "Argentine Primera División",
+    "es": "Primera División de Argentina",
+    "qid": "Q223170",
+    "seasons": 218
+   },
+   {
+    "en": "Chaco Football League",
+    "es": "Liga Chaqueña de Fútbol",
+    "qid": "Q9022358",
+    "seasons": 72
+   },
+   {
+    "en": "Primera Nacional",
+    "es": "Primera Nacional",
+    "qid": "Q934724",
+    "seasons": 44
+   },
+   {
+    "en": "Primera División A",
+    "es": "Primera División A",
+    "qid": "Q2949116",
+    "seasons": 35
+   },
+   {
+    "en": "Torneo Argentino Β",
+    "es": "Torneo Argentino B",
+    "qid": "Q7826089",
+    "seasons": 16
+   },
+   {
+    "en": "Primera C Argentina",
+    "es": "Primera C Argentina",
+    "qid": "Q845412",
+    "seasons": 15
+   },
+   {
+    "en": "Torneo Argentino A",
+    "es": "Torneo Argentino A",
+    "qid": "Q606546",
+    "seasons": 13
+   },
+   {
+    "en": "Primera Nacional",
+    "es": "Primera B Metropolitana",
+    "qid": "Q1146403",
+    "seasons": 12
+   },
+   {
+    "en": null,
+    "es": "Segunda división del fútbol argentino",
+    "qid": "Q9075672",
+    "seasons": 9
+   },
+   {
+    "en": "Torneo Argentino C",
+    "es": "Torneo del Interior",
+    "qid": "Q9360177",
+    "seasons": 8
+   },
+   {
+    "en": "Tercera División",
+    "es": "Tercera División",
+    "qid": "Q132157943",
+    "seasons": 6
+   },
+   {
+    "en": "Campeonato de Fútbol Femenino de Primera División B",
+    "es": "Segunda División del fútbol femenino",
+    "qid": "Q20994308",
+    "seasons": 4
+   },
+   {
+    "en": "Primera D Argentina",
+    "es": "Primera D Argentina",
+    "qid": "Q845418",
+    "seasons": 3
+   },
+   {
+    "en": "Torneo Federal A",
+    "es": "Torneo Federal A",
+    "qid": "Q17446411",
+    "seasons": 2
+   },
+   {
+    "en": "Torneo Regional Federal Amateur",
+    "es": "Torneo Regional Federal Amateur",
+    "qid": "Q56318613",
+    "seasons": 1
+   }
+  ]
+ },
+ "brasil": {
+  "candidates": [
+   {
+    "en": "Campeonato Paulista de Futebol",
+    "es": "Campeonato Paulista de Futebol",
+    "qid": "Q1348155",
+    "seasons": 216
+   },
+   {
+    "en": "Campeonato Baiano",
+    "es": "Campeonato Baiano",
+    "qid": "Q604925",
+    "seasons": 123
+   },
+   {
+    "en": "Campeonato Paranaense",
+    "es": "Campeonato Paranaense",
+    "qid": "Q920397",
+    "seasons": 115
+   },
+   {
+    "en": "Campeonato Paraense",
+    "es": "Campeonato Paraense",
+    "qid": "Q975886",
+    "seasons": 115
+   },
+   {
+    "en": "Campeonato Cearense",
+    "es": "Campeonato Cearense",
+    "qid": "Q2469206",
+    "seasons": 105
+   },
+   {
+    "en": "Campeonato Mineiro",
+    "es": "Campeonato Mineiro",
+    "qid": "Q731877",
+    "seasons": 92
+   },
+   {
+    "en": "Campeonato Alagoano",
+    "es": "Campeonato Alagoano",
+    "qid": "Q2469248",
+    "seasons": 92
+   },
+   {
+    "en": "Campeonato Mato-Grossense",
+    "es": "Campeonato Matogrossense",
+    "qid": "Q2196945",
+    "seasons": 77
+   },
+   {
+    "en": "Campeonato Amapaense",
+    "es": "Campeonato Amapaense",
+    "qid": "Q2608608",
+    "seasons": 73
+   },
+   {
+    "en": "Campeonato Brasileiro Série A",
+    "es": "Campeonato Brasileño de Serie A",
+    "qid": "Q206813",
+    "seasons": 69
+   },
+   {
+    "en": "Campeonato Pernambucano",
+    "es": "Campeonato Pernambucano",
+    "qid": "Q628286",
+    "seasons": 58
+   },
+   {
+    "en": "Campeonato Brasileiro Série B",
+    "es": "Campeonato Brasileño de Serie B",
+    "qid": "Q610175",
+    "seasons": 46
+   },
+   {
+    "en": "Campeonato Amazonense",
+    "es": "Campeonato Amazonense",
+    "qid": "Q1710248",
+    "seasons": 46
+   },
+   {
+    "en": "Campeonato Sul-Mato-Grossense",
+    "es": "Campeonato Sul-Matogrossense",
+    "qid": "Q2469193",
+    "seasons": 36
+   },
+   {
+    "en": "Campeonato Brasileiro Série C",
+    "es": "Campeonato Brasileño de Serie C",
+    "qid": "Q2037826",
+    "seasons": 35
+   }
+  ]
+ },
+ "chile": {
+  "candidates": [
+   {
+    "en": "Chilean Primera División",
+    "es": "Primera División de Chile",
+    "qid": "Q606832",
+    "seasons": 128
+   },
+   {
+    "en": "Chilean First B Division",
+    "es": "Liga de Ascenso",
+    "qid": "Q2686290",
+    "seasons": 88
+   },
+   {
+    "en": "Chilean women's football championship",
+    "es": "Primera División de fútbol femenino de Chile",
+    "qid": "Q2952695",
+    "seasons": 26
+   },
+   {
+    "en": "Third Division B - South Zone",
+    "es": "Tercera División B - Zona Sur",
+    "qid": "Q622060",
+    "seasons": 15
+   },
+   {
+    "en": "Chilean Tercera División A",
+    "es": "Tercera División A de Chile",
+    "qid": "Q5098760",
+    "seasons": 3
+   }
+  ]
+ }
+}

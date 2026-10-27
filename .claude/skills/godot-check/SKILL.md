@@ -21,16 +21,16 @@ GitHub Actions (`.github/workflows/godot-check.yml`) lo corre en cada push a `ma
 
 Opciones de `check.ps1`:
 - `-Matches N` — partidos de la prueba de humo (5 por defecto; uno por arquetipo, rotando la postura).
-- `-Balance` — además corre `core/sim.gd` (2000 partidos por perfil, semillas fijas): goles, Flow, cansancio, lesiones por arquetipo. Tarda más; úsalo al tocar constantes de balance, `coach_bot.gd`, `bot_profile.gd` o `cards.json`.
+- `-Balance` — además corre `core/sim.gd` (semillas fijas): tabla por arquetipo, peligro de cada rival, partidos de Colo-Colo, la matriz neutral en tres etapas de la temporada (inicio, +4 y +8 cartas de crecimiento, cada una con su EN RANGO / FUERA DE RANGO) y la constructibilidad. Tarda más; úsalo al tocar constantes de balance, `coach_bot.gd`, `bot_profile.gd`, `cards.json` o `decks.json`.
 - `-SkipSmoke` — solo compilar (rápido, para cambios que no tocan la escena del partido).
-- `-TimeoutSec N` (240) por paso y `-BalanceTimeoutSec N` (600) para `sim.gd`, que con el planificador de `CoachBot` tarda unos 4-5 minutos.
+- `-TimeoutSec N` (240) por paso y `-BalanceTimeoutSec N` (600) para `sim.gd`, que con el planificador de `CoachBot` y la matriz en tres etapas tarda unos 5-6 minutos.
 - Para comparar palancas de balance antes de tocar constantes, usa la skill `balance-lab` (más rápida que `-Balance` y con variantes lado a lado).
 
 ## Qué hace
 1. `--import`: regenera la caché de `class_name` (necesario tras crear o renombrar scripts).
 2. `tests/check_scripts.gd`: carga cada `.gd` y `.tscn`; falla si alguno no compila.
-3. `tests/engine_rules.gd` y `tests/career_rules.gd`: reglas sin escena. `career_rules` revisa los planteles de los 32 clubes (18 jugadores, Sub-21, extranjeros, ids únicos, 11 titulares), el mazo de cada club contra `validate_deck`, el Ejecutor Natural por titulares y la semana del modo carrera. `engine_rules` revisa (filtro de posesión, Ejecutor Natural, defensa y despeje de emergencia, fases de Kamikaze, clubes grandes vs LOW, `validate_deck` positivo y negativo, integridad de los 32 clubes).
-4. `tests/smoke_match.gd`: instancia `match_view.tscn`, juega partidos completos (ataque y defensa, con algún despeje de emergencia) y comprueba que ningún partido se cuelgue, que el marcador coincida con `MatchEngine.stats`, que la postura no cambie durante una jugada, que haya fases defensivas y que `exploit_rival_space` se active al jugar LOW contra un rival que castiga la pasividad. Después, `tests/smoke_career.gd` juega dos semanas del modo carrera (calendario → partido → calendario) y comprueba que la carrera avance.
+3. `tests/engine_rules.gd` y `tests/career_rules.gd`: reglas sin escena. `career_rules` revisa los planteles de los 32 clubes (18 jugadores, Sub-21, extranjeros, ids únicos, 11 titulares), el mazo de inicio de cada club contra `validate_deck` y el tamaño 10-20 (también con +8 cartas), el Ejecutor Natural por titulares y la semana del modo carrera. `engine_rules` revisa (catálogo y `decks.json`, mazo de inicio de cada arquetipo, filtro de posesión, Ejecutor Natural, defensa y despeje de emergencia, fases de Kamikaze, clubes grandes vs LOW, `validate_deck` positivo y negativo, integridad de los 32 clubes).
+4. `tests/smoke_match.gd`: instancia `match_view.tscn`, juega partidos completos (ataque y defensa, con algún despeje de emergencia) y comprueba que ningún partido se cuelgue, que el marcador coincida con `MatchEngine.stats`, que la postura no cambie durante una jugada, que cada carta muestre su efecto (avanza, roba, corta), que haya fases defensivas y que `exploit_rival_space` se active al jugar LOW contra un rival que castiga la pasividad. Después, `tests/smoke_career.gd` juega dos semanas del modo carrera (calendario → partido → calendario) y comprueba que la carrera avance.
 
 Cualquier `SCRIPT ERROR` en ejecución cuenta como falla, aunque Godot salga con código 0. El resultado final es `RESULTADO: OK` o `RESULTADO: FALLA (pasos)`; el script sale con código 1 si falla. Los logs completos quedan en `%TEMP%\godot-check\`.
 

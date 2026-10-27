@@ -72,9 +72,10 @@ El % de cada carta es el que se tira, con desglose en el tooltip (pilar 2).
 
 ## 3. Cartas y mazo
 
-### 3.1 Mazo unificado [DECIDIDO] · tamaño EN DISEÑO (ver 3.5)
-Hoy 18-20 cartas: cartas del DT (`data/cards.json`) + cartas firma de los titulares
-(`data/signature_cards.json`). Reglas de liga: máx. 6 extranjeros, mín. 2 Sub-21.
+### 3.1 Mazo unificado [DECIDIDO] · tamaño EN PRUEBA (ver 3.5)
+10-20 cartas (`DeckManager`): cartas del DT (catálogo en `data/cards.json`, mazos en `data/decks.json`)
++ cartas firma de los titulares (`data/signature_cards.json`). Se arranca con 12 (3.5). Reglas de
+liga: máx. 6 extranjeros, mín. 2 Sub-21.
 
 ### 3.2 Cartas del DT [EN PRUEBA]
 Ataque: Pase corto, Promesa: Control (canterano), Desmarque, Pase al pie, Pausa, Pase filtrado,
@@ -97,7 +98,7 @@ Decidido el 2026-10-27 (D-20 a D-22):
 Datos (`tests/lab/m2_cartas.json`, `m2_estandar.json`): con un mazo de 20, una carta mueve ~±0.04-0.11
 goles por partido; con uno de 13, el doble. La mano pesa más que una carta (mano 7: +0.18; mano 5: −0.23).
 
-### 3.5 Mazo inicial estándar y carta de rasgo del DT [EN PRUEBA · D-23] · se implementa en M2 (T-04 a T-06)
+### 3.5 Mazo inicial estándar y carta de rasgo del DT [EN PRUEBA · D-23] · en el juego desde T-04; crece con T-05 y T-06
 Idea del usuario (2026-10-27): como en Slay the Spire, todos empiezan con un **mazo estándar de
 cartas básicas** más **una carta de acción con el rasgo del DT**, y el mazo crece con las elecciones.
 Reemplaza los "perfiles de DT con mazos de 12-22" del GDD original. Aprobada el 2026-10-27 (D-23)
@@ -123,12 +124,16 @@ tras medirla con `balance-lab` (`tests/lab/m2_propuesta.json`; cada rasgo por se
 | Kamikaze | **Remate en carrera** | remate de 1 PA, +25, desgaste muy alto (10) | +0.14 a favor y +0.12 en contra: partidos locos |
 | Contragolpe | **Anticipo** | intercepción de 1 PA: corta y deja listo el contragolpe | +0.09 a favor, defensa igual |
 
-**Resultados (matriz neutral, 400 partidos por cruce):**
-| Momento de la temporada | Goles | Lesiones | Cansancio 1T/2T | Constructibilidad |
+**Resultados (matriz neutral de `godot-check -Balance`, 400 partidos por cruce; medición oficial de
+T-04 con el crecimiento de `data/decks.json`, que alterna ataque y defensa):**
+| Momento de la temporada | Goles | Lesiones | Cansancio 1T/2T | Constructibilidad (por club, `balance-lab`) |
 |---|---|---|---|---|
-| Inicio (12 cartas) | **2.47** | 2.8% | 16% / 49% | 91-99% |
-| Mitad (+4 cartas de su estilo) | 2.71 | 3.4% | 17% / 53% | 88-99% |
-| Final (+8 cartas) | 2.61 | 3.2% | 18% / 57% | 80-98% |
+| Inicio (12 cartas) | **2.47** | 2.8% | 16% / 49% | 91-99% (Colo-Colo en `sim.gd`: 92%) |
+| Mitad (+4 cartas de su estilo) | 2.73 | 3.2% | 17% / 53% | 93-100% |
+| Final (+8 cartas) | 2.65 | 3.5% | 16% / 53% | 93-99% |
+
+La propuesta medida antes en `m2_propuesta.json` (otras listas de crecimiento, primero las de ataque)
+daba 2.71 y 2.61 a mitad y final, con constructibilidad de 80% para Tiki-Taka al final.
 
 **Lo que se aprendió midiendo (para no repetir experimentos):**
 - **Sin un Despeje en el mazo estándar no hay cortes:** cada equipo ataca ~3.9 veces por partido en
@@ -143,15 +148,24 @@ tras medirla con `balance-lab` (`tests/lab/m2_propuesta.json`; cada rasgo por se
 - Con 2 Remates simples en vez de 1: inicio 2.51 y constructibilidad 99-100% (demasiado parejo).
 
 Preguntas abiertas (cada una con la tarea que la resuelve):
-1. **La mitad de temporada queda alta (2.71)** (T-04): las primeras cartas que suman los bots son de
-   ataque. Ajustar el orden de sus elecciones (alternar ataque y defensa) o aceptar un pico leve.
-2. **Tiki-Taka termina con constructibilidad 80%** (T-04 y T-05): su lista de cartas tiene muchos pases y un solo
-   remate; definir bien qué ofrece el entrenamiento a cada estilo (las 3 cartas de D-20).
-3. **Tamaño** (T-04): se empieza en 12 y el tope es 20; la regla de hoy (18-20, `DeckManager`) pasa a 10-20.
-4. **Firmas de los titulares:** entran al mazo inicial (una por club), como en la medición.
-5. **Reglas de liga:** las 2 Promesas cubren los Sub-21; los extranjeros no son problema con 12 cartas.
-6. **Motor:** los efectos `steps`, `draw`, `effect` y `counter` de `Card` y el planificador que los
-   entiende ya están en `main` (sin uso en los datos del juego hasta T-04).
+1. **La curva de la temporada queda sobre el rango** (2.73 a mitad y 2.65 al final; medido en T-04):
+   alternar ataque y defensa en el crecimiento no la bajó (la propuesta daba 2.71 / 2.61). Decidir con
+   el usuario: aceptar la curva (los mazos mejoran y se ataca mejor), bajar el inicio o un ajuste global.
+   Hoy no se ve en la carrera porque nadie crece todavía (T-05 tu mazo, T-06 los rivales).
+2. **Constructibilidad de Tiki-Taka al final:** con las listas de `decks.json` queda en 93% (era 80%
+   con las de la propuesta). Falta definir qué ofrece el entrenamiento a cada estilo (las 3 cartas de
+   D-20, T-05).
+3. **Tamaño — resuelta (T-04):** `DeckManager` admite 10-20 cartas; se empieza en 12 y
+   `season_templates` no deja que el crecimiento pase de 20 con las firmas.
+4. **Firmas de los titulares:** entran al mazo inicial (una por club). Los 12 clubes de Primera B sin
+   figura no tienen firma y arrancan con 11 cartas con el Remate simple como único remate: una matriz
+   de 5 de ellos da 1.57 goles al inicio (2.49 con +8) y su Catenaccio (Curicó) hace 0.30 goles, porque
+   su bot solo remata desde 40% y el Remate simple ronda el 35%. Abierta: firma genérica para todos,
+   otro remate en su mazo o aceptar una Primera B más cerrada.
+5. **Reglas de liga:** las 2 Promesas cubren los Sub-21; los extranjeros no son problema con 12 cartas
+   (`career_rules` lo comprueba en los 32 clubes, también con +8).
+6. **Motor y datos:** los efectos `steps` y `draw` los usan Pelotazo y Toque-toque, y la carta muestra
+   su efecto (`CardUI`); `effect` y `counter` siguen sin uso en los datos del juego.
 ### 3.6 Canteranos y progresión [IDEA] · M2
 Cualquier jugador (también Sub-21) mejora con entrenamientos y puede desbloquear su propia carta
 privada. Hoy las cartas "canterano" solo se asignan a un Sub-21 del plantel.

@@ -1,4 +1,5 @@
 [
+	{"defaults": {"deck": "clasico"}},
 	{"name": "línea base (3 jugadas fijas)"},
 	{"name": "Q1 GDD literal (TT 3-4, Dir 1-2, Con 2, Cat 1, Kam 2-3)",
 		"steps_by_archetype": {"Tiki-Taka": [3, 4], "Directo": [1, 2], "Contragolpe": 2, "Catenaccio": 1, "Kamikaze": [2, 3]}},

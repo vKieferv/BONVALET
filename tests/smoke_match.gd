@@ -28,6 +28,7 @@ var rival_defense_plays := 0
 var holds := 0
 var _defense_open := false
 var card_checks := 0
+var effect_checks := 0         # cartas con efecto (avanza, roba, corta) cuya línea de efecto se revisó
 var ui_checked_errors := false   # tras el primer error de UI se deja de revisar (evita miles de líneas)
 
 
@@ -174,7 +175,30 @@ func _check_ui_matches_engine() -> void:
 				var wear := "Desgaste: %d Est." % roundi(e.stamina_cost_of(ui.card))
 				if ui.cost_label.text != wear:
 					errors.append("La carta %s muestra '%s' pero desgasta '%s'" % [ui.card.display_name, ui.cost_label.text, wear])
+			_check_effect_line(ui)
 	ui_checked_errors = not errors.is_empty()
+
+
+# La línea de efecto de la carta nombra lo que hace (avances, robo, corte) y solo se ve si tiene texto.
+func _check_effect_line(ui: CardUI) -> void:
+	var fx: String = ui.effect_label.text
+	var expected: Array = []
+	if ui.card.steps > 1:
+		expected.append("Avanza %d" % ui.card.steps)
+	if ui.card.draw > 0:
+		expected.append("robas %d" % ui.card.draw)
+	if ui.card.kind in [Card.Kind.INTERCEPT, Card.Kind.CLEARANCE]:
+		expected.append("Corta")
+	if ui.card.kind == Card.Kind.INTERCEPT or ui.card.counter:
+		expected.append("contragolpe")
+	if not expected.is_empty():
+		effect_checks += 1
+	for word in expected:
+		if not fx.contains(word):
+			errors.append("La carta %s debería decir '%s' en su efecto (dice '%s')" % [ui.card.display_name, word, fx])
+	if ui.effect_label.visible != (fx != ""):
+		errors.append("La línea de efecto de %s está %s con el texto '%s'" % [ui.card.display_name,
+				"visible" if ui.effect_label.visible else "oculta", fx])
 
 
 func _check_posture_lock() -> void:
@@ -205,10 +229,12 @@ func _finish() -> bool:
 		errors.append("El rival nunca defendió tus ataques")
 	if played > 0 and holds == 0:
 		errors.append("Nunca se probó Aguantar el Balón")
+	if played > 0 and effect_checks == 0:
+		errors.append("Nunca hubo en la mano una carta con efecto (Despeje, Toque-toque...) para revisar su texto")
 	print("  aguantaste el balón %d veces" % holds)
 	print("  el rival jugó %d cartas defensivas contra tus ataques" % rival_defense_plays)
-	print("smoke_match: %d partidos, %d defensas (%d despejes de emergencia), Ejecutor Natural: %d tuyas y %d del rival, %d chequeos de postura, %d cartas en pantalla verificadas contra el motor, contragolpe visto: %s" % [
-		played, defenses, emergencies, natural_plays[0], rival_natural_plays[0], lock_checks, card_checks, "sí" if exploit_seen else "no"])
+	print("smoke_match: %d partidos, %d defensas (%d despejes de emergencia), Ejecutor Natural: %d tuyas y %d del rival, %d chequeos de postura, %d cartas en pantalla verificadas contra el motor (%d con efecto), contragolpe visto: %s" % [
+		played, defenses, emergencies, natural_plays[0], rival_natural_plays[0], lock_checks, card_checks, effect_checks, "sí" if exploit_seen else "no"])
 	for e in errors:
 		print("  ERROR: " + e)
 	quit(1 if errors.size() > 0 else 0)

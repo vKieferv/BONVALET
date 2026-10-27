@@ -8,6 +8,7 @@ const AP_COLOR := Color("#e3b341")        # dorado: Puntos de Acción (igual que
 const STAMINA_COLOR := Color("#58a6ff")   # celeste: Estamina Global
 const UP_COLOR := Color("#f0883e")        # cuesta más que lo impreso (reuso en Flow, postura, funado)
 const DOWN_COLOR := Color("#3fb950")      # cuesta menos que lo impreso
+const EFFECT_COLOR := Color("#b392f0")    # violeta: lo que hace la carta además de su jugada
 
 signal chosen(ui: CardUI)
 
@@ -59,6 +60,7 @@ var _cost_tip := ""
 @onready var type_label: Label = $Body/VBox/TopRow/TypeLabel
 @onready var name_label: Label = $Body/VBox/NameLabel
 @onready var kind_label: Label = $Body/VBox/KindLabel
+@onready var effect_label: Label = $Body/VBox/EffectLabel
 @onready var chance_label: Label = $Body/VBox/ChanceLabel
 @onready var mod_label: Label = $Body/VBox/ModLabel
 @onready var cost_label: Label = $Body/VBox/CostLabel
@@ -96,6 +98,51 @@ func setup(c: Card, index: int) -> void:
     kind_label.text = "No jugable" if c.type == Card.Type.PENALTY else KIND_NAMES.get(c.kind, "")
     if c.owner_id != "":
         kind_label.text += " ★"   # carta firma: tiene Ejecutor Natural
+    effect_label.text = effect_text(c)
+    effect_label.visible = effect_label.text != ""
+    effect_label.add_theme_color_override("font_color", EFFECT_COLOR)
+
+
+# Efecto de la carta en una línea corta (pilar 2: lo que hace se ve en la carta); "" si no tiene uno
+# propio. El detalle va en el tooltip (effect_tip). smoke_match compara esta línea con la carta.
+static func effect_text(c: Card) -> String:
+    var parts: Array = []
+    for e in _effects(c):
+        parts.append(e[0])
+    return " · ".join(parts)
+
+
+static func effect_tip(c: Card) -> String:
+    var parts: Array = []
+    for e in _effects(c):
+        parts.append(e[1])
+    return "\n".join(parts)
+
+
+# [texto corto, detalle] por cada efecto: avances, robo, fuerza propia, contragolpe y cortes.
+static func _effects(c: Card) -> Array:
+    var out: Array = []
+    if c == null or c.type == Card.Type.PENALTY:
+        return out
+    if c.steps > 1:
+        out.append(["Avanza %d" % c.steps, "Si sale, cuenta como %d jugadas del Momento." % c.steps])
+    if c.draw > 0:
+        var cards := "carta" if c.draw == 1 else "cartas"
+        out.append(["Si sale, robas %d %s" % [c.draw, cards], "Si sale, robas %d %s de ataque para seguir la jugada." % [c.draw, cards]])
+    if c.effect >= 0.0 and c.kind == Card.Kind.PRESS:
+        out.append(["Presión %+d" % roundi(c.effect * 100.0), "Si sale, todas las jugadas de ese ataque rival pierden %d pts (una Presión normal, %d)." % [
+            roundi(c.effect * 100.0), roundi(MatchEngine.PRESS_EFFECT * 100.0)]])
+    elif c.effect >= 0.0 and c.kind == Card.Kind.BLOCK:
+        out.append(["Bloqueo %+d" % roundi(c.effect * 100.0), "Si sale, los remates de ese ataque rival pierden %d pts (un Bloqueo normal, %d)." % [
+            roundi(c.effect * 100.0), roundi(MatchEngine.BLOCK_EFFECT * 100.0)]])
+    var counter_tip := "tu próximo Momento arranca con una jugada hecha (contragolpe; no acorta los Momentos de 2 jugadas)."
+    if c.kind == Card.Kind.INTERCEPT:
+        out.append(["Corta + contragolpe", "Si sale, corta el ataque rival entero y " + counter_tip])
+    elif c.kind == Card.Kind.CLEARANCE:
+        out.append(["Corta el ataque", "Si sale, corta el ataque rival entero."])
+    elif c.counter:
+        out.append(["Si sale, contragolpe", "Si sale, " + counter_tip])
+    return out
 
 
 # ap = PA que cuesta ahora (con reusos en Flow, etc.), base_ap = PA impresos en la carta,
@@ -135,6 +182,9 @@ func update_stats(ap: int, base_ap: int, stamina: float, chance: float, usable: 
             cost_label.add_theme_color_override("font_color", sc)
         _cost_tip = "Cuesta %d PA del turno · desgasta %d de estamina" % [ap, roundi(stamina)]
         _show_breakdown(breakdown, chance)
+        var tip := effect_tip(card)
+        if tip != "":
+            tooltip_text = tip if tooltip_text == "" else tooltip_text + "\n" + tip
     glow.visible = glow_on
     body.modulate = Color.WHITE if usable else Color(0.55, 0.55, 0.62)
     if slot_hidden:

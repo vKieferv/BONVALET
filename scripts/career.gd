@@ -12,7 +12,6 @@ static var save_path := "user://carrera.json"   # las pruebas la cambian para no
 static var last_load_errors: Array = []         # motivo del último load_saved() que devolvió null
 
 const DATA_PATH := "res://data/career_2006.json"
-const DECK_PATH := "res://data/cards.json"
 const LEAGUE_ID := "chile_2006"
 const SAVE_VERSION := 1
 # Campos del guardado y su tipo tras pasar por JSON (los números vuelven como float). El rng va
@@ -30,7 +29,6 @@ const MATCH_MODS_INTS := ["opening_moments"]
 var league: LeagueManager
 var squads: SquadManager
 var data := {}
-var templates: Array = []
 var rng := RandomNumberGenerator.new()
 var load_errors: Array = []
 
@@ -68,7 +66,6 @@ func setup(p_league: LeagueManager, p_squads: SquadManager, p_team_id: String, s
     if team.is_empty():
         load_errors.append("Club desconocido: %s" % p_team_id)
         return false
-    templates = CardDB.load_templates(DECK_PATH)
     team_id = p_team_id
     if seed != 0:
         rng.seed = seed
@@ -253,8 +250,10 @@ func choose_training(kind: String) -> bool:
 
 # ------------------------------------------------------------------ Bloque 3: partido
 
+# Tu mazo del partido: el de inicio de tu club (mazo estándar + carta de rasgo + firmas de los
+# titulares). Que crezca con la temporada llega con el Bloque 2 nuevo (T-05).
 func build_deck() -> Array:
-    return squads.build_match_deck(team_id, templates)
+    return squads.build_match_deck(team_id, squads.starter_templates(team_id))
 
 
 func blocks_done() -> Dictionary:

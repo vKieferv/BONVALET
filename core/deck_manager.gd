@@ -7,7 +7,9 @@ extends RefCounted
 
 enum Possession { POSSESSION_ATTACK, POSSESSION_DEFENSE }
 
-const DECK_MIN := 18
+# Tamaño del mazo del partido (cartas del DT + firmas). Se arranca con 12 (mazo estándar, D-23) y
+# crece durante la temporada hasta el tope.
+const DECK_MIN := 10
 const DECK_MAX := 20
 
 var active: Array = []       # mazo activo del partido

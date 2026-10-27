@@ -1,6 +1,8 @@
 # Laboratorio de balance: la matriz neutral de sim.gd (mismos clubes, semillas y DuelRunner) con
 # variantes aplicadas desde afuera del motor, para separar el efecto de cada cambio y probar palancas
-# antes de tocar constantes. La variante sin cambios reproduce exacto la matriz de sim.gd.
+# antes de tocar constantes. Los clubes juegan con el mazo estándar de decks.json (D-23), como en el
+# juego; la variante sin cambios reproduce exacto la matriz de inicio de sim.gd, y con "picks": 4 / 8,
+# la de mitad y final.
 #
 # Uso (desde la raíz del repo):
 #   godot --headless --path . -s res://tests/balance_lab.gd -- --variants=res://tests/lab/ejemplo.json [--per-pair=400]
@@ -23,15 +25,20 @@
 #                                    ganar, quitar o mejorar una carta
 #   player_for: {"colo_colo": {"vision": 75}}   atributos de PlayerStats de un club (vision = tamaño
 #                                    de mano, tecnica = acierto base, stamina = tope de estamina)
-# Mazos completos (diseño de M2):
-#   card_defs: {"remate_simple": {...carta completa...}}   cartas nuevas o redefinidas (se suman a
-#                                    las de cards.json, por id)
-#   deck: ["pase_corto", "pase_corto", ..., "@rasgo"]   reemplaza las cartas del DT de todos los
+# Mazos (por defecto, los de data/decks.json, igual que el juego y sim.gd):
+#   picks: 4                         etapa de la temporada: suma las primeras N cartas del crecimiento
+#                                    de cada arquetipo (el `extra` de SquadManager.season_templates;
+#                                    "extra" es sinónimo). 4 = mitad, 8 = final
+#   deck: "clasico"                  el mazo clásico de 19 de cards.json ("count"), el de antes de M2
+#                                    (false también); sirve para repetir experimentos anteriores
+#   deck: ["pase_corto", "pase_corto", ..., "@rasgo"]   reemplaza el mazo estándar de todos los
 #                                    clubes (una entrada por copia); las firmas de los titulares y la
-#                                    asignación de canteranos siguen igual. false = el mazo de cards.json
+#                                    asignación de canteranos siguen igual
 #   rasgos: {"Tiki-Taka": "toque_toque", ...}   a qué carta se convierte "@rasgo" según el arquetipo
-#   picks: 4 + pick_pools: {"Tiki-Taka": [ids en orden]}   suma las primeras N cartas del estilo de
-#                                    cada arquetipo (cómo crecería el mazo a mitad de temporada)
+#                                    (se mezcla con los rasgos de decks.json)
+#   pick_pools: {"Tiki-Taka": [ids en orden]}   reemplaza el crecimiento de esos arquetipos
+#   card_defs: {"remate_simple": {...carta completa...}}   cartas nuevas o redefinidas (se suman al
+#                                    catálogo de cards.json, por id)
 # Un elemento {"defaults": {...}} en la lista se aplica a todas las variantes que lo siguen (las
 # claves de la variante mandan; los diccionarios se mezclan).
 # Además de la línea total, imprime una línea por club: goles a favor-en contra, % de partidos con
@@ -72,14 +79,17 @@ func _init() -> void:
 				else:
 					variants.append(_merge(defaults, item))
 
-	var tpl := CardDB.load_templates("res://data/cards.json")
+	var tpl := CardDB.load_templates(CardDB.CARDS_PATH)   # mazo clásico ("deck": "clasico")
 	var league := LeagueManager.new()
 	if not league.load_all():
 		print("No se pudo cargar la liga: %s" % [league.load_errors])
 		quit(1)
 		return
 	var squads := SquadManager.new()
-	squads.load_all(league)
+	if not squads.load_all(league):
+		print("No se pudieron cargar planteles y mazos: %s" % [squads.load_errors])
+		quit(1)
+		return
 	var clubs: Array = ["colo_colo"]   # misma selección que la matriz de sim.gd
 	var seen := {"Tiki-Taka": true}
 	for t in league.get_teams("Primera A"):
@@ -149,32 +159,34 @@ func _merge(a: Dictionary, b: Dictionary) -> Dictionary:
 	return out
 
 
-# Cartas del DT de un club según "deck" (+ rasgo de su arquetipo + picks de su estilo), como
-# plantillas de cards.json. Las cartas desconocidas se avisan y se omiten.
-func _club_deck(tpl: Array, v: Dictionary, arch: String) -> Array:
-	var defs := {}
-	for d in tpl:
-		if not defs.has(d["id"]):
-			defs[d["id"]] = d
-	defs.merge(v.get("card_defs", {}), true)
-	var ids: Array = []
-	for id in v["deck"]:
-		if id == "@rasgo":
-			if v.get("rasgos", {}).has(arch):
-				ids.append(v["rasgos"][arch])
-		else:
-			ids.append(id)
-	var pool: Array = v.get("pick_pools", {}).get(arch, [])
-	ids.append_array(pool.slice(0, mini(int(v.get("picks", 0)), pool.size())))
-	var out: Array = []
-	for id in ids:
-		if not defs.has(id):
-			print("  AVISO: carta desconocida '%s' (se omite)" % id)
-			continue
-		var d: Dictionary = (defs[id] as Dictionary).duplicate(true)
-		d["id"] = id
-		out.append(d)
-	return out
+# Cartas del DT de un club. Sin claves de mazo, las del juego (SquadManager.season_templates con
+# "picks" como `extra`): así la línea base es la matriz de sim.gd. Con "deck", "rasgos", "pick_pools"
+# o "card_defs", las listas de decks.json con esos cambios (sin el tope de DECK_MAX, para experimentar).
+# "deck": "clasico" (o false) = el mazo clásico de 19. Las cartas desconocidas se avisan y se omiten.
+func _club_deck(squads: SquadManager, classic: Array, v: Dictionary, id: String, arch: String) -> Array:
+	var deck = v.get("deck", null)
+	if (typeof(deck) == TYPE_STRING and deck == "clasico") or (typeof(deck) == TYPE_BOOL and not deck):
+		return classic
+	if typeof(deck) == TYPE_STRING:
+		print("  AVISO: \"deck\": \"%s\" no existe (usa \"clasico\" o una lista); se usa el mazo estándar" % deck)
+	var picks := int(v.get("picks", v.get("extra", 0)))
+	if not (deck is Array or v.has("rasgos") or v.has("pick_pools") or v.has("card_defs")):
+		return squads.season_templates(id, picks)
+	var lists: Dictionary = squads.deck_lists.duplicate(true)
+	if deck is Array:
+		lists["estandar"] = deck
+	(lists["rasgos"] as Dictionary).merge(v.get("rasgos", {}), true)
+	(lists["crecimiento"] as Dictionary).merge(v.get("pick_pools", {}), true)
+	var catalog: Dictionary = squads.catalog.duplicate(true)
+	for card_id in v.get("card_defs", {}):
+		var d: Dictionary = (v["card_defs"][card_id] as Dictionary).duplicate(true)
+		d["id"] = card_id
+		catalog[card_id] = d
+	var ids := CardDB.deck_ids(lists, arch, picks)
+	for card_id in ids:
+		if not catalog.has(card_id):
+			print("  AVISO: carta desconocida '%s' (se omite)" % card_id)
+	return CardDB.templates_from_ids(ids, catalog)
 
 
 # % de inicios de Momento con plan de gol para un club (estamina llena, su perfil y su postura).
@@ -205,7 +217,7 @@ func _side(league: LeagueManager, squads: SquadManager, tpl: Array, id: String, 
 	var arch := String(team["archetype"])
 	var overrides: Dictionary = v.get("cards", {})
 	var club_overrides: Dictionary = v.get("cards_for", {}).get(id, {})
-	var club_tpl: Array = _club_deck(tpl, v, arch) if v.get("deck") is Array else tpl
+	var club_tpl: Array = _club_deck(squads, tpl, v, id, arch)
 	var cards: Array = []
 	for d in squads.build_match_templates(id, club_tpl):
 		var c: Dictionary = (d as Dictionary).duplicate(true)

@@ -82,7 +82,12 @@ func _process(_delta: float) -> bool:
 			view._on_yield_pressed()   # dejar pasar
 	elif view._in_moment:
 		_check_posture_lock()
-		if not _play_first_card():
+		if holds == 0 and view._engine.can_hold():
+			# Aguantar se prueba siempre al menos una vez, aunque la mano tenga jugadas (si no, con pocos
+			# partidos podía no ocurrir nunca y la prueba fallaba al azar).
+			holds += 1
+			view._on_hold_pressed()
+		elif not _play_first_card():
 			# Sin carta jugable el Momento sigue abierto: aguantar (si queda) o ceder.
 			if view._engine.can_hold():
 				holds += 1

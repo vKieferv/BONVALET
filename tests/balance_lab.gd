@@ -14,6 +14,12 @@
 #   stamina_mult: 0.85               multiplica el desgaste de todas las cartas (= STAMINA_SCALE × 0.85)
 #   cards: {"id": {"ap": 3, "bonus": 0.34, "stamina": 5}}   cambia campos de cartas por id;
 #                                    "@sello" = la carta firma genérica "Sello de [figura]"
+#   steps_by_archetype: {"Tiki-Taka": [3, 4], "Catenaccio": 2}   jugadas por Momento según el
+#                                    arquetipo del que ataca (número fijo o [mín, máx] al azar)
+#   profile: {"Kamikaze": {"late_injury_mult": 2.0}}   cambia campos del BotProfile de un arquetipo
+#                                    (IA y lo que configure_engine pasa al motor)
+# Además de la línea total, imprime una línea por club: goles a favor-en contra, % de partidos con
+# lesión y ataques que le cortaron por partido.
 # Las constantes del motor (INJURY_CHANCE_*, HOLD_*, AP_BY_POSTURE...) no se pueden variar desde
 # aquí: se cambian en match_engine.gd, se corre el laboratorio y se restauran.
 extends SceneTree
@@ -61,11 +67,18 @@ func _init() -> void:
 	for v in variants:
 		var t0 := Time.get_ticks_msec()
 		var acc := {"goals": 0, "matches": 0, "injuries": 0, "m1": 0, "t1": 0, "m2": 0, "t2": 0, "holds": 0, "holds_lost": 0}
+		var per_club := {}   # id -> {gf, ga, inj, cut, n}
+		for id in clubs:
+			per_club[id] = {"gf": 0, "ga": 0, "inj": 0, "cut": 0, "n": 0}
 		var hooks := _hooks(v)
 		for i in clubs.size():
 			for j in range(i + 1, clubs.size()):
 				var r := DuelRunner.run(_side(league, squads, tpl, clubs[i], clubs[j], v),
 						_side(league, squads, tpl, clubs[j], clubs[i], v), per_pair, hooks)
+				var ca: Dictionary = per_club[clubs[i]]
+				var cb: Dictionary = per_club[clubs[j]]
+				ca["gf"] += r["goals_a"]; ca["ga"] += r["goals_b"]; ca["inj"] += r["injuries_a"]; ca["cut"] += r["cuts_by_b"]; ca["n"] += per_pair
+				cb["gf"] += r["goals_b"]; cb["ga"] += r["goals_a"]; cb["inj"] += r["injuries_b"]; cb["cut"] += r["cuts_by_a"]; cb["n"] += per_pair
 				acc["goals"] += r["goals_a"] + r["goals_b"]
 				acc["matches"] += per_pair
 				acc["injuries"] += r["injuries"]
@@ -82,6 +95,14 @@ func _init() -> void:
 			roundi(100.0 * acc["t1"] / maxf(1.0, acc["m1"])), roundi(100.0 * acc["t2"] / maxf(1.0, acc["m2"])),
 			moments / (2.0 * n), roundi(100.0 * acc["goals"] / maxf(1.0, moments)),
 			acc["holds"] / (2.0 * n), acc["holds_lost"] / (2.0 * n), (Time.get_ticks_msec() - t0) / 1000])
+		var cells: Array = []
+		for id in clubs:
+			var c: Dictionary = per_club[id]
+			var team := league.get_team(id)
+			var cn := float(c["n"])
+			cells.append("%s (%s) %.2f-%.2f les %d%% cortes %.1f" % [team["short_name"], String(team["archetype"]).left(5),
+				c["gf"] / cn, c["ga"] / cn, roundi(100.0 * c["inj"] / cn), c["cut"] / cn])
+		print("    " + " · ".join(cells))
 	quit()
 
 
@@ -99,7 +120,13 @@ func _side(league: LeagueManager, squads: SquadManager, tpl: Array, id: String, 
 		if v.has("stamina_mult") and c.has("stamina"):
 			c["stamina"] = float(c["stamina"]) * float(v["stamina_mult"])
 		cards.append(c)
-	return {"profile": league.profile_for_team(team), "templates": cards,
+	var profile: BotProfile = league.profile_for_team(team)   # su profile_name es el nombre del club
+	var arch := String(team["archetype"])
+	var prof_overrides: Dictionary = v.get("profile", {})
+	if prof_overrides.has(arch):
+		for field in prof_overrides[arch]:
+			profile.set(field, prof_overrides[arch][field])
+	return {"profile": profile, "archetype": arch, "templates": cards,
 		"lineup": squads.lineup_ids(id), "defends": true,
 		"attack_difficulty": LeagueManager.attack_difficulty_vs(opp, league.profile_for_team(opp), BASE_DIFFICULTY) + float(v.get("diff_add", 0.0)),
 		"defense_difficulty": LeagueManager.defense_difficulty_vs(opp, BASE_DIFFICULTY)}
@@ -107,15 +134,20 @@ func _side(league: LeagueManager, squads: SquadManager, tpl: Array, id: String, 
 
 func _hooks(v: Dictionary) -> Dictionary:
 	var hooks := {}
-	if v.has("steps") or v.has("steps3_p"):
-		hooks["after_start"] = func(e: MatchEngine) -> void:
+	if v.has("steps") or v.has("steps3_p") or v.has("steps_by_archetype"):
+		var by_arch: Dictionary = v.get("steps_by_archetype", {})
+		hooks["after_start"] = func(e: MatchEngine, side: Dictionary) -> void:
+			var arch: String = side["archetype"]
 			for m in e.moments:
-				if v.has("steps"):
+				if by_arch.has(arch):
+					var s = by_arch[arch]
+					m["steps_required"] = e.rng.randi_range(int(s[0]), int(s[1])) if s is Array else int(s)
+				elif v.has("steps"):
 					m["steps_required"] = int(v["steps"])
-				else:
+				elif v.has("steps3_p"):
 					m["steps_required"] = 3 if e.rng.randf() < float(v["steps3_p"]) else 2
 	if v.get("no_hold", false):
-		hooks["after_begin"] = func(e: MatchEngine) -> void:
+		hooks["after_begin"] = func(e: MatchEngine, _side: Dictionary) -> void:
 			e.holds = MatchEngine.MAX_HOLDS
 			if not e.moment_over and e.playable_indices().is_empty():
 				e.abort_moment()

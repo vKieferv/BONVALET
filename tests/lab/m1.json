@@ -1,0 +1,20 @@
+[
+	{"name": "línea base (3 jugadas fijas)"},
+	{"name": "Q1 GDD literal (TT 3-4, Dir 1-2, Con 2, Cat 1, Kam 2-3)",
+		"steps_by_archetype": {"Tiki-Taka": [3, 4], "Directo": [1, 2], "Contragolpe": 2, "Catenaccio": 1, "Kamikaze": [2, 3]}},
+	{"name": "Q1 GDD suave (TT 3-4, Dir 2-3, Con 2-3, Cat 2, Kam 3)",
+		"steps_by_archetype": {"Tiki-Taka": [3, 4], "Directo": [2, 3], "Contragolpe": [2, 3], "Catenaccio": 2, "Kamikaze": 3}},
+	{"name": "Q1 identidad mínima (TT 4, Cat 2, resto 3)",
+		"steps_by_archetype": {"Tiki-Taka": 4, "Catenaccio": 2}},
+	{"name": "Q2 Kamikaze lesión tardía x2.5 (era x4)", "profile": {"Kamikaze": {"late_injury_mult": 2.5}}},
+	{"name": "Q2 Kamikaze lesión tardía x2", "profile": {"Kamikaze": {"late_injury_mult": 2.0}}},
+	{"name": "Q3 Catenaccio remata siempre", "profile": {"Catenaccio": {"shot_min_chance": -1.0, "stall_plays": 0}}},
+	{"name": "Q3 Catenaccio remata desde 30%", "profile": {"Catenaccio": {"shot_min_chance": 0.30}}},
+	{"name": "Q4 Intercepción -5 pts", "cards": {"intercepcion": {"bonus": -0.05}}},
+	{"name": "Q4 Intercepción a 3 PA (casi imposible en defensa)", "cards": {"intercepcion": {"ap": 3}}},
+	{"name": "Q4 Contragolpe defiende Equilibrado", "profile": {"Contragolpe": {"defense_focus": 0}}},
+	{"name": "Combo A: TT 4, Cat 2, resto 3 + Kamikaze x2.5",
+		"steps_by_archetype": {"Tiki-Taka": 4, "Catenaccio": 2}, "profile": {"Kamikaze": {"late_injury_mult": 2.5}}},
+	{"name": "Combo B: TT 3-4, Dir 2-3, Cat 2, resto 3 + Kamikaze x2.5",
+		"steps_by_archetype": {"Tiki-Taka": [3, 4], "Directo": [2, 3], "Catenaccio": 2}, "profile": {"Kamikaze": {"late_injury_mult": 2.5}}}
+]

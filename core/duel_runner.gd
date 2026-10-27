@@ -10,7 +10,8 @@ extends RefCounted
 #        defends: bool}
 #
 # hooks (opcional, para experimentos de tests/balance_lab.gd; sin hooks el partido es el de siempre):
-#   "after_start": Callable(e: MatchEngine) tras start(); "after_begin": Callable(e) tras begin_moment().
+#   "after_start": Callable(e: MatchEngine, side: Dictionary) tras start();
+#   "after_begin": Callable(e, side) tras begin_moment(). side es el diccionario de ese equipo.
 static func run(a: Dictionary, b: Dictionary, n: int, hooks: Dictionary = {}) -> Dictionary:
 	# moments_1h/2h: Momentos de ataque jugados en cada tiempo (ambos equipos); tired_1h/2h: de ellos,
 	# los que empezaron en CANSADO o AGOTADO. injuries: equipos que terminaron lesionados.
@@ -18,15 +19,15 @@ static func run(a: Dictionary, b: Dictionary, n: int, hooks: Dictionary = {}) ->
 	var out := {"matches": n, "goals_a": 0, "goals_b": 0, "wins_a": 0, "draws": 0, "wins_b": 0,
 		"cuts_by_a": 0, "cuts_by_b": 0, "def_plays_a": 0, "def_plays_b": 0,
 		"moments_1h": 0, "tired_1h": 0, "moments_2h": 0, "tired_2h": 0, "injuries": 0,
-		"holds": 0, "holds_lost": 0}
+		"injuries_a": 0, "injuries_b": 0, "holds": 0, "holds_lost": 0}
 	for s in n:
 		var ea := _engine(a, s * 2 + 1)
 		var eb := _engine(b, s * 2 + 2)
 		ea.start()
 		eb.start()
 		if hooks.has("after_start"):
-			hooks["after_start"].call(ea)
-			hooks["after_start"].call(eb)
+			hooks["after_start"].call(ea, a)
+			hooks["after_start"].call(eb, b)
 		while not (ea.finished and eb.finished):
 			var ma := 9999 if ea.finished else int(ea.current_moment()["minute"])
 			var mb := 9999 if eb.finished else int(eb.current_moment()["minute"])
@@ -41,6 +42,8 @@ static func run(a: Dictionary, b: Dictionary, n: int, hooks: Dictionary = {}) ->
 		out["goals_a"] += ga
 		out["goals_b"] += gb
 		out["injuries"] += int(ea.injured) + int(eb.injured)
+		out["injuries_a"] += int(ea.injured)
+		out["injuries_b"] += int(eb.injured)
 		if ga > gb:
 			out["wins_a"] += 1
 		elif gb > ga:
@@ -80,7 +83,7 @@ static func _attack(att: MatchEngine, att_side: Dictionary, def: MatchEngine, de
 	var half := "2h" if int(att.current_moment()["minute"]) >= 45 else "1h"
 	att.begin_moment()
 	if hooks.has("after_begin"):
-		hooks["after_begin"].call(att)
+		hooks["after_begin"].call(att, att_side)
 	out["moments_" + half] += 1
 	if att.player.zone() != PlayerStats.Zone.SAFE:
 		out["tired_" + half] += 1

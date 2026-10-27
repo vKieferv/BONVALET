@@ -2,7 +2,8 @@
 # fetch.py y fetch_wiki.py). Elige 18 jugadores por club con reglas fijas y calcula role, stamina_max
 # y skill_rating con la fórmula de _notes. Determinista: misma instantánea, mismo resultado. La
 # instantánea que dio data/squads_2006.json está en el historial de la rama tarea/t-08-planteles-2006
-# (el commit "instantánea de Wikidata y es.wikipedia"); una nueva puede variar si las fuentes cambiaron.
+# (commit a8907bc, "instantánea de Wikidata y es.wikipedia"); una nueva puede variar si las fuentes
+# cambiaron.
 #   python tools/t08/build.py tools/t08/out            -> informe en pantalla
 #   python tools/t08/build.py tools/t08/out --write    -> además reescribe lo de T-08 en data/squads_2006.json
 import json

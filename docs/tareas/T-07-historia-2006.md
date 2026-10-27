@@ -58,3 +58,10 @@ goleadores, tabla acumulada, descenso y liguilla. Con esto, M3 podrá usar el ca
 Si desde el entorno no se puede abrir Wikipedia ni RSSSF (solo el buscador), **no armes el archivo con
 datos sueltos**: abre el PR solo con el formato, la prueba y una nota explicando el bloqueo. Esta tarea se
 puede correr después desde el PC del usuario.
+
+## Estado
+- **2026-10-27 (sesión en la nube):** formato de `data/history_2006.json` y `tests/data_rules.gd` listos;
+  datos sin cargar porque la red del entorno rechaza es.wikipedia, en.wikipedia, Wikidata, RSSSF y
+  archive.org (solo responde el buscador). La página de RSSSF es `rsssf.org/tablesc/chile06.html`.
+  Falta: llenar el archivo desde las fuentes, pasar `"estado"` a `"completo"` y anotar la fecha de
+  consulta de cada fuente.

@@ -35,7 +35,23 @@ Preguntas, medidas con `balance-lab` (`tests/lab/m1.json`) y decididas el 2026-1
 
 Tareas:
 - [x] T-02 · aplicar D-16 y D-17 (autónoma, mezclada: 2.55 goles, 3.3% lesiones, Kamikaze 14.7%)
+- [ ] T-03 · resumen post-partido con el % de cada jugada y goles esperados vs. reales (I-35):
+      hace visible que el azar es justo (pilar 2) y ayuda a responder los playtests (brief por escribir)
 - [ ] Playtests 1-5 (usuario) → skill `playtest`; los arreglos que salgan, como tareas nuevas
+
+## M2 · Deckbuilder de verdad (en diseño)
+- [ ] Diseñar el bucle: ganar, quitar y mejorar cartas (I-01 a I-03), perfiles de DT (I-04),
+      canteranos (I-05). Datos de partida en `tests/lab/m2_cartas.json`: hoy todos los clubes tienen
+      casi el mismo mazo y ±1 carta mueve ~±0.1 goles por partido (la mano o la técnica, ~±0.2).
+- [ ] Modo Copa (I-34): partida corta de 5-6 partidos con mazo que crece; sirve de demo.
+- Ojo: la matriz está en 2.55 goles (tope 2.6); lo que sume goles en M2 tiene que compensarse.
+
+## Antes de M4 (comercial, del estudio `docs/mercado.md`)
+- [ ] Textos traducibles con las tablas de Godot, para una demo en inglés y español (I-33, tarea autónoma)
+- [ ] Consulta con un abogado sobre nombres reales (I-20, la hace el usuario) y paquete de datos
+      ficticio que pase todas las pruebas, para que cualquier respuesta se resuelva cambiando datos
+- Precio orientativo US$14,99; Steam PC + Steam Deck; página al cerrar M4; demo en Steam 2-3 meses
+  antes del Next Fest elegido (revisar los datos en vivo antes de decidir)
 
 ## Trabajo autónomo vs. juntos
 - **Autónomo** (sesión en la nube, termina en PR): tareas con brief cerrado y verificables con

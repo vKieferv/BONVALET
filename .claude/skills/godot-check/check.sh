@@ -86,6 +86,7 @@ run_godot check_scripts "$TIMEOUT_SEC" -s res://tests/check_scripts.gd || failed
 if [ ${#failed[@]} -eq 0 ]; then
 	run_godot engine_rules "$TIMEOUT_SEC" -s res://tests/engine_rules.gd || failed+=(engine_rules)
 	run_godot career_rules "$TIMEOUT_SEC" -s res://tests/career_rules.gd || failed+=(career_rules)
+	run_godot data_rules "$TIMEOUT_SEC" -s res://tests/data_rules.gd || failed+=(data_rules)
 fi
 
 # 4. Pruebas de humo de las escenas

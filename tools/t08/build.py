@@ -1,6 +1,8 @@
 # T-08: arma los planteles 2006 desde la instantánea de Wikidata (tools/t08/out, de fetch.py).
 # Elige 18 jugadores por club con reglas fijas y calcula role, stamina_max y skill_rating con la
-# fórmula de _notes. Determinista: misma instantánea, mismo resultado.
+# fórmula de _notes. Determinista: misma instantánea, mismo resultado. La instantánea del 27-oct-2026
+# que dio data/squads_2006.json está en el historial de la rama tarea/t-08-planteles-2006 (commits
+# 4af1c60 y 1c18bae); una nueva con fetch.py y fetch_wiki.py puede variar si Wikidata cambió.
 #   python tools/t08/build.py tools/t08/out            -> informe en pantalla
 #   python tools/t08/build.py tools/t08/out --write    -> además escribe data/squads_2006.json
 import json

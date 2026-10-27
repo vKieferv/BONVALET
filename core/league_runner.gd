@@ -5,8 +5,9 @@ extends RefCounted
 #   goles de A = A jugando el partido s contra la defensa de B
 #   goles de B = B jugando el partido s contra la defensa de A
 # Los k*(k-1) "medios duelos" son independientes y se reparten entre hilos.
+# decks: el mazo (plantillas) de cada perfil, en el mismo orden que profiles.
 # Seguro para ejecutar desde un hilo.
-static func run(profiles: Array, n: int, cfg: Dictionary, templates: Array, progress: Callable = Callable()) -> Dictionary:
+static func run(profiles: Array, n: int, cfg: Dictionary, decks: Array, progress: Callable = Callable()) -> Dictionary:
     var k := profiles.size()
     var jobs: Array = []
     for i in k:
@@ -22,7 +23,7 @@ static func run(profiles: Array, n: int, cfg: Dictionary, templates: Array, prog
     var task := func(idx: int) -> void:
         var pair: Vector2i = jobs[idx]
         var c := SimRunner.cfg_vs(cfg, profiles[pair.y])
-        results[idx] = SimRunner.run(profiles[pair.x], n, c, templates)
+        results[idx] = SimRunner.run(profiles[pair.x], n, c, decks[pair.x])
         mutex.lock()
         counter[0] += 1
         var f: float = float(counter[0]) / float(total)

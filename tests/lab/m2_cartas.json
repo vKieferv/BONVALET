@@ -1,4 +1,5 @@
 [
+	{"defaults": {"deck": "clasico"}},
 	{"name": "línea base"},
 	{"name": "CC +1 Remate de primera (21 cartas)", "cards_for": {"colo_colo": {"remate_primera": {"count": 2}}}},
 	{"name": "CC +1 Pase filtrado (21 cartas)", "cards_for": {"colo_colo": {"pase_filtrado": {"count": 2}}}},

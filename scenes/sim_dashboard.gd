@@ -16,7 +16,7 @@ const TABLE_HEADERS := ["Pos", "Arquetipo", "PJ", "PG", "PE", "PP", "GF", "GC", 
 const TABLE_WIDTHS := [50, 140, 80, 80, 80, 80, 80, 80, 70, 120, 110]
 
 var _profiles: Array = []
-var _templates: Array = []
+var _decks: Array = []   # mazo de cada perfil (mismo orden que _profiles): estándar, rasgo y firma genérica
 var _thread: Thread = null
 var _active_progress: ProgressBar
 
@@ -50,7 +50,10 @@ var _audit_grid: GridContainer
 func _ready() -> void:
     get_window().min_size = Vector2i(900, 600)
     _profiles = BotProfile.presets()
-    _templates = CardDB.load_templates("res://data/cards.json")
+    var catalog := CardDB.load_catalog()
+    var decks := CardDB.load_decks()
+    for p in _profiles:
+        _decks.append(CardDB.club_like_templates(catalog, decks, p.profile_name))
     _build_ui()
     _refresh_profile_info()
     _update_slider_labels()
@@ -478,16 +481,16 @@ func _on_duel_pressed() -> void:
     _begin_run(_btn_duel, _prog_duel, "Simulando %d partidos..." % n)
     _cmp_label.text = "Simulando..."
     _thread = Thread.new()
-    _thread.start(_worker_duel.bind(pa, pb, n, _cfg()))
+    _thread.start(_worker_duel.bind(pa, pb, _decks[_opt_a.selected], _decks[_opt_b.selected], n, _cfg()))
 
 
-func _worker_duel(pa: BotProfile, pb: BotProfile, n: int, cfg: Dictionary) -> void:
+func _worker_duel(pa: BotProfile, pb: BotProfile, deck_a: Array, deck_b: Array, n: int, cfg: Dictionary) -> void:
     var cb_a := func(f: float) -> void: call_deferred("_set_progress", f * 0.5)
     var cb_b := func(f: float) -> void: call_deferred("_set_progress", 0.5 + f * 0.5)
     var ca := SimRunner.cfg_vs(cfg, pb)
     var cb := SimRunner.cfg_vs(cfg, pa)
-    var ra := SimRunner.run(pa, n, ca, _templates, cb_a)
-    var rb := SimRunner.run(pb, n, cb, _templates, cb_b)
+    var ra := SimRunner.run(pa, n, ca, deck_a, cb_a)
+    var rb := SimRunner.run(pb, n, cb, deck_b, cb_b)
     call_deferred("_on_duel_done", ra, rb, pa, pb)
 
 
@@ -546,7 +549,7 @@ func _on_league_pressed() -> void:
 
 func _worker_league(n: int, cfg: Dictionary) -> void:
     var cb := func(f: float) -> void: call_deferred("_set_progress", f)
-    var r := LeagueRunner.run(_profiles, n, cfg, _templates, cb)
+    var r := LeagueRunner.run(_profiles, n, cfg, _decks, cb)
     call_deferred("_on_league_done", r)
 
 

@@ -88,24 +88,38 @@ func _test_generator_is_deterministic() -> void:
 	_check(has_figure, "el plantel generado de Everton debería incluir a su figura real (%s)" % figure)
 
 
+# Mazo de inicio (D-23) de los 32 clubes: pasa las reglas de liga (máx. 6 extranjeros, mín. 2 Sub-21)
+# y el tamaño 10-20, y el de final de temporada (+8 cartas de su crecimiento) no pasa de 20.
 func _test_decks_for_every_club() -> void:
-	var templates := CardDB.load_templates("res://data/cards.json")
 	var limit := int(league.get_rules(LEAGUE_ID).get("sub21_age_limit", 21))
 	for t in league.teams:
-		var deck := squads.build_match_deck(t["id"], templates)
+		var deck := squads.build_match_deck(t["id"], squads.starter_templates(t["id"]))
 		var size_error := DeckManager.new(deck, [], RandomNumberGenerator.new()).size_error()
 		_check(size_error == "", "%s: %s" % [t["id"], size_error])
+		_check(deck.size() >= DeckManager.DECK_MIN and deck.size() <= DeckManager.DECK_MAX,
+				"%s: el mazo de inicio tiene %d cartas" % [t["id"], deck.size()])
 		var r := league.validate_deck(deck, LEAGUE_ID)
 		_check(r["valid"], "%s: el mazo no pasa validate_deck: %s" % [t["id"], r["errors"]])
 		for c in deck:
 			if c.tags.has("canterano"):
 				var p := squads.find_player(t["id"], c.owner_id)
 				_check(not p.is_empty() and int(p["age"]) < limit, "%s: la carta de canterano debería ser de un Sub-21 del plantel" % t["id"])
+		var late := squads.season_templates(t["id"], 8)
+		var late_deck := squads.build_match_deck(t["id"], late)
+		_check(late.size() <= DeckManager.DECK_MAX and late_deck.size() <= DeckManager.DECK_MAX,
+				"%s: con +8 cartas el mazo no debería pasar de %d (tiene %d)" % [t["id"], DeckManager.DECK_MAX, late_deck.size()])
+		_check(late.size() > squads.starter_templates(t["id"]).size(), "%s: el crecimiento debería sumar cartas" % t["id"])
+		_check(league.validate_deck(late_deck, LEAGUE_ID)["valid"], "%s: el mazo de final de temporada no pasa validate_deck" % t["id"])
+	# La carrera juega con el mazo de inicio de tu club.
+	var c := Career.new()
+	_check(c.setup(league, squads, "colo_colo", 99), "Career no arranca: %s" % [c.load_errors])
+	var mine := c.build_deck()
+	_check(mine.size() == 12 and mine.any(func(x: Card) -> bool: return x.id == "toque_toque"),
+			"Colo-Colo (Tiki-Taka) debería arrancar la carrera con 12 cartas y su Toque-toque (tiene %d)" % mine.size())
 
 
 func _test_natural_executor_by_lineup() -> void:
-	var templates := CardDB.load_templates("res://data/cards.json")
-	var deck := squads.build_match_deck("colo_colo", templates)
+	var deck := squads.build_match_deck("colo_colo", squads.starter_templates("colo_colo"))
 	var zapatazo: Card = null
 	for c in deck:
 		if c.id == "zapatazo":
@@ -132,10 +146,9 @@ func _test_natural_executor_by_lineup() -> void:
 # Paridad: un club rival arma el mismo mazo que tendría como club propio. Los grandes traen la
 # carta firma de su figura titular, y con sus titulares en cancha el Ejecutor Natural se activa.
 func _test_big_clubs_bring_their_stars() -> void:
-	var templates := CardDB.load_templates("res://data/cards.json")
 	for id in REAL_SQUADS:
-		var as_dicts := squads.build_match_templates(id, templates)
-		var deck := squads.build_match_deck(id, templates)
+		var as_dicts := squads.build_match_templates(id, squads.starter_templates(id))
+		var deck := squads.build_match_deck(id, squads.starter_templates(id))
 		_check(as_dicts.size() == deck.size(), "%s: el mazo en diccionarios y en cartas debería ser el mismo" % id)
 		var player := PlayerStats.new()
 		player.lineup = squads.lineup_ids(id)

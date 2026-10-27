@@ -1,0 +1,2978 @@
+{
+ "liga": "Primera División de Chile",
+ "pais": "chile",
+ "año": 2007,
+ "fuente": "Wikidata (CC0) y Wikipedia; instantánea del 27-oct-2026 (tools/ligas/)",
+ "notas": [
+  "Datos de referencia de uso propio, no para el juego.",
+  "Clubes: los de las temporadas del campeonato que tocan este año calendario (tabla de posiciones de Wikipedia o, si no hay, los clubes más enlazados desde el artículo de la temporada).",
+  "Jugadores: membresías P54 de Wikidata que incluyen el año. Sin fecha de fin cuenta el año en que llegó (o hasta hoy si llegó desde 2023): membresia_estimada. Los planteles pueden estar incompletos; jugadores_encontrados dice cuántos hay.",
+  "posicion: línea estimada desde P413 (POR, DEF, MED, DEL; null si Wikidata no la tiene). edad: al 1 de julio; edad_aproximada si la fecha de nacimiento no tiene día o tiene fechas distintas."
+ ],
+ "equipos": [
+  {
+   "club": "Audax Italiano",
+   "wikidata": "Q758689",
+   "temporadas": [
+    "Torneo Apertura 2007",
+    "Torneo Clausura 2007 (Chile)"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 23,
+   "jugadores": [
+    {
+     "nombre": "Nicolás Peric",
+     "posicion": "POR",
+     "edad": 28,
+     "wikidata": "Q2603443"
+    },
+    {
+     "nombre": "Víctor Loyola",
+     "posicion": "POR",
+     "edad": 26,
+     "wikidata": "Q9095315"
+    },
+    {
+     "nombre": "Braulio Leal",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q2067398"
+    },
+    {
+     "nombre": "Cristián Reynero",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q5186421"
+    },
+    {
+     "nombre": "Fernando Gutiérrez Fernández",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q5408595"
+    },
+    {
+     "nombre": "Jorge Carrasco",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q6277802"
+    },
+    {
+     "nombre": "Juan González Calderón",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q9015576"
+    },
+    {
+     "nombre": "Nicolás Crovetto",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q2721817"
+    },
+    {
+     "nombre": "Patricio Gutiérrez",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q7145948"
+    },
+    {
+     "nombre": "Roberto Cereceda",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q2714288"
+    },
+    {
+     "nombre": "Boris Rieloff",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q2762904"
+    },
+    {
+     "nombre": "Carlos Villanueva",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q716965"
+    },
+    {
+     "nombre": "Christian Jelves",
+     "posicion": "MED",
+     "edad": 16,
+     "wikidata": "Q5109782"
+    },
+    {
+     "nombre": "César Santis",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q3822721"
+    },
+    {
+     "nombre": "Diego Scotti",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q2842946"
+    },
+    {
+     "nombre": "Fabián Orellana",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q367851"
+    },
+    {
+     "nombre": "Marco Medel",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q9028670"
+    },
+    {
+     "nombre": "Matías Campos",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q892443"
+    },
+    {
+     "nombre": "Miguel Ángel Romero",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q6844942"
+    },
+    {
+     "nombre": "Diego de Gregorio",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q5274867"
+    },
+    {
+     "nombre": "Franco Di Santo",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q315330"
+    },
+    {
+     "nombre": "Leonardo Medina",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q6526037"
+    },
+    {
+     "nombre": "Rodolfo Moya",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q5691352"
+    }
+   ]
+  },
+  {
+   "club": "Club Deportes La Serena",
+   "wikidata": "Q642098",
+   "temporadas": [
+    "Torneo Apertura 2007",
+    "Torneo Clausura 2007 (Chile)"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 17,
+   "jugadores": [
+    {
+     "nombre": "Carlos Tejas",
+     "posicion": "POR",
+     "edad": 35,
+     "wikidata": "Q2436056"
+    },
+    {
+     "nombre": "Gastón Losa",
+     "posicion": "POR",
+     "edad": 29,
+     "wikidata": "Q5526898"
+    },
+    {
+     "nombre": "Pedro Carrizo",
+     "posicion": "POR",
+     "edad": 26,
+     "wikidata": "Q7159507"
+    },
+    {
+     "nombre": "Sebastián Páez",
+     "posicion": "POR",
+     "edad": 20,
+     "wikidata": "Q9075356"
+    },
+    {
+     "nombre": "Francisco Rojas Rojas",
+     "posicion": "DEF",
+     "edad": 32,
+     "wikidata": "Q669321"
+    },
+    {
+     "nombre": "Mario Pardo Acuña",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q369332"
+    },
+    {
+     "nombre": "Rodrigo Brito",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q2882588"
+    },
+    {
+     "nombre": "Carlos Rivas Godoy",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q5042557"
+    },
+    {
+     "nombre": "Emmanuel Culio",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q466161"
+    },
+    {
+     "nombre": "Fernando Saavedra",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q5444914"
+    },
+    {
+     "nombre": "Giovanni Fortunatti",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q5563840"
+    },
+    {
+     "nombre": "Juan Quiroga",
+     "posicion": "MED",
+     "edad": 34,
+     "wikidata": "Q6300824"
+    },
+    {
+     "nombre": "Sergio Vargas Pino",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q7454436"
+    },
+    {
+     "nombre": "Ángel Carreño",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q8076818"
+    },
+    {
+     "nombre": "Carlos Alzamora",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q5041753"
+    },
+    {
+     "nombre": "Gustavo Canales",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q2615660"
+    },
+    {
+     "nombre": "Joel Estay",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q3180234"
+    }
+   ]
+  },
+  {
+   "club": "Club Deportivo Huachipato",
+   "wikidata": "Q1023191",
+   "temporadas": [
+    "Torneo Apertura 2007",
+    "Torneo Clausura 2007 (Chile)"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 16,
+   "jugadores": [
+    {
+     "nombre": "Cristián Fernando Muñoz",
+     "posicion": "POR",
+     "edad": 30,
+     "wikidata": "Q5186417"
+    },
+    {
+     "nombre": "Ignacio Don",
+     "posicion": "POR",
+     "edad": 25,
+     "wikidata": "Q9007790"
+    },
+    {
+     "nombre": "Ariel Gustavo Pereyra",
+     "posicion": "DEF",
+     "edad": 33,
+     "wikidata": "Q4790419"
+    },
+    {
+     "nombre": "Dagoberto Currimilla",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q2842347"
+    },
+    {
+     "nombre": "Herminio Miranda",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q954137"
+    },
+    {
+     "nombre": "José Contreras Arrau",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q5611658"
+    },
+    {
+     "nombre": "Juan Abarca",
+     "posicion": "DEF",
+     "edad": 18,
+     "wikidata": "Q1882312"
+    },
+    {
+     "nombre": "Mauricio Arias",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q5479760"
+    },
+    {
+     "nombre": "Fernando Lazcano Barros",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q5859771"
+    },
+    {
+     "nombre": "Gabriel Sandoval",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q5515846"
+    },
+    {
+     "nombre": "Jaime Riveros",
+     "posicion": "MED",
+     "edad": 36,
+     "wikidata": "Q2190003"
+    },
+    {
+     "nombre": "Leonardo Mas",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q4283697"
+    },
+    {
+     "nombre": "Pedro Morales",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q718771"
+    },
+    {
+     "nombre": "Diego Alejandro Ruiz",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q553811"
+    },
+    {
+     "nombre": "Jaime González",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q6123771"
+    },
+    {
+     "nombre": "Renzo Yáñez",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q7313636"
+    }
+   ]
+  },
+  {
+   "club": "Club Deportivo O'Higgins",
+   "wikidata": "Q719722",
+   "temporadas": [
+    "Torneo Apertura 2007",
+    "Torneo Clausura 2007 (Chile)"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 22,
+   "jugadores": [
+    {
+     "nombre": "Carlos Tejas",
+     "posicion": "POR",
+     "edad": 35,
+     "wikidata": "Q2436056"
+    },
+    {
+     "nombre": "Adrián Rojas",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q4685792"
+    },
+    {
+     "nombre": "Benjamín Ruiz",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q4889498"
+    },
+    {
+     "nombre": "Cristóbal González",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q5186518"
+    },
+    {
+     "nombre": "Diego Olate",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q5274755"
+    },
+    {
+     "nombre": "Luis Oyarzún Rebolledo",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q6700969"
+    },
+    {
+     "nombre": "Marcelo Medina",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q6756594"
+    },
+    {
+     "nombre": "Miguel Aceval",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q2177198"
+    },
+    {
+     "nombre": "Rodrigo Ramírez",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q7357405"
+    },
+    {
+     "nombre": "Alan Sánchez",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q4707872"
+    },
+    {
+     "nombre": "Bryan Danesi",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q3646119"
+    },
+    {
+     "nombre": "Daniel González",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q5217308"
+    },
+    {
+     "nombre": "Daniel Pereira",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q5218432"
+    },
+    {
+     "nombre": "Fernando Meneses",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q2421827"
+    },
+    {
+     "nombre": "Joan Muñoz",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q6205327"
+    },
+    {
+     "nombre": "Nicolás Diez",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q7030355"
+    },
+    {
+     "nombre": "Felipe Flores Chandía",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q2067907"
+    },
+    {
+     "nombre": "Giancarlo Maldonado",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q596136"
+    },
+    {
+     "nombre": "Herly Alcázar",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q1644369"
+    },
+    {
+     "nombre": "José Alfredo Castillo",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q1482379",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Milton Coimbra",
+     "posicion": "DEL",
+     "edad": 32,
+     "wikidata": "Q2474534"
+    },
+    {
+     "nombre": "Sebastián Varas",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q5681430"
+    }
+   ]
+  },
+  {
+   "club": "Club Deportivo Palestino",
+   "wikidata": "Q719719",
+   "temporadas": [
+    "Torneo Apertura 2007",
+    "Torneo Clausura 2007 (Chile)"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 23,
+   "jugadores": [
+    {
+     "nombre": "Diego Sánchez",
+     "posicion": "POR",
+     "edad": 20,
+     "wikidata": "Q5274825"
+    },
+    {
+     "nombre": "Esteban Sáez",
+     "posicion": "POR",
+     "edad": 18,
+     "wikidata": "Q5400833"
+    },
+    {
+     "nombre": "Felipe Núñez",
+     "posicion": "POR",
+     "edad": 28,
+     "wikidata": "Q5442022"
+    },
+    {
+     "nombre": "Fernando Burgos",
+     "posicion": "POR",
+     "edad": 27,
+     "wikidata": "Q16297964"
+    },
+    {
+     "nombre": "Álvaro Sarabia",
+     "posicion": "POR",
+     "edad": 29,
+     "wikidata": "Q3576995"
+    },
+    {
+     "nombre": "Benjamín Ruiz",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q4889498"
+    },
+    {
+     "nombre": "Christian Vilches",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q5110245"
+    },
+    {
+     "nombre": "Cristián Basaure",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q5186407"
+    },
+    {
+     "nombre": "Felipe Muñoz Flores",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q5442014"
+    },
+    {
+     "nombre": "Alfredo Rojas",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q5667988"
+    },
+    {
+     "nombre": "Joan Henríquez",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q10515352"
+    },
+    {
+     "nombre": "Luis Pavez",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q6700975"
+    },
+    {
+     "nombre": "Miguel Sebastián García",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q1145484"
+    },
+    {
+     "nombre": "Roberto Ávalos",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q7351967"
+    },
+    {
+     "nombre": "Rodolfo Madrid",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q7357175"
+    },
+    {
+     "nombre": "Rodrigo Toloza",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q7357429"
+    },
+    {
+     "nombre": "Diego Rivarola",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q2171392"
+    },
+    {
+     "nombre": "Ever Cantero",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q923797"
+    },
+    {
+     "nombre": "Francisco Ibáñez Campos",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q5483469"
+    },
+    {
+     "nombre": "Héctor Tapia",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q1642864"
+    },
+    {
+     "nombre": "Jean Paul Pineda",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q2741350"
+    },
+    {
+     "nombre": "Juan Pablo Úbeda",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q6300721"
+    },
+    {
+     "nombre": "Juan Ángel Paredes",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q6301423"
+    }
+   ]
+  },
+  {
+   "club": "Club Deportivo Universidad Católica",
+   "wikidata": "Q427446",
+   "temporadas": [
+    "Torneo Apertura 2007",
+    "Torneo Clausura 2007 (Chile)"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 37,
+   "jugadores": [
+    {
+     "nombre": "Carlos Arias Pérez",
+     "posicion": "POR",
+     "edad": 20,
+     "wikidata": "Q939578"
+    },
+    {
+     "nombre": "Cristopher Toselli",
+     "posicion": "POR",
+     "edad": 19,
+     "wikidata": "Q1530912"
+    },
+    {
+     "nombre": "José María Buljubasich",
+     "posicion": "POR",
+     "edad": 36,
+     "wikidata": "Q2721215"
+    },
+    {
+     "nombre": "Paulo Garcés",
+     "posicion": "POR",
+     "edad": 22,
+     "wikidata": "Q542311"
+    },
+    {
+     "nombre": "Albert Acevedo",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q4709607"
+    },
+    {
+     "nombre": "Alfonso Parot",
+     "posicion": "DEF",
+     "edad": 17,
+     "wikidata": "Q4722087"
+    },
+    {
+     "nombre": "Claudio Muñoz",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q8346823"
+    },
+    {
+     "nombre": "Cristián Álvarez",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q2565258"
+    },
+    {
+     "nombre": "Eros Pérez",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q923747"
+    },
+    {
+     "nombre": "Facundo Imboden",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q3738273"
+    },
+    {
+     "nombre": "Gonzalo Sepúlveda",
+     "posicion": "DEF",
+     "edad": 18,
+     "wikidata": "Q1073153"
+    },
+    {
+     "nombre": "Hans Martínez",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q370237"
+    },
+    {
+     "nombre": "Mauricio Zenteno",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q256163"
+    },
+    {
+     "nombre": "Sebastián Miranda",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q325459",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Diego Rosende",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q5274802"
+    },
+    {
+     "nombre": "Francisco Silva Gajardo",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q2467631"
+    },
+    {
+     "nombre": "Gary Medel",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q329524"
+    },
+    {
+     "nombre": "Hugo Alberto Morales",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q587329"
+    },
+    {
+     "nombre": "Iván Vásquez",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q3156385"
+    },
+    {
+     "nombre": "Jonathan Fabbro",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q3501096"
+    },
+    {
+     "nombre": "Jorge Ormeño",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q6278412"
+    },
+    {
+     "nombre": "José Pedro Fuenzalida",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q946154"
+    },
+    {
+     "nombre": "Nicolás Núñez",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q7030405"
+    },
+    {
+     "nombre": "Pablo González Reyes",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q7121644"
+    },
+    {
+     "nombre": "Patricio Aguilera",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q7145919"
+    },
+    {
+     "nombre": "Patricio Ormazábal",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q955202",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Rodrigo Toloza",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q7357429"
+    },
+    {
+     "nombre": "Rodrigo Valenzuela",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q681476"
+    },
+    {
+     "nombre": "Braulio Brizuela",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q4958247"
+    },
+    {
+     "nombre": "Esteban Fuertes",
+     "posicion": "DEL",
+     "edad": 34,
+     "wikidata": "Q2664476"
+    },
+    {
+     "nombre": "Héctor Tapia",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q1642864"
+    },
+    {
+     "nombre": "Julio Gutiérrez",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q518539"
+    },
+    {
+     "nombre": "Luis Núñez",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q2880770"
+    },
+    {
+     "nombre": "Matías Rubio",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q6792126"
+    },
+    {
+     "nombre": "Roberto Gutiérrez",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q2012311"
+    },
+    {
+     "nombre": "Sebastián Barrientos",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q7442625"
+    },
+    {
+     "nombre": "Willy Topp",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q8022620"
+    }
+   ]
+  },
+  {
+   "club": "Club Deportivo Universidad de Concepción",
+   "wikidata": "Q721560",
+   "temporadas": [
+    "Torneo Apertura 2007",
+    "Torneo Clausura 2007 (Chile)"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 21,
+   "jugadores": [
+    {
+     "nombre": "Federico Elduayen",
+     "posicion": "POR",
+     "edad": 29,
+     "wikidata": "Q1361625",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Álex Varas",
+     "posicion": "POR",
+     "edad": 31,
+     "wikidata": "Q557029"
+    },
+    {
+     "nombre": "Cristián Abarca",
+     "posicion": "DEF",
+     "edad": 18,
+     "wikidata": "Q953280"
+    },
+    {
+     "nombre": "Felipe Muñoz Flores",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q5442014"
+    },
+    {
+     "nombre": "Lisandro Henríquez",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q6558545"
+    },
+    {
+     "nombre": "Mauricio Aros",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q656129"
+    },
+    {
+     "nombre": "Osvaldo González",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q2699209"
+    },
+    {
+     "nombre": "Fabián Benítez",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q5427900"
+    },
+    {
+     "nombre": "Fernando Giménez",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q3742915"
+    },
+    {
+     "nombre": "Fernando Meneses",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q2421827"
+    },
+    {
+     "nombre": "Fernando Solís Núñez",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q5444931"
+    },
+    {
+     "nombre": "Gustavo Lorenzetti",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q5621441"
+    },
+    {
+     "nombre": "Jairo Neira",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q6124232",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Juan José Ribera",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q5950468"
+    },
+    {
+     "nombre": "Leonel Mena",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q6526239"
+    },
+    {
+     "nombre": "Pablo González Reyes",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q7121644"
+    },
+    {
+     "nombre": "Roberto Órdenes",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q6110079"
+    },
+    {
+     "nombre": "Emmanuel Alberto Reinoso",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q5369125"
+    },
+    {
+     "nombre": "Leonardo Monje",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q3053228"
+    },
+    {
+     "nombre": "Manuel Maciel",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q1998289"
+    },
+    {
+     "nombre": "Ricardo Parada",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q3430313"
+    }
+   ]
+  },
+  {
+   "club": "Club Deportivo Ñublense",
+   "wikidata": "Q2317539",
+   "temporadas": [
+    "Torneo Apertura 2007",
+    "Torneo Clausura 2007 (Chile)"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 15,
+   "jugadores": [
+    {
+     "nombre": "Danilo Aceval",
+     "posicion": "POR",
+     "edad": 31,
+     "wikidata": "Q2324568"
+    },
+    {
+     "nombre": "Leonardo Zamora",
+     "posicion": "POR",
+     "edad": 31,
+     "wikidata": "Q593410"
+    },
+    {
+     "nombre": "Alejandro Gaete",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q4714541"
+    },
+    {
+     "nombre": "Chase Hilgenbrinck",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q5087144"
+    },
+    {
+     "nombre": "Cristián Gómez",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q5186412"
+    },
+    {
+     "nombre": "Rodrigo Barra",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q9070218"
+    },
+    {
+     "nombre": "Carlos Nuñez",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q5041942"
+    },
+    {
+     "nombre": "Edgardo Abdala",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q3047541"
+    },
+    {
+     "nombre": "Néstor Zanatta",
+     "posicion": "MED",
+     "edad": 33,
+     "wikidata": "Q9051268"
+    },
+    {
+     "nombre": "Cristóbal Jorquera",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q892163"
+    },
+    {
+     "nombre": "Juan Francisco Viveros Opazo",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q9015524"
+    },
+    {
+     "nombre": "Luis Flores Abarca",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q5663173"
+    },
+    {
+     "nombre": "Manuel Villalobos",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q6752946"
+    },
+    {
+     "nombre": "Patricio Rubio",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q9056902",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Rodrigo Tapia",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q7357426"
+    }
+   ]
+  },
+  {
+   "club": "Club Social y Deportivo Colo-Colo",
+   "wikidata": "Q207373",
+   "temporadas": [
+    "Torneo Apertura 2007",
+    "Torneo Clausura 2007 (Chile)"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 45,
+   "jugadores": [
+    {
+     "nombre": "Cristián Fernando Muñoz",
+     "posicion": "POR",
+     "edad": 30,
+     "wikidata": "Q5186417"
+    },
+    {
+     "nombre": "Rainer Wirth",
+     "posicion": "POR",
+     "edad": 24,
+     "wikidata": "Q7284843"
+    },
+    {
+     "nombre": "Raúl Olivares",
+     "posicion": "POR",
+     "edad": 19,
+     "wikidata": "Q5695380"
+    },
+    {
+     "nombre": "Richard Leyton",
+     "posicion": "POR",
+     "edad": 20,
+     "wikidata": "Q7327378"
+    },
+    {
+     "nombre": "Sebastián Cejas",
+     "posicion": "POR",
+     "edad": 32,
+     "wikidata": "Q711672"
+    },
+    {
+     "nombre": "Bastián Arce",
+     "posicion": "DEF",
+     "edad": 17,
+     "wikidata": "Q4868360"
+    },
+    {
+     "nombre": "Cristián Abarca",
+     "posicion": "DEF",
+     "edad": 18,
+     "wikidata": "Q953280"
+    },
+    {
+     "nombre": "David Henríquez",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q2779309",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Gilberto Velásquez",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q5561409"
+    },
+    {
+     "nombre": "Gonzalo Jara",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q349172"
+    },
+    {
+     "nombre": "Jorge Carrasco",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q6277802"
+    },
+    {
+     "nombre": "Luis Mena Irarrázabal",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q2373123"
+    },
+    {
+     "nombre": "Miguel Aceval",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q2177198"
+    },
+    {
+     "nombre": "Miguel Riffo",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q2529662"
+    },
+    {
+     "nombre": "Rafael Caroca",
+     "posicion": "DEF",
+     "edad": 17,
+     "wikidata": "Q7282070"
+    },
+    {
+     "nombre": "Roberto Cereceda",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q2714288"
+    },
+    {
+     "nombre": "Alexis Sánchez",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q180553"
+    },
+    {
+     "nombre": "Ariel Salinas",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q4790459"
+    },
+    {
+     "nombre": "Arturo Sanhueza",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q2634464",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Arturo Vidal",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q192671"
+    },
+    {
+     "nombre": "Boris González",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q4945268"
+    },
+    {
+     "nombre": "Boris Sagredo",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q4945373"
+    },
+    {
+     "nombre": "Eduardo Rubio",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q1291184"
+    },
+    {
+     "nombre": "Fernando Meneses",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q2421827"
+    },
+    {
+     "nombre": "Gerson Acevedo",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q2058810"
+    },
+    {
+     "nombre": "Giovanni Hernández",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q2664005"
+    },
+    {
+     "nombre": "Gonzalo Fierro",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q439959"
+    },
+    {
+     "nombre": "José Luis Cabión",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q2458843",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "José Luis Jerez",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q5861060"
+    },
+    {
+     "nombre": "Juan Pablo Arenas Núñez",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q4543416"
+    },
+    {
+     "nombre": "Luis Valenzuela Toledo",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q5392119"
+    },
+    {
+     "nombre": "Moisés Villarroel",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q2535032"
+    },
+    {
+     "nombre": "Rodrigo Meléndez",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q2447428"
+    },
+    {
+     "nombre": "Rodrigo Millar",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q329496"
+    },
+    {
+     "nombre": "Claudio Bieler",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q582521"
+    },
+    {
+     "nombre": "Cristóbal Jorquera",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q892163"
+    },
+    {
+     "nombre": "César Reyes",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q5202625"
+    },
+    {
+     "nombre": "Edison Giménez",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q5338379"
+    },
+    {
+     "nombre": "Felipe Flores Chandía",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q2067907"
+    },
+    {
+     "nombre": "Gustavo Biscayzacú",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q614922"
+    },
+    {
+     "nombre": "Humberto Suazo",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q314719"
+    },
+    {
+     "nombre": "Juan Gonzalo Lorca",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q2412263"
+    },
+    {
+     "nombre": "Nicolás Millán",
+     "posicion": "DEL",
+     "edad": 15,
+     "wikidata": "Q642757"
+    },
+    {
+     "nombre": "Patricio Rubio",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q9056902",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Rodolfo Moya",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q5691352"
+    }
+   ]
+  },
+  {
+   "club": "Club Social y de Deportes Concepción",
+   "wikidata": "Q2317166",
+   "temporadas": [
+    "Torneo Apertura 2007",
+    "Torneo Clausura 2007 (Chile)"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 14,
+   "jugadores": [
+    {
+     "nombre": "Raúl Celis Sanzotti",
+     "posicion": "POR",
+     "edad": 32,
+     "wikidata": "Q7296187"
+    },
+    {
+     "nombre": "Edson Riquelme",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q5340330"
+    },
+    {
+     "nombre": "Patricio Jeria",
+     "posicion": "DEF",
+     "edad": 17,
+     "wikidata": "Q6066706"
+    },
+    {
+     "nombre": "Sebastián Montesinos",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q7442662"
+    },
+    {
+     "nombre": "Alejandro Osorio",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q3609452"
+    },
+    {
+     "nombre": "Alonso Zúñiga",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q4734499"
+    },
+    {
+     "nombre": "Clarence Acuña",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q2603260"
+    },
+    {
+     "nombre": "Gerardo Cortés",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q942042"
+    },
+    {
+     "nombre": "Cristian Montecinos",
+     "posicion": "DEL",
+     "edad": 36,
+     "wikidata": "Q2634639"
+    },
+    {
+     "nombre": "Daúd Gazale",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q642446"
+    },
+    {
+     "nombre": "Federico Bongioanni",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q5440967"
+    },
+    {
+     "nombre": "Jaison Ibarrola",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q9010656",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Leonardo Monje",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q3053228"
+    },
+    {
+     "nombre": "Raúl Román",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q7299840"
+    }
+   ]
+  },
+  {
+   "club": "Club Universidad de Chile",
+   "wikidata": "Q737753",
+   "temporadas": [
+    "Torneo Apertura 2007",
+    "Torneo Clausura 2007 (Chile)"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 36,
+   "jugadores": [
+    {
+     "nombre": "Cristóbal López Jara",
+     "posicion": "POR",
+     "edad": 18,
+     "wikidata": "Q5186519"
+    },
+    {
+     "nombre": "Emanuel Vargas",
+     "posicion": "POR",
+     "edad": 19,
+     "wikidata": "Q5369162"
+    },
+    {
+     "nombre": "Hernán Caputto",
+     "posicion": "POR",
+     "edad": 32,
+     "wikidata": "Q5742401"
+    },
+    {
+     "nombre": "Miguel Pinto",
+     "posicion": "POR",
+     "edad": 23,
+     "wikidata": "Q368631"
+    },
+    {
+     "nombre": "Federico Martorell",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q5441032"
+    },
+    {
+     "nombre": "Gonzalo Novoa",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q5582232"
+    },
+    {
+     "nombre": "José Rojas",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q3179533"
+    },
+    {
+     "nombre": "Mauricio Gómez",
+     "posicion": "DEF",
+     "edad": 18,
+     "wikidata": "Q6793617"
+    },
+    {
+     "nombre": "Nicolás Larrondo",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q5936093"
+    },
+    {
+     "nombre": "Rafael Olarra",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q2326011"
+    },
+    {
+     "nombre": "Rodrigo Jara",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q9070248"
+    },
+    {
+     "nombre": "Rodrigo Rivera",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q7357409"
+    },
+    {
+     "nombre": "Waldo Ponce",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q464234"
+    },
+    {
+     "nombre": "Yerson Opazo",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q8052679"
+    },
+    {
+     "nombre": "Arturo Vidal",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q192671"
+    },
+    {
+     "nombre": "Christian Martínez Muñoz",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q5109892"
+    },
+    {
+     "nombre": "Eric Pino",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q5387279"
+    },
+    {
+     "nombre": "Felipe Seymour",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q1191774"
+    },
+    {
+     "nombre": "Francisco Arrué",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q1440434"
+    },
+    {
+     "nombre": "Javier Delgado",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q2407508"
+    },
+    {
+     "nombre": "Jorge Acuña",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q2419338"
+    },
+    {
+     "nombre": "José Luis García",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q6292771"
+    },
+    {
+     "nombre": "Manuel Iturra",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q583773"
+    },
+    {
+     "nombre": "Marcelo Díaz",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q1353070"
+    },
+    {
+     "nombre": "Marco Estrada",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q361068"
+    },
+    {
+     "nombre": "Miguel Coronado",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q6844503"
+    },
+    {
+     "nombre": "Pedro Morales",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q718771"
+    },
+    {
+     "nombre": "Ángel Rojas Ortega",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q8076899"
+    },
+    {
+     "nombre": "Eduardo Andrés Navea Silva",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q5340708"
+    },
+    {
+     "nombre": "Emilio Hernández",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q2002714"
+    },
+    {
+     "nombre": "Joel Soto",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q6213983"
+    },
+    {
+     "nombre": "Marcelo Salas",
+     "posicion": "DEL",
+     "edad": 32,
+     "wikidata": "Q295438"
+    },
+    {
+     "nombre": "Mauricio Pinilla",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q1989585"
+    },
+    {
+     "nombre": "Nicolás Medina Ríos",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q1372912"
+    },
+    {
+     "nombre": "Patricio Galaz",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q2634953"
+    },
+    {
+     "nombre": "Sebastián Pinto",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q970194"
+    }
+   ]
+  },
+  {
+   "club": "Club de Deportes Antofagasta",
+   "wikidata": "Q2076979",
+   "temporadas": [
+    "Torneo Apertura 2007",
+    "Torneo Clausura 2007 (Chile)"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 22,
+   "jugadores": [
+    {
+     "nombre": "Luciano Pocrnjic",
+     "posicion": "POR",
+     "edad": 25,
+     "wikidata": "Q6696864"
+    },
+    {
+     "nombre": "Cristián Morán",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q5186416"
+    },
+    {
+     "nombre": "Cristián Reynero",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q5186421"
+    },
+    {
+     "nombre": "Hernán Madrid",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q10475050"
+    },
+    {
+     "nombre": "José Félix Pedroso",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q9013862"
+    },
+    {
+     "nombre": "Luis Alegría",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q5681809"
+    },
+    {
+     "nombre": "Pablo Melgar",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q3888381"
+    },
+    {
+     "nombre": "Paulo Magalhaes",
+     "posicion": "DEF",
+     "edad": 17,
+     "wikidata": "Q2634554"
+    },
+    {
+     "nombre": "Pedro Reyes G.",
+     "posicion": "DEF",
+     "edad": 34,
+     "wikidata": "Q2602528"
+    },
+    {
+     "nombre": "Alejandro Osorio",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q3609452"
+    },
+    {
+     "nombre": "Alejandro Vásquez",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q4714695",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Alonso Zúñiga",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q4734499"
+    },
+    {
+     "nombre": "Andrés Oroz",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q2152503"
+    },
+    {
+     "nombre": "Bruno Martelotto",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q4979305"
+    },
+    {
+     "nombre": "Giovanni Narváez",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q5563926"
+    },
+    {
+     "nombre": "Mauricio Donoso",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q3852456"
+    },
+    {
+     "nombre": "Patricio Aguilera",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q7145919"
+    },
+    {
+     "nombre": "Raúl Palacios",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q3930844"
+    },
+    {
+     "nombre": "Ronald González Tabilo",
+     "posicion": "MED",
+     "edad": 16,
+     "wikidata": "Q7364899"
+    },
+    {
+     "nombre": "Maximiliano Estévez",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q1774715"
+    },
+    {
+     "nombre": "Osmán Huerta",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q7107267"
+    },
+    {
+     "nombre": "Sebastián Cobelli",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q3953812"
+    }
+   ]
+  },
+  {
+   "club": "Club de Deportes Cobresal",
+   "wikidata": "Q642669",
+   "temporadas": [
+    "Torneo Apertura 2007",
+    "Torneo Clausura 2007 (Chile)"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 14,
+   "jugadores": [
+    {
+     "nombre": "Guillermo Orellana",
+     "posicion": "POR",
+     "edad": 20,
+     "wikidata": "Q5616223"
+    },
+    {
+     "nombre": "Roberto González",
+     "posicion": "POR",
+     "edad": 31,
+     "wikidata": "Q7351722"
+    },
+    {
+     "nombre": "Baltazar Astorga",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q4852629"
+    },
+    {
+     "nombre": "Hugo Díaz",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q5933925"
+    },
+    {
+     "nombre": "Rodrigo Jara",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q9070248"
+    },
+    {
+     "nombre": "Charles Aránguiz",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q797945"
+    },
+    {
+     "nombre": "Iván Guillauma",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q6100072"
+    },
+    {
+     "nombre": "Mauricio Rojas",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q2076742"
+    },
+    {
+     "nombre": "Rodrigo Núñez",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q1440373"
+    },
+    {
+     "nombre": "Rodrigo Viligrón",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q7357437"
+    },
+    {
+     "nombre": "César Díaz Escobar",
+     "posicion": "DEL",
+     "edad": 32,
+     "wikidata": "Q3010417"
+    },
+    {
+     "nombre": "Edison Fonseca",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q4209980",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Gabriel Vargas",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q2056903"
+    },
+    {
+     "nombre": "Julio César Laffatigue",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q6309234"
+    }
+   ]
+  },
+  {
+   "club": "Club de Deportes Copiapó",
+   "wikidata": "Q338923",
+   "temporadas": [
+    "Torneo Clausura 2007 (Chile)"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 4,
+   "jugadores": [
+    {
+     "nombre": "Juan Carvajal Cerda",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q6299473"
+    },
+    {
+     "nombre": "Juan Toloza",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q6301064"
+    },
+    {
+     "nombre": "Gustavo Bentos",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q10474408"
+    },
+    {
+     "nombre": "Juan José Ossandón",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q6300158"
+    }
+   ]
+  },
+  {
+   "club": "Club de Deportes Lota Schwager",
+   "wikidata": "Q2242745",
+   "temporadas": [
+    "Torneo Apertura 2007",
+    "Torneo Clausura 2007 (Chile)"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 6,
+   "jugadores": [
+    {
+     "nombre": "Luis Marín Barahona",
+     "posicion": "POR",
+     "edad": 24,
+     "wikidata": "Q510344"
+    },
+    {
+     "nombre": "Miguel Jiménez",
+     "posicion": "POR",
+     "edad": 26,
+     "wikidata": "Q5561188"
+    },
+    {
+     "nombre": "Cristián Oviedo",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q5186418"
+    },
+    {
+     "nombre": "José Gastón Salcedo",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q6293954"
+    },
+    {
+     "nombre": "Víctor Sarabia",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q7944654"
+    },
+    {
+     "nombre": "Emiliano Strappini",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q5371720"
+    }
+   ]
+  },
+  {
+   "club": "Club de Deportes Melipilla",
+   "wikidata": "Q1858893",
+   "temporadas": [
+    "Torneo Apertura 2007",
+    "Torneo Clausura 2007 (Chile)"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 13,
+   "jugadores": [
+    {
+     "nombre": "Franco Cabrera",
+     "posicion": "POR",
+     "edad": 24,
+     "wikidata": "Q5484527"
+    },
+    {
+     "nombre": "José Carlo Fernández",
+     "posicion": "POR",
+     "edad": 36,
+     "wikidata": "Q2325701"
+    },
+    {
+     "nombre": "Carlos De Castro",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q5042807"
+    },
+    {
+     "nombre": "Claudio Muñoz Uribe",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q5129388"
+    },
+    {
+     "nombre": "Carlos Espinosa",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q5042055"
+    },
+    {
+     "nombre": "Cristián Muñoz Corrales",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q10471818"
+    },
+    {
+     "nombre": "César Henríquez",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q5202562"
+    },
+    {
+     "nombre": "Héctor Pericás",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q5964020"
+    },
+    {
+     "nombre": "José Luis Cabión",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q2458843",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Luis Raúl Jiménez Barrera",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q932086"
+    },
+    {
+     "nombre": "Óscar Salinas",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q8078874"
+    },
+    {
+     "nombre": "Diego de Gregorio",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q5274867"
+    },
+    {
+     "nombre": "Román Cuello",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q7363402"
+    }
+   ]
+  },
+  {
+   "club": "Club de Deportes Puerto Montt",
+   "wikidata": "Q2550130",
+   "temporadas": [
+    "Torneo Apertura 2007",
+    "Torneo Clausura 2007 (Chile)"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 8,
+   "jugadores": [
+    {
+     "nombre": "Paulo Garcés",
+     "posicion": "POR",
+     "edad": 22,
+     "wikidata": "Q542311"
+    },
+    {
+     "nombre": "Sebastián Montesinos",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q7442662"
+    },
+    {
+     "nombre": "Cristián Muñoz Corrales",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q10471818"
+    },
+    {
+     "nombre": "Esteban Eduardo González",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q5849048"
+    },
+    {
+     "nombre": "Fernando Giménez",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q3742915"
+    },
+    {
+     "nombre": "Jorge Schwager",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q9012915"
+    },
+    {
+     "nombre": "Iván Álvarez",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q6100230"
+    },
+    {
+     "nombre": "Rodrigo Mannara",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q7357376"
+    }
+   ]
+  },
+  {
+   "club": "Club de Deportes Santiago Morning",
+   "wikidata": "Q1023222",
+   "temporadas": [
+    "Torneo Clausura 2007 (Chile)"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 8,
+   "jugadores": [
+    {
+     "nombre": "Raúl Olivares",
+     "posicion": "POR",
+     "edad": 19,
+     "wikidata": "Q5695380"
+    },
+    {
+     "nombre": "Víctor Loyola",
+     "posicion": "POR",
+     "edad": 26,
+     "wikidata": "Q9095315"
+    },
+    {
+     "nombre": "Cristian Febre",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q4502614",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Michael Rios",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q6834061"
+    },
+    {
+     "nombre": "Fernando Manríquez",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q5444809"
+    },
+    {
+     "nombre": "Francisco Huaiquipán",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q5483454"
+    },
+    {
+     "nombre": "Mauricio Weber",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q6793656"
+    },
+    {
+     "nombre": "Gustavo Fuentes",
+     "posicion": "DEL",
+     "edad": 34,
+     "wikidata": "Q5621401"
+    }
+   ]
+  },
+  {
+   "club": "Club de Deportes Santiago Wanderers",
+   "wikidata": "Q719338",
+   "temporadas": [
+    "Torneo Apertura 2007",
+    "Torneo Clausura 2007 (Chile)"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 13,
+   "jugadores": [
+    {
+     "nombre": "Francisco Prieto",
+     "posicion": "POR",
+     "edad": 24,
+     "wikidata": "Q3132182"
+    },
+    {
+     "nombre": "Christian Gálvez Núñez",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q5109659"
+    },
+    {
+     "nombre": "Juan Robledo",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q1338908"
+    },
+    {
+     "nombre": "Pablo Fontanello",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q2628217"
+    },
+    {
+     "nombre": "Sebastián Roco",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q2706748"
+    },
+    {
+     "nombre": "Javier Robles",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q6165693"
+    },
+    {
+     "nombre": "Juan Silva",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q6301010"
+    },
+    {
+     "nombre": "Michael Silva",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q6176149"
+    },
+    {
+     "nombre": "Víctor Cancino",
+     "posicion": "MED",
+     "edad": 35,
+     "wikidata": "Q7944597"
+    },
+    {
+     "nombre": "Víctor Hugo Ávalos",
+     "posicion": "MED",
+     "edad": 36,
+     "wikidata": "Q7944652"
+    },
+    {
+     "nombre": "Carlos Muñoz Rojas",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q1919079"
+    },
+    {
+     "nombre": "Jaime Grondona",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q5867708"
+    },
+    {
+     "nombre": "José Luis Jiménez",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q9014057"
+    }
+   ]
+  },
+  {
+   "club": "Cobreloa",
+   "wikidata": "Q643338",
+   "temporadas": [
+    "Torneo Apertura 2007",
+    "Torneo Clausura 2007 (Chile)"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 21,
+   "jugadores": [
+    {
+     "nombre": "Fernando Hurtado",
+     "posicion": "POR",
+     "edad": 24,
+     "wikidata": "Q5444766"
+    },
+    {
+     "nombre": "Cristián Morán",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q5186416"
+    },
+    {
+     "nombre": "Juan Luis González",
+     "posicion": "DEF",
+     "edad": 33,
+     "wikidata": "Q6300253"
+    },
+    {
+     "nombre": "Leandro Delgado",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q6509632"
+    },
+    {
+     "nombre": "Luis Fuentes",
+     "posicion": "DEF",
+     "edad": 35,
+     "wikidata": "Q2634757"
+    },
+    {
+     "nombre": "Rodrigo Pérez",
+     "posicion": "DEF",
+     "edad": 33,
+     "wikidata": "Q2461895"
+    },
+    {
+     "nombre": "Rodrigo Rain",
+     "posicion": "DEF",
+     "edad": 32,
+     "wikidata": "Q7357404"
+    },
+    {
+     "nombre": "Charles Aránguiz",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q797945"
+    },
+    {
+     "nombre": "Eduardo Vargas",
+     "posicion": "MED",
+     "edad": 17,
+     "wikidata": "Q2268949"
+    },
+    {
+     "nombre": "Eric Pino",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q5387279"
+    },
+    {
+     "nombre": "Fernando Meneses",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q2421827"
+    },
+    {
+     "nombre": "Jean Beausejour",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q313307"
+    },
+    {
+     "nombre": "Rodrigo Viligrón",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q7357437"
+    },
+    {
+     "nombre": "Sergio Vargas Pino",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q7454436"
+    },
+    {
+     "nombre": "Antenor Junior Fernandes da Silva Vitoria",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q969503"
+    },
+    {
+     "nombre": "Carlos Alzamora",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q5041753"
+    },
+    {
+     "nombre": "Cristián Canío",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q3295329"
+    },
+    {
+     "nombre": "Daniel Gonzalo Giménez",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q1160845"
+    },
+    {
+     "nombre": "Felipe Flores Chandía",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q2067907"
+    },
+    {
+     "nombre": "Lucas Barrios",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q154623"
+    },
+    {
+     "nombre": "Rodrigo Mannara",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q7357376"
+    }
+   ]
+  },
+  {
+   "club": "Coquimbo Unido",
+   "wikidata": "Q2407595",
+   "temporadas": [
+    "Torneo Apertura 2007",
+    "Torneo Clausura 2007 (Chile)"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 20,
+   "jugadores": [
+    {
+     "nombre": "Daniel Andrés Ferreyra",
+     "posicion": "POR",
+     "edad": 25,
+     "wikidata": "Q5217132"
+    },
+    {
+     "nombre": "Rodrigo Naranjo",
+     "posicion": "POR",
+     "edad": 27,
+     "wikidata": "Q7357383"
+    },
+    {
+     "nombre": "Alejandro Gaete",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q4714541"
+    },
+    {
+     "nombre": "Alí Manouchehri",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q4738861"
+    },
+    {
+     "nombre": "Germán Leonforte",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q2879443"
+    },
+    {
+     "nombre": "Luis Oyarzún Rebolledo",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q6700969"
+    },
+    {
+     "nombre": "Mario Esteban Berríos",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q6764661"
+    },
+    {
+     "nombre": "Nicolás Crovetto",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q2721817"
+    },
+    {
+     "nombre": "Carlos Carmona Tello",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q349162"
+    },
+    {
+     "nombre": "Diego Rosende",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q5274802"
+    },
+    {
+     "nombre": "Gustavo Zamudio",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q5621521"
+    },
+    {
+     "nombre": "Jonathan Cisternas",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q512603"
+    },
+    {
+     "nombre": "Mario Aravena",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q3293355"
+    },
+    {
+     "nombre": "Raúl Palacios",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q3930844"
+    },
+    {
+     "nombre": "Víctor Cancino",
+     "posicion": "MED",
+     "edad": 35,
+     "wikidata": "Q7944597"
+    },
+    {
+     "nombre": "Carlos Escobar Ortiz",
+     "posicion": "DEL",
+     "edad": 17,
+     "wikidata": "Q5042046"
+    },
+    {
+     "nombre": "Derlis Soto",
+     "posicion": "DEL",
+     "edad": 34,
+     "wikidata": "Q5262663"
+    },
+    {
+     "nombre": "Juan Manuel Lucero",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q4300940"
+    },
+    {
+     "nombre": "Luciano Álvarez",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q4356351"
+    },
+    {
+     "nombre": "Marcelo Corrales",
+     "posicion": "DEL",
+     "edad": 36,
+     "wikidata": "Q3845716"
+    }
+   ]
+  },
+  {
+   "club": "Everton de Viña del Mar",
+   "wikidata": "Q1103684",
+   "temporadas": [
+    "Torneo Apertura 2007",
+    "Torneo Clausura 2007 (Chile)"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 19,
+   "jugadores": [
+    {
+     "nombre": "Gustavo Dalsasso",
+     "posicion": "POR",
+     "edad": 30,
+     "wikidata": "Q5621383"
+    },
+    {
+     "nombre": "Johnny Herrera",
+     "posicion": "POR",
+     "edad": 26,
+     "wikidata": "Q2612089"
+    },
+    {
+     "nombre": "Alejandro Escalona",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q1621381"
+    },
+    {
+     "nombre": "Diego Guidi",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q5274687"
+    },
+    {
+     "nombre": "Fidel Córdova",
+     "posicion": "DEF",
+     "edad": 18,
+     "wikidata": "Q5861572"
+    },
+    {
+     "nombre": "Javier Menghini",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q6165630"
+    },
+    {
+     "nombre": "Marco Velásquez",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q6757742"
+    },
+    {
+     "nombre": "Rodrigo Rain",
+     "posicion": "DEF",
+     "edad": 32,
+     "wikidata": "Q7357404"
+    },
+    {
+     "nombre": "Cristián Uribe",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q5186432"
+    },
+    {
+     "nombre": "Fernando Martel",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q5444817"
+    },
+    {
+     "nombre": "Francisco Sánchez Silva",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q5483977",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Joel Reyes",
+     "posicion": "MED",
+     "edad": 35,
+     "wikidata": "Q6213886"
+    },
+    {
+     "nombre": "John Munizaga",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q5933478"
+    },
+    {
+     "nombre": "Nicolás Núñez",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q7030405"
+    },
+    {
+     "nombre": "Patricio Pérez Holtschamps",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q3369165"
+    },
+    {
+     "nombre": "Roberto Reyes",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q7351869"
+    },
+    {
+     "nombre": "Daniel Pérez",
+     "posicion": "DEL",
+     "edad": 31,
+     "wikidata": "Q5218502"
+    },
+    {
+     "nombre": "Matías Urbano",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q3852367"
+    },
+    {
+     "nombre": "Samuel Teuber",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q7412764"
+    }
+   ]
+  },
+  {
+   "club": "Unión Española",
+   "wikidata": "Q1129059",
+   "temporadas": [
+    "Torneo Apertura 2007",
+    "Torneo Clausura 2007 (Chile)"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 21,
+   "jugadores": [
+    {
+     "nombre": "Cristián Limenza",
+     "posicion": "POR",
+     "edad": 30,
+     "wikidata": "Q5186415"
+    },
+    {
+     "nombre": "Jaime Bravo",
+     "posicion": "POR",
+     "edad": 25,
+     "wikidata": "Q6123648"
+    },
+    {
+     "nombre": "Adán Vergara",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q380292"
+    },
+    {
+     "nombre": "Alejandro Javier Acosta",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q890670"
+    },
+    {
+     "nombre": "Alexis Norambuena",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q2706167"
+    },
+    {
+     "nombre": "Christian Sepúlveda",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q5767524"
+    },
+    {
+     "nombre": "Fernando Gutiérrez Fernández",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q5408595"
+    },
+    {
+     "nombre": "Clarence Acuña",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q2603260"
+    },
+    {
+     "nombre": "Fernando Cordero",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q5444660"
+    },
+    {
+     "nombre": "Gerson Acevedo",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q2058810"
+    },
+    {
+     "nombre": "Isaías Peralta",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q6079113"
+    },
+    {
+     "nombre": "Johan Fuentes",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q9012367"
+    },
+    {
+     "nombre": "José Luis Sierra",
+     "posicion": "MED",
+     "edad": 38,
+     "wikidata": "Q1341599"
+    },
+    {
+     "nombre": "Manuel Ibarra Valdés",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q1439130"
+    },
+    {
+     "nombre": "Mathías Vidangossy",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q2556710"
+    },
+    {
+     "nombre": "Roberto Kettlun",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q1277563"
+    },
+    {
+     "nombre": "Rubén Bascuñán",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q7376452"
+    },
+    {
+     "nombre": "Cristóbal Jorquera",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q892163"
+    },
+    {
+     "nombre": "Julio Gutiérrez",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q518539"
+    },
+    {
+     "nombre": "Manuel Neira",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q1368816"
+    },
+    {
+     "nombre": "Mario Cáceres",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q1898743"
+    }
+   ]
+  }
+ ]
+}

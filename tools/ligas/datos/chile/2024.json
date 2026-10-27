@@ -1,0 +1,280 @@
+{
+ "liga": "Primera División de Chile",
+ "pais": "chile",
+ "año": 2024,
+ "fuente": "Wikidata (CC0) y Wikipedia; instantánea del 27-oct-2026 (tools/ligas/)",
+ "notas": [
+  "Datos de referencia de uso propio, no para el juego.",
+  "Clubes: los de las temporadas del campeonato que tocan este año calendario (tabla de posiciones de Wikipedia o, si no hay, los clubes más enlazados desde el artículo de la temporada).",
+  "Jugadores: membresías P54 de Wikidata que incluyen el año. Sin fecha de fin cuenta el año en que llegó (o hasta hoy si llegó desde 2023): membresia_estimada. Los planteles pueden estar incompletos; jugadores_encontrados dice cuántos hay.",
+  "posicion: línea estimada desde P413 (POR, DEF, MED, DEL; null si Wikidata no la tiene). edad: al 1 de julio; edad_aproximada si la fecha de nacimiento no tiene día o tiene fechas distintas."
+ ],
+ "equipos": [
+  {
+   "club": "Audax Italiano",
+   "wikidata": "Q758689",
+   "temporadas": [
+    "Primera División de Chile 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Ignacio Geraldino",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q12176451"
+    }
+   ]
+  },
+  {
+   "club": "Club Deportivo Huachipato",
+   "wikidata": "Q1023191",
+   "temporadas": [
+    "Primera División de Chile 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Club Deportivo O'Higgins",
+   "wikidata": "Q719722",
+   "temporadas": [
+    "Primera División de Chile 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 2,
+   "jugadores": [
+    {
+     "nombre": "Diego Buonanotte",
+     "posicion": "MED",
+     "edad": 36,
+     "wikidata": "Q316594"
+    },
+    {
+     "nombre": "Leandro Benegas",
+     "posicion": "DEL",
+     "edad": 35,
+     "wikidata": "Q9020988"
+    }
+   ]
+  },
+  {
+   "club": "Club Deportivo Palestino",
+   "wikidata": "Q719719",
+   "temporadas": [
+    "Primera División de Chile 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Club Deportivo Universidad Católica",
+   "wikidata": "Q427446",
+   "temporadas": [
+    "Primera División de Chile 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Club Deportivo Ñublense",
+   "wikidata": "Q2317539",
+   "temporadas": [
+    "Primera División de Chile 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Club Social y Deportivo Colo-Colo",
+   "wikidata": "Q207373",
+   "temporadas": [
+    "Primera División de Chile 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 2,
+   "jugadores": [
+    {
+     "nombre": "Mauricio Isla",
+     "posicion": "DEF",
+     "edad": 36,
+     "wikidata": "Q296222"
+    },
+    {
+     "nombre": "Arturo Vidal",
+     "posicion": "MED",
+     "edad": 37,
+     "wikidata": "Q192671"
+    }
+   ]
+  },
+  {
+   "club": "Club Universidad de Chile",
+   "wikidata": "Q737753",
+   "temporadas": [
+    "Primera División de Chile 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 3,
+   "jugadores": [
+    {
+     "nombre": "Charles Aránguiz",
+     "posicion": "MED",
+     "edad": 35,
+     "wikidata": "Q797945"
+    },
+    {
+     "nombre": "Felipe Gutiérrez",
+     "posicion": "MED",
+     "edad": 33,
+     "wikidata": "Q195292",
+     "membresia_estimada": true
+    },
+    {
+     "nombre": "Marcelo Díaz",
+     "posicion": "MED",
+     "edad": 37,
+     "wikidata": "Q1353070"
+    }
+   ]
+  },
+  {
+   "club": "Club de Deportes Cobresal",
+   "wikidata": "Q642669",
+   "temporadas": [
+    "Primera División de Chile 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Club de Deportes Copiapó",
+   "wikidata": "Q338923",
+   "temporadas": [
+    "Primera División de Chile 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Club de Deportes Iquique",
+   "wikidata": "Q642824",
+   "temporadas": [
+    "Primera División de Chile 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Cobreloa",
+   "wikidata": "Q643338",
+   "temporadas": [
+    "Primera División de Chile 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Mauro Borgnino",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q28055553"
+    }
+   ]
+  },
+  {
+   "club": "Coquimbo Unido",
+   "wikidata": "Q2407595",
+   "temporadas": [
+    "Primera División de Chile 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Andrés Chávez",
+     "posicion": "DEL",
+     "edad": 33,
+     "wikidata": "Q5675665"
+    }
+   ]
+  },
+  {
+   "club": "Everton de Viña del Mar",
+   "wikidata": "Q1103684",
+   "temporadas": [
+    "Primera División de Chile 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Bruno Betancor",
+     "posicion": null,
+     "edad": 20,
+     "wikidata": "Q118352058"
+    }
+   ]
+  },
+  {
+   "club": "Unión Española",
+   "wikidata": "Q1129059",
+   "temporadas": [
+    "Primera División de Chile 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Unión La Calera",
+   "wikidata": "Q719383",
+   "temporadas": [
+    "Primera División de Chile 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  }
+ ]
+}

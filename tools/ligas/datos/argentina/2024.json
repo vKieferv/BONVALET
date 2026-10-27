@@ -1,0 +1,672 @@
+{
+ "liga": "Primera División de Argentina",
+ "pais": "argentina",
+ "año": 2024,
+ "fuente": "Wikidata (CC0) y Wikipedia; instantánea del 27-oct-2026 (tools/ligas/)",
+ "notas": [
+  "Datos de referencia de uso propio, no para el juego.",
+  "Clubes: los de las temporadas del campeonato que tocan este año calendario (tabla de posiciones de Wikipedia o, si no hay, los clubes más enlazados desde el artículo de la temporada).",
+  "Jugadores: membresías P54 de Wikidata que incluyen el año. Sin fecha de fin cuenta el año en que llegó (o hasta hoy si llegó desde 2023): membresia_estimada. Los planteles pueden estar incompletos; jugadores_encontrados dice cuántos hay.",
+  "posicion: línea estimada desde P413 (POR, DEF, MED, DEL; null si Wikidata no la tiene). edad: al 1 de julio; edad_aproximada si la fecha de nacimiento no tiene día o tiene fechas distintas."
+ ],
+ "equipos": [
+  {
+   "club": "Asociación Atlética Argentinos Juniors",
+   "wikidata": "Q220621",
+   "temporadas": [
+    "Campeonato de Primera División 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 3,
+   "jugadores": [
+    {
+     "nombre": "Federico Redondo",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q113027711"
+    },
+    {
+     "nombre": "Marco Di Cesare",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q104015123"
+    },
+    {
+     "nombre": "Luciano Gondou",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q107737321",
+     "membresia_estimada": true
+    }
+   ]
+  },
+  {
+   "club": "Atlético Tucumán",
+   "wikidata": "Q757470",
+   "temporadas": [
+    "Campeonato de Primera División 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Barracas Central",
+   "wikidata": "Q2469894",
+   "temporadas": [
+    "Campeonato de Primera División 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Carlos Alberto Sánchez",
+     "posicion": "MED",
+     "edad": 38,
+     "wikidata": "Q116602"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Banfield",
+   "wikidata": "Q692646",
+   "temporadas": [
+    "Campeonato de Primera División 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Leandro Garate",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q20056549"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Huracán",
+   "wikidata": "Q327172",
+   "temporadas": [
+    "Campeonato de Primera División 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 3,
+   "jugadores": [
+    {
+     "nombre": "Hernán Galíndez",
+     "posicion": "POR",
+     "edad": 37,
+     "wikidata": "Q5742434"
+    },
+    {
+     "nombre": "Alan Soñora",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q68740044",
+     "membresia_estimada": true
+    },
+    {
+     "nombre": "Lucas Nahuel Castro",
+     "posicion": "MED",
+     "edad": 35,
+     "wikidata": "Q1279869",
+     "membresia_estimada": true
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Independiente",
+   "wikidata": "Q214978",
+   "temporadas": [
+    "Campeonato de Primera División 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Mauricio Isla",
+     "posicion": "DEF",
+     "edad": 36,
+     "wikidata": "Q296222"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Lanús",
+   "wikidata": "Q324589",
+   "temporadas": [
+    "Campeonato de Primera División 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 2,
+   "jugadores": [
+    {
+     "nombre": "Julio Soler",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q121142176"
+    },
+    {
+     "nombre": "Eduardo Cornelio Salvio",
+     "posicion": "MED",
+     "edad": 33,
+     "wikidata": "Q367644"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Newell’s Old Boys",
+   "wikidata": "Q221882",
+   "temporadas": [
+    "Campeonato de Primera División 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 3,
+   "jugadores": [
+    {
+     "nombre": "Juan Sforza",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q71735316"
+    },
+    {
+     "nombre": "Éver Banega",
+     "posicion": "MED",
+     "edad": 36,
+     "wikidata": "Q19392"
+    },
+    {
+     "nombre": "Francisco González",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q63341017"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético River Plate",
+   "wikidata": "Q15799",
+   "temporadas": [
+    "Campeonato de Primera División 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 10,
+   "jugadores": [
+    {
+     "nombre": "Franco Daniel Armani",
+     "posicion": "POR",
+     "edad": 37,
+     "wikidata": "Q5484508"
+    },
+    {
+     "nombre": "Germán Pezzella",
+     "posicion": "DEF",
+     "edad": 33,
+     "wikidata": "Q3761173"
+    },
+    {
+     "nombre": "Bruno Zuculini",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q3645977"
+    },
+    {
+     "nombre": "Claudio Echeverri",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q116463164"
+    },
+    {
+     "nombre": "Esequiel Barco",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q25935564"
+    },
+    {
+     "nombre": "Franco Mastantuono",
+     "posicion": "MED",
+     "edad": 16,
+     "wikidata": "Q123289726"
+    },
+    {
+     "nombre": "Manuel Lanzini",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q1524928",
+     "membresia_estimada": true
+    },
+    {
+     "nombre": "Santiago Lencina",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q128460374"
+    },
+    {
+     "nombre": "Miguel Borja",
+     "posicion": "DEL",
+     "edad": 31,
+     "wikidata": "Q4094820"
+    },
+    {
+     "nombre": "Pablo Solari",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q102157529"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Rosario Central",
+   "wikidata": "Q318307",
+   "temporadas": [
+    "Campeonato de Primera División 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Abel Hernández",
+     "posicion": "DEL",
+     "edad": 33,
+     "wikidata": "Q318456"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Tigre",
+   "wikidata": "Q80886",
+   "temporadas": [
+    "Campeonato de Primera División 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Club Atlético Unión",
+   "wikidata": "Q80899",
+   "temporadas": [
+    "Campeonato de Primera División 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Kevin Zenón",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q101001007"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Vélez Sarsfield",
+   "wikidata": "Q215163",
+   "temporadas": [
+    "Campeonato de Primera División 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 3,
+   "jugadores": [
+    {
+     "nombre": "Aaron Quirós",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q122886659"
+    },
+    {
+     "nombre": "Joaquín García",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q124815338",
+     "membresia_estimada": true
+    },
+    {
+     "nombre": "Santiago Castro",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q108114747"
+    }
+   ]
+  },
+  {
+   "club": "Club Deportivo Godoy Cruz Antonio Tomba",
+   "wikidata": "Q80882",
+   "temporadas": [
+    "Campeonato de Primera División 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Club Estudiantes de La Plata",
+   "wikidata": "Q214940",
+   "temporadas": [
+    "Campeonato de Primera División 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 10,
+   "jugadores": [
+    {
+     "nombre": "Enzo Pérez",
+     "posicion": "POR",
+     "edad": 38,
+     "wikidata": "Q926353"
+    },
+    {
+     "nombre": "Juan Pablo Zozaya",
+     "posicion": "POR",
+     "edad": 22,
+     "wikidata": "Q124375940"
+    },
+    {
+     "nombre": "Gastón Benedetti",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q118256235",
+     "membresia_estimada": true
+    },
+    {
+     "nombre": "Román Agustín Gómez",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q130452980"
+    },
+    {
+     "nombre": "Alexis Manyoma",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q116255506",
+     "membresia_estimada": true
+    },
+    {
+     "nombre": "Axel Atum",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q118256236",
+     "membresia_estimada": true
+    },
+    {
+     "nombre": "Emanuel Dall'Aglio",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q128880766"
+    },
+    {
+     "nombre": "Gabriel Neves",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q58011128"
+    },
+    {
+     "nombre": "Fabricio Pérez Escudero",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q130600471"
+    },
+    {
+     "nombre": "Matías Julián Contrera",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q130443553"
+    }
+   ]
+  },
+  {
+   "club": "Club Social y Deportivo Defensa y Justicia",
+   "wikidata": "Q1024338",
+   "temporadas": [
+    "Campeonato de Primera División 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Club Sportivo Independiente Rivadavia",
+   "wikidata": "Q2454482",
+   "temporadas": [
+    "Campeonato de Primera División 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 2,
+   "jugadores": [
+    {
+     "nombre": "Matías Ruiz Díaz",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q55281491"
+    },
+    {
+     "nombre": "Franco Di Santo",
+     "posicion": "DEL",
+     "edad": 35,
+     "wikidata": "Q315330"
+    }
+   ]
+  },
+  {
+   "club": "Club de Gimnasia y Esgrima La Plata",
+   "wikidata": "Q18640",
+   "temporadas": [
+    "Campeonato de Primera División 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Juan Cruz Cortazzo",
+     "posicion": "DEF",
+     "edad": 18,
+     "wikidata": "Q128877736"
+    }
+   ]
+  },
+  {
+   "club": "Deportivo Riestra",
+   "wikidata": "Q4382304",
+   "temporadas": [
+    "Campeonato de Primera División 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Spreen",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q112135922"
+    }
+   ]
+  },
+  {
+   "club": "Instituto Atlético Central Córdoba",
+   "wikidata": "Q1421829",
+   "temporadas": [
+    "Campeonato de Primera División 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Djorkaeff Reasco",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q94535575"
+    }
+   ]
+  },
+  {
+   "club": "Q151907",
+   "wikidata": "Q151907",
+   "temporadas": [
+    "Campeonato de Primera División 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Q170703",
+   "wikidata": "Q170703",
+   "temporadas": [
+    "Campeonato de Primera División 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Q218282",
+   "wikidata": "Q218282",
+   "temporadas": [
+    "Campeonato de Primera División 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Q5060684",
+   "wikidata": "Q5060684",
+   "temporadas": [
+    "Campeonato de Primera División 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Q519966",
+   "wikidata": "Q519966",
+   "temporadas": [
+    "Campeonato de Primera División 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Q59962",
+   "wikidata": "Q59962",
+   "temporadas": [
+    "Campeonato de Primera División 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Racing Club",
+   "wikidata": "Q276533",
+   "temporadas": [
+    "Campeonato de Primera División 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 4,
+   "jugadores": [
+    {
+     "nombre": "Baltasar Rodríguez",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q119395834",
+     "membresia_estimada": true
+    },
+    {
+     "nombre": "Juan Fernando Quintero",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q2092409"
+    },
+    {
+     "nombre": "Marco Di Cesare",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q104015123"
+    },
+    {
+     "nombre": "adolfo hitler buendia",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q66929490",
+     "membresia_estimada": true
+    }
+   ]
+  },
+  {
+   "club": "Talleres de Córdoba",
+   "wikidata": "Q1022939",
+   "temporadas": [
+    "Campeonato de Primera División 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Ramón posaaaa",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q110160871"
+    }
+   ]
+  }
+ ]
+}

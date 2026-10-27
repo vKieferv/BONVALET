@@ -1,0 +1,753 @@
+{
+ "liga": "Campeonato Brasileiro Série A",
+ "pais": "brasil",
+ "año": 2023,
+ "fuente": "Wikidata (CC0) y Wikipedia; instantánea del 27-oct-2026 (tools/ligas/)",
+ "notas": [
+  "Datos de referencia de uso propio, no para el juego.",
+  "Clubes: los de las temporadas del campeonato que tocan este año calendario (tabla de posiciones de Wikipedia o, si no hay, los clubes más enlazados desde el artículo de la temporada).",
+  "Jugadores: membresías P54 de Wikidata que incluyen el año. Sin fecha de fin cuenta el año en que llegó (o hasta hoy si llegó desde 2023): membresia_estimada. Los planteles pueden estar incompletos; jugadores_encontrados dice cuántos hay.",
+  "posicion: línea estimada desde P413 (POR, DEF, MED, DEL; null si Wikidata no la tiene). edad: al 1 de julio; edad_aproximada si la fecha de nacimiento no tiene día o tiene fechas distintas."
+ ],
+ "equipos": [
+  {
+   "club": "América Futebol Clube",
+   "wikidata": "Q338285",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2023"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Luan Campos",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q123465946"
+    }
+   ]
+  },
+  {
+   "club": "Botafogo de Futebol e Regatas",
+   "wikidata": "Q80958",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2023"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 4,
+   "jugadores": [
+    {
+     "nombre": "JP Galvão",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q116432772"
+    },
+    {
+     "nombre": "Luis Phelipe",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q64762050"
+    },
+    {
+     "nombre": "Luis Segovia",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q29002247"
+    },
+    {
+     "nombre": "Diego Costa",
+     "posicion": "DEL",
+     "edad": 34,
+     "wikidata": "Q459707"
+    }
+   ]
+  },
+  {
+   "club": "Club Athletico Paranaense",
+   "wikidata": "Q506832",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2023"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 5,
+   "jugadores": [
+    {
+     "nombre": "Lucas Esquivel",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q101084011"
+    },
+    {
+     "nombre": "Arturo Vidal",
+     "posicion": "MED",
+     "edad": 36,
+     "wikidata": "Q192671"
+    },
+    {
+     "nombre": "Fernandinho",
+     "posicion": "MED",
+     "edad": 38,
+     "wikidata": "Q459356"
+    },
+    {
+     "nombre": "Rômulo José Cardoso da Cruz",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q110970778"
+    },
+    {
+     "nombre": "Vitor Roque",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q111016177"
+    }
+   ]
+  },
+  {
+   "club": "Club de Regatas Vasco da Gama",
+   "wikidata": "Q5014111",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2023"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 4,
+   "jugadores": [
+    {
+     "nombre": "Edimar Curitiba Fraga",
+     "posicion": "DEF",
+     "edad": 37,
+     "wikidata": "Q2080087"
+    },
+    {
+     "nombre": "Dimitri Payet",
+     "posicion": "MED",
+     "edad": 36,
+     "wikidata": "Q376247"
+    },
+    {
+     "nombre": "Gary Medel",
+     "posicion": "MED",
+     "edad": 35,
+     "wikidata": "Q329524"
+    },
+    {
+     "nombre": "JP Galvão",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q116432772"
+    }
+   ]
+  },
+  {
+   "club": "Clube Atlético Mineiro",
+   "wikidata": "Q270995",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2023"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 6,
+   "jugadores": [
+    {
+     "nombre": "Cristian Pavón",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q16553648"
+    },
+    {
+     "nombre": "Edenilson",
+     "posicion": "MED",
+     "edad": 33,
+     "wikidata": "Q1707749"
+    },
+    {
+     "nombre": "Eduardo Vargas",
+     "posicion": "MED",
+     "edad": 33,
+     "wikidata": "Q2268949"
+    },
+    {
+     "nombre": "Igor Gomes",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q59207905"
+    },
+    {
+     "nombre": "Rodrigo Battaglia",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q3940027"
+    },
+    {
+     "nombre": "Hulk",
+     "posicion": "DEL",
+     "edad": 36,
+     "wikidata": "Q62786"
+    }
+   ]
+  },
+  {
+   "club": "Clube de Regatas do Flamengo",
+   "wikidata": "Q17479",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2023"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 6,
+   "jugadores": [
+    {
+     "nombre": "Matheus Cunha Queiroz",
+     "posicion": "POR",
+     "edad": 22,
+     "wikidata": "Q110882015"
+    },
+    {
+     "nombre": "Ayrton Lucas Dantas de Medeiros",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q23638974"
+    },
+    {
+     "nombre": "David Luiz",
+     "posicion": "DEF",
+     "edad": 36,
+     "wikidata": "Q193706"
+    },
+    {
+     "nombre": "Filipe Luís",
+     "posicion": "DEF",
+     "edad": 37,
+     "wikidata": "Q350547"
+    },
+    {
+     "nombre": "Arturo Vidal",
+     "posicion": "MED",
+     "edad": 36,
+     "wikidata": "Q192671"
+    },
+    {
+     "nombre": "Gabigol",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q13646572"
+    }
+   ]
+  },
+  {
+   "club": "Coritiba Foot Ball Club",
+   "wikidata": "Q478317",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2023"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 4,
+   "jugadores": [
+    {
+     "nombre": "Luan Polli",
+     "posicion": "POR",
+     "edad": 30,
+     "wikidata": "Q19968755"
+    },
+    {
+     "nombre": "Andreas Samaris",
+     "posicion": "MED",
+     "edad": 34,
+     "wikidata": "Q4755614"
+    },
+    {
+     "nombre": "Islam Slimani",
+     "posicion": "DEL",
+     "edad": 35,
+     "wikidata": "Q1347269"
+    },
+    {
+     "nombre": "Jesé Rodríguez",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q513911"
+    }
+   ]
+  },
+  {
+   "club": "Cruzeiro Esporte Clube",
+   "wikidata": "Q188277",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2023"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 3,
+   "jugadores": [
+    {
+     "nombre": "Matheus Pereira",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q15831118"
+    },
+    {
+     "nombre": "Giovanni Piccolomo",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q64056"
+    },
+    {
+     "nombre": "Henrique Luvannor",
+     "posicion": "DEL",
+     "edad": 33,
+     "wikidata": "Q15131481"
+    }
+   ]
+  },
+  {
+   "club": "Cuiabá Esporte Clube",
+   "wikidata": "Q2945011",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2023"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Esporte Clube Bahia",
+   "wikidata": "Q198032",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2023"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 2,
+   "jugadores": [
+    {
+     "nombre": "Diego Rosa",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q76376134"
+    },
+    {
+     "nombre": "Gabriel Teixeira",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q106734264"
+    }
+   ]
+  },
+  {
+   "club": "Fluminense Football Club",
+   "wikidata": "Q80987",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2023"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 4,
+   "jugadores": [
+    {
+     "nombre": "Marcelo Vieira da Silva Júnior",
+     "posicion": "DEF",
+     "edad": 35,
+     "wikidata": "Q38136"
+    },
+    {
+     "nombre": "Felipe Melo",
+     "posicion": "MED",
+     "edad": 40,
+     "wikidata": "Q204450"
+    },
+    {
+     "nombre": "Jhon Arias",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q65378670"
+    },
+    {
+     "nombre": "Yony Andrés González Copete",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q19968627"
+    }
+   ]
+  },
+  {
+   "club": "Fortaleza Esporte Clube",
+   "wikidata": "Q188841",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2023"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 4,
+   "jugadores": [
+    {
+     "nombre": "Luan Polli",
+     "posicion": "POR",
+     "edad": 30,
+     "wikidata": "Q19968755"
+    },
+    {
+     "nombre": "Lucas Esteves",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q78069297"
+    },
+    {
+     "nombre": "Alexsandro Amorim de Freitas Filho",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q135395465"
+    },
+    {
+     "nombre": "Fabricio Santos de Jesus",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q15831001"
+    }
+   ]
+  },
+  {
+   "club": "Goiás Esporte Clube",
+   "wikidata": "Q816779",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2023"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Grêmio Foot-Ball Porto Alegrense",
+   "wikidata": "Q221695",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2023"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 5,
+   "jugadores": [
+    {
+     "nombre": "Guilherme Guedes",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q55081316"
+    },
+    {
+     "nombre": "Pedro Tonon Geromel",
+     "posicion": "DEF",
+     "edad": 37,
+     "wikidata": "Q266410"
+    },
+    {
+     "nombre": "Lucas Camilo",
+     "posicion": "MED",
+     "edad": 17,
+     "wikidata": "Q123422089"
+    },
+    {
+     "nombre": "Lucas Leiva",
+     "posicion": "MED",
+     "edad": 36,
+     "wikidata": "Q220593"
+    },
+    {
+     "nombre": "Luis Suárez",
+     "posicion": "DEL",
+     "edad": 36,
+     "wikidata": "Q26517"
+    }
+   ]
+  },
+  {
+   "club": "Red Bull Bragantino",
+   "wikidata": "Q541744",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2023"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 5,
+   "jugadores": [
+    {
+     "nombre": "Léo Ortiz",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q55816003"
+    },
+    {
+     "nombre": "Natan Bernardo de Souza",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q99738875"
+    },
+    {
+     "nombre": "Alerrandro Barra Mansa Realino de Souza",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q55081204"
+    },
+    {
+     "nombre": "Paulina Gramaglia",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q110244006"
+    },
+    {
+     "nombre": "Douglas Mendes",
+     "posicion": null,
+     "edad": 19,
+     "wikidata": "Q115522187"
+    }
+   ]
+  },
+  {
+   "club": "Santos Futebol Clube",
+   "wikidata": "Q80955",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2023"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 3,
+   "jugadores": [
+    {
+     "nombre": "Anderson Ceará",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q59179753"
+    },
+    {
+     "nombre": "Marcos Leonardo",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q98534760"
+    },
+    {
+     "nombre": "Tailson Pinto Gonçalves",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q69949602"
+    }
+   ]
+  },
+  {
+   "club": "Sociedade Esportiva Palmeiras",
+   "wikidata": "Q80964",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2023"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 5,
+   "jugadores": [
+    {
+     "nombre": "Jailson",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q28145562"
+    },
+    {
+     "nombre": "Pedro Bicalho",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q96361581"
+    },
+    {
+     "nombre": "Richard Ríos",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q117322318"
+    },
+    {
+     "nombre": "Breno Lopes",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q101230488"
+    },
+    {
+     "nombre": "Endrick",
+     "posicion": "DEL",
+     "edad": 16,
+     "wikidata": "Q110644260"
+    }
+   ]
+  },
+  {
+   "club": "Sport Club Corinthians Paulista",
+   "wikidata": "Q35933",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2023"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 6,
+   "jugadores": [
+    {
+     "nombre": "Lucas Veríssimo",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q22703917",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Gabriel Moscardo",
+     "posicion": "MED",
+     "edad": 17,
+     "wikidata": "Q120681423"
+    },
+    {
+     "nombre": "Giuliano",
+     "posicion": "MED",
+     "edad": 33,
+     "wikidata": "Q713886"
+    },
+    {
+     "nombre": "Paulinho",
+     "posicion": "MED",
+     "edad": 34,
+     "wikidata": "Q73082"
+    },
+    {
+     "nombre": "Renato Augusto",
+     "posicion": "MED",
+     "edad": 35,
+     "wikidata": "Q357844"
+    },
+    {
+     "nombre": "Wesley Gassova",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q112620020"
+    }
+   ]
+  },
+  {
+   "club": "Sport Club Internacional",
+   "wikidata": "Q80845",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2023"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 6,
+   "jugadores": [
+    {
+     "nombre": "Hugo Mallo",
+     "posicion": "DEF",
+     "edad": 32,
+     "wikidata": "Q1825157"
+    },
+    {
+     "nombre": "Mário Fernandes",
+     "posicion": "DEF",
+     "edad": 32,
+     "wikidata": "Q2444565"
+    },
+    {
+     "nombre": "Charles Aránguiz",
+     "posicion": "MED",
+     "edad": 34,
+     "wikidata": "Q797945"
+    },
+    {
+     "nombre": "Enner Valencia",
+     "posicion": "DEL",
+     "edad": 33,
+     "wikidata": "Q2843080"
+    },
+    {
+     "nombre": "Luiz Adriano",
+     "posicion": "DEL",
+     "edad": 36,
+     "wikidata": "Q72904"
+    },
+    {
+     "nombre": "Gabi Barbieri",
+     "posicion": null,
+     "edad": 20,
+     "wikidata": "Q116450248"
+    }
+   ]
+  },
+  {
+   "club": "São Paulo Futebol Clube",
+   "wikidata": "Q38568",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2023"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 7,
+   "jugadores": [
+    {
+     "nombre": "Beraldo",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q112604843"
+    },
+    {
+     "nombre": "Rafinha",
+     "posicion": "DEF",
+     "edad": 37,
+     "wikidata": "Q174926"
+    },
+    {
+     "nombre": "Gabriel Neves Perdomo",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q58011128"
+    },
+    {
+     "nombre": "Jhegson Méndez",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q27786601"
+    },
+    {
+     "nombre": "Lucas Moura",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q312886"
+    },
+    {
+     "nombre": "Alexandre Pato",
+     "posicion": "DEL",
+     "edad": 33,
+     "wikidata": "Q138075"
+    },
+    {
+     "nombre": "James Rodríguez",
+     "posicion": "DEL",
+     "edad": 31,
+     "wikidata": "Q368441"
+    }
+   ]
+  }
+ ]
+}

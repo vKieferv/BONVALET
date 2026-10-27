@@ -1,0 +1,765 @@
+{
+ "liga": "Primera División de Argentina",
+ "pais": "argentina",
+ "año": 2021,
+ "fuente": "Wikidata (CC0) y Wikipedia; instantánea del 27-oct-2026 (tools/ligas/)",
+ "notas": [
+  "Datos de referencia de uso propio, no para el juego.",
+  "Clubes: los de las temporadas del campeonato que tocan este año calendario (tabla de posiciones de Wikipedia o, si no hay, los clubes más enlazados desde el artículo de la temporada).",
+  "Jugadores: membresías P54 de Wikidata que incluyen el año. Sin fecha de fin cuenta el año en que llegó (o hasta hoy si llegó desde 2023): membresia_estimada. Los planteles pueden estar incompletos; jugadores_encontrados dice cuántos hay.",
+  "posicion: línea estimada desde P413 (POR, DEF, MED, DEL; null si Wikidata no la tiene). edad: al 1 de julio; edad_aproximada si la fecha de nacimiento no tiene día o tiene fechas distintas."
+ ],
+ "equipos": [
+  {
+   "club": "Asociación Atlética Argentinos Juniors",
+   "wikidata": "Q220621",
+   "temporadas": [
+    "Campeonato de Primera División 2021"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 2,
+   "jugadores": [
+    {
+     "nombre": "Román Vega",
+     "posicion": "DEF",
+     "edad": 17,
+     "wikidata": "Q114049453"
+    },
+    {
+     "nombre": "Marco Di Cesare",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q104015123"
+    }
+   ]
+  },
+  {
+   "club": "Atlético Tucumán",
+   "wikidata": "Q757470",
+   "temporadas": [
+    "Campeonato de Primera División 2021"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Franco Mussis",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q5868392"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Aldosivi",
+   "wikidata": "Q971490",
+   "temporadas": [
+    "Campeonato de Primera División 2021"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 2,
+   "jugadores": [
+    {
+     "nombre": "Emiliano Insúa",
+     "posicion": "DEF",
+     "edad": 32,
+     "wikidata": "Q351797"
+    },
+    {
+     "nombre": "Fabricio Coloccini",
+     "posicion": "DEF",
+     "edad": 39,
+     "wikidata": "Q215831"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Banfield",
+   "wikidata": "Q692646",
+   "temporadas": [
+    "Campeonato de Primera División 2021"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 3,
+   "jugadores": [
+    {
+     "nombre": "Feyiseitan Asagidigbi",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q104373137"
+    },
+    {
+     "nombre": "Jonás Gutiérrez",
+     "posicion": "MED",
+     "edad": 37,
+     "wikidata": "Q208087"
+    },
+    {
+     "nombre": "Michael López",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q43380470"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Colón",
+   "wikidata": "Q80897",
+   "temporadas": [
+    "Campeonato de Primera División 2021"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 2,
+   "jugadores": [
+    {
+     "nombre": "Juan Bauza",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q28950928"
+    },
+    {
+     "nombre": "Lucas Beltrán",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q59649459"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Huracán",
+   "wikidata": "Q327172",
+   "temporadas": [
+    "Campeonato de Primera División 2021"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 4,
+   "jugadores": [
+    {
+     "nombre": "Santiago Hezze",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q87310074"
+    },
+    {
+     "nombre": "Andrés Chávez",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q5675665"
+    },
+    {
+     "nombre": "Braian Maidana",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q104774999"
+    },
+    {
+     "nombre": "Juan Gauto",
+     "posicion": null,
+     "edad": 17,
+     "wikidata": "Q114133037"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Independiente",
+   "wikidata": "Q214978",
+   "temporadas": [
+    "Campeonato de Primera División 2021"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 2,
+   "jugadores": [
+    {
+     "nombre": "Alan Soñora",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q68740044"
+    },
+    {
+     "nombre": "Nicolás Del Priore",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q59782070"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Lanús",
+   "wikidata": "Q324589",
+   "temporadas": [
+    "Campeonato de Primera División 2021"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Fernando Belluschi",
+     "posicion": "MED",
+     "edad": 37,
+     "wikidata": "Q441224"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Newell’s Old Boys",
+   "wikidata": "Q221882",
+   "temporadas": [
+    "Campeonato de Primera División 2021"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 6,
+   "jugadores": [
+    {
+     "nombre": "Nicolás Temperini",
+     "posicion": "POR",
+     "edad": 26,
+     "wikidata": "Q56318348"
+    },
+    {
+     "nombre": "Gabriel Compagnucci",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q60734676"
+    },
+    {
+     "nombre": "Ignacio Scocco",
+     "posicion": "MED",
+     "edad": 36,
+     "wikidata": "Q1709911"
+    },
+    {
+     "nombre": "Juan Sforza",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q71735316"
+    },
+    {
+     "nombre": "Maxi Rodríguez",
+     "posicion": "MED",
+     "edad": 40,
+     "wikidata": "Q190929"
+    },
+    {
+     "nombre": "Francisco González",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q63341017"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético River Plate",
+   "wikidata": "Q15799",
+   "temporadas": [
+    "Campeonato de Primera División 2021"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 12,
+   "jugadores": [
+    {
+     "nombre": "Enzo Pérez",
+     "posicion": "POR",
+     "edad": 35,
+     "wikidata": "Q926353"
+    },
+    {
+     "nombre": "Franco Daniel Armani",
+     "posicion": "POR",
+     "edad": 34,
+     "wikidata": "Q5484508"
+    },
+    {
+     "nombre": "Germán Lux",
+     "posicion": "POR",
+     "edad": 39,
+     "wikidata": "Q313441"
+    },
+    {
+     "nombre": "Delfina Ojea",
+     "posicion": "DEF",
+     "edad": 18,
+     "wikidata": "Q134519755"
+    },
+    {
+     "nombre": "Gonzalo Montiel",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q26255087"
+    },
+    {
+     "nombre": "Tatiana Soledad Rizzo",
+     "posicion": "DEF",
+     "edad": 34,
+     "wikidata": "Q9355839"
+    },
+    {
+     "nombre": "Bruno Zuculini",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q3645977"
+    },
+    {
+     "nombre": "Enzo Fernández",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q96105248"
+    },
+    {
+     "nombre": "Nicolás De La Cruz",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q20994037"
+    },
+    {
+     "nombre": "Julián Alvarez",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q59381180"
+    },
+    {
+     "nombre": "Lucas Beltrán",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q59649459"
+    },
+    {
+     "nombre": "Rafael Santos Borré",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q18719633"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Rosario Central",
+   "wikidata": "Q318307",
+   "temporadas": [
+    "Campeonato de Primera División 2021"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 2,
+   "jugadores": [
+    {
+     "nombre": "Alejo Véliz",
+     "posicion": "DEL",
+     "edad": 17,
+     "wikidata": "Q112877211"
+    },
+    {
+     "nombre": "Gino Infantino",
+     "posicion": null,
+     "edad": 18,
+     "wikidata": "Q101579946"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Unión",
+   "wikidata": "Q80899",
+   "temporadas": [
+    "Campeonato de Primera División 2021"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 4,
+   "jugadores": [
+    {
+     "nombre": "Lucas Esquivel",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q101084011"
+    },
+    {
+     "nombre": "Kevin Zenón",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q101001007"
+    },
+    {
+     "nombre": "adolfo hitler buendia",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q66929490"
+    },
+    {
+     "nombre": "Mauro Borgnino",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q28055553"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Vélez Sarsfield",
+   "wikidata": "Q215163",
+   "temporadas": [
+    "Campeonato de Primera División 2021"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 7,
+   "jugadores": [
+    {
+     "nombre": "Alexánder Domínguez",
+     "posicion": "POR",
+     "edad": 34,
+     "wikidata": "Q2667325"
+    },
+    {
+     "nombre": "Micaela Casasola",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q28812985"
+    },
+    {
+     "nombre": "Thiago Almada",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q57293140"
+    },
+    {
+     "nombre": "uhalde jara",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q6526012"
+    },
+    {
+     "nombre": "Lucas Janson",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q9024628"
+    },
+    {
+     "nombre": "Mateo Pellegrino",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q106308522"
+    },
+    {
+     "nombre": "Santiago Castro",
+     "posicion": "DEL",
+     "edad": 16,
+     "wikidata": "Q108114747"
+    }
+   ]
+  },
+  {
+   "club": "Club Deportivo Godoy Cruz Antonio Tomba",
+   "wikidata": "Q80882",
+   "temporadas": [
+    "Campeonato de Primera División 2021"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Ezequiel Cirigliano",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q2629147"
+    }
+   ]
+  },
+  {
+   "club": "Club Estudiantes de La Plata",
+   "wikidata": "Q214940",
+   "temporadas": [
+    "Campeonato de Primera División 2021"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 5,
+   "jugadores": [
+    {
+     "nombre": "Mariano Andújar",
+     "posicion": "POR",
+     "edad": 37,
+     "wikidata": "Q321321"
+    },
+    {
+     "nombre": "David Ayala",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q78651410"
+    },
+    {
+     "nombre": "Manuel Castro",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q20164673"
+    },
+    {
+     "nombre": "Mara Gomez",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q104093476"
+    },
+    {
+     "nombre": "Aaron Spetale",
+     "posicion": null,
+     "edad": 21,
+     "wikidata": "Q122387523"
+    }
+   ]
+  },
+  {
+   "club": "Club Social y Deportivo Defensa y Justicia",
+   "wikidata": "Q1024338",
+   "temporadas": [
+    "Campeonato de Primera División 2021"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 2,
+   "jugadores": [
+    {
+     "nombre": "Enzo Fernández",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q96105248"
+    },
+    {
+     "nombre": "Lucas Barrios",
+     "posicion": "DEL",
+     "edad": 36,
+     "wikidata": "Q154623"
+    }
+   ]
+  },
+  {
+   "club": "Club de Gimnasia y Esgrima La Plata",
+   "wikidata": "Q18640",
+   "temporadas": [
+    "Campeonato de Primera División 2021"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 5,
+   "jugadores": [
+    {
+     "nombre": "Agostina Pelozo",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q114111654"
+    },
+    {
+     "nombre": "Lucas Barrios",
+     "posicion": "DEL",
+     "edad": 36,
+     "wikidata": "Q154623"
+    },
+    {
+     "nombre": "Bianca Bertolino",
+     "posicion": null,
+     "edad": 18,
+     "wikidata": "Q135466615"
+    },
+    {
+     "nombre": "Brenda Graff",
+     "posicion": null,
+     "edad": 26,
+     "wikidata": "Q113996357"
+    },
+    {
+     "nombre": "Candelaria Herrera",
+     "posicion": null,
+     "edad": 22,
+     "wikidata": "Q107510659"
+    }
+   ]
+  },
+  {
+   "club": "Q151907",
+   "wikidata": "Q151907",
+   "temporadas": [
+    "Campeonato de Primera División 2021"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Q170703",
+   "wikidata": "Q170703",
+   "temporadas": [
+    "Campeonato de Primera División 2021"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Q1773830",
+   "wikidata": "Q1773830",
+   "temporadas": [
+    "Campeonato de Primera División 2021"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Q218282",
+   "wikidata": "Q218282",
+   "temporadas": [
+    "Campeonato de Primera División 2021"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Q476836",
+   "wikidata": "Q476836",
+   "temporadas": [
+    "Campeonato de Primera División 2021"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Q5060684",
+   "wikidata": "Q5060684",
+   "temporadas": [
+    "Campeonato de Primera División 2021"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Q519966",
+   "wikidata": "Q519966",
+   "temporadas": [
+    "Campeonato de Primera División 2021"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Racing Club",
+   "wikidata": "Q276533",
+   "temporadas": [
+    "Campeonato de Primera División 2021"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 4,
+   "jugadores": [
+    {
+     "nombre": "Iván Pillud",
+     "posicion": "DEF",
+     "edad": 35,
+     "wikidata": "Q2539757"
+    },
+    {
+     "nombre": "Marcelo Díaz",
+     "posicion": "MED",
+     "edad": 34,
+     "wikidata": "Q1353070"
+    },
+    {
+     "nombre": "Ignacio Piatti",
+     "posicion": "DEL",
+     "edad": 36,
+     "wikidata": "Q282915"
+    },
+    {
+     "nombre": "Lisandro López",
+     "posicion": "DEL",
+     "edad": 38,
+     "wikidata": "Q296133"
+    }
+   ]
+  },
+  {
+   "club": "Talleres de Córdoba",
+   "wikidata": "Q1022939",
+   "temporadas": [
+    "Campeonato de Primera División 2021"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 5,
+   "jugadores": [
+    {
+     "nombre": "Piero Hincapié",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q101053044"
+    },
+    {
+     "nombre": "Nicolás Giménez",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q19837010"
+    },
+    {
+     "nombre": "Mateo Retegui",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q47002491"
+    },
+    {
+     "nombre": "Michael Santos",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q17622376"
+    },
+    {
+     "nombre": "Pablo Solari",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q102157529"
+    }
+   ]
+  }
+ ]
+}

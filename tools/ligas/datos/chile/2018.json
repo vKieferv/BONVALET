@@ -1,0 +1,356 @@
+{
+ "liga": "Primera División de Chile",
+ "pais": "chile",
+ "año": 2018,
+ "fuente": "Wikidata (CC0) y Wikipedia; instantánea del 27-oct-2026 (tools/ligas/)",
+ "notas": [
+  "Datos de referencia de uso propio, no para el juego.",
+  "Clubes: los de las temporadas del campeonato que tocan este año calendario (tabla de posiciones de Wikipedia o, si no hay, los clubes más enlazados desde el artículo de la temporada).",
+  "Jugadores: membresías P54 de Wikidata que incluyen el año. Sin fecha de fin cuenta el año en que llegó (o hasta hoy si llegó desde 2023): membresia_estimada. Los planteles pueden estar incompletos; jugadores_encontrados dice cuántos hay.",
+  "posicion: línea estimada desde P413 (POR, DEF, MED, DEL; null si Wikidata no la tiene). edad: al 1 de julio; edad_aproximada si la fecha de nacimiento no tiene día o tiene fechas distintas."
+ ],
+ "equipos": [
+  {
+   "club": "Audax Italiano",
+   "wikidata": "Q758689",
+   "temporadas": [
+    "Primera División de Chile 2018"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 2,
+   "jugadores": [
+    {
+     "nombre": "Sebastián Abreu",
+     "posicion": "DEL",
+     "edad": 41,
+     "wikidata": "Q132056"
+    },
+    {
+     "nombre": "Sergio Santos Gomes",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q19844277"
+    }
+   ]
+  },
+  {
+   "club": "Club Deportivo Huachipato",
+   "wikidata": "Q1023191",
+   "temporadas": [
+    "Primera División de Chile 2018"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Gabriel Torres",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q5515888",
+     "edad_aproximada": true
+    }
+   ]
+  },
+  {
+   "club": "Club Deportivo O'Higgins",
+   "wikidata": "Q719722",
+   "temporadas": [
+    "Primera División de Chile 2018"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Matías Vera",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q19837101"
+    }
+   ]
+  },
+  {
+   "club": "Club Deportivo Palestino",
+   "wikidata": "Q719719",
+   "temporadas": [
+    "Primera División de Chile 2018"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 2,
+   "jugadores": [
+    {
+     "nombre": "Alejandro Damián González",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q3266344"
+    },
+    {
+     "nombre": "Oliver Benítez",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q6050043"
+    }
+   ]
+  },
+  {
+   "club": "Club Deportivo Universidad Católica",
+   "wikidata": "Q427446",
+   "temporadas": [
+    "Primera División de Chile 2018"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 2,
+   "jugadores": [
+    {
+     "nombre": "Diego Buonanotte",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q316594"
+    },
+    {
+     "nombre": "Jordy Caicedo",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q30346214"
+    }
+   ]
+  },
+  {
+   "club": "Club Deportivo Universidad de Concepción",
+   "wikidata": "Q721560",
+   "temporadas": [
+    "Primera División de Chile 2018"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 2,
+   "jugadores": [
+    {
+     "nombre": "Juan Pablo Abarzúa",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q59342596"
+    },
+    {
+     "nombre": "Ronald de la Fuente",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q6111697"
+    }
+   ]
+  },
+  {
+   "club": "Club Social y Deportivo Colo-Colo",
+   "wikidata": "Q207373",
+   "temporadas": [
+    "Primera División de Chile 2018"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 5,
+   "jugadores": [
+    {
+     "nombre": "Fernando Meza",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q5444832"
+    },
+    {
+     "nombre": "Carlos Carmona Tello",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q349162"
+    },
+    {
+     "nombre": "Williams Alarcóna",
+     "posicion": "MED",
+     "edad": 17,
+     "wikidata": "Q63345496"
+    },
+    {
+     "nombre": "César Pinares",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q5202613"
+    },
+    {
+     "nombre": "Lucas Barrios",
+     "posicion": "DEL",
+     "edad": 33,
+     "wikidata": "Q154623"
+    }
+   ]
+  },
+  {
+   "club": "Club Universidad de Chile",
+   "wikidata": "Q737753",
+   "temporadas": [
+    "Primera División de Chile 2018"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 6,
+   "jugadores": [
+    {
+     "nombre": "Gonzalo Jara",
+     "posicion": "DEF",
+     "edad": 32,
+     "wikidata": "Q349172"
+    },
+    {
+     "nombre": "Armando Cooper",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q2053749"
+    },
+    {
+     "nombre": "David Pizarro",
+     "posicion": "MED",
+     "edad": 38,
+     "wikidata": "Q70567"
+    },
+    {
+     "nombre": "Jean Beausejour",
+     "posicion": "MED",
+     "edad": 34,
+     "wikidata": "Q313307"
+    },
+    {
+     "nombre": "Yerko Leiva",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q22278832",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Valentín Mariano Castellanos",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q51133356"
+    }
+   ]
+  },
+  {
+   "club": "Club de Deportes Antofagasta",
+   "wikidata": "Q2076979",
+   "temporadas": [
+    "Primera División de Chile 2018"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Club de Deportes Iquique",
+   "wikidata": "Q642824",
+   "temporadas": [
+    "Primera División de Chile 2018"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Club de Deportes Provincial Curicó Unido",
+   "wikidata": "Q1023125",
+   "temporadas": [
+    "Primera División de Chile 2018"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Club de Deportes Temuco",
+   "wikidata": "Q2742992",
+   "temporadas": [
+    "Primera División de Chile 2018"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Cristóbal Vergara",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q5186535"
+    }
+   ]
+  },
+  {
+   "club": "Everton de Viña del Mar",
+   "wikidata": "Q1103684",
+   "temporadas": [
+    "Primera División de Chile 2018"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "San Luis de Quillota",
+   "wikidata": "Q2447092",
+   "temporadas": [
+    "Primera División de Chile 2018"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Unión Española",
+   "wikidata": "Q1129059",
+   "temporadas": [
+    "Primera División de Chile 2018"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Unión La Calera",
+   "wikidata": "Q719383",
+   "temporadas": [
+    "Primera División de Chile 2018"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Francisco Meneghini",
+     "posicion": null,
+     "edad": 29,
+     "wikidata": "Q61854834"
+    }
+   ]
+  }
+ ]
+}

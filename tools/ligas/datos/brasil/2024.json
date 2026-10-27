@@ -1,0 +1,864 @@
+{
+ "liga": "Campeonato Brasileiro Série A",
+ "pais": "brasil",
+ "año": 2024,
+ "fuente": "Wikidata (CC0) y Wikipedia; instantánea del 27-oct-2026 (tools/ligas/)",
+ "notas": [
+  "Datos de referencia de uso propio, no para el juego.",
+  "Clubes: los de las temporadas del campeonato que tocan este año calendario (tabla de posiciones de Wikipedia o, si no hay, los clubes más enlazados desde el artículo de la temporada).",
+  "Jugadores: membresías P54 de Wikidata que incluyen el año. Sin fecha de fin cuenta el año en que llegó (o hasta hoy si llegó desde 2023): membresia_estimada. Los planteles pueden estar incompletos; jugadores_encontrados dice cuántos hay.",
+  "posicion: línea estimada desde P413 (POR, DEF, MED, DEL; null si Wikidata no la tiene). edad: al 1 de julio; edad_aproximada si la fecha de nacimiento no tiene día o tiene fechas distintas."
+ ],
+ "equipos": [
+  {
+   "club": "Atlético Clube Goianiense",
+   "wikidata": "Q198034",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 2,
+   "jugadores": [
+    {
+     "nombre": "Yony Andrés González Copete",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q19968627"
+    },
+    {
+     "nombre": "Vágner Love",
+     "posicion": "DEL",
+     "edad": 40,
+     "wikidata": "Q295880"
+    }
+   ]
+  },
+  {
+   "club": "Botafogo de Futebol e Regatas",
+   "wikidata": "Q80958",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 8,
+   "jugadores": [
+    {
+     "nombre": "Alex Telles",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q15214940"
+    },
+    {
+     "nombre": "JP Galvão",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q116432772",
+     "membresia_estimada": true
+    },
+    {
+     "nombre": "Jefferson Savarino",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q20735677"
+    },
+    {
+     "nombre": "Luis Segovia",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q29002247",
+     "membresia_estimada": true
+    },
+    {
+     "nombre": "Thiago Almada",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q57293140"
+    },
+    {
+     "nombre": "Diego Costa",
+     "posicion": "DEL",
+     "edad": 35,
+     "wikidata": "Q459707"
+    },
+    {
+     "nombre": "Igor Jesus",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q65030995"
+    },
+    {
+     "nombre": "Luiz Henrique André Rosa da Silva",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q101764291"
+    }
+   ]
+  },
+  {
+   "club": "Club Athletico Paranaense",
+   "wikidata": "Q506832",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 4,
+   "jugadores": [
+    {
+     "nombre": "Lucas Esquivel",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q101084011",
+     "membresia_estimada": true
+    },
+    {
+     "nombre": "Arturo Vidal",
+     "posicion": "MED",
+     "edad": 37,
+     "wikidata": "Q192671"
+    },
+    {
+     "nombre": "Fernandinho",
+     "posicion": "MED",
+     "edad": 39,
+     "wikidata": "Q459356"
+    },
+    {
+     "nombre": "Rômulo José Cardoso da Cruz",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q110970778"
+    }
+   ]
+  },
+  {
+   "club": "Club de Regatas Vasco da Gama",
+   "wikidata": "Q5014111",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 5,
+   "jugadores": [
+    {
+     "nombre": "Dimitri Payet",
+     "posicion": "MED",
+     "edad": 37,
+     "wikidata": "Q376247"
+    },
+    {
+     "nombre": "Gary Medel",
+     "posicion": "MED",
+     "edad": 36,
+     "wikidata": "Q329524"
+    },
+    {
+     "nombre": "Juan Sforza",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q71735316"
+    },
+    {
+     "nombre": "Maxime Dominguez",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q16021107"
+    },
+    {
+     "nombre": "Philippe Coutinho",
+     "posicion": "DEL",
+     "edad": 32,
+     "wikidata": "Q311872"
+    }
+   ]
+  },
+  {
+   "club": "Clube Atlético Mineiro",
+   "wikidata": "Q270995",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 7,
+   "jugadores": [
+    {
+     "nombre": "Bernard",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q137242"
+    },
+    {
+     "nombre": "Cristian Pavón",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q16553648"
+    },
+    {
+     "nombre": "Edenilson",
+     "posicion": "MED",
+     "edad": 34,
+     "wikidata": "Q1707749"
+    },
+    {
+     "nombre": "Eduardo Vargas",
+     "posicion": "MED",
+     "edad": 34,
+     "wikidata": "Q2268949"
+    },
+    {
+     "nombre": "Igor Gomes",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q59207905",
+     "membresia_estimada": true
+    },
+    {
+     "nombre": "Rodrigo Battaglia",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q3940027",
+     "membresia_estimada": true
+    },
+    {
+     "nombre": "Hulk",
+     "posicion": "DEL",
+     "edad": 37,
+     "wikidata": "Q62786"
+    }
+   ]
+  },
+  {
+   "club": "Clube de Regatas do Flamengo",
+   "wikidata": "Q17479",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 10,
+   "jugadores": [
+    {
+     "nombre": "Matheus Cunha Queiroz",
+     "posicion": "POR",
+     "edad": 23,
+     "wikidata": "Q110882015"
+    },
+    {
+     "nombre": "Alex Sandro",
+     "posicion": "DEF",
+     "edad": 33,
+     "wikidata": "Q551192"
+    },
+    {
+     "nombre": "Ayrton Lucas Dantas de Medeiros",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q23638974",
+     "membresia_estimada": true
+    },
+    {
+     "nombre": "David Luiz",
+     "posicion": "DEF",
+     "edad": 37,
+     "wikidata": "Q193706"
+    },
+    {
+     "nombre": "Léo Ortiz",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q55816003"
+    },
+    {
+     "nombre": "Matías Viña",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q28663925"
+    },
+    {
+     "nombre": "Gonzalo Plata",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q60842120"
+    },
+    {
+     "nombre": "Nicolás De La Cruz",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q20994037"
+    },
+    {
+     "nombre": "Gabigol",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q13646572"
+    },
+    {
+     "nombre": "Gabi Barbieri",
+     "posicion": null,
+     "edad": 21,
+     "wikidata": "Q116450248"
+    }
+   ]
+  },
+  {
+   "club": "Criciúma Esporte Clube",
+   "wikidata": "Q598834",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Éder Citadin Martins",
+     "posicion": "DEL",
+     "edad": 37,
+     "wikidata": "Q167698"
+    }
+   ]
+  },
+  {
+   "club": "Cruzeiro Esporte Clube",
+   "wikidata": "Q188277",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 6,
+   "jugadores": [
+    {
+     "nombre": "Camila Gomes",
+     "posicion": "POR",
+     "edad": 23,
+     "wikidata": "Q110253575"
+    },
+    {
+     "nombre": "Lucas Villalba",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q5981950"
+    },
+    {
+     "nombre": "Fabrizio Peralta",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q124838357"
+    },
+    {
+     "nombre": "José Cifuentes",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q60842113"
+    },
+    {
+     "nombre": "Matheus Pereira",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q15831118",
+     "membresia_estimada": true
+    },
+    {
+     "nombre": "Marcelo Moreno",
+     "posicion": "DEL",
+     "edad": 37,
+     "wikidata": "Q370507"
+    }
+   ]
+  },
+  {
+   "club": "Cuiabá Esporte Clube",
+   "wikidata": "Q2945011",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Esporte Clube Bahia",
+   "wikidata": "Q198032",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 4,
+   "jugadores": [
+    {
+     "nombre": "Santiago Arias",
+     "posicion": "DEF",
+     "edad": 32,
+     "wikidata": "Q2502118"
+    },
+    {
+     "nombre": "Diego Rosa",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q76376134"
+    },
+    {
+     "nombre": "Everton Ribeiro",
+     "posicion": "MED",
+     "edad": 35,
+     "wikidata": "Q4025436"
+    },
+    {
+     "nombre": "Gabriel Teixeira",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q106734264"
+    }
+   ]
+  },
+  {
+   "club": "Esporte Clube Juventude",
+   "wikidata": "Q910453",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Esporte Clube Vitória",
+   "wikidata": "Q274465",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 3,
+   "jugadores": [
+    {
+     "nombre": "Cristián Zapata",
+     "posicion": "DEF",
+     "edad": 37,
+     "wikidata": "Q316762"
+    },
+    {
+     "nombre": "Alerrandro Barra Mansa Realino de Souza",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q55081204"
+    },
+    {
+     "nombre": "Luiz Adriano",
+     "posicion": "DEL",
+     "edad": 37,
+     "wikidata": "Q72904"
+    }
+   ]
+  },
+  {
+   "club": "Fluminense Football Club",
+   "wikidata": "Q80987",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 8,
+   "jugadores": [
+    {
+     "nombre": "Antonio Carlos Capocasali",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q4776503"
+    },
+    {
+     "nombre": "Marcelo Vieira da Silva Júnior",
+     "posicion": "DEF",
+     "edad": 36,
+     "wikidata": "Q38136"
+    },
+    {
+     "nombre": "Thiago Silva",
+     "posicion": "DEF",
+     "edad": 39,
+     "wikidata": "Q210453"
+    },
+    {
+     "nombre": "Douglas Costa",
+     "posicion": "MED",
+     "edad": 33,
+     "wikidata": "Q391680"
+    },
+    {
+     "nombre": "Felipe Melo",
+     "posicion": "MED",
+     "edad": 41,
+     "wikidata": "Q204450"
+    },
+    {
+     "nombre": "Jhon Arias",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q65378670"
+    },
+    {
+     "nombre": "Renato Augusto",
+     "posicion": "MED",
+     "edad": 36,
+     "wikidata": "Q357844"
+    },
+    {
+     "nombre": "Yony Andrés González Copete",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q19968627",
+     "membresia_estimada": true
+    }
+   ]
+  },
+  {
+   "club": "Fortaleza Esporte Clube",
+   "wikidata": "Q188841",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 3,
+   "jugadores": [
+    {
+     "nombre": "Alexsandro Amorim de Freitas Filho",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q135395465"
+    },
+    {
+     "nombre": "Fabricio Santos de Jesus",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q15831001"
+    },
+    {
+     "nombre": "Breno Lopes",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q101230488"
+    }
+   ]
+  },
+  {
+   "club": "Grêmio Foot-Ball Porto Alegrense",
+   "wikidata": "Q221695",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 7,
+   "jugadores": [
+    {
+     "nombre": "Guilherme Guedes",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q55081316"
+    },
+    {
+     "nombre": "Pedro Tonon Geromel",
+     "posicion": "DEF",
+     "edad": 38,
+     "wikidata": "Q266410"
+    },
+    {
+     "nombre": "Cristian Pavón",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q16553648"
+    },
+    {
+     "nombre": "Edenilson",
+     "posicion": "MED",
+     "edad": 34,
+     "wikidata": "Q1707749"
+    },
+    {
+     "nombre": "Lucas Camilo",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q123422089",
+     "membresia_estimada": true
+    },
+    {
+     "nombre": "Diego Costa",
+     "posicion": "DEL",
+     "edad": 35,
+     "wikidata": "Q459707"
+    },
+    {
+     "nombre": "Martin Braithwaite",
+     "posicion": "DEL",
+     "edad": 33,
+     "wikidata": "Q2440999"
+    }
+   ]
+  },
+  {
+   "club": "Red Bull Bragantino",
+   "wikidata": "Q541744",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 4,
+   "jugadores": [
+    {
+     "nombre": "Léo Ortiz",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q55816003"
+    },
+    {
+     "nombre": "Lincoln Henrique Oliveira dos Santos",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q19822751"
+    },
+    {
+     "nombre": "Alerrandro Barra Mansa Realino de Souza",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q55081204"
+    },
+    {
+     "nombre": "Paulina Gramaglia",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q110244006"
+    }
+   ]
+  },
+  {
+   "club": "Sociedade Esportiva Palmeiras",
+   "wikidata": "Q80964",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 5,
+   "jugadores": [
+    {
+     "nombre": "Pedro Bicalho",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q96361581"
+    },
+    {
+     "nombre": "Richard Ríos",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q117322318"
+    },
+    {
+     "nombre": "Breno Lopes",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q101230488"
+    },
+    {
+     "nombre": "Endrick",
+     "posicion": "DEL",
+     "edad": 17,
+     "wikidata": "Q110644260"
+    },
+    {
+     "nombre": "Riquelme Fillipi",
+     "posicion": "DEL",
+     "edad": 17,
+     "wikidata": "Q119152074"
+    }
+   ]
+  },
+  {
+   "club": "Sport Club Corinthians Paulista",
+   "wikidata": "Q35933",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 8,
+   "jugadores": [
+    {
+     "nombre": "Félix Torres",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q30916190"
+    },
+    {
+     "nombre": "Gustavo Henrique",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q5621422"
+    },
+    {
+     "nombre": "André Carrillo",
+     "posicion": "MED",
+     "edad": 33,
+     "wikidata": "Q1155889"
+    },
+    {
+     "nombre": "Gabriel Moscardo",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q120681423"
+    },
+    {
+     "nombre": "José Andrés Martínez",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q79634899"
+    },
+    {
+     "nombre": "Paulinho",
+     "posicion": "MED",
+     "edad": 35,
+     "wikidata": "Q73082"
+    },
+    {
+     "nombre": "Memphis Depay",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q1894"
+    },
+    {
+     "nombre": "Wesley Gassova",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q112620020"
+    }
+   ]
+  },
+  {
+   "club": "Sport Club Internacional",
+   "wikidata": "Q80845",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 6,
+   "jugadores": [
+    {
+     "nombre": "Hugo Mallo",
+     "posicion": "DEF",
+     "edad": 33,
+     "wikidata": "Q1825157"
+    },
+    {
+     "nombre": "Charles Aránguiz",
+     "posicion": "MED",
+     "edad": 35,
+     "wikidata": "Q797945"
+    },
+    {
+     "nombre": "Fernando Reges",
+     "posicion": "MED",
+     "edad": 36,
+     "wikidata": "Q973416"
+    },
+    {
+     "nombre": "Enner Valencia",
+     "posicion": "DEL",
+     "edad": 34,
+     "wikidata": "Q2843080"
+    },
+    {
+     "nombre": "Luiz Adriano",
+     "posicion": "DEL",
+     "edad": 37,
+     "wikidata": "Q72904"
+    },
+    {
+     "nombre": "Rafael Borré",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q18719633"
+    }
+   ]
+  },
+  {
+   "club": "São Paulo Futebol Clube",
+   "wikidata": "Q38568",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2024"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 6,
+   "jugadores": [
+    {
+     "nombre": "Jamal Lewis",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q46996227"
+    },
+    {
+     "nombre": "Rafinha",
+     "posicion": "DEF",
+     "edad": 38,
+     "wikidata": "Q174926"
+    },
+    {
+     "nombre": "Jhegson Méndez",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q27786601"
+    },
+    {
+     "nombre": "Lucas Moura",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q312886",
+     "membresia_estimada": true
+    },
+    {
+     "nombre": "Luiz Gustavo",
+     "posicion": "MED",
+     "edad": 36,
+     "wikidata": "Q329451"
+    },
+    {
+     "nombre": "James Rodríguez",
+     "posicion": "DEL",
+     "edad": 32,
+     "wikidata": "Q368441"
+    }
+   ]
+  }
+ ]
+}

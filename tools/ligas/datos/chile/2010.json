@@ -1,0 +1,3079 @@
+{
+ "liga": "Primera División de Chile",
+ "pais": "chile",
+ "año": 2010,
+ "fuente": "Wikidata (CC0) y Wikipedia; instantánea del 27-oct-2026 (tools/ligas/)",
+ "notas": [
+  "Datos de referencia de uso propio, no para el juego.",
+  "Clubes: los de las temporadas del campeonato que tocan este año calendario (tabla de posiciones de Wikipedia o, si no hay, los clubes más enlazados desde el artículo de la temporada).",
+  "Jugadores: membresías P54 de Wikidata que incluyen el año. Sin fecha de fin cuenta el año en que llegó (o hasta hoy si llegó desde 2023): membresia_estimada. Los planteles pueden estar incompletos; jugadores_encontrados dice cuántos hay.",
+  "posicion: línea estimada desde P413 (POR, DEF, MED, DEL; null si Wikidata no la tiene). edad: al 1 de julio; edad_aproximada si la fecha de nacimiento no tiene día o tiene fechas distintas."
+ ],
+ "equipos": [
+  {
+   "club": "Audax Italiano",
+   "wikidata": "Q758689",
+   "temporadas": [
+    "Primera División de Chile 2010"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 22,
+   "jugadores": [
+    {
+     "nombre": "Johnny Herrera",
+     "posicion": "POR",
+     "edad": 29,
+     "wikidata": "Q2612089"
+    },
+    {
+     "nombre": "Pablo Reinoso",
+     "posicion": "POR",
+     "edad": 24,
+     "wikidata": "Q7121734"
+    },
+    {
+     "nombre": "Christian Vilches",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q5110245"
+    },
+    {
+     "nombre": "Cristián Basaure",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q5186407"
+    },
+    {
+     "nombre": "Cristián Reynero",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q5186421"
+    },
+    {
+     "nombre": "Fernando Gutiérrez Fernández",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q5408595"
+    },
+    {
+     "nombre": "Lucas Domínguez",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q1998718"
+    },
+    {
+     "nombre": "Boris Rieloff",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q2762904"
+    },
+    {
+     "nombre": "Bryan Carrasco",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q892746"
+    },
+    {
+     "nombre": "Carlos Ross",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q2840827"
+    },
+    {
+     "nombre": "Christian Martínez Muñoz",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q5109892"
+    },
+    {
+     "nombre": "Claudio Husaín",
+     "posicion": "MED",
+     "edad": 35,
+     "wikidata": "Q945134"
+    },
+    {
+     "nombre": "Fabián Benítez",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q5427900"
+    },
+    {
+     "nombre": "Marco Medel",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q9028670"
+    },
+    {
+     "nombre": "Matías Campos",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q892443"
+    },
+    {
+     "nombre": "Pablo Monsalvo",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q5392644"
+    },
+    {
+     "nombre": "Cristián Canío",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q3295329"
+    },
+    {
+     "nombre": "Matías Alejandro Quiroga",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q6792082"
+    },
+    {
+     "nombre": "Mauro Olivi",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q6793915",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Miguel Orellana",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q6844711"
+    },
+    {
+     "nombre": "Omar Zalazar",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q5290413"
+    },
+    {
+     "nombre": "Sebastián Pinto",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q970194"
+    }
+   ]
+  },
+  {
+   "club": "Club Deportes La Serena",
+   "wikidata": "Q642098",
+   "temporadas": [
+    "Primera División de Chile 2010"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 22,
+   "jugadores": [
+    {
+     "nombre": "Ezequiel Medrán",
+     "posicion": "POR",
+     "edad": 29,
+     "wikidata": "Q5423233"
+    },
+    {
+     "nombre": "Gastón Losa",
+     "posicion": "POR",
+     "edad": 32,
+     "wikidata": "Q5526898"
+    },
+    {
+     "nombre": "Claudio Jopia",
+     "posicion": "DEF",
+     "edad": 18,
+     "wikidata": "Q5129375"
+    },
+    {
+     "nombre": "Diego Guidi",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q5274687"
+    },
+    {
+     "nombre": "Francisco Rojas Rojas",
+     "posicion": "DEF",
+     "edad": 35,
+     "wikidata": "Q669321"
+    },
+    {
+     "nombre": "Félix Cortés",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q5511581"
+    },
+    {
+     "nombre": "Mario Pardo Acuña",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q369332"
+    },
+    {
+     "nombre": "Mauricio Zenteno",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q256163"
+    },
+    {
+     "nombre": "Pablo Melo",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q7121695"
+    },
+    {
+     "nombre": "Rafael Caroca",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q7282070"
+    },
+    {
+     "nombre": "Ricardo Rojas Trujillo",
+     "posicion": "DEF",
+     "edad": 36,
+     "wikidata": "Q979485"
+    },
+    {
+     "nombre": "Clarence Acuña",
+     "posicion": "MED",
+     "edad": 35,
+     "wikidata": "Q2603260"
+    },
+    {
+     "nombre": "Claudio Meneses",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q5129383"
+    },
+    {
+     "nombre": "Juan José Ribera",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q5950468"
+    },
+    {
+     "nombre": "Marcelo Díaz",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q1353070"
+    },
+    {
+     "nombre": "Ángel Carreño",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q8076818"
+    },
+    {
+     "nombre": "Ekele Udojoh",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q2881375"
+    },
+    {
+     "nombre": "Gary Tello",
+     "posicion": "DEL",
+     "edad": 17,
+     "wikidata": "Q5526049",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Jaime Grondona",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q5867708"
+    },
+    {
+     "nombre": "Manuel Neira",
+     "posicion": "DEL",
+     "edad": 32,
+     "wikidata": "Q1368816"
+    },
+    {
+     "nombre": "Roberto Jiménez Jiménez",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q726854"
+    },
+    {
+     "nombre": "Sebastián Jaime",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q9283243"
+    }
+   ]
+  },
+  {
+   "club": "Club Deportivo Huachipato",
+   "wikidata": "Q1023191",
+   "temporadas": [
+    "Primera División de Chile 2010"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 28,
+   "jugadores": [
+    {
+     "nombre": "Cristián Fernando Muñoz",
+     "posicion": "POR",
+     "edad": 33,
+     "wikidata": "Q5186417"
+    },
+    {
+     "nombre": "Hernán Caputto",
+     "posicion": "POR",
+     "edad": 35,
+     "wikidata": "Q5742401"
+    },
+    {
+     "nombre": "Carlos Labrín",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q892182"
+    },
+    {
+     "nombre": "Dagoberto Currimilla",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q2842347"
+    },
+    {
+     "nombre": "Juan Carlos Espinoza",
+     "posicion": "DEF",
+     "edad": 18,
+     "wikidata": "Q338659"
+    },
+    {
+     "nombre": "Mauricio Zenteno",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q256163"
+    },
+    {
+     "nombre": "Nelson Rebolledo",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q6990710"
+    },
+    {
+     "nombre": "Nicolás Larrondo",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q5936093"
+    },
+    {
+     "nombre": "Rodrigo Rivera",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q7357409"
+    },
+    {
+     "nombre": "Carlos Aguiar",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q5041677"
+    },
+    {
+     "nombre": "Edgardo Abdala",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q3047541"
+    },
+    {
+     "nombre": "Fernando Espinoza",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q5859517"
+    },
+    {
+     "nombre": "Fernando Lazcano Barros",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q5859771"
+    },
+    {
+     "nombre": "Gabriel Sandoval",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q5515846"
+    },
+    {
+     "nombre": "Gamadiel García",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q5519543"
+    },
+    {
+     "nombre": "José Pérez Ferrada",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q6293753"
+    },
+    {
+     "nombre": "Lorenzo Reyes",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q2068490"
+    },
+    {
+     "nombre": "Patricio Jerez",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q7145956"
+    },
+    {
+     "nombre": "Patricio Ormazábal",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q955202",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Andrés Vilches",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q5676182"
+    },
+    {
+     "nombre": "David Llanos",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q2883071"
+    },
+    {
+     "nombre": "Daúd Gazale",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q642446"
+    },
+    {
+     "nombre": "Ignacio Herrera",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q17274454"
+    },
+    {
+     "nombre": "Isaac Díaz",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q5221137",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Javier Elizondo",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q6165490"
+    },
+    {
+     "nombre": "Luis Ignacio Quinteros",
+     "posicion": "DEL",
+     "edad": 31,
+     "wikidata": "Q9025135"
+    },
+    {
+     "nombre": "Manuel Villalobos",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q6752946"
+    },
+    {
+     "nombre": "Matías Jara",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q2889376"
+    }
+   ]
+  },
+  {
+   "club": "Club Deportivo O'Higgins",
+   "wikidata": "Q719722",
+   "temporadas": [
+    "Primera División de Chile 2010"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 28,
+   "jugadores": [
+    {
+     "nombre": "Federico Elduayen",
+     "posicion": "POR",
+     "edad": 32,
+     "wikidata": "Q1361625",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Roberto González",
+     "posicion": "POR",
+     "edad": 34,
+     "wikidata": "Q7351722"
+    },
+    {
+     "nombre": "Albert Acevedo",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q4709607"
+    },
+    {
+     "nombre": "Benjamín Vidal",
+     "posicion": "DEF",
+     "edad": 14,
+     "wikidata": "Q4889504",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Cristián Abarca",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q953280"
+    },
+    {
+     "nombre": "Cristián Suárez",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q5186428"
+    },
+    {
+     "nombre": "Diego Olate",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q5274755"
+    },
+    {
+     "nombre": "Juan Luis González",
+     "posicion": "DEF",
+     "edad": 36,
+     "wikidata": "Q6300253"
+    },
+    {
+     "nombre": "Mauricio Aros",
+     "posicion": "DEF",
+     "edad": 34,
+     "wikidata": "Q656129"
+    },
+    {
+     "nombre": "Rodrigo Ramírez",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q7357405"
+    },
+    {
+     "nombre": "Waldo Ponce",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q464234"
+    },
+    {
+     "nombre": "Yerson Opazo",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q8052679"
+    },
+    {
+     "nombre": "Diego González Reyes",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q5274685"
+    },
+    {
+     "nombre": "Gonzalo Ludueña",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q5846241"
+    },
+    {
+     "nombre": "Iván Vásquez",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q3156385"
+    },
+    {
+     "nombre": "Joan Henríquez",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q10515352"
+    },
+    {
+     "nombre": "Joan Muñoz",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q6205327"
+    },
+    {
+     "nombre": "Kevin Harbottle",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q6396437"
+    },
+    {
+     "nombre": "Luis Casanova",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q3840341"
+    },
+    {
+     "nombre": "Marco Villaseca",
+     "posicion": "MED",
+     "edad": 35,
+     "wikidata": "Q2462247"
+    },
+    {
+     "nombre": "Nicolás Rubén Medina",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q1720575"
+    },
+    {
+     "nombre": "Enzo Gutiérrez",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q5381508"
+    },
+    {
+     "nombre": "Francisco Ibáñez Campos",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q5483469"
+    },
+    {
+     "nombre": "Jaime Grondona",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q5867708"
+    },
+    {
+     "nombre": "Lucas Ojeda",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q6696256"
+    },
+    {
+     "nombre": "Milton Alegre",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q6860976"
+    },
+    {
+     "nombre": "Roberto Gamarra",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q7351707"
+    },
+    {
+     "nombre": "Samuel Teuber",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q7412764"
+    }
+   ]
+  },
+  {
+   "club": "Club Deportivo Palestino",
+   "wikidata": "Q719719",
+   "temporadas": [
+    "Primera División de Chile 2010"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 19,
+   "jugadores": [
+    {
+     "nombre": "Felipe Núñez",
+     "posicion": "POR",
+     "edad": 31,
+     "wikidata": "Q5442022"
+    },
+    {
+     "nombre": "José Quezada",
+     "posicion": "POR",
+     "edad": 19,
+     "wikidata": "Q3093712"
+    },
+    {
+     "nombre": "Nereo Fernández",
+     "posicion": "POR",
+     "edad": 31,
+     "wikidata": "Q949227"
+    },
+    {
+     "nombre": "Bruno Romo",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q4979381"
+    },
+    {
+     "nombre": "Luis Oyarzún Rebolledo",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q6700969"
+    },
+    {
+     "nombre": "Rodrigo Riquelme",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q7357408"
+    },
+    {
+     "nombre": "Alfredo Rojas",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q5667988"
+    },
+    {
+     "nombre": "Andrés Oroz",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q2152503"
+    },
+    {
+     "nombre": "César Henríquez",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q5202562"
+    },
+    {
+     "nombre": "César Valenzuela",
+     "posicion": "MED",
+     "edad": 17,
+     "wikidata": "Q5796439"
+    },
+    {
+     "nombre": "Gerardo Cortés",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q942042"
+    },
+    {
+     "nombre": "Jaime Riveros",
+     "posicion": "MED",
+     "edad": 39,
+     "wikidata": "Q2190003"
+    },
+    {
+     "nombre": "Joan Henríquez",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q10515352"
+    },
+    {
+     "nombre": "Miguel Escalona",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q6014247"
+    },
+    {
+     "nombre": "Roberto Ávalos",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q7351967"
+    },
+    {
+     "nombre": "Julio César Laffatigue",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q6309234"
+    },
+    {
+     "nombre": "Nicolás Canales",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q579027"
+    },
+    {
+     "nombre": "Pablo Pereira",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q7121718",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Rodolfo Moya",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q5691352"
+    }
+   ]
+  },
+  {
+   "club": "Club Deportivo Universidad Católica",
+   "wikidata": "Q427446",
+   "temporadas": [
+    "Primera División de Chile 2010"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 41,
+   "jugadores": [
+    {
+     "nombre": "Fabián Cerda",
+     "posicion": "POR",
+     "edad": 21,
+     "wikidata": "Q5407993"
+    },
+    {
+     "nombre": "Paulo Garcés",
+     "posicion": "POR",
+     "edad": 25,
+     "wikidata": "Q542311"
+    },
+    {
+     "nombre": "Adán Vergara",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q380292"
+    },
+    {
+     "nombre": "David Henríquez",
+     "posicion": "DEF",
+     "edad": 32,
+     "wikidata": "Q2779309",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Gonzalo Sepúlveda",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q1073153"
+    },
+    {
+     "nombre": "Hans Martínez",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q370237"
+    },
+    {
+     "nombre": "Ismael Fuentes",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q462530"
+    },
+    {
+     "nombre": "José Martínez Díaz",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q5549378"
+    },
+    {
+     "nombre": "Juan Eduardo Eluchans",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q2299273"
+    },
+    {
+     "nombre": "Marcos González Salazar",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q924825"
+    },
+    {
+     "nombre": "Marko Biskupovic",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q377084",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Rodolfo Arruabarrena",
+     "posicion": "DEF",
+     "edad": 34,
+     "wikidata": "Q371806"
+    },
+    {
+     "nombre": "Waldo Ponce",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q464234"
+    },
+    {
+     "nombre": "Darío Bottinelli",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q2331887"
+    },
+    {
+     "nombre": "Diego Rosende",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q5274802"
+    },
+    {
+     "nombre": "Felipe Gutiérrez",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q195292"
+    },
+    {
+     "nombre": "Fernando Meneses",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q2421827"
+    },
+    {
+     "nombre": "Francisco Silva Gajardo",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q2467631"
+    },
+    {
+     "nombre": "Gerardo Basaes",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q2889633"
+    },
+    {
+     "nombre": "Gustavo Zamudio",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q5621521"
+    },
+    {
+     "nombre": "Jorge Ormeño",
+     "posicion": "MED",
+     "edad": 33,
+     "wikidata": "Q6278412"
+    },
+    {
+     "nombre": "Juan Pablo Gómez",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q6300675"
+    },
+    {
+     "nombre": "Leandro Javier Díaz",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q11688573"
+    },
+    {
+     "nombre": "Leonel Mena",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q6526239"
+    },
+    {
+     "nombre": "Luis Espinola",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q5983314"
+    },
+    {
+     "nombre": "Milovan Mirosevic",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q430483"
+    },
+    {
+     "nombre": "Pablo González Reyes",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q7121644"
+    },
+    {
+     "nombre": "Patricio Aguilera",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q7145919"
+    },
+    {
+     "nombre": "Rodrigo Toloza",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q7357429"
+    },
+    {
+     "nombre": "Ángel Carreño",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q8076818"
+    },
+    {
+     "nombre": "Bernardo Campos",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q4893889"
+    },
+    {
+     "nombre": "Braulio Brizuela",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q4958247"
+    },
+    {
+     "nombre": "Francisco Pizarro",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q5483800"
+    },
+    {
+     "nombre": "Juan José Morales",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q4705137"
+    },
+    {
+     "nombre": "Lucas Pratto",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q1845684"
+    },
+    {
+     "nombre": "Matías Jadue",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q6792100"
+    },
+    {
+     "nombre": "Matías Rubio",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q6792126"
+    },
+    {
+     "nombre": "Pablo Vranjicán",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q3499672"
+    },
+    {
+     "nombre": "Roberto Gutiérrez",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q2012311"
+    },
+    {
+     "nombre": "Rodrigo Mannara",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q7357376"
+    },
+    {
+     "nombre": "Sebastián Barrientos",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q7442625"
+    }
+   ]
+  },
+  {
+   "club": "Club Deportivo Universidad de Concepción",
+   "wikidata": "Q721560",
+   "temporadas": [
+    "Primera División de Chile 2010"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 18,
+   "jugadores": [
+    {
+     "nombre": "Franco Cabrera",
+     "posicion": "POR",
+     "edad": 27,
+     "wikidata": "Q5484527"
+    },
+    {
+     "nombre": "Alejandro Gaete",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q4714541"
+    },
+    {
+     "nombre": "Claudio Muñoz",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q8346823"
+    },
+    {
+     "nombre": "Lisandro Henríquez",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q6558545"
+    },
+    {
+     "nombre": "Mauricio Gómez",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q6793617"
+    },
+    {
+     "nombre": "Fernando Solís Núñez",
+     "posicion": "MED",
+     "edad": 34,
+     "wikidata": "Q5444931"
+    },
+    {
+     "nombre": "Francisco Arrué",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q1440434"
+    },
+    {
+     "nombre": "Gerardo Navarrete",
+     "posicion": "MED",
+     "edad": 15,
+     "wikidata": "Q3760957"
+    },
+    {
+     "nombre": "Gustavo Lorenzetti",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q5621441"
+    },
+    {
+     "nombre": "Jorge Schwager",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q9012915"
+    },
+    {
+     "nombre": "Leonel Mena",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q6526239"
+    },
+    {
+     "nombre": "Patricio Aguilera",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q7145919"
+    },
+    {
+     "nombre": "Richard Pellejero",
+     "posicion": "MED",
+     "edad": 34,
+     "wikidata": "Q1709908"
+    },
+    {
+     "nombre": "José Luis Jiménez",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q9014057"
+    },
+    {
+     "nombre": "Juan José Arraya",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q4552507"
+    },
+    {
+     "nombre": "Otelo Ocampos",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q7108516",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Pedro Muñoz Zúñiga",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q20011573"
+    },
+    {
+     "nombre": "Renato Ramos",
+     "posicion": "DEL",
+     "edad": 31,
+     "wikidata": "Q7312673"
+    }
+   ]
+  },
+  {
+   "club": "Club Deportivo Unión San Felipe",
+   "wikidata": "Q572940",
+   "temporadas": [
+    "Primera División de Chile 2010"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 17,
+   "jugadores": [
+    {
+     "nombre": "Carlos Lemus",
+     "posicion": "POR",
+     "edad": 21,
+     "wikidata": "Q5042268"
+    },
+    {
+     "nombre": "Jaime Bravo",
+     "posicion": "POR",
+     "edad": 28,
+     "wikidata": "Q6123648"
+    },
+    {
+     "nombre": "Sebastián Páez",
+     "posicion": "POR",
+     "edad": 23,
+     "wikidata": "Q9075356"
+    },
+    {
+     "nombre": "Cristián Magaña",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q5186219"
+    },
+    {
+     "nombre": "Cristián Suárez",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q5186428"
+    },
+    {
+     "nombre": "Eros Pérez",
+     "posicion": "DEF",
+     "edad": 34,
+     "wikidata": "Q923747"
+    },
+    {
+     "nombre": "Iván Macalik",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q6100108"
+    },
+    {
+     "nombre": "David Distéfano",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q5232985"
+    },
+    {
+     "nombre": "Esteban Carvajal",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q5400766"
+    },
+    {
+     "nombre": "Fernando Saavedra",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q5444914"
+    },
+    {
+     "nombre": "Jonathan Domínguez",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q6272970"
+    },
+    {
+     "nombre": "Jorge Acuña",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q2419338"
+    },
+    {
+     "nombre": "Juan Toloza",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q6301064"
+    },
+    {
+     "nombre": "Miguel Coronado",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q6844503"
+    },
+    {
+     "nombre": "Miguel Ángel González",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q6844918"
+    },
+    {
+     "nombre": "Carlos Alzamora",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q5041753"
+    },
+    {
+     "nombre": "Gino Clara",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q1773224"
+    }
+   ]
+  },
+  {
+   "club": "Club Deportivo Ñublense",
+   "wikidata": "Q2317539",
+   "temporadas": [
+    "Primera División de Chile 2010"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 24,
+   "jugadores": [
+    {
+     "nombre": "Alexis Viera",
+     "posicion": "POR",
+     "edad": 31,
+     "wikidata": "Q4721548"
+    },
+    {
+     "nombre": "Maximiliano Scapparoni",
+     "posicion": "POR",
+     "edad": 21,
+     "wikidata": "Q6795775"
+    },
+    {
+     "nombre": "Alfonso Parot",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q4722087"
+    },
+    {
+     "nombre": "Alí Manouchehri",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q4738861"
+    },
+    {
+     "nombre": "Benjamín Ruiz",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q4889498"
+    },
+    {
+     "nombre": "Christian Sepúlveda",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q5767524"
+    },
+    {
+     "nombre": "Julio Alberto Barroso",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q2601745"
+    },
+    {
+     "nombre": "Luis Alegría",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q5681809"
+    },
+    {
+     "nombre": "Marcelo Medina",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q6756594"
+    },
+    {
+     "nombre": "Matías Manrique",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q5977139"
+    },
+    {
+     "nombre": "Andrés Oroz",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q2152503"
+    },
+    {
+     "nombre": "Joel Reyes",
+     "posicion": "MED",
+     "edad": 38,
+     "wikidata": "Q6213886"
+    },
+    {
+     "nombre": "Jonathan Cisternas",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q512603"
+    },
+    {
+     "nombre": "Martín Miguel Cortés",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q6777805"
+    },
+    {
+     "nombre": "Pablo González Reyes",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q7121644"
+    },
+    {
+     "nombre": "Gabriel Rodríguez",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q5515829"
+    },
+    {
+     "nombre": "Gonzalo Gil",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q5582204"
+    },
+    {
+     "nombre": "Joel Estay",
+     "posicion": "DEL",
+     "edad": 32,
+     "wikidata": "Q3180234"
+    },
+    {
+     "nombre": "José Alberto Muñoz Muñoz",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q10514511"
+    },
+    {
+     "nombre": "Luis Flores Abarca",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q5663173"
+    },
+    {
+     "nombre": "Luis Núñez",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q2880770"
+    },
+    {
+     "nombre": "Pablo Parra",
+     "posicion": "DEL",
+     "edad": 16,
+     "wikidata": "Q15302753"
+    },
+    {
+     "nombre": "Renato Ramos",
+     "posicion": "DEL",
+     "edad": 31,
+     "wikidata": "Q7312673"
+    },
+    {
+     "nombre": "Yashir Pinto",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q5479889",
+     "edad_aproximada": true
+    }
+   ]
+  },
+  {
+   "club": "Club Social y Deportivo Colo-Colo",
+   "wikidata": "Q207373",
+   "temporadas": [
+    "Primera División de Chile 2010"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 43,
+   "jugadores": [
+    {
+     "nombre": "Francisco Prieto",
+     "posicion": "POR",
+     "edad": 27,
+     "wikidata": "Q3132182"
+    },
+    {
+     "nombre": "José Ignacio González Catalán",
+     "posicion": "POR",
+     "edad": 20,
+     "wikidata": "Q6292501"
+    },
+    {
+     "nombre": "Nery Veloso",
+     "posicion": "POR",
+     "edad": 23,
+     "wikidata": "Q3120076"
+    },
+    {
+     "nombre": "Raúl Olivares",
+     "posicion": "POR",
+     "edad": 22,
+     "wikidata": "Q5695380"
+    },
+    {
+     "nombre": "Andrés Scotti",
+     "posicion": "DEF",
+     "edad": 34,
+     "wikidata": "Q315689"
+    },
+    {
+     "nombre": "Cristián Magaña",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q5186219"
+    },
+    {
+     "nombre": "Diego Olate",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q5274755"
+    },
+    {
+     "nombre": "Jorge Carrasco",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q6277802"
+    },
+    {
+     "nombre": "Juan Manuel Insaurralde",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q2619758"
+    },
+    {
+     "nombre": "Luis Mena Irarrázabal",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q2373123"
+    },
+    {
+     "nombre": "Miguel Riffo",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q2529662"
+    },
+    {
+     "nombre": "Nelson Cabrera",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q2553287"
+    },
+    {
+     "nombre": "Paulo Magalhaes",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q2634554"
+    },
+    {
+     "nombre": "Rafael Caroca",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q7282070"
+    },
+    {
+     "nombre": "Roberto Cereceda",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q2714288"
+    },
+    {
+     "nombre": "Arturo Sanhueza",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q2634464",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Bryan Rabello",
+     "posicion": "MED",
+     "edad": 16,
+     "wikidata": "Q2153428"
+    },
+    {
+     "nombre": "Charles Aránguiz",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q797945"
+    },
+    {
+     "nombre": "Daniel González",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q5217308"
+    },
+    {
+     "nombre": "Johanns Dulcien",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q6217214"
+    },
+    {
+     "nombre": "José Domingo Salcedo",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q650887"
+    },
+    {
+     "nombre": "José Luis Cabión",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q2458843",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "José Pedro Fuenzalida",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q946154"
+    },
+    {
+     "nombre": "Lucas Wilchez",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q27508",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Luis Pavez",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q6700975"
+    },
+    {
+     "nombre": "Macnelly Torres",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q2723797"
+    },
+    {
+     "nombre": "Matías Leonel Quiroga",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q6792125",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Rodrigo Meléndez",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q2447428"
+    },
+    {
+     "nombre": "Rodrigo Millar",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q329496"
+    },
+    {
+     "nombre": "Claudio Graf",
+     "posicion": "DEL",
+     "edad": 34,
+     "wikidata": "Q2629529"
+    },
+    {
+     "nombre": "Cristian Bogado",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q5186156"
+    },
+    {
+     "nombre": "Cristián Canío",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q3295329"
+    },
+    {
+     "nombre": "Cristóbal Jorquera",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q892163"
+    },
+    {
+     "nombre": "César Carranza",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q3700025"
+    },
+    {
+     "nombre": "Daúd Gazale",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q642446"
+    },
+    {
+     "nombre": "Diego Rubio",
+     "posicion": "DEL",
+     "edad": 17,
+     "wikidata": "Q1440579"
+    },
+    {
+     "nombre": "Ezequiel Miralles",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q2634082"
+    },
+    {
+     "nombre": "Gino Clara",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q1773224"
+    },
+    {
+     "nombre": "Javier Cámpora",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q2635650"
+    },
+    {
+     "nombre": "Juan Gonzalo Lorca",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q2412263"
+    },
+    {
+     "nombre": "Nicolás Millán",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q642757"
+    },
+    {
+     "nombre": "Phillip Araos",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q7185606"
+    },
+    {
+     "nombre": "Rodolfo Moya",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q5691352"
+    }
+   ]
+  },
+  {
+   "club": "Club Universidad de Chile",
+   "wikidata": "Q737753",
+   "temporadas": [
+    "Primera División de Chile 2010"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 42,
+   "jugadores": [
+    {
+     "nombre": "Cristóbal López Jara",
+     "posicion": "POR",
+     "edad": 21,
+     "wikidata": "Q5186519"
+    },
+    {
+     "nombre": "Esteban Conde",
+     "posicion": "POR",
+     "edad": 27,
+     "wikidata": "Q5400773"
+    },
+    {
+     "nombre": "Miguel Pinto",
+     "posicion": "POR",
+     "edad": 26,
+     "wikidata": "Q368631"
+    },
+    {
+     "nombre": "Carlos Escobar Casarin",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q384346"
+    },
+    {
+     "nombre": "Eugenio Mena",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q2761481"
+    },
+    {
+     "nombre": "Gonzalo Novoa",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q5582232"
+    },
+    {
+     "nombre": "José Contreras Arrau",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q5611658"
+    },
+    {
+     "nombre": "José Rojas",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q3179533"
+    },
+    {
+     "nombre": "Juan Abarca",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q1882312"
+    },
+    {
+     "nombre": "Juan González Calderón",
+     "posicion": "DEF",
+     "edad": 34,
+     "wikidata": "Q9015576"
+    },
+    {
+     "nombre": "Matías Celis",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q6792090"
+    },
+    {
+     "nombre": "Matías Nicolás Rodríguez",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q1910910"
+    },
+    {
+     "nombre": "Mauricio Arias",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q5479760"
+    },
+    {
+     "nombre": "Mauricio Gómez",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q6793617"
+    },
+    {
+     "nombre": "Mauricio Victorino",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q285111"
+    },
+    {
+     "nombre": "Rafael Olarra",
+     "posicion": "DEF",
+     "edad": 32,
+     "wikidata": "Q2326011"
+    },
+    {
+     "nombre": "Rodrigo Jara",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q9070248"
+    },
+    {
+     "nombre": "Walter Montillo",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q2420612"
+    },
+    {
+     "nombre": "Adrián Faúndez",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q4685769"
+    },
+    {
+     "nombre": "Arturo Vidal",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q192671"
+    },
+    {
+     "nombre": "Christian Bravo",
+     "posicion": "MED",
+     "edad": 16,
+     "wikidata": "Q5109350"
+    },
+    {
+     "nombre": "Edson Puch",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q2475246"
+    },
+    {
+     "nombre": "Eduardo Vargas",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q2268949"
+    },
+    {
+     "nombre": "Emanuel Centurión",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q1334626"
+    },
+    {
+     "nombre": "Felipe Seymour",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q1191774"
+    },
+    {
+     "nombre": "Francisco Castro",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q3243567"
+    },
+    {
+     "nombre": "Guillermo Marino",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q2416420"
+    },
+    {
+     "nombre": "José Luis Silva",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q6292850"
+    },
+    {
+     "nombre": "Leonardo Valencia",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q11688787"
+    },
+    {
+     "nombre": "Luis Felipe Gallegos",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q1532263"
+    },
+    {
+     "nombre": "Manuel Iturra",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q583773"
+    },
+    {
+     "nombre": "Marcelo Díaz",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q1353070"
+    },
+    {
+     "nombre": "Marco Estrada",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q361068"
+    },
+    {
+     "nombre": "Nelson Pinto",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q2015527"
+    },
+    {
+     "nombre": "Álvaro Fernández",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q250973"
+    },
+    {
+     "nombre": "Ángel Rojas Ortega",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q8076899"
+    },
+    {
+     "nombre": "Carlos Bueno",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q463120"
+    },
+    {
+     "nombre": "Cristian Milla",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q5186229"
+    },
+    {
+     "nombre": "Diego Inostroza",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q5274710"
+    },
+    {
+     "nombre": "Diego Rivarola",
+     "posicion": "DEL",
+     "edad": 33,
+     "wikidata": "Q2171392"
+    },
+    {
+     "nombre": "Gabriel Vargas",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q2056903"
+    },
+    {
+     "nombre": "Juan Manuel Olivera",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q717176"
+    }
+   ]
+  },
+  {
+   "club": "Club de Deportes Cobresal",
+   "wikidata": "Q642669",
+   "temporadas": [
+    "Primera División de Chile 2010"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 23,
+   "jugadores": [
+    {
+     "nombre": "Eduardo Farías",
+     "posicion": "POR",
+     "edad": 21,
+     "wikidata": "Q5340601",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Esteban Sáez",
+     "posicion": "POR",
+     "edad": 21,
+     "wikidata": "Q5400833"
+    },
+    {
+     "nombre": "Fernando Burgos",
+     "posicion": "POR",
+     "edad": 30,
+     "wikidata": "Q16297964"
+    },
+    {
+     "nombre": "Luis Rogel",
+     "posicion": "POR",
+     "edad": 25,
+     "wikidata": "Q5844830"
+    },
+    {
+     "nombre": "Baltazar Astorga",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q4852629"
+    },
+    {
+     "nombre": "Claudio Muñoz Uribe",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q5129388"
+    },
+    {
+     "nombre": "Nezhara",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q6165568"
+    },
+    {
+     "nombre": "Rodrigo Jara",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q9070248"
+    },
+    {
+     "nombre": "Adrián Faúndez",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q4685769"
+    },
+    {
+     "nombre": "Carlos Soza",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q5042678"
+    },
+    {
+     "nombre": "Hans Salinas",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q5650690"
+    },
+    {
+     "nombre": "José Galván",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q6292310"
+    },
+    {
+     "nombre": "José Luis Cabión",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q2458843",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Juan Carlos Lueiza",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q6299310"
+    },
+    {
+     "nombre": "Juan Silva",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q6301010"
+    },
+    {
+     "nombre": "Luis Bevacqua",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q17404118"
+    },
+    {
+     "nombre": "Rodrigo Viligrón",
+     "posicion": "MED",
+     "edad": 34,
+     "wikidata": "Q7357437"
+    },
+    {
+     "nombre": "Denis Caputo",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q5257145"
+    },
+    {
+     "nombre": "Felipe Araya",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q5441944"
+    },
+    {
+     "nombre": "Jean Paul Pineda",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q2741350"
+    },
+    {
+     "nombre": "Matías Manzano",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q5806379"
+    },
+    {
+     "nombre": "Román Cuello",
+     "posicion": "DEL",
+     "edad": 33,
+     "wikidata": "Q7363402"
+    },
+    {
+     "nombre": "Álvaro Pintos",
+     "posicion": "DEL",
+     "edad": 32,
+     "wikidata": "Q429158"
+    }
+   ]
+  },
+  {
+   "club": "Club de Deportes Iquique",
+   "wikidata": "Q642824",
+   "temporadas": [
+    "Primera División de Chile 2010"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 17,
+   "jugadores": [
+    {
+     "nombre": "Cristián Limenza",
+     "posicion": "POR",
+     "edad": 33,
+     "wikidata": "Q5186415"
+    },
+    {
+     "nombre": "Miguel Jiménez",
+     "posicion": "POR",
+     "edad": 29,
+     "wikidata": "Q5561188"
+    },
+    {
+     "nombre": "Luis Fuentes",
+     "posicion": "DEF",
+     "edad": 38,
+     "wikidata": "Q2634757"
+    },
+    {
+     "nombre": "Marcos Barrera",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q6757828"
+    },
+    {
+     "nombre": "Michael Contreras",
+     "posicion": "DEF",
+     "edad": 17,
+     "wikidata": "Q3856140"
+    },
+    {
+     "nombre": "Rodrigo Brito",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q2882588"
+    },
+    {
+     "nombre": "Rodrigo Pérez",
+     "posicion": "DEF",
+     "edad": 36,
+     "wikidata": "Q2461895"
+    },
+    {
+     "nombre": "Rubén Taucare",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q7376545"
+    },
+    {
+     "nombre": "Fernando Fica",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q5444716"
+    },
+    {
+     "nombre": "Fernando Martel",
+     "posicion": "MED",
+     "edad": 34,
+     "wikidata": "Q5444817"
+    },
+    {
+     "nombre": "Iván Guillauma",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q6100072"
+    },
+    {
+     "nombre": "José Carlos Prieto Rojas",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q6291849"
+    },
+    {
+     "nombre": "Leonardo Mas",
+     "posicion": "MED",
+     "edad": 34,
+     "wikidata": "Q4283697"
+    },
+    {
+     "nombre": "Rodrigo Núñez",
+     "posicion": "MED",
+     "edad": 33,
+     "wikidata": "Q1440373"
+    },
+    {
+     "nombre": "Juan Manuel Cobelli",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q6300323"
+    },
+    {
+     "nombre": "Otelo Ocampos",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q7108516",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Álvaro Ramos",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q8076748"
+    }
+   ]
+  },
+  {
+   "club": "Club de Deportes Santiago Morning",
+   "wikidata": "Q1023222",
+   "temporadas": [
+    "Primera División de Chile 2010"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 20,
+   "jugadores": [
+    {
+     "nombre": "Richard Leyton",
+     "posicion": "POR",
+     "edad": 23,
+     "wikidata": "Q7327378"
+    },
+    {
+     "nombre": "Rodolfo Martín Ferrando",
+     "posicion": "POR",
+     "edad": 31,
+     "wikidata": "Q5400828"
+    },
+    {
+     "nombre": "Víctor Loyola",
+     "posicion": "POR",
+     "edad": 29,
+     "wikidata": "Q9095315"
+    },
+    {
+     "nombre": "Alejandro Kruchowski",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q4714584"
+    },
+    {
+     "nombre": "Alí Manouchehri",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q4738861"
+    },
+    {
+     "nombre": "Bastián Arce",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q4868360"
+    },
+    {
+     "nombre": "Bruno Piano",
+     "posicion": "DEF",
+     "edad": 33,
+     "wikidata": "Q4979360"
+    },
+    {
+     "nombre": "Damián Nieto",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q5212635"
+    },
+    {
+     "nombre": "Mario Esteban Berríos",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q6764661"
+    },
+    {
+     "nombre": "Matías Celis",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q6792090"
+    },
+    {
+     "nombre": "Michael Rios",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q6834061"
+    },
+    {
+     "nombre": "Carlos Santibáñez",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q5042630"
+    },
+    {
+     "nombre": "Fernando Manríquez",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q5444809"
+    },
+    {
+     "nombre": "Fidencio Oviedo",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q3744554"
+    },
+    {
+     "nombre": "Francisco Huaiquipán",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q5483454"
+    },
+    {
+     "nombre": "Juan José Ribera",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q5950468"
+    },
+    {
+     "nombre": "Matías Urbano",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q3852367"
+    },
+    {
+     "nombre": "Pablo Calandria",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q3180229"
+    },
+    {
+     "nombre": "Renzo Yáñez",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q7313636"
+    },
+    {
+     "nombre": "Sergio Comba",
+     "posicion": "DEL",
+     "edad": 31,
+     "wikidata": "Q7666064"
+    }
+   ]
+  },
+  {
+   "club": "Club de Deportes Santiago Wanderers",
+   "wikidata": "Q719338",
+   "temporadas": [
+    "Primera División de Chile 2010"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 13,
+   "jugadores": [
+    {
+     "nombre": "Agustín Parra",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q4694691"
+    },
+    {
+     "nombre": "Eugenio Mena",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q2761481"
+    },
+    {
+     "nombre": "Héctor Desvaux",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q10419721"
+    },
+    {
+     "nombre": "Franco Quiroga",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q5484600"
+    },
+    {
+     "nombre": "Giakumis Kodogiannis",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q5557976"
+    },
+    {
+     "nombre": "Jefferson Castillo",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q6175387"
+    },
+    {
+     "nombre": "Michael Silva",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q6176149"
+    },
+    {
+     "nombre": "Moisés Villarroel",
+     "posicion": "MED",
+     "edad": 34,
+     "wikidata": "Q2535032"
+    },
+    {
+     "nombre": "Alejandro Da Silva",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q1986645"
+    },
+    {
+     "nombre": "Carlos Muñoz Rojas",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q1919079"
+    },
+    {
+     "nombre": "José Luis Jiménez",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q9014057"
+    },
+    {
+     "nombre": "Rubén Darío Gigena",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q7376467"
+    },
+    {
+     "nombre": "Sebastián Ubilla",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q952459"
+    }
+   ]
+  },
+  {
+   "club": "Cobreloa",
+   "wikidata": "Q643338",
+   "temporadas": [
+    "Primera División de Chile 2010"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 16,
+   "jugadores": [
+    {
+     "nombre": "Fernando Hurtado",
+     "posicion": "POR",
+     "edad": 27,
+     "wikidata": "Q5444766"
+    },
+    {
+     "nombre": "Alejandro Kruchowski",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q4714584"
+    },
+    {
+     "nombre": "Sebastián Roco",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q2706748"
+    },
+    {
+     "nombre": "Boris González",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q4945268"
+    },
+    {
+     "nombre": "Bryan Cortés",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q931913"
+    },
+    {
+     "nombre": "Daniel González",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q5217308"
+    },
+    {
+     "nombre": "Francisco Castro",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q3243567"
+    },
+    {
+     "nombre": "Francisco Ronaldo Silva",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q8962550"
+    },
+    {
+     "nombre": "Gerardo Vonder Putten",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q5550332"
+    },
+    {
+     "nombre": "Johan Fuentes",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q9012367"
+    },
+    {
+     "nombre": "José Luis Jerez",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q5861060"
+    },
+    {
+     "nombre": "Ever Cantero",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q923797"
+    },
+    {
+     "nombre": "Liber Quiñones",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q2073429"
+    },
+    {
+     "nombre": "Marco Lazaga",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q6757596"
+    },
+    {
+     "nombre": "Patricio Galaz",
+     "posicion": "DEL",
+     "edad": 33,
+     "wikidata": "Q2634953"
+    },
+    {
+     "nombre": "Sebastián Zúñiga",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q7442692"
+    }
+   ]
+  },
+  {
+   "club": "Everton de Viña del Mar",
+   "wikidata": "Q1103684",
+   "temporadas": [
+    "Primera División de Chile 2010"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 28,
+   "jugadores": [
+    {
+     "nombre": "Carlos Lemus",
+     "posicion": "POR",
+     "edad": 21,
+     "wikidata": "Q5042268"
+    },
+    {
+     "nombre": "Adrián Rojas",
+     "posicion": "DEF",
+     "edad": 33,
+     "wikidata": "Q4685792"
+    },
+    {
+     "nombre": "Alex Von-Schwedler",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q540402"
+    },
+    {
+     "nombre": "Cristián Oviedo",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q5186418"
+    },
+    {
+     "nombre": "Federico Pérez Silvera",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q5441048"
+    },
+    {
+     "nombre": "Hugo Díaz",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q5933925"
+    },
+    {
+     "nombre": "Leandro Delgado",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q6509632"
+    },
+    {
+     "nombre": "Lisandro Henríquez",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q6558545"
+    },
+    {
+     "nombre": "Mauricio Arias",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q5479760"
+    },
+    {
+     "nombre": "Rodrigo Ramírez",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q7357405"
+    },
+    {
+     "nombre": "Sebastián Montesinos",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q7442662"
+    },
+    {
+     "nombre": "César Cortés",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q2474885"
+    },
+    {
+     "nombre": "Daniel González",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q5217308"
+    },
+    {
+     "nombre": "Fernando Saavedra",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q5444914"
+    },
+    {
+     "nombre": "Francisco Sánchez Silva",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q5483977",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Franco Ragusa",
+     "posicion": "MED",
+     "edad": 17,
+     "wikidata": "Q5484599"
+    },
+    {
+     "nombre": "Lucas Nanía",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q2878090"
+    },
+    {
+     "nombre": "Mauro Bogado",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q6793882",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Nicolás Freitas",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q2006157"
+    },
+    {
+     "nombre": "Nicolás Peñailillo",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q614366"
+    },
+    {
+     "nombre": "Oscar Roberto Cornejo",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q2894180"
+    },
+    {
+     "nombre": "Roberto Reyes",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q7351869"
+    },
+    {
+     "nombre": "Gloria Villamayor",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q5881351"
+    },
+    {
+     "nombre": "Jorge Torales",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q9012928"
+    },
+    {
+     "nombre": "José Alberto Muñoz Muñoz",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q10514511"
+    },
+    {
+     "nombre": "Juan Bottaro",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q6299073"
+    },
+    {
+     "nombre": "Mauroguevosian",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q4134649"
+    },
+    {
+     "nombre": "Phillip Araos",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q7185606"
+    }
+   ]
+  },
+  {
+   "club": "San Luis de Quillota",
+   "wikidata": "Q2447092",
+   "temporadas": [
+    "Primera División de Chile 2010"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 18,
+   "jugadores": [
+    {
+     "nombre": "Alejandro Escalona",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q1621381"
+    },
+    {
+     "nombre": "Carlos Escobar Casarin",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q384346"
+    },
+    {
+     "nombre": "Diego Crosa",
+     "posicion": "DEF",
+     "edad": 34,
+     "wikidata": "Q2919866"
+    },
+    {
+     "nombre": "Diego Menghi",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q5274747"
+    },
+    {
+     "nombre": "Fidel Córdova",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q5861572"
+    },
+    {
+     "nombre": "Jorge Francisco Vargas Palacios",
+     "posicion": "DEF",
+     "edad": 34,
+     "wikidata": "Q697632"
+    },
+    {
+     "nombre": "Bryan Danesi",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q3646119"
+    },
+    {
+     "nombre": "Cristián Uribe",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q5186432"
+    },
+    {
+     "nombre": "Francisco Sánchez Silva",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q5483977",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Juan Huerta",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q9015610"
+    },
+    {
+     "nombre": "Mathías Vidangossy",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q2556710"
+    },
+    {
+     "nombre": "Mauricio Rojas",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q2076742"
+    },
+    {
+     "nombre": "Álvaro Césped",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q6172764"
+    },
+    {
+     "nombre": "Gerson Martínez",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q5553154"
+    },
+    {
+     "nombre": "Hernán Peirone",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q2918756"
+    },
+    {
+     "nombre": "Joel Soto",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q6213983"
+    },
+    {
+     "nombre": "Mario Cáceres",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q1898743"
+    },
+    {
+     "nombre": "Sebastián Varas",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q5681430"
+    }
+   ]
+  },
+  {
+   "club": "Unión Española",
+   "wikidata": "Q1129059",
+   "temporadas": [
+    "Primera División de Chile 2010"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 27,
+   "jugadores": [
+    {
+     "nombre": "Luis Marín Barahona",
+     "posicion": "POR",
+     "edad": 27,
+     "wikidata": "Q510344"
+    },
+    {
+     "nombre": "Rainer Wirth",
+     "posicion": "POR",
+     "edad": 27,
+     "wikidata": "Q7284843"
+    },
+    {
+     "nombre": "Braulio Leal",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q2067398"
+    },
+    {
+     "nombre": "Francisco Alarcón",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q5483079"
+    },
+    {
+     "nombre": "Francisco Nájera Gil",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q5483763"
+    },
+    {
+     "nombre": "Giovanny Espinoza",
+     "posicion": "DEF",
+     "edad": 33,
+     "wikidata": "Q533537"
+    },
+    {
+     "nombre": "Leandro Delgado",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q6509632"
+    },
+    {
+     "nombre": "Miguel Aceval",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q2177198"
+    },
+    {
+     "nombre": "Sebastián Miranda",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q325459",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Alexander Medina",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q371399"
+    },
+    {
+     "nombre": "Eduardo Rubio",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q1291184"
+    },
+    {
+     "nombre": "Esteban Eduardo González",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q5849048"
+    },
+    {
+     "nombre": "Fernando Cordero",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q5444660"
+    },
+    {
+     "nombre": "Kevin Harbottle",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q6396437"
+    },
+    {
+     "nombre": "Luis Pedro Figueroa",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q2635047"
+    },
+    {
+     "nombre": "Mario Aravena",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q3293355"
+    },
+    {
+     "nombre": "Martín Ligüera",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q372434"
+    },
+    {
+     "nombre": "Matías Masiero",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q1083673"
+    },
+    {
+     "nombre": "Nicolás Altamirano",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q7030329"
+    },
+    {
+     "nombre": "Nicolás Núñez",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q7030405"
+    },
+    {
+     "nombre": "Roberto Órdenes",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q6110079"
+    },
+    {
+     "nombre": "Rodolfo Madrid",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q7357175"
+    },
+    {
+     "nombre": "Gustavo Canales",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q2615660"
+    },
+    {
+     "nombre": "Leonardo Monje",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q3053228"
+    },
+    {
+     "nombre": "Ramsés Bustos",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q7290319"
+    },
+    {
+     "nombre": "Raúl Estévez",
+     "posicion": "DEL",
+     "edad": 32,
+     "wikidata": "Q3421430"
+    },
+    {
+     "nombre": "Rodrigo Gattas",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q7357340"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,1049 @@
+{
+ "liga": "Primera División de Argentina",
+ "pais": "argentina",
+ "año": 2018,
+ "fuente": "Wikidata (CC0) y Wikipedia; instantánea del 27-oct-2026 (tools/ligas/)",
+ "notas": [
+  "Datos de referencia de uso propio, no para el juego.",
+  "Clubes: los de las temporadas del campeonato que tocan este año calendario (tabla de posiciones de Wikipedia o, si no hay, los clubes más enlazados desde el artículo de la temporada).",
+  "Jugadores: membresías P54 de Wikidata que incluyen el año. Sin fecha de fin cuenta el año en que llegó (o hasta hoy si llegó desde 2023): membresia_estimada. Los planteles pueden estar incompletos; jugadores_encontrados dice cuántos hay.",
+  "posicion: línea estimada desde P413 (POR, DEF, MED, DEL; null si Wikidata no la tiene). edad: al 1 de julio; edad_aproximada si la fecha de nacimiento no tiene día o tiene fechas distintas."
+ ],
+ "equipos": [
+  {
+   "club": "Asociación Atlética Argentinos Juniors",
+   "wikidata": "Q220621",
+   "temporadas": [
+    "Campeonato de Primera División 2017-18",
+    "Campeonato de Primera División 2018-19"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 6,
+   "jugadores": [
+    {
+     "nombre": "Patricio Matricardi",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q20876903"
+    },
+    {
+     "nombre": "Alexis Mac Allister",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q33297140"
+    },
+    {
+     "nombre": "Beto da Silva",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q16300369"
+    },
+    {
+     "nombre": "Lucas Barrios",
+     "posicion": "DEL",
+     "edad": 33,
+     "wikidata": "Q154623"
+    },
+    {
+     "nombre": "Nicolás González",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q43381082"
+    },
+    {
+     "nombre": "Raúl Bobadilla",
+     "posicion": "DEL",
+     "edad": 31,
+     "wikidata": "Q562840"
+    }
+   ]
+  },
+  {
+   "club": "Atlético Tucumán",
+   "wikidata": "Q757470",
+   "temporadas": [
+    "Campeonato de Primera División 2017-18",
+    "Campeonato de Primera División 2018-19"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 2,
+   "jugadores": [
+    {
+     "nombre": "Ismael Blanco",
+     "posicion": "DEL",
+     "edad": 35,
+     "wikidata": "Q514159"
+    },
+    {
+     "nombre": "Juan Cruz Kaprof",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q14831174"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Aldosivi",
+   "wikidata": "Q971490",
+   "temporadas": [
+    "Campeonato de Primera División 2018-19"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Club Atlético Banfield",
+   "wikidata": "Q692646",
+   "temporadas": [
+    "Campeonato de Primera División 2017-18",
+    "Campeonato de Primera División 2018-19"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 3,
+   "jugadores": [
+    {
+     "nombre": "Eric Remedi",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q29259617"
+    },
+    {
+     "nombre": "Julián Carranza",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q45183360"
+    },
+    {
+     "nombre": "Michael López",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q43380470"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Colón",
+   "wikidata": "Q80897",
+   "temporadas": [
+    "Campeonato de Primera División 2017-18",
+    "Campeonato de Primera División 2018-19"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 4,
+   "jugadores": [
+    {
+     "nombre": "Alexánder Domínguez",
+     "posicion": "POR",
+     "edad": 31,
+     "wikidata": "Q2667325"
+    },
+    {
+     "nombre": "Braian Galván",
+     "posicion": "MED",
+     "edad": 17,
+     "wikidata": "Q57292739"
+    },
+    {
+     "nombre": "Juan Bauza",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q28950928"
+    },
+    {
+     "nombre": "Matías Fritzler",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q543271"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Huracán",
+   "wikidata": "Q327172",
+   "temporadas": [
+    "Campeonato de Primera División 2017-18",
+    "Campeonato de Primera División 2018-19"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 5,
+   "jugadores": [
+    {
+     "nombre": "Alejandro Romero Gamarra",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q19319791"
+    },
+    {
+     "nombre": "Andrés Chávez",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q5675665"
+    },
+    {
+     "nombre": "Braian Maidana",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q104774999"
+    },
+    {
+     "nombre": "Nicolás Cordero",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q57355012"
+    },
+    {
+     "nombre": "Juan Gauto",
+     "posicion": null,
+     "edad": 14,
+     "wikidata": "Q114133037"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Independiente",
+   "wikidata": "Q214978",
+   "temporadas": [
+    "Campeonato de Primera División 2017-18",
+    "Campeonato de Primera División 2018-19"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 8,
+   "jugadores": [
+    {
+     "nombre": "Alejandro Silva González",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q3609449"
+    },
+    {
+     "nombre": "Fernando Amorebieta",
+     "posicion": "DEF",
+     "edad": 33,
+     "wikidata": "Q314250"
+    },
+    {
+     "nombre": "Nicolás Figal",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q17635436"
+    },
+    {
+     "nombre": "Alexis Zárate",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q8195025"
+    },
+    {
+     "nombre": "Carlos Benavídez",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q24258613"
+    },
+    {
+     "nombre": "Jonás Gutiérrez",
+     "posicion": "MED",
+     "edad": 34,
+     "wikidata": "Q208087"
+    },
+    {
+     "nombre": "Nicolás Del Priore",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q59782070"
+    },
+    {
+     "nombre": "Lucas Albertengo",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q16145022"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Lanús",
+   "wikidata": "Q324589",
+   "temporadas": [
+    "Campeonato de Primera División 2017-18",
+    "Campeonato de Primera División 2018-19"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Esteban Andrada",
+     "posicion": "POR",
+     "edad": 27,
+     "wikidata": "Q3733379"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Newell’s Old Boys",
+   "wikidata": "Q221882",
+   "temporadas": [
+    "Campeonato de Primera División 2017-18",
+    "Campeonato de Primera División 2018-19"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 6,
+   "jugadores": [
+    {
+     "nombre": "Nicolás Temperini",
+     "posicion": "POR",
+     "edad": 23,
+     "wikidata": "Q56318348"
+    },
+    {
+     "nombre": "Iván Piris",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q83192"
+    },
+    {
+     "nombre": "Lisandro Martínez",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q30881092"
+    },
+    {
+     "nombre": "Milton Valenzuela",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q23762800"
+    },
+    {
+     "nombre": "Maximiliano Ribero",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q58008189"
+    },
+    {
+     "nombre": "Júnior José Correia",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q26704553"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético River Plate",
+   "wikidata": "Q15799",
+   "temporadas": [
+    "Campeonato de Primera División 2017-18",
+    "Campeonato de Primera División 2018-19"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 18,
+   "jugadores": [
+    {
+     "nombre": "Enzo Pérez",
+     "posicion": "POR",
+     "edad": 32,
+     "wikidata": "Q926353"
+    },
+    {
+     "nombre": "Franco Daniel Armani",
+     "posicion": "POR",
+     "edad": 31,
+     "wikidata": "Q5484508"
+    },
+    {
+     "nombre": "Germán Lux",
+     "posicion": "POR",
+     "edad": 36,
+     "wikidata": "Q313441"
+    },
+    {
+     "nombre": "Gonzalo Montiel",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q26255087"
+    },
+    {
+     "nombre": "Jonathan Maidana",
+     "posicion": "DEF",
+     "edad": 32,
+     "wikidata": "Q2287577"
+    },
+    {
+     "nombre": "Bruno Zuculini",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q3645977"
+    },
+    {
+     "nombre": "Camilo Mayada",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q3651591"
+    },
+    {
+     "nombre": "Exequiel Palacios",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q19345715"
+    },
+    {
+     "nombre": "Ignacio Scocco",
+     "posicion": "MED",
+     "edad": 33,
+     "wikidata": "Q1709911"
+    },
+    {
+     "nombre": "Juan Fernando Quintero",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q2092409"
+    },
+    {
+     "nombre": "Nicolás De La Cruz",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q20994037"
+    },
+    {
+     "nombre": "Pity Martínez",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q5883075"
+    },
+    {
+     "nombre": "Juan Cruz Kaprof",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q14831174"
+    },
+    {
+     "nombre": "Julián Alvarez",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q59381180"
+    },
+    {
+     "nombre": "Lucas Beltrán",
+     "posicion": "DEL",
+     "edad": 17,
+     "wikidata": "Q59649459"
+    },
+    {
+     "nombre": "Rafael Santos Borré",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q18719633"
+    },
+    {
+     "nombre": "Rodrigo Mora",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q965316"
+    },
+    {
+     "nombre": "Manuel Balagué",
+     "posicion": null,
+     "edad": 19,
+     "wikidata": "Q124052306"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Rosario Central",
+   "wikidata": "Q318307",
+   "temporadas": [
+    "Campeonato de Primera División 2017-18",
+    "Campeonato de Primera División 2018-19"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 4,
+   "jugadores": [
+    {
+     "nombre": "Jeremías Ledesma",
+     "posicion": "POR",
+     "edad": 25,
+     "wikidata": "Q16581359"
+    },
+    {
+     "nombre": "Facundo Almada",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q61948281"
+    },
+    {
+     "nombre": "Néstor Ortigoza",
+     "posicion": "MED",
+     "edad": 33,
+     "wikidata": "Q462230"
+    },
+    {
+     "nombre": "Gino Infantino",
+     "posicion": null,
+     "edad": 15,
+     "wikidata": "Q101579946"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético San Martín (San Juan)",
+   "wikidata": "Q80921",
+   "temporadas": [
+    "Campeonato de Primera División 2017-18",
+    "Campeonato de Primera División 2018-19"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 2,
+   "jugadores": [
+    {
+     "nombre": "Andrés Fabricio Romero",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q4274903"
+    },
+    {
+     "nombre": "Álvaro Fernández",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q250973"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Tigre",
+   "wikidata": "Q80886",
+   "temporadas": [
+    "Campeonato de Primera División 2017-18",
+    "Campeonato de Primera División 2018-19"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 4,
+   "jugadores": [
+    {
+     "nombre": "Matías Pérez Acuña",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q19665131"
+    },
+    {
+     "nombre": "Alexis Castro",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q20027940"
+    },
+    {
+     "nombre": "Lucas Chacana",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q20014013"
+    },
+    {
+     "nombre": "Lucas Janson",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q9024628"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Unión",
+   "wikidata": "Q80899",
+   "temporadas": [
+    "Campeonato de Primera División 2017-18",
+    "Campeonato de Primera División 2018-19"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 2,
+   "jugadores": [
+    {
+     "nombre": "Gabriel Compagnucci",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q60734676"
+    },
+    {
+     "nombre": "Manuel De Iriondo",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q17477988"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Vélez Sarsfield",
+   "wikidata": "Q215163",
+   "temporadas": [
+    "Campeonato de Primera División 2017-18",
+    "Campeonato de Primera División 2018-19"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 7,
+   "jugadores": [
+    {
+     "nombre": "Alexánder Domínguez",
+     "posicion": "POR",
+     "edad": 31,
+     "wikidata": "Q2667325"
+    },
+    {
+     "nombre": "Braian Cufré",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q24006164"
+    },
+    {
+     "nombre": "Matías Pérez Acuña",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q19665131"
+    },
+    {
+     "nombre": "Micaela Casasola",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q28812985"
+    },
+    {
+     "nombre": "Luca Orellano",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q59209514"
+    },
+    {
+     "nombre": "Thiago Almada",
+     "posicion": "MED",
+     "edad": 17,
+     "wikidata": "Q57293140"
+    },
+    {
+     "nombre": "Yamil Asad",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q19281609"
+    }
+   ]
+  },
+  {
+   "club": "Club Deportivo Godoy Cruz Antonio Tomba",
+   "wikidata": "Q80882",
+   "temporadas": [
+    "Campeonato de Primera División 2017-18",
+    "Campeonato de Primera División 2018-19"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 3,
+   "jugadores": [
+    {
+     "nombre": "Pol Fernández",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q6544894"
+    },
+    {
+     "nombre": "Osmar Leguizamón",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q56204191"
+    },
+    {
+     "nombre": "Santiago García",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q2120806"
+    }
+   ]
+  },
+  {
+   "club": "Club Estudiantes de La Plata",
+   "wikidata": "Q214940",
+   "temporadas": [
+    "Campeonato de Primera División 2017-18",
+    "Campeonato de Primera División 2018-19"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 8,
+   "jugadores": [
+    {
+     "nombre": "Mariano Andújar",
+     "posicion": "POR",
+     "edad": 34,
+     "wikidata": "Q321321"
+    },
+    {
+     "nombre": "Julián Marchioni",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q27306018"
+    },
+    {
+     "nombre": "Sebastián Dubarbier",
+     "posicion": "DEF",
+     "edad": 32,
+     "wikidata": "Q1334239"
+    },
+    {
+     "nombre": "Juan Bautista Cascini",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q27662891"
+    },
+    {
+     "nombre": "Juan Bautista Cejas",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q19339573"
+    },
+    {
+     "nombre": "Juan Otero",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q19560481"
+    },
+    {
+     "nombre": "Mauro Borgnino",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q28055553"
+    },
+    {
+     "nombre": "Santiago García",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q2120806"
+    }
+   ]
+  },
+  {
+   "club": "Club Olimpo",
+   "wikidata": "Q1074980",
+   "temporadas": [
+    "Campeonato de Primera División 2017-18"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Nereo Champagne",
+     "posicion": "POR",
+     "edad": 33,
+     "wikidata": "Q2059054"
+    }
+   ]
+  },
+  {
+   "club": "Club Social y Deportivo Defensa y Justicia",
+   "wikidata": "Q1024338",
+   "temporadas": [
+    "Campeonato de Primera División 2017-18",
+    "Campeonato de Primera División 2018-19"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 5,
+   "jugadores": [
+    {
+     "nombre": "Lisandro Martínez",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q30881092"
+    },
+    {
+     "nombre": "Nahuel Molina Lucero",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q22082590"
+    },
+    {
+     "nombre": "Ignacio Aliseda",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q57293205"
+    },
+    {
+     "nombre": "Jonás Gutiérrez",
+     "posicion": "MED",
+     "edad": 34,
+     "wikidata": "Q208087"
+    },
+    {
+     "nombre": "Juan Cruz Kaprof",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q14831174"
+    }
+   ]
+  },
+  {
+   "club": "Club de Gimnasia y Esgrima La Plata",
+   "wikidata": "Q18640",
+   "temporadas": [
+    "Campeonato de Primera División 2017-18",
+    "Campeonato de Primera División 2018-19"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 4,
+   "jugadores": [
+    {
+     "nombre": "Jerónimo Barrales",
+     "posicion": "DEL",
+     "edad": 31,
+     "wikidata": "Q611888"
+    },
+    {
+     "nombre": "Lautaro Chávez",
+     "posicion": "DEL",
+     "edad": 17,
+     "wikidata": "Q61876169"
+    },
+    {
+     "nombre": "Brenda Graff",
+     "posicion": null,
+     "edad": 23,
+     "wikidata": "Q113996357"
+    },
+    {
+     "nombre": "Victoria Mayer",
+     "posicion": null,
+     "edad": 17,
+     "wikidata": "Q56290474"
+    }
+   ]
+  },
+  {
+   "club": "Q1022938",
+   "wikidata": "Q1022938",
+   "temporadas": [
+    "Campeonato de Primera División 2018-19"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Q170703",
+   "wikidata": "Q170703",
+   "temporadas": [
+    "Campeonato de Primera División 2017-18",
+    "Campeonato de Primera División 2018-19"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Q1773830",
+   "wikidata": "Q1773830",
+   "temporadas": [
+    "Campeonato de Primera División 2017-18",
+    "Campeonato de Primera División 2018-19"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Q218282",
+   "wikidata": "Q218282",
+   "temporadas": [
+    "Campeonato de Primera División 2017-18",
+    "Campeonato de Primera División 2018-19"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Q2778591",
+   "wikidata": "Q2778591",
+   "temporadas": [
+    "Campeonato de Primera División 2017-18"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Q476836",
+   "wikidata": "Q476836",
+   "temporadas": [
+    "Campeonato de Primera División 2017-18"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Q59962",
+   "wikidata": "Q59962",
+   "temporadas": [
+    "Campeonato de Primera División 2017-18",
+    "Campeonato de Primera División 2018-19"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Q853053",
+   "wikidata": "Q853053",
+   "temporadas": [
+    "Campeonato de Primera División 2017-18"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Racing Club",
+   "wikidata": "Q276533",
+   "temporadas": [
+    "Campeonato de Primera División 2017-18",
+    "Campeonato de Primera División 2018-19"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 7,
+   "jugadores": [
+    {
+     "nombre": "Juan Musso",
+     "posicion": "POR",
+     "edad": 24,
+     "wikidata": "Q5951550"
+    },
+    {
+     "nombre": "Iván Pillud",
+     "posicion": "DEF",
+     "edad": 32,
+     "wikidata": "Q2539757"
+    },
+    {
+     "nombre": "Marcelo Díaz",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q1353070"
+    },
+    {
+     "nombre": "Ricardo Centurión",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q585136"
+    },
+    {
+     "nombre": "Jonatan Cristaldo",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q657823"
+    },
+    {
+     "nombre": "Lautaro Martínez",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q21484126"
+    },
+    {
+     "nombre": "Lisandro López",
+     "posicion": "DEL",
+     "edad": 35,
+     "wikidata": "Q296133"
+    }
+   ]
+  },
+  {
+   "club": "Talleres de Córdoba",
+   "wikidata": "Q1022939",
+   "temporadas": [
+    "Campeonato de Primera División 2017-18",
+    "Campeonato de Primera División 2018-19"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 5,
+   "jugadores": [
+    {
+     "nombre": "Augusto Schott",
+     "posicion": "DEF",
+     "edad": 18,
+     "wikidata": "Q56753908"
+    },
+    {
+     "nombre": "Facundo Medina",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q28056787"
+    },
+    {
+     "nombre": "Renzo Paparelli",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q56753919"
+    },
+    {
+     "nombre": "Nicolás Giménez",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q19837010"
+    },
+    {
+     "nombre": "Dayro Moreno",
+     "posicion": "DEL",
+     "edad": 32,
+     "wikidata": "Q2271271"
+    }
+   ]
+  }
+ ]
+}

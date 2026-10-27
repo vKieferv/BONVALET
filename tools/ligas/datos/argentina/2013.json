@@ -1,0 +1,3924 @@
+{
+ "liga": "Primera División de Argentina",
+ "pais": "argentina",
+ "año": 2013,
+ "fuente": "Wikidata (CC0) y Wikipedia; instantánea del 27-oct-2026 (tools/ligas/)",
+ "notas": [
+  "Datos de referencia de uso propio, no para el juego.",
+  "Clubes: los de las temporadas del campeonato que tocan este año calendario (tabla de posiciones de Wikipedia o, si no hay, los clubes más enlazados desde el artículo de la temporada).",
+  "Jugadores: membresías P54 de Wikidata que incluyen el año. Sin fecha de fin cuenta el año en que llegó (o hasta hoy si llegó desde 2023): membresia_estimada. Los planteles pueden estar incompletos; jugadores_encontrados dice cuántos hay.",
+  "posicion: línea estimada desde P413 (POR, DEF, MED, DEL; null si Wikidata no la tiene). edad: al 1 de julio; edad_aproximada si la fecha de nacimiento no tiene día o tiene fechas distintas."
+ ],
+ "equipos": [
+  {
+   "club": "Asociación Atlética Argentinos Juniors",
+   "wikidata": "Q220621",
+   "temporadas": [
+    "Campeonato de Primera División 2012/13",
+    "Campeonato de Primera División 2013/14 (Argentina)"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 45,
+   "jugadores": [
+    {
+     "nombre": "Luis Ojeda",
+     "posicion": "POR",
+     "edad": 23,
+     "wikidata": "Q3840400"
+    },
+    {
+     "nombre": "Nereo Fernández",
+     "posicion": "POR",
+     "edad": 34,
+     "wikidata": "Q949227"
+    },
+    {
+     "nombre": "Pablo Migliore",
+     "posicion": "POR",
+     "edad": 31,
+     "wikidata": "Q2305653"
+    },
+    {
+     "nombre": "Aníbal Samuel Matellán",
+     "posicion": "DEF",
+     "edad": 36,
+     "wikidata": "Q615168"
+    },
+    {
+     "nombre": "Ariel Garcé",
+     "posicion": "DEF",
+     "edad": 33,
+     "wikidata": "Q357188"
+    },
+    {
+     "nombre": "Diego Barisone",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q5805912",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Diego Placente",
+     "posicion": "DEF",
+     "edad": 36,
+     "wikidata": "Q346402"
+    },
+    {
+     "nombre": "Franco Flores",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q21207995"
+    },
+    {
+     "nombre": "José Luis Palomino",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q2882091"
+    },
+    {
+     "nombre": "Julio Barraza",
+     "posicion": "DEF",
+     "edad": 33,
+     "wikidata": "Q5977154"
+    },
+    {
+     "nombre": "Leonardo Sánchez",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q5973225"
+    },
+    {
+     "nombre": "Mariano Almandoz",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q21207189"
+    },
+    {
+     "nombre": "Matías alex",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q1992156"
+    },
+    {
+     "nombre": "Nicolás Batista",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q6042110"
+    },
+    {
+     "nombre": "Pablo Barzola",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q2553111"
+    },
+    {
+     "nombre": "Alejandro Capurro",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q374685"
+    },
+    {
+     "nombre": "Brian Gómez",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q30111776"
+    },
+    {
+     "nombre": "Bruno Barreto",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q5734485"
+    },
+    {
+     "nombre": "Cristian Maidana",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q1140306"
+    },
+    {
+     "nombre": "Fabio Vázquez",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q16236632"
+    },
+    {
+     "nombre": "Facundo Coria",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q5429105"
+    },
+    {
+     "nombre": "Gabriel Peñalba",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q1818318"
+    },
+    {
+     "nombre": "Gaspar Iñíguez",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q3758619"
+    },
+    {
+     "nombre": "Juan Edgardo Ramírez",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q3810829"
+    },
+    {
+     "nombre": "Martín Wagner",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q6002932",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Matías Laba",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q3852360"
+    },
+    {
+     "nombre": "Matías Mirabaje",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q539375"
+    },
+    {
+     "nombre": "Nicolás Olmedo",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q953259"
+    },
+    {
+     "nombre": "Pedro Pablo Hernández",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q3898700"
+    },
+    {
+     "nombre": "Reinaldo Lenis Montes",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q12201095"
+    },
+    {
+     "nombre": "Santiago Nagüel",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q20018305"
+    },
+    {
+     "nombre": "Sergio Vittor",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q7454450"
+    },
+    {
+     "nombre": "Walter Serrano",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q6166280"
+    },
+    {
+     "nombre": "Daniel Alberto Villalva",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q949572"
+    },
+    {
+     "nombre": "Enrique Triverio",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q17333695"
+    },
+    {
+     "nombre": "Hernán Boyero",
+     "posicion": "DEL",
+     "edad": 33,
+     "wikidata": "Q5742404"
+    },
+    {
+     "nombre": "Hernán Salazar",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q5742512"
+    },
+    {
+     "nombre": "José Carlos Fernández Piedra",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q763990"
+    },
+    {
+     "nombre": "Juan Anangonó",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q6300245"
+    },
+    {
+     "nombre": "Juan Carlos Anangonó",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q6299169"
+    },
+    {
+     "nombre": "Leandro Barrera",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q5972194"
+    },
+    {
+     "nombre": "Leandro Caruso",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q2357936",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Leonel Núñez",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q2248973"
+    },
+    {
+     "nombre": "Osvaldo Noé Miranda",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q7108065"
+    },
+    {
+     "nombre": "Raúl Becerra",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q6101058"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Colón",
+   "wikidata": "Q80897",
+   "temporadas": [
+    "Campeonato de Primera División 2012/13",
+    "Campeonato de Primera División 2013/14 (Argentina)"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 35,
+   "jugadores": [
+    {
+     "nombre": "Diego Pozo",
+     "posicion": "POR",
+     "edad": 35,
+     "wikidata": "Q336372"
+    },
+    {
+     "nombre": "Germán Montoya",
+     "posicion": "POR",
+     "edad": 30,
+     "wikidata": "Q935831"
+    },
+    {
+     "nombre": "Bruno Urribarri",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q4979424"
+    },
+    {
+     "nombre": "Emir Faccioli",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q5372528"
+    },
+    {
+     "nombre": "Gerardo Alcoba",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q460365"
+    },
+    {
+     "nombre": "Julio Barraza",
+     "posicion": "DEF",
+     "edad": 33,
+     "wikidata": "Q5977154"
+    },
+    {
+     "nombre": "Lucas Landa",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q588855"
+    },
+    {
+     "nombre": "Mariano Bíttolo",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q5997616"
+    },
+    {
+     "nombre": "Mauricio Martín Romero",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q2082903"
+    },
+    {
+     "nombre": "Maximiliano Pellegrino",
+     "posicion": "DEF",
+     "edad": 33,
+     "wikidata": "Q1363824"
+    },
+    {
+     "nombre": "Ronald Raldes",
+     "posicion": "DEF",
+     "edad": 32,
+     "wikidata": "Q2422878"
+    },
+    {
+     "nombre": "Santiago Fosgt",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q6120916"
+    },
+    {
+     "nombre": "Adrián Bastía",
+     "posicion": "MED",
+     "edad": 34,
+     "wikidata": "Q2976153"
+    },
+    {
+     "nombre": "César Meli",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q16301021"
+    },
+    {
+     "nombre": "Federico Jourdan",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q5857685"
+    },
+    {
+     "nombre": "Franco Leys",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q16941956",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Gabriel Graciani",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q3756478"
+    },
+    {
+     "nombre": "Gerónimo Poblete",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q5879003"
+    },
+    {
+     "nombre": "Hernán Bernardello",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q2413491"
+    },
+    {
+     "nombre": "Iván Moreno y Fabianesi",
+     "posicion": "MED",
+     "edad": 34,
+     "wikidata": "Q598019"
+    },
+    {
+     "nombre": "Jacobo Mansilla",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q5924494"
+    },
+    {
+     "nombre": "Lucas Acosta",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q6696074"
+    },
+    {
+     "nombre": "Lucas Mugni",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q3838361"
+    },
+    {
+     "nombre": "Marcos Gabriel Fernández",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q5996567"
+    },
+    {
+     "nombre": "Ricardo Gómez",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q5763820"
+    },
+    {
+     "nombre": "Sebastián Prediger",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q2087025"
+    },
+    {
+     "nombre": "Carlos Luque",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q3660095"
+    },
+    {
+     "nombre": "Darío Gandín",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q5226315",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Emmanuel Gigliotti",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q3723827"
+    },
+    {
+     "nombre": "Facundo Callejo",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q5855192"
+    },
+    {
+     "nombre": "Gustavo Villarruel",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q5889938",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Lucas Alario",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q5981833"
+    },
+    {
+     "nombre": "Luciano Leguizamón",
+     "posicion": "DEL",
+     "edad": 31,
+     "wikidata": "Q962799"
+    },
+    {
+     "nombre": "Martín Comachi",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q6002579"
+    },
+    {
+     "nombre": "Rubén Ramírez",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q3942215"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Independiente",
+   "wikidata": "Q214978",
+   "temporadas": [
+    "Campeonato de Primera División 2012/13"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 37,
+   "jugadores": [
+    {
+     "nombre": "Adrián Gabbarini",
+     "posicion": "POR",
+     "edad": 27,
+     "wikidata": "Q767994"
+    },
+    {
+     "nombre": "Fabián Assmann",
+     "posicion": "POR",
+     "edad": 27,
+     "wikidata": "Q268783"
+    },
+    {
+     "nombre": "Hilario Navarro",
+     "posicion": "POR",
+     "edad": 32,
+     "wikidata": "Q4311326"
+    },
+    {
+     "nombre": "Christian Núñez",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q540888"
+    },
+    {
+     "nombre": "Claudio Morel Rodríguez",
+     "posicion": "DEF",
+     "edad": 35,
+     "wikidata": "Q328886"
+    },
+    {
+     "nombre": "Cristian Tula",
+     "posicion": "DEF",
+     "edad": 35,
+     "wikidata": "Q5186269"
+    },
+    {
+     "nombre": "Eduardo Nicolás Tuzzio",
+     "posicion": "DEF",
+     "edad": 38,
+     "wikidata": "Q2575408"
+    },
+    {
+     "nombre": "Gabriel Vallés",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q5515900"
+    },
+    {
+     "nombre": "Jonathan Píriz",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q9012590"
+    },
+    {
+     "nombre": "Julián Velázquez",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q2477893"
+    },
+    {
+     "nombre": "Leonel Galeano",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q2538695"
+    },
+    {
+     "nombre": "Lucas Villalba",
+     "posicion": "DEF",
+     "edad": 18,
+     "wikidata": "Q5981950"
+    },
+    {
+     "nombre": "Alexis Zárate",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q8195025"
+    },
+    {
+     "nombre": "Christian Ortiz",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q16301412",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Daniel Montenegro",
+     "posicion": "MED",
+     "edad": 33,
+     "wikidata": "Q554020",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Fabián Vargas",
+     "posicion": "MED",
+     "edad": 33,
+     "wikidata": "Q2332517"
+    },
+    {
+     "nombre": "Federico Mancuello",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q2077454"
+    },
+    {
+     "nombre": "Fernando Gabriel Godoy",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q4141180"
+    },
+    {
+     "nombre": "Francisco Pizzini",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q6436725"
+    },
+    {
+     "nombre": "Franco Razzotti",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q3751544"
+    },
+    {
+     "nombre": "Hernán Fredes",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q2735616"
+    },
+    {
+     "nombre": "Jonathan Santana",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q318795"
+    },
+    {
+     "nombre": "Jorge Iván Pérez",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q9012818"
+    },
+    {
+     "nombre": "Lucas Villafáñez",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q3838370"
+    },
+    {
+     "nombre": "Matías Pisano",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q16605488"
+    },
+    {
+     "nombre": "Osmar Ferreyra",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q1924942"
+    },
+    {
+     "nombre": "Reinaldo Alderete",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q7310245"
+    },
+    {
+     "nombre": "Roberto Battión",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q4079483"
+    },
+    {
+     "nombre": "Víctor Zapata",
+     "posicion": "MED",
+     "edad": 34,
+     "wikidata": "Q2002396"
+    },
+    {
+     "nombre": "Walter Busse",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q7964439"
+    },
+    {
+     "nombre": "Adrián Fernández",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q5658524"
+    },
+    {
+     "nombre": "Cristian Menéndez",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q5186225"
+    },
+    {
+     "nombre": "Ernesto Farías",
+     "posicion": "DEL",
+     "edad": 33,
+     "wikidata": "Q1337341"
+    },
+    {
+     "nombre": "Facundoa Parra",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q798294"
+    },
+    {
+     "nombre": "Gino Clara",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q1773224"
+    },
+    {
+     "nombre": "Luciano Leguizamón",
+     "posicion": "DEL",
+     "edad": 31,
+     "wikidata": "Q962799"
+    },
+    {
+     "nombre": "Sebastián Penco",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q7442666"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Lanús",
+   "wikidata": "Q324589",
+   "temporadas": [
+    "Campeonato de Primera División 2012/13",
+    "Campeonato de Primera División 2013/14 (Argentina)"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 34,
+   "jugadores": [
+    {
+     "nombre": "Esteban Andrada",
+     "posicion": "POR",
+     "edad": 22,
+     "wikidata": "Q3733379"
+    },
+    {
+     "nombre": "Carlos Izquierdoz",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q3660080"
+    },
+    {
+     "nombre": "Emir Faccioli",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q5372528"
+    },
+    {
+     "nombre": "Facundo Monteseirín",
+     "posicion": "DEF",
+     "edad": 18,
+     "wikidata": "Q16555080"
+    },
+    {
+     "nombre": "Fernando Barrientos",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q5444606"
+    },
+    {
+     "nombre": "Gastón Díaz",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q2462172"
+    },
+    {
+     "nombre": "Hernán Grana",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q5742447"
+    },
+    {
+     "nombre": "Luciano Balbi",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q3838524"
+    },
+    {
+     "nombre": "Matías alex",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q1992156"
+    },
+    {
+     "nombre": "Oswaldo Vizcarrondo",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q970711"
+    },
+    {
+     "nombre": "Paolo Goltz",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q2400909"
+    },
+    {
+     "nombre": "Cristian Manuel Chávez",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q1140311"
+    },
+    {
+     "nombre": "Diego Hernán González",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q5274682"
+    },
+    {
+     "nombre": "Diego Valeri",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q2325983"
+    },
+    {
+     "nombre": "Guido Pizarro",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q334566"
+    },
+    {
+     "nombre": "Jorge Alberto Ortiz",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q423196"
+    },
+    {
+     "nombre": "Jorge Valdez Chamorro",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q18418903"
+    },
+    {
+     "nombre": "Juan Jaime",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q21272230"
+    },
+    {
+     "nombre": "Lautaro Acosta",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q369501"
+    },
+    {
+     "nombre": "Leandro Somoza",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q720572"
+    },
+    {
+     "nombre": "Marcos Astina",
+     "posicion": "MED",
+     "edad": 17,
+     "wikidata": "Q16297523"
+    },
+    {
+     "nombre": "Mario Ignacio Regueiro",
+     "posicion": "MED",
+     "edad": 34,
+     "wikidata": "Q361439"
+    },
+    {
+     "nombre": "Matías Fritzler",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q543271"
+    },
+    {
+     "nombre": "Mauricio Pereyra",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q2018221"
+    },
+    {
+     "nombre": "Bruno Vides",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q10859331"
+    },
+    {
+     "nombre": "Cristian Menéndez",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q5186225"
+    },
+    {
+     "nombre": "Gonzalo Castillejos",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q5582183"
+    },
+    {
+     "nombre": "Ismael Blanco",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q514159"
+    },
+    {
+     "nombre": "Jorge Pereyra Díaz",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q5935802"
+    },
+    {
+     "nombre": "Leandro Nicolás Díaz",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q3829255"
+    },
+    {
+     "nombre": "Lucas Melano",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q3560220"
+    },
+    {
+     "nombre": "Santiago Silva",
+     "posicion": "DEL",
+     "edad": 32,
+     "wikidata": "Q720490"
+    },
+    {
+     "nombre": "Silvio Romero",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q3960943"
+    },
+    {
+     "nombre": "Nicolás Laprovittola",
+     "posicion": null,
+     "edad": 23,
+     "wikidata": "Q3876517"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Newell’s Old Boys",
+   "wikidata": "Q221882",
+   "temporadas": [
+    "Campeonato de Primera División 2012/13",
+    "Campeonato de Primera División 2013/14 (Argentina)"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 31,
+   "jugadores": [
+    {
+     "nombre": "Adrián Gabbarini",
+     "posicion": "POR",
+     "edad": 27,
+     "wikidata": "Q767994"
+    },
+    {
+     "nombre": "Milton Casco",
+     "posicion": "POR",
+     "edad": 25,
+     "wikidata": "Q5676549"
+    },
+    {
+     "nombre": "Rodrigo Rey",
+     "posicion": "POR",
+     "edad": 22,
+     "wikidata": "Q6110784"
+    },
+    {
+     "nombre": "Sebastián Peratta",
+     "posicion": "POR",
+     "edad": 36,
+     "wikidata": "Q2835191"
+    },
+    {
+     "nombre": "Cristian Díaz",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q21207920"
+    },
+    {
+     "nombre": "Franco Lazzaroni",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q5868381"
+    },
+    {
+     "nombre": "Gabriel Heinze",
+     "posicion": "DEF",
+     "edad": 35,
+     "wikidata": "Q63659"
+    },
+    {
+     "nombre": "Guillermo Ferracuti",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q18170715"
+    },
+    {
+     "nombre": "Marcos Cáceres",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q2619991"
+    },
+    {
+     "nombre": "Pablo Javier Pérez",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q7121729"
+    },
+    {
+     "nombre": "Santiago Vergini",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q3949436"
+    },
+    {
+     "nombre": "Víctor López",
+     "posicion": "DEF",
+     "edad": 34,
+     "wikidata": "Q478230"
+    },
+    {
+     "nombre": "Eugenio Isnaldo",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q16236219"
+    },
+    {
+     "nombre": "Fabián Muñoz",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q16942071"
+    },
+    {
+     "nombre": "Horacio Orzán",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q15401624"
+    },
+    {
+     "nombre": "Ignacio Scocco",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q1709911"
+    },
+    {
+     "nombre": "Juan Vieyra",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q23827028"
+    },
+    {
+     "nombre": "Lorenzo Faravelli",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q6680705"
+    },
+    {
+     "nombre": "Lucas Bernardi",
+     "posicion": "MED",
+     "edad": 35,
+     "wikidata": "Q735996"
+    },
+    {
+     "nombre": "Martín Tonso",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q6002909"
+    },
+    {
+     "nombre": "Maxi Rodríguez",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q190929"
+    },
+    {
+     "nombre": "Néstor Camacho",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q37231"
+    },
+    {
+     "nombre": "Rinaldo Cruzado",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q722797"
+    },
+    {
+     "nombre": "Damián Manso",
+     "posicion": "DEL",
+     "edad": 34,
+     "wikidata": "Q736416"
+    },
+    {
+     "nombre": "David Trezeguet",
+     "posicion": "DEL",
+     "edad": 35,
+     "wikidata": "Q183967"
+    },
+    {
+     "nombre": "Ezequiel Ponce",
+     "posicion": "DEL",
+     "edad": 16,
+     "wikidata": "Q16554916"
+    },
+    {
+     "nombre": "Francisco Fydriszewski",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q19957831"
+    },
+    {
+     "nombre": "Mauricio Sperduti",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q1996474"
+    },
+    {
+     "nombre": "Maximiliano Urruti",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q3853122"
+    },
+    {
+     "nombre": "Víctor Aquino",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q7944586"
+    },
+    {
+     "nombre": "Víctor Figueroa",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q1830876"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético River Plate",
+   "wikidata": "Q15799",
+   "temporadas": [
+    "Campeonato de Primera División 2012/13",
+    "Campeonato de Primera División 2013/14 (Argentina)"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 51,
+   "jugadores": [
+    {
+     "nombre": "Leandro Chichizola",
+     "posicion": "POR",
+     "edad": 23,
+     "wikidata": "Q6509619"
+    },
+    {
+     "nombre": "Adalberto Román",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q2001963"
+    },
+    {
+     "nombre": "Carlos Arano",
+     "posicion": "DEF",
+     "edad": 33,
+     "wikidata": "Q2444140"
+    },
+    {
+     "nombre": "Diego Martínez",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q5806352",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Emanuel Mammana",
+     "posicion": "DEF",
+     "edad": 17,
+     "wikidata": "Q15640723"
+    },
+    {
+     "nombre": "Esteban Espíndola",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q5849050"
+    },
+    {
+     "nombre": "Federico Vega",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q5857897"
+    },
+    {
+     "nombre": "Gabriel Mercado",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q1372491"
+    },
+    {
+     "nombre": "Germán Pezzella",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q3761173"
+    },
+    {
+     "nombre": "Jonathan Bottinelli",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q1703104"
+    },
+    {
+     "nombre": "Jonathan Maidana",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q2287577"
+    },
+    {
+     "nombre": "Leandro González Pirez",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q3829241"
+    },
+    {
+     "nombre": "Luciano Abecasis",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q3838526"
+    },
+    {
+     "nombre": "Ramiro Damian Funes Mori",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q401554"
+    },
+    {
+     "nombre": "Sergio Bica",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q16297820"
+    },
+    {
+     "nombre": "Éder Fabián Álvarez Balanta",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q6174184"
+    },
+    {
+     "nombre": "Ariel Rojas",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q2053756"
+    },
+    {
+     "nombre": "Augusto Solari",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q5711754"
+    },
+    {
+     "nombre": "Carlos Andrés Sánchez",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q5041766"
+    },
+    {
+     "nombre": "Carlos Carbonero",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q2080157"
+    },
+    {
+     "nombre": "Cristian Ledesma",
+     "posicion": "MED",
+     "edad": 34,
+     "wikidata": "Q983677"
+    },
+    {
+     "nombre": "Emiliano Agüero",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q19828276"
+    },
+    {
+     "nombre": "Ezequiel Cirigliano",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q2629147"
+    },
+    {
+     "nombre": "Facundo Affranchino",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q3738268"
+    },
+    {
+     "nombre": "Iván Díaz",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q4501739"
+    },
+    {
+     "nombre": "Jonathan Fabbro",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q3501096"
+    },
+    {
+     "nombre": "Juan Manuel Iturbe",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q968361"
+    },
+    {
+     "nombre": "Manuel Lanzini",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q1524928"
+    },
+    {
+     "nombre": "Martín Sebastián Aguirre",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q6777757"
+    },
+    {
+     "nombre": "Matías Kranevitter",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q3559484"
+    },
+    {
+     "nombre": "Mauro Díaz",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q2061078"
+    },
+    {
+     "nombre": "Osmar Ferreyra",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q1924942"
+    },
+    {
+     "nombre": "Tomás Martínez",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q6148569"
+    },
+    {
+     "nombre": "Walter Acevedo",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q2592217"
+    },
+    {
+     "nombre": "Andrés Lorenzo Ríos",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q976602"
+    },
+    {
+     "nombre": "Carlos Luna",
+     "posicion": "DEL",
+     "edad": 31,
+     "wikidata": "Q765888"
+    },
+    {
+     "nombre": "Daniel Alberto Villalva",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q949572"
+    },
+    {
+     "nombre": "David Trezeguet",
+     "posicion": "DEL",
+     "edad": 35,
+     "wikidata": "Q183967"
+    },
+    {
+     "nombre": "Federico Andrada",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q5857497"
+    },
+    {
+     "nombre": "Giovanni Simeone",
+     "posicion": "DEL",
+     "edad": 17,
+     "wikidata": "Q6439494"
+    },
+    {
+     "nombre": "Gustavo Bou",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q3779935"
+    },
+    {
+     "nombre": "Gustavo Fernández",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q3779965"
+    },
+    {
+     "nombre": "Juan Carlos Lescano",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q6299301"
+    },
+    {
+     "nombre": "Juan Carlos Menseguez",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q707048"
+    },
+    {
+     "nombre": "Juan Cruz Kaprof",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q14831174"
+    },
+    {
+     "nombre": "Lucas Melano",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q3560220"
+    },
+    {
+     "nombre": "Luis Vila",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q5984454"
+    },
+    {
+     "nombre": "Rodrigo Mora",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q965316"
+    },
+    {
+     "nombre": "Rogelio Gabriel Funes Mori",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q594121"
+    },
+    {
+     "nombre": "Sebastián Driussi",
+     "posicion": "DEL",
+     "edad": 17,
+     "wikidata": "Q11640549"
+    },
+    {
+     "nombre": "Teófilo Gutiérrez",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q369056"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Rosario Central",
+   "wikidata": "Q318307",
+   "temporadas": [
+    "Campeonato de Primera División 2013/14 (Argentina)"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 39,
+   "jugadores": [
+    {
+     "nombre": "Gastón Pezzuti",
+     "posicion": "POR",
+     "edad": 37,
+     "wikidata": "Q5526909"
+    },
+    {
+     "nombre": "Jeremías Ledesma",
+     "posicion": "POR",
+     "edad": 20,
+     "wikidata": "Q16581359"
+    },
+    {
+     "nombre": "Jorge Broun",
+     "posicion": "POR",
+     "edad": 27,
+     "wikidata": "Q6277769"
+    },
+    {
+     "nombre": "Mauricio Caranta",
+     "posicion": "POR",
+     "edad": 34,
+     "wikidata": "Q2539014"
+    },
+    {
+     "nombre": "Alejandro Donatti",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q5664958"
+    },
+    {
+     "nombre": "Carlos Casteglione",
+     "posicion": "DEF",
+     "edad": 33,
+     "wikidata": "Q2429450"
+    },
+    {
+     "nombre": "Elías Gómez",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q20745447"
+    },
+    {
+     "nombre": "Franco Peppino",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q5249526"
+    },
+    {
+     "nombre": "Germán Rivarola",
+     "posicion": "DEF",
+     "edad": 34,
+     "wikidata": "Q5552331"
+    },
+    {
+     "nombre": "Javier Yacuzzi",
+     "posicion": "DEF",
+     "edad": 33,
+     "wikidata": "Q1773571"
+    },
+    {
+     "nombre": "Leonardo Talamonti",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q2629863"
+    },
+    {
+     "nombre": "Lisandro Magallán",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q2913439"
+    },
+    {
+     "nombre": "Nahuel Valentini",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q6037529"
+    },
+    {
+     "nombre": "Rafael Delgado",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q6097215"
+    },
+    {
+     "nombre": "Tomás Berra",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q16640815"
+    },
+    {
+     "nombre": "Yéimar Gómez",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q16648772"
+    },
+    {
+     "nombre": "Alejandro Gagliardi",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q16300526"
+    },
+    {
+     "nombre": "Diego Lagos",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q1628103"
+    },
+    {
+     "nombre": "Eduardo Ledesma",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q584709"
+    },
+    {
+     "nombre": "Federico Carrizo",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q5857546"
+    },
+    {
+     "nombre": "Hernán Encina",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q5742419"
+    },
+    {
+     "nombre": "Jesús Méndez",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q725080"
+    },
+    {
+     "nombre": "Julio Mozzo",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q9016531"
+    },
+    {
+     "nombre": "Martín Rivero",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q3850355"
+    },
+    {
+     "nombre": "Matías Ballini",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q6006573"
+    },
+    {
+     "nombre": "Nery Domínguez",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q6041064"
+    },
+    {
+     "nombre": "Nicolás Freitas",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q2006157"
+    },
+    {
+     "nombre": "Pol Fernández",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q6544894"
+    },
+    {
+     "nombre": "Antonio César Medina",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q5698127"
+    },
+    {
+     "nombre": "Carlos Luna",
+     "posicion": "DEL",
+     "edad": 31,
+     "wikidata": "Q765888"
+    },
+    {
+     "nombre": "Fernando Coniglio",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q5859411"
+    },
+    {
+     "nombre": "Franco Niell",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q2722851"
+    },
+    {
+     "nombre": "Gonzalo Castillejos",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q5582183"
+    },
+    {
+     "nombre": "Héctor Bracamonte",
+     "posicion": "DEL",
+     "edad": 35,
+     "wikidata": "Q578163"
+    },
+    {
+     "nombre": "Javier Toledo",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q2016902"
+    },
+    {
+     "nombre": "Néstor Bareiro",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q7071458"
+    },
+    {
+     "nombre": "Ramiro Costa",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q6099196"
+    },
+    {
+     "nombre": "Sebastián Abreu",
+     "posicion": "DEL",
+     "edad": 36,
+     "wikidata": "Q132056"
+    },
+    {
+     "nombre": "Walter Acuña",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q17632882"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético San Martín (San Juan)",
+   "wikidata": "Q80921",
+   "temporadas": [
+    "Campeonato de Primera División 2012/13"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 28,
+   "jugadores": [
+    {
+     "nombre": "Cristian Osvaldo Álvarez",
+     "posicion": "DEF",
+     "edad": 35,
+     "wikidata": "Q3823407"
+    },
+    {
+     "nombre": "Deivis Barone",
+     "posicion": "DEF",
+     "edad": 33,
+     "wikidata": "Q5252618"
+    },
+    {
+     "nombre": "Diego Roberto Sosa",
+     "posicion": "DEF",
+     "edad": 33,
+     "wikidata": "Q5274822"
+    },
+    {
+     "nombre": "Emmanuel Mas",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q3723830"
+    },
+    {
+     "nombre": "Francisco Alarcón",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q5483079"
+    },
+    {
+     "nombre": "Hugo Germán Iriarte",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q5934061"
+    },
+    {
+     "nombre": "Lucas Kruspzky",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q6696198"
+    },
+    {
+     "nombre": "Lucas Landa",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q588855"
+    },
+    {
+     "nombre": "Marcos Galarza",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q6757855"
+    },
+    {
+     "nombre": "Maximiliano Oliva",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q3853119"
+    },
+    {
+     "nombre": "Santiago Hoyos",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q2346151"
+    },
+    {
+     "nombre": "Damián Ledesma",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q5212630"
+    },
+    {
+     "nombre": "Facundo Affranchino",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q3738268"
+    },
+    {
+     "nombre": "Federico Poggi",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q5441049"
+    },
+    {
+     "nombre": "Franco Quiroga",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q5484600"
+    },
+    {
+     "nombre": "Jorge Iván Pérez",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q9012818"
+    },
+    {
+     "nombre": "Jorge Luna",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q5935507"
+    },
+    {
+     "nombre": "Leandro González",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q937909"
+    },
+    {
+     "nombre": "Leandro Velázquez",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q6509766"
+    },
+    {
+     "nombre": "Luis Bolaños",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q589843"
+    },
+    {
+     "nombre": "Nicolás Martínez",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q6679195"
+    },
+    {
+     "nombre": "Reinaldo Alderete",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q7310245"
+    },
+    {
+     "nombre": "Claudio Riaño",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q5772099"
+    },
+    {
+     "nombre": "Diego Martiñones",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q5274740"
+    },
+    {
+     "nombre": "Gastón Caprari",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q5876167"
+    },
+    {
+     "nombre": "Humberto Osorio Botello",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q3787591"
+    },
+    {
+     "nombre": "José Vizcarra",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q3810598"
+    },
+    {
+     "nombre": "Sebastián Penco",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q7442666"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Tigre",
+   "wikidata": "Q80886",
+   "temporadas": [
+    "Campeonato de Primera División 2012/13",
+    "Campeonato de Primera División 2013/14 (Argentina)"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 38,
+   "jugadores": [
+    {
+     "nombre": "Agustín Cousillas",
+     "posicion": "POR",
+     "edad": 23,
+     "wikidata": "Q5660586"
+    },
+    {
+     "nombre": "Damián Albil",
+     "posicion": "POR",
+     "edad": 33,
+     "wikidata": "Q1749222",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Nicolás Navarro",
+     "posicion": "POR",
+     "edad": 28,
+     "wikidata": "Q713220"
+    },
+    {
+     "nombre": "Alejandro Donatti",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q5664958"
+    },
+    {
+     "nombre": "Ignacio Fideleff",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q2534210"
+    },
+    {
+     "nombre": "Javier Malagueño",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q2451331"
+    },
+    {
+     "nombre": "Juan Alvacete",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q9015137"
+    },
+    {
+     "nombre": "Lucas Orbán",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q3838363"
+    },
+    {
+     "nombre": "Norberto Paparatto",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q7050417"
+    },
+    {
+     "nombre": "Pablo Pintos",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q2045253"
+    },
+    {
+     "nombre": "Diego Castaño",
+     "posicion": "MED",
+     "edad": 34,
+     "wikidata": "Q5274604"
+    },
+    {
+     "nombre": "Diego Ferreira",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q5806114"
+    },
+    {
+     "nombre": "Emiliano Ellacopulos",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q16492599"
+    },
+    {
+     "nombre": "Emmanuel Pío",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q3724694"
+    },
+    {
+     "nombre": "Facundo Sánchez",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q5855242"
+    },
+    {
+     "nombre": "Gabriel Peñalba",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q1818318"
+    },
+    {
+     "nombre": "Guillermo Cosaro",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q5888457"
+    },
+    {
+     "nombre": "Joaquín Arzura",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q16581700"
+    },
+    {
+     "nombre": "Lucas Wilchez",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q27508",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Marcos Gelabert",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q673177"
+    },
+    {
+     "nombre": "Martín Galmarini",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q3850345"
+    },
+    {
+     "nombre": "Matías Escobar",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q676138"
+    },
+    {
+     "nombre": "Pablo Vitti",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q1332928"
+    },
+    {
+     "nombre": "Ramiro Leone",
+     "posicion": "MED",
+     "edad": 36,
+     "wikidata": "Q6099220"
+    },
+    {
+     "nombre": "Rubén Botta",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q6396836"
+    },
+    {
+     "nombre": "Sebastián Rusculleda",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q7442679"
+    },
+    {
+     "nombre": "Ángel Gastón Díaz",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q2032401"
+    },
+    {
+     "nombre": "Agustín Torassa",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q352631"
+    },
+    {
+     "nombre": "Cristian Bordacahar",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q57150126"
+    },
+    {
+     "nombre": "Ezequiel Maggiolo",
+     "posicion": "DEL",
+     "edad": 36,
+     "wikidata": "Q580207"
+    },
+    {
+     "nombre": "Federico Santander",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q2448058"
+    },
+    {
+     "nombre": "José Sand",
+     "posicion": "DEL",
+     "edad": 32,
+     "wikidata": "Q517074"
+    },
+    {
+     "nombre": "Leandro Garate",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q20056549"
+    },
+    {
+     "nombre": "Leandro Leguizamón",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q5972246"
+    },
+    {
+     "nombre": "Leonel Altobelli",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q6526215"
+    },
+    {
+     "nombre": "Lucas Janson",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q9024628"
+    },
+    {
+     "nombre": "Matías Pérez García",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q2404742"
+    },
+    {
+     "nombre": "Sergio Araujo",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q967138"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Unión",
+   "wikidata": "Q80899",
+   "temporadas": [
+    "Campeonato de Primera División 2012/13"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 25,
+   "jugadores": [
+    {
+     "nombre": "Alejandro Limia",
+     "posicion": "POR",
+     "edad": 37,
+     "wikidata": "Q3823461"
+    },
+    {
+     "nombre": "Daniel Islas",
+     "posicion": "POR",
+     "edad": 34,
+     "wikidata": "Q616555"
+    },
+    {
+     "nombre": "Matías Castro",
+     "posicion": "POR",
+     "edad": 25,
+     "wikidata": "Q10327513"
+    },
+    {
+     "nombre": "Bruno Bianchi",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q610695"
+    },
+    {
+     "nombre": "Danilo Gerlo",
+     "posicion": "DEF",
+     "edad": 34,
+     "wikidata": "Q1410597"
+    },
+    {
+     "nombre": "Diego Barisone",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q5805912",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Juan Pablo Avendaño",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q3187751"
+    },
+    {
+     "nombre": "Leonardo Sánchez",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q5973225"
+    },
+    {
+     "nombre": "Luciano Vella",
+     "posicion": "DEF",
+     "edad": 32,
+     "wikidata": "Q3822816"
+    },
+    {
+     "nombre": "Nicolás Correa",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q7030349"
+    },
+    {
+     "nombre": "Brahian Alemán",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q3643556"
+    },
+    {
+     "nombre": "Damián Lizio",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q448037"
+    },
+    {
+     "nombre": "Fausto Montero",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q5856847"
+    },
+    {
+     "nombre": "Guillermo Cosaro",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q5888457"
+    },
+    {
+     "nombre": "Juan Gabriel Rivas",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q5800293"
+    },
+    {
+     "nombre": "Juan Ignacio Cavallaro",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q5950004"
+    },
+    {
+     "nombre": "Marcelo Sarmiento",
+     "posicion": "MED",
+     "edad": 33,
+     "wikidata": "Q6756632"
+    },
+    {
+     "nombre": "Matías Donnet",
+     "posicion": "MED",
+     "edad": 33,
+     "wikidata": "Q2723503"
+    },
+    {
+     "nombre": "Mauricio Martínez",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q15845957"
+    },
+    {
+     "nombre": "Pablo Míguez",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q7121703"
+    },
+    {
+     "nombre": "Víctor Zapata",
+     "posicion": "MED",
+     "edad": 34,
+     "wikidata": "Q2002396"
+    },
+    {
+     "nombre": "Andrés Franzoia",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q4760198"
+    },
+    {
+     "nombre": "Diego Galván",
+     "posicion": "DEL",
+     "edad": 31,
+     "wikidata": "Q5274668"
+    },
+    {
+     "nombre": "Rodrigo Salinas",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q16302605"
+    },
+    {
+     "nombre": "Sebastián Palacios",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q6122965"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Vélez Sarsfield",
+   "wikidata": "Q215163",
+   "temporadas": [
+    "Campeonato de Primera División 2012/13",
+    "Campeonato de Primera División 2013/14 (Argentina)"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 39,
+   "jugadores": [
+    {
+     "nombre": "Germán Montoya",
+     "posicion": "POR",
+     "edad": 30,
+     "wikidata": "Q935831"
+    },
+    {
+     "nombre": "Sebastián Sosa",
+     "posicion": "POR",
+     "edad": 26,
+     "wikidata": "Q971111"
+    },
+    {
+     "nombre": "Emanuel Olivera",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q5369115"
+    },
+    {
+     "nombre": "Emiliano Papa",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q2452571"
+    },
+    {
+     "nombre": "Eric Jerez",
+     "posicion": "DEF",
+     "edad": 18,
+     "wikidata": "Q19847231"
+    },
+    {
+     "nombre": "Facundo Cardozo",
+     "posicion": "DEF",
+     "edad": 18,
+     "wikidata": "Q16230068"
+    },
+    {
+     "nombre": "Fernando Tobio",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q3742974"
+    },
+    {
+     "nombre": "Gastón Díaz",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q2462172"
+    },
+    {
+     "nombre": "Gino Peruzzi",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q218561"
+    },
+    {
+     "nombre": "Héctor Canteros",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q941296"
+    },
+    {
+     "nombre": "Juan Ignacio Sills",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q5950038"
+    },
+    {
+     "nombre": "Juan Sabia",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q6300961"
+    },
+    {
+     "nombre": "Mariano Bíttolo",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q5997616"
+    },
+    {
+     "nombre": "Matías Pérez Acuña",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q19665131"
+    },
+    {
+     "nombre": "Micaela Casasola",
+     "posicion": "DEF",
+     "edad": 16,
+     "wikidata": "Q28812985"
+    },
+    {
+     "nombre": "Sebastián Enrique Domínguez",
+     "posicion": "DEF",
+     "edad": 32,
+     "wikidata": "Q2296852"
+    },
+    {
+     "nombre": "Agustín Allione",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q3330099"
+    },
+    {
+     "nombre": "Alejandro Cabral",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q2546973"
+    },
+    {
+     "nombre": "Brian Ferreira",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q4963738"
+    },
+    {
+     "nombre": "Federico Freire",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q5440999"
+    },
+    {
+     "nombre": "Federico Insúa",
+     "posicion": "MED",
+     "edad": 33,
+     "wikidata": "Q706240"
+    },
+    {
+     "nombre": "Fernando Gago",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q187426"
+    },
+    {
+     "nombre": "Francisco Javier Cerro",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q3750980"
+    },
+    {
+     "nombre": "Franco Razzotti",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q3751544"
+    },
+    {
+     "nombre": "Iván Bella",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q3804957",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Jonathan Copete",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q6272816"
+    },
+    {
+     "nombre": "Leandro Velázquez",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q6509766"
+    },
+    {
+     "nombre": "Leonardo Rolón",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q18719920"
+    },
+    {
+     "nombre": "Leonardo Villalba",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q16572018"
+    },
+    {
+     "nombre": "Lucas Romero",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q3538173"
+    },
+    {
+     "nombre": "Yamil Asad",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q19281609"
+    },
+    {
+     "nombre": "Agustín Vuletich",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q3606944"
+    },
+    {
+     "nombre": "Ezequiel Rescaldani",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q3736342"
+    },
+    {
+     "nombre": "Facundo Ferreyra",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q1257196"
+    },
+    {
+     "nombre": "Jairo Vélez",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q11183757"
+    },
+    {
+     "nombre": "Lucas Pratto",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q1845684"
+    },
+    {
+     "nombre": "Mauro Zárate",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q80132"
+    },
+    {
+     "nombre": "Maximiliano Giusti",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q6795766"
+    },
+    {
+     "nombre": "Ramiro Cáseres",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q7289609"
+    }
+   ]
+  },
+  {
+   "club": "Club Deportivo Godoy Cruz Antonio Tomba",
+   "wikidata": "Q80882",
+   "temporadas": [
+    "Campeonato de Primera División 2012/13",
+    "Campeonato de Primera División 2013/14 (Argentina)"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 32,
+   "jugadores": [
+    {
+     "nombre": "Jorge Carranza",
+     "posicion": "POR",
+     "edad": 32,
+     "wikidata": "Q5934711"
+    },
+    {
+     "nombre": "Nelson Ibáñez",
+     "posicion": "POR",
+     "edad": 31,
+     "wikidata": "Q6990575"
+    },
+    {
+     "nombre": "Sebastián Torrico",
+     "posicion": "POR",
+     "edad": 33,
+     "wikidata": "Q3476914"
+    },
+    {
+     "nombre": "Emanuel Insúa",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q5830311"
+    },
+    {
+     "nombre": "Gonzalo Castellani",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q3773320"
+    },
+    {
+     "nombre": "Jorge Curbelo",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q481272"
+    },
+    {
+     "nombre": "José San Román",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q5945376"
+    },
+    {
+     "nombre": "Leandro Grimi",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q372534"
+    },
+    {
+     "nombre": "Leonardo Sigali",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q3830453"
+    },
+    {
+     "nombre": "Nicolás Sánchez",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q2303530"
+    },
+    {
+     "nombre": "Washington Camacho",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q7971709"
+    },
+    {
+     "nombre": "Alexis Castro",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q4721422"
+    },
+    {
+     "nombre": "Armando Cooper",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q2053749"
+    },
+    {
+     "nombre": "Claudio Aquino",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q5129320"
+    },
+    {
+     "nombre": "David Ramírez",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q5238899"
+    },
+    {
+     "nombre": "Diego Martín Rodríguez Berrini",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q2616111"
+    },
+    {
+     "nombre": "Eduardo Ledesma",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q584709"
+    },
+    {
+     "nombre": "Facundo Castillón",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q2882012"
+    },
+    {
+     "nombre": "Federico Léntora",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q5857709"
+    },
+    {
+     "nombre": "Fernando Zuqui",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q16555736"
+    },
+    {
+     "nombre": "Gonzalo Cabrera",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q5582177"
+    },
+    {
+     "nombre": "Jonathan Ramis",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q5796886"
+    },
+    {
+     "nombre": "José Luis Fernández",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q2461836"
+    },
+    {
+     "nombre": "Leonel Ríos",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q1081935",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Luis Jerez Silva",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q17620540"
+    },
+    {
+     "nombre": "Ciro Rius",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q5121947"
+    },
+    {
+     "nombre": "Cristian Andrés García",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q5186193"
+    },
+    {
+     "nombre": "Diego Sevillano",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q5806605"
+    },
+    {
+     "nombre": "Jesús Vera",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q6188690"
+    },
+    {
+     "nombre": "Jorge Córdoba",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q2065359"
+    },
+    {
+     "nombre": "Mauro Óbolo",
+     "posicion": "DEL",
+     "edad": 31,
+     "wikidata": "Q1380941"
+    },
+    {
+     "nombre": "Rodrigo Salinas",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q16302605"
+    }
+   ]
+  },
+  {
+   "club": "Club Estudiantes de La Plata",
+   "wikidata": "Q214940",
+   "temporadas": [
+    "Campeonato de Primera División 2012/13",
+    "Campeonato de Primera División 2013/14 (Argentina)"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 40,
+   "jugadores": [
+    {
+     "nombre": "Gerónimo Rulli",
+     "posicion": "POR",
+     "edad": 21,
+     "wikidata": "Q5879014"
+    },
+    {
+     "nombre": "Dylan Gissi",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q5318718"
+    },
+    {
+     "nombre": "Ernesto Goñi",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q5394183"
+    },
+    {
+     "nombre": "Germán Mariano Ré Fernández",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q2504924"
+    },
+    {
+     "nombre": "Israel Damonte",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q6086898"
+    },
+    {
+     "nombre": "Jonathan Silva",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q5934066"
+    },
+    {
+     "nombre": "Juan Krupoviesa",
+     "posicion": "DEF",
+     "edad": 34,
+     "wikidata": "Q2716390"
+    },
+    {
+     "nombre": "Marcos Angeleri",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q924269"
+    },
+    {
+     "nombre": "Matías Aguirregaray",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q932851"
+    },
+    {
+     "nombre": "Matías Presentado",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q18098768"
+    },
+    {
+     "nombre": "Matías Sarulyte",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q3852364"
+    },
+    {
+     "nombre": "Nelson Benítez",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q2552361"
+    },
+    {
+     "nombre": "Pablo Rosales",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q19985110"
+    },
+    {
+     "nombre": "Raúl Iberbia",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q5645849"
+    },
+    {
+     "nombre": "Santiago Vergini",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q3949436"
+    },
+    {
+     "nombre": "Sergio Modón",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q16601758"
+    },
+    {
+     "nombre": "Alessio Innocenti",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q5665933"
+    },
+    {
+     "nombre": "Carlos Carbonero",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q2080157"
+    },
+    {
+     "nombre": "Gastón Fernández",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q2564747"
+    },
+    {
+     "nombre": "Gastón Gil Romero",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q15155973"
+    },
+    {
+     "nombre": "Jorge Luna",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q5935507"
+    },
+    {
+     "nombre": "José David Leudo",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q5939180",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Juan Sebastián Verón",
+     "posicion": "MED",
+     "edad": 38,
+     "wikidata": "Q46502"
+    },
+    {
+     "nombre": "Kevin Hoyos",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q15261275"
+    },
+    {
+     "nombre": "Leandro Benítez",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q2064039"
+    },
+    {
+     "nombre": "Marcos Gelabert",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q673177"
+    },
+    {
+     "nombre": "Mariano González",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q379414"
+    },
+    {
+     "nombre": "Matías Sánchez",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q2546356"
+    },
+    {
+     "nombre": "Maximiliano Núñez",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q4328024"
+    },
+    {
+     "nombre": "Michael Hoyos",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q1992431"
+    },
+    {
+     "nombre": "Patricio Julián Rodríguez",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q2610142"
+    },
+    {
+     "nombre": "Rodrigo Braña",
+     "posicion": "MED",
+     "edad": 34,
+     "wikidata": "Q2704899"
+    },
+    {
+     "nombre": "Román Martínez",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q2322099"
+    },
+    {
+     "nombre": "uhalde jara",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q6526012"
+    },
+    {
+     "nombre": "Diego Mendoza",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q17477991",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Duván Zapatillas",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q577481"
+    },
+    {
+     "nombre": "Franco Jara",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q654690"
+    },
+    {
+     "nombre": "Guido Carrillo",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q3779221"
+    },
+    {
+     "nombre": "Joaquín Correa",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q17477978"
+    },
+    {
+     "nombre": "Mauricio Carrasco",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q6006900"
+    }
+   ]
+  },
+  {
+   "club": "Club Olimpo",
+   "wikidata": "Q1074980",
+   "temporadas": [
+    "Campeonato de Primera División 2013/14 (Argentina)"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 30,
+   "jugadores": [
+    {
+     "nombre": "Matías Ibáñez",
+     "posicion": "POR",
+     "edad": 26,
+     "wikidata": "Q16231328"
+    },
+    {
+     "nombre": "Nereo Champagne",
+     "posicion": "POR",
+     "edad": 28,
+     "wikidata": "Q2059054"
+    },
+    {
+     "nombre": "Adrián Martínez",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q4685785"
+    },
+    {
+     "nombre": "Cristian Trombetta",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q5186271"
+    },
+    {
+     "nombre": "Dylan Gissi",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q5318718"
+    },
+    {
+     "nombre": "Emmanuel Martínez",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q5373286"
+    },
+    {
+     "nombre": "Fernando Meza",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q5444832"
+    },
+    {
+     "nombre": "Gonzalo Sebastián García",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q1469935"
+    },
+    {
+     "nombre": "Grenddy Perozo",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q2705563"
+    },
+    {
+     "nombre": "Iván Furios",
+     "posicion": "DEF",
+     "edad": 34,
+     "wikidata": "Q2895202"
+    },
+    {
+     "nombre": "Matías Sarulyte",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q3852364"
+    },
+    {
+     "nombre": "Matías Villavicencio",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q6792134"
+    },
+    {
+     "nombre": "Rodrigo Canosa",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q18221571"
+    },
+    {
+     "nombre": "Carlos Recalde",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q5042540"
+    },
+    {
+     "nombre": "Damián Musto",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q3701299"
+    },
+    {
+     "nombre": "Javier Reina",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q486955"
+    },
+    {
+     "nombre": "Juan Mauri",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q20671839"
+    },
+    {
+     "nombre": "Leandro González",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q937909"
+    },
+    {
+     "nombre": "Leonardo Gil",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q19985285"
+    },
+    {
+     "nombre": "Maximiliano Laso",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q6007497"
+    },
+    {
+     "nombre": "Orlando Gaona Lugo",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q923326"
+    },
+    {
+     "nombre": "Paulo Rosales",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q10346803"
+    },
+    {
+     "nombre": "Agustín Vuletich",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q3606944"
+    },
+    {
+     "nombre": "Ezequiel Cerutti",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q5853761"
+    },
+    {
+     "nombre": "Gustavo Bou",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q3779935"
+    },
+    {
+     "nombre": "Gustavo Oberman",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q751438"
+    },
+    {
+     "nombre": "Juan Sánchez Sotelo",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q5677833"
+    },
+    {
+     "nombre": "Marcos Riquelme",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q17404117"
+    },
+    {
+     "nombre": "Nahuel Benítez",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q3869948"
+    },
+    {
+     "nombre": "Pablo Lugüercio",
+     "posicion": "DEL",
+     "edad": 31,
+     "wikidata": "Q3888385"
+    }
+   ]
+  },
+  {
+   "club": "Club de Gimnasia y Esgrima La Plata",
+   "wikidata": "Q18640",
+   "temporadas": [
+    "Campeonato de Primera División 2013/14 (Argentina)"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 29,
+   "jugadores": [
+    {
+     "nombre": "Fernando Monetti",
+     "posicion": "POR",
+     "edad": 24,
+     "wikidata": "Q5859939"
+    },
+    {
+     "nombre": "Pablo Bangardino",
+     "posicion": "POR",
+     "edad": 28,
+     "wikidata": "Q974768"
+    },
+    {
+     "nombre": "Cristian Piarrou",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q5186243"
+    },
+    {
+     "nombre": "Gastón Díaz",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q2462172"
+    },
+    {
+     "nombre": "Germán Basualdo",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q5552274"
+    },
+    {
+     "nombre": "Juan Carlos Blengio",
+     "posicion": "DEF",
+     "edad": 33,
+     "wikidata": "Q10419524"
+    },
+    {
+     "nombre": "Leandro Corulo",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q28223551"
+    },
+    {
+     "nombre": "Maximiliano Coronel",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q2917664"
+    },
+    {
+     "nombre": "Osvaldo Barsottini",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q7108042"
+    },
+    {
+     "nombre": "Alejandro Capurro",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q374685"
+    },
+    {
+     "nombre": "Edgardo Díaz",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q5337573"
+    },
+    {
+     "nombre": "Facundo Pereyra",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q2083791"
+    },
+    {
+     "nombre": "Franco Mussis",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q5868392"
+    },
+    {
+     "nombre": "Gonzalo Choy González",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q5582186"
+    },
+    {
+     "nombre": "Ignacio Fernández",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q6447402"
+    },
+    {
+     "nombre": "Javier Mendoza",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q21236272"
+    },
+    {
+     "nombre": "Jonathan Chaves",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q9012567"
+    },
+    {
+     "nombre": "Juan Neira",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q2268135"
+    },
+    {
+     "nombre": "Juan Pablo Rodríguez Conde",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q6300707"
+    },
+    {
+     "nombre": "Maximiliano Eduardo Meza",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q16605653"
+    },
+    {
+     "nombre": "Nicolás Alejandro Cabrera",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q4206744"
+    },
+    {
+     "nombre": "Federico Rasic",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q5857818"
+    },
+    {
+     "nombre": "Franco Niell",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q2722851"
+    },
+    {
+     "nombre": "Héctor Acuña",
+     "posicion": "DEL",
+     "edad": 31,
+     "wikidata": "Q5963700"
+    },
+    {
+     "nombre": "Iván Borghello",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q5923393"
+    },
+    {
+     "nombre": "José Erick Correa",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q6292135"
+    },
+    {
+     "nombre": "Matías Alejandro Quiroga",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q6792082"
+    },
+    {
+     "nombre": "Walter Mazzolatti",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q6166241"
+    },
+    {
+     "nombre": "Erika Mercado",
+     "posicion": null,
+     "edad": 21,
+     "wikidata": "Q46998355"
+    }
+   ]
+  },
+  {
+   "club": "Q170703",
+   "wikidata": "Q170703",
+   "temporadas": [
+    "Campeonato de Primera División 2012/13",
+    "Campeonato de Primera División 2013/14 (Argentina)"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Q218282",
+   "wikidata": "Q218282",
+   "temporadas": [
+    "Campeonato de Primera División 2012/13",
+    "Campeonato de Primera División 2013/14 (Argentina)"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Q476836",
+   "wikidata": "Q476836",
+   "temporadas": [
+    "Campeonato de Primera División 2012/13",
+    "Campeonato de Primera División 2013/14 (Argentina)"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Q59839",
+   "wikidata": "Q59839",
+   "temporadas": [
+    "Campeonato de Primera División 2012/13",
+    "Campeonato de Primera División 2013/14 (Argentina)"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Q59962",
+   "wikidata": "Q59962",
+   "temporadas": [
+    "Campeonato de Primera División 2012/13",
+    "Campeonato de Primera División 2013/14 (Argentina)"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Q646088",
+   "wikidata": "Q646088",
+   "temporadas": [
+    "Campeonato de Primera División 2012/13",
+    "Campeonato de Primera División 2013/14 (Argentina)"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Quilmes Atlético Club",
+   "wikidata": "Q775966",
+   "temporadas": [
+    "Campeonato de Primera División 2012/13",
+    "Campeonato de Primera División 2013/14 (Argentina)"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 29,
+   "jugadores": [
+    {
+     "nombre": "Emanuel Trípodi",
+     "posicion": "POR",
+     "edad": 32,
+     "wikidata": "Q5830329"
+    },
+    {
+     "nombre": "Sebastián Peratta",
+     "posicion": "POR",
+     "edad": 36,
+     "wikidata": "Q2835191"
+    },
+    {
+     "nombre": "Walter Daniel Benítez",
+     "posicion": "POR",
+     "edad": 20,
+     "wikidata": "Q17064018"
+    },
+    {
+     "nombre": "Alejandro Cabral (futbolista argentino)",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q36368962"
+    },
+    {
+     "nombre": "Cristian Lema",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q5186215"
+    },
+    {
+     "nombre": "Ernesto Goñi",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q5394183"
+    },
+    {
+     "nombre": "Ismael Quílez",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q3802584"
+    },
+    {
+     "nombre": "Joel Carli",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q5932737"
+    },
+    {
+     "nombre": "Lucas Suárez",
+     "posicion": "DEF",
+     "edad": 18,
+     "wikidata": "Q19863023"
+    },
+    {
+     "nombre": "Luciano Abecasis",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q3838526"
+    },
+    {
+     "nombre": "Matías Pérez Laborda",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q5651769"
+    },
+    {
+     "nombre": "Pablo Lima",
+     "posicion": "DEF",
+     "edad": 32,
+     "wikidata": "Q2623093"
+    },
+    {
+     "nombre": "Sebastián Martínez Aguirre",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q5396669"
+    },
+    {
+     "nombre": "Fernando Elizari",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q16303284"
+    },
+    {
+     "nombre": "Jacobo Mansilla",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q5924494"
+    },
+    {
+     "nombre": "Leandro Benítez",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q2064039"
+    },
+    {
+     "nombre": "Leandro Javier Díaz",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q11688573"
+    },
+    {
+     "nombre": "Miguel Caneo",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q5556384",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Miguel Pedro López",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q3857270"
+    },
+    {
+     "nombre": "Pablo Garnier",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q5976587"
+    },
+    {
+     "nombre": "Rodrigo Braña",
+     "posicion": "MED",
+     "edad": 34,
+     "wikidata": "Q2704899"
+    },
+    {
+     "nombre": "Cristian Insaurralde",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q5791325"
+    },
+    {
+     "nombre": "Cristian Menéndez",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q5186225"
+    },
+    {
+     "nombre": "Facundo Diz",
+     "posicion": "DEL",
+     "edad": 34,
+     "wikidata": "Q5429106"
+    },
+    {
+     "nombre": "Fernando Telechea",
+     "posicion": "DEL",
+     "edad": 31,
+     "wikidata": "Q5860308"
+    },
+    {
+     "nombre": "Gustavo Oberman",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q751438"
+    },
+    {
+     "nombre": "Joaquín Boghossian",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q1690884"
+    },
+    {
+     "nombre": "Juan Manuel Lucero",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q4300940"
+    },
+    {
+     "nombre": "Martín Cauteruccio",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q955465"
+    }
+   ]
+  },
+  {
+   "club": "Racing Club",
+   "wikidata": "Q276533",
+   "temporadas": [
+    "Campeonato de Primera División 2012/13",
+    "Campeonato de Primera División 2013/14 (Argentina)"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 35,
+   "jugadores": [
+    {
+     "nombre": "Jorge De Olivera",
+     "posicion": "POR",
+     "edad": 30,
+     "wikidata": "Q3810063"
+    },
+    {
+     "nombre": "Nelson Ibáñez",
+     "posicion": "POR",
+     "edad": 31,
+     "wikidata": "Q6990575"
+    },
+    {
+     "nombre": "Sebastián Saja",
+     "posicion": "POR",
+     "edad": 34,
+     "wikidata": "Q672864"
+    },
+    {
+     "nombre": "Braian Lluy",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q4955632"
+    },
+    {
+     "nombre": "Claudio Corvalán",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q5771903"
+    },
+    {
+     "nombre": "Fernando Ortiz",
+     "posicion": "DEF",
+     "edad": 35,
+     "wikidata": "Q933948"
+    },
+    {
+     "nombre": "Gastón Campi",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q5876164"
+    },
+    {
+     "nombre": "Ismael Quílez",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q3802584"
+    },
+    {
+     "nombre": "Iván Pillud",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q2539757"
+    },
+    {
+     "nombre": "Leonardo Migliónico",
+     "posicion": "DEF",
+     "edad": 33,
+     "wikidata": "Q2291169"
+    },
+    {
+     "nombre": "Luis Ibáñez",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q930764"
+    },
+    {
+     "nombre": "Matías Cahais",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q2479350"
+    },
+    {
+     "nombre": "Matías alex",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q1992156"
+    },
+    {
+     "nombre": "Renzo Saravia",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q6105612"
+    },
+    {
+     "nombre": "Rodrigo Espíndola",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q17628854"
+    },
+    {
+     "nombre": "Yonathan Cabral",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q17477938"
+    },
+    {
+     "nombre": "Agustín Pelletieri",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q2304222"
+    },
+    {
+     "nombre": "Bruno Zuculini",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q3645977"
+    },
+    {
+     "nombre": "Diego Villar",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q5274844",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Leonel Pierce",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q60195104"
+    },
+    {
+     "nombre": "Luis Fariña",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q3454171"
+    },
+    {
+     "nombre": "Mario Bolatti",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q312375"
+    },
+    {
+     "nombre": "Mario Ignacio Regueiro",
+     "posicion": "MED",
+     "edad": 34,
+     "wikidata": "Q361439"
+    },
+    {
+     "nombre": "Mauro Camoranesi",
+     "posicion": "MED",
+     "edad": 36,
+     "wikidata": "Q189716"
+    },
+    {
+     "nombre": "Ricardo Centurión",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q585136"
+    },
+    {
+     "nombre": "Rodrigo Battaglia",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q3940027"
+    },
+    {
+     "nombre": "Rodrigo De Paul",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q6110670"
+    },
+    {
+     "nombre": "Gabriel Hauche",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q2304641"
+    },
+    {
+     "nombre": "Javier Cámpora",
+     "posicion": "DEL",
+     "edad": 33,
+     "wikidata": "Q2635650"
+    },
+    {
+     "nombre": "José Sand",
+     "posicion": "DEL",
+     "edad": 32,
+     "wikidata": "Q517074"
+    },
+    {
+     "nombre": "Juan Ignacio Dinenno",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q16323765"
+    },
+    {
+     "nombre": "Luciano Vietto matamoros",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q335026"
+    },
+    {
+     "nombre": "Ricardo Noir",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q2354795"
+    },
+    {
+     "nombre": "Roger Beyker Martínez",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q15130650"
+    },
+    {
+     "nombre": "Valentín Viola",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q630956"
+    }
+   ]
+  }
+ ]
+}

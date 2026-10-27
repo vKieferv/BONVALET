@@ -1,0 +1,919 @@
+{
+ "liga": "Campeonato Brasileiro Série A",
+ "pais": "brasil",
+ "año": 2021,
+ "fuente": "Wikidata (CC0) y Wikipedia; instantánea del 27-oct-2026 (tools/ligas/)",
+ "notas": [
+  "Datos de referencia de uso propio, no para el juego.",
+  "Clubes: los de las temporadas del campeonato que tocan este año calendario (tabla de posiciones de Wikipedia o, si no hay, los clubes más enlazados desde el artículo de la temporada).",
+  "Jugadores: membresías P54 de Wikidata que incluyen el año. Sin fecha de fin cuenta el año en que llegó (o hasta hoy si llegó desde 2023): membresia_estimada. Los planteles pueden estar incompletos; jugadores_encontrados dice cuántos hay.",
+  "posicion: línea estimada desde P413 (POR, DEF, MED, DEL; null si Wikidata no la tiene). edad: al 1 de julio; edad_aproximada si la fecha de nacimiento no tiene día o tiene fechas distintas."
+ ],
+ "equipos": [
+  {
+   "club": "América Futebol Clube",
+   "wikidata": "Q338285",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2021"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Lucas Ribamar",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q24006455"
+    }
+   ]
+  },
+  {
+   "club": "Associação Chapecoense de Futebol",
+   "wikidata": "Q2536715",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2021"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 2,
+   "jugadores": [
+    {
+     "nombre": "João Paulo",
+     "posicion": "POR",
+     "edad": 20,
+     "wikidata": "Q107489243"
+    },
+    {
+     "nombre": "Rafael Santos",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q65030007"
+    }
+   ]
+  },
+  {
+   "club": "Atlético Clube Goianiense",
+   "wikidata": "Q198034",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2020",
+    "Campeonato Brasileño de Fútbol Serie A 2021"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Luan Polli",
+     "posicion": "POR",
+     "edad": 28,
+     "wikidata": "Q19968755"
+    }
+   ]
+  },
+  {
+   "club": "Botafogo de Futebol e Regatas",
+   "wikidata": "Q80958",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2020"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Salomon Kalou",
+     "posicion": "MED",
+     "edad": 35,
+     "wikidata": "Q180462"
+    }
+   ]
+  },
+  {
+   "club": "Ceará Sporting Club",
+   "wikidata": "Q1052219",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2020",
+    "Campeonato Brasileño de Fútbol Serie A 2021"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 3,
+   "jugadores": [
+    {
+     "nombre": "Atila",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q136752770"
+    },
+    {
+     "nombre": "Yony Andrés González Copete",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q19968627"
+    },
+    {
+     "nombre": "João Victor",
+     "posicion": null,
+     "edad": 17,
+     "wikidata": "Q107284347"
+    }
+   ]
+  },
+  {
+   "club": "Club Athletico Paranaense",
+   "wikidata": "Q506832",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2020",
+    "Campeonato Brasileño de Fútbol Serie A 2021"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 2,
+   "jugadores": [
+    {
+     "nombre": "Lucho González",
+     "posicion": "MED",
+     "edad": 40,
+     "wikidata": "Q244894"
+    },
+    {
+     "nombre": "Rômulo José Cardoso da Cruz",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q110970778"
+    }
+   ]
+  },
+  {
+   "club": "Club de Regatas Vasco da Gama",
+   "wikidata": "Q5014111",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2020"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 4,
+   "jugadores": [
+    {
+     "nombre": "Henrique Silva Milagres",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q14757828"
+    },
+    {
+     "nombre": "Leandro Castán",
+     "posicion": "DEF",
+     "edad": 34,
+     "wikidata": "Q1573556"
+    },
+    {
+     "nombre": "Eduardo Feitoza Sampaio",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q59207947"
+    },
+    {
+     "nombre": "JP Galvão",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q116432772"
+    }
+   ]
+  },
+  {
+   "club": "Clube Atlético Mineiro",
+   "wikidata": "Q270995",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2020",
+    "Campeonato Brasileño de Fútbol Serie A 2021"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 7,
+   "jugadores": [
+    {
+     "nombre": "Victor",
+     "posicion": "POR",
+     "edad": 38,
+     "wikidata": "Q563649"
+    },
+    {
+     "nombre": "Eduardo Vargas",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q2268949"
+    },
+    {
+     "nombre": "Jefferson Savarino",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q20735677"
+    },
+    {
+     "nombre": "Diego Costa",
+     "posicion": "DEL",
+     "edad": 32,
+     "wikidata": "Q459707"
+    },
+    {
+     "nombre": "Hulk",
+     "posicion": "DEL",
+     "edad": 34,
+     "wikidata": "Q62786"
+    },
+    {
+     "nombre": "Ricardo Oliveira",
+     "posicion": "DEL",
+     "edad": 41,
+     "wikidata": "Q315079"
+    },
+    {
+     "nombre": "Sávio Moreira de Oliveira",
+     "posicion": "DEL",
+     "edad": 17,
+     "wikidata": "Q99485542"
+    }
+   ]
+  },
+  {
+   "club": "Clube de Regatas do Flamengo",
+   "wikidata": "Q17479",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2020",
+    "Campeonato Brasileño de Fútbol Serie A 2021"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 11,
+   "jugadores": [
+    {
+     "nombre": "Diego Alves",
+     "posicion": "POR",
+     "edad": 36,
+     "wikidata": "Q313082"
+    },
+    {
+     "nombre": "Matheus Cunha Queiroz",
+     "posicion": "POR",
+     "edad": 20,
+     "wikidata": "Q110882015"
+    },
+    {
+     "nombre": "David Luiz",
+     "posicion": "DEF",
+     "edad": 34,
+     "wikidata": "Q193706"
+    },
+    {
+     "nombre": "Filipe Luís",
+     "posicion": "DEF",
+     "edad": 35,
+     "wikidata": "Q350547"
+    },
+    {
+     "nombre": "Gustavo Henrique",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q5621422"
+    },
+    {
+     "nombre": "Mauricio Isla",
+     "posicion": "DEF",
+     "edad": 33,
+     "wikidata": "Q296222"
+    },
+    {
+     "nombre": "Natan Bernardo de Souza",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q99738875"
+    },
+    {
+     "nombre": "Andreas Pereira",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q17619350"
+    },
+    {
+     "nombre": "Richard Ríos",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q117322318"
+    },
+    {
+     "nombre": "Willian Arão",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q2035459",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Gabigol",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q13646572"
+    }
+   ]
+  },
+  {
+   "club": "Coritiba Foot Ball Club",
+   "wikidata": "Q478317",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2020"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 4,
+   "jugadores": [
+    {
+     "nombre": "Thalisson Kelven",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q42153217"
+    },
+    {
+     "nombre": "Rafael da Silva Francisco",
+     "posicion": "MED",
+     "edad": 37,
+     "wikidata": "Q992104"
+    },
+    {
+     "nombre": "Ricardo Oliveira",
+     "posicion": "DEL",
+     "edad": 41,
+     "wikidata": "Q315079"
+    },
+    {
+     "nombre": "Tailson Pinto Gonçalves",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q69949602"
+    }
+   ]
+  },
+  {
+   "club": "Cuiabá Esporte Clube",
+   "wikidata": "Q2945011",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2021"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Esporte Clube Bahia",
+   "wikidata": "Q198032",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2020",
+    "Campeonato Brasileño de Fútbol Serie A 2021"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Hugo Rodallega",
+     "posicion": "DEL",
+     "edad": 35,
+     "wikidata": "Q247485"
+    }
+   ]
+  },
+  {
+   "club": "Esporte Clube Juventude",
+   "wikidata": "Q910453",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2021"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 2,
+   "jugadores": [
+    {
+     "nombre": "Juan Quintero Fletcher",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q16585144"
+    },
+    {
+     "nombre": "Renan Bardini Bressan",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q2752693"
+    }
+   ]
+  },
+  {
+   "club": "Fluminense Football Club",
+   "wikidata": "Q80987",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2020",
+    "Campeonato Brasileño de Fútbol Serie A 2021"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 8,
+   "jugadores": [
+    {
+     "nombre": "Orinho",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q41187064"
+    },
+    {
+     "nombre": "Higor Gabriel",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q84314298"
+    },
+    {
+     "nombre": "Jhon Arias",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q65378670"
+    },
+    {
+     "nombre": "Abel Hernández",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q318456"
+    },
+    {
+     "nombre": "Fred",
+     "posicion": "DEL",
+     "edad": 37,
+     "wikidata": "Q312772"
+    },
+    {
+     "nombre": "Lucas Barcellos",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q84339468"
+    },
+    {
+     "nombre": "Luiz Henrique André Rosa da Silva",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q101764291"
+    },
+    {
+     "nombre": "Raí Lopes de Oliveira",
+     "posicion": null,
+     "edad": 21,
+     "wikidata": "Q125377996"
+    }
+   ]
+  },
+  {
+   "club": "Fortaleza Esporte Clube",
+   "wikidata": "Q188841",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2020",
+    "Campeonato Brasileño de Fútbol Serie A 2021"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Juan Quintero Fletcher",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q16585144"
+    }
+   ]
+  },
+  {
+   "club": "Goiás Esporte Clube",
+   "wikidata": "Q816779",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2020",
+    "Campeonato Brasileño de Fútbol Serie A 2021"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Kevin Quevedo",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q28967513"
+    }
+   ]
+  },
+  {
+   "club": "Grêmio Foot-Ball Porto Alegrense",
+   "wikidata": "Q221695",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2020",
+    "Campeonato Brasileño de Fútbol Serie A 2021"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 4,
+   "jugadores": [
+    {
+     "nombre": "Guilherme Guedes",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q55081316"
+    },
+    {
+     "nombre": "Gustavo Marins",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q118732504"
+    },
+    {
+     "nombre": "Pedro Tonon Geromel",
+     "posicion": "DEF",
+     "edad": 35,
+     "wikidata": "Q266410"
+    },
+    {
+     "nombre": "Douglas Costa",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q391680"
+    }
+   ]
+  },
+  {
+   "club": "Red Bull Bragantino",
+   "wikidata": "Q541744",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2020",
+    "Campeonato Brasileño de Fútbol Serie A 2021"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 5,
+   "jugadores": [
+    {
+     "nombre": "Edimar Curitiba Fraga",
+     "posicion": "DEF",
+     "edad": 35,
+     "wikidata": "Q2080087"
+    },
+    {
+     "nombre": "Natan Bernardo de Souza",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q99738875"
+    },
+    {
+     "nombre": "Cristiano",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q131036322"
+    },
+    {
+     "nombre": "Luis Phelipe",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q64762050"
+    },
+    {
+     "nombre": "Alerrandro Barra Mansa Realino de Souza",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q55081204"
+    }
+   ]
+  },
+  {
+   "club": "Santos Futebol Clube",
+   "wikidata": "Q80955",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2020",
+    "Campeonato Brasileño de Fútbol Serie A 2021"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 5,
+   "jugadores": [
+    {
+     "nombre": "Anderson Ceará",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q59179753"
+    },
+    {
+     "nombre": "Carlos Sánchez",
+     "posicion": "MED",
+     "edad": 36,
+     "wikidata": "Q5041766"
+    },
+    {
+     "nombre": "Kaio Jorge",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q56876908"
+    },
+    {
+     "nombre": "Marcos Leonardo",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q98534760"
+    },
+    {
+     "nombre": "Tailson Pinto Gonçalves",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q69949602"
+    }
+   ]
+  },
+  {
+   "club": "Sociedade Esportiva Palmeiras",
+   "wikidata": "Q80964",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2020",
+    "Campeonato Brasileño de Fútbol Serie A 2021"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 10,
+   "jugadores": [
+    {
+     "nombre": "Felipe Melo",
+     "posicion": "MED",
+     "edad": 38,
+     "wikidata": "Q204450"
+    },
+    {
+     "nombre": "Joaquín Piquerez",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q35066458"
+    },
+    {
+     "nombre": "Jorge Eduardo Recalde",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q15975282"
+    },
+    {
+     "nombre": "Marino Hinestroza",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q106766381"
+    },
+    {
+     "nombre": "Pedro Bicalho",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q96361581"
+    },
+    {
+     "nombre": "Breno Lopes",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q101230488"
+    },
+    {
+     "nombre": "Gabriel Veron",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q75059692"
+    },
+    {
+     "nombre": "Luiz Adriano",
+     "posicion": "DEL",
+     "edad": 34,
+     "wikidata": "Q72904"
+    },
+    {
+     "nombre": "Miguel Borja",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q4094820"
+    },
+    {
+     "nombre": "Pedro Acácio",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q138635570"
+    }
+   ]
+  },
+  {
+   "club": "Sport Club Corinthians Paulista",
+   "wikidata": "Q35933",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2020",
+    "Campeonato Brasileño de Fútbol Serie A 2021"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 5,
+   "jugadores": [
+    {
+     "nombre": "Fabrício Oya",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q61000860"
+    },
+    {
+     "nombre": "Giuliano",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q713886"
+    },
+    {
+     "nombre": "Renato Augusto",
+     "posicion": "MED",
+     "edad": 33,
+     "wikidata": "Q357844"
+    },
+    {
+     "nombre": "Willian Borges da Silva",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q73480"
+    },
+    {
+     "nombre": "Jô",
+     "posicion": "DEL",
+     "edad": 34,
+     "wikidata": "Q314099"
+    }
+   ]
+  },
+  {
+   "club": "Sport Club Internacional",
+   "wikidata": "Q80845",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2020",
+    "Campeonato Brasileño de Fútbol Serie A 2021"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 5,
+   "jugadores": [
+    {
+     "nombre": "Gabriel Mercado",
+     "posicion": "DEF",
+     "edad": 34,
+     "wikidata": "Q1372491"
+    },
+    {
+     "nombre": "Edenilson",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q1707749"
+    },
+    {
+     "nombre": "Abel Hernández",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q318456"
+    },
+    {
+     "nombre": "Paolo Guerrero",
+     "posicion": "DEL",
+     "edad": 37,
+     "wikidata": "Q156802"
+    },
+    {
+     "nombre": "Gabi Barbieri",
+     "posicion": null,
+     "edad": 18,
+     "wikidata": "Q116450248"
+    }
+   ]
+  },
+  {
+   "club": "Sport Club do Recife",
+   "wikidata": "Q219098",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2020",
+    "Campeonato Brasileño de Fútbol Serie A 2021"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 2,
+   "jugadores": [
+    {
+     "nombre": "Pabulo Ryan",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q125630025"
+    },
+    {
+     "nombre": "Hernanes",
+     "posicion": "MED",
+     "edad": 36,
+     "wikidata": "Q313570"
+    }
+   ]
+  },
+  {
+   "club": "São Paulo Futebol Clube",
+   "wikidata": "Q38568",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2020",
+    "Campeonato Brasileño de Fútbol Serie A 2021"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 11,
+   "jugadores": [
+    {
+     "nombre": "Daniel Alves",
+     "posicion": "DEF",
+     "edad": 38,
+     "wikidata": "Q172720"
+    },
+    {
+     "nombre": "Juan Francisco Torres",
+     "posicion": "DEF",
+     "edad": 36,
+     "wikidata": "Q210914"
+    },
+    {
+     "nombre": "Luis Manuel Orejuela",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q20015578"
+    },
+    {
+     "nombre": "Miranda",
+     "posicion": "DEF",
+     "edad": 36,
+     "wikidata": "Q318119"
+    },
+    {
+     "nombre": "Gabriel Neves Perdomo",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q58011128"
+    },
+    {
+     "nombre": "Hernanes",
+     "posicion": "MED",
+     "edad": 36,
+     "wikidata": "Q313570"
+    },
+    {
+     "nombre": "Igor Gomes",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q59207905"
+    },
+    {
+     "nombre": "Brenner",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q34567761"
+    },
+    {
+     "nombre": "Dorlan Pabón",
+     "posicion": "DEL",
+     "edad": 33,
+     "wikidata": "Q520695"
+    },
+    {
+     "nombre": "Marcus Vinicius Oliveira Alencar",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q107584170"
+    },
+    {
+     "nombre": "Éder Citadin Martins",
+     "posicion": "DEL",
+     "edad": 34,
+     "wikidata": "Q167698"
+    }
+   ]
+  }
+ ]
+}

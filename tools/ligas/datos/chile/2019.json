@@ -1,0 +1,321 @@
+{
+ "liga": "Primera División de Chile",
+ "pais": "chile",
+ "año": 2019,
+ "fuente": "Wikidata (CC0) y Wikipedia; instantánea del 27-oct-2026 (tools/ligas/)",
+ "notas": [
+  "Datos de referencia de uso propio, no para el juego.",
+  "Clubes: los de las temporadas del campeonato que tocan este año calendario (tabla de posiciones de Wikipedia o, si no hay, los clubes más enlazados desde el artículo de la temporada).",
+  "Jugadores: membresías P54 de Wikidata que incluyen el año. Sin fecha de fin cuenta el año en que llegó (o hasta hoy si llegó desde 2023): membresia_estimada. Los planteles pueden estar incompletos; jugadores_encontrados dice cuántos hay.",
+  "posicion: línea estimada desde P413 (POR, DEF, MED, DEL; null si Wikidata no la tiene). edad: al 1 de julio; edad_aproximada si la fecha de nacimiento no tiene día o tiene fechas distintas."
+ ],
+ "equipos": [
+  {
+   "club": "Audax Italiano",
+   "wikidata": "Q758689",
+   "temporadas": [
+    "Primera División de Chile 2019"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Club Deportivo Huachipato",
+   "wikidata": "Q1023191",
+   "temporadas": [
+    "Primera División de Chile 2019"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Gabriel Torres",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q5515888",
+     "edad_aproximada": true
+    }
+   ]
+  },
+  {
+   "club": "Club Deportivo O'Higgins",
+   "wikidata": "Q719722",
+   "temporadas": [
+    "Primera División de Chile 2019"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Augusto Batalla",
+     "posicion": "POR",
+     "edad": 23,
+     "wikidata": "Q17622000"
+    }
+   ]
+  },
+  {
+   "club": "Club Deportivo Palestino",
+   "wikidata": "Q719719",
+   "temporadas": [
+    "Primera División de Chile 2019"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Alejandro Damián González",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q3266344"
+    }
+   ]
+  },
+  {
+   "club": "Club Deportivo Universidad Católica",
+   "wikidata": "Q427446",
+   "temporadas": [
+    "Primera División de Chile 2019"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 2,
+   "jugadores": [
+    {
+     "nombre": "Diego Buonanotte",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q316594"
+    },
+    {
+     "nombre": "Jordy Caicedo",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q30346214"
+    }
+   ]
+  },
+  {
+   "club": "Club Deportivo Universidad de Concepción",
+   "wikidata": "Q721560",
+   "temporadas": [
+    "Primera División de Chile 2019"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Club Social y Deportivo Colo-Colo",
+   "wikidata": "Q207373",
+   "temporadas": [
+    "Primera División de Chile 2019"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 3,
+   "jugadores": [
+    {
+     "nombre": "Carlos Carmona Tello",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q349162"
+    },
+    {
+     "nombre": "Ronald de la Fuente",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q6111697"
+    },
+    {
+     "nombre": "Ángel Romero Villamayor",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q15960510"
+    }
+   ]
+  },
+  {
+   "club": "Club Universidad de Chile",
+   "wikidata": "Q737753",
+   "temporadas": [
+    "Primera División de Chile 2019"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 4,
+   "jugadores": [
+    {
+     "nombre": "Osvaldo González",
+     "posicion": "DEF",
+     "edad": 34,
+     "wikidata": "Q2699209"
+    },
+    {
+     "nombre": "Jean Beausejour",
+     "posicion": "MED",
+     "edad": 35,
+     "wikidata": "Q313307"
+    },
+    {
+     "nombre": "Yerko Leiva",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q22278832",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Gabriel Torres",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q5515888",
+     "edad_aproximada": true
+    }
+   ]
+  },
+  {
+   "club": "Club de Deportes Antofagasta",
+   "wikidata": "Q2076979",
+   "temporadas": [
+    "Primera División de Chile 2019"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Club de Deportes Cobresal",
+   "wikidata": "Q642669",
+   "temporadas": [
+    "Primera División de Chile 2019"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Juan Carlos Gaete",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q60191767"
+    }
+   ]
+  },
+  {
+   "club": "Club de Deportes Iquique",
+   "wikidata": "Q642824",
+   "temporadas": [
+    "Primera División de Chile 2019"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Club de Deportes Provincial Curicó Unido",
+   "wikidata": "Q1023125",
+   "temporadas": [
+    "Primera División de Chile 2019"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Coquimbo Unido",
+   "wikidata": "Q2407595",
+   "temporadas": [
+    "Primera División de Chile 2019"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Everton de Viña del Mar",
+   "wikidata": "Q1103684",
+   "temporadas": [
+    "Primera División de Chile 2019"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Unión Española",
+   "wikidata": "Q1129059",
+   "temporadas": [
+    "Primera División de Chile 2019"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "José Aja",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q18221039"
+    }
+   ]
+  },
+  {
+   "club": "Unión La Calera",
+   "wikidata": "Q719383",
+   "temporadas": [
+    "Primera División de Chile 2019"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 3,
+   "jugadores": [
+    {
+     "nombre": "Eugenio Isnaldo",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q16236219"
+    },
+    {
+     "nombre": "Yerko Leiva",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q22278832",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Francisco Meneghini",
+     "posicion": null,
+     "edad": 30,
+     "wikidata": "Q61854834"
+    }
+   ]
+  }
+ ]
+}

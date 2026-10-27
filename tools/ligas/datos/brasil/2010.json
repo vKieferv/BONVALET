@@ -1,0 +1,7381 @@
+{
+ "liga": "Campeonato Brasileiro Série A",
+ "pais": "brasil",
+ "año": 2010,
+ "fuente": "Wikidata (CC0) y Wikipedia; instantánea del 27-oct-2026 (tools/ligas/)",
+ "notas": [
+  "Datos de referencia de uso propio, no para el juego.",
+  "Clubes: los de las temporadas del campeonato que tocan este año calendario (tabla de posiciones de Wikipedia o, si no hay, los clubes más enlazados desde el artículo de la temporada).",
+  "Jugadores: membresías P54 de Wikidata que incluyen el año. Sin fecha de fin cuenta el año en que llegó (o hasta hoy si llegó desde 2023): membresia_estimada. Los planteles pueden estar incompletos; jugadores_encontrados dice cuántos hay.",
+  "posicion: línea estimada desde P413 (POR, DEF, MED, DEL; null si Wikidata no la tiene). edad: al 1 de julio; edad_aproximada si la fecha de nacimiento no tiene día o tiene fechas distintas."
+ ],
+ "equipos": [
+  {
+   "club": "Atlético Clube Goianiense",
+   "wikidata": "Q198034",
+   "temporadas": [
+    "Campeonato Brasileño de 2010"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 45,
+   "jugadores": [
+    {
+     "nombre": "Edson Pereira Lisboa",
+     "posicion": "POR",
+     "edad": 24,
+     "wikidata": "Q8078154"
+    },
+    {
+     "nombre": "Roberto Gomes Júnior",
+     "posicion": "POR",
+     "edad": 20,
+     "wikidata": "Q7351716"
+    },
+    {
+     "nombre": "Adriano José de Lara",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q4685586"
+    },
+    {
+     "nombre": "Alysson Ramos da Silva",
+     "posicion": "DEF",
+     "edad": 32,
+     "wikidata": "Q4738784"
+    },
+    {
+     "nombre": "Ayrton Luis Ganino",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q4831698"
+    },
+    {
+     "nombre": "Daniel Marques da Silva",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q5218052"
+    },
+    {
+     "nombre": "Eduardo Gabriel dos Santos Filho",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q5340614"
+    },
+    {
+     "nombre": "Francisco Gomes Andrade Júnior",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q5483418"
+    },
+    {
+     "nombre": "Gilson Rosa de Jesus",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q5562611"
+    },
+    {
+     "nombre": "Jairo Lima de Araújo",
+     "posicion": "DEF",
+     "edad": 35,
+     "wikidata": "Q6124225"
+    },
+    {
+     "nombre": "Mauro Sousa",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q16233589"
+    },
+    {
+     "nombre": "Nélson Saavedra",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q7071440"
+    },
+    {
+     "nombre": "Pituca",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q10350133"
+    },
+    {
+     "nombre": "Rafael Cruz Ojer",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q7282096"
+    },
+    {
+     "nombre": "Ramalho",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q2920209"
+    },
+    {
+     "nombre": "Renato Costa Silva",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q7312636"
+    },
+    {
+     "nombre": "Rômulo Noronha",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q7386664"
+    },
+    {
+     "nombre": "Thiago Henrique Feltri",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q6937213"
+    },
+    {
+     "nombre": "Thiago Kluzkovski de Almeida",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q7783841"
+    },
+    {
+     "nombre": "Victor Ferraz Macedo",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q3178444"
+    },
+    {
+     "nombre": "Wellington Oliveira dos Reis",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q692777"
+    },
+    {
+     "nombre": "Welton Felipe",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q10393378"
+    },
+    {
+     "nombre": "Wender Coelho da Silva",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q7692763"
+    },
+    {
+     "nombre": "Wescley Pina Gonçalves",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q4019050"
+    },
+    {
+     "nombre": "Agenor Figueiredo Santos",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q4692042"
+    },
+    {
+     "nombre": "Anaílson Brito Noleto",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q1440130"
+    },
+    {
+     "nombre": "Elias Ribeiro de Oliveira",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q5360592"
+    },
+    {
+     "nombre": "Francisco Erandir da Silva Feitosa",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q5384875"
+    },
+    {
+     "nombre": "Kenedy Silva Reis",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q10513447"
+    },
+    {
+     "nombre": "Raphael Luz",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q7293985"
+    },
+    {
+     "nombre": "Renato Ribeiro Calixto",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q3081138"
+    },
+    {
+     "nombre": "Robston",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q7353522"
+    },
+    {
+     "nombre": "Rodrigo Andrade da Silva",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q7357294"
+    },
+    {
+     "nombre": "Weslley Morais Sousa",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q7984079"
+    },
+    {
+     "nombre": "Willian Fernando da Silva",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q4020001"
+    },
+    {
+     "nombre": "Carlinhos Bala",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q1041763"
+    },
+    {
+     "nombre": "Cleyton Coelho dos Santos",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q1100878"
+    },
+    {
+     "nombre": "Diogo Campos Gomes",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q5279187"
+    },
+    {
+     "nombre": "Diogo Galvão",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q5279199"
+    },
+    {
+     "nombre": "Josiel",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q2353159"
+    },
+    {
+     "nombre": "Júnior César Moreira da Cunha",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q4740"
+    },
+    {
+     "nombre": "Marcos Assis Santana",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q6757822"
+    },
+    {
+     "nombre": "Pedro Paulo da Silva",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q7159861"
+    },
+    {
+     "nombre": "Rodrigo Tiuí",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q2975841"
+    },
+    {
+     "nombre": "Washington Luiz Mascarenhas Silva",
+     "posicion": "DEL",
+     "edad": 31,
+     "wikidata": "Q1254334"
+    }
+   ]
+  },
+  {
+   "club": "Avaí Futebol Clube",
+   "wikidata": "Q374069",
+   "temporadas": [
+    "Campeonato Brasileño de 2010"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 54,
+   "jugadores": [
+    {
+     "nombre": "Aleksander Douglas de Faria",
+     "posicion": "POR",
+     "edad": 19,
+     "wikidata": "Q3609482"
+    },
+    {
+     "nombre": "José Carlos dos Anjos Sávio",
+     "posicion": "POR",
+     "edad": 24,
+     "wikidata": "Q266602"
+    },
+    {
+     "nombre": "Renan Soares Reuter",
+     "posicion": "POR",
+     "edad": 19,
+     "wikidata": "Q3055103"
+    },
+    {
+     "nombre": "Bruno César Pereira da Silva",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q4979169"
+    },
+    {
+     "nombre": "Bruno Henrique da Silva Souza",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q4979249"
+    },
+    {
+     "nombre": "Clayton do Nascimento Meireles",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q5130310"
+    },
+    {
+     "nombre": "Diogo Orlando",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q5279215"
+    },
+    {
+     "nombre": "Eltinho",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q3051783"
+    },
+    {
+     "nombre": "Emerson Nunes",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q3724148"
+    },
+    {
+     "nombre": "Emerson dos Santos da Silva",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q3052185"
+    },
+    {
+     "nombre": "Ferdinando Pereira Leda",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q3742652"
+    },
+    {
+     "nombre": "Fredson Câmara Pereira",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q1453345"
+    },
+    {
+     "nombre": "Gabriel Valongo da Silva",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q5515896"
+    },
+    {
+     "nombre": "José Batista Leite da Silva",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q6291667"
+    },
+    {
+     "nombre": "Luis Carlos Medina",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q2386171"
+    },
+    {
+     "nombre": "Luis Ricardo Silva Umbelino",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q6701050"
+    },
+    {
+     "nombre": "Léo San",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q887982"
+    },
+    {
+     "nombre": "Marcos Martins dos Anjos",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q3846643"
+    },
+    {
+     "nombre": "Patric Cabral Lalau",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q3368854"
+    },
+    {
+     "nombre": "Rafael Diego de Souza",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q7282107"
+    },
+    {
+     "nombre": "Rivaldo Barbosa de Souza",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q339583"
+    },
+    {
+     "nombre": "Roberto Andrade Silva",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q3938574"
+    },
+    {
+     "nombre": "Rodrigo Thiesen",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q10363951"
+    },
+    {
+     "nombre": "Uendel Pereira Gonçalves",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q7877456"
+    },
+    {
+     "nombre": "Antonio Caio da Silva Souza",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q4777651"
+    },
+    {
+     "nombre": "Davi Rodrigues de Jesus",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q1574276"
+    },
+    {
+     "nombre": "Dinélson",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q487901"
+    },
+    {
+     "nombre": "Fernando Bob",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q2070369"
+    },
+    {
+     "nombre": "Hégon",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q5698483"
+    },
+    {
+     "nombre": "Jéferson Rodrigues Gonçalves",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q3811742"
+    },
+    {
+     "nombre": "Leandro Bonfim",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q2337321"
+    },
+    {
+     "nombre": "Marcelo Rodrigues",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q4396043"
+    },
+    {
+     "nombre": "Marcinho Guerreiro",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q2557344"
+    },
+    {
+     "nombre": "Marcos Paulo Ramos da Silva",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q10325472"
+    },
+    {
+     "nombre": "Matheus Humberto Maximiano",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q6786984"
+    },
+    {
+     "nombre": "Rudnei da Rosa",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q1186307"
+    },
+    {
+     "nombre": "Róbson Michael Signorini",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q7386520"
+    },
+    {
+     "nombre": "Sávio",
+     "posicion": "MED",
+     "edad": 36,
+     "wikidata": "Q372451"
+    },
+    {
+     "nombre": "Válber Mendes Ferreira",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q15427903"
+    },
+    {
+     "nombre": "Abuda",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q352716"
+    },
+    {
+     "nombre": "Alysson Marendaz Marins",
+     "posicion": "DEL",
+     "edad": 34,
+     "wikidata": "Q4738785"
+    },
+    {
+     "nombre": "Anselmo Ramon",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q2093183"
+    },
+    {
+     "nombre": "Cristian Porto Spricigo",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q5186246"
+    },
+    {
+     "nombre": "Danielzinho",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q17385799"
+    },
+    {
+     "nombre": "Jandson dos Santos",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q10305191"
+    },
+    {
+     "nombre": "Júlio César Godinho Catole",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q16853387"
+    },
+    {
+     "nombre": "Laércio Carreirinha",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q6506227"
+    },
+    {
+     "nombre": "Leonardo Gonçalves Silva",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q8985636"
+    },
+    {
+     "nombre": "Natan Pereira",
+     "posicion": "DEL",
+     "edad": 17,
+     "wikidata": "Q6968388",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Rafael Costa",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q7282093"
+    },
+    {
+     "nombre": "Roberto César Zardin Rodrigues",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q3700733"
+    },
+    {
+     "nombre": "Sandro da Silva Mendonça",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q1338810"
+    },
+    {
+     "nombre": "Vanderson da Silva Souza",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q1647588"
+    },
+    {
+     "nombre": "William Júnior Sales de Lima Souza",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q600887"
+    }
+   ]
+  },
+  {
+   "club": "Botafogo de Futebol e Regatas",
+   "wikidata": "Q80958",
+   "temporadas": [
+    "Campeonato Brasileño de 2010"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 44,
+   "jugadores": [
+    {
+     "nombre": "Cléber Luiz Alberti",
+     "posicion": "POR",
+     "edad": 27,
+     "wikidata": "Q3681764"
+    },
+    {
+     "nombre": "Renan dos Santos",
+     "posicion": "POR",
+     "edad": 21,
+     "wikidata": "Q1647420"
+    },
+    {
+     "nombre": "Alessandro da Conceição Pinto",
+     "posicion": "DEF",
+     "edad": 32,
+     "wikidata": "Q1613402"
+    },
+    {
+     "nombre": "Antônio Carlos dos Santos Aguiar",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q2857778"
+    },
+    {
+     "nombre": "Danny Morais",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q3015293"
+    },
+    {
+     "nombre": "Edson Henrique da Silva",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q1989294"
+    },
+    {
+     "nombre": "Eduardo da Silva Nascimento Neto",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q619109"
+    },
+    {
+     "nombre": "Elizeu Araújo de Melo Batista",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q5363920"
+    },
+    {
+     "nombre": "Fahel",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q5429547"
+    },
+    {
+     "nombre": "Fábio Ferreira",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q3755359"
+    },
+    {
+     "nombre": "Gabriel Henrique Silva",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q5515673"
+    },
+    {
+     "nombre": "Jancarlos",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q3806982"
+    },
+    {
+     "nombre": "Kaká",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q24005340"
+    },
+    {
+     "nombre": "Leonardo Bartholo Prando",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q6525925"
+    },
+    {
+     "nombre": "Marcelo Cordeiro",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q3845715"
+    },
+    {
+     "nombre": "Márcio Nascimento Rozário",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q6949671"
+    },
+    {
+     "nombre": "Sandro Silva",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q2707256"
+    },
+    {
+     "nombre": "Wellington Oliveira dos Reis",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q692777"
+    },
+    {
+     "nombre": "Bruno Tiago da Costa Araújo",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q4979411"
+    },
+    {
+     "nombre": "Edno",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q43971"
+    },
+    {
+     "nombre": "Felipe Lima Lopes",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q5442000"
+    },
+    {
+     "nombre": "Gerson Guimarães Junior",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q1515031"
+    },
+    {
+     "nombre": "Jougle Manoel Rodrigues",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q10310909"
+    },
+    {
+     "nombre": "Leandro Guerreiro",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q3829244"
+    },
+    {
+     "nombre": "Lucas Zen",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q873559"
+    },
+    {
+     "nombre": "Lucio Flávio",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q1615346"
+    },
+    {
+     "nombre": "Maicosuel Reginaldo de Matos",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q649420"
+    },
+    {
+     "nombre": "Marcelo Mattos",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q721017"
+    },
+    {
+     "nombre": "Marcos Vinícius Ribeiro Viana",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q6757949"
+    },
+    {
+     "nombre": "Paulo Rogério Reis Silva",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q7560555"
+    },
+    {
+     "nombre": "Renato Cajá",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q2092417"
+    },
+    {
+     "nombre": "Rodrigo Andrade da Silva",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q7357294"
+    },
+    {
+     "nombre": "Rodrigo Dantas",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q3940031"
+    },
+    {
+     "nombre": "Túlio Gustavo Cunha Souza",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q4001314"
+    },
+    {
+     "nombre": "Alexssander Medeiros de Azevedo",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q3610890"
+    },
+    {
+     "nombre": "André Balada",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q518525"
+    },
+    {
+     "nombre": "André Lima",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q520972"
+    },
+    {
+     "nombre": "Caio Canedo Corrêa",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q1770561"
+    },
+    {
+     "nombre": "Germán Herrera",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q1115805"
+    },
+    {
+     "nombre": "Jóbson Leandro Pereira de Oliveira",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q6320301"
+    },
+    {
+     "nombre": "Sebastián Abreu",
+     "posicion": "DEL",
+     "edad": 33,
+     "wikidata": "Q132056"
+    },
+    {
+     "nombre": "Sergio Ricardo",
+     "posicion": "DEL",
+     "edad": 36,
+     "wikidata": "Q4165450"
+    },
+    {
+     "nombre": "Victor Simões de Oliveira",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q488451"
+    },
+    {
+     "nombre": "William Alves de Oliveira",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q4501756"
+    }
+   ]
+  },
+  {
+   "club": "Ceará Sporting Club",
+   "wikidata": "Q1052219",
+   "temporadas": [
+    "Campeonato Brasileño de 2010"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 54,
+   "jugadores": [
+    {
+     "nombre": "Adílson Cândido de Souza",
+     "posicion": "POR",
+     "edad": 36,
+     "wikidata": "Q4682834"
+    },
+    {
+     "nombre": "Diego Salgado Costa de Menezes",
+     "posicion": "POR",
+     "edad": 28,
+     "wikidata": "Q3707245"
+    },
+    {
+     "nombre": "Eduardo Allax Scherpel",
+     "posicion": "POR",
+     "edad": 32,
+     "wikidata": "Q5340505"
+    },
+    {
+     "nombre": "Michel Alves",
+     "posicion": "POR",
+     "edad": 29,
+     "wikidata": "Q6836268"
+    },
+    {
+     "nombre": "Anderson Grasiane de Mattos Silva",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q4754079",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Diego Sacoman",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q5274805"
+    },
+    {
+     "nombre": "Diogo Douglas Santos Andrade Barbosa",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q592202"
+    },
+    {
+     "nombre": "Edson Feliciano Sitta",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q5340307"
+    },
+    {
+     "nombre": "Erivelton Gomes Viana",
+     "posicion": "DEF",
+     "edad": 32,
+     "wikidata": "Q5389616"
+    },
+    {
+     "nombre": "Fabrício Manini",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q5428247"
+    },
+    {
+     "nombre": "Gabriel Henrique Silva",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q5515673"
+    },
+    {
+     "nombre": "Jorge Luiz Alves Justino",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q625837"
+    },
+    {
+     "nombre": "José Augusto Cestari Ramos",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q6291631"
+    },
+    {
+     "nombre": "José Jefferson Rodrigues de Oliveira",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q6292564"
+    },
+    {
+     "nombre": "Luis Arlindo de Jesus dos Santos",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q6700332"
+    },
+    {
+     "nombre": "Marcos Paulo Segobe da Silva",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q6757907"
+    },
+    {
+     "nombre": "Marcos Pimentel",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q6757940"
+    },
+    {
+     "nombre": "Michel Miguel da Silva",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q6836490"
+    },
+    {
+     "nombre": "Oziel França da Silva",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q7116576"
+    },
+    {
+     "nombre": "Pablo Nascimento Castro",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q7121706"
+    },
+    {
+     "nombre": "Thiago Xavier Rosa",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q7783860"
+    },
+    {
+     "nombre": "Wellington da Silva Vicente",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q4018903"
+    },
+    {
+     "nombre": "Wescley Pina Gonçalves",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q4019050"
+    },
+    {
+     "nombre": "Antonio de Moura Carvalho",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q4777065"
+    },
+    {
+     "nombre": "Aílton do Nascimento Correia",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q794626"
+    },
+    {
+     "nombre": "Douglas Silva Delfino",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q3714645"
+    },
+    {
+     "nombre": "Erick Flores",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q3731628"
+    },
+    {
+     "nombre": "Ernandes",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q5392604",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Esley Leite do Nascimento",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q5398355"
+    },
+    {
+     "nombre": "Fernando Camilo Farias",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q5444628"
+    },
+    {
+     "nombre": "Geraldo Moreira da Silva Júnior",
+     "posicion": "MED",
+     "edad": 36,
+     "wikidata": "Q5549823"
+    },
+    {
+     "nombre": "Heleno dos Santos Alves",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q5703972"
+    },
+    {
+     "nombre": "Javier Reina",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q486955"
+    },
+    {
+     "nombre": "Jorge Henrique de Almeida Leão",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q6278096"
+    },
+    {
+     "nombre": "José Gerardo Moreira Rocha Júnior",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q6292335"
+    },
+    {
+     "nombre": "Luiz Henrique Corrêa de Araújo",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q6701455"
+    },
+    {
+     "nombre": "Ricardo Souza Bóvio",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q950670"
+    },
+    {
+     "nombre": "Rômulo Silvano da Silva",
+     "posicion": "MED",
+     "edad": 33,
+     "wikidata": "Q10366290"
+    },
+    {
+     "nombre": "Sérgio Mota (futebolista)",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q3956198"
+    },
+    {
+     "nombre": "Aloísio Chulapa",
+     "posicion": "DEL",
+     "edad": 35,
+     "wikidata": "Q2400390"
+    },
+    {
+     "nombre": "Bruno Santos da Silva",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q4979391"
+    },
+    {
+     "nombre": "Everton Kempes dos Santos Gonçalves",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q3915221"
+    },
+    {
+     "nombre": "Francisco Clodoaldo Chagas Ferreira",
+     "posicion": "DEL",
+     "edad": 31,
+     "wikidata": "Q10284698"
+    },
+    {
+     "nombre": "Jean Carlos",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q2041423"
+    },
+    {
+     "nombre": "Jean Carlos Alves Coral",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q3807654"
+    },
+    {
+     "nombre": "Jonathan Antenor de Moura Almeida",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q6272436"
+    },
+    {
+     "nombre": "Leonardo Ferreira",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q6525985"
+    },
+    {
+     "nombre": "Magno Alves",
+     "posicion": "DEL",
+     "edad": 34,
+     "wikidata": "Q483457"
+    },
+    {
+     "nombre": "Marcelo Nicácio",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q3177504"
+    },
+    {
+     "nombre": "Misael Silva Jansen",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q3858970"
+    },
+    {
+     "nombre": "Vanderlei Bernardo Oliveira",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q7914482"
+    },
+    {
+     "nombre": "Washington Luiz Mascarenhas Silva",
+     "posicion": "DEL",
+     "edad": 31,
+     "wikidata": "Q1254334"
+    },
+    {
+     "nombre": "Wellington Amorim",
+     "posicion": "DEL",
+     "edad": 33,
+     "wikidata": "Q7981404"
+    },
+    {
+     "nombre": "Wellington Nogueira Lopes de Avellar",
+     "posicion": "DEL",
+     "edad": 31,
+     "wikidata": "Q210125"
+    }
+   ]
+  },
+  {
+   "club": "Club Athletico Paranaense",
+   "wikidata": "Q506832",
+   "temporadas": [
+    "Campeonato Brasileño de 2010"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 68,
+   "jugadores": [
+    {
+     "nombre": "Aderbar dos Santos Neto",
+     "posicion": "POR",
+     "edad": 20,
+     "wikidata": "Q4682353"
+    },
+    {
+     "nombre": "Neto",
+     "posicion": "POR",
+     "edad": 20,
+     "wikidata": "Q62657"
+    },
+    {
+     "nombre": "Rodrigo José Galatto",
+     "posicion": "POR",
+     "edad": 27,
+     "wikidata": "Q2532504"
+    },
+    {
+     "nombre": "Vinícius Barrivieira",
+     "posicion": "POR",
+     "edad": 24,
+     "wikidata": "Q3622412"
+    },
+    {
+     "nombre": "Alex Fraga",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q4717013"
+    },
+    {
+     "nombre": "Alex Sandro",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q551192"
+    },
+    {
+     "nombre": "Carlos Augusto Borret dos Santos",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q17517026"
+    },
+    {
+     "nombre": "Claiton Alberto Fontoura dos Santos",
+     "posicion": "DEF",
+     "edad": 32,
+     "wikidata": "Q888023"
+    },
+    {
+     "nombre": "Douglas Marques dos Santos",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q3951849"
+    },
+    {
+     "nombre": "Edgar dos Passos Pinto",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q5337543"
+    },
+    {
+     "nombre": "Eli Sabiá",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q5360309"
+    },
+    {
+     "nombre": "Gustavo Lazzaretti de Araújo",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q1607681"
+    },
+    {
+     "nombre": "Héracles",
+     "posicion": "DEF",
+     "edad": 17,
+     "wikidata": "Q10299231"
+    },
+    {
+     "nombre": "Jean Carlos Dondé",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q447651"
+    },
+    {
+     "nombre": "José Antônio Pereira",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q8076024"
+    },
+    {
+     "nombre": "Leandro Paulino da Silva",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q6509729"
+    },
+    {
+     "nombre": "Luis Francisco Grando",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q3840362"
+    },
+    {
+     "nombre": "Manoel Messias Silva Carvalho",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q3844793"
+    },
+    {
+     "nombre": "Márcio Azevedo",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q3869198"
+    },
+    {
+     "nombre": "Olberdam de Oliveira Serra",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q7083276"
+    },
+    {
+     "nombre": "Paulo César Elias",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q7155191"
+    },
+    {
+     "nombre": "Rafael Alves dos Santos",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q633586"
+    },
+    {
+     "nombre": "Raul Guilherme Martins",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q3930525"
+    },
+    {
+     "nombre": "Raul Michel Melo da Silva",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q18708095"
+    },
+    {
+     "nombre": "Rhodolfo",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q3934132"
+    },
+    {
+     "nombre": "Wagner Diniz",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q4017657"
+    },
+    {
+     "nombre": "Élder Granja",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q5768435"
+    },
+    {
+     "nombre": "Alan Bahia",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q1027361"
+    },
+    {
+     "nombre": "Artur Pereira Neto",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q4801650"
+    },
+    {
+     "nombre": "David Arturo Ferreira Rico",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q2721937"
+    },
+    {
+     "nombre": "David França Oliveira e Silva",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q5233823"
+    },
+    {
+     "nombre": "Douglas Maia",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q14372186"
+    },
+    {
+     "nombre": "Edwin Valencia",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q934674"
+    },
+    {
+     "nombre": "Evandro",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q660159"
+    },
+    {
+     "nombre": "Fransérgio",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q5492446"
+    },
+    {
+     "nombre": "Iván González",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q6100047",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Jhonatan da Silva Pereira",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q1189859"
+    },
+    {
+     "nombre": "Joffre Guerrón",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q2457820"
+    },
+    {
+     "nombre": "Lucas Sotero",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q6696326"
+    },
+    {
+     "nombre": "Maikon Leite",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q1580384"
+    },
+    {
+     "nombre": "Mithyuê",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q3859431"
+    },
+    {
+     "nombre": "Márcio Miranda Freitas Rocha da Silva",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q181092"
+    },
+    {
+     "nombre": "Renan Foguinho",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q578619"
+    },
+    {
+     "nombre": "Tartá",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q217873"
+    },
+    {
+     "nombre": "Vitor Cruz de Jesus",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q7937194"
+    },
+    {
+     "nombre": "Wellington Clayton Gonçalves dos Santos",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q3950663"
+    },
+    {
+     "nombre": "Wellington da Silva Serezuella",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q7981557"
+    },
+    {
+     "nombre": "Alex Mineiro",
+     "posicion": "DEL",
+     "edad": 35,
+     "wikidata": "Q2001590"
+    },
+    {
+     "nombre": "Anderson Aquino",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q4754025",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Bruno Mineiro",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q248457"
+    },
+    {
+     "nombre": "Bruno de Oliveira Furlan",
+     "posicion": "DEL",
+     "edad": 17,
+     "wikidata": "Q4493502"
+    },
+    {
+     "nombre": "Eduardo Farias Machado de Salles Filho",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q5340600"
+    },
+    {
+     "nombre": "Federico Nieto",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q1093420"
+    },
+    {
+     "nombre": "Igor Siqueira Pessanha",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q10299919"
+    },
+    {
+     "nombre": "Javier Fabián Toledo",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q2016902"
+    },
+    {
+     "nombre": "Jonatas Oliveira Cardoso",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q6272359"
+    },
+    {
+     "nombre": "Jorge Horacio Serna",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q1623213"
+    },
+    {
+     "nombre": "Kaio Felipe Gonçalves",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q6348169"
+    },
+    {
+     "nombre": "Marcelo Cirino da Silva",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q6756532"
+    },
+    {
+     "nombre": "Patrick Leonardo Carneiro da Silva",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q7147012"
+    },
+    {
+     "nombre": "Pedro Oldoni",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q2559212"
+    },
+    {
+     "nombre": "Rafael Moura",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q578635"
+    },
+    {
+     "nombre": "Ricardo Alves Pereira",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q2722916"
+    },
+    {
+     "nombre": "Telmário de Araújo Sacramento",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q3312668"
+    },
+    {
+     "nombre": "Thiago de Jesús dos Santos",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q7783861"
+    },
+    {
+     "nombre": "Wallyson",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q2005429"
+    },
+    {
+     "nombre": "Willian Gomes de Siqueira",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q1031647"
+    },
+    {
+     "nombre": "Éderson Alves Ribeiro Silva",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q14628966"
+    }
+   ]
+  },
+  {
+   "club": "Club de Regatas Vasco da Gama",
+   "wikidata": "Q5014111",
+   "temporadas": [
+    "Campeonato Brasileño de 2010"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 59,
+   "jugadores": [
+    {
+     "nombre": "Alessandro Felipe Oltramari",
+     "posicion": "POR",
+     "edad": 22,
+     "wikidata": "Q4716349"
+    },
+    {
+     "nombre": "Fernando Prass",
+     "posicion": "POR",
+     "edad": 31,
+     "wikidata": "Q2063693"
+    },
+    {
+     "nombre": "Tiago Antônio Campagnaro",
+     "posicion": "POR",
+     "edad": 26,
+     "wikidata": "Q3991097"
+    },
+    {
+     "nombre": "Cristian Chagas Tarouco",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q5186167"
+    },
+    {
+     "nombre": "César Augusto Pereira Marques",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q5202504"
+    },
+    {
+     "nombre": "Dedé",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q378526"
+    },
+    {
+     "nombre": "Diogo Barbosa",
+     "posicion": "DEF",
+     "edad": 17,
+     "wikidata": "Q5279185"
+    },
+    {
+     "nombre": "Diogo Santos Rangel",
+     "posicion": "DEF",
+     "edad": 18,
+     "wikidata": "Q5279217"
+    },
+    {
+     "nombre": "Douglas Silva Bacelar",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q3934983"
+    },
+    {
+     "nombre": "Ernani Nascimento Germano",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q8777323"
+    },
+    {
+     "nombre": "Fagner",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q932827"
+    },
+    {
+     "nombre": "Felipe Augusto Santana",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q519543"
+    },
+    {
+     "nombre": "Fernando Santos",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q2647142"
+    },
+    {
+     "nombre": "Gian Francesco Gonçalves Mariano",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q5558021"
+    },
+    {
+     "nombre": "Gustavo Franchin Schiavolin",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q979345"
+    },
+    {
+     "nombre": "Jadson Viera",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q1336120"
+    },
+    {
+     "nombre": "Julio Irrazábal",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q1993956"
+    },
+    {
+     "nombre": "Jumar",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q6310804"
+    },
+    {
+     "nombre": "Léo Gago",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q6710996"
+    },
+    {
+     "nombre": "Marcilei da Silva Elias",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q6757183"
+    },
+    {
+     "nombre": "Márcio Careca",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q10334297"
+    },
+    {
+     "nombre": "Ramon Motta",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q3929914",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Renato Augusto",
+     "posicion": "DEF",
+     "edad": 18,
+     "wikidata": "Q7312619"
+    },
+    {
+     "nombre": "Thiago Martinelli",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q514928"
+    },
+    {
+     "nombre": "Élder Granja",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q5768435"
+    },
+    {
+     "nombre": "Bruno Gallo",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q797642"
+    },
+    {
+     "nombre": "Bruno Paulo Barbosa",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q3645876"
+    },
+    {
+     "nombre": "Carlos Alberto",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q723936"
+    },
+    {
+     "nombre": "Carlos Alberto Rogger Dias",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q5041703"
+    },
+    {
+     "nombre": "Caíque Silva Rocha",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q495065"
+    },
+    {
+     "nombre": "Enrico Cardoso Nazaré",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q976475"
+    },
+    {
+     "nombre": "Felipe Maestro",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q2579383"
+    },
+    {
+     "nombre": "Fellipe Bastos",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q1404095"
+    },
+    {
+     "nombre": "Fumagalli",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q210026"
+    },
+    {
+     "nombre": "Jeferson da Costa Silva",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q6173165"
+    },
+    {
+     "nombre": "Josef de Souza Dias",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q1524118"
+    },
+    {
+     "nombre": "José Roberto de Oliveira",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q720593"
+    },
+    {
+     "nombre": "Jéferson Rodrigues Gonçalves",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q3811742"
+    },
+    {
+     "nombre": "Magno Damasceno Santos",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q6731814"
+    },
+    {
+     "nombre": "Nílton",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q848129"
+    },
+    {
+     "nombre": "Paulo Roberto Gonzaga",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q7155294"
+    },
+    {
+     "nombre": "Rafael de Souza Pereira",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q2733958"
+    },
+    {
+     "nombre": "Rômulo Borges Monteiro",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q1027415"
+    },
+    {
+     "nombre": "Éder Luís",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q273772"
+    },
+    {
+     "nombre": "Anderson Francisco Nunes",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q2846134"
+    },
+    {
+     "nombre": "Anderson Patrick Aguiar Oliveira",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q10554853"
+    },
+    {
+     "nombre": "Bradley August",
+     "posicion": "DEL",
+     "edad": 31,
+     "wikidata": "Q4954872"
+    },
+    {
+     "nombre": "Dodô",
+     "posicion": "DEL",
+     "edad": 36,
+     "wikidata": "Q283706"
+    },
+    {
+     "nombre": "Edgar Bruno Silva",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q593943"
+    },
+    {
+     "nombre": "Elton Rodrigues Brandão",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q2507087"
+    },
+    {
+     "nombre": "Excellent Walaza",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q2747108"
+    },
+    {
+     "nombre": "Jonathan Oliveira Guimarães",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q6274054"
+    },
+    {
+     "nombre": "Misael Silva Jansen",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q3858970"
+    },
+    {
+     "nombre": "Nilson",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q6293566"
+    },
+    {
+     "nombre": "Philippe Coutinho",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q311872"
+    },
+    {
+     "nombre": "Rafael Coelho",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q7282083"
+    },
+    {
+     "nombre": "Robert Brito Luciano",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q7342372"
+    },
+    {
+     "nombre": "Rodrigo Pimpão",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q2153324"
+    },
+    {
+     "nombre": "Willen Mota Inácio",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q15831210"
+    }
+   ]
+  },
+  {
+   "club": "Clube Atlético Mineiro",
+   "wikidata": "Q270995",
+   "temporadas": [
+    "Campeonato Brasileño de 2010"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 67,
+   "jugadores": [
+    {
+     "nombre": "Aranha",
+     "posicion": "POR",
+     "edad": 29,
+     "wikidata": "Q2604412"
+    },
+    {
+     "nombre": "Fabián Carini",
+     "posicion": "POR",
+     "edad": 30,
+     "wikidata": "Q430729"
+    },
+    {
+     "nombre": "Fábio Costa",
+     "posicion": "POR",
+     "edad": 32,
+     "wikidata": "Q2719042"
+    },
+    {
+     "nombre": "Marcelo dos Santos Marinho",
+     "posicion": "POR",
+     "edad": 26,
+     "wikidata": "Q6756662"
+    },
+    {
+     "nombre": "Nicolas David Andrade",
+     "posicion": "POR",
+     "edad": 22,
+     "wikidata": "Q15831132"
+    },
+    {
+     "nombre": "Renan Ribeiro",
+     "posicion": "POR",
+     "edad": 20,
+     "wikidata": "Q1442274"
+    },
+    {
+     "nombre": "Alexandre Luiz Fernandes",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q1574428"
+    },
+    {
+     "nombre": "Carlos Alberto de Oliveira Júnior",
+     "posicion": "DEF",
+     "edad": 32,
+     "wikidata": "Q1615399"
+    },
+    {
+     "nombre": "Diego Macedo Prado dos Santos",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q3707203"
+    },
+    {
+     "nombre": "Dyego Rocha Coelho",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q1268637"
+    },
+    {
+     "nombre": "Eron Santos Lourenço",
+     "posicion": "DEF",
+     "edad": 18,
+     "wikidata": "Q3732477"
+    },
+    {
+     "nombre": "Fernando Alves Santa Clara",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q3742879"
+    },
+    {
+     "nombre": "Fillipe Soutto",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q5448839"
+    },
+    {
+     "nombre": "Francisco Sousa dos Santos",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q5483970"
+    },
+    {
+     "nombre": "Jayro Campos",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q2308081"
+    },
+    {
+     "nombre": "Jenílson Ângelo de Souza",
+     "posicion": "DEF",
+     "edad": 37,
+     "wikidata": "Q1990849"
+    },
+    {
+     "nombre": "Julio César Cáceres",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q316728"
+    },
+    {
+     "nombre": "Leandro Silva Wanderley",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q6509754"
+    },
+    {
+     "nombre": "Lindenbergh Francisco da Silva",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q6552378"
+    },
+    {
+     "nombre": "Paulo Roberto Prestes",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q19663293",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Pedro Benítez",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q527737"
+    },
+    {
+     "nombre": "Rafael Cruz Ojer",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q7282096"
+    },
+    {
+     "nombre": "Réver",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q1363213"
+    },
+    {
+     "nombre": "Samuel Elias do Carmo Soares",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q7411323"
+    },
+    {
+     "nombre": "Sheslon Lucas Lima Santana",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q7495640"
+    },
+    {
+     "nombre": "Sidimar",
+     "posicion": "DEF",
+     "edad": 17,
+     "wikidata": "Q7508837"
+    },
+    {
+     "nombre": "Thiago Cardoso",
+     "posicion": "DEF",
+     "edad": 18,
+     "wikidata": "Q2267307"
+    },
+    {
+     "nombre": "Welton Felipe",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q10393378"
+    },
+    {
+     "nombre": "Werley Ananias da Silva",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q4019016"
+    },
+    {
+     "nombre": "Willian Lanes de Lima",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q1806532"
+    },
+    {
+     "nombre": "Zé Luís",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q1440137"
+    },
+    {
+     "nombre": "Bernard",
+     "posicion": "MED",
+     "edad": 17,
+     "wikidata": "Q137242"
+    },
+    {
+     "nombre": "Carlos Rodrigues Corrêa",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q1043204"
+    },
+    {
+     "nombre": "Daniel Carvalho",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q537644"
+    },
+    {
+     "nombre": "Diego Souza",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q2449294"
+    },
+    {
+     "nombre": "Edimílson dos Santos Carmo Júnior",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q3047582"
+    },
+    {
+     "nombre": "Evandro",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q660159"
+    },
+    {
+     "nombre": "Fabiano Pereira da Costa",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q2356803"
+    },
+    {
+     "nombre": "Felipe Batista Pinto",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q5441947"
+    },
+    {
+     "nombre": "Francisco Jackson Menezes da Costa",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q5483478"
+    },
+    {
+     "nombre": "Hugo Rodrigues Imbelloni",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q5934431"
+    },
+    {
+     "nombre": "Joedson Santos Almeida",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q6213152"
+    },
+    {
+     "nombre": "Neto Berola",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q3646999"
+    },
+    {
+     "nombre": "Nikão",
+     "posicion": "MED",
+     "edad": 17,
+     "wikidata": "Q2605478"
+    },
+    {
+     "nombre": "Rafael Jataí",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q7282181"
+    },
+    {
+     "nombre": "Renan Oliveira",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q3932556"
+    },
+    {
+     "nombre": "Ricardinho",
+     "posicion": "MED",
+     "edad": 34,
+     "wikidata": "Q72886"
+    },
+    {
+     "nombre": "Sérgio Antônio Borges Júnior",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q7666060"
+    },
+    {
+     "nombre": "Tchô",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q1648810"
+    },
+    {
+     "nombre": "Valdisney Costa dos Santos",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q7909430"
+    },
+    {
+     "nombre": "Wendel Alex dos Santos",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q7982363"
+    },
+    {
+     "nombre": "Édison Méndez",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q346789"
+    },
+    {
+     "nombre": "Cristiano da Silva Santos",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q5186312"
+    },
+    {
+     "nombre": "Diego Tardelli",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q905206"
+    },
+    {
+     "nombre": "Eduardo Ferreira Abdo Pacheco",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q2396111"
+    },
+    {
+     "nombre": "Jheimy da Silva Carvalho",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q6191015"
+    },
+    {
+     "nombre": "Jonílson Clovis Nascimento Breves",
+     "posicion": "DEL",
+     "edad": 31,
+     "wikidata": "Q887996"
+    },
+    {
+     "nombre": "João Pedro Galvão",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q2626107"
+    },
+    {
+     "nombre": "Kléber Laube Pinheiro",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q180894"
+    },
+    {
+     "nombre": "Marcelo Nicácio",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q3177504"
+    },
+    {
+     "nombre": "Marion Silva Fernandes",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q16337907"
+    },
+    {
+     "nombre": "Marques Batista de Abreu",
+     "posicion": "DEL",
+     "edad": 37,
+     "wikidata": "Q197729"
+    },
+    {
+     "nombre": "Muriqui",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q1754462"
+    },
+    {
+     "nombre": "Obina",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q959642"
+    },
+    {
+     "nombre": "Pedro Paulo da Silva",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q7159861"
+    },
+    {
+     "nombre": "Ricardo Bueno",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q3956606"
+    },
+    {
+     "nombre": "Wescley Gomes dos Santos",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q10393419"
+    }
+   ]
+  },
+  {
+   "club": "Clube de Regatas do Flamengo",
+   "wikidata": "Q17479",
+   "temporadas": [
+    "Campeonato Brasileño de 2010"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 62,
+   "jugadores": [
+    {
+     "nombre": "Damião Vinícius Ribeiro",
+     "posicion": "POR",
+     "edad": 25,
+     "wikidata": "Q5212645"
+    },
+    {
+     "nombre": "Diego Lima",
+     "posicion": "POR",
+     "edad": 20,
+     "wikidata": "Q5274720"
+    },
+    {
+     "nombre": "Goleiro Bruno",
+     "posicion": "POR",
+     "edad": 25,
+     "wikidata": "Q993248"
+    },
+    {
+     "nombre": "Marcelo Carné",
+     "posicion": "POR",
+     "edad": 20,
+     "wikidata": "Q6756516"
+    },
+    {
+     "nombre": "Marcelo Lomba",
+     "posicion": "POR",
+     "edad": 23,
+     "wikidata": "Q6756582"
+    },
+    {
+     "nombre": "Marcelo Valverde",
+     "posicion": "POR",
+     "edad": 20,
+     "wikidata": "Q6756645"
+    },
+    {
+     "nombre": "David Braz de Oliveira Filho",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q939542"
+    },
+    {
+     "nombre": "Egídio de Araújo Pereira Júnior",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q3720578"
+    },
+    {
+     "nombre": "Everton Modesto Silva",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q5417414"
+    },
+    {
+     "nombre": "Fabrício Silva Dornellas",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q1390921"
+    },
+    {
+     "nombre": "Fernando Gomes de Jesus",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q5444737"
+    },
+    {
+     "nombre": "Jean Ferreira Narde",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q524862"
+    },
+    {
+     "nombre": "Juan Maldonado Jaimez Júnior",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q779177"
+    },
+    {
+     "nombre": "Lucas Galdino",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q6696159"
+    },
+    {
+     "nombre": "Léo Moura",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q2578811"
+    },
+    {
+     "nombre": "Marllon Borges",
+     "posicion": "DEF",
+     "edad": 18,
+     "wikidata": "Q6771886"
+    },
+    {
+     "nombre": "Marlon Ventura Rodrigues",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q6771974"
+    },
+    {
+     "nombre": "Maxwell Batista da Silva",
+     "posicion": "DEF",
+     "edad": 18,
+     "wikidata": "Q6276270",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Rafael Galhardo",
+     "posicion": "DEF",
+     "edad": 18,
+     "wikidata": "Q3928947"
+    },
+    {
+     "nombre": "Roberto Dias Correia Filho",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q15831158"
+    },
+    {
+     "nombre": "Rodrigo Alvim",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q662464"
+    },
+    {
+     "nombre": "Ronaldo Angelim",
+     "posicion": "DEF",
+     "edad": 34,
+     "wikidata": "Q1632593"
+    },
+    {
+     "nombre": "Rômulo Noronha",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q7386664"
+    },
+    {
+     "nombre": "Uendel Pereira Gonçalves",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q7877456"
+    },
+    {
+     "nombre": "Welinton",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q970674"
+    },
+    {
+     "nombre": "Willian Lanes de Lima",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q1806532"
+    },
+    {
+     "nombre": "Álvaro Luiz Maior de Aquino",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q251040",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Adriano Louzada",
+     "posicion": "MED",
+     "edad": 16,
+     "wikidata": "Q15830923"
+    },
+    {
+     "nombre": "Carlos Rodrigues Corrêa",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q1043204"
+    },
+    {
+     "nombre": "Carlyle Carlos dos Santos Junior",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q5043129"
+    },
+    {
+     "nombre": "Claudio Maldonado",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q718952"
+    },
+    {
+     "nombre": "Dejan Petković",
+     "posicion": "MED",
+     "edad": 37,
+     "wikidata": "Q2015351"
+    },
+    {
+     "nombre": "Diogo Luís Santo",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q939069"
+    },
+    {
+     "nombre": "Erick Flores",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q3731628"
+    },
+    {
+     "nombre": "Gonzalo Fierro",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q439959"
+    },
+    {
+     "nombre": "Kléberson",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q311035"
+    },
+    {
+     "nombre": "Léo Medeiros",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q6711008"
+    },
+    {
+     "nombre": "Michael Anderson Pereira da Silva",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q1982005"
+    },
+    {
+     "nombre": "Ramón Osni Moreira Lage",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q1191021"
+    },
+    {
+     "nombre": "Renato Abreu",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q682277"
+    },
+    {
+     "nombre": "Thiago Guimarães Sales",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q3990409"
+    },
+    {
+     "nombre": "Toró",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q3995847"
+    },
+    {
+     "nombre": "Vander Vieira",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q7914418",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Vitor Saba",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q10513369"
+    },
+    {
+     "nombre": "Wellington de Jorge Estanislau Paeckart",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q7158730"
+    },
+    {
+     "nombre": "William Amendoim",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q10513384"
+    },
+    {
+     "nombre": "Willians Domingos Fernandes",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q2054410"
+    },
+    {
+     "nombre": "Adriano Imperador",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q170452"
+    },
+    {
+     "nombre": "Bruno Mezenga",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q993576",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Cristian Martínez Borja",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q3292099"
+    },
+    {
+     "nombre": "Deivid de Souza",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q508316"
+    },
+    {
+     "nombre": "Diego Maurício",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q674965"
+    },
+    {
+     "nombre": "Dênis Marques",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q617382"
+    },
+    {
+     "nombre": "Fabiano Oliveira",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q457768"
+    },
+    {
+     "nombre": "Gilberto Ribeiro Gonçalves",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q2349653"
+    },
+    {
+     "nombre": "Leandro Câmara do Amaral",
+     "posicion": "DEL",
+     "edad": 32,
+     "wikidata": "Q2290207"
+    },
+    {
+     "nombre": "Marcos Antônio da Silva Gonçalves",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q1647579"
+    },
+    {
+     "nombre": "Negueba",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q2015848"
+    },
+    {
+     "nombre": "Obina",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q959642"
+    },
+    {
+     "nombre": "Paulo Sérgio Luiz de Souza",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q3898245"
+    },
+    {
+     "nombre": "Val Baiano",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q3064982"
+    },
+    {
+     "nombre": "Vágner Love",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q295880"
+    }
+   ]
+  },
+  {
+   "club": "Cruzeiro Esporte Clube",
+   "wikidata": "Q188277",
+   "temporadas": [
+    "Campeonato Brasileño de 2010"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 74,
+   "jugadores": [
+    {
+     "nombre": "Flávio Henrique Esteves Guedes",
+     "posicion": "POR",
+     "edad": 25,
+     "wikidata": "Q1647571"
+    },
+    {
+     "nombre": "Gabriel Vasconcellos Ferreira",
+     "posicion": "POR",
+     "edad": 17,
+     "wikidata": "Q961889"
+    },
+    {
+     "nombre": "Apodi",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q1027483"
+    },
+    {
+     "nombre": "Cláudio Caçapa",
+     "posicion": "DEF",
+     "edad": 34,
+     "wikidata": "Q221141"
+    },
+    {
+     "nombre": "Diego Renan",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q1767394"
+    },
+    {
+     "nombre": "Edcarlos",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q929482"
+    },
+    {
+     "nombre": "Edimar Curitiba Fraga",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q2080087"
+    },
+    {
+     "nombre": "Eliézio Santos Santana",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q3051320"
+    },
+    {
+     "nombre": "Fabrício de Souza",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q218114"
+    },
+    {
+     "nombre": "Fernando Alves Santa Clara",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q3742879"
+    },
+    {
+     "nombre": "Francisco Everton de Almeida Andrade",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q5483348"
+    },
+    {
+     "nombre": "Gilmerson dos Santos Mota",
+     "posicion": "DEF",
+     "edad": 18,
+     "wikidata": "Q5562509"
+    },
+    {
+     "nombre": "Jonathan Cícero Moreira",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q513648"
+    },
+    {
+     "nombre": "João Carlos dos Santos Torres",
+     "posicion": "DEF",
+     "edad": 18,
+     "wikidata": "Q19598929"
+    },
+    {
+     "nombre": "João Victor Severino",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q6298419"
+    },
+    {
+     "nombre": "Leandro Amaro",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q6509576"
+    },
+    {
+     "nombre": "Leandro Euzébio",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q180721"
+    },
+    {
+     "nombre": "Leonardo Renan Simões de Lacerda",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q1634835"
+    },
+    {
+     "nombre": "Leonardo Silva",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q3830364"
+    },
+    {
+     "nombre": "Luiz Antônio de Oliveira",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q6701389"
+    },
+    {
+     "nombre": "Luiz Carlos Nascimento Júnior",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q730560"
+    },
+    {
+     "nombre": "Léo Fortunato",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q3841088"
+    },
+    {
+     "nombre": "Marcos Martins dos Anjos",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q3846643"
+    },
+    {
+     "nombre": "Pablo de Barros Paulino",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q2638842",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Sandro Manoel dos Santos",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q7416868"
+    },
+    {
+     "nombre": "Thiago Heleno",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q976476"
+    },
+    {
+     "nombre": "Walter Montillo",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q2420612"
+    },
+    {
+     "nombre": "Wellington Oliveira dos Reis",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q692777"
+    },
+    {
+     "nombre": "Anderson Uchoa",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q4754213"
+    },
+    {
+     "nombre": "Bernardo Vieira de Souza",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q823057"
+    },
+    {
+     "nombre": "Carlos Gilberto Nascimento Silva",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q116560"
+    },
+    {
+     "nombre": "Daniel Soares Neves",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q15830957",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Diego da Silva",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q5274851"
+    },
+    {
+     "nombre": "Diogo Sodré",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q20641507"
+    },
+    {
+     "nombre": "Dudu",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q1341709"
+    },
+    {
+     "nombre": "Elicarlos",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q3722949"
+    },
+    {
+     "nombre": "Fernando Camilo Farias",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q5444628"
+    },
+    {
+     "nombre": "Fábio Alves Félix",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q197586"
+    },
+    {
+     "nombre": "Fábio dos Santos Barbosa",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q1377766"
+    },
+    {
+     "nombre": "Gilberto da Silva Melo",
+     "posicion": "MED",
+     "edad": 34,
+     "wikidata": "Q311335"
+    },
+    {
+     "nombre": "Henrique Pacheco Lima",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q197584"
+    },
+    {
+     "nombre": "Joffre Guerrón",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q2457820"
+    },
+    {
+     "nombre": "Jones Carioca",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q6275153"
+    },
+    {
+     "nombre": "José Eduardo de Araújo",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q1881742"
+    },
+    {
+     "nombre": "Leandro Lima",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q483813"
+    },
+    {
+     "nombre": "Marcos Vinícius Bento",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q6757945"
+    },
+    {
+     "nombre": "Marquinhos Paraná",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q1947869"
+    },
+    {
+     "nombre": "Pedro Ken",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q2553395"
+    },
+    {
+     "nombre": "Roger Galera Flores",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q2317052"
+    },
+    {
+     "nombre": "Rômulo Souza Orestes Caldeira",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q2468436"
+    },
+    {
+     "nombre": "Sebastián Prediguer",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q2087025"
+    },
+    {
+     "nombre": "Anderson Lessa",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q4754117"
+    },
+    {
+     "nombre": "André Luís Leite",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q4759982"
+    },
+    {
+     "nombre": "Anselmo Ramon",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q2093183"
+    },
+    {
+     "nombre": "Diego Clementino",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q3027413"
+    },
+    {
+     "nombre": "Eliandro dos Santos Gonzaga",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q5360411"
+    },
+    {
+     "nombre": "Ernesto Farías",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q1337341"
+    },
+    {
+     "nombre": "Francisco Jaílson de Souza",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q1573563"
+    },
+    {
+     "nombre": "Fábio da Silva Alves",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q4818622"
+    },
+    {
+     "nombre": "Gilbert Alvarez Vargas",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q3764210"
+    },
+    {
+     "nombre": "Josimar Moreira",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q21064023"
+    },
+    {
+     "nombre": "Kieza",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q2056485"
+    },
+    {
+     "nombre": "Kléber Gladiador",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q2277170"
+    },
+    {
+     "nombre": "Luiz Fernando Corrêa Sales",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q3840499"
+    },
+    {
+     "nombre": "Márcio Diogo",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q6949646"
+    },
+    {
+     "nombre": "Reinaldo Gonçalves Félix",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q1066658"
+    },
+    {
+     "nombre": "Robert de Pinho de Souza",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q704279"
+    },
+    {
+     "nombre": "Rômulo Marques Antoneli",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q709457"
+    },
+    {
+     "nombre": "Sebastião de Freitas Couto Júnior",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q7442842"
+    },
+    {
+     "nombre": "Thiago Ribeiro",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q1031999"
+    },
+    {
+     "nombre": "Wallyson",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q2005429"
+    },
+    {
+     "nombre": "Wanderley Santos Monteiro Júnior",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q7967230"
+    },
+    {
+     "nombre": "Wellington Paulista",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q1634101",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Wenderson da Silva Soares",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q6176108"
+    }
+   ]
+  },
+  {
+   "club": "Esporte Clube Vitória",
+   "wikidata": "Q274465",
+   "temporadas": [
+    "Campeonato Brasileño de 2010"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 47,
+   "jugadores": [
+    {
+     "nombre": "Julián Viáfara",
+     "posicion": "POR",
+     "edad": 32,
+     "wikidata": "Q3041759"
+    },
+    {
+     "nombre": "Lee Winston Leandro da Silva Oliveira",
+     "posicion": "POR",
+     "edad": 22,
+     "wikidata": "Q6515544"
+    },
+    {
+     "nombre": "Luiz Gustavo de Almeida Pinto",
+     "posicion": "POR",
+     "edad": 17,
+     "wikidata": "Q15303252"
+    },
+    {
+     "nombre": "Renan Rocha",
+     "posicion": "POR",
+     "edad": 23,
+     "wikidata": "Q7312533"
+    },
+    {
+     "nombre": "Vinícius Barrivieira",
+     "posicion": "POR",
+     "edad": 24,
+     "wikidata": "Q3622412"
+    },
+    {
+     "nombre": "Anderson Ferreira",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q4754063"
+    },
+    {
+     "nombre": "Anderson Martins",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q3615365"
+    },
+    {
+     "nombre": "Egídio de Araújo Pereira Júnior",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q3720578"
+    },
+    {
+     "nombre": "Gabriel Paulista",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q14602686"
+    },
+    {
+     "nombre": "Gabriel Valongo da Silva",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q5515896"
+    },
+    {
+     "nombre": "Jonas Jessue da Silva Júnior",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q3809890",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Leonardo Moreira Morais",
+     "posicion": "DEF",
+     "edad": 18,
+     "wikidata": "Q16337761"
+    },
+    {
+     "nombre": "Marconi Ribeiro Souza",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q17388668"
+    },
+    {
+     "nombre": "Marcos Pimentel",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q6757940"
+    },
+    {
+     "nombre": "Nino Paraíba",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q10336984"
+    },
+    {
+     "nombre": "Reniê",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q7313270"
+    },
+    {
+     "nombre": "Thiago Martinelli",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q514928"
+    },
+    {
+     "nombre": "Valmir Ribeiro Siqueira",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q6221776"
+    },
+    {
+     "nombre": "Vilson Xavier de Menezes Júnior",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q7931220",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Wallace Reis da Silva",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q1190633"
+    },
+    {
+     "nombre": "Ai Kesen",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q219298"
+    },
+    {
+     "nombre": "Evandro",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q660159"
+    },
+    {
+     "nombre": "Fernando Almeida de Oliveira",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q1254383"
+    },
+    {
+     "nombre": "Kleiton Domingues",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q10314514"
+    },
+    {
+     "nombre": "Lenílson Batista de Souza",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q6523471"
+    },
+    {
+     "nombre": "Neto Berola",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q3646999"
+    },
+    {
+     "nombre": "Petros Matheus dos Santos Araujo",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q16504229"
+    },
+    {
+     "nombre": "Ramon Menezes",
+     "posicion": "MED",
+     "edad": 38,
+     "wikidata": "Q181139"
+    },
+    {
+     "nombre": "Renan Oliveira",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q3932556"
+    },
+    {
+     "nombre": "Renato Ribeiro",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q2606517"
+    },
+    {
+     "nombre": "Thiago Humberto",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q7783842"
+    },
+    {
+     "nombre": "Uelliton",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q10552205"
+    },
+    {
+     "nombre": "Willian Fernando da Silva",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q4020001"
+    },
+    {
+     "nombre": "Willians dos Santos Santana",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q2084020"
+    },
+    {
+     "nombre": "Adaílton dos Santos da Silva",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q18817334"
+    },
+    {
+     "nombre": "Adriano Pardal",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q16336674"
+    },
+    {
+     "nombre": "Antônio Rogério Silva Oliveira",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q485320"
+    },
+    {
+     "nombre": "Derlei",
+     "posicion": "DEL",
+     "edad": 34,
+     "wikidata": "Q703983"
+    },
+    {
+     "nombre": "Henrique Almeida",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q2457765"
+    },
+    {
+     "nombre": "Hiziel de Souza Soares",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q3785976"
+    },
+    {
+     "nombre": "Jacson da Paixão Neponuceno",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q20744459"
+    },
+    {
+     "nombre": "José Luiz Guimarães Sanabio Júnior",
+     "posicion": "DEL",
+     "edad": 34,
+     "wikidata": "Q2735348"
+    },
+    {
+     "nombre": "Kléber Pereira",
+     "posicion": "DEL",
+     "edad": 34,
+     "wikidata": "Q1323111"
+    },
+    {
+     "nombre": "Marcos Antônio da Silva Gonçalves",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q1647579"
+    },
+    {
+     "nombre": "Marcos Bambam",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q10325407"
+    },
+    {
+     "nombre": "Neto Baiano",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q712406"
+    },
+    {
+     "nombre": "Schwenck",
+     "posicion": "DEL",
+     "edad": 31,
+     "wikidata": "Q1254494"
+    }
+   ]
+  },
+  {
+   "club": "Fluminense Football Club",
+   "wikidata": "Q80987",
+   "temporadas": [
+    "Campeonato Brasileño de 2010"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 55,
+   "jugadores": [
+    {
+     "nombre": "Alberto Rafael Silva",
+     "posicion": "POR",
+     "edad": 26,
+     "wikidata": "Q4712165"
+    },
+    {
+     "nombre": "Fernando Henrique dos Anjos",
+     "posicion": "POR",
+     "edad": 26,
+     "wikidata": "Q630133"
+    },
+    {
+     "nombre": "Luis Cetin",
+     "posicion": "POR",
+     "edad": 22,
+     "wikidata": "Q6700429"
+    },
+    {
+     "nombre": "Ricardo Berna",
+     "posicion": "POR",
+     "edad": 31,
+     "wikidata": "Q7322559"
+    },
+    {
+     "nombre": "André Luís",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q940810"
+    },
+    {
+     "nombre": "Belletti",
+     "posicion": "DEF",
+     "edad": 34,
+     "wikidata": "Q237561"
+    },
+    {
+     "nombre": "Carlos Andrade Souza",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q1091521"
+    },
+    {
+     "nombre": "Cássio Alessandro de Souza",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q5202358"
+    },
+    {
+     "nombre": "Dalton Moreira Neto",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q1748166"
+    },
+    {
+     "nombre": "Diego Evangelista dos Santos",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q782644"
+    },
+    {
+     "nombre": "Francisco Everton de Almeida Andrade",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q5483348"
+    },
+    {
+     "nombre": "Júlio César Coelho Moraes Júnior",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q653872"
+    },
+    {
+     "nombre": "Leandro Euzébio",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q180721"
+    },
+    {
+     "nombre": "Leandro Teixeira Dantas",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q3245362"
+    },
+    {
+     "nombre": "Marcus Vinicius da Cruz Alves Nóbrega",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q6758528"
+    },
+    {
+     "nombre": "Mariano Ferreira Filho",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q31766"
+    },
+    {
+     "nombre": "Rodrigo Junior Paula Silva",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q7357360"
+    },
+    {
+     "nombre": "Sandro Silva de Souza",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q7416880"
+    },
+    {
+     "nombre": "Wagerson Ramos dos Santos",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q7959518"
+    },
+    {
+     "nombre": "Wikipédia:Tradução/Nome do artigo em Português",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q6298311"
+    },
+    {
+     "nombre": "Darío Conca",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q470113"
+    },
+    {
+     "nombre": "Deco",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q659634"
+    },
+    {
+     "nombre": "Diguinho",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q9296529"
+    },
+    {
+     "nombre": "Diogo Antunes de Oliveira",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q2352760"
+    },
+    {
+     "nombre": "Douglas Maia",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q14372186"
+    },
+    {
+     "nombre": "Edwin Valencia",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q934674"
+    },
+    {
+     "nombre": "Elias Ribeiro de Oliveira",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q5360592"
+    },
+    {
+     "nombre": "Emerson Sheik",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q59870"
+    },
+    {
+     "nombre": "Ezequiel González",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q950351"
+    },
+    {
+     "nombre": "Fernando Bob",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q2070369"
+    },
+    {
+     "nombre": "Fábio Neves Florentino",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q5511360"
+    },
+    {
+     "nombre": "Fábio dos Santos Barbosa",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q1377766"
+    },
+    {
+     "nombre": "Maicon Marques Bitencourt",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q969808"
+    },
+    {
+     "nombre": "Marco Antônio de Mattos Filho",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q2422937"
+    },
+    {
+     "nombre": "Tartá",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q217873"
+    },
+    {
+     "nombre": "Thiago Guimarães Sales",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q3990409"
+    },
+    {
+     "nombre": "Thiago Rocha da Cunha",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q2079554"
+    },
+    {
+     "nombre": "Willians dos Santos Santana",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q2084020"
+    },
+    {
+     "nombre": "Adeílson",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q2824331"
+    },
+    {
+     "nombre": "Alan Douglas Borges de Carvalho",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q180164"
+    },
+    {
+     "nombre": "Alex Pires de Souza",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q4717634"
+    },
+    {
+     "nombre": "Alex dos Santos Gonçalves",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q4718057"
+    },
+    {
+     "nombre": "André Lima",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q520972"
+    },
+    {
+     "nombre": "Bruno Veiga",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q4979428"
+    },
+    {
+     "nombre": "Carlos Adriano de Sousa Cruz",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q5041674"
+    },
+    {
+     "nombre": "César Augusto Hermenegildo",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q5202502"
+    },
+    {
+     "nombre": "Fred",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q312772"
+    },
+    {
+     "nombre": "Hiziel de Souza Soares",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q3785976"
+    },
+    {
+     "nombre": "Léo Itaperuna",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q553615"
+    },
+    {
+     "nombre": "Matheus Paraná",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q970029"
+    },
+    {
+     "nombre": "Rodrigo Batista da Cruz",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q7357305"
+    },
+    {
+     "nombre": "Roniéliton Pereira Santos",
+     "posicion": "DEL",
+     "edad": 33,
+     "wikidata": "Q561613"
+    },
+    {
+     "nombre": "Stefano Pinho",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q18702689"
+    },
+    {
+     "nombre": "Washington Stecanela Cerqueira",
+     "posicion": "DEL",
+     "edad": 35,
+     "wikidata": "Q467194"
+    },
+    {
+     "nombre": "Wellington Silva",
+     "posicion": "DEL",
+     "edad": 17,
+     "wikidata": "Q644235"
+    }
+   ]
+  },
+  {
+   "club": "Goiás Esporte Clube",
+   "wikidata": "Q816779",
+   "temporadas": [
+    "Campeonato Brasileño de 2010"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 54,
+   "jugadores": [
+    {
+     "nombre": "Fábio Gonçalves dos Santos",
+     "posicion": "POR",
+     "edad": 31,
+     "wikidata": "Q5511339"
+    },
+    {
+     "nombre": "Harlei de Menezes Silva",
+     "posicion": "POR",
+     "edad": 38,
+     "wikidata": "Q1988145"
+    },
+    {
+     "nombre": "Pedro Henrique Carvalho Freitas",
+     "posicion": "POR",
+     "edad": 24,
+     "wikidata": "Q7159633"
+    },
+    {
+     "nombre": "Roberto Gomes Júnior",
+     "posicion": "POR",
+     "edad": 20,
+     "wikidata": "Q7351716"
+    },
+    {
+     "nombre": "Carlos Alberto de Oliveira Júnior",
+     "posicion": "DEF",
+     "edad": 32,
+     "wikidata": "Q1615399"
+    },
+    {
+     "nombre": "Cícero Vítor dos Santos Júnior",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q5202675"
+    },
+    {
+     "nombre": "Douglas Pereira dos Santos",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q1988686"
+    },
+    {
+     "nombre": "Ernando",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q3732095",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Fábio Bahia",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q5511319"
+    },
+    {
+     "nombre": "Guilherme Aguiar Camacho",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q5615958"
+    },
+    {
+     "nombre": "Jenílson Ângelo de Souza",
+     "posicion": "DEF",
+     "edad": 37,
+     "wikidata": "Q1990849"
+    },
+    {
+     "nombre": "José Jadílson dos Santos Silva",
+     "posicion": "DEF",
+     "edad": 32,
+     "wikidata": "Q197561"
+    },
+    {
+     "nombre": "João Paulo Bersch",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q6298288"
+    },
+    {
+     "nombre": "Leandro Euzébio",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q180721"
+    },
+    {
+     "nombre": "Lenon Fernandes Ribeiro",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q6523063"
+    },
+    {
+     "nombre": "Leyrielton Moura de Morais",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q6538109"
+    },
+    {
+     "nombre": "Marcão",
+     "posicion": "DEF",
+     "edad": 35,
+     "wikidata": "Q180877"
+    },
+    {
+     "nombre": "Rafael Tolói",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q3928977"
+    },
+    {
+     "nombre": "Rithely",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q18637914"
+    },
+    {
+     "nombre": "Régis Ribeiro de Souza",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q15831175"
+    },
+    {
+     "nombre": "Wellington Monteiro",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q2342460"
+    },
+    {
+     "nombre": "Wellington Saci",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q7640249"
+    },
+    {
+     "nombre": "Wendel Santana Pereira Santos",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q7982368"
+    },
+    {
+     "nombre": "Willian José de Souza",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q8013789"
+    },
+    {
+     "nombre": "Bernardo Vieira de Souza",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q823057"
+    },
+    {
+     "nombre": "Deyvid Sacconi",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q3082141"
+    },
+    {
+     "nombre": "Felipe Amorim",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q10280962"
+    },
+    {
+     "nombre": "Geovane Batista de Faria",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q5548631"
+    },
+    {
+     "nombre": "Guilherme Mascarenhas Santana",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q5615972"
+    },
+    {
+     "nombre": "Hugo Rodrigues Imbelloni",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q5934431"
+    },
+    {
+     "nombre": "Jones Carioca",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q6275153"
+    },
+    {
+     "nombre": "Marcelo Costa",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q6756535"
+    },
+    {
+     "nombre": "Romero Mendonça Sobrinho",
+     "posicion": "MED",
+     "edad": 35,
+     "wikidata": "Q7363166"
+    },
+    {
+     "nombre": "Thiago Henrique Mendes Ribeiro",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q18277749"
+    },
+    {
+     "nombre": "Túlio Lustosa Seixas Pinheiro",
+     "posicion": "MED",
+     "edad": 34,
+     "wikidata": "Q218105"
+    },
+    {
+     "nombre": "Willian Fernando da Silva",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q4020001"
+    },
+    {
+     "nombre": "Ángel Rojas",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q8076899"
+    },
+    {
+     "nombre": "Daniel Lovinho",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q5217969"
+    },
+    {
+     "nombre": "Diogo Galvão",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q5279199"
+    },
+    {
+     "nombre": "Diogo Silvestre Bittencourt",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q1226858"
+    },
+    {
+     "nombre": "Fabrício Carvalho",
+     "posicion": "DEL",
+     "edad": 32,
+     "wikidata": "Q5428244"
+    },
+    {
+     "nombre": "Felipe Reinaldo da Silva",
+     "posicion": "DEL",
+     "edad": 32,
+     "wikidata": "Q3742290"
+    },
+    {
+     "nombre": "Fernandão",
+     "posicion": "DEL",
+     "edad": 32,
+     "wikidata": "Q664053"
+    },
+    {
+     "nombre": "Johnathan",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q3809691"
+    },
+    {
+     "nombre": "Johnson Macaba",
+     "posicion": "DEL",
+     "edad": 31,
+     "wikidata": "Q926318"
+    },
+    {
+     "nombre": "Jonílson Clovis Nascimento Breves",
+     "posicion": "DEL",
+     "edad": 31,
+     "wikidata": "Q887996"
+    },
+    {
+     "nombre": "Jéfferson Feijão",
+     "posicion": "DEL",
+     "edad": 31,
+     "wikidata": "Q6175474"
+    },
+    {
+     "nombre": "Manoel Segundo Jardim Júnior",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q6751112"
+    },
+    {
+     "nombre": "Otacílio Neto",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q3887036"
+    },
+    {
+     "nombre": "Pedrão",
+     "posicion": "DEL",
+     "edad": 32,
+     "wikidata": "Q3675733"
+    },
+    {
+     "nombre": "Rafael Moura",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q578635"
+    },
+    {
+     "nombre": "Vitor Coutinho Flora",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q7937192"
+    },
+    {
+     "nombre": "Wendell Lira",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q7982480"
+    },
+    {
+     "nombre": "Éverton Leandro dos Santos Pinto",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q180952"
+    }
+   ]
+  },
+  {
+   "club": "Grêmio Barueri",
+   "wikidata": "Q133520",
+   "temporadas": [
+    "Campeonato Brasileño de 2010"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 59,
+   "jugadores": [
+    {
+     "nombre": "Giovanni Aparecido Adriano dos Santos",
+     "posicion": "POR",
+     "edad": 21,
+     "wikidata": "Q3646980",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Márcio Augusto dos Santos Aguiar",
+     "posicion": "POR",
+     "edad": 28,
+     "wikidata": "Q6949637"
+    },
+    {
+     "nombre": "Sidão",
+     "posicion": "POR",
+     "edad": 27,
+     "wikidata": "Q7508942"
+    },
+    {
+     "nombre": "Anderson Luís de Azevedo Rodrigues Marques",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q4754126"
+    },
+    {
+     "nombre": "Anderson Martins Pedro",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q4754130"
+    },
+    {
+     "nombre": "Anderson Pedra",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q4754147"
+    },
+    {
+     "nombre": "Arthur Henrique Ricciardi Oyama",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q4799024"
+    },
+    {
+     "nombre": "Bruno de Paula Ribeiro Ingrácia",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q2015372"
+    },
+    {
+     "nombre": "Cleidson Rodrigues dos Santos",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q5131104"
+    },
+    {
+     "nombre": "Daniel Marques da Silva",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q5218052"
+    },
+    {
+     "nombre": "Denis Silva",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q5257521"
+    },
+    {
+     "nombre": "Diego da Silva Giaretta",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q5274681"
+    },
+    {
+     "nombre": "Diogo Douglas Santos Andrade Barbosa",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q592202"
+    },
+    {
+     "nombre": "Edvan França de Moraes",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q5341352",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Everton Santos Bezerra",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q17385648"
+    },
+    {
+     "nombre": "Flávio Boaventura",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q5463710"
+    },
+    {
+     "nombre": "Jefferson Nascimento",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q3807803"
+    },
+    {
+     "nombre": "Leonardo José Aparecido Moura",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q2502029"
+    },
+    {
+     "nombre": "Paulo César Arruda Parente",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q3088450"
+    },
+    {
+     "nombre": "Paulo Marcos de Jesus Ribeiro",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q2092700"
+    },
+    {
+     "nombre": "Roberto Andrade Silva",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q3938574"
+    },
+    {
+     "nombre": "Rodrigo Arroz",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q3940026"
+    },
+    {
+     "nombre": "Rodrigo Mancha",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q3940042"
+    },
+    {
+     "nombre": "Willian de Oliveira Saldanha",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q8021335"
+    },
+    {
+     "nombre": "Xandão",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q670289"
+    },
+    {
+     "nombre": "Adriano Pimenta",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q375979"
+    },
+    {
+     "nombre": "Carlos Eduardo de Oliveira Alves",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q5042026"
+    },
+    {
+     "nombre": "Carlos Henrique Barbosa Augusto",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q5042164"
+    },
+    {
+     "nombre": "Cleverson Rosário dos Santos",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q15427886"
+    },
+    {
+     "nombre": "David França Oliveira e Silva",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q5233823"
+    },
+    {
+     "nombre": "Deyvid Sacconi",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q3082141"
+    },
+    {
+     "nombre": "Douglas Camillo da Silva",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q5301307"
+    },
+    {
+     "nombre": "Eduardo Ramos",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q5340743"
+    },
+    {
+     "nombre": "Fabiano Gadelha",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q5427721"
+    },
+    {
+     "nombre": "Flávio Alex Valêncio",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q619573"
+    },
+    {
+     "nombre": "Gilmar Silva Santos",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q1440374"
+    },
+    {
+     "nombre": "Ji-Paraná",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q3811815"
+    },
+    {
+     "nombre": "João Vitor Lima Gomes",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q6298426"
+    },
+    {
+     "nombre": "Lucas Sasha",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q6696266"
+    },
+    {
+     "nombre": "Magno Batista da Silva",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q6731812"
+    },
+    {
+     "nombre": "Marcelo Oliveira Ferreira",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q3845723"
+    },
+    {
+     "nombre": "Marcos Assunção",
+     "posicion": "MED",
+     "edad": 33,
+     "wikidata": "Q2089039"
+    },
+    {
+     "nombre": "Marcos Renan Oliveira Santana",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q6757916"
+    },
+    {
+     "nombre": "Sérgio Paulo Nascimento Filho",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q7666098"
+    },
+    {
+     "nombre": "William Henrique",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q8011867"
+    },
+    {
+     "nombre": "Yannick Puppo",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q346147"
+    },
+    {
+     "nombre": "Adolpho Araújo Netto",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q4684443"
+    },
+    {
+     "nombre": "Geovane",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q5548628"
+    },
+    {
+     "nombre": "Henrique Dias de Carvalho",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q5716701"
+    },
+    {
+     "nombre": "Hugo Guimarães Silva Santos Almeida",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q3787488"
+    },
+    {
+     "nombre": "José Tadeu Mouro Júnior",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q4818577"
+    },
+    {
+     "nombre": "Juan Gomes de Lima",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q10513799"
+    },
+    {
+     "nombre": "Luiz Fernando Pereira da Silva",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q3840503"
+    },
+    {
+     "nombre": "Mateus Lima Cruz",
+     "posicion": "DEL",
+     "edad": 17,
+     "wikidata": "Q20630871"
+    },
+    {
+     "nombre": "Rafael Martins",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q7282206"
+    },
+    {
+     "nombre": "Rhayner",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q59388"
+    },
+    {
+     "nombre": "Wanderley Santos Monteiro Júnior",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q7967230"
+    },
+    {
+     "nombre": "Wesley Barbosa de Morais",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q3272038"
+    },
+    {
+     "nombre": "Willian José",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q2469796"
+    }
+   ]
+  },
+  {
+   "club": "Grêmio Foot-Ball Porto Alegrense",
+   "wikidata": "Q221695",
+   "temporadas": [
+    "Campeonato Brasileño de 2010"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 59,
+   "jugadores": [
+    {
+     "nombre": "Alessandro Felipe Oltramari",
+     "posicion": "POR",
+     "edad": 22,
+     "wikidata": "Q4716349"
+    },
+    {
+     "nombre": "Gustavo Busatto",
+     "posicion": "POR",
+     "edad": 19,
+     "wikidata": "Q17305740"
+    },
+    {
+     "nombre": "Matheus Cavichioli",
+     "posicion": "POR",
+     "edad": 23,
+     "wikidata": "Q6786978"
+    },
+    {
+     "nombre": "Victor",
+     "posicion": "POR",
+     "edad": 27,
+     "wikidata": "Q563649"
+    },
+    {
+     "nombre": "Anderson Pico",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q2846142"
+    },
+    {
+     "nombre": "Bruno Collaço",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q3645701"
+    },
+    {
+     "nombre": "Carlos Rafael do Amaral",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q718938"
+    },
+    {
+     "nombre": "Dener Assunção Braz",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q17490040"
+    },
+    {
+     "nombre": "Edílson Mendes Guimarães",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q5346996"
+    },
+    {
+     "nombre": "Felipe Mattioni Rohde",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q337639"
+    },
+    {
+     "nombre": "Ferdinando Pereira Leda",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q3742652"
+    },
+    {
+     "nombre": "Fábio Santos",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q2316179"
+    },
+    {
+     "nombre": "Gabriel Rodrigues dos Santos",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q1370869"
+    },
+    {
+     "nombre": "Gabriel Spessato",
+     "posicion": "DEF",
+     "edad": 18,
+     "wikidata": "Q17385940"
+    },
+    {
+     "nombre": "Gilson Gomes do Nascimento",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q3764401"
+    },
+    {
+     "nombre": "Hélder Silva Santos",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q3788143"
+    },
+    {
+     "nombre": "Maurício",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q6794016"
+    },
+    {
+     "nombre": "Mário Fernandes",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q2444565"
+    },
+    {
+     "nombre": "Neuton",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q10720"
+    },
+    {
+     "nombre": "Odacir Pereira da Silva",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q7077220"
+    },
+    {
+     "nombre": "Ozéia",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q367564"
+    },
+    {
+     "nombre": "Paulo Marcos de Jesus Ribeiro",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q2092700"
+    },
+    {
+     "nombre": "Rafael Marques Pinto",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q3928956"
+    },
+    {
+     "nombre": "Rodrigo Baldasso da Costa",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q2707174"
+    },
+    {
+     "nombre": "Saimon",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q606470"
+    },
+    {
+     "nombre": "Thiago Ribeiro dos Santos",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q7783854"
+    },
+    {
+     "nombre": "Thiego",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q719472"
+    },
+    {
+     "nombre": "Uendel Pereira Gonçalves",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q7877456"
+    },
+    {
+     "nombre": "Vilson Xavier de Menezes Júnior",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q7931220",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Wágner Fogolari",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q8040729"
+    },
+    {
+     "nombre": "Adílson",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q380413"
+    },
+    {
+     "nombre": "Bruno Renan Trombelli",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q3295559"
+    },
+    {
+     "nombre": "Carlos Henrique Barbosa Augusto",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q5042164"
+    },
+    {
+     "nombre": "Danilo Rios",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q5219628"
+    },
+    {
+     "nombre": "Douglas",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q726982"
+    },
+    {
+     "nombre": "Douglas Costa",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q391680"
+    },
+    {
+     "nombre": "Fernando Lucas Martins",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q1254357"
+    },
+    {
+     "nombre": "Fábio Rochemback",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q375496"
+    },
+    {
+     "nombre": "Hugo Henrique Assis do Nascimento",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q197572"
+    },
+    {
+     "nombre": "Isael da Silva Barbosa",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q53666"
+    },
+    {
+     "nombre": "Jonas",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q326476"
+    },
+    {
+     "nombre": "Jonas Henrique Pessalli",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q7171436"
+    },
+    {
+     "nombre": "Joílson",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q923394"
+    },
+    {
+     "nombre": "Leandro Lessa Azevedo",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q180906"
+    },
+    {
+     "nombre": "Lúcio Carlos Cajueiro Souza",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q724092"
+    },
+    {
+     "nombre": "Maylson",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q1634090"
+    },
+    {
+     "nombre": "Mithyuê",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q3859431"
+    },
+    {
+     "nombre": "Roberson de Arruda Alves",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q3938193"
+    },
+    {
+     "nombre": "Rudnei da Rosa",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q1186307"
+    },
+    {
+     "nombre": "Willamis de Souza Silva",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q601373"
+    },
+    {
+     "nombre": "Willian Magrão",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q4020202"
+    },
+    {
+     "nombre": "André Lima",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q520972"
+    },
+    {
+     "nombre": "Diego Clementino",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q3027413"
+    },
+    {
+     "nombre": "Edixon Perea",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q283067"
+    },
+    {
+     "nombre": "Germán Herrera",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q1115805"
+    },
+    {
+     "nombre": "Humberlito Borges",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q455557"
+    },
+    {
+     "nombre": "Júnior Viçosa",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q6313498"
+    },
+    {
+     "nombre": "Rafael Alves Targino",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q7282019"
+    },
+    {
+     "nombre": "William Júnior Sales de Lima Souza",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q600887"
+    }
+   ]
+  },
+  {
+   "club": "Guarani Futebol Clube",
+   "wikidata": "Q1133475",
+   "temporadas": [
+    "Campeonato Brasileño de 2010"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 43,
+   "jugadores": [
+    {
+     "nombre": "Douglas Gonzaga Leite",
+     "posicion": "POR",
+     "edad": 30,
+     "wikidata": "Q5301531"
+    },
+    {
+     "nombre": "Apodi",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q1027483"
+    },
+    {
+     "nombre": "Baiano",
+     "posicion": "DEF",
+     "edad": 32,
+     "wikidata": "Q2667775"
+    },
+    {
+     "nombre": "Carlos César Neves",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q5041974"
+    },
+    {
+     "nombre": "Cléber Resende de Oliveira",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q5131019"
+    },
+    {
+     "nombre": "Cássio Francisco de Jesus",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q25470203"
+    },
+    {
+     "nombre": "Dannyu Francisco dos Santos",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q5320155"
+    },
+    {
+     "nombre": "Eduardo Martins Nunes",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q5340684"
+    },
+    {
+     "nombre": "Fabiano Lima Rodrigues",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q2258656"
+    },
+    {
+     "nombre": "Fabão",
+     "posicion": "DEF",
+     "edad": 34,
+     "wikidata": "Q2314727"
+    },
+    {
+     "nombre": "Guilherme Cruz de Mattis",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q5615964"
+    },
+    {
+     "nombre": "Hélio Hermito Zampier Neto",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q892981"
+    },
+    {
+     "nombre": "Héverton Cardoso da Silva",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q3788170"
+    },
+    {
+     "nombre": "Messias Maranhão",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q3046202"
+    },
+    {
+     "nombre": "Moreno Aoas Vidal",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q1410745"
+    },
+    {
+     "nombre": "Márcio Careca",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q10334297"
+    },
+    {
+     "nombre": "Paulo Roberto da Silva",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q19857100"
+    },
+    {
+     "nombre": "Reiner Ferreira",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q15980625"
+    },
+    {
+     "nombre": "Rodrigo Vieira Heffner",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q3940038"
+    },
+    {
+     "nombre": "Ronaldo Tres",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q7365437"
+    },
+    {
+     "nombre": "Aislan",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q409928"
+    },
+    {
+     "nombre": "Alex Cruz",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q4717262"
+    },
+    {
+     "nombre": "Fernando Cafasso",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q5444626"
+    },
+    {
+     "nombre": "Jonathan Fabbro",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q3501096"
+    },
+    {
+     "nombre": "Matheus Humberto Maximiano",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q6786984"
+    },
+    {
+     "nombre": "Mário Lúcio da Silva Junior",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q10334469"
+    },
+    {
+     "nombre": "Renan Teixeira",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q3932557"
+    },
+    {
+     "nombre": "Silas Feitosa de Sousa",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q7514151"
+    },
+    {
+     "nombre": "Walter Minhoca",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q10393093"
+    },
+    {
+     "nombre": "Anderson Costa",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q491510"
+    },
+    {
+     "nombre": "Bruno Cazarine Constantino",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q3645687"
+    },
+    {
+     "nombre": "Fábio Souza dos Santos",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q5427865"
+    },
+    {
+     "nombre": "Geovane",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q5548628"
+    },
+    {
+     "nombre": "Geílson de Carvalho Soares",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q210142"
+    },
+    {
+     "nombre": "João Luiz Ferreira da Silva",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q1710167"
+    },
+    {
+     "nombre": "Marcelino Júnior Lopes Arruda",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q1574084"
+    },
+    {
+     "nombre": "Pablo Diogo Lopes de Lima",
+     "posicion": "DEL",
+     "edad": 17,
+     "wikidata": "Q22809663"
+    },
+    {
+     "nombre": "Reinaldo de Souza",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q7310263"
+    },
+    {
+     "nombre": "Ricardo Gomes Xavier",
+     "posicion": "DEL",
+     "edad": 31,
+     "wikidata": "Q10361143"
+    },
+    {
+     "nombre": "Richard Falcão",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q7325601"
+    },
+    {
+     "nombre": "Roger Silva",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q181193"
+    },
+    {
+     "nombre": "Rômulo Marques Antoneli",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q709457"
+    },
+    {
+     "nombre": "Thiago dos Santos Ferreira",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q7783864",
+     "edad_aproximada": true
+    }
+   ]
+  },
+  {
+   "club": "Santos Futebol Clube",
+   "wikidata": "Q80955",
+   "temporadas": [
+    "Campeonato Brasileño de 2010"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 58,
+   "jugadores": [
+    {
+     "nombre": "Felipe Garcia",
+     "posicion": "POR",
+     "edad": 22,
+     "wikidata": "Q3742285"
+    },
+    {
+     "nombre": "Fábio Costa",
+     "posicion": "POR",
+     "edad": 32,
+     "wikidata": "Q2719042"
+    },
+    {
+     "nombre": "Rafael Cabral",
+     "posicion": "POR",
+     "edad": 20,
+     "wikidata": "Q615668"
+    },
+    {
+     "nombre": "Samuel de Oliveira Pires",
+     "posicion": "POR",
+     "edad": 21,
+     "wikidata": "Q10422953"
+    },
+    {
+     "nombre": "Alan Santos",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q4707707"
+    },
+    {
+     "nombre": "Alex Sandro",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q551192"
+    },
+    {
+     "nombre": "Anderson Carvalho",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q335916"
+    },
+    {
+     "nombre": "Bruno Aguiar",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q4097194"
+    },
+    {
+     "nombre": "Bruno Rodrigo",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q2007167"
+    },
+    {
+     "nombre": "Danilo Luiz da Silva",
+     "posicion": "DEF",
+     "edad": 18,
+     "wikidata": "Q437329"
+    },
+    {
+     "nombre": "Domingos",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q381597"
+    },
+    {
+     "nombre": "Durval",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q1185500"
+    },
+    {
+     "nombre": "Edu Dracena",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q559474"
+    },
+    {
+     "nombre": "Filipi de Souza Barros",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q5448570"
+    },
+    {
+     "nombre": "George Lucas Coser",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q1507803"
+    },
+    {
+     "nombre": "Guilherme Choco",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q5615961"
+    },
+    {
+     "nombre": "Leo",
+     "posicion": "DEF",
+     "edad": 34,
+     "wikidata": "Q2452835"
+    },
+    {
+     "nombre": "Luciano Castán",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q6696793"
+    },
+    {
+     "nombre": "Messias Maranhão",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q3046202"
+    },
+    {
+     "nombre": "Pará",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q4282225"
+    },
+    {
+     "nombre": "Rafael Caldeira",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q7282056"
+    },
+    {
+     "nombre": "Rodrigo Mancha",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q3940042"
+    },
+    {
+     "nombre": "Vinícius Simon",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q4419689"
+    },
+    {
+     "nombre": "Adriano Bispo dos Santos",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q3383427"
+    },
+    {
+     "nombre": "Alan Patrick",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q923402"
+    },
+    {
+     "nombre": "Arouca",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q2722553"
+    },
+    {
+     "nombre": "Diego Faria",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q10556339"
+    },
+    {
+     "nombre": "Díonísio de Oliveira Alves",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q5320321"
+    },
+    {
+     "nombre": "Elivelton José da Silva",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q5362015"
+    },
+    {
+     "nombre": "Felipe Anderson",
+     "posicion": "MED",
+     "edad": 17,
+     "wikidata": "Q794628"
+    },
+    {
+     "nombre": "Germano Borovicz Cardoso Schweger",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q1185832"
+    },
+    {
+     "nombre": "José Luis dos Santos Pinto",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q2858179"
+    },
+    {
+     "nombre": "Juan Cazares",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q952754"
+    },
+    {
+     "nombre": "Madson",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q1627338"
+    },
+    {
+     "nombre": "Maikon Leite",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q1580384"
+    },
+    {
+     "nombre": "Marquinhos Santos",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q605965"
+    },
+    {
+     "nombre": "Neymar",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q142794"
+    },
+    {
+     "nombre": "Nikão",
+     "posicion": "MED",
+     "edad": 17,
+     "wikidata": "Q2605478"
+    },
+    {
+     "nombre": "Overath Breitner da Silva Medina",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q202592"
+    },
+    {
+     "nombre": "Patrik César dos Santos Duzi",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q7147902"
+    },
+    {
+     "nombre": "Paulo Henrique Ganso",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q313835"
+    },
+    {
+     "nombre": "Q10425550",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q10425550"
+    },
+    {
+     "nombre": "Roberto Brum",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q3436853"
+    },
+    {
+     "nombre": "Robinho",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q58441"
+    },
+    {
+     "nombre": "Rodrigo Pereira Possebon",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q322691"
+    },
+    {
+     "nombre": "Róbson Michael Signorini",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q7386520"
+    },
+    {
+     "nombre": "Sérgio Ricardo dos Santos Júnior",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q15831180"
+    },
+    {
+     "nombre": "Thaisinha",
+     "posicion": "MED",
+     "edad": 17,
+     "wikidata": "Q7711605"
+    },
+    {
+     "nombre": "Wesley Lopes Beltrame",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q925323"
+    },
+    {
+     "nombre": "Dimba",
+     "posicion": "DEL",
+     "edad": 17,
+     "wikidata": "Q5277173",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Fabiano Vieira Soares",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q5427729"
+    },
+    {
+     "nombre": "Giovanni Silva de Oliveira",
+     "posicion": "DEL",
+     "edad": 38,
+     "wikidata": "Q382069"
+    },
+    {
+     "nombre": "Kléber Pereira",
+     "posicion": "DEL",
+     "edad": 34,
+     "wikidata": "Q1323111"
+    },
+    {
+     "nombre": "Marcel Augusto Ortolan",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q197591"
+    },
+    {
+     "nombre": "Moisés Ferreira Gomes",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q6894880"
+    },
+    {
+     "nombre": "Tiago Luís Martins",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q3031471"
+    },
+    {
+     "nombre": "Zé Love",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q2451217"
+    },
+    {
+     "nombre": "Keirrison",
+     "posicion": null,
+     "edad": 21,
+     "wikidata": "Q314225"
+    }
+   ]
+  },
+  {
+   "club": "Sociedade Esportiva Palmeiras",
+   "wikidata": "Q80964",
+   "temporadas": [
+    "Campeonato Brasileño de 2010"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 70,
+   "jugadores": [
+    {
+     "nombre": "Bruno Cortez Cardoso",
+     "posicion": "POR",
+     "edad": 26,
+     "wikidata": "Q5599564"
+    },
+    {
+     "nombre": "Deola",
+     "posicion": "POR",
+     "edad": 27,
+     "wikidata": "Q3705649"
+    },
+    {
+     "nombre": "Marcos Roberto Silveira Reis",
+     "posicion": "POR",
+     "edad": 36,
+     "wikidata": "Q342474"
+    },
+    {
+     "nombre": "Antonio Cleilson da Silva Feitosa",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q2448284"
+    },
+    {
+     "nombre": "Bruno Henrique Turco",
+     "posicion": "DEF",
+     "edad": 18,
+     "wikidata": "Q9667598"
+    },
+    {
+     "nombre": "Cícero Vítor dos Santos Júnior",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q5202675"
+    },
+    {
+     "nombre": "Danilo Larangeira",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q2631143"
+    },
+    {
+     "nombre": "Edmílson",
+     "posicion": "DEF",
+     "edad": 33,
+     "wikidata": "Q296058"
+    },
+    {
+     "nombre": "Eduardo José Diniz Costa",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q5340648"
+    },
+    {
+     "nombre": "Fabrício Silva Dornellas",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q1390921"
+    },
+    {
+     "nombre": "Gabriel Silva",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q2017085"
+    },
+    {
+     "nombre": "Gualberto Luís da Silva Júnior",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q5613378"
+    },
+    {
+     "nombre": "José Fernando de Aguiar Jr.",
+     "posicion": "DEF",
+     "edad": 18,
+     "wikidata": "Q6292181"
+    },
+    {
+     "nombre": "Leandro Amaro",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q6509576"
+    },
+    {
+     "nombre": "Leonardo Renan Simões de Lacerda",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q1634835"
+    },
+    {
+     "nombre": "Lucas Pierre Santos Oliveira",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q6158497"
+    },
+    {
+     "nombre": "Luís Felipe Dias do Nascimento",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q6706773"
+    },
+    {
+     "nombre": "Marcão",
+     "posicion": "DEF",
+     "edad": 35,
+     "wikidata": "Q180877"
+    },
+    {
+     "nombre": "Maurício",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q6794016"
+    },
+    {
+     "nombre": "Murilo Gomes Ferreira",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q6938716"
+    },
+    {
+     "nombre": "Márcio Rodrigues Araújo",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q1440120"
+    },
+    {
+     "nombre": "Pablo Armero",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q371305"
+    },
+    {
+     "nombre": "Rivaldo Barbosa de Souza",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q339583"
+    },
+    {
+     "nombre": "Rodrigo Defendi",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q1082991"
+    },
+    {
+     "nombre": "Sandro Silva",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q2707256"
+    },
+    {
+     "nombre": "Thiago Gomes",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q7783840"
+    },
+    {
+     "nombre": "Wendel Santana Pereira Santos",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q7982368"
+    },
+    {
+     "nombre": "Anselmo",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q1523172"
+    },
+    {
+     "nombre": "Antônio Fábio Francês Cavalcante",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q5427780"
+    },
+    {
+     "nombre": "Bruno Oliveira de Matos",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q18022181"
+    },
+    {
+     "nombre": "Bruno Paulo Barbosa",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q3645876"
+    },
+    {
+     "nombre": "Cleiton Xavier",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q943470"
+    },
+    {
+     "nombre": "Deyvid Sacconi",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q3082141"
+    },
+    {
+     "nombre": "Diego Souza",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q2449294"
+    },
+    {
+     "nombre": "Edimo Ferreira Campos",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q2569552"
+    },
+    {
+     "nombre": "Elierce Barbosa de Souza",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q5360745"
+    },
+    {
+     "nombre": "Everton Luiz Guimarães Bilher",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q5852801"
+    },
+    {
+     "nombre": "Felipe de Oliveira Silva",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q5442069"
+    },
+    {
+     "nombre": "Francis José da Silva",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q10284508"
+    },
+    {
+     "nombre": "Jean Carlos Vicente",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q6170371"
+    },
+    {
+     "nombre": "Jorge Valdivia",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q360782"
+    },
+    {
+     "nombre": "João Arthur Bueno de Camargo",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q3810703"
+    },
+    {
+     "nombre": "Leandro dos Santos de Jesus",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q2352788"
+    },
+    {
+     "nombre": "Lincoln",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q447215"
+    },
+    {
+     "nombre": "Luis Pedro Figueroa",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q2635047"
+    },
+    {
+     "nombre": "Luiz Otávio Santos de Araújo",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q6701487"
+    },
+    {
+     "nombre": "Luís Cláudio Carvalho da Silva",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q6706770"
+    },
+    {
+     "nombre": "Marcos Assunção",
+     "posicion": "MED",
+     "edad": 33,
+     "wikidata": "Q2089039"
+    },
+    {
+     "nombre": "Olívio da Rosa",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q491848"
+    },
+    {
+     "nombre": "Patrik Camilo Cornélio da Silva",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q3897782"
+    },
+    {
+     "nombre": "Willian Fernando da Silva",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q4020001"
+    },
+    {
+     "nombre": "Willians dos Santos Santana",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q2084020"
+    },
+    {
+     "nombre": "Daniel Lovinho",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q5217969"
+    },
+    {
+     "nombre": "Ewerthon Henrique de Souza",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q528590"
+    },
+    {
+     "nombre": "Gilson Silva Goes",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q5562613"
+    },
+    {
+     "nombre": "Glelberson Luis Leopoldino Bertante",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q5567523"
+    },
+    {
+     "nombre": "José Tadeu Mouro Júnior",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q4818577"
+    },
+    {
+     "nombre": "Juan Ángel Paredes",
+     "posicion": "DEL",
+     "edad": 31,
+     "wikidata": "Q6301423"
+    },
+    {
+     "nombre": "Julio César da Silva",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q6309264"
+    },
+    {
+     "nombre": "Kléber Gladiador",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q2277170"
+    },
+    {
+     "nombre": "Lenny",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q5610343"
+    },
+    {
+     "nombre": "Luan Michel de Louzã",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q2638408"
+    },
+    {
+     "nombre": "Marcos Antônio da Silva Gonçalves",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q1647579"
+    },
+    {
+     "nombre": "Max Brendon Costa Pinheiro",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q6794610"
+    },
+    {
+     "nombre": "Paulo Henrique Carneiro Filho",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q1886865"
+    },
+    {
+     "nombre": "Robert de Pinho de Souza",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q704279"
+    },
+    {
+     "nombre": "Telmário de Araújo Sacramento",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q3312668"
+    },
+    {
+     "nombre": "Victor Irineu de Souza",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q4429915"
+    },
+    {
+     "nombre": "Vinícius Santos Silva",
+     "posicion": "DEL",
+     "edad": 16,
+     "wikidata": "Q4013742"
+    },
+    {
+     "nombre": "Washington Luiz Mascarenhas Silva",
+     "posicion": "DEL",
+     "edad": 31,
+     "wikidata": "Q1254334"
+    }
+   ]
+  },
+  {
+   "club": "Sport Club Corinthians Paulista",
+   "wikidata": "Q35933",
+   "temporadas": [
+    "Campeonato Brasileño de 2010"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 71,
+   "jugadores": [
+    {
+     "nombre": "Aldo Bobadilla",
+     "posicion": "POR",
+     "edad": 34,
+     "wikidata": "Q362301"
+    },
+    {
+     "nombre": "Danilo Fernandes",
+     "posicion": "POR",
+     "edad": 22,
+     "wikidata": "Q1839743"
+    },
+    {
+     "nombre": "Júlio César de Souza Santos",
+     "posicion": "POR",
+     "edad": 25,
+     "wikidata": "Q1097574"
+    },
+    {
+     "nombre": "Luiz Felipe Ventura dos Santos",
+     "posicion": "POR",
+     "edad": 26,
+     "wikidata": "Q1424354"
+    },
+    {
+     "nombre": "Marcelo dos Santos Marinho",
+     "posicion": "POR",
+     "edad": 26,
+     "wikidata": "Q6756662"
+    },
+    {
+     "nombre": "Rafael de Carvalho Santos",
+     "posicion": "POR",
+     "edad": 21,
+     "wikidata": "Q7282372"
+    },
+    {
+     "nombre": "Alessandro Nunes",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q2735135"
+    },
+    {
+     "nombre": "Anderson Sebastião Cardoso",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q2352244"
+    },
+    {
+     "nombre": "André Vinícius Lima de Oliveira",
+     "posicion": "DEF",
+     "edad": 18,
+     "wikidata": "Q4760091"
+    },
+    {
+     "nombre": "Bruno Bertucci",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q1988313"
+    },
+    {
+     "nombre": "Bruno Octávio",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q256993"
+    },
+    {
+     "nombre": "Carlos Alberto de Oliveira Júnior",
+     "posicion": "DEF",
+     "edad": 32,
+     "wikidata": "Q1615399"
+    },
+    {
+     "nombre": "Denis Oliveira de Souza",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q5320297"
+    },
+    {
+     "nombre": "Diego Sacoman",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q5274805"
+    },
+    {
+     "nombre": "Diogo Douglas Santos Andrade Barbosa",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q592202"
+    },
+    {
+     "nombre": "Edgar Balbuena",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q5337124"
+    },
+    {
+     "nombre": "Eduardo Correia Piller Filho",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q2571129"
+    },
+    {
+     "nombre": "José Rodolfo Pires Ribeiro",
+     "posicion": "DEF",
+     "edad": 18,
+     "wikidata": "Q1573490"
+    },
+    {
+     "nombre": "Kadu",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q7322717"
+    },
+    {
+     "nombre": "Leandro Castán",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q1573556"
+    },
+    {
+     "nombre": "Marcos Vinícius Gomes Nascimento",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q17580322"
+    },
+    {
+     "nombre": "Moacir Costa da Silva",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q6886339"
+    },
+    {
+     "nombre": "Paulo André",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q1100643"
+    },
+    {
+     "nombre": "Renato Chaves",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q436160"
+    },
+    {
+     "nombre": "Roberto Carlos",
+     "posicion": "DEF",
+     "edad": 37,
+     "wikidata": "Q429039"
+    },
+    {
+     "nombre": "Ronaldo Tres",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q7365437"
+    },
+    {
+     "nombre": "Sergio Escudero",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q1631987"
+    },
+    {
+     "nombre": "Thiago Heleno",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q976476"
+    },
+    {
+     "nombre": "Wellington Saci",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q7640249"
+    },
+    {
+     "nombre": "William Machado de Oliveira",
+     "posicion": "DEF",
+     "edad": 33,
+     "wikidata": "Q4020093"
+    },
+    {
+     "nombre": "Boquita",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q1648349"
+    },
+    {
+     "nombre": "Bruno César",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q713719"
+    },
+    {
+     "nombre": "Carlos Alberto da Silva Gonçalves Júnior",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q5041714"
+    },
+    {
+     "nombre": "Danilo Gabriel de Andrade",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q555391"
+    },
+    {
+     "nombre": "Edno",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q43971"
+    },
+    {
+     "nombre": "Edu Gaspar",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q314750"
+    },
+    {
+     "nombre": "Eduardo Ramos",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q5340743"
+    },
+    {
+     "nombre": "Elias",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q510123"
+    },
+    {
+     "nombre": "Everton Ribeiro",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q4025436"
+    },
+    {
+     "nombre": "Fabrício dos Santos Messias",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q5428255"
+    },
+    {
+     "nombre": "Iarley",
+     "posicion": "MED",
+     "edad": 36,
+     "wikidata": "Q2066580"
+    },
+    {
+     "nombre": "Jadson de Brito Lima",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q6121528"
+    },
+    {
+     "nombre": "Jucilei",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q634578"
+    },
+    {
+     "nombre": "Luiz Marcelo Morais dos Reis",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q518810"
+    },
+    {
+     "nombre": "Marcelinho Carioca",
+     "posicion": "MED",
+     "edad": 39,
+     "wikidata": "Q378101"
+    },
+    {
+     "nombre": "Marcelo Mattos",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q721017"
+    },
+    {
+     "nombre": "Marcelo Oliveira Ferreira",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q3845723"
+    },
+    {
+     "nombre": "Moradei",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q10332260"
+    },
+    {
+     "nombre": "Morais",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q718186"
+    },
+    {
+     "nombre": "Paulinho",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q73082"
+    },
+    {
+     "nombre": "Ralf",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q73018"
+    },
+    {
+     "nombre": "Tcheco",
+     "posicion": "MED",
+     "edad": 34,
+     "wikidata": "Q611933"
+    },
+    {
+     "nombre": "Wellington Aparecido Martins",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q972942"
+    },
+    {
+     "nombre": "William Morais",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q302437"
+    },
+    {
+     "nombre": "anderson",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q5367869"
+    },
+    {
+     "nombre": "Benjamin",
+     "posicion": "DEL",
+     "edad": 41,
+     "wikidata": "Q4291302"
+    },
+    {
+     "nombre": "Dentinho",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q514577"
+    },
+    {
+     "nombre": "Diego Carlos",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q5274601"
+    },
+    {
+     "nombre": "Elias Fernandes de Oliveira",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q21005729"
+    },
+    {
+     "nombre": "Jorge Henrique",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q2352258"
+    },
+    {
+     "nombre": "Leomir Silva Teles",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q6524453"
+    },
+    {
+     "nombre": "Marcelo Gil Fernando",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q4704015"
+    },
+    {
+     "nombre": "Matías Defederico",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q734734",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Otacílio Neto",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q3887036"
+    },
+    {
+     "nombre": "Pedro Beda",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q2313586"
+    },
+    {
+     "nombre": "Qusai Ali Al Farsi",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q18637227"
+    },
+    {
+     "nombre": "Ricardinho Paraiba",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q19559929"
+    },
+    {
+     "nombre": "Rodrigo de Souza Cardoso",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q595653"
+    },
+    {
+     "nombre": "Ronaldo Nazário",
+     "posicion": "DEL",
+     "edad": 33,
+     "wikidata": "Q529207"
+    },
+    {
+     "nombre": "Rosimar Amancio",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q3718763"
+    },
+    {
+     "nombre": "Wesley Smith Alves Feitosa",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q7984004"
+    }
+   ]
+  },
+  {
+   "club": "Sport Club Internacional",
+   "wikidata": "Q80845",
+   "temporadas": [
+    "Campeonato Brasileño de 2010"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 73,
+   "jugadores": [
+    {
+     "nombre": "Agenor Detofol",
+     "posicion": "POR",
+     "edad": 20,
+     "wikidata": "Q13584553"
+    },
+    {
+     "nombre": "Lauro Júnior Batista da Cruz",
+     "posicion": "POR",
+     "edad": 29,
+     "wikidata": "Q2040559"
+    },
+    {
+     "nombre": "Luiz Carlos Oliveira de Bitencourt",
+     "posicion": "POR",
+     "edad": 22,
+     "wikidata": "Q6701415"
+    },
+    {
+     "nombre": "Renan Brito Soares",
+     "posicion": "POR",
+     "edad": 25,
+     "wikidata": "Q371215"
+    },
+    {
+     "nombre": "Roberto Abbondanzieri",
+     "posicion": "POR",
+     "edad": 37,
+     "wikidata": "Q296961"
+    },
+    {
+     "nombre": "Sílvio Silas da Silva Walenga",
+     "posicion": "POR",
+     "edad": 21,
+     "wikidata": "Q20641493"
+    },
+    {
+     "nombre": "Bolívar",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q1248192"
+    },
+    {
+     "nombre": "Bruno Silva",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q556015"
+    },
+    {
+     "nombre": "Claudinei Cardoso Félix da Silva",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q2441358"
+    },
+    {
+     "nombre": "Cristian Chagas Tarouco",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q5186167"
+    },
+    {
+     "nombre": "Dalton Moreira Neto",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q1748166"
+    },
+    {
+     "nombre": "Daniel Souza de Jesus",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q3701736"
+    },
+    {
+     "nombre": "Danilo Silva",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q660113"
+    },
+    {
+     "nombre": "Danny Morais",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q3015293"
+    },
+    {
+     "nombre": "Eltinho",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q3051783"
+    },
+    {
+     "nombre": "Fabiano Eller",
+     "posicion": "DEF",
+     "edad": 32,
+     "wikidata": "Q503242"
+    },
+    {
+     "nombre": "Gonzalo Sorondo",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q726046"
+    },
+    {
+     "nombre": "Igor Rossi Branco",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q15831033"
+    },
+    {
+     "nombre": "Jonas Jessue da Silva Júnior",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q3809890",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Josimar Rosado da Silva Tavares",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q6290803"
+    },
+    {
+     "nombre": "Juan Jesus",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q454910"
+    },
+    {
+     "nombre": "Juliano Real Pacheco",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q18279271"
+    },
+    {
+     "nombre": "Kléber de Carvalho Correia",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q552995"
+    },
+    {
+     "nombre": "Leonardo de Jesus Geraldo",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q1970536"
+    },
+    {
+     "nombre": "Marcelo Cordeiro",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q3845715"
+    },
+    {
+     "nombre": "Marcos Antônio de Lima",
+     "posicion": "DEF",
+     "edad": 35,
+     "wikidata": "Q4282220"
+    },
+    {
+     "nombre": "Rafael Forster",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q16940565"
+    },
+    {
+     "nombre": "Ramon Motta",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q3929914",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Rodrigo Baldasso da Costa",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q2707174"
+    },
+    {
+     "nombre": "Ronaldo Alves",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q3941031"
+    },
+    {
+     "nombre": "Ronaldo Conceição",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q10364354"
+    },
+    {
+     "nombre": "Rubén Dario Bustos Torres",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q2723197"
+    },
+    {
+     "nombre": "Wagner da Silva",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q22166599"
+    },
+    {
+     "nombre": "Andrezinho",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q489539"
+    },
+    {
+     "nombre": "Andrés D'Alessandro",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q313741"
+    },
+    {
+     "nombre": "Derley",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q4018098"
+    },
+    {
+     "nombre": "Giuliano",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q713886"
+    },
+    {
+     "nombre": "Glaydson",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q5567340"
+    },
+    {
+     "nombre": "Ji-Paraná",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q3811815"
+    },
+    {
+     "nombre": "João Paulo Mior",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q6298302"
+    },
+    {
+     "nombre": "Luis Bolaños",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q589843"
+    },
+    {
+     "nombre": "Marquinhos Gabriel",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q3849814"
+    },
+    {
+     "nombre": "Maycon Vieira de Freitas",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q3853189"
+    },
+    {
+     "nombre": "Mário Sérgio Santos Costa",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q3869209"
+    },
+    {
+     "nombre": "Oscar dos Santos Emboaba Júnior",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q19497"
+    },
+    {
+     "nombre": "Pablo Guiñazú",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q1353506"
+    },
+    {
+     "nombre": "Pedro Henrique de Santana Almeida",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q18387346"
+    },
+    {
+     "nombre": "Sandro Ranieri Guimarães Cordeiro",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q59255"
+    },
+    {
+     "nombre": "Taison",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q303108"
+    },
+    {
+     "nombre": "Tales Tlaija de Souza",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q3980393"
+    },
+    {
+     "nombre": "Thiago Humberto",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q7783842"
+    },
+    {
+     "nombre": "Tinga",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q531080"
+    },
+    {
+     "nombre": "Wilson Matias",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q1984691"
+    },
+    {
+     "nombre": "Adriano Ferreira Martins",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q180885"
+    },
+    {
+     "nombre": "Alan Kardec",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q736325"
+    },
+    {
+     "nombre": "Alecsandro",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q2002761"
+    },
+    {
+     "nombre": "Augusto Pacheco Fraga",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q1648158"
+    },
+    {
+     "nombre": "Cassiano Dias Moreira",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q16337102"
+    },
+    {
+     "nombre": "Eduardo Sasha",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q5340762"
+    },
+    {
+     "nombre": "Everton Costa",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q687389"
+    },
+    {
+     "nombre": "Felipe Barreto da Silva",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q5442074"
+    },
+    {
+     "nombre": "Ilan",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q27852"
+    },
+    {
+     "nombre": "Kléber Pereira",
+     "posicion": "DEL",
+     "edad": 34,
+     "wikidata": "Q1323111"
+    },
+    {
+     "nombre": "Leandro Costa Miranda Moraes",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q888091"
+    },
+    {
+     "nombre": "Leandro Damião",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q62733"
+    },
+    {
+     "nombre": "Luiz Carlos de Souza Pinto Júnior",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q4994276"
+    },
+    {
+     "nombre": "Luís Eduardo Schmidt",
+     "posicion": "DEL",
+     "edad": 31,
+     "wikidata": "Q460484"
+    },
+    {
+     "nombre": "Marcos Bambam",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q10325407"
+    },
+    {
+     "nombre": "Rafael Sóbis",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q350493"
+    },
+    {
+     "nombre": "Romão",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q15831167"
+    },
+    {
+     "nombre": "Talles Henrique Cunha",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q7680109"
+    },
+    {
+     "nombre": "Walter",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q545249"
+    },
+    {
+     "nombre": "Ytalo José Oliveira dos Santos",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q4023127"
+    }
+   ]
+  },
+  {
+   "club": "São Paulo Futebol Clube",
+   "wikidata": "Q38568",
+   "temporadas": [
+    "Campeonato Brasileño de 2010"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 64,
+   "jugadores": [
+    {
+     "nombre": "Bosco",
+     "posicion": "POR",
+     "edad": 35,
+     "wikidata": "Q1710133"
+    },
+    {
+     "nombre": "Fabiano Ribeiro de Freitas",
+     "posicion": "POR",
+     "edad": 22,
+     "wikidata": "Q5427726"
+    },
+    {
+     "nombre": "Rogério Ceni",
+     "posicion": "POR",
+     "edad": 37,
+     "wikidata": "Q1249859"
+    },
+    {
+     "nombre": "Adrián González",
+     "posicion": "DEF",
+     "edad": 33,
+     "wikidata": "Q1292271"
+    },
+    {
+     "nombre": "Alex Cazumba",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q3610649"
+    },
+    {
+     "nombre": "Alex Silva",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q439450"
+    },
+    {
+     "nombre": "André Gonçalves Dias",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q2847888"
+    },
+    {
+     "nombre": "André Luís",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q940810"
+    },
+    {
+     "nombre": "Bruno Leonardo Formigoni",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q4979215"
+    },
+    {
+     "nombre": "Bruno Uvini",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q508075"
+    },
+    {
+     "nombre": "Bruno da Silva Barbosa",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q4979444"
+    },
+    {
+     "nombre": "Cicinho",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q221798"
+    },
+    {
+     "nombre": "Jackson de Souza",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q16337605"
+    },
+    {
+     "nombre": "José Leonardo Ribeiro da Silva",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q1271370"
+    },
+    {
+     "nombre": "Júnior César",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q1715715"
+    },
+    {
+     "nombre": "Leo Lima",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q1614422"
+    },
+    {
+     "nombre": "Miranda",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q318119"
+    },
+    {
+     "nombre": "Nélson Saavedra",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q7071440"
+    },
+    {
+     "nombre": "Rafael Lopes Ferreira",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q10357044"
+    },
+    {
+     "nombre": "Renato Silva",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q1857790"
+    },
+    {
+     "nombre": "Richarlyson",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q921131"
+    },
+    {
+     "nombre": "Samuel Firmino de Jesus",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q1857948"
+    },
+    {
+     "nombre": "Thiago Carleto",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q599624"
+    },
+    {
+     "nombre": "Wagner Diniz",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q4017657"
+    },
+    {
+     "nombre": "Xandão",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q670289"
+    },
+    {
+     "nombre": "Aislan",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q409928"
+    },
+    {
+     "nombre": "Allan Monteiro Dias",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q16745161"
+    },
+    {
+     "nombre": "Arouca",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q2722553"
+    },
+    {
+     "nombre": "Carlinhos Paraíba",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q2353105"
+    },
+    {
+     "nombre": "Casemiro",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q616664"
+    },
+    {
+     "nombre": "Cléber Santana",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q514375"
+    },
+    {
+     "nombre": "Francisco Alex",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q5483088"
+    },
+    {
+     "nombre": "Hernanes",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q313570"
+    },
+    {
+     "nombre": "Ilsinho",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q455804"
+    },
+    {
+     "nombre": "Jackson Henrique Gonçalves Pereira",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q2012450"
+    },
+    {
+     "nombre": "Jean Raphael Vanderlei Moreira",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q506861"
+    },
+    {
+     "nombre": "Jorge Wagner",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q601752"
+    },
+    {
+     "nombre": "José Vitor Rodrigues Ribeiro da Silva",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q1709700"
+    },
+    {
+     "nombre": "Lucas Moura",
+     "posicion": "MED",
+     "edad": 17,
+     "wikidata": "Q312886"
+    },
+    {
+     "nombre": "Léo Gonçalves",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q6710993"
+    },
+    {
+     "nombre": "Marcelinho Paraíba",
+     "posicion": "MED",
+     "edad": 35,
+     "wikidata": "Q262954"
+    },
+    {
+     "nombre": "Marlos",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q681938"
+    },
+    {
+     "nombre": "Oscar dos Santos Emboaba Júnior",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q19497"
+    },
+    {
+     "nombre": "Paulo Henrique Martins Eugenio",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q17285689"
+    },
+    {
+     "nombre": "Rafael da Silva Francisco",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q992104"
+    },
+    {
+     "nombre": "Renan Teixeira",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q3932557"
+    },
+    {
+     "nombre": "Rodrigo Souto",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q217882",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Sérgio Mota (futebolista)",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q3956198"
+    },
+    {
+     "nombre": "Vítor Gomes Pereira Júnior",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q863235"
+    },
+    {
+     "nombre": "Dagoberto",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q943432"
+    },
+    {
+     "nombre": "Diogo Silvestre Bittencourt",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q1226858"
+    },
+    {
+     "nombre": "Eric Leandro da Silva",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q5386947"
+    },
+    {
+     "nombre": "Fernandão",
+     "posicion": "DEL",
+     "edad": 32,
+     "wikidata": "Q664053"
+    },
+    {
+     "nombre": "Henrique Almeida",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q2457765"
+    },
+    {
+     "nombre": "Hernane Brocador",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q181942",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Lucas Gaúcho",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q10320201"
+    },
+    {
+     "nombre": "Luiz Fernando Pereira da Silva",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q3840503"
+    },
+    {
+     "nombre": "Madjer",
+     "posicion": "DEL",
+     "edad": 33,
+     "wikidata": "Q1367228"
+    },
+    {
+     "nombre": "Marcelino Júnior Lopes Arruda",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q1574084"
+    },
+    {
+     "nombre": "Ricardo Oliveira",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q315079"
+    },
+    {
+     "nombre": "Roger Silva",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q181193"
+    },
+    {
+     "nombre": "Ronieli Gomes dos Santos",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q495440"
+    },
+    {
+     "nombre": "Thiago Biriça",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q7783823"
+    },
+    {
+     "nombre": "Washington Stecanela Cerqueira",
+     "posicion": "DEL",
+     "edad": 35,
+     "wikidata": "Q467194"
+    }
+   ]
+  }
+ ]
+}

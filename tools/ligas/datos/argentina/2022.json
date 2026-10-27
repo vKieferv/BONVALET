@@ -1,0 +1,783 @@
+{
+ "liga": "Primera División de Argentina",
+ "pais": "argentina",
+ "año": 2022,
+ "fuente": "Wikidata (CC0) y Wikipedia; instantánea del 27-oct-2026 (tools/ligas/)",
+ "notas": [
+  "Datos de referencia de uso propio, no para el juego.",
+  "Clubes: los de las temporadas del campeonato que tocan este año calendario (tabla de posiciones de Wikipedia o, si no hay, los clubes más enlazados desde el artículo de la temporada).",
+  "Jugadores: membresías P54 de Wikidata que incluyen el año. Sin fecha de fin cuenta el año en que llegó (o hasta hoy si llegó desde 2023): membresia_estimada. Los planteles pueden estar incompletos; jugadores_encontrados dice cuántos hay.",
+  "posicion: línea estimada desde P413 (POR, DEF, MED, DEL; null si Wikidata no la tiene). edad: al 1 de julio; edad_aproximada si la fecha de nacimiento no tiene día o tiene fechas distintas."
+ ],
+ "equipos": [
+  {
+   "club": "Asociación Atlética Argentinos Juniors",
+   "wikidata": "Q220621",
+   "temporadas": [
+    "Campeonato de Primera División 2022"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 2,
+   "jugadores": [
+    {
+     "nombre": "Federico Redondo",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q113027711"
+    },
+    {
+     "nombre": "Marco Di Cesare",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q104015123"
+    }
+   ]
+  },
+  {
+   "club": "Atlético Tucumán",
+   "wikidata": "Q757470",
+   "temporadas": [
+    "Campeonato de Primera División 2022"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 3,
+   "jugadores": [
+    {
+     "nombre": "Andrés Balanta",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q59644112"
+    },
+    {
+     "nombre": "Franco Mussis",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q5868392"
+    },
+    {
+     "nombre": "Maximiliano Alanís",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q124172476"
+    }
+   ]
+  },
+  {
+   "club": "Barracas Central",
+   "wikidata": "Q2469894",
+   "temporadas": [
+    "Campeonato de Primera División 2022"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Axel Bordón",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q116258976"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Aldosivi",
+   "wikidata": "Q971490",
+   "temporadas": [
+    "Campeonato de Primera División 2022"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 2,
+   "jugadores": [
+    {
+     "nombre": "Nicolás Valentini",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q106768944"
+    },
+    {
+     "nombre": "Elías David Torres",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q131106940"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Banfield",
+   "wikidata": "Q692646",
+   "temporadas": [
+    "Campeonato de Primera División 2022"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 3,
+   "jugadores": [
+    {
+     "nombre": "Aaron Quirós",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q122886659"
+    },
+    {
+     "nombre": "Feyiseitan Asagidigbi",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q104373137"
+    },
+    {
+     "nombre": "Andrés Chávez",
+     "posicion": "DEL",
+     "edad": 31,
+     "wikidata": "Q5675665"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Colón",
+   "wikidata": "Q80897",
+   "temporadas": [
+    "Campeonato de Primera División 2022"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Lucas Beltrán",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q59649459"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Huracán",
+   "wikidata": "Q327172",
+   "temporadas": [
+    "Campeonato de Primera División 2022"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 3,
+   "jugadores": [
+    {
+     "nombre": "Santiago Hezze",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q87310074"
+    },
+    {
+     "nombre": "Braian Maidana",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q104774999"
+    },
+    {
+     "nombre": "Juan Gauto",
+     "posicion": null,
+     "edad": 18,
+     "wikidata": "Q114133037"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Independiente",
+   "wikidata": "Q214978",
+   "temporadas": [
+    "Campeonato de Primera División 2022"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 3,
+   "jugadores": [
+    {
+     "nombre": "Alan Soñora",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q68740044"
+    },
+    {
+     "nombre": "Gerónimo Poblete",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q5879003"
+    },
+    {
+     "nombre": "Nicolás Del Priore",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q59782070"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Lanús",
+   "wikidata": "Q324589",
+   "temporadas": [
+    "Campeonato de Primera División 2022"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 2,
+   "jugadores": [
+    {
+     "nombre": "Guillermo de Amores",
+     "posicion": "POR",
+     "edad": 27,
+     "wikidata": "Q3120564"
+    },
+    {
+     "nombre": "Julio Soler",
+     "posicion": "DEF",
+     "edad": 17,
+     "wikidata": "Q121142176"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Newell’s Old Boys",
+   "wikidata": "Q221882",
+   "temporadas": [
+    "Campeonato de Primera División 2022"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 4,
+   "jugadores": [
+    {
+     "nombre": "Gabriel Compagnucci",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q60734676"
+    },
+    {
+     "nombre": "Juan Sforza",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q71735316"
+    },
+    {
+     "nombre": "Djorkaeff Reasco",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q94535575"
+    },
+    {
+     "nombre": "Francisco González",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q63341017"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético River Plate",
+   "wikidata": "Q15799",
+   "temporadas": [
+    "Campeonato de Primera División 2022"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 15,
+   "jugadores": [
+    {
+     "nombre": "Enzo Pérez",
+     "posicion": "POR",
+     "edad": 36,
+     "wikidata": "Q926353"
+    },
+    {
+     "nombre": "Franco Daniel Armani",
+     "posicion": "POR",
+     "edad": 35,
+     "wikidata": "Q5484508"
+    },
+    {
+     "nombre": "Delfina Ojea",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q134519755"
+    },
+    {
+     "nombre": "Tatiana Soledad Rizzo",
+     "posicion": "DEF",
+     "edad": 35,
+     "wikidata": "Q9355839"
+    },
+    {
+     "nombre": "Bruno Zuculini",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q3645977"
+    },
+    {
+     "nombre": "Carlos Airala",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q55760539"
+    },
+    {
+     "nombre": "Enzo Fernández",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q96105248"
+    },
+    {
+     "nombre": "Esequiel Barco",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q25935564"
+    },
+    {
+     "nombre": "Juan Fernando Quintero",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q2092409"
+    },
+    {
+     "nombre": "Nicolás De La Cruz",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q20994037"
+    },
+    {
+     "nombre": "Erica Lonigro",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q76761350"
+    },
+    {
+     "nombre": "Julián Alvarez",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q59381180"
+    },
+    {
+     "nombre": "Lucas Beltrán",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q59649459"
+    },
+    {
+     "nombre": "Miguel Borja",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q4094820"
+    },
+    {
+     "nombre": "Pablo Solari",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q102157529"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Rosario Central",
+   "wikidata": "Q318307",
+   "temporadas": [
+    "Campeonato de Primera División 2022"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 2,
+   "jugadores": [
+    {
+     "nombre": "Alejo Véliz",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q112877211"
+    },
+    {
+     "nombre": "Gino Infantino",
+     "posicion": null,
+     "edad": 19,
+     "wikidata": "Q101579946"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Tigre",
+   "wikidata": "Q80886",
+   "temporadas": [
+    "Campeonato de Primera División 2022"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 3,
+   "jugadores": [
+    {
+     "nombre": "Alexis Castro",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q20027940"
+    },
+    {
+     "nombre": "Ezequiel Fernández",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q83750159"
+    },
+    {
+     "nombre": "Mateo Retegui",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q47002491"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Unión",
+   "wikidata": "Q80899",
+   "temporadas": [
+    "Campeonato de Primera División 2022"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 3,
+   "jugadores": [
+    {
+     "nombre": "Lucas Esquivel",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q101084011"
+    },
+    {
+     "nombre": "Kevin Zenón",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q101001007"
+    },
+    {
+     "nombre": "adolfo hitler buendia",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q66929490"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Vélez Sarsfield",
+   "wikidata": "Q215163",
+   "temporadas": [
+    "Campeonato de Primera División 2022"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 5,
+   "jugadores": [
+    {
+     "nombre": "Diego Godín",
+     "posicion": "DEF",
+     "edad": 36,
+     "wikidata": "Q214903"
+    },
+    {
+     "nombre": "Thiago Almada",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q57293140"
+    },
+    {
+     "nombre": "Lucas Janson",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q9024628"
+    },
+    {
+     "nombre": "Mateo Pellegrino",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q106308522"
+    },
+    {
+     "nombre": "Santiago Castro",
+     "posicion": "DEL",
+     "edad": 17,
+     "wikidata": "Q108114747"
+    }
+   ]
+  },
+  {
+   "club": "Club Deportivo Godoy Cruz Antonio Tomba",
+   "wikidata": "Q80882",
+   "temporadas": [
+    "Campeonato de Primera División 2022"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Club Estudiantes de La Plata",
+   "wikidata": "Q214940",
+   "temporadas": [
+    "Campeonato de Primera División 2022"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 8,
+   "jugadores": [
+    {
+     "nombre": "Mariano Andújar",
+     "posicion": "POR",
+     "edad": 38,
+     "wikidata": "Q321321"
+    },
+    {
+     "nombre": "Nicolás Andrés Fernández",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q125246628"
+    },
+    {
+     "nombre": "Gonzalo Piñeiro",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q125449275"
+    },
+    {
+     "nombre": "José Sosa",
+     "posicion": "MED",
+     "edad": 37,
+     "wikidata": "Q314241"
+    },
+    {
+     "nombre": "Manuel Castro",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q20164673"
+    },
+    {
+     "nombre": "Mateo Pellegrino",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q106308522"
+    },
+    {
+     "nombre": "Mauro Boselli",
+     "posicion": "DEL",
+     "edad": 37,
+     "wikidata": "Q561087"
+    },
+    {
+     "nombre": "Mauro Méndez",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q88094584"
+    }
+   ]
+  },
+  {
+   "club": "Club Social y Deportivo Defensa y Justicia",
+   "wikidata": "Q1024338",
+   "temporadas": [
+    "Campeonato de Primera División 2022"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Club de Gimnasia y Esgrima La Plata",
+   "wikidata": "Q18640",
+   "temporadas": [
+    "Campeonato de Primera División 2022"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 3,
+   "jugadores": [
+    {
+     "nombre": "Agostina Pelozo",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q114111654"
+    },
+    {
+     "nombre": "Ramón posaaaa",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q110160871"
+    },
+    {
+     "nombre": "Brenda Graff",
+     "posicion": null,
+     "edad": 27,
+     "wikidata": "Q113996357"
+    }
+   ]
+  },
+  {
+   "club": "Q151907",
+   "wikidata": "Q151907",
+   "temporadas": [
+    "Campeonato de Primera División 2022"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Q170703",
+   "wikidata": "Q170703",
+   "temporadas": [
+    "Campeonato de Primera División 2022"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Q1773830",
+   "wikidata": "Q1773830",
+   "temporadas": [
+    "Campeonato de Primera División 2022"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Q218282",
+   "wikidata": "Q218282",
+   "temporadas": [
+    "Campeonato de Primera División 2022"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Q476836",
+   "wikidata": "Q476836",
+   "temporadas": [
+    "Campeonato de Primera División 2022"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Q5060684",
+   "wikidata": "Q5060684",
+   "temporadas": [
+    "Campeonato de Primera División 2022"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Q519966",
+   "wikidata": "Q519966",
+   "temporadas": [
+    "Campeonato de Primera División 2022"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Racing Club",
+   "wikidata": "Q276533",
+   "temporadas": [
+    "Campeonato de Primera División 2022"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 2,
+   "jugadores": [
+    {
+     "nombre": "Emiliano Insúa",
+     "posicion": "DEF",
+     "edad": 33,
+     "wikidata": "Q351797"
+    },
+    {
+     "nombre": "Iván Pillud",
+     "posicion": "DEF",
+     "edad": 36,
+     "wikidata": "Q2539757"
+    }
+   ]
+  },
+  {
+   "club": "Talleres de Córdoba",
+   "wikidata": "Q1022939",
+   "temporadas": [
+    "Campeonato de Primera División 2022"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 4,
+   "jugadores": [
+    {
+     "nombre": "Alan Franco Palma",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q56164119"
+    },
+    {
+     "nombre": "Francisco Pizzini",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q6436725"
+    },
+    {
+     "nombre": "Julio Buffarini",
+     "posicion": "MED",
+     "edad": 33,
+     "wikidata": "Q6309137"
+    },
+    {
+     "nombre": "Pablo Solari",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q102157529"
+    }
+   ]
+  }
+ ]
+}

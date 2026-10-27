@@ -1,0 +1,771 @@
+{
+ "liga": "Primera División de Argentina",
+ "pais": "argentina",
+ "año": 2020,
+ "fuente": "Wikidata (CC0) y Wikipedia; instantánea del 27-oct-2026 (tools/ligas/)",
+ "notas": [
+  "Datos de referencia de uso propio, no para el juego.",
+  "Clubes: los de las temporadas del campeonato que tocan este año calendario (tabla de posiciones de Wikipedia o, si no hay, los clubes más enlazados desde el artículo de la temporada).",
+  "Jugadores: membresías P54 de Wikidata que incluyen el año. Sin fecha de fin cuenta el año en que llegó (o hasta hoy si llegó desde 2023): membresia_estimada. Los planteles pueden estar incompletos; jugadores_encontrados dice cuántos hay.",
+  "posicion: línea estimada desde P413 (POR, DEF, MED, DEL; null si Wikidata no la tiene). edad: al 1 de julio; edad_aproximada si la fecha de nacimiento no tiene día o tiene fechas distintas."
+ ],
+ "equipos": [
+  {
+   "club": "Asociación Atlética Argentinos Juniors",
+   "wikidata": "Q220621",
+   "temporadas": [
+    "Campeonato de Primera División 2019-20"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Raúl Bobadilla",
+     "posicion": "DEL",
+     "edad": 33,
+     "wikidata": "Q562840"
+    }
+   ]
+  },
+  {
+   "club": "Atlético Tucumán",
+   "wikidata": "Q757470",
+   "temporadas": [
+    "Campeonato de Primera División 2019-20"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Franco Mussis",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q5868392"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Aldosivi",
+   "wikidata": "Q971490",
+   "temporadas": [
+    "Campeonato de Primera División 2019-20"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Facundo Bertoglio",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q923375"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Banfield",
+   "wikidata": "Q692646",
+   "temporadas": [
+    "Campeonato de Primera División 2019-20"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 5,
+   "jugadores": [
+    {
+     "nombre": "Sebastián Dubarbier",
+     "posicion": "DEF",
+     "edad": 34,
+     "wikidata": "Q1334239"
+    },
+    {
+     "nombre": "Feyiseitan Asagidigbi",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q104373137"
+    },
+    {
+     "nombre": "Jonás Gutiérrez",
+     "posicion": "MED",
+     "edad": 36,
+     "wikidata": "Q208087"
+    },
+    {
+     "nombre": "Michael López",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q43380470"
+    },
+    {
+     "nombre": "Pablo Daniel Osvaldo",
+     "posicion": "DEL",
+     "edad": 34,
+     "wikidata": "Q313927"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Colón",
+   "wikidata": "Q80897",
+   "temporadas": [
+    "Campeonato de Primera División 2019-20"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 3,
+   "jugadores": [
+    {
+     "nombre": "Braian Galván",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q57292739"
+    },
+    {
+     "nombre": "Juan Bauza",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q28950928"
+    },
+    {
+     "nombre": "Matías Fritzler",
+     "posicion": "MED",
+     "edad": 33,
+     "wikidata": "Q543271"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Huracán",
+   "wikidata": "Q327172",
+   "temporadas": [
+    "Campeonato de Primera División 2019-20"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 5,
+   "jugadores": [
+    {
+     "nombre": "Santiago Hezze",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q87310074"
+    },
+    {
+     "nombre": "Sebastián Francisco Ramírez",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q85636852"
+    },
+    {
+     "nombre": "Andrés Chávez",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q5675665"
+    },
+    {
+     "nombre": "Braian Maidana",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q104774999"
+    },
+    {
+     "nombre": "Juan Gauto",
+     "posicion": null,
+     "edad": 16,
+     "wikidata": "Q114133037"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Independiente",
+   "wikidata": "Q214978",
+   "temporadas": [
+    "Campeonato de Primera División 2019-20"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 2,
+   "jugadores": [
+    {
+     "nombre": "Alan Soñora",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q68740044"
+    },
+    {
+     "nombre": "Nicolás Del Priore",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q59782070"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Lanús",
+   "wikidata": "Q324589",
+   "temporadas": [
+    "Campeonato de Primera División 2019-20"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Fernando Belluschi",
+     "posicion": "MED",
+     "edad": 36,
+     "wikidata": "Q441224"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Newell’s Old Boys",
+   "wikidata": "Q221882",
+   "temporadas": [
+    "Campeonato de Primera División 2019-20"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 4,
+   "jugadores": [
+    {
+     "nombre": "Nicolás Temperini",
+     "posicion": "POR",
+     "edad": 25,
+     "wikidata": "Q56318348"
+    },
+    {
+     "nombre": "Ignacio Scocco",
+     "posicion": "MED",
+     "edad": 35,
+     "wikidata": "Q1709911"
+    },
+    {
+     "nombre": "Maxi Rodríguez",
+     "posicion": "MED",
+     "edad": 39,
+     "wikidata": "Q190929"
+    },
+    {
+     "nombre": "Francisco González",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q63341017"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético River Plate",
+   "wikidata": "Q15799",
+   "temporadas": [
+    "Campeonato de Primera División 2019-20"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 13,
+   "jugadores": [
+    {
+     "nombre": "Enzo Pérez",
+     "posicion": "POR",
+     "edad": 34,
+     "wikidata": "Q926353"
+    },
+    {
+     "nombre": "Franco Daniel Armani",
+     "posicion": "POR",
+     "edad": 33,
+     "wikidata": "Q5484508"
+    },
+    {
+     "nombre": "Germán Lux",
+     "posicion": "POR",
+     "edad": 38,
+     "wikidata": "Q313441"
+    },
+    {
+     "nombre": "Gonzalo Montiel",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q26255087"
+    },
+    {
+     "nombre": "Bruno Zuculini",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q3645977"
+    },
+    {
+     "nombre": "Enzo Fernández",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q96105248"
+    },
+    {
+     "nombre": "Ignacio Scocco",
+     "posicion": "MED",
+     "edad": 35,
+     "wikidata": "Q1709911"
+    },
+    {
+     "nombre": "Juan Fernando Quintero",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q2092409"
+    },
+    {
+     "nombre": "Nicolás De La Cruz",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q20994037"
+    },
+    {
+     "nombre": "Julián Alvarez",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q59381180"
+    },
+    {
+     "nombre": "Lucas Beltrán",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q59649459"
+    },
+    {
+     "nombre": "Rafael Santos Borré",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q18719633"
+    },
+    {
+     "nombre": "Manuel Balagué",
+     "posicion": null,
+     "edad": 21,
+     "wikidata": "Q124052306"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Rosario Central",
+   "wikidata": "Q318307",
+   "temporadas": [
+    "Campeonato de Primera División 2019-20"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 2,
+   "jugadores": [
+    {
+     "nombre": "Jeremías Ledesma",
+     "posicion": "POR",
+     "edad": 27,
+     "wikidata": "Q16581359"
+    },
+    {
+     "nombre": "Gino Infantino",
+     "posicion": null,
+     "edad": 17,
+     "wikidata": "Q101579946"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Unión",
+   "wikidata": "Q80899",
+   "temporadas": [
+    "Campeonato de Primera División 2019-20"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 6,
+   "jugadores": [
+    {
+     "nombre": "Lucas Esquivel",
+     "posicion": "DEF",
+     "edad": 18,
+     "wikidata": "Q101084011"
+    },
+    {
+     "nombre": "Manuel De Iriondo",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q17477988"
+    },
+    {
+     "nombre": "Sebastián Assis",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q18221132"
+    },
+    {
+     "nombre": "adolfo hitler buendia",
+     "posicion": "MED",
+     "edad": 17,
+     "wikidata": "Q66929490"
+    },
+    {
+     "nombre": "Ezequiel Cañete",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q86359376"
+    },
+    {
+     "nombre": "Mauro Borgnino",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q28055553"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Vélez Sarsfield",
+   "wikidata": "Q215163",
+   "temporadas": [
+    "Campeonato de Primera División 2019-20"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 7,
+   "jugadores": [
+    {
+     "nombre": "Alexánder Domínguez",
+     "posicion": "POR",
+     "edad": 33,
+     "wikidata": "Q2667325"
+    },
+    {
+     "nombre": "Braian Cufré",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q24006164"
+    },
+    {
+     "nombre": "Micaela Casasola",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q28812985"
+    },
+    {
+     "nombre": "Fernando Gago",
+     "posicion": "MED",
+     "edad": 34,
+     "wikidata": "Q187426"
+    },
+    {
+     "nombre": "Thiago Almada",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q57293140"
+    },
+    {
+     "nombre": "Lucas Janson",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q9024628"
+    },
+    {
+     "nombre": "Tobías Zárate",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q87414293"
+    }
+   ]
+  },
+  {
+   "club": "Club Deportivo Godoy Cruz Antonio Tomba",
+   "wikidata": "Q80882",
+   "temporadas": [
+    "Campeonato de Primera División 2019-20"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Damián Pérez",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q5797842"
+    }
+   ]
+  },
+  {
+   "club": "Club Estudiantes de La Plata",
+   "wikidata": "Q214940",
+   "temporadas": [
+    "Campeonato de Primera División 2019-20"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 7,
+   "jugadores": [
+    {
+     "nombre": "Mariano Andújar",
+     "posicion": "POR",
+     "edad": 36,
+     "wikidata": "Q321321"
+    },
+    {
+     "nombre": "Marcos Rojo",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q507890"
+    },
+    {
+     "nombre": "David Ayala",
+     "posicion": "MED",
+     "edad": 17,
+     "wikidata": "Q78651410"
+    },
+    {
+     "nombre": "Javier Mascherano",
+     "posicion": "MED",
+     "edad": 36,
+     "wikidata": "Q161571"
+    },
+    {
+     "nombre": "Manuel Castro",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q20164673"
+    },
+    {
+     "nombre": "Mateo Retegui",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q47002491"
+    },
+    {
+     "nombre": "Bianca Cugno",
+     "posicion": null,
+     "edad": 17,
+     "wikidata": "Q113951280"
+    }
+   ]
+  },
+  {
+   "club": "Club Social y Deportivo Defensa y Justicia",
+   "wikidata": "Q1024338",
+   "temporadas": [
+    "Campeonato de Primera División 2019-20"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 2,
+   "jugadores": [
+    {
+     "nombre": "Enzo Fernández",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q96105248"
+    },
+    {
+     "nombre": "Ignacio Aliseda",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q57293205"
+    }
+   ]
+  },
+  {
+   "club": "Club de Gimnasia y Esgrima La Plata",
+   "wikidata": "Q18640",
+   "temporadas": [
+    "Campeonato de Primera División 2019-20"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 5,
+   "jugadores": [
+    {
+     "nombre": "Franco Mussis",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q5868392"
+    },
+    {
+     "nombre": "Lucas Barrios",
+     "posicion": "DEL",
+     "edad": 35,
+     "wikidata": "Q154623"
+    },
+    {
+     "nombre": "Bianca Bertolino",
+     "posicion": null,
+     "edad": 17,
+     "wikidata": "Q135466615"
+    },
+    {
+     "nombre": "Brenda Graff",
+     "posicion": null,
+     "edad": 25,
+     "wikidata": "Q113996357"
+    },
+    {
+     "nombre": "Candelaria Herrera",
+     "posicion": null,
+     "edad": 21,
+     "wikidata": "Q107510659"
+    }
+   ]
+  },
+  {
+   "club": "Q170703",
+   "wikidata": "Q170703",
+   "temporadas": [
+    "Campeonato de Primera División 2019-20"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Q1773830",
+   "wikidata": "Q1773830",
+   "temporadas": [
+    "Campeonato de Primera División 2019-20"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Q218282",
+   "wikidata": "Q218282",
+   "temporadas": [
+    "Campeonato de Primera División 2019-20"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Q476836",
+   "wikidata": "Q476836",
+   "temporadas": [
+    "Campeonato de Primera División 2019-20"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Q5060684",
+   "wikidata": "Q5060684",
+   "temporadas": [
+    "Campeonato de Primera División 2019-20"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Racing Club",
+   "wikidata": "Q276533",
+   "temporadas": [
+    "Campeonato de Primera División 2019-20"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 3,
+   "jugadores": [
+    {
+     "nombre": "Iván Pillud",
+     "posicion": "DEF",
+     "edad": 34,
+     "wikidata": "Q2539757"
+    },
+    {
+     "nombre": "Marcelo Díaz",
+     "posicion": "MED",
+     "edad": 33,
+     "wikidata": "Q1353070"
+    },
+    {
+     "nombre": "Lisandro López",
+     "posicion": "DEL",
+     "edad": 37,
+     "wikidata": "Q296133"
+    }
+   ]
+  },
+  {
+   "club": "Talleres de Córdoba",
+   "wikidata": "Q1022939",
+   "temporadas": [
+    "Campeonato de Primera División 2019-20"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 6,
+   "jugadores": [
+    {
+     "nombre": "Facundo Medina",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q28056787"
+    },
+    {
+     "nombre": "Piero Hincapié",
+     "posicion": "DEF",
+     "edad": 18,
+     "wikidata": "Q101053044"
+    },
+    {
+     "nombre": "Nicolás Giménez",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q19837010"
+    },
+    {
+     "nombre": "Dayro Moreno",
+     "posicion": "DEL",
+     "edad": 34,
+     "wikidata": "Q2271271"
+    },
+    {
+     "nombre": "Mateo Retegui",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q47002491"
+    },
+    {
+     "nombre": "Pablo Solari",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q102157529"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,948 @@
+{
+ "liga": "Campeonato Brasileiro Série A",
+ "pais": "brasil",
+ "año": 2018,
+ "fuente": "Wikidata (CC0) y Wikipedia; instantánea del 27-oct-2026 (tools/ligas/)",
+ "notas": [
+  "Datos de referencia de uso propio, no para el juego.",
+  "Clubes: los de las temporadas del campeonato que tocan este año calendario (tabla de posiciones de Wikipedia o, si no hay, los clubes más enlazados desde el artículo de la temporada).",
+  "Jugadores: membresías P54 de Wikidata que incluyen el año. Sin fecha de fin cuenta el año en que llegó (o hasta hoy si llegó desde 2023): membresia_estimada. Los planteles pueden estar incompletos; jugadores_encontrados dice cuántos hay.",
+  "posicion: línea estimada desde P413 (POR, DEF, MED, DEL; null si Wikidata no la tiene). edad: al 1 de julio; edad_aproximada si la fecha de nacimiento no tiene día o tiene fechas distintas."
+ ],
+ "equipos": [
+  {
+   "club": "América Futebol Clube",
+   "wikidata": "Q338285",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol 2018"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Lincoln Henrique Oliveira dos Santos",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q19822751"
+    }
+   ]
+  },
+  {
+   "club": "Associação Chapecoense de Futebol",
+   "wikidata": "Q2536715",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol 2018"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 2,
+   "jugadores": [
+    {
+     "nombre": "Bruna Santos Nhaia",
+     "posicion": "DEF",
+     "edad": 16,
+     "wikidata": "Q97761057"
+    },
+    {
+     "nombre": "Gabi Barbieri",
+     "posicion": null,
+     "edad": 15,
+     "wikidata": "Q116450248"
+    }
+   ]
+  },
+  {
+   "club": "Botafogo de Futebol e Regatas",
+   "wikidata": "Q80958",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol 2018"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 2,
+   "jugadores": [
+    {
+     "nombre": "Helton Leite",
+     "posicion": "POR",
+     "edad": 27,
+     "wikidata": "Q10294597"
+    },
+    {
+     "nombre": "Dudu Cearense",
+     "posicion": "MED",
+     "edad": 35,
+     "wikidata": "Q467232"
+    }
+   ]
+  },
+  {
+   "club": "Ceará Sporting Club",
+   "wikidata": "Q1052219",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol 2018"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Lisca",
+     "posicion": "DEL",
+     "edad": 45,
+     "wikidata": "Q10318908"
+    }
+   ]
+  },
+  {
+   "club": "Club Athletico Paranaense",
+   "wikidata": "Q506832",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol 2018"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 8,
+   "jugadores": [
+    {
+     "nombre": "Marcos do Nascimento Teixeira",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q27825292"
+    },
+    {
+     "nombre": "Renan Lodi",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q55055451"
+    },
+    {
+     "nombre": "Sidcley Ferreira Pereira",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q18199197"
+    },
+    {
+     "nombre": "Bruno Guimarães",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q58323172"
+    },
+    {
+     "nombre": "Lucho González",
+     "posicion": "MED",
+     "edad": 37,
+     "wikidata": "Q244894"
+    },
+    {
+     "nombre": "Raphael Veiga",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q27443365"
+    },
+    {
+     "nombre": "Riuler de Oliveira Faustino",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q84461978"
+    },
+    {
+     "nombre": "Lucas Ribamar",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q24006455"
+    }
+   ]
+  },
+  {
+   "club": "Club de Regatas Vasco da Gama",
+   "wikidata": "Q5014111",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol 2018"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 8,
+   "jugadores": [
+    {
+     "nombre": "Frickson Erazo",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q429023"
+    },
+    {
+     "nombre": "Henrique Silva Milagres",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q14757828"
+    },
+    {
+     "nombre": "Leandro Castán",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q1573556"
+    },
+    {
+     "nombre": "Eduardo Feitoza Sampaio",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q59207947"
+    },
+    {
+     "nombre": "Marcelo Mattos",
+     "posicion": "MED",
+     "edad": 34,
+     "wikidata": "Q721017"
+    },
+    {
+     "nombre": "Marrony",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q64617410"
+    },
+    {
+     "nombre": "Matheus Celestino Moresche Rodrigues",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q59208940"
+    },
+    {
+     "nombre": "Maxi López",
+     "posicion": "DEL",
+     "edad": 34,
+     "wikidata": "Q312317"
+    }
+   ]
+  },
+  {
+   "club": "Clube Atlético Mineiro",
+   "wikidata": "Q270995",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol 2018"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 7,
+   "jugadores": [
+    {
+     "nombre": "Victor",
+     "posicion": "POR",
+     "edad": 35,
+     "wikidata": "Q563649"
+    },
+    {
+     "nombre": "Bremer",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q38693097"
+    },
+    {
+     "nombre": "Emerson Aparecido Leite de Souza Junior",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q30123152"
+    },
+    {
+     "nombre": "Frickson Erazo",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q429023"
+    },
+    {
+     "nombre": "Alerrandro Barra Mansa Realino de Souza",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q55081204"
+    },
+    {
+     "nombre": "Ricardo Oliveira",
+     "posicion": "DEL",
+     "edad": 38,
+     "wikidata": "Q315079"
+    },
+    {
+     "nombre": "Yimmi Chará",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q6170016",
+     "edad_aproximada": true
+    }
+   ]
+  },
+  {
+   "club": "Clube de Regatas do Flamengo",
+   "wikidata": "Q17479",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol 2018"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 12,
+   "jugadores": [
+    {
+     "nombre": "Diego Alves",
+     "posicion": "POR",
+     "edad": 33,
+     "wikidata": "Q313082"
+    },
+    {
+     "nombre": "Júlio César Soares Espíndola",
+     "posicion": "POR",
+     "edad": 38,
+     "wikidata": "Q182459"
+    },
+    {
+     "nombre": "Juan Silveira dos Santos",
+     "posicion": "DEF",
+     "edad": 39,
+     "wikidata": "Q202429"
+    },
+    {
+     "nombre": "Rodrigo Caio",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q3438450"
+    },
+    {
+     "nombre": "Gustavo Cuéllar",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q10517652"
+    },
+    {
+     "nombre": "Lucas Paquetá",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q30089624"
+    },
+    {
+     "nombre": "Marlos Moreno",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q20994192"
+    },
+    {
+     "nombre": "Vinicius Souza",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q69968896"
+    },
+    {
+     "nombre": "Willian Arão",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q2035459",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Éverton Cardoso da Silva",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q488139"
+    },
+    {
+     "nombre": "Paolo Guerrero",
+     "posicion": "DEL",
+     "edad": 34,
+     "wikidata": "Q156802"
+    },
+    {
+     "nombre": "Vinícius Júnior",
+     "posicion": "DEL",
+     "edad": 17,
+     "wikidata": "Q28973866"
+    }
+   ]
+  },
+  {
+   "club": "Cruzeiro Esporte Clube",
+   "wikidata": "Q188277",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol 2018"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 7,
+   "jugadores": [
+    {
+     "nombre": "Carlos de Menezes Júnior",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q59205578"
+    },
+    {
+     "nombre": "Rafael Santos",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q65030007"
+    },
+    {
+     "nombre": "Alisson",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q4727251"
+    },
+    {
+     "nombre": "Giorgian De Arrascaeta",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q13578003"
+    },
+    {
+     "nombre": "Rafael da Silva Francisco",
+     "posicion": "MED",
+     "edad": 34,
+     "wikidata": "Q992104"
+    },
+    {
+     "nombre": "Fred",
+     "posicion": "DEL",
+     "edad": 34,
+     "wikidata": "Q312772"
+    },
+    {
+     "nombre": "Gonzalo Latorre",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q17633208"
+    }
+   ]
+  },
+  {
+   "club": "Esporte Clube Bahia",
+   "wikidata": "Q198032",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol 2018"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Esporte Clube Vitória",
+   "wikidata": "Q274465",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol 2018"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 2,
+   "jugadores": [
+    {
+     "nombre": "Alexander Baumjohann",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q433185"
+    },
+    {
+     "nombre": "Diego Rosa",
+     "posicion": "MED",
+     "edad": 15,
+     "wikidata": "Q76376134"
+    }
+   ]
+  },
+  {
+   "club": "Fluminense Football Club",
+   "wikidata": "Q80987",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol 2018"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 5,
+   "jugadores": [
+    {
+     "nombre": "Guillermo De Amores",
+     "posicion": "POR",
+     "edad": 23,
+     "wikidata": "Q3120564"
+    },
+    {
+     "nombre": "Ayrton Lucas Dantas de Medeiros",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q23638974"
+    },
+    {
+     "nombre": "Roger Ibañez da Silva",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q55363875"
+    },
+    {
+     "nombre": "Joyce Silva",
+     "posicion": null,
+     "edad": 34,
+     "wikidata": "Q2001468"
+    },
+    {
+     "nombre": "Priscila Zalewski Daroit",
+     "posicion": null,
+     "edad": 29,
+     "wikidata": "Q3403758"
+    }
+   ]
+  },
+  {
+   "club": "Grêmio Foot-Ball Porto Alegrense",
+   "wikidata": "Q221695",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol 2018"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 8,
+   "jugadores": [
+    {
+     "nombre": "Guilherme Guedes",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q55081316"
+    },
+    {
+     "nombre": "Pedro Tonon Geromel",
+     "posicion": "DEF",
+     "edad": 32,
+     "wikidata": "Q266410"
+    },
+    {
+     "nombre": "Alisson",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q4727251"
+    },
+    {
+     "nombre": "Arthur Henrique Ramos de Oliveira Melo",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q39667548"
+    },
+    {
+     "nombre": "Jailson",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q28145562"
+    },
+    {
+     "nombre": "Lincoln Henrique Oliveira dos Santos",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q19822751"
+    },
+    {
+     "nombre": "Ramiro Moschen Benetti",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q15241347"
+    },
+    {
+     "nombre": "Beto da Silva",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q16300369"
+    }
+   ]
+  },
+  {
+   "club": "Paraná Clube",
+   "wikidata": "Q838534",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol 2018"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 3,
+   "jugadores": [
+    {
+     "nombre": "Matheus Ceschin Dias",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q65966540"
+    },
+    {
+     "nombre": "Caio Henrique",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q27929648"
+    },
+    {
+     "nombre": "Vitor Feijão",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q48864977"
+    }
+   ]
+  },
+  {
+   "club": "Santos Futebol Clube",
+   "wikidata": "Q80955",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol 2018"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 13,
+   "jugadores": [
+    {
+     "nombre": "Gustavo Henrique",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q5621422"
+    },
+    {
+     "nombre": "Jackson Porozo",
+     "posicion": "DEF",
+     "edad": 17,
+     "wikidata": "Q60842110"
+    },
+    {
+     "nombre": "Lucas Veríssimo",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q22703917",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Orinho",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q41187064"
+    },
+    {
+     "nombre": "Anderson Ceará",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q59179753"
+    },
+    {
+     "nombre": "Carlos Sánchez",
+     "posicion": "MED",
+     "edad": 33,
+     "wikidata": "Q5041766"
+    },
+    {
+     "nombre": "Matheus Jesus",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q29919582"
+    },
+    {
+     "nombre": "Bryan Ruiz",
+     "posicion": "DEL",
+     "edad": 32,
+     "wikidata": "Q318383"
+    },
+    {
+     "nombre": "Eduardo Sasha",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q5340762"
+    },
+    {
+     "nombre": "Gabigol",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q13646572"
+    },
+    {
+     "nombre": "Kaio Jorge",
+     "posicion": "DEL",
+     "edad": 16,
+     "wikidata": "Q56876908"
+    },
+    {
+     "nombre": "Richard Luca",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q84598851"
+    },
+    {
+     "nombre": "Rodrygo",
+     "posicion": "DEL",
+     "edad": 17,
+     "wikidata": "Q42728914"
+    }
+   ]
+  },
+  {
+   "club": "Sociedade Esportiva Palmeiras",
+   "wikidata": "Q80964",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol 2018"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 7,
+   "jugadores": [
+    {
+     "nombre": "Antonio Carlos Capocasali",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q4776503"
+    },
+    {
+     "nombre": "Edu Dracena",
+     "posicion": "DEF",
+     "edad": 37,
+     "wikidata": "Q559474"
+    },
+    {
+     "nombre": "Felipe Melo",
+     "posicion": "MED",
+     "edad": 35,
+     "wikidata": "Q204450"
+    },
+    {
+     "nombre": "Michel Bastos",
+     "posicion": "MED",
+     "edad": 34,
+     "wikidata": "Q310697"
+    },
+    {
+     "nombre": "Artur",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q28665426"
+    },
+    {
+     "nombre": "Gabriel Veron",
+     "posicion": "DEL",
+     "edad": 15,
+     "wikidata": "Q75059692"
+    },
+    {
+     "nombre": "Miguel Borja",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q4094820"
+    }
+   ]
+  },
+  {
+   "club": "Sport Club Corinthians Paulista",
+   "wikidata": "Q35933",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol 2018"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 5,
+   "jugadores": [
+    {
+     "nombre": "Carlos Augusto",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q56223006"
+    },
+    {
+     "nombre": "Colin Kâzım-Richards",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q313145"
+    },
+    {
+     "nombre": "Janderson",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q68327658"
+    },
+    {
+     "nombre": "Ramiro Moschen Benetti",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q15241347"
+    },
+    {
+     "nombre": "Ángel Romero",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q15960510"
+    }
+   ]
+  },
+  {
+   "club": "Sport Club Internacional",
+   "wikidata": "Q80845",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol 2018"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 6,
+   "jugadores": [
+    {
+     "nombre": "Bressan",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q15215049"
+    },
+    {
+     "nombre": "Léo Ortiz",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q55816003"
+    },
+    {
+     "nombre": "Edenilson",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q1707749"
+    },
+    {
+     "nombre": "Iago",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q55281318"
+    },
+    {
+     "nombre": "Eduardo Sasha",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q5340762"
+    },
+    {
+     "nombre": "Paolo Guerrero",
+     "posicion": "DEL",
+     "edad": 34,
+     "wikidata": "Q156802"
+    }
+   ]
+  },
+  {
+   "club": "Sport Club do Recife",
+   "wikidata": "Q219098",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol 2018"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 6,
+   "jugadores": [
+    {
+     "nombre": "Lorena da Silva Leite",
+     "posicion": "POR",
+     "edad": 21,
+     "wikidata": "Q98084380"
+    },
+    {
+     "nombre": "Luan Polli",
+     "posicion": "POR",
+     "edad": 25,
+     "wikidata": "Q19968755"
+    },
+    {
+     "nombre": "Léo Ortiz",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q55816003"
+    },
+    {
+     "nombre": "Ary Borges",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q98085984"
+    },
+    {
+     "nombre": "Kirara Fujio",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q105722024"
+    },
+    {
+     "nombre": "Michel Bastos",
+     "posicion": "MED",
+     "edad": 34,
+     "wikidata": "Q310697"
+    }
+   ]
+  },
+  {
+   "club": "São Paulo Futebol Clube",
+   "wikidata": "Q38568",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol 2018"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 9,
+   "jugadores": [
+    {
+     "nombre": "Edimar Curitiba Fraga",
+     "posicion": "DEF",
+     "edad": 32,
+     "wikidata": "Q2080087"
+    },
+    {
+     "nombre": "Rodrigo Caio",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q3438450"
+    },
+    {
+     "nombre": "Éder Militão",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q29950055"
+    },
+    {
+     "nombre": "Igor Gomes",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q59207905"
+    },
+    {
+     "nombre": "Petros Matheus dos Santos Araujo",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q16504229"
+    },
+    {
+     "nombre": "Éverton Cardoso da Silva",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q488139"
+    },
+    {
+     "nombre": "Antony",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q59205608"
+    },
+    {
+     "nombre": "Brenner",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q34567761"
+    },
+    {
+     "nombre": "Dorlan Pabón",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q520695"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,698 @@
+{
+ "liga": "Primera División de Chile",
+ "pais": "chile",
+ "año": 2016,
+ "fuente": "Wikidata (CC0) y Wikipedia; instantánea del 27-oct-2026 (tools/ligas/)",
+ "notas": [
+  "Datos de referencia de uso propio, no para el juego.",
+  "Clubes: los de las temporadas del campeonato que tocan este año calendario (tabla de posiciones de Wikipedia o, si no hay, los clubes más enlazados desde el artículo de la temporada).",
+  "Jugadores: membresías P54 de Wikidata que incluyen el año. Sin fecha de fin cuenta el año en que llegó (o hasta hoy si llegó desde 2023): membresia_estimada. Los planteles pueden estar incompletos; jugadores_encontrados dice cuántos hay.",
+  "posicion: línea estimada desde P413 (POR, DEF, MED, DEL; null si Wikidata no la tiene). edad: al 1 de julio; edad_aproximada si la fecha de nacimiento no tiene día o tiene fechas distintas."
+ ],
+ "equipos": [
+  {
+   "club": "Audax Italiano",
+   "wikidata": "Q758689",
+   "temporadas": [
+    "Torneo Clausura 2016",
+    "Torneo de Apertura 2016"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 3,
+   "jugadores": [
+    {
+     "nombre": "Matías Campos",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q892443"
+    },
+    {
+     "nombre": "Leandro Benegas",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q9020988"
+    },
+    {
+     "nombre": "Sergio Santos Gomes",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q19844277"
+    }
+   ]
+  },
+  {
+   "club": "Club Deportivo Huachipato",
+   "wikidata": "Q1023191",
+   "temporadas": [
+    "Torneo Clausura 2016",
+    "Torneo de Apertura 2016"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 2,
+   "jugadores": [
+    {
+     "nombre": "Alfonso Parot",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q4722087"
+    },
+    {
+     "nombre": "Valber Huerta",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q3329625"
+    }
+   ]
+  },
+  {
+   "club": "Club Deportivo O'Higgins",
+   "wikidata": "Q719722",
+   "temporadas": [
+    "Torneo Clausura 2016",
+    "Torneo de Apertura 2016"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 5,
+   "jugadores": [
+    {
+     "nombre": "Tomás Alarcón",
+     "posicion": "DEF",
+     "edad": 17,
+     "wikidata": "Q27786412"
+    },
+    {
+     "nombre": "Leandro Sosa Toranza",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q18719952"
+    },
+    {
+     "nombre": "Cristian Insaurralde",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q5791325"
+    },
+    {
+     "nombre": "Emilio Zelaya",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q8775588"
+    },
+    {
+     "nombre": "Iván Bulos",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q392727"
+    }
+   ]
+  },
+  {
+   "club": "Club Deportivo Palestino",
+   "wikidata": "Q719719",
+   "temporadas": [
+    "Torneo Clausura 2016",
+    "Torneo de Apertura 2016"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 3,
+   "jugadores": [
+    {
+     "nombre": "Fernando Meza",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q5444832"
+    },
+    {
+     "nombre": "Roberto Ávalos",
+     "posicion": "MED",
+     "edad": 36,
+     "wikidata": "Q7351967"
+    },
+    {
+     "nombre": "Rubén Farfán",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q12201448"
+    }
+   ]
+  },
+  {
+   "club": "Club Deportivo San Marcos de Arica",
+   "wikidata": "Q3296621",
+   "temporadas": [
+    "Torneo Clausura 2016"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 4,
+   "jugadores": [
+    {
+     "nombre": "Hardy Cavero",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q5892301"
+    },
+    {
+     "nombre": "Charli González",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q16543245"
+    },
+    {
+     "nombre": "Matías Defederico",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q734734",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Sebastián Pol",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q7442669"
+    }
+   ]
+  },
+  {
+   "club": "Club Deportivo Universidad Católica",
+   "wikidata": "Q427446",
+   "temporadas": [
+    "Torneo Clausura 2016",
+    "Torneo de Apertura 2016"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 10,
+   "jugadores": [
+    {
+     "nombre": "Franco Costanzo",
+     "posicion": "POR",
+     "edad": 35,
+     "wikidata": "Q471556"
+    },
+    {
+     "nombre": "Alexander Ushiña",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q81313552"
+    },
+    {
+     "nombre": "Dino Agote",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q22958338"
+    },
+    {
+     "nombre": "Guillermo Maripán",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q5616198"
+    },
+    {
+     "nombre": "Diego Buonanotte",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q316594"
+    },
+    {
+     "nombre": "José Pedro Fuenzalida",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q946154"
+    },
+    {
+     "nombre": "Mark González",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q213124"
+    },
+    {
+     "nombre": "Jordy Caicedo",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q30346214"
+    },
+    {
+     "nombre": "Ricardo Noir",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q2354795"
+    },
+    {
+     "nombre": "Sebastián Jaime",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q9283243"
+    }
+   ]
+  },
+  {
+   "club": "Club Deportivo Universidad de Concepción",
+   "wikidata": "Q721560",
+   "temporadas": [
+    "Torneo Clausura 2016",
+    "Torneo de Apertura 2016"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 3,
+   "jugadores": [
+    {
+     "nombre": "Jean Meneses",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q5559952"
+    },
+    {
+     "nombre": "Ronald de la Fuente",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q6111697"
+    },
+    {
+     "nombre": "Matías Conti",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q15137667"
+    }
+   ]
+  },
+  {
+   "club": "Club Social y Deportivo Colo-Colo",
+   "wikidata": "Q207373",
+   "temporadas": [
+    "Torneo Clausura 2016",
+    "Torneo de Apertura 2016"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 12,
+   "jugadores": [
+    {
+     "nombre": "Justo Villar",
+     "posicion": "POR",
+     "edad": 39,
+     "wikidata": "Q217095"
+    },
+    {
+     "nombre": "Henry Sanhueza",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q23769951"
+    },
+    {
+     "nombre": "Matías Zaldivia",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q20671353"
+    },
+    {
+     "nombre": "Modou Jadama",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q16300721"
+    },
+    {
+     "nombre": "Carlo Villanueva Fuentes",
+     "posicion": "MED",
+     "edad": 17,
+     "wikidata": "Q39081595"
+    },
+    {
+     "nombre": "Emiliano Vecchio",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q5371727"
+    },
+    {
+     "nombre": "Javier Reina",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q486955"
+    },
+    {
+     "nombre": "Jean Beausejour",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q313307"
+    },
+    {
+     "nombre": "Jorge Araya",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q18719587",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Marcos Bolados",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q19873686"
+    },
+    {
+     "nombre": "Martín Rodríguez",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q6002866"
+    },
+    {
+     "nombre": "Martín Tonso",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q6002909"
+    }
+   ]
+  },
+  {
+   "club": "Club Universidad de Chile",
+   "wikidata": "Q737753",
+   "temporadas": [
+    "Torneo Clausura 2016",
+    "Torneo de Apertura 2016"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 14,
+   "jugadores": [
+    {
+     "nombre": "Christiane Endler",
+     "posicion": "POR",
+     "edad": 24,
+     "wikidata": "Q5110442"
+    },
+    {
+     "nombre": "Fabián Monzón",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q440097"
+    },
+    {
+     "nombre": "Gonzalo Jara",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q349172"
+    },
+    {
+     "nombre": "Osvaldo González",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q2699209"
+    },
+    {
+     "nombre": "Jean Beausejour",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q313307"
+    },
+    {
+     "nombre": "Luis Fariña",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q3454171"
+    },
+    {
+     "nombre": "Matías Parada",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q22279568"
+    },
+    {
+     "nombre": "Yerko Leiva",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q22278832",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Bruno Miranda",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q23771469"
+    },
+    {
+     "nombre": "Felipe Mora",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q609587"
+    },
+    {
+     "nombre": "Franco Lobos",
+     "posicion": "DEL",
+     "edad": 17,
+     "wikidata": "Q23771261"
+    },
+    {
+     "nombre": "Mariana Larroquette",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q20744969"
+    },
+    {
+     "nombre": "Patricio Rubio",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q9056902",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Valentín Mariano Castellanos",
+     "posicion": "DEL",
+     "edad": 17,
+     "wikidata": "Q51133356"
+    }
+   ]
+  },
+  {
+   "club": "Club de Deportes Antofagasta",
+   "wikidata": "Q2076979",
+   "temporadas": [
+    "Torneo Clausura 2016",
+    "Torneo de Apertura 2016"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 3,
+   "jugadores": [
+    {
+     "nombre": "Hugo Droguett",
+     "posicion": "MED",
+     "edad": 33,
+     "wikidata": "Q484103"
+    },
+    {
+     "nombre": "Marcos Bolados",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q19873686"
+    },
+    {
+     "nombre": "Muriel Orlando",
+     "posicion": "DEL",
+     "edad": 27,
+     "wikidata": "Q6938661"
+    }
+   ]
+  },
+  {
+   "club": "Club de Deportes Cobresal",
+   "wikidata": "Q642669",
+   "temporadas": [
+    "Torneo Clausura 2016",
+    "Torneo de Apertura 2016"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Alexis Salazar",
+     "posicion": "DEF",
+     "edad": 33,
+     "wikidata": "Q4721529"
+    }
+   ]
+  },
+  {
+   "club": "Club de Deportes Iquique",
+   "wikidata": "Q642824",
+   "temporadas": [
+    "Torneo Clausura 2016",
+    "Torneo de Apertura 2016"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Michael Rios",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q6834061"
+    }
+   ]
+  },
+  {
+   "club": "Club de Deportes Santiago Wanderers",
+   "wikidata": "Q719338",
+   "temporadas": [
+    "Torneo Clausura 2016",
+    "Torneo de Apertura 2016"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "David Pizarro",
+     "posicion": "MED",
+     "edad": 36,
+     "wikidata": "Q70567"
+    }
+   ]
+  },
+  {
+   "club": "Club de Deportes Temuco",
+   "wikidata": "Q2742992",
+   "temporadas": [
+    "Torneo de Apertura 2016"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Cristóbal Vergara",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q5186535"
+    }
+   ]
+  },
+  {
+   "club": "Everton de Viña del Mar",
+   "wikidata": "Q1103684",
+   "temporadas": [
+    "Torneo de Apertura 2016"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 5,
+   "jugadores": [
+    {
+     "nombre": "Michael Contreras",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q3856140"
+    },
+    {
+     "nombre": "Diego Rojas",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q5274791"
+    },
+    {
+     "nombre": "José Alberto Muñoz Muñoz",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q10514511"
+    },
+    {
+     "nombre": "Matías Ramírez",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q16301774"
+    },
+    {
+     "nombre": "Wilson Mórelo",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q9096111"
+    }
+   ]
+  },
+  {
+   "club": "San Luis de Quillota",
+   "wikidata": "Q2447092",
+   "temporadas": [
+    "Torneo Clausura 2016",
+    "Torneo de Apertura 2016"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Pablo Tamburrini",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q3093694"
+    }
+   ]
+  },
+  {
+   "club": "Unión Española",
+   "wikidata": "Q1129059",
+   "temporadas": [
+    "Torneo Clausura 2016",
+    "Torneo de Apertura 2016"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Diego Churín",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q954935"
+    }
+   ]
+  },
+  {
+   "club": "Unión La Calera",
+   "wikidata": "Q719383",
+   "temporadas": [
+    "Torneo Clausura 2016"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 2,
+   "jugadores": [
+    {
+     "nombre": "Roberto Cereceda",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q2714288"
+    },
+    {
+     "nombre": "Matias Castro",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q9030514"
+    }
+   ]
+  }
+ ]
+}

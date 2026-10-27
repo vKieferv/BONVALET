@@ -1,0 +1,382 @@
+{
+ "liga": "Primera División de Chile",
+ "pais": "chile",
+ "año": 2017,
+ "fuente": "Wikidata (CC0) y Wikipedia; instantánea del 27-oct-2026 (tools/ligas/)",
+ "notas": [
+  "Datos de referencia de uso propio, no para el juego.",
+  "Clubes: los de las temporadas del campeonato que tocan este año calendario (tabla de posiciones de Wikipedia o, si no hay, los clubes más enlazados desde el artículo de la temporada).",
+  "Jugadores: membresías P54 de Wikidata que incluyen el año. Sin fecha de fin cuenta el año en que llegó (o hasta hoy si llegó desde 2023): membresia_estimada. Los planteles pueden estar incompletos; jugadores_encontrados dice cuántos hay.",
+  "posicion: línea estimada desde P413 (POR, DEF, MED, DEL; null si Wikidata no la tiene). edad: al 1 de julio; edad_aproximada si la fecha de nacimiento no tiene día o tiene fechas distintas."
+ ],
+ "equipos": [
+  {
+   "club": "Audax Italiano",
+   "wikidata": "Q758689",
+   "temporadas": [
+    "Torneo Clausura 2017",
+    "Torneo de Transición 2017"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Sergio Santos Gomes",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q19844277"
+    }
+   ]
+  },
+  {
+   "club": "Club Deportivo Huachipato",
+   "wikidata": "Q1023191",
+   "temporadas": [
+    "Torneo Clausura 2017",
+    "Torneo de Transición 2017"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Club Deportivo O'Higgins",
+   "wikidata": "Q719722",
+   "temporadas": [
+    "Torneo Clausura 2017",
+    "Torneo de Transición 2017"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Roberto Gutiérrez",
+     "posicion": "DEL",
+     "edad": 34,
+     "wikidata": "Q2012311"
+    }
+   ]
+  },
+  {
+   "club": "Club Deportivo Palestino",
+   "wikidata": "Q719719",
+   "temporadas": [
+    "Torneo Clausura 2017",
+    "Torneo de Transición 2017"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Club Deportivo Universidad Católica",
+   "wikidata": "Q427446",
+   "temporadas": [
+    "Torneo Clausura 2017",
+    "Torneo de Transición 2017"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 4,
+   "jugadores": [
+    {
+     "nombre": "Franco Costanzo",
+     "posicion": "POR",
+     "edad": 36,
+     "wikidata": "Q471556"
+    },
+    {
+     "nombre": "Guillermo Maripán",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q5616198"
+    },
+    {
+     "nombre": "Diego Buonanotte",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q316594"
+    },
+    {
+     "nombre": "Jordy Caicedo",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q30346214"
+    }
+   ]
+  },
+  {
+   "club": "Club Deportivo Universidad de Concepción",
+   "wikidata": "Q721560",
+   "temporadas": [
+    "Torneo Clausura 2017",
+    "Torneo de Transición 2017"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Ronald de la Fuente",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q6111697"
+    }
+   ]
+  },
+  {
+   "club": "Club Social y Deportivo Colo-Colo",
+   "wikidata": "Q207373",
+   "temporadas": [
+    "Torneo Clausura 2017",
+    "Torneo de Transición 2017"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 4,
+   "jugadores": [
+    {
+     "nombre": "Justo Villar",
+     "posicion": "POR",
+     "edad": 40,
+     "wikidata": "Q217095"
+    },
+    {
+     "nombre": "Fernando Meza",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q5444832"
+    },
+    {
+     "nombre": "Modou Jadama",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q16300721"
+    },
+    {
+     "nombre": "Pedro Morales",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q718771"
+    }
+   ]
+  },
+  {
+   "club": "Club Universidad de Chile",
+   "wikidata": "Q737753",
+   "temporadas": [
+    "Torneo Clausura 2017",
+    "Torneo de Transición 2017"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 7,
+   "jugadores": [
+    {
+     "nombre": "Gonzalo Jara",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q349172"
+    },
+    {
+     "nombre": "David Pizarro",
+     "posicion": "MED",
+     "edad": 37,
+     "wikidata": "Q70567"
+    },
+    {
+     "nombre": "Jean Beausejour",
+     "posicion": "MED",
+     "edad": 33,
+     "wikidata": "Q313307"
+    },
+    {
+     "nombre": "Yerko Leiva",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q22278832",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Felipe Mora",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q609587"
+    },
+    {
+     "nombre": "Mariana Larroquette",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q20744969"
+    },
+    {
+     "nombre": "Valentín Mariano Castellanos",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q51133356"
+    }
+   ]
+  },
+  {
+   "club": "Club de Deportes Antofagasta",
+   "wikidata": "Q2076979",
+   "temporadas": [
+    "Torneo Clausura 2017",
+    "Torneo de Transición 2017"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Club de Deportes Cobresal",
+   "wikidata": "Q642669",
+   "temporadas": [
+    "Torneo Clausura 2017"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 2,
+   "jugadores": [
+    {
+     "nombre": "Alexis Salazar",
+     "posicion": "DEF",
+     "edad": 34,
+     "wikidata": "Q4721529"
+    },
+    {
+     "nombre": "Luis Manuel Torres",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q36004332"
+    }
+   ]
+  },
+  {
+   "club": "Club de Deportes Iquique",
+   "wikidata": "Q642824",
+   "temporadas": [
+    "Torneo Clausura 2017",
+    "Torneo de Transición 2017"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Club de Deportes Provincial Curicó Unido",
+   "wikidata": "Q1023125",
+   "temporadas": [
+    "Torneo de Transición 2017"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Club de Deportes Santiago Wanderers",
+   "wikidata": "Q719338",
+   "temporadas": [
+    "Torneo Clausura 2017",
+    "Torneo de Transición 2017"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Club de Deportes Temuco",
+   "wikidata": "Q2742992",
+   "temporadas": [
+    "Torneo Clausura 2017",
+    "Torneo de Transición 2017"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Cristóbal Vergara",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q5186535"
+    }
+   ]
+  },
+  {
+   "club": "Everton de Viña del Mar",
+   "wikidata": "Q1103684",
+   "temporadas": [
+    "Torneo Clausura 2017",
+    "Torneo de Transición 2017"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "San Luis de Quillota",
+   "wikidata": "Q2447092",
+   "temporadas": [
+    "Torneo Clausura 2017",
+    "Torneo de Transición 2017"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Pablo Ruíz",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q19345854"
+    }
+   ]
+  },
+  {
+   "club": "Unión Española",
+   "wikidata": "Q1129059",
+   "temporadas": [
+    "Torneo Clausura 2017",
+    "Torneo de Transición 2017"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Cristián Gutiérrez",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q20727331"
+    }
+   ]
+  }
+ ]
+}

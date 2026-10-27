@@ -1,0 +1,715 @@
+{
+ "liga": "Primera División de Argentina",
+ "pais": "argentina",
+ "año": 2023,
+ "fuente": "Wikidata (CC0) y Wikipedia; instantánea del 27-oct-2026 (tools/ligas/)",
+ "notas": [
+  "Datos de referencia de uso propio, no para el juego.",
+  "Clubes: los de las temporadas del campeonato que tocan este año calendario (tabla de posiciones de Wikipedia o, si no hay, los clubes más enlazados desde el artículo de la temporada).",
+  "Jugadores: membresías P54 de Wikidata que incluyen el año. Sin fecha de fin cuenta el año en que llegó (o hasta hoy si llegó desde 2023): membresia_estimada. Los planteles pueden estar incompletos; jugadores_encontrados dice cuántos hay.",
+  "posicion: línea estimada desde P413 (POR, DEF, MED, DEL; null si Wikidata no la tiene). edad: al 1 de julio; edad_aproximada si la fecha de nacimiento no tiene día o tiene fechas distintas."
+ ],
+ "equipos": [
+  {
+   "club": "Asociación Atlética Argentinos Juniors",
+   "wikidata": "Q220621",
+   "temporadas": [
+    "Campeonato de Primera División 2023"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 3,
+   "jugadores": [
+    {
+     "nombre": "Federico Redondo",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q113027711"
+    },
+    {
+     "nombre": "Marco Di Cesare",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q104015123"
+    },
+    {
+     "nombre": "Luciano Gondou",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q107737321"
+    }
+   ]
+  },
+  {
+   "club": "Atlético Tucumán",
+   "wikidata": "Q757470",
+   "temporadas": [
+    "Campeonato de Primera División 2023"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Barracas Central",
+   "wikidata": "Q2469894",
+   "temporadas": [
+    "Campeonato de Primera División 2023"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Club Atlético Banfield",
+   "wikidata": "Q692646",
+   "temporadas": [
+    "Campeonato de Primera División 2023"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Andrés Chávez",
+     "posicion": "DEL",
+     "edad": 32,
+     "wikidata": "Q5675665"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Colón",
+   "wikidata": "Q80897",
+   "temporadas": [
+    "Campeonato de Primera División 2023"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Jorge Benitez",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q17465711"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Huracán",
+   "wikidata": "Q327172",
+   "temporadas": [
+    "Campeonato de Primera División 2023"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 5,
+   "jugadores": [
+    {
+     "nombre": "Alan Soñora",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q68740044"
+    },
+    {
+     "nombre": "Lucas Nahuel Castro",
+     "posicion": "MED",
+     "edad": 34,
+     "wikidata": "Q1279869"
+    },
+    {
+     "nombre": "Santiago Hezze",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q87310074"
+    },
+    {
+     "nombre": "Braian Maidana",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q104774999"
+    },
+    {
+     "nombre": "Juan Gauto",
+     "posicion": null,
+     "edad": 19,
+     "wikidata": "Q114133037"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Independiente",
+   "wikidata": "Q214978",
+   "temporadas": [
+    "Campeonato de Primera División 2023"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 2,
+   "jugadores": [
+    {
+     "nombre": "Mauricio Isla",
+     "posicion": "DEF",
+     "edad": 35,
+     "wikidata": "Q296222"
+    },
+    {
+     "nombre": "Alan Soñora",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q68740044"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Lanús",
+   "wikidata": "Q324589",
+   "temporadas": [
+    "Campeonato de Primera División 2023"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 2,
+   "jugadores": [
+    {
+     "nombre": "Guillermo de Amores",
+     "posicion": "POR",
+     "edad": 28,
+     "wikidata": "Q3120564"
+    },
+    {
+     "nombre": "Julio Soler",
+     "posicion": "DEF",
+     "edad": 18,
+     "wikidata": "Q121142176"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Newell’s Old Boys",
+   "wikidata": "Q221882",
+   "temporadas": [
+    "Campeonato de Primera División 2023"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 3,
+   "jugadores": [
+    {
+     "nombre": "Juan Sforza",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q71735316"
+    },
+    {
+     "nombre": "Djorkaeff Reasco",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q94535575"
+    },
+    {
+     "nombre": "Francisco González",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q63341017"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético River Plate",
+   "wikidata": "Q15799",
+   "temporadas": [
+    "Campeonato de Primera División 2023"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 12,
+   "jugadores": [
+    {
+     "nombre": "Enzo Pérez",
+     "posicion": "POR",
+     "edad": 37,
+     "wikidata": "Q926353"
+    },
+    {
+     "nombre": "Franco Daniel Armani",
+     "posicion": "POR",
+     "edad": 36,
+     "wikidata": "Q5484508"
+    },
+    {
+     "nombre": "Bruno Zuculini",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q3645977"
+    },
+    {
+     "nombre": "Claudio Echeverri",
+     "posicion": "MED",
+     "edad": 17,
+     "wikidata": "Q116463164"
+    },
+    {
+     "nombre": "Esequiel Barco",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q25935564"
+    },
+    {
+     "nombre": "Manuel Lanzini",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q1524928"
+    },
+    {
+     "nombre": "Nicolás De La Cruz",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q20994037"
+    },
+    {
+     "nombre": "Lucas Beltrán",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q59649459"
+    },
+    {
+     "nombre": "Miguel Borja",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q4094820"
+    },
+    {
+     "nombre": "Pablo Solari",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q102157529"
+    },
+    {
+     "nombre": "Salomón Rondón",
+     "posicion": "DEL",
+     "edad": 33,
+     "wikidata": "Q357613"
+    },
+    {
+     "nombre": "Imanol Salazar",
+     "posicion": null,
+     "edad": 19,
+     "wikidata": "Q126923249"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Rosario Central",
+   "wikidata": "Q318307",
+   "temporadas": [
+    "Campeonato de Primera División 2023"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 2,
+   "jugadores": [
+    {
+     "nombre": "Alejo Véliz",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q112877211"
+    },
+    {
+     "nombre": "Gino Infantino",
+     "posicion": null,
+     "edad": 20,
+     "wikidata": "Q101579946"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Tigre",
+   "wikidata": "Q80886",
+   "temporadas": [
+    "Campeonato de Primera División 2023"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 2,
+   "jugadores": [
+    {
+     "nombre": "Alexis Castro",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q20027940"
+    },
+    {
+     "nombre": "Mateo Retegui",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q47002491"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Unión",
+   "wikidata": "Q80899",
+   "temporadas": [
+    "Campeonato de Primera División 2023"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 4,
+   "jugadores": [
+    {
+     "nombre": "Lucas Esquivel",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q101084011"
+    },
+    {
+     "nombre": "Kevin Zenón",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q101001007"
+    },
+    {
+     "nombre": "Valentino Venetucci",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q120907671"
+    },
+    {
+     "nombre": "adolfo hitler buendia",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q66929490"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Vélez Sarsfield",
+   "wikidata": "Q215163",
+   "temporadas": [
+    "Campeonato de Primera División 2023"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 4,
+   "jugadores": [
+    {
+     "nombre": "Diego Godín",
+     "posicion": "DEF",
+     "edad": 37,
+     "wikidata": "Q214903"
+    },
+    {
+     "nombre": "Joaquín García",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q124815338"
+    },
+    {
+     "nombre": "Lucas Janson",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q9024628"
+    },
+    {
+     "nombre": "Santiago Castro",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q108114747"
+    }
+   ]
+  },
+  {
+   "club": "Club Deportivo Godoy Cruz Antonio Tomba",
+   "wikidata": "Q80882",
+   "temporadas": [
+    "Campeonato de Primera División 2023"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Club Estudiantes de La Plata",
+   "wikidata": "Q214940",
+   "temporadas": [
+    "Campeonato de Primera División 2023"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 5,
+   "jugadores": [
+    {
+     "nombre": "Mariano Andújar",
+     "posicion": "POR",
+     "edad": 39,
+     "wikidata": "Q321321"
+    },
+    {
+     "nombre": "Gastón Benedetti",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q118256235"
+    },
+    {
+     "nombre": "Alexis Manyoma",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q116255506"
+    },
+    {
+     "nombre": "Axel Atum",
+     "posicion": "MED",
+     "edad": 17,
+     "wikidata": "Q118256236"
+    },
+    {
+     "nombre": "Mauro Boselli",
+     "posicion": "DEL",
+     "edad": 38,
+     "wikidata": "Q561087"
+    }
+   ]
+  },
+  {
+   "club": "Club Social y Deportivo Defensa y Justicia",
+   "wikidata": "Q1024338",
+   "temporadas": [
+    "Campeonato de Primera División 2023"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Club de Gimnasia y Esgrima La Plata",
+   "wikidata": "Q18640",
+   "temporadas": [
+    "Campeonato de Primera División 2023"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 2,
+   "jugadores": [
+    {
+     "nombre": "Ramón posaaaa",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q110160871"
+    },
+    {
+     "nombre": "Brenda Graff",
+     "posicion": null,
+     "edad": 28,
+     "wikidata": "Q113996357"
+    }
+   ]
+  },
+  {
+   "club": "Instituto Atlético Central Córdoba",
+   "wikidata": "Q1421829",
+   "temporadas": [
+    "Campeonato de Primera División 2023"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 2,
+   "jugadores": [
+    {
+     "nombre": "Ezequiel Neira",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q125285136"
+    },
+    {
+     "nombre": "Djorkaeff Reasco",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q94535575"
+    }
+   ]
+  },
+  {
+   "club": "Q151907",
+   "wikidata": "Q151907",
+   "temporadas": [
+    "Campeonato de Primera División 2023"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Q170703",
+   "wikidata": "Q170703",
+   "temporadas": [
+    "Campeonato de Primera División 2023"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Q218282",
+   "wikidata": "Q218282",
+   "temporadas": [
+    "Campeonato de Primera División 2023"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Q476836",
+   "wikidata": "Q476836",
+   "temporadas": [
+    "Campeonato de Primera División 2023"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Q5060684",
+   "wikidata": "Q5060684",
+   "temporadas": [
+    "Campeonato de Primera División 2023"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Q519966",
+   "wikidata": "Q519966",
+   "temporadas": [
+    "Campeonato de Primera División 2023"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Q59962",
+   "wikidata": "Q59962",
+   "temporadas": [
+    "Campeonato de Primera División 2023"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Racing Club",
+   "wikidata": "Q276533",
+   "temporadas": [
+    "Campeonato de Primera División 2023"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 6,
+   "jugadores": [
+    {
+     "nombre": "Emiliano Insúa",
+     "posicion": "DEF",
+     "edad": 34,
+     "wikidata": "Q351797"
+    },
+    {
+     "nombre": "Iván Pillud",
+     "posicion": "DEF",
+     "edad": 37,
+     "wikidata": "Q2539757"
+    },
+    {
+     "nombre": "Baltasar Rodríguez",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q119395834"
+    },
+    {
+     "nombre": "Juan Fernando Quintero",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q2092409"
+    },
+    {
+     "nombre": "adolfo hitler buendia",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q66929490"
+    },
+    {
+     "nombre": "Paolo Guerrero",
+     "posicion": "DEL",
+     "edad": 39,
+     "wikidata": "Q156802"
+    }
+   ]
+  },
+  {
+   "club": "Talleres de Córdoba",
+   "wikidata": "Q1022939",
+   "temporadas": [
+    "Campeonato de Primera División 2023"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 2,
+   "jugadores": [
+    {
+     "nombre": "Alan Franco Palma",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q56164119"
+    },
+    {
+     "nombre": "Ramón posaaaa",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q110160871"
+    }
+   ]
+  }
+ ]
+}

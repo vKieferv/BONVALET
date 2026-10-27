@@ -1,0 +1,721 @@
+{
+ "liga": "Campeonato Brasileiro Série A",
+ "pais": "brasil",
+ "año": 2022,
+ "fuente": "Wikidata (CC0) y Wikipedia; instantánea del 27-oct-2026 (tools/ligas/)",
+ "notas": [
+  "Datos de referencia de uso propio, no para el juego.",
+  "Clubes: los de las temporadas del campeonato que tocan este año calendario (tabla de posiciones de Wikipedia o, si no hay, los clubes más enlazados desde el artículo de la temporada).",
+  "Jugadores: membresías P54 de Wikidata que incluyen el año. Sin fecha de fin cuenta el año en que llegó (o hasta hoy si llegó desde 2023): membresia_estimada. Los planteles pueden estar incompletos; jugadores_encontrados dice cuántos hay.",
+  "posicion: línea estimada desde P413 (POR, DEF, MED, DEL; null si Wikidata no la tiene). edad: al 1 de julio; edad_aproximada si la fecha de nacimiento no tiene día o tiene fechas distintas."
+ ],
+ "equipos": [
+  {
+   "club": "América Futebol Clube",
+   "wikidata": "Q338285",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2022"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Atlético Clube Goianiense",
+   "wikidata": "Q198034",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2022"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 2,
+   "jugadores": [
+    {
+     "nombre": "Luan Polli",
+     "posicion": "POR",
+     "edad": 29,
+     "wikidata": "Q19968755"
+    },
+    {
+     "nombre": "Luis Phelipe",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q64762050"
+    }
+   ]
+  },
+  {
+   "club": "Avaí Futebol Clube",
+   "wikidata": "Q374069",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2022"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Paolo Guerrero",
+     "posicion": "DEL",
+     "edad": 38,
+     "wikidata": "Q156802"
+    }
+   ]
+  },
+  {
+   "club": "Botafogo de Futebol e Regatas",
+   "wikidata": "Q80958",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2022"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Ceará Sporting Club",
+   "wikidata": "Q1052219",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2022"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 3,
+   "jugadores": [
+    {
+     "nombre": "Atila",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q136752770"
+    },
+    {
+     "nombre": "Jô",
+     "posicion": "DEL",
+     "edad": 35,
+     "wikidata": "Q314099"
+    },
+    {
+     "nombre": "Pedro Igor",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q134518704"
+    }
+   ]
+  },
+  {
+   "club": "Club Athletico Paranaense",
+   "wikidata": "Q506832",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2022"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 4,
+   "jugadores": [
+    {
+     "nombre": "Luis Manuel Orejuela",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q20015578"
+    },
+    {
+     "nombre": "Fernandinho",
+     "posicion": "MED",
+     "edad": 37,
+     "wikidata": "Q459356"
+    },
+    {
+     "nombre": "Rômulo José Cardoso da Cruz",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q110970778"
+    },
+    {
+     "nombre": "Vitor Roque",
+     "posicion": "DEL",
+     "edad": 17,
+     "wikidata": "Q111016177"
+    }
+   ]
+  },
+  {
+   "club": "Clube Atlético Mineiro",
+   "wikidata": "Q270995",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2022"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 6,
+   "jugadores": [
+    {
+     "nombre": "Diego Godín",
+     "posicion": "DEF",
+     "edad": 36,
+     "wikidata": "Q214903"
+    },
+    {
+     "nombre": "Cristian Pavón",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q16553648"
+    },
+    {
+     "nombre": "Eduardo Vargas",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q2268949"
+    },
+    {
+     "nombre": "Jefferson Savarino",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q20735677"
+    },
+    {
+     "nombre": "Hulk",
+     "posicion": "DEL",
+     "edad": 35,
+     "wikidata": "Q62786"
+    },
+    {
+     "nombre": "Sávio Moreira de Oliveira",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q99485542"
+    }
+   ]
+  },
+  {
+   "club": "Clube de Regatas do Flamengo",
+   "wikidata": "Q17479",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2022"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 12,
+   "jugadores": [
+    {
+     "nombre": "Diego Alves",
+     "posicion": "POR",
+     "edad": 37,
+     "wikidata": "Q313082"
+    },
+    {
+     "nombre": "Matheus Cunha Queiroz",
+     "posicion": "POR",
+     "edad": 21,
+     "wikidata": "Q110882015"
+    },
+    {
+     "nombre": "Ayrton Lucas Dantas de Medeiros",
+     "posicion": "DEF",
+     "edad": 25,
+     "wikidata": "Q23638974"
+    },
+    {
+     "nombre": "David Luiz",
+     "posicion": "DEF",
+     "edad": 35,
+     "wikidata": "Q193706"
+    },
+    {
+     "nombre": "Filipe Luís",
+     "posicion": "DEF",
+     "edad": 36,
+     "wikidata": "Q350547"
+    },
+    {
+     "nombre": "Gustavo Henrique",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q5621422"
+    },
+    {
+     "nombre": "Mauricio Isla",
+     "posicion": "DEF",
+     "edad": 34,
+     "wikidata": "Q296222"
+    },
+    {
+     "nombre": "Andreas Pereira",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q17619350"
+    },
+    {
+     "nombre": "Arturo Vidal",
+     "posicion": "MED",
+     "edad": 35,
+     "wikidata": "Q192671"
+    },
+    {
+     "nombre": "Richard Ríos",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q117322318"
+    },
+    {
+     "nombre": "Willian Arão",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q2035459",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Gabigol",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q13646572"
+    }
+   ]
+  },
+  {
+   "club": "Coritiba Foot Ball Club",
+   "wikidata": "Q478317",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2022"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Cuiabá Esporte Clube",
+   "wikidata": "Q2945011",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2022"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Lucas Mineiro",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q27929671"
+    }
+   ]
+  },
+  {
+   "club": "Esporte Clube Juventude",
+   "wikidata": "Q910453",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2022"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Thalisson Kelven",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q42153217"
+    }
+   ]
+  },
+  {
+   "club": "Fluminense Football Club",
+   "wikidata": "Q80987",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2022"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 8,
+   "jugadores": [
+    {
+     "nombre": "Mario Pineida",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q3848970"
+    },
+    {
+     "nombre": "Felipe Melo",
+     "posicion": "MED",
+     "edad": 39,
+     "wikidata": "Q204450"
+    },
+    {
+     "nombre": "Jhon Arias",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q65378670"
+    },
+    {
+     "nombre": "Abel Hernández",
+     "posicion": "DEL",
+     "edad": 31,
+     "wikidata": "Q318456"
+    },
+    {
+     "nombre": "Fred",
+     "posicion": "DEL",
+     "edad": 38,
+     "wikidata": "Q312772"
+    },
+    {
+     "nombre": "Lucas Barcellos",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q84339468"
+    },
+    {
+     "nombre": "Luiz Henrique André Rosa da Silva",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q101764291"
+    },
+    {
+     "nombre": "Raí Lopes de Oliveira",
+     "posicion": null,
+     "edad": 22,
+     "wikidata": "Q125377996"
+    }
+   ]
+  },
+  {
+   "club": "Fortaleza Esporte Clube",
+   "wikidata": "Q188841",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2022"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 2,
+   "jugadores": [
+    {
+     "nombre": "Luan Polli",
+     "posicion": "POR",
+     "edad": 29,
+     "wikidata": "Q19968755"
+    },
+    {
+     "nombre": "Fabricio Santos de Jesus",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q15831001"
+    }
+   ]
+  },
+  {
+   "club": "Goiás Esporte Clube",
+   "wikidata": "Q816779",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2022"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Red Bull Bragantino",
+   "wikidata": "Q541744",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2022"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 8,
+   "jugadores": [
+    {
+     "nombre": "Edimar Curitiba Fraga",
+     "posicion": "DEF",
+     "edad": 36,
+     "wikidata": "Q2080087"
+    },
+    {
+     "nombre": "José Hurtado",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q106638309"
+    },
+    {
+     "nombre": "Léo Ortiz",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q55816003"
+    },
+    {
+     "nombre": "Natan Bernardo de Souza",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q99738875"
+    },
+    {
+     "nombre": "Cristiano",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q131036322"
+    },
+    {
+     "nombre": "Alerrandro Barra Mansa Realino de Souza",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q55081204"
+    },
+    {
+     "nombre": "Eduardo Sasha",
+     "posicion": "DEL",
+     "edad": 30,
+     "wikidata": "Q5340762"
+    },
+    {
+     "nombre": "Douglas Mendes",
+     "posicion": null,
+     "edad": 18,
+     "wikidata": "Q115522187"
+    }
+   ]
+  },
+  {
+   "club": "Santos Futebol Clube",
+   "wikidata": "Q80955",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2022"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 4,
+   "jugadores": [
+    {
+     "nombre": "Anderson Ceará",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q59179753"
+    },
+    {
+     "nombre": "Carlos Sánchez",
+     "posicion": "MED",
+     "edad": 37,
+     "wikidata": "Q5041766"
+    },
+    {
+     "nombre": "Marcos Leonardo",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q98534760"
+    },
+    {
+     "nombre": "Tailson Pinto Gonçalves",
+     "posicion": "DEL",
+     "edad": 23,
+     "wikidata": "Q69949602"
+    }
+   ]
+  },
+  {
+   "club": "Sociedade Esportiva Palmeiras",
+   "wikidata": "Q80964",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2022"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 6,
+   "jugadores": [
+    {
+     "nombre": "Jailson",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q28145562"
+    },
+    {
+     "nombre": "Marino Hinestroza",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q106766381"
+    },
+    {
+     "nombre": "Pedro Bicalho",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q96361581"
+    },
+    {
+     "nombre": "Breno Lopes",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q101230488"
+    },
+    {
+     "nombre": "Endrick",
+     "posicion": "DEL",
+     "edad": 15,
+     "wikidata": "Q110644260"
+    },
+    {
+     "nombre": "Gabriel Veron",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q75059692"
+    }
+   ]
+  },
+  {
+   "club": "Sport Club Corinthians Paulista",
+   "wikidata": "Q35933",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2022"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 6,
+   "jugadores": [
+    {
+     "nombre": "Giuliano",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q713886"
+    },
+    {
+     "nombre": "Paulinho",
+     "posicion": "MED",
+     "edad": 33,
+     "wikidata": "Q73082"
+    },
+    {
+     "nombre": "Renato Augusto",
+     "posicion": "MED",
+     "edad": 34,
+     "wikidata": "Q357844"
+    },
+    {
+     "nombre": "Willian Borges da Silva",
+     "posicion": "MED",
+     "edad": 33,
+     "wikidata": "Q73480"
+    },
+    {
+     "nombre": "Jô",
+     "posicion": "DEL",
+     "edad": 35,
+     "wikidata": "Q314099"
+    },
+    {
+     "nombre": "Wesley Gassova",
+     "posicion": "DEL",
+     "edad": 17,
+     "wikidata": "Q112620020"
+    }
+   ]
+  },
+  {
+   "club": "Sport Club Internacional",
+   "wikidata": "Q80845",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2022"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 3,
+   "jugadores": [
+    {
+     "nombre": "Edenilson",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q1707749"
+    },
+    {
+     "nombre": "Wesley Moraes",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q20716703"
+    },
+    {
+     "nombre": "Gabi Barbieri",
+     "posicion": null,
+     "edad": 19,
+     "wikidata": "Q116450248"
+    }
+   ]
+  },
+  {
+   "club": "São Paulo Futebol Clube",
+   "wikidata": "Q38568",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2022"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 8,
+   "jugadores": [
+    {
+     "nombre": "Beraldo",
+     "posicion": "DEF",
+     "edad": 18,
+     "wikidata": "Q112604843"
+    },
+    {
+     "nombre": "Miranda",
+     "posicion": "DEF",
+     "edad": 37,
+     "wikidata": "Q318119"
+    },
+    {
+     "nombre": "Rafinha",
+     "posicion": "DEF",
+     "edad": 36,
+     "wikidata": "Q174926"
+    },
+    {
+     "nombre": "Gabriel Neves Perdomo",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q58011128"
+    },
+    {
+     "nombre": "Igor Gomes",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q59207905"
+    },
+    {
+     "nombre": "Dorlan Pabón",
+     "posicion": "DEL",
+     "edad": 34,
+     "wikidata": "Q520695"
+    },
+    {
+     "nombre": "Marcus Vinicius Oliveira Alencar",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q107584170"
+    },
+    {
+     "nombre": "Éder Citadin Martins",
+     "posicion": "DEL",
+     "edad": 35,
+     "wikidata": "Q167698"
+    }
+   ]
+  }
+ ]
+}

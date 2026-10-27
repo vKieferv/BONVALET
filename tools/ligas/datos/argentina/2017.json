@@ -1,0 +1,1102 @@
+{
+ "liga": "Primera División de Argentina",
+ "pais": "argentina",
+ "año": 2017,
+ "fuente": "Wikidata (CC0) y Wikipedia; instantánea del 27-oct-2026 (tools/ligas/)",
+ "notas": [
+  "Datos de referencia de uso propio, no para el juego.",
+  "Clubes: los de las temporadas del campeonato que tocan este año calendario (tabla de posiciones de Wikipedia o, si no hay, los clubes más enlazados desde el artículo de la temporada).",
+  "Jugadores: membresías P54 de Wikidata que incluyen el año. Sin fecha de fin cuenta el año en que llegó (o hasta hoy si llegó desde 2023): membresia_estimada. Los planteles pueden estar incompletos; jugadores_encontrados dice cuántos hay.",
+  "posicion: línea estimada desde P413 (POR, DEF, MED, DEL; null si Wikidata no la tiene). edad: al 1 de julio; edad_aproximada si la fecha de nacimiento no tiene día o tiene fechas distintas."
+ ],
+ "equipos": [
+  {
+   "club": "Asociación Atlética Argentinos Juniors",
+   "wikidata": "Q220621",
+   "temporadas": [
+    "Campeonato de Primera División 2017-18"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 3,
+   "jugadores": [
+    {
+     "nombre": "Patricio Matricardi",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q20876903"
+    },
+    {
+     "nombre": "Alexis Mac Allister",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q33297140"
+    },
+    {
+     "nombre": "Nicolás González",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q43381082"
+    }
+   ]
+  },
+  {
+   "club": "Atlético Tucumán",
+   "wikidata": "Q757470",
+   "temporadas": [
+    "Campeonato de Primera División 2016-17 (Argentina)",
+    "Campeonato de Primera División 2017-18"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 5,
+   "jugadores": [
+    {
+     "nombre": "Enrique Gabriel Meza",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q5379699"
+    },
+    {
+     "nombre": "Ezequiel Cirigliano",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q2629147"
+    },
+    {
+     "nombre": "Rafael García Casanova",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q9065788"
+    },
+    {
+     "nombre": "Ismael Blanco",
+     "posicion": "DEL",
+     "edad": 34,
+     "wikidata": "Q514159"
+    },
+    {
+     "nombre": "Luis Miguel Rodríguez",
+     "posicion": "DEL",
+     "edad": 32,
+     "wikidata": "Q3840384"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Aldosivi",
+   "wikidata": "Q971490",
+   "temporadas": [
+    "Campeonato de Primera División 2016-17 (Argentina)"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 3,
+   "jugadores": [
+    {
+     "nombre": "Ramiro Arias",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q17364198"
+    },
+    {
+     "nombre": "Juan Ignacio Dinenno",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q16323765"
+    },
+    {
+     "nombre": "Pablo Lugüercio",
+     "posicion": "DEL",
+     "edad": 35,
+     "wikidata": "Q3888385"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Banfield",
+   "wikidata": "Q692646",
+   "temporadas": [
+    "Campeonato de Primera División 2016-17 (Argentina)",
+    "Campeonato de Primera División 2017-18"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 5,
+   "jugadores": [
+    {
+     "nombre": "Renato Civelli",
+     "posicion": "DEF",
+     "edad": 33,
+     "wikidata": "Q523900"
+    },
+    {
+     "nombre": "Eric Remedi",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q29259617"
+    },
+    {
+     "nombre": "Juan Manuel García",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q39082075"
+    },
+    {
+     "nombre": "Julián Carranza",
+     "posicion": "DEL",
+     "edad": 17,
+     "wikidata": "Q45183360"
+    },
+    {
+     "nombre": "Michael López",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q43380470"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Colón",
+   "wikidata": "Q80897",
+   "temporadas": [
+    "Campeonato de Primera División 2016-17 (Argentina)",
+    "Campeonato de Primera División 2017-18"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 6,
+   "jugadores": [
+    {
+     "nombre": "Alexánder Domínguez",
+     "posicion": "POR",
+     "edad": 30,
+     "wikidata": "Q2667325"
+    },
+    {
+     "nombre": "Germán Conti",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q16298483"
+    },
+    {
+     "nombre": "Braian Galván",
+     "posicion": "MED",
+     "edad": 16,
+     "wikidata": "Q57292739"
+    },
+    {
+     "nombre": "Gerónimo Poblete",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q5879003"
+    },
+    {
+     "nombre": "Juan Bauza",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q28950928"
+    },
+    {
+     "nombre": "Matías Fritzler",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q543271"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Huracán",
+   "wikidata": "Q327172",
+   "temporadas": [
+    "Campeonato de Primera División 2016-17 (Argentina)",
+    "Campeonato de Primera División 2017-18"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 3,
+   "jugadores": [
+    {
+     "nombre": "Alejandro Romero Gamarra",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q19319791"
+    },
+    {
+     "nombre": "Matías Fritzler",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q543271"
+    },
+    {
+     "nombre": "Lucas Chacana",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q20014013"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Independiente",
+   "wikidata": "Q214978",
+   "temporadas": [
+    "Campeonato de Primera División 2016-17 (Argentina)",
+    "Campeonato de Primera División 2017-18"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 9,
+   "jugadores": [
+    {
+     "nombre": "Fernando Amorebieta",
+     "posicion": "DEF",
+     "edad": 32,
+     "wikidata": "Q314250"
+    },
+    {
+     "nombre": "Nicolás Figal",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q17635436"
+    },
+    {
+     "nombre": "Nicolás Tagliafico",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q3876530"
+    },
+    {
+     "nombre": "Alexis Zárate",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q8195025"
+    },
+    {
+     "nombre": "Esequiel Barco",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q25935564"
+    },
+    {
+     "nombre": "Jonás Gutiérrez",
+     "posicion": "MED",
+     "edad": 33,
+     "wikidata": "Q208087"
+    },
+    {
+     "nombre": "Nicolás Del Priore",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q59782070"
+    },
+    {
+     "nombre": "Lucas Albertengo",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q16145022"
+    },
+    {
+     "nombre": "Nicolás Messiniti",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q50595710"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Lanús",
+   "wikidata": "Q324589",
+   "temporadas": [
+    "Campeonato de Primera División 2016-17 (Argentina)",
+    "Campeonato de Primera División 2017-18"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Esteban Andrada",
+     "posicion": "POR",
+     "edad": 26,
+     "wikidata": "Q3733379"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Newell’s Old Boys",
+   "wikidata": "Q221882",
+   "temporadas": [
+    "Campeonato de Primera División 2016-17 (Argentina)",
+    "Campeonato de Primera División 2017-18"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 7,
+   "jugadores": [
+    {
+     "nombre": "Nicolás Temperini",
+     "posicion": "POR",
+     "edad": 22,
+     "wikidata": "Q56318348"
+    },
+    {
+     "nombre": "Franco Nicolás Escobar",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q20853376"
+    },
+    {
+     "nombre": "Lisandro Martínez",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q30881092"
+    },
+    {
+     "nombre": "Milton Valenzuela",
+     "posicion": "DEF",
+     "edad": 18,
+     "wikidata": "Q23762800"
+    },
+    {
+     "nombre": "Ignacio Scocco",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q1709911"
+    },
+    {
+     "nombre": "Maxi Rodríguez",
+     "posicion": "MED",
+     "edad": 36,
+     "wikidata": "Q190929"
+    },
+    {
+     "nombre": "Maximiliano Ribero",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q58008189"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético River Plate",
+   "wikidata": "Q15799",
+   "temporadas": [
+    "Campeonato de Primera División 2016-17 (Argentina)",
+    "Campeonato de Primera División 2017-18"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 15,
+   "jugadores": [
+    {
+     "nombre": "Enzo Pérez",
+     "posicion": "POR",
+     "edad": 31,
+     "wikidata": "Q926353"
+    },
+    {
+     "nombre": "Germán Lux",
+     "posicion": "POR",
+     "edad": 35,
+     "wikidata": "Q313441"
+    },
+    {
+     "nombre": "Augusto Aguirre",
+     "posicion": "DEF",
+     "edad": 17,
+     "wikidata": "Q42685751"
+    },
+    {
+     "nombre": "Gonzalo Montiel",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q26255087"
+    },
+    {
+     "nombre": "Jonathan Maidana",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q2287577"
+    },
+    {
+     "nombre": "Camilo Mayada",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q3651591"
+    },
+    {
+     "nombre": "Exequiel Palacios",
+     "posicion": "MED",
+     "edad": 18,
+     "wikidata": "Q19345715"
+    },
+    {
+     "nombre": "Ignacio Scocco",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q1709911"
+    },
+    {
+     "nombre": "Nicolás De La Cruz",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q20994037"
+    },
+    {
+     "nombre": "Pity Martínez",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q5883075"
+    },
+    {
+     "nombre": "Juan Cruz Kaprof",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q14831174"
+    },
+    {
+     "nombre": "Nicolás Franco",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q34640157"
+    },
+    {
+     "nombre": "Rafael Santos Borré",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q18719633"
+    },
+    {
+     "nombre": "Rodrigo Mora",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q965316"
+    },
+    {
+     "nombre": "Manuel Balagué",
+     "posicion": null,
+     "edad": 18,
+     "wikidata": "Q124052306"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Rosario Central",
+   "wikidata": "Q318307",
+   "temporadas": [
+    "Campeonato de Primera División 2016-17 (Argentina)",
+    "Campeonato de Primera División 2017-18"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 5,
+   "jugadores": [
+    {
+     "nombre": "Jeremías Ledesma",
+     "posicion": "POR",
+     "edad": 24,
+     "wikidata": "Q16581359"
+    },
+    {
+     "nombre": "Fernando Tobio",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q3742974"
+    },
+    {
+     "nombre": "Javier Pinola",
+     "posicion": "DEF",
+     "edad": 34,
+     "wikidata": "Q950154"
+    },
+    {
+     "nombre": "Agustín Allione",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q3330099"
+    },
+    {
+     "nombre": "Teófilo Gutiérrez",
+     "posicion": "DEL",
+     "edad": 32,
+     "wikidata": "Q369056"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético San Martín (San Juan)",
+   "wikidata": "Q80921",
+   "temporadas": [
+    "Campeonato de Primera División 2016-17 (Argentina)",
+    "Campeonato de Primera División 2017-18"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 2,
+   "jugadores": [
+    {
+     "nombre": "Patricio Matricardi",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q20876903"
+    },
+    {
+     "nombre": "Álvaro Fernández",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q250973"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Tigre",
+   "wikidata": "Q80886",
+   "temporadas": [
+    "Campeonato de Primera División 2016-17 (Argentina)",
+    "Campeonato de Primera División 2017-18"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 6,
+   "jugadores": [
+    {
+     "nombre": "Bruno Urribarri",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q4979424"
+    },
+    {
+     "nombre": "Ezequiel Rodríguez",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q40686935"
+    },
+    {
+     "nombre": "Alexis Castro",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q20027940"
+    },
+    {
+     "nombre": "Lucas Wilchez",
+     "posicion": "MED",
+     "edad": 33,
+     "wikidata": "Q27508",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Lucas Chacana",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q20014013"
+    },
+    {
+     "nombre": "Lucas Janson",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q9024628"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Unión",
+   "wikidata": "Q80899",
+   "temporadas": [
+    "Campeonato de Primera División 2016-17 (Argentina)",
+    "Campeonato de Primera División 2017-18"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Manuel De Iriondo",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q17477988"
+    }
+   ]
+  },
+  {
+   "club": "Club Atlético Vélez Sarsfield",
+   "wikidata": "Q215163",
+   "temporadas": [
+    "Campeonato de Primera División 2016-17 (Argentina)",
+    "Campeonato de Primera División 2017-18"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 4,
+   "jugadores": [
+    {
+     "nombre": "Braian Cufré",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q24006164"
+    },
+    {
+     "nombre": "Matías Pérez Acuña",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q19665131"
+    },
+    {
+     "nombre": "Micaela Casasola",
+     "posicion": "DEF",
+     "edad": 20,
+     "wikidata": "Q28812985"
+    },
+    {
+     "nombre": "Yamil Asad",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q19281609"
+    }
+   ]
+  },
+  {
+   "club": "Club Deportivo Godoy Cruz Antonio Tomba",
+   "wikidata": "Q80882",
+   "temporadas": [
+    "Campeonato de Primera División 2016-17 (Argentina)",
+    "Campeonato de Primera División 2017-18"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 3,
+   "jugadores": [
+    {
+     "nombre": "Rodrigo Rey",
+     "posicion": "POR",
+     "edad": 26,
+     "wikidata": "Q6110784"
+    },
+    {
+     "nombre": "Pol Fernández",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q6544894"
+    },
+    {
+     "nombre": "Santiago García",
+     "posicion": "DEL",
+     "edad": 26,
+     "wikidata": "Q2120806"
+    }
+   ]
+  },
+  {
+   "club": "Club Estudiantes de La Plata",
+   "wikidata": "Q214940",
+   "temporadas": [
+    "Campeonato de Primera División 2016-17 (Argentina)",
+    "Campeonato de Primera División 2017-18"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 10,
+   "jugadores": [
+    {
+     "nombre": "Mariano Andújar",
+     "posicion": "POR",
+     "edad": 33,
+     "wikidata": "Q321321"
+    },
+    {
+     "nombre": "Juan Foyth",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q29841260"
+    },
+    {
+     "nombre": "Julián Marchioni",
+     "posicion": "DEF",
+     "edad": 24,
+     "wikidata": "Q27306018"
+    },
+    {
+     "nombre": "Sebastián Dubarbier",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q1334239"
+    },
+    {
+     "nombre": "Juan Bautista Cascini",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q27662891"
+    },
+    {
+     "nombre": "Juan Bautista Cejas",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q19339573"
+    },
+    {
+     "nombre": "Juan Otero",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q19560481"
+    },
+    {
+     "nombre": "Santiago Ascacíbar",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q23927885"
+    },
+    {
+     "nombre": "Mauro Borgnino",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q28055553"
+    },
+    {
+     "nombre": "Pablo Lugüercio",
+     "posicion": "DEL",
+     "edad": 35,
+     "wikidata": "Q3888385"
+    }
+   ]
+  },
+  {
+   "club": "Club Olimpo",
+   "wikidata": "Q1074980",
+   "temporadas": [
+    "Campeonato de Primera División 2016-17 (Argentina)",
+    "Campeonato de Primera División 2017-18"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Nereo Champagne",
+     "posicion": "POR",
+     "edad": 32,
+     "wikidata": "Q2059054"
+    }
+   ]
+  },
+  {
+   "club": "Club Social y Deportivo Defensa y Justicia",
+   "wikidata": "Q1024338",
+   "temporadas": [
+    "Campeonato de Primera División 2016-17 (Argentina)",
+    "Campeonato de Primera División 2017-18"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 5,
+   "jugadores": [
+    {
+     "nombre": "Andrés Cubas",
+     "posicion": "DEF",
+     "edad": 21,
+     "wikidata": "Q16298600"
+    },
+    {
+     "nombre": "Lisandro Martínez",
+     "posicion": "DEF",
+     "edad": 19,
+     "wikidata": "Q30881092"
+    },
+    {
+     "nombre": "Pablo Alvarado",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q2881772"
+    },
+    {
+     "nombre": "Jonás Gutiérrez",
+     "posicion": "MED",
+     "edad": 33,
+     "wikidata": "Q208087"
+    },
+    {
+     "nombre": "Juan Cruz Kaprof",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q14831174"
+    }
+   ]
+  },
+  {
+   "club": "Club de Gimnasia y Esgrima La Plata",
+   "wikidata": "Q18640",
+   "temporadas": [
+    "Campeonato de Primera División 2016-17 (Argentina)",
+    "Campeonato de Primera División 2017-18"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Brenda Graff",
+     "posicion": null,
+     "edad": 22,
+     "wikidata": "Q113996357"
+    }
+   ]
+  },
+  {
+   "club": "Q170703",
+   "wikidata": "Q170703",
+   "temporadas": [
+    "Campeonato de Primera División 2016-17 (Argentina)",
+    "Campeonato de Primera División 2017-18"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Q1773830",
+   "wikidata": "Q1773830",
+   "temporadas": [
+    "Campeonato de Primera División 2016-17 (Argentina)",
+    "Campeonato de Primera División 2017-18"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Q218282",
+   "wikidata": "Q218282",
+   "temporadas": [
+    "Campeonato de Primera División 2016-17 (Argentina)",
+    "Campeonato de Primera División 2017-18"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Q2778591",
+   "wikidata": "Q2778591",
+   "temporadas": [
+    "Campeonato de Primera División 2016-17 (Argentina)",
+    "Campeonato de Primera División 2017-18"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Q476836",
+   "wikidata": "Q476836",
+   "temporadas": [
+    "Campeonato de Primera División 2016-17 (Argentina)",
+    "Campeonato de Primera División 2017-18"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Q519966",
+   "wikidata": "Q519966",
+   "temporadas": [
+    "Campeonato de Primera División 2016-17 (Argentina)"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Q59839",
+   "wikidata": "Q59839",
+   "temporadas": [
+    "Campeonato de Primera División 2016-17 (Argentina)"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Q59962",
+   "wikidata": "Q59962",
+   "temporadas": [
+    "Campeonato de Primera División 2016-17 (Argentina)",
+    "Campeonato de Primera División 2017-18"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Q853053",
+   "wikidata": "Q853053",
+   "temporadas": [
+    "Campeonato de Primera División 2017-18"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Quilmes Atlético Club",
+   "wikidata": "Q775966",
+   "temporadas": [
+    "Campeonato de Primera División 2016-17 (Argentina)"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 2,
+   "jugadores": [
+    {
+     "nombre": "Diego Colotto",
+     "posicion": "DEF",
+     "edad": 36,
+     "wikidata": "Q238873"
+    },
+    {
+     "nombre": "Matías Pérez Acuña",
+     "posicion": "DEF",
+     "edad": 23,
+     "wikidata": "Q19665131"
+    }
+   ]
+  },
+  {
+   "club": "Racing Club",
+   "wikidata": "Q276533",
+   "temporadas": [
+    "Campeonato de Primera División 2016-17 (Argentina)",
+    "Campeonato de Primera División 2017-18"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 9,
+   "jugadores": [
+    {
+     "nombre": "Juan Musso",
+     "posicion": "POR",
+     "edad": 23,
+     "wikidata": "Q5951550"
+    },
+    {
+     "nombre": "Iván Pillud",
+     "posicion": "DEF",
+     "edad": 31,
+     "wikidata": "Q2539757"
+    },
+    {
+     "nombre": "Leonel Pierce",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q60195104"
+    },
+    {
+     "nombre": "Rodrigo Schlegel",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q30917065"
+    },
+    {
+     "nombre": "Óscar Romero Villamayor",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q15960512"
+    },
+    {
+     "nombre": "Andrés Felipe Ibargüen",
+     "posicion": "DEL",
+     "edad": 25,
+     "wikidata": "Q5675745"
+    },
+    {
+     "nombre": "Enrique Triverio",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q17333695"
+    },
+    {
+     "nombre": "Lautaro Martínez",
+     "posicion": "DEL",
+     "edad": 19,
+     "wikidata": "Q21484126"
+    },
+    {
+     "nombre": "Lisandro López",
+     "posicion": "DEL",
+     "edad": 34,
+     "wikidata": "Q296133"
+    }
+   ]
+  },
+  {
+   "club": "Talleres de Córdoba",
+   "wikidata": "Q1022939",
+   "temporadas": [
+    "Campeonato de Primera División 2016-17 (Argentina)",
+    "Campeonato de Primera División 2017-18"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 3,
+   "jugadores": [
+    {
+     "nombre": "Nicolás Temperini",
+     "posicion": "POR",
+     "edad": 22,
+     "wikidata": "Q56318348"
+    },
+    {
+     "nombre": "Guillermo Cotugno",
+     "posicion": "DEF",
+     "edad": 22,
+     "wikidata": "Q17279992"
+    },
+    {
+     "nombre": "Nicolás Giménez",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q19837010"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,858 @@
+{
+ "liga": "Campeonato Brasileiro Série A",
+ "pais": "brasil",
+ "año": 2025,
+ "fuente": "Wikidata (CC0) y Wikipedia; instantánea del 27-oct-2026 (tools/ligas/)",
+ "notas": [
+  "Datos de referencia de uso propio, no para el juego.",
+  "Clubes: los de las temporadas del campeonato que tocan este año calendario (tabla de posiciones de Wikipedia o, si no hay, los clubes más enlazados desde el artículo de la temporada).",
+  "Jugadores: membresías P54 de Wikidata que incluyen el año. Sin fecha de fin cuenta el año en que llegó (o hasta hoy si llegó desde 2023): membresia_estimada. Los planteles pueden estar incompletos; jugadores_encontrados dice cuántos hay.",
+  "posicion: línea estimada desde P413 (POR, DEF, MED, DEL; null si Wikidata no la tiene). edad: al 1 de julio; edad_aproximada si la fecha de nacimiento no tiene día o tiene fechas distintas."
+ ],
+ "equipos": [
+  {
+   "club": "Botafogo de Futebol e Regatas",
+   "wikidata": "Q80958",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2025"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 8,
+   "jugadores": [
+    {
+     "nombre": "Neto",
+     "posicion": "POR",
+     "edad": 35,
+     "wikidata": "Q62657"
+    },
+    {
+     "nombre": "Alex Telles",
+     "posicion": "DEF",
+     "edad": 32,
+     "wikidata": "Q15214940",
+     "membresia_estimada": true
+    },
+    {
+     "nombre": "JP Galvão",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q116432772",
+     "membresia_estimada": true
+    },
+    {
+     "nombre": "Jefferson Savarino",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q20735677"
+    },
+    {
+     "nombre": "Luis Segovia",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q29002247",
+     "membresia_estimada": true
+    },
+    {
+     "nombre": "Thiago Almada",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q57293140"
+    },
+    {
+     "nombre": "Igor Jesus",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q65030995"
+    },
+    {
+     "nombre": "Luiz Henrique André Rosa da Silva",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q101764291"
+    }
+   ]
+  },
+  {
+   "club": "Ceará Sporting Club",
+   "wikidata": "Q1052219",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2025"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Club de Regatas Vasco da Gama",
+   "wikidata": "Q5014111",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2025"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 7,
+   "jugadores": [
+    {
+     "nombre": "Carlos Cuesta",
+     "posicion": "DEF",
+     "edad": 26,
+     "wikidata": "Q26838147"
+    },
+    {
+     "nombre": "Benjamín Garré",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q42227698"
+    },
+    {
+     "nombre": "Dimitri Payet",
+     "posicion": "MED",
+     "edad": 38,
+     "wikidata": "Q376247"
+    },
+    {
+     "nombre": "Juan Sforza",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q71735316",
+     "membresia_estimada": true
+    },
+    {
+     "nombre": "Maxime Dominguez",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q16021107"
+    },
+    {
+     "nombre": "Philippe Coutinho",
+     "posicion": "DEL",
+     "edad": 33,
+     "wikidata": "Q311872"
+    },
+    {
+     "nombre": "Nuno Moreira",
+     "posicion": null,
+     "edad": 26,
+     "wikidata": "Q108532924"
+    }
+   ]
+  },
+  {
+   "club": "Clube Atlético Mineiro",
+   "wikidata": "Q270995",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2025"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 6,
+   "jugadores": [
+    {
+     "nombre": "Bernard",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q137242",
+     "membresia_estimada": true
+    },
+    {
+     "nombre": "Igor Gomes",
+     "posicion": "MED",
+     "edad": 26,
+     "wikidata": "Q59207905",
+     "membresia_estimada": true
+    },
+    {
+     "nombre": "Reinier",
+     "posicion": "MED",
+     "edad": 23,
+     "wikidata": "Q64606160"
+    },
+    {
+     "nombre": "Rodrigo Battaglia",
+     "posicion": "MED",
+     "edad": 33,
+     "wikidata": "Q3940027",
+     "membresia_estimada": true
+    },
+    {
+     "nombre": "Gabriel Teixeira",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q106734264"
+    },
+    {
+     "nombre": "Hulk",
+     "posicion": "DEL",
+     "edad": 38,
+     "wikidata": "Q62786"
+    }
+   ]
+  },
+  {
+   "club": "Clube de Regatas do Flamengo",
+   "wikidata": "Q17479",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2025"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 14,
+   "jugadores": [
+    {
+     "nombre": "Matheus Cunha Queiroz",
+     "posicion": "POR",
+     "edad": 24,
+     "wikidata": "Q110882015"
+    },
+    {
+     "nombre": "Alex Sandro",
+     "posicion": "DEF",
+     "edad": 34,
+     "wikidata": "Q551192",
+     "membresia_estimada": true
+    },
+    {
+     "nombre": "Ayrton Lucas Dantas de Medeiros",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q23638974",
+     "membresia_estimada": true
+    },
+    {
+     "nombre": "Danilo Luiz da Silva",
+     "posicion": "DEF",
+     "edad": 33,
+     "wikidata": "Q437329"
+    },
+    {
+     "nombre": "Léo Ortiz",
+     "posicion": "DEF",
+     "edad": 29,
+     "wikidata": "Q55816003",
+     "membresia_estimada": true
+    },
+    {
+     "nombre": "Matías Viña",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q28663925",
+     "membresia_estimada": true
+    },
+    {
+     "nombre": "Gonzalo Plata",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q60842120"
+    },
+    {
+     "nombre": "Jorge Carrascal",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q19362872"
+    },
+    {
+     "nombre": "Jorginho",
+     "posicion": "MED",
+     "edad": 33,
+     "wikidata": "Q3810078"
+    },
+    {
+     "nombre": "Nicolás De La Cruz",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q20994037",
+     "membresia_estimada": true
+    },
+    {
+     "nombre": "Samuel Lino",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q67222776"
+    },
+    {
+     "nombre": "Saúl Ñíguez",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q912172"
+    },
+    {
+     "nombre": "Olávio Vieira dos Santos Júnior",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q50841898"
+    },
+    {
+     "nombre": "Gabi Barbieri",
+     "posicion": null,
+     "edad": 22,
+     "wikidata": "Q116450248",
+     "membresia_estimada": true
+    }
+   ]
+  },
+  {
+   "club": "Cruzeiro Esporte Clube",
+   "wikidata": "Q188277",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2025"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 9,
+   "jugadores": [
+    {
+     "nombre": "Camila Gomes",
+     "posicion": "POR",
+     "edad": 24,
+     "wikidata": "Q110253575",
+     "membresia_estimada": true
+    },
+    {
+     "nombre": "Cássio Ramos",
+     "posicion": "POR",
+     "edad": 38,
+     "wikidata": "Q920039"
+    },
+    {
+     "nombre": "Fagner",
+     "posicion": "DEF",
+     "edad": 36,
+     "wikidata": "Q932827"
+    },
+    {
+     "nombre": "Lucas Villalba",
+     "posicion": "DEF",
+     "edad": 30,
+     "wikidata": "Q5981950",
+     "membresia_estimada": true
+    },
+    {
+     "nombre": "Dudu",
+     "posicion": "MED",
+     "edad": 33,
+     "wikidata": "Q1341709"
+    },
+    {
+     "nombre": "Fabrizio Peralta",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q124838357",
+     "membresia_estimada": true
+    },
+    {
+     "nombre": "Matheus Pereira",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q15831118",
+     "membresia_estimada": true
+    },
+    {
+     "nombre": "Yannick Bolasie",
+     "posicion": "MED",
+     "edad": 36,
+     "wikidata": "Q4022527"
+    },
+    {
+     "nombre": "Gabigol",
+     "posicion": "DEL",
+     "edad": 28,
+     "wikidata": "Q13646572"
+    }
+   ]
+  },
+  {
+   "club": "Esporte Clube Bahia",
+   "wikidata": "Q198032",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2025"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 4,
+   "jugadores": [
+    {
+     "nombre": "Santiago Arias",
+     "posicion": "DEF",
+     "edad": 33,
+     "wikidata": "Q2502118"
+    },
+    {
+     "nombre": "Diego Rosa",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q76376134"
+    },
+    {
+     "nombre": "Everton Ribeiro",
+     "posicion": "MED",
+     "edad": 36,
+     "wikidata": "Q4025436",
+     "membresia_estimada": true
+    },
+    {
+     "nombre": "Gabriel Teixeira",
+     "posicion": "DEL",
+     "edad": 24,
+     "wikidata": "Q106734264"
+    }
+   ]
+  },
+  {
+   "club": "Esporte Clube Juventude",
+   "wikidata": "Q910453",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2025"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Esporte Clube Vitória",
+   "wikidata": "Q274465",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2025"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Fluminense Football Club",
+   "wikidata": "Q80987",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2025"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 8,
+   "jugadores": [
+    {
+     "nombre": "Antonio Carlos Capocasali",
+     "posicion": "DEF",
+     "edad": 32,
+     "wikidata": "Q4776503"
+    },
+    {
+     "nombre": "Marcelo Vieira da Silva Júnior",
+     "posicion": "DEF",
+     "edad": 37,
+     "wikidata": "Q38136"
+    },
+    {
+     "nombre": "Thiago Silva",
+     "posicion": "DEF",
+     "edad": 40,
+     "wikidata": "Q210453"
+    },
+    {
+     "nombre": "Jhon Arias",
+     "posicion": "MED",
+     "edad": 27,
+     "wikidata": "Q65378670"
+    },
+    {
+     "nombre": "Luciano Acosta",
+     "posicion": "MED",
+     "edad": 31,
+     "wikidata": "Q15696665"
+    },
+    {
+     "nombre": "Renato Augusto",
+     "posicion": "MED",
+     "edad": 37,
+     "wikidata": "Q357844"
+    },
+    {
+     "nombre": "Rubén Lezcano",
+     "posicion": "MED",
+     "edad": 21,
+     "wikidata": "Q124805566"
+    },
+    {
+     "nombre": "Yony Andrés González Copete",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q19968627",
+     "membresia_estimada": true
+    }
+   ]
+  },
+  {
+   "club": "Fortaleza Esporte Clube",
+   "wikidata": "Q188841",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2025"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 3,
+   "jugadores": [
+    {
+     "nombre": "David Luiz",
+     "posicion": "DEF",
+     "edad": 38,
+     "wikidata": "Q193706"
+    },
+    {
+     "nombre": "Alexsandro Amorim de Freitas Filho",
+     "posicion": "MED",
+     "edad": 20,
+     "wikidata": "Q135395465"
+    },
+    {
+     "nombre": "Breno Lopes",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q101230488"
+    }
+   ]
+  },
+  {
+   "club": "Grêmio Foot-Ball Porto Alegrense",
+   "wikidata": "Q221695",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2025"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 6,
+   "jugadores": [
+    {
+     "nombre": "Arthur Henrique Ramos de Oliveira Melo",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q39667548"
+    },
+    {
+     "nombre": "Cristian Pavón",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q16553648",
+     "membresia_estimada": true
+    },
+    {
+     "nombre": "Edenilson",
+     "posicion": "MED",
+     "edad": 35,
+     "wikidata": "Q1707749",
+     "membresia_estimada": true
+    },
+    {
+     "nombre": "Lucas Camilo",
+     "posicion": "MED",
+     "edad": 19,
+     "wikidata": "Q123422089",
+     "membresia_estimada": true
+    },
+    {
+     "nombre": "Willian Borges da Silva",
+     "posicion": "MED",
+     "edad": 36,
+     "wikidata": "Q73480"
+    },
+    {
+     "nombre": "Martin Braithwaite",
+     "posicion": "DEL",
+     "edad": 34,
+     "wikidata": "Q2440999",
+     "membresia_estimada": true
+    }
+   ]
+  },
+  {
+   "club": "Mirassol Futebol Clube",
+   "wikidata": "Q2622870",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2025"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 0,
+   "jugadores": []
+  },
+  {
+   "club": "Red Bull Bragantino",
+   "wikidata": "Q541744",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2025"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Paulina Gramaglia",
+     "posicion": "DEL",
+     "edad": 22,
+     "wikidata": "Q110244006"
+    }
+   ]
+  },
+  {
+   "club": "Santos Futebol Clube",
+   "wikidata": "Q80955",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2025"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 3,
+   "jugadores": [
+    {
+     "nombre": "Neymar",
+     "posicion": "MED",
+     "edad": 33,
+     "wikidata": "Q142794"
+    },
+    {
+     "nombre": "Willian Arão",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q2035459",
+     "edad_aproximada": true
+    },
+    {
+     "nombre": "Robson Junior",
+     "posicion": "DEL",
+     "edad": 17,
+     "wikidata": "Q131693296"
+    }
+   ]
+  },
+  {
+   "club": "Sociedade Esportiva Palmeiras",
+   "wikidata": "Q80964",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2025"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 7,
+   "jugadores": [
+    {
+     "nombre": "Andreas Pereira",
+     "posicion": "MED",
+     "edad": 29,
+     "wikidata": "Q17619350"
+    },
+    {
+     "nombre": "Pedro Bicalho",
+     "posicion": "MED",
+     "edad": 24,
+     "wikidata": "Q96361581"
+    },
+    {
+     "nombre": "Ramón Sosa",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q110160871"
+    },
+    {
+     "nombre": "Richard Ríos",
+     "posicion": "MED",
+     "edad": 25,
+     "wikidata": "Q117322318"
+    },
+    {
+     "nombre": "Allan",
+     "posicion": "DEL",
+     "edad": 21,
+     "wikidata": "Q132307478"
+    },
+    {
+     "nombre": "Riquelme Fillipi",
+     "posicion": "DEL",
+     "edad": 18,
+     "wikidata": "Q119152074",
+     "membresia_estimada": true
+    },
+    {
+     "nombre": "Vitor Roque",
+     "posicion": "DEL",
+     "edad": 20,
+     "wikidata": "Q111016177"
+    }
+   ]
+  },
+  {
+   "club": "Sport Club Corinthians Paulista",
+   "wikidata": "Q35933",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2025"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 6,
+   "jugadores": [
+    {
+     "nombre": "Félix Torres",
+     "posicion": "DEF",
+     "edad": 28,
+     "wikidata": "Q30916190",
+     "membresia_estimada": true
+    },
+    {
+     "nombre": "Gustavo Henrique",
+     "posicion": "DEF",
+     "edad": 32,
+     "wikidata": "Q5621422",
+     "membresia_estimada": true
+    },
+    {
+     "nombre": "André Carrillo",
+     "posicion": "MED",
+     "edad": 34,
+     "wikidata": "Q1155889",
+     "membresia_estimada": true
+    },
+    {
+     "nombre": "José Andrés Martínez",
+     "posicion": "MED",
+     "edad": 30,
+     "wikidata": "Q79634899"
+    },
+    {
+     "nombre": "Memphis Depay",
+     "posicion": "DEL",
+     "edad": 31,
+     "wikidata": "Q1894"
+    },
+    {
+     "nombre": "Rafael Juninho",
+     "posicion": null,
+     "edad": 18,
+     "wikidata": "Q134956066"
+    }
+   ]
+  },
+  {
+   "club": "Sport Club Internacional",
+   "wikidata": "Q80845",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2025"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 4,
+   "jugadores": [
+    {
+     "nombre": "Diego Rosa",
+     "posicion": "MED",
+     "edad": 22,
+     "wikidata": "Q76376134"
+    },
+    {
+     "nombre": "Fernando Reges",
+     "posicion": "MED",
+     "edad": 37,
+     "wikidata": "Q973416",
+     "membresia_estimada": true
+    },
+    {
+     "nombre": "Enner Valencia",
+     "posicion": "DEL",
+     "edad": 35,
+     "wikidata": "Q2843080"
+    },
+    {
+     "nombre": "Rafael Borré",
+     "posicion": "DEL",
+     "edad": 29,
+     "wikidata": "Q18719633"
+    }
+   ]
+  },
+  {
+   "club": "Sport Club do Recife",
+   "wikidata": "Q219098",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2025"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 1,
+   "jugadores": [
+    {
+     "nombre": "Antonio Carlos Capocasali",
+     "posicion": "DEF",
+     "edad": 32,
+     "wikidata": "Q4776503"
+    }
+   ]
+  },
+  {
+   "club": "São Paulo Futebol Clube",
+   "wikidata": "Q38568",
+   "temporadas": [
+    "Campeonato Brasileño de Fútbol Serie A 2025"
+   ],
+   "clubes_por": [
+    "tabla"
+   ],
+   "jugadores_encontrados": 6,
+   "jugadores": [
+    {
+     "nombre": "Cédric Soares",
+     "posicion": "DEF",
+     "edad": 33,
+     "wikidata": "Q481330"
+    },
+    {
+     "nombre": "Jamal Lewis",
+     "posicion": "DEF",
+     "edad": 27,
+     "wikidata": "Q46996227"
+    },
+    {
+     "nombre": "Jhegson Méndez",
+     "posicion": "MED",
+     "edad": 28,
+     "wikidata": "Q27786601"
+    },
+    {
+     "nombre": "Lucas Moura",
+     "posicion": "MED",
+     "edad": 32,
+     "wikidata": "Q312886",
+     "membresia_estimada": true
+    },
+    {
+     "nombre": "Luiz Gustavo",
+     "posicion": "MED",
+     "edad": 37,
+     "wikidata": "Q329451"
+    },
+    {
+     "nombre": "Oscar dos Santos Emboaba Júnior",
+     "posicion": "MED",
+     "edad": 33,
+     "wikidata": "Q19497"
+    }
+   ]
+  }
+ ]
+}

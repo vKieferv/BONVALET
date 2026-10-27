@@ -100,13 +100,28 @@ Propias de una figura (Zapatazo de Suazo, Arremetida de Alcázar, Sangre fría d
 genérica "Sello de [figura]". Estilos por tag: potencia (el bloqueo cuenta la mitad), sangre fría
 (+10 con el Momento a un fallo de perderse), física.
 
-### 3.4 Construcción del mazo — el corazón del deckbuilder [DECIDIDO] · se implementa en M2
+### 3.4 Construcción del mazo — el corazón del deckbuilder [DECIDIDO] · tu mazo en el juego desde T-05; los rivales, T-06
 Decidido el 2026-10-27 (D-20 a D-22):
 - **Bloque 2 = la decisión del mazo.** Eliges UNA: **entrenamiento táctico** (te ofrecen 3 cartas de
   tu estilo y eliges 1; si el mazo está en su tope, reemplaza a otra), **sesión de video** (mejoras
   una carta: +10 pts o −1 PA) o **kinesiología** (−25 de fatiga). Crecer compite con descansar.
 - **Los rivales también crecen** con cartas de su arquetipo, una por semana (paridad).
 - Fichajes, ojeo y canteranos serán otra fuente de cartas (M3).
+
+**Cómo quedó en el juego (T-05; los números son iniciales):**
+- **Tu mazo es tuyo:** arranca con el mazo de inicio de tu club (3.5) y se guarda con la carrera.
+- **Táctico (fatiga +10):** la oferta son 3 cartas distintas, 2 de la lista de tu estilo y 1 de una
+  lista general (`data/decks.json` `"ofertas"`; hoy la de cada estilo = su `crecimiento`), nunca la
+  carta de rasgo; puede salir una carta que ya tienes (segunda copia). Se sortea al empezar la semana
+  con el azar de la carrera y se guarda: recargar no la cambia. Puedes no tomar ninguna. Con el mazo
+  en 20, eliges cuál de tus cartas del DT sale; no se acepta un reemplazo que deje el mazo fuera de
+  las reglas de liga (sacar una Promesa te dejaría con 1 Sub-21 y la carrera quedaría trabada). Ya no
+  da +3% de forma (D-21).
+- **Video (sin fatiga):** +10 de acierto o −1 PA (solo cartas de 1 PA o más), una mejora por carta;
+  la carta mejorada lleva "+" en el nombre ("Remate simple+"). Las firmas de los titulares no se
+  mejoran ni se sacan: no son del DT.
+- **Kinesiología:** −25 de fatiga, como antes.
+- Cada opción es final para la semana; "Ver mazo" muestra el mazo completo con sus mejoras.
 
 Datos (`tests/lab/m2_cartas.json`, `m2_estandar.json`): con un mazo de 20, una carta mueve ~±0.04-0.11
 goles por partido; con uno de 13, el doble. La mano pesa más que una carta (mano 7: +0.18; mano 5: −0.23).
@@ -164,10 +179,11 @@ Preguntas abiertas (cada una con la tarea que la resuelve):
 1. **La curva de la temporada queda sobre el rango** (2.73 a mitad y 2.65 al final; medido en T-04):
    alternar ataque y defensa en el crecimiento no la bajó (la propuesta daba 2.71 / 2.61). Decidir con
    el usuario: aceptar la curva (los mazos mejoran y se ataca mejor), bajar el inicio o un ajuste global.
-   Hoy no se ve en la carrera porque nadie crece todavía (T-05 tu mazo, T-06 los rivales).
+   En la carrera, tu mazo ya crece (T-05, a tu ritmo: una carta por semana si eliges el táctico); los
+   rivales todavía no (T-06).
 2. **Constructibilidad de Tiki-Taka al final:** con las listas de `decks.json` queda en 93% (era 80%
-   con las de la propuesta). Falta definir qué ofrece el entrenamiento a cada estilo (las 3 cartas de
-   D-20, T-05).
+   con las de la propuesta). Lo que ofrece el entrenamiento a cada estilo quedó, para empezar, igual a
+   su crecimiento + una lista general (T-05, 3.4); se revisa con playtests.
 3. **Tamaño — resuelta (T-04):** `DeckManager` admite 10-20 cartas; se empieza en 12 y
    `season_templates` no deja que el crecimiento pase de 20 con las firmas.
 4. **Firmas de los titulares:** entran al mazo inicial (una por club). Los 12 clubes de Primera B sin
@@ -201,8 +217,9 @@ La IA en ataque planifica combinaciones de su mano y en defensa elige según su 
 
 ### 5.1 Bucle de 3 bloques [DECIDIDO]
 1. **Planificación y prensa:** sponsor (Cerveza Glaciar o Telnet) y evento social.
-2. **Preparación:** hoy, entrenamiento táctico (+3 de forma, +10 de fatiga) o kinesiología (−25 de fatiga).
-   En M2 pasa a ser la decisión del mazo: carta nueva, sesión de video o kinesiología (D-21, T-05).
+2. **Preparación (la decisión del mazo, D-21):** UNA entre entrenamiento táctico (1 de 3 cartas nuevas,
+   +10 de fatiga), sesión de video (mejorar una carta, sin fatiga) o kinesiología (−25 de fatiga).
+   Detalle en 3.4. Desde T-05 tu mazo se guarda con la carrera.
 3. **El partido** (`match_view`), previa validación del mazo.
 
 ### 5.2 Reputación y funas [DECIDIDO] · contenido [EN PRUEBA]

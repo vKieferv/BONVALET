@@ -1,0 +1,268 @@
+{
+ "audax_italiano": {
+  "candidates": [
+   {
+    "article": "https://es.wikipedia.org/wiki/Audax_Italiano",
+    "club": "Q758689",
+    "en": "Audax Italiano",
+    "es": "Audax Italiano",
+    "players": 218
+   },
+   {
+    "article": "https://es.wikipedia.org/wiki/Audax_Italiano_%22B%22",
+    "club": "Q8208954",
+    "es": "Audax Italiano La Florida \"B\"",
+    "players": 0
+   }
+  ],
+  "qid": "Q758689"
+ },
+ "cobreloa": {
+  "candidates": [
+   {
+    "article": "https://es.wikipedia.org/wiki/Club_de_Deportes_Cobreloa",
+    "club": "Q643338",
+    "en": "Cobreloa",
+    "es": "Cobreloa",
+    "players": 232
+   },
+   {
+    "article": "https://es.wikipedia.org/wiki/Club_de_Deportes_Cobreloa_%22B%22",
+    "club": "Q5774948",
+    "es": "Club de Deportes Cobreloa B",
+    "players": 0
+   }
+  ],
+  "qid": "Q643338"
+ },
+ "cobresal": {
+  "candidates": [
+   {
+    "article": "https://es.wikipedia.org/wiki/Club_de_Deportes_Cobresal",
+    "club": "Q642669",
+    "en": "Cobresal",
+    "es": "Club de Deportes Cobresal",
+    "players": 149
+   }
+  ],
+  "qid": "Q642669"
+ },
+ "coquimbo_unido": {
+  "candidates": [
+   {
+    "article": "https://es.wikipedia.org/wiki/Coquimbo_Unido",
+    "club": "Q2407595",
+    "en": "Coquimbo Unido",
+    "es": "Coquimbo Unido",
+    "players": 140
+   },
+   {
+    "club": "Q7896896",
+    "en": "Unión Coquimbo",
+    "es": "Unión Coquimbo",
+    "players": 0
+   }
+  ],
+  "qid": "Q2407595"
+ },
+ "deportes_antofagasta": {
+  "candidates": [
+   {
+    "article": "https://es.wikipedia.org/wiki/Club_de_Deportes_Antofagasta",
+    "club": "Q2076979",
+    "en": "Club Deportes Antofagasta",
+    "es": "Club de Deportes Antofagasta",
+    "players": 193
+   },
+   {
+    "article": "https://es.wikipedia.org/wiki/Club_de_Deportes_Green_Cross_Antofagasta",
+    "club": "Q2840108",
+    "en": "Presidente",
+    "es": "Club de Deportes Green Cross Antofagasta",
+    "players": 0
+   }
+  ],
+  "qid": "Q2076979"
+ },
+ "deportes_la_serena": {
+  "candidates": [
+   {
+    "article": "https://es.wikipedia.org/wiki/Club_de_Deportes_La_Serena",
+    "club": "Q642098",
+    "en": "Club Deportes La Serena",
+    "es": "Club Deportes La Serena",
+    "players": 160
+   }
+  ],
+  "qid": "Q642098"
+ },
+ "deportes_puerto_montt": {
+  "candidates": [
+   {
+    "article": "https://es.wikipedia.org/wiki/Club_de_Deportes_Puerto_Montt",
+    "club": "Q2550130",
+    "en": "Deportes Puerto Montt",
+    "es": "Club de Deportes Puerto Montt",
+    "players": 104
+   }
+  ],
+  "qid": "Q2550130"
+ },
+ "everton": {
+  "candidates": [
+   {
+    "article": "https://es.wikipedia.org/wiki/Everton_de_Vi%C3%B1a_del_Mar",
+    "club": "Q1103684",
+    "en": "Everton de Viña del Mar",
+    "es": "Everton de Viña del Mar",
+    "players": 232
+   }
+  ],
+  "qid": "Q1103684"
+ },
+ "huachipato": {
+  "candidates": [
+   {
+    "article": "https://es.wikipedia.org/wiki/Club_Deportivo_Huachipato",
+    "club": "Q1023191",
+    "en": "Club Deportivo Huachipato",
+    "es": "Club Deportivo Huachipato",
+    "players": 194
+   },
+   {
+    "article": "https://es.wikipedia.org/wiki/Club_Deportivo_Huachipato_%22B%22",
+    "club": "Q8347063",
+    "es": "Club Deportivo Huachipato \"B\"",
+    "players": 1
+   }
+  ],
+  "qid": "Q1023191"
+ },
+ "o_higgins": {
+  "candidates": [
+   {
+    "article": "https://es.wikipedia.org/wiki/Club_Deportivo_O%27Higgins",
+    "club": "Q719722",
+    "en": "O'Higgins F.C.",
+    "es": "Club Deportivo O'Higgins",
+    "players": 243
+   },
+   {
+    "article": "https://es.wikipedia.org/wiki/Club_de_Deportes_Instituto_O%27Higgins",
+    "club": "Q5774962",
+    "es": "Club de Deportes Instituto O'Higgins",
+    "players": 1
+   },
+   {
+    "club": "Q7071822",
+    "en": "O'Higgins F.C. Academy",
+    "es": "O'Higgins F.C. Academy",
+    "players": 0
+   },
+   {
+    "club": "Q3541199",
+    "en": "Juventud O'Higgins",
+    "es": "Juventud O'Higgins",
+    "players": 0
+   },
+   {
+    "article": "https://es.wikipedia.org/wiki/Club_de_Deportes_O%27Higgins_Braden",
+    "club": "Q7071823",
+    "en": "O'Higgins Braden",
+    "es": "Club O'Higgins Braden",
+    "players": 0
+   }
+  ],
+  "qid": "Q719722"
+ },
+ "palestino": {
+  "candidates": [
+   {
+    "article": "https://es.wikipedia.org/wiki/Club_Deportivo_Palestino",
+    "club": "Q719719",
+    "en": "C.D. Palestino",
+    "es": "Club Deportivo Palestino",
+    "players": 235
+   }
+  ],
+  "qid": "Q719719"
+ },
+ "rangers": {
+  "candidates": [
+   {
+    "article": "https://es.wikipedia.org/wiki/Club_Social_de_Deportes_Rangers",
+    "club": "Q719439",
+    "en": "Club Social de Deportes Rangers",
+    "es": "Club Social de Deportes Rangers",
+    "players": 167
+   },
+   {
+    "article": "https://es.wikipedia.org/wiki/Club_Social_de_Deportes_Rangers_%22B%22",
+    "club": "Q123186715",
+    "es": "Club Social de Deportes Rangers \"B\"",
+    "players": 0
+   }
+  ],
+  "qid": "Q719439"
+ },
+ "santiago_morning": {
+  "candidates": [
+   {
+    "article": "https://es.wikipedia.org/wiki/Club_de_Deportes_Santiago_Morning",
+    "club": "Q1023222",
+    "en": "Santiago Morning",
+    "es": "Club de Deportes Santiago Morning",
+    "players": 171
+   }
+  ],
+  "qid": "Q1023222"
+ },
+ "santiago_wanderers": {
+  "candidates": [
+   {
+    "article": "https://es.wikipedia.org/wiki/Club_de_Deportes_Santiago_Wanderers",
+    "club": "Q719338",
+    "en": "Santiago Wanderers",
+    "es": "Club de Deportes Santiago Wanderers",
+    "players": 266
+   },
+   {
+    "article": "https://es.wikipedia.org/wiki/Liverpool_Wanderers_Football_Club",
+    "club": "Q5845994",
+    "es": "Liverpool Wanderers Football Club",
+    "players": 1
+   },
+   {
+    "article": "https://es.wikipedia.org/wiki/Valpara%C3%ADso_Wanderers_Football_Club",
+    "club": "Q2883072",
+    "es": "Valparaíso Wanderers Football Club",
+    "players": 0
+   }
+  ],
+  "qid": "Q719338"
+ },
+ "union_espanola": {
+  "candidates": [
+   {
+    "article": "https://es.wikipedia.org/wiki/Uni%C3%B3n_Espa%C3%B1ola",
+    "club": "Q1129059",
+    "en": "Unión Española",
+    "es": "Unión Española",
+    "players": 312
+   }
+  ],
+  "qid": "Q1129059"
+ },
+ "universidad_de_concepcion": {
+  "candidates": [
+   {
+    "article": "https://es.wikipedia.org/wiki/Club_Deportivo_Universidad_de_Concepci%C3%B3n_(f%C3%BAtbol)",
+    "club": "Q721560",
+    "en": "C.D. Universidad de Concepción",
+    "es": "Club Deportivo Universidad de Concepción",
+    "players": 126
+   }
+  ],
+  "qid": "Q721560"
+ }
+}

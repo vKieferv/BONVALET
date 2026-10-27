@@ -23,12 +23,15 @@ juegas los partidos con cartas (transmisión estilo TV) y gestionas la semana en
 
 ## 2. El partido
 
-### 2.1 Momentos Clave [DECIDIDO] · largo por arquetipo [EN PRUEBA]
+### 2.1 Momentos Clave [DECIDIDO]
 El partido no se juega minuto a minuto: cada equipo tiene **4 Momentos Clave** (LOW 3; HIGH puede
 sumar extras) repartidos en los 90'. Cada Momento pide **3 jugadas exitosas terminando en un
-remate**; 2 fallos lo pierden. Tras un contragolpe o con espacio rival bastan 2.
-- **Pendiente M1:** el diseño original quería largo por arquetipo (Tiki-Taka 3-4 pases, Directo
-  1-2, Contragolpe 2, Catenaccio 1). Hoy es fijo en 3 (D-12). Decidir si se vuelve a esa idea.
+remate**, salvo los de **Catenaccio, que piden 2** (su jugada ultra corta; vale también si tú
+diriges un club Catenaccio). 2 fallos lo pierden. Tras un contragolpe o con espacio rival bastan 2
+(un Momento de 2 no se acorta más). Ver D-12 y D-16.
+- El largo del diseño original por arquetipo (Tiki-Taka 3-4, Directo 1-2, Contragolpe 2) se
+  descartó en M1 (D-16): hundía a Tiki-Taka. Tiki-Taka 3-4 queda en I-09, atado a una mecánica
+  que premie el pase largo.
 
 ### 2.2 Puntos de Acción y Estamina Global [DECIDIDO]
 - **PA por turno:** LOW 3 / NORMAL 3 / HIGH 4; 2 en cada fase defensiva. No se acumulan.
@@ -104,9 +107,10 @@ Cinco perfiles (`BotProfile`) que mueven la IA y algunas reglas (clubes según
 `teams_chile_2006.json`, que difiere en algunos ejemplos del GDD original):
 - **Tiki-Taka** (Colo-Colo, Audax, Huachipato): posesión, Flow, jugadas largas.
 - **Directo** (Cobreloa, Everton, U. de Concepción): remate rápido.
-- **Catenaccio** (Palestino, Wanderers, Coquimbo): bloque bajo, poco desgaste; hoy es el que menos marca.
+- **Catenaccio** (Palestino, Wanderers, Coquimbo): bloque bajo, poco desgaste, Momentos de 2
+  jugadas (D-16; Palestino ~1.1 goles por partido en la matriz).
 - **Kamikaze** (O'Higgins, La Serena, Rangers): +20% en los Momentos 1-2, fatiga doble después.
-  El diseño dice lesiones "hasta 15%"; hoy mide ~22% (revisar en M1).
+  Lesión tardía ×2.5 (D-17): La Serena se lesiona en ~15% de sus partidos, el "hasta 15%" del diseño.
 - **Contragolpe** (U. de Chile, UC, U. Española): castiga tu LOW; su Intercepción corta ~1.4
   ataques por partido.
 

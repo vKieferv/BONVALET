@@ -33,7 +33,7 @@ jobs:
           else
             changed=$(git diff --name-only "$BEFORE" "$GITHUB_SHA")
           fi
-          for s in temporadas jugadores; do
+          for s in temporadas jugadores wikipedia; do
             if echo "$changed" | grep -q "tools/ligas/$s.py"; then
               python3 "tools/ligas/$s.py" tools/ligas/out
             fi

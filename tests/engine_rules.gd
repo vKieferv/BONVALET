@@ -12,6 +12,7 @@ var checks := 0
 
 func _initialize() -> void:
 	_test_deck_and_league_rules()
+	_test_standard_decks()
 	_test_possession_filter()
 	_test_natural_executor()
 	_test_defense_and_emergency()
@@ -67,9 +68,10 @@ func _league() -> LeagueManager:
 
 
 func _test_deck_and_league_rules() -> void:
-	# Toda carta de datos declara sus PA (0-3) y su desgaste.
+	# Toda carta de datos declara sus PA (0-3) y su desgaste: el catálogo completo (también las que no
+	# están en el mazo clásico, con count 0) y las firmas.
 	var sig = JSON.parse_string(FileAccess.open("res://data/signature_cards.json", FileAccess.READ).get_as_text())
-	var all_dicts: Array = CardDB.load_templates(DECK_PATH) + sig["cards"].values() + [sig["template"]]
+	var all_dicts: Array = CardDB.load_catalog(DECK_PATH).values() + sig["cards"].values() + [sig["template"]]
 	for d in all_dicts:
 		_check(d.has("ap") and int(d["ap"]) >= 0 and int(d["ap"]) <= 3, "%s: ap debe estar entre 0 y 3" % d.get("id", d.get("name")))
 		_check(d.has("stamina") and float(d["stamina"]) >= 0.0, "%s: falta stamina" % d.get("id", d.get("name")))
@@ -102,6 +104,59 @@ func _test_deck_and_league_rules() -> void:
 		c.age = 0
 	var ry := league.validate_deck(no_youth, LEAGUE_ID)
 	_check(not ry["valid"] and " ".join(ry["errors"]).contains("Sub-21"), "un mazo sin Sub-21 debería rechazarse")
+
+
+# Mazo estándar (D-23, data/decks.json): 10 cartas básicas + la de rasgo de cada arquetipo, y con la
+# firma de la figura del club, 12. Las cartas de decks.json existen en el catálogo y no entran al mazo
+# clásico de cards.json (count 0), que siguen usando las demás pruebas.
+func _test_standard_decks() -> void:
+	var catalog := CardDB.load_catalog()
+	var decks := CardDB.load_decks()
+	_check(not decks.is_empty(), "data/decks.json no carga")
+	var estandar: Array = decks.get("estandar", [])
+	_check(estandar.count(CardDB.RASGO) == 1 and estandar.size() == 11,
+			"el mazo estándar debería tener 10 cartas y un \"@rasgo\" (tiene %d entradas)" % estandar.size())
+	var classic := {}
+	for d in CardDB.load_templates(DECK_PATH):
+		classic[d["id"]] = true
+	for id in ["remate_simple", "marca", "toque_toque", "pelotazo", "cerrojo", "remate_en_carrera", "anticipo"]:
+		_check(catalog.has(id), "falta la carta %s en el catálogo" % id)
+		_check(not classic.has(id), "%s no debería entrar al mazo clásico (count 0)" % id)
+	var archetypes := ["Tiki-Taka", "Directo", "Catenaccio", "Kamikaze", "Contragolpe"]
+	for arch in archetypes:
+		var rasgo = decks.get("rasgos", {}).get(arch)
+		_check(rasgo != null and catalog.has(rasgo), "%s: falta su carta de rasgo en el catálogo" % arch)
+		var growth: Array = decks.get("crecimiento", {}).get(arch, [])
+		_check(growth.size() == 8, "%s: el crecimiento debería tener 8 cartas (tiene %d)" % [arch, growth.size()])
+		for id in estandar + growth:
+			_check(id == CardDB.RASGO or catalog.has(id), "%s: la carta '%s' de decks.json no está en el catálogo" % [arch, id])
+		var dt := CardDB.archetype_templates(catalog, decks, arch)
+		var with_rasgo := dt.filter(func(d): return d["id"] == rasgo)
+		_check(dt.size() == 11 and with_rasgo.size() == 1, "%s: el mazo del DT debería tener 11 cartas con su rasgo" % arch)
+		_check(CardDB.archetype_templates(catalog, decks, arch, 4).size() == 15
+				and CardDB.archetype_templates(catalog, decks, arch, 99).size() == 19,
+				"%s: el crecimiento suma sus cartas en orden y no más de las que tiene" % arch)
+	# Por club: el primero de Primera A de cada arquetipo arranca con 12 cartas, su rasgo y la firma de
+	# su figura (con Ejecutor Natural).
+	var league := _league()
+	var squads := SquadManager.new()
+	_check(squads.load_all(league), "SquadManager no carga: %s" % [squads.load_errors])
+	var seen := {}
+	for t in league.get_teams("Primera A"):
+		var arch := String(t["archetype"])
+		if seen.has(arch) or t.get("suspended", false) or t.get("signature_card") == null:
+			continue
+		seen[arch] = true
+		var deck := squads.build_match_templates(t["id"], squads.starter_templates(t["id"]))
+		var firmas := deck.filter(func(d): return d.get("type") == "elite" and d.get("owner_id", "") != "")
+		var rasgos := deck.filter(func(d): return d["id"] == decks["rasgos"][arch])
+		_check(deck.size() == 12 and firmas.size() == 1 and rasgos.size() == 1,
+				"%s (%s): el mazo de inicio debería tener 12 cartas con su rasgo y la firma (tiene %d)" % [t["id"], arch, deck.size()])
+	_check(seen.size() == archetypes.size(), "debería haber un club con figura de cada arquetipo en Primera A")
+	# El tamaño de mazo válido es 10-20 (DeckManager): 12 entra, 9 no.
+	var cards := CardDB.build_deck(CardDB.archetype_templates(catalog, decks, "Directo"))
+	_check(DeckManager.new(cards, [], RandomNumberGenerator.new()).size_error() == "", "un mazo de 11 cartas debería ser válido")
+	_check(DeckManager.new(cards.slice(0, 9), [], RandomNumberGenerator.new()).size_error() != "", "un mazo de 9 cartas no debería ser válido")
 
 
 func _test_possession_filter() -> void:

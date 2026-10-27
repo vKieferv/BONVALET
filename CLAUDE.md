@@ -10,6 +10,7 @@ Futbolista Deckbuilder 2006: deckbuilder de fútbol chileno (Torneo Nacional 200
 
 ## Proceso de diseño (leer antes de cambiar reglas)
 - `docs/pilares.md` filtra toda idea; `docs/gdd.md` es el diseño vigente, con cada sección marcada DECIDIDO / EN PRUEBA / IDEA; `docs/decisiones.md` registra qué se cerró y por qué (no reabras una decisión VIGENTE sin una entrada nueva que la reemplace); `docs/roadmap.md` tiene los hitos y el sprint en curso.
+- **Una sola fuente de verdad: `main`.** Una sesión de diseño abierta desde otro dispositivo (por ejemplo, desde el celular) trabaja en su rama, pero al terminar sus documentos pasan a `main` (los mezcla esa sesión o la sesión principal). Antes de numerar una decisión o idea nueva, revisa el último número en `main` y en las ramas abiertas, para no repetir números.
 - Ideas nuevas del usuario → skill `idea-nueva` → `docs/ideas.md`, **sin tocar código** hasta que se aprueben. Notas de juego → skill `playtest` → `docs/playtests/`. Preguntas de balance → skill `balance-lab` antes de cambiar constantes. Trabajo sin el usuario presente → skill `tarea-autonoma` con un brief de `docs/tareas/`.
 
 ## Comandos

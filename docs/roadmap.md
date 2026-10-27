@@ -39,28 +39,36 @@ Tareas:
       hace visible que el azar es justo (pilar 2) y ayuda a responder los playtests (brief por escribir)
 - [ ] Playtests 1-5 (usuario) → skill `playtest`; los arreglos que salgan, como tareas nuevas
 
+**Duelos por línea (I-45, D-28 a D-32, `docs/cartas.md`):** el usuario diseñó en papel un modelo nuevo
+del partido (cada jugada contra un jugador rival, habilidades, formaciones por estilo, fallar no corta el
+Momento, cansancio por jugador). Si se adopta, cambia el corazón de M1 y obliga a recalibrar. Siguiente
+paso: un **prototipo medido** en una rama de diseño (motor mínimo + `balance-lab` + playtest) antes de
+decidir. Mientras tanto no se sigue afinando el modelo actual (la curva de M2 espera esa decisión).
+
 ## M2 · Deckbuilder de verdad (diseño cerrado, en implementación)
 Diseño:
 - [x] Bucle del mazo (D-20 a D-22): Bloque 2 = carta (1 de 3) / mejora / kinesiología; los rivales
       también crecen. Detalle en GDD 3.4.
 - [x] Mazo inicial estándar + carta de rasgo del DT (D-23, EN PRUEBA): medido con `balance-lab`
       (`tests/lab/m2_propuesta.json`, `m2_crecimiento.json`). Detalle en GDD 3.5.
-- [ ] Curva de la temporada: inicio ~2.47 goles, mitad ~2.73 y final ~2.65 (los mazos mejoran y se
-      ataca mejor; ninguna lista de crecimiento lo evita). Se decide con la medición oficial de T-04.
+- [ ] Curva de la temporada: medida oficialmente en T-04 (inicio 2.47, mitad 2.73, final 2.65). Espera
+      la decisión de los duelos antes de recalibrar.
 - [ ] Canteranos y progresión (I-05): por diseñar.
 - [ ] Modo Copa (I-34): por diseñar; partida corta de 5-6 partidos con mazo que crece, sirve de demo.
 
 Tareas (en este orden; cada una termina en un PR):
-- [ ] T-04 · mazo estándar, cartas de rasgo y balance por etapa (`docs/tareas/T-04-mazo-estandar.md`)
-- [ ] T-05 · Bloque 2 con carta, video o kinesiología y mazo propio guardado (`T-05-bloque2-mazo.md`, tras T-04)
+- [x] T-04 · mazo estándar, cartas de rasgo y balance por etapa (PR #4, mezclada el 2026-10-28)
+- [ ] T-05 · Bloque 2 con carta, video o kinesiología y mazo propio guardado (`T-05-bloque2-mazo.md`, lanzada en la nube)
 - [ ] T-06 · los rivales crecen durante la temporada (`T-06-rivales-crecen.md`, tras T-04; mejor después de T-05)
 
 ## M3 · Una temporada (diseño decidido, datos en preparación)
 - [x] Formato fiel a 2006 (D-24), los demás partidos simulados (D-25), comparar con la realidad (I-36).
 - [x] Nombres reales en desarrollo, inventados al lanzar, datos reemplazables (D-26); base de jugadores
       con Wikidata y atributos propios (D-27).
-- [ ] T-07 · datos históricos del Apertura y Clausura 2006 (`docs/tareas/T-07-historia-2006.md`, datos)
-- [ ] T-08 · planteles 2006 de Primera A desde Wikidata (`T-08-planteles-2006.md`, datos)
+- [x] T-07 · datos históricos del Apertura y Clausura 2006 (mezclada el 2026-10-28; corrida en el PC)
+- [x] Descenso real de 2006 (D-33): último directo; 17.º y 18.º a liguilla con Primera B.
+- [ ] T-08 · planteles 2006 de Primera A desde Wikidata (`T-08-planteles-2006.md`, corriendo en el PC;
+      cruzar con la base de referencia de la rama `claude/awesome-johnson-mfjxwu`, que no entra a `main`)
 - [ ] Implementación de la temporada (fixture real, tabla, grupos, repechaje, playoffs, descenso,
       comparación): briefs después de M2.
 

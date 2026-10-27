@@ -218,7 +218,8 @@ siguiente partido.
 ### 5.4 Temporada [DECIDIDO · D-24, D-25] · se implementa en M3 · guardado [DECIDIDO]
 Apertura y Clausura fieles a 2006: 19 clubes, una vuelta de 19 fechas (cada club tiene una fecha
 libre), 4 grupos para clasificar, repechaje, cuartos, semis y final a ida y vuelta, y descenso por tabla
-acumulada (último directo, penúltimo a liguilla). El calendario es el real de 2006; los demás partidos
+acumulada como en 2006 (D-33): el último baja directo y el 17.º y el 18.º juegan liguilla contra el
+3.º y el 4.º de Primera B. El calendario es el real de 2006; los demás partidos
 de la fecha se simulan con los bots. La realidad se muestra como comparación (I-36). Datos históricos:
 `data/history_2006.json` (T-07: calendario, resultados, tablas y playoffs reales de es.wikipedia y RSSSF),
 validado por `tests/data_rules.gd`; ojo, el descenso real de 2006 no fue el de arriba (el 17.º y el 18.º

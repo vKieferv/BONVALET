@@ -132,7 +132,7 @@ final de la temporada. Reemplaza I-04 (perfiles de DT con mazos de 12-22). Los n
 son iniciales y se validan con playtests. Descartado: rasgos de Presión o Bloqueo reforzados (diluyen
 el Despeje y empeoraban la defensa de su propio club) y 2 Remates simples (constructibilidad 99-100%).
 
-**D-24 · 2026-10-27 · Temporada fiel al formato 2006** · VIGENTE
+**D-24 · 2026-10-27 · Temporada fiel al formato 2006** · VIGENTE (el descenso lo corrige D-33)
 Apertura y Clausura como en 2006: 19 clubes (Deportes Concepción suspendido), todos contra todos a una
 vuelta (19 fechas, 18 partidos y una fecha libre por club), 4 grupos para clasificar (los 2 mejores de
 cada grupo, repechaje si un tercero supera en puntos a un segundo de otro grupo), cuartos, semis y final
@@ -209,6 +209,15 @@ cómo actúa el cansancio sin romper D-04) son propuestas de prueba en `cartas.m
 - **El cansancio quita PA** (idea del usuario, a probar): las cartas de un jugador cansado cuestan +1 PA.
   No toca el % de acierto; amplía D-04, que hasta ahora solo dejaba al cansancio cambiar el robo de
   cartas, las lesiones y las penalizaciones.
+
+**D-33 · 2026-10-28 · El descenso es el real de 2006** · VIGENTE
+Reemplaza el descenso de D-24 ("penúltimo a liguilla"), que se anotó mal al leer el resumen de
+Wikipedia. Lo que pasó y lo que hará el juego, según `data/history_2006.json` (T-07): por tabla
+acumulada del año, el **último baja directo** (Santiago Morning) y el **17.º y el 18.º juegan liguilla
+de promoción** a ida y vuelta contra el 3.º y el 4.º de Primera B (Rangers perdió por penales con Lota
+Schwager y bajó; Palestino se salvó contra Fernández Vial). Deportes Concepción bajó castigado sin
+jugar (no participó en 2006). Subieron Deportes Melipilla, Ñublense y Lota Schwager. Por qué: el
+usuario pidió fidelidad completa (D-24) y aprobó corregirlo al formato real.
 
 ### Descartadas (para no reabrirlas sin datos nuevos)
 - **Tempo ofensivo +7 / regen +3** (2026-10-26): no llegaba al objetivo de goles y quedó obsoleto con

@@ -18,6 +18,11 @@
 #                                    arquetipo del que ataca (número fijo o [mín, máx] al azar)
 #   profile: {"Kamikaze": {"late_injury_mult": 2.0}}   cambia campos del BotProfile de un arquetipo
 #                                    (IA y lo que configure_engine pasa al motor)
+#   cards_for: {"colo_colo": {"remate_primera": {"count": 2}}}   cambia cartas de un solo club (por
+#                                    id; "count" agrega o quita copias); sirve para medir cuánto vale
+#                                    ganar, quitar o mejorar una carta
+#   player_for: {"colo_colo": {"vision": 75}}   atributos de PlayerStats de un club (vision = tamaño
+#                                    de mano, tecnica = acierto base, stamina = tope de estamina)
 # Además de la línea total, imprime una línea por club: goles a favor-en contra, % de partidos con
 # lesión y ataques que le cortaron por partido.
 # Las constantes del motor (INJURY_CHANCE_*, HOLD_*, AP_BY_POSTURE...) no se pueden variar desde
@@ -110,23 +115,40 @@ func _side(league: LeagueManager, squads: SquadManager, tpl: Array, id: String, 
 	var team := league.get_team(id)
 	var opp := league.get_team(opp_id)
 	var overrides: Dictionary = v.get("cards", {})
+	var club_overrides: Dictionary = v.get("cards_for", {}).get(id, {})
 	var cards: Array = []
 	for d in squads.build_match_templates(id, tpl):
 		var c: Dictionary = (d as Dictionary).duplicate(true)
 		var key: String = "@sello" if String(c.get("name", "")).begins_with("Sello de") else String(c.get("id", ""))
-		if overrides.has(key):
-			for field in overrides[key]:
-				c[field] = overrides[key][field]
+		for o in [overrides, club_overrides]:
+			if o.has(key):
+				for field in o[key]:
+					c[field] = o[key][field]
 		if v.has("stamina_mult") and c.has("stamina"):
 			c["stamina"] = float(c["stamina"]) * float(v["stamina_mult"])
 		cards.append(c)
+	# Las plantillas ya vienen una por copia: "count" se aplica agregando o quitando copias.
+	for o in [overrides, club_overrides]:
+		for key in o:
+			if not o[key].has("count"):
+				continue
+			var copies: Array = cards.filter(func(c): return String(c.get("id", "")) == key)
+			if copies.is_empty():
+				continue
+			var target := int(o[key]["count"])
+			while copies.size() > target:
+				cards.erase(copies.pop_back())
+			while copies.size() < target:
+				var extra: Dictionary = (copies[0] as Dictionary).duplicate(true)
+				copies.append(extra)
+				cards.append(extra)
 	var profile: BotProfile = league.profile_for_team(team)   # su profile_name es el nombre del club
 	var arch := String(team["archetype"])
 	var prof_overrides: Dictionary = v.get("profile", {})
 	if prof_overrides.has(arch):
 		for field in prof_overrides[arch]:
 			profile.set(field, prof_overrides[arch][field])
-	return {"profile": profile, "archetype": arch, "templates": cards,
+	return {"id": id, "profile": profile, "archetype": arch, "templates": cards,
 		"lineup": squads.lineup_ids(id), "defends": true,
 		"attack_difficulty": LeagueManager.attack_difficulty_vs(opp, league.profile_for_team(opp), BASE_DIFFICULTY) + float(v.get("diff_add", 0.0)),
 		"defense_difficulty": LeagueManager.defense_difficulty_vs(opp, BASE_DIFFICULTY)}
@@ -134,9 +156,14 @@ func _side(league: LeagueManager, squads: SquadManager, tpl: Array, id: String, 
 
 func _hooks(v: Dictionary) -> Dictionary:
 	var hooks := {}
-	if v.has("steps") or v.has("steps3_p") or v.has("steps_by_archetype"):
+	if v.has("steps") or v.has("steps3_p") or v.has("steps_by_archetype") or v.has("player_for"):
 		var by_arch: Dictionary = v.get("steps_by_archetype", {})
+		var player_for: Dictionary = v.get("player_for", {})
 		hooks["after_start"] = func(e: MatchEngine, side: Dictionary) -> void:
+			if player_for.has(side["id"]):
+				for attr in player_for[side["id"]]:
+					e.player.set(attr, player_for[side["id"]][attr])
+				e.player.start_match_energy()   # por si cambió stamina
 			var arch: String = side["archetype"]
 			for m in e.moments:
 				if by_arch.has(arch):

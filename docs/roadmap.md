@@ -34,7 +34,7 @@ Preguntas, medidas con `balance-lab` (`tests/lab/m1.json`) y decididas el 2026-1
       un gol? (si no, I-32).
 
 Tareas:
-- [ ] T-02 · aplicar D-16 y D-17 (`docs/tareas/T-02-reglas-m1.md`, autónoma)
+- [x] T-02 · aplicar D-16 y D-17 (autónoma, mezclada: 2.55 goles, 3.3% lesiones, Kamikaze 14.7%)
 - [ ] Playtests 1-5 (usuario) → skill `playtest`; los arreglos que salgan, como tareas nuevas
 
 ## Trabajo autónomo vs. juntos

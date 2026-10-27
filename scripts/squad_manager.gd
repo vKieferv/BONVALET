@@ -25,7 +25,7 @@ var _cache := {}           # team_id -> Array de jugadores (reales o generados, 
 var _signature_cards := {} # card_id -> diccionario de carta
 var _signature_template := {}
 var catalog := {}          # cartas del DT por id (CardDB.load_catalog)
-var deck_lists := {}       # data/decks.json: estandar, rasgos, crecimiento
+var deck_lists := {}       # data/decks.json: estandar, rasgos, crecimiento, ofertas
 
 
 func load_all(p_league: LeagueManager) -> bool:
@@ -50,8 +50,8 @@ func load_all(p_league: LeagueManager) -> bool:
         load_errors.append("Catálogo de cartas inválido: %s" % CardDB.CARDS_PATH)
     deck_lists = CardDB.load_deck_lists()
     if not (deck_lists.get("estandar") is Array and deck_lists.get("rasgos") is Dictionary \
-            and deck_lists.get("crecimiento") is Dictionary):
-        load_errors.append("Mazos inválidos: %s (faltan estandar, rasgos o crecimiento)" % CardDB.DECKS_PATH)
+            and deck_lists.get("crecimiento") is Dictionary and deck_lists.get("ofertas") is Dictionary):
+        load_errors.append("Mazos inválidos: %s (faltan estandar, rasgos, crecimiento u ofertas)" % CardDB.DECKS_PATH)
     else:
         for id in deck_lists_ids():
             if not catalog.has(id):
@@ -59,15 +59,16 @@ func load_all(p_league: LeagueManager) -> bool:
     return load_errors.is_empty()
 
 
-# Todos los ids que nombra decks.json (estándar, rasgos y crecimiento), sin el lugar del rasgo.
+# Todos los ids que nombra decks.json (estándar, rasgos, crecimiento y ofertas), sin el lugar del rasgo.
 func deck_lists_ids() -> Array:
     var ids: Array = []
     for id in deck_lists.get("estandar", []):
         if id != CardDB.TRAIT_SLOT:
             ids.append(id)
     ids.append_array(deck_lists.get("rasgos", {}).values())
-    for arch in deck_lists.get("crecimiento", {}):
-        ids.append_array(deck_lists["crecimiento"][arch])
+    for key in ["crecimiento", "ofertas"]:
+        for list_name in deck_lists.get(key, {}):
+            ids.append_array(deck_lists[key][list_name])
     return ids
 
 
@@ -255,7 +256,8 @@ func build_match_templates(team_id: String, templates: Array) -> Array:
         if d.get("tags", []).has("canterano") and y < youth.size():
             var p: Dictionary = youth[y]
             y += 1
-            d["name"] = "Promesa: %s" % short_name(p)
+            # Una Promesa mejorada en la sesión de video (CardDB.upgraded) conserva su "+".
+            d["name"] = "Promesa: %s%s" % [short_name(p), CardDB.UPGRADE_SUFFIX if d.has("mejora") else ""]
             _stamp_owner(d, p)
         out.append(d)
     for p in starters:

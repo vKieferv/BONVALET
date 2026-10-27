@@ -1,5 +1,5 @@
-# Pruebas del modo carrera sin escenas: planteles, mazo por club, Ejecutor Natural por titulares
-# y reglas de la semana (sponsor, evento social, entrenamiento, partido) y el guardado de la carrera.
+# Pruebas del modo carrera sin escenas: planteles, mazo por club, Ejecutor Natural por titulares,
+# reglas de la semana (sponsor, evento social, Bloque 2 con tu mazo propio, partido) y el guardado.
 # Uso: godot --headless --path . -s res://tests/career_rules.gd
 extends SceneTree
 
@@ -26,10 +26,14 @@ func _initialize() -> void:
 	_test_natural_executor_by_lineup()
 	_test_big_clubs_bring_their_stars()
 	_test_week_flow()
+	_test_training_offer()
+	_test_take_offer()
+	_test_video_upgrades()
 	_test_career_stamina()
 	_test_rivals_and_sponsor_scale()
 	_test_save_round_trip()
 	_test_save_pending_match()
+	_test_save_v1_migration()
 	_test_save_errors()
 	if FileAccess.file_exists(TEST_SAVE):
 		DirAccess.remove_absolute(TEST_SAVE)
@@ -110,12 +114,17 @@ func _test_decks_for_every_club() -> void:
 				"%s: con +8 cartas el mazo no debería pasar de %d (tiene %d)" % [t["id"], DeckManager.DECK_MAX, late_deck.size()])
 		_check(late.size() > squads.starter_templates(t["id"]).size(), "%s: el crecimiento debería sumar cartas" % t["id"])
 		_check(league.validate_deck(late_deck, LEAGUE_ID)["valid"], "%s: el mazo de final de temporada no pasa validate_deck" % t["id"])
-	# La carrera juega con el mazo de inicio de tu club.
+	# La carrera arranca con el mazo de inicio de tu club como mazo propio (entradas sin mejora).
 	var c := Career.new()
 	_check(c.setup(league, squads, "colo_colo", 99), "Career no arranca: %s" % [c.load_errors])
 	var mine := c.build_deck()
 	_check(mine.size() == 12 and mine.any(func(x: Card) -> bool: return x.id == "toque_toque"),
 			"Colo-Colo (Tiki-Taka) debería arrancar la carrera con 12 cartas y su Toque-toque (tiene %d)" % mine.size())
+	var starter_ids: Array = squads.starter_templates("colo_colo").map(func(d): return d["id"])
+	_check(c.deck.size() == 11 and c.deck.map(func(e): return e["id"]) == starter_ids
+			and c.deck.all(func(e): return e["mejora"] == ""),
+			"tu mazo propio debería arrancar con las 11 cartas del DT del mazo de inicio, sin mejoras")
+	_check(c.deck_size() == mine.size() and not c.deck_full(), "deck_size cuenta las cartas del DT y las firmas")
 
 
 func _test_natural_executor_by_lineup() -> void:
@@ -175,18 +184,20 @@ func _test_week_flow() -> void:
 	if ev["funa"]:
 		_check(c.sponsor_week_lost, "con funa y Telnet (cláusula de conducta) se pierde el pago de la semana")
 		_check(c.match_mods.get("funado_id", "") != "", "con funa debería haber un jugador funado")
-	_check(c.choose_training("tactical"), "debería poder elegir entrenamiento táctico")
+	_check(not c.prepare_match()["ok"], "sin el Bloque 2 no se debería poder jugar")
+	_check(c.take_offer(0), "debería poder quedarse con una carta del entrenamiento táctico")
 	var fatigue_before := c.fatigue
 	var r := c.prepare_match()
 	_check(r["ok"], "con los bloques completos el partido debería validarse: %s" % [r["errors"]])
 	_check(c.pending_match and c.fatigue == fatigue_before + 10.0, "el entrenamiento táctico suma 10 de fatiga")
+	_check(r["deck_size"] == 13, "el partido se juega con la carta nueva (13 cartas, tiene %d)" % r["deck_size"])
 
 	var rng := RandomNumberGenerator.new()
 	var player := PlayerStats.new()
 	var e := MatchEngine.new(player, DeckManager.new(c.build_deck(), [], rng), rng, 0.15)
 	c.configure_match(e, player)
-	_check(is_equal_approx(e.form_bonus, 0.03) and player.lineup.size() == 11 and player.fatigue == c.fatigue,
-			"configure_match debería pasar forma, titulares y fatiga al partido")
+	_check(e.form_bonus == 0.0 and not c.match_mods.has("form_bonus"), "el entrenamiento táctico ya no da forma (D-21)")
+	_check(player.lineup.size() == 11 and player.fatigue == c.fatigue, "configure_match debería pasar titulares y fatiga al partido")
 
 	var budget := c.budget
 	var rival := c.rival_id
@@ -196,6 +207,149 @@ func _test_week_flow() -> void:
 	# Con funa + cláusula de conducta se pierde el fijo, pero el bono por victoria se paga igual.
 	_check(c.budget > budget, "ganar con sponsor debería sumar presupuesto (pago perdido: %s)" % lost)
 	_check(c.event_result.is_empty() and c.training == "" and c.rival_id != rival, "la semana 2 empieza limpia y con otro rival")
+	_check(c.deck.size() == 12 and c.training_offer.size() == Career.OFFER_SIZE, "la semana 2 conserva el mazo y trae oferta nueva")
+
+
+# Entrenamiento táctico (D-20): 3 cartas distintas, 2 de la lista de tu estilo y 1 de la general
+# (decks.json "ofertas"), nunca una carta de rasgo; misma semilla, mismas ofertas, y la oferta de la
+# semana no cambia aunque se use el azar (evento social).
+func _test_training_offer() -> void:
+	var offers: Dictionary = squads.deck_lists["ofertas"]
+	var traits: Array = squads.deck_lists["rasgos"].values()
+	var archetypes := {}
+	for t in league.teams:
+		var arch := String(t["archetype"])
+		if archetypes.has(arch) or t.get("suspended", false):
+			continue
+		archetypes[arch] = true
+		var variety := {}
+		for seed in range(1, 21):
+			var c := Career.new()
+			c.setup(league, squads, t["id"], seed)
+			for w in 3:
+				var offer: Array = c.training_offer
+				var distinct := {}
+				for id in offer:
+					distinct[id] = true
+				_check(offer.size() == Career.OFFER_SIZE and distinct.size() == offer.size(),
+						"%s: la oferta debería tener %d cartas distintas: %s" % [t["id"], Career.OFFER_SIZE, offer])
+				if offer.size() == 3:
+					_check(offers[arch].has(offer[0]) and offers[arch].has(offer[1]) and offers["general"].has(offer[2]),
+							"%s: la oferta debería ser 2 cartas de %s + 1 general: %s" % [t["id"], arch, offer])
+				_check(not offer.any(func(id): return traits.has(id)), "%s: la oferta no debería traer una carta de rasgo: %s" % [t["id"], offer])
+				variety[",".join(offer)] = true
+				c.decline_offer()
+				c.choose_sponsor("telnet")
+				c.resolve_event(false)
+				c.prepare_match()
+				c.record_match(1, 1)
+		_check(variety.size() > 5, "%s: las ofertas deberían variar con la semilla y la semana (%d distintas)" % [arch, variety.size()])
+	_check(archetypes.size() == 5, "deberían probarse los 5 arquetipos (%d)" % archetypes.size())
+
+	var a := Career.new()
+	a.setup(league, squads, "colo_colo", 555)
+	var b := Career.new()
+	b.setup(league, squads, "colo_colo", 555)
+	_check(a.training_offer == b.training_offer, "misma semilla, misma oferta en la semana 1")
+	for x in [a, b]:
+		x.choose_sponsor("telnet")
+		x.resolve_event(true)
+		x.take_offer(0)
+		x.prepare_match()
+		x.record_match(2, 0)
+	_check(a.training_offer == b.training_offer and a.deck == b.deck, "misma semilla y mismas decisiones: misma oferta en la semana 2")
+	var week_offer := a.training_offer.duplicate()
+	a.choose_sponsor("cerveza_glaciar")
+	a.resolve_event(true)   # la funa usa el azar
+	_check(a.training_offer == week_offer, "la oferta de la semana no cambia al usar el azar en el Bloque 1")
+
+
+# Quedarse con la carta la agrega; con 20 cartas hay que elegir cuál sale (y no una que deje el mazo
+# fuera de las reglas de liga); no tomar ninguna también cierra el Bloque 2. Una opción por semana.
+func _test_take_offer() -> void:
+	var c := Career.new()
+	c.setup(league, squads, "colo_colo", 31)
+	var before := c.deck.size()
+	var id := String(c.training_offer[1])
+	_check(not c.take_offer(Career.OFFER_SIZE) and not c.take_offer(-1), "una carta fuera de la oferta no se puede tomar")
+	_check(not c.take_offer(1, 0), "con espacio en el mazo no se reemplaza ninguna carta")
+	_check(c.take_offer(1) and c.training == "tactical" and c.blocks_done()["block2"], "elegir una carta resuelve el Bloque 2")
+	_check(c.deck.size() == before + 1 and c.deck.back() == {"id": id, "mejora": ""}, "la carta elegida se agrega al mazo")
+	var built := c.build_deck()
+	_check(built.size() == 13 and built[before].id == id, "la carta nueva entra al mazo del partido (antes de las firmas)")
+	_check(not c.take_offer(0) and not c.decline_offer() and not c.choose_physio() and not c.upgrade_card(0, "acierto"),
+			"el Bloque 2 es una opción por semana")
+
+	var d := Career.new()
+	d.setup(league, squads, "colo_colo", 31)
+	_check(d.decline_offer() and d.training == "tactical" and d.blocks_done()["block2"] and d.deck == d.starter_deck(),
+			"no tomar ninguna carta cierra el Bloque 2 sin cambiar el mazo")
+	var dk := Career.new()
+	dk.setup(league, squads, "colo_colo", 31)
+	_check(dk.choose_physio() and dk.training == "physio" and not dk.take_offer(0), "la kinesiología también cierra el Bloque 2")
+
+	# Mazo en su tope (20 con la firma de Suazo): la nueva reemplaza a una de tus cartas del DT.
+	var f := Career.new()
+	f.setup(league, squads, "colo_colo", 32)
+	while f.deck_size() < DeckManager.DECK_MAX:
+		f.deck.append({"id": "pase_al_pie", "mejora": ""})
+	_check(f.deck_full() and f.build_deck().size() == DeckManager.DECK_MAX, "el mazo de prueba debería estar en el tope")
+	_check(not f.take_offer(0), "con %d cartas hay que elegir cuál sale" % DeckManager.DECK_MAX)
+	_check(f.replace_error(0, -1) != "" and f.replace_error(0, f.deck.size()) != "", "hay que elegir una de tus cartas del DT")
+	var youth := _index_of(f, "promesa_control")
+	var pass_index := _index_of(f, "pase_corto")
+	_check(f.replace_error(0, youth) != "" and not f.take_offer(0, youth),
+			"sacar una Promesa deja el mazo con menos de 2 Sub-21: no se puede")
+	var incoming := String(f.training_offer[0])
+	_check(f.replace_error(0, pass_index) == "" and f.take_offer(0, pass_index), "reemplazar un Pase corto debería valer")
+	_check(f.deck_size() == DeckManager.DECK_MAX and f.deck[pass_index] == {"id": incoming, "mejora": ""} and f.training == "tactical",
+			"con el mazo en su tope, la carta nueva toma el lugar de la que sale")
+	_check(league.validate_deck(f.build_deck(), LEAGUE_ID)["valid"], "el mazo con el reemplazo sigue cumpliendo las reglas de liga")
+
+
+# Sesión de video (D-21): +10 de acierto o −1 PA (solo si cuesta 1 o más), una mejora por carta, la
+# carta construida lo refleja con "+" en el nombre (también una Promesa) y el video no suma fatiga.
+func _test_video_upgrades() -> void:
+	var c := Career.new()
+	c.setup(league, squads, "colo_colo", 41)
+	var shot := _index_of(c, "remate_simple")
+	var pass_index := _index_of(c, "pase_corto")
+	var youth := _index_of(c, "promesa_control")
+	var base: Card = c.build_deck()[shot]
+	_check(c.can_upgrade(pass_index, "acierto") and not c.can_upgrade(pass_index, "pa") and not c.upgrade_card(pass_index, "pa"),
+			"un Pase corto (0 PA) solo admite la mejora de acierto")
+	_check(not c.upgrade_card(shot, "turbo") and not c.upgrade_card(-1, "acierto"), "una mejora o una carta desconocida no vale")
+	_check(c.upgrade_card(shot, "acierto") and c.training == "video" and c.blocks_done()["block2"], "mejorar una carta resuelve el Bloque 2")
+	var up: Card = c.build_deck()[shot]
+	_check(is_equal_approx(up.bonus, base.bonus + 0.10) and up.ap_cost == base.ap_cost and up.display_name == "Remate simple+",
+			"la mejora de acierto suma 10 pts al bono y un + al nombre (%s, %.2f -> %.2f)" % [up.display_name, base.bonus, up.bonus])
+	_check(not c.upgrade_card(youth, "acierto"), "una mejora por semana")
+	var fatigue := c.fatigue
+	c.choose_sponsor("telnet")
+	c.resolve_event(false)
+	_check(c.prepare_match()["ok"] and c.fatigue == fatigue, "la sesión de video no suma fatiga")
+	c.record_match(1, 0)
+	_check(not c.can_upgrade(shot, "pa") and not c.upgrade_card(shot, "pa"), "una carta ya mejorada no se mejora otra vez")
+	_check(c.upgrade_card(youth, "acierto"), "la semana siguiente se puede mejorar otra carta")
+	var promise: Card = c.build_deck()[youth]
+	_check(promise.display_name.begins_with("Promesa: ") and promise.display_name.ends_with("+") and promise.owner_id != "",
+			"una Promesa mejorada sigue siendo de un Sub-21 y lleva el + (%s)" % promise.display_name)
+
+	var p := Career.new()
+	p.setup(league, squads, "colo_colo", 42)
+	var cheap_index := _index_of(p, "remate_simple")
+	_check(p.upgrade_card(cheap_index, "pa"), "un Remate simple (1 PA) admite la mejora de PA")
+	var cheap: Card = p.build_deck()[cheap_index]
+	_check(cheap.ap_cost == base.ap_cost - 1 and is_equal_approx(cheap.bonus, base.bonus) and cheap.display_name == "Remate simple+",
+			"la mejora de PA resta 1 PA y no toca el bono (%d PA)" % cheap.ap_cost)
+	_check(not p.can_upgrade(cheap_index, "acierto"), "una carta admite una sola mejora")
+
+
+func _index_of(c: Career, id: String) -> int:
+	for i in c.deck.size():
+		if c.deck[i]["id"] == id:
+			return i
+	return -1
 
 
 # Integración del modelo PA + Estamina en la carrera: la funa (+50% de desgaste) llega al partido,
@@ -215,7 +369,7 @@ func _test_career_stamina() -> void:
 		return
 	var funado: String = c.match_mods.get("funado_id", "")
 	_check(funado != "" and c.funado_name() != "", "la funa debería tener un funado con nombre")
-	_check(c.choose_training("physio") and c.prepare_match()["ok"], "la semana con funa debería poder jugarse")
+	_check(c.choose_physio() and c.prepare_match()["ok"], "la semana con funa debería poder jugarse")
 
 	var rng := RandomNumberGenerator.new()
 	rng.seed = 9
@@ -276,44 +430,60 @@ func _test_rivals_and_sponsor_scale() -> void:
 	_check(small.sponsor_offer(telnet)["weekly"] < big, "un club de Primera B nivel 0 debería recibir menos que Colo-Colo")
 
 
-# Guardado: una semana completa y otra a medias, guardar, cargar → mismo estado, y el azar sigue
-# igual (el evento de la semana siguiente sale igual en la original y en la cargada).
+# Guardado: dos semanas completas (una carta nueva y una mejora) y otra a medias, guardar, cargar →
+# mismo estado (mazo y oferta incluidos), y el azar sigue igual (el evento y la oferta de la semana
+# siguiente salen iguales en la original y en la cargada).
 func _test_save_round_trip() -> void:
 	var c := Career.new()
 	c.setup(league, squads, "colo_colo", 4321)
 	c.choose_sponsor("telnet")
 	c.resolve_event(true)
-	c.choose_training("tactical")
+	_check(c.take_offer(0), "la semana 1 de la prueba de guardado toma una carta")
 	_check(c.prepare_match()["ok"], "la semana 1 de la prueba de guardado debería poder jugarse")
 	c.record_match(2, 1, 0.3)
 	c.choose_sponsor("cerveza_glaciar")
-	c.resolve_event(true)   # semana 2 a medias: evento resuelto, sin entrenamiento
+	c.resolve_event(false)
+	_check(c.upgrade_card(_index_of(c, "remate_simple"), "acierto"), "la semana 2 de la prueba de guardado mejora una carta")
+	c.prepare_match()
+	c.record_match(0, 1, 0.5)
+	c.choose_sponsor("cerveza_glaciar")
+	c.resolve_event(true)   # semana 3 a medias: evento resuelto, Bloque 2 por hacer (con su oferta)
 	_check(c.save(), "save() debería escribir %s" % TEST_SAVE)
 	var loaded := Career.load_saved(league, squads)
 	_check(loaded != null, "la carrera guardada debería cargar: %s" % [Career.last_load_errors])
 	if loaded == null:
 		return
-	var a := c.to_dict()
-	var b := loaded.to_dict()
-	_check(a.size() == b.size(), "to_dict debería tener los mismos campos tras cargar")
-	for key in a:
-		_check(b.has(key) and typeof(a[key]) == typeof(b[key]) and a[key] == b[key],
-				"campo %s distinto tras cargar: %s -> %s" % [key, a[key], b.get(key)])
-	_check(loaded.history.size() == 1 and typeof(loaded.history[0]["gf"]) == TYPE_INT, "el historial vuelve con enteros")
+	_check_same_save(c.to_dict(), loaded.to_dict(), "tras cargar")
+	_check(loaded.history.size() == 2 and typeof(loaded.history[0]["gf"]) == TYPE_INT, "el historial vuelve con enteros")
 	_check(loaded.blocks_done()["block1"] and not loaded.blocks_done()["block2"], "la semana a medias sigue a medias")
+	var names_a: Array = c.build_deck().map(func(x: Card) -> String: return x.display_name)
+	var names_b: Array = loaded.build_deck().map(func(x: Card) -> String: return x.display_name)
+	_check(loaded.deck.size() == 12 and names_a == names_b and names_b.has("Remate simple+"),
+			"el mazo vuelve con la carta nueva y la mejora: %s" % [names_b])
+	_check(loaded.training_offer == c.training_offer and loaded.training_offer.size() == Career.OFFER_SIZE,
+			"la oferta guardada no cambia al cargar")
 
-	# El azar sigue igual: misma semana 3 y mismo resultado del evento en las dos.
+	# El azar sigue igual: misma semana 4, mismo resultado del evento y misma oferta en las dos.
 	for x in [c, loaded]:
-		x.choose_training("physio")
+		x.choose_physio()
 		x.prepare_match()
 		x.record_match(0, 0)
 		x.choose_sponsor("telnet")
 		x.resolve_event(true)
-	_check(c.week == 3 and loaded.week == 3, "ambas carreras deberían llegar a la semana 3")
+	_check(c.week == 4 and loaded.week == 4, "ambas carreras deberían llegar a la semana 4")
 	_check(c.event_result == loaded.event_result and c.match_mods == loaded.match_mods,
-			"el evento de la semana 3 debería salir igual tras cargar: %s vs %s" % [c.event_result, loaded.event_result])
+			"el evento de la semana 4 debería salir igual tras cargar: %s vs %s" % [c.event_result, loaded.event_result])
+	_check(c.training_offer == loaded.training_offer, "la oferta de la semana 4 debería salir igual tras cargar")
 	_check(c.rng.state == loaded.rng.state and c.rng.randi() == loaded.rng.randi(),
 			"el estado del azar debería seguir igual tras cargar")
+
+
+# Mismos campos, con el mismo tipo y valor, en dos to_dict().
+func _check_same_save(a: Dictionary, b: Dictionary, what: String) -> void:
+	_check(a.size() == b.size(), "to_dict debería tener los mismos campos %s" % what)
+	for key in a:
+		_check(b.has(key) and typeof(a[key]) == typeof(b[key]) and a[key] == b[key],
+				"campo %s distinto %s: %s -> %s" % [key, what, a[key], b.get(key)])
 
 
 # Si se cerró el juego durante el partido, la carrera vuelve al Bloque 3 con ese partido por jugar,
@@ -323,7 +493,7 @@ func _test_save_pending_match() -> void:
 	c.setup(league, squads, "universidad_catolica", 77)
 	c.choose_sponsor("telnet")
 	c.resolve_event(false)
-	c.choose_training("tactical")
+	c.take_offer(0)
 	c.prepare_match()
 	c.save()
 	var loaded := Career.load_saved(league, squads)
@@ -332,9 +502,61 @@ func _test_save_pending_match() -> void:
 		return
 	var fatigue := loaded.fatigue
 	_check(loaded.prepare_match()["ok"] and loaded.fatigue == fatigue, "el partido pendiente se juega sin sumar fatiga otra vez")
-	_check(not loaded.choose_training("physio"), "con el partido pendiente los bloques 1 y 2 quedan cerrados")
+	_check(not loaded.choose_physio() and not loaded.take_offer(1) and not loaded.upgrade_card(0, "acierto"),
+			"con el partido pendiente los bloques 1 y 2 quedan cerrados")
+	_check(loaded.deck == c.deck, "el partido pendiente se juega con el mazo que tenía la carta nueva")
 	_check(loaded.rival_id == c.rival_id and not loaded.record_match(1, 1).is_empty() and loaded.week == 2,
 			"el partido pendiente cierra la semana al jugarse")
+
+
+# Un guardado v1 (antes de T-05: sin mazo propio ni oferta, y el táctico daba forma) se migra en vez
+# de rechazarse: mazo de inicio del club y oferta nueva; un táctico elegido sin partido pendiente se
+# vuelve a elegir con las reglas nuevas, y uno con partido pendiente se respeta.
+func _test_save_v1_migration() -> void:
+	var c := Career.new()
+	c.setup(league, squads, "universidad_de_chile", 808)
+	c.choose_sponsor("telnet")
+	c.resolve_event(false)
+	var v1 := c.to_dict()
+	v1["version"] = 1
+	v1.erase("deck")
+	v1.erase("training_offer")
+	v1["training"] = "tactical"
+	v1["match_mods"] = {"form_bonus": 0.03}
+	_write_save(JSON.stringify(v1))
+	var loaded := Career.load_saved(league, squads)
+	_check(loaded != null, "un guardado v1 debería migrarse: %s" % [Career.last_load_errors])
+	if loaded == null:
+		return
+	_check(loaded.deck == loaded.starter_deck() and loaded.build_deck().size() == 12, "el guardado v1 arranca con el mazo de inicio del club")
+	var offers: Dictionary = squads.deck_lists["ofertas"]
+	_check(loaded.training_offer.size() == Career.OFFER_SIZE and loaded.training_offer.all(func(id): return offers["general"].has(id) \
+			or offers["Contragolpe"].has(id)), "el guardado v1 recibe una oferta nueva: %s" % [loaded.training_offer])
+	_check(loaded.training == "" and loaded.block2_open() and not loaded.match_mods.has("form_bonus"),
+			"un táctico v1 sin partido pendiente se vuelve a elegir y sin la forma de antes")
+	_check(loaded.sponsor_id == "telnet" and loaded.blocks_done()["block1"] and loaded.week == 1, "el resto de la semana se conserva")
+	_check(loaded.save(), "la carrera migrada debería poder guardarse")
+	var again := Career.load_saved(league, squads)
+	_check(again != null and int(again.to_dict()["version"]) == Career.SAVE_VERSION, "la carrera migrada se guarda como v%d" % Career.SAVE_VERSION)
+	if again != null:
+		_check_same_save(loaded.to_dict(), again.to_dict(), "tras guardar la carrera migrada")
+
+	v1["pending_match"] = true   # se cerró el juego durante el partido: el Bloque 2 ya se pagó en fatiga
+	_write_save(JSON.stringify(v1))
+	var pending := Career.load_saved(league, squads)
+	_check(pending != null and pending.pending_match and pending.training == "tactical" and pending.prepare_match()["ok"],
+			"un guardado v1 con partido pendiente se juega igual")
+	v1["pending_match"] = false
+	v1["training"] = "physio"
+	_write_save(JSON.stringify(v1))
+	var physio := Career.load_saved(league, squads)
+	_check(physio != null and physio.training == "physio", "un guardado v1 con kinesiología la conserva")
+
+
+func _write_save(text: String) -> void:
+	var f := FileAccess.open(TEST_SAVE, FileAccess.WRITE)
+	f.store_string(text)
+	f.close()
 
 
 # Errores de carga: devuelven null con el motivo en Career.last_load_errors, sin errores de script.
@@ -346,9 +568,9 @@ func _test_save_errors() -> void:
 
 	var good := Career.new()
 	good.setup(league, squads, "colo_colo", 5)
-	var cases := {"JSON roto": "{\"version\": 1, \"team_id\": "}
+	var cases := {"JSON roto": "{\"version\": 2, \"team_id\": "}
 	var other_version := good.to_dict()
-	other_version["version"] = 2
+	other_version["version"] = 99
 	cases["otra versión"] = JSON.stringify(other_version)
 	var unknown_club := good.to_dict()
 	unknown_club["team_id"] = "club_inventado"
@@ -360,10 +582,26 @@ func _test_save_errors() -> void:
 	no_rng.erase("rng_state")
 	cases["sin estado del azar"] = JSON.stringify(no_rng)
 	cases["lista en vez de objeto"] = "[1, 2, 3]"
+	var no_deck := good.to_dict()
+	no_deck.erase("deck")
+	cases["v2 sin mazo"] = JSON.stringify(no_deck)
+	var unknown_card := good.to_dict()
+	unknown_card["deck"][0] = {"id": "carta_inventada", "mejora": ""}
+	cases["carta desconocida en el mazo"] = JSON.stringify(unknown_card)
+	var bad_upgrade := good.to_dict()
+	bad_upgrade["deck"][0] = {"id": "pase_corto", "mejora": "pa"}   # 0 PA: no admite la mejora de PA
+	cases["mejora imposible"] = JSON.stringify(bad_upgrade)
+	var unknown_upgrade := good.to_dict()
+	unknown_upgrade["deck"][0] = {"id": "pase_corto", "mejora": "turbo"}
+	cases["mejora desconocida"] = JSON.stringify(unknown_upgrade)
+	var tiny_deck := good.to_dict()
+	tiny_deck["deck"] = []
+	cases["mazo vacío"] = JSON.stringify(tiny_deck)
+	var bad_offer := good.to_dict()
+	bad_offer["training_offer"] = ["carta_inventada"]
+	cases["oferta con una carta desconocida"] = JSON.stringify(bad_offer)
 	for name in cases:
-		var f := FileAccess.open(TEST_SAVE, FileAccess.WRITE)
-		f.store_string(cases[name])
-		f.close()
+		_write_save(cases[name])
 		var loaded := Career.load_saved(league, squads)
 		_check(loaded == null and not Career.last_load_errors.is_empty(),
 				"guardado con %s: la carga debería devolver null con motivo" % name)

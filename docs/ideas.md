@@ -36,3 +36,6 @@ Para agregar una, la skill `idea-nueva` hace el análisis y la anota aquí.
 | I-30 | Dirección de arte: transmisión de TV 2006 + cartas como láminas de álbum | Análisis | 4 | NUEVA | M4 |
 | I-31 | Cinemática o resplandor más fuerte para el Ejecutor Natural (`FxLayer`) | GDD original | 1 | NUEVA | M4 |
 | I-32 | Indicador de "jugada armable": avisar si la mano puede llegar al gol con los PA del turno (y cuál), usando `CoachBot.best_plan` | M1 (sensación de juego) | 1, 2 | NUEVA | M1 (si los playtests lo piden) |
+| I-33 | Textos traducibles (tablas de traducción de Godot) y demo en inglés + español: el público hispanohablante es ~5% de Steam (`mercado.md`) | Estudio de mercado | 4 | NUEVA | antes de M4 |
+| I-34 | Modo Copa: partida corta de 5-6 partidos con mazo que crece, para la demo y el público roguelike (como Clutchtime, Goaldeck, Super Kickmen) | Estudio de mercado | 1, 3 | NUEVA | M2/M5 |
+| I-35 | Resumen post-partido con el % de cada jugada y goles esperados vs. reales, para que el azar se vea justo (queja n.º 1 contra NUTMEG y FT&G) | Estudio de mercado | 2 | NUEVA | M1/M4 |

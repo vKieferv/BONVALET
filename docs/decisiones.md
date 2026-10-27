@@ -19,7 +19,8 @@ por defecto. Fuente que funcionó: Wikidata (P54, P569, P27).
 
 **D-03 · 2026-10-26 · Mazo unificado con filtro de posesión** · VIGENTE
 Un solo mazo de 18-20 cartas; `DeckManager.possession` filtra qué se roba en ataque y en defensa.
-Despeje de Emergencia fuera del mazo. Descartado: mazos separados de ataque y defensa.
+Despeje de Emergencia fuera del mazo. Descartado: mazos separados de ataque y defensa. El tamaño
+pasó a 10-20 con D-23 (se arranca con 12; implementado en T-04).
 
 **D-04 · 2026-10-26 · PA por turno y Estamina Global separados** · VIGENTE
 Los PA (LOW 3, NORMAL 3, HIGH 4; defensa 2) limitan qué se juega en un turno; la estamina es el

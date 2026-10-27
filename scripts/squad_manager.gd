@@ -4,7 +4,11 @@ extends RefCounted
 # Planteles (18 jugadores por club) y su vínculo con el mazo unificado del partido.
 # - Planteles reales: data/squads_2006.json. El resto: SquadGenerator (determinista).
 # - Titulares: los 11 mejores por rol según FORMATION.
-# - Mazo: cartas colectivas del DT (data/cards.json) + carta firma de cada titular que la tenga.
+# - Mazo: cartas del DT + carta firma de cada titular que la tenga. Las cartas del DT salen de
+#   data/decks.json (CardDB.archetype_templates): el mazo estándar con la carta de rasgo del arquetipo
+#   del club (starter_templates) y, más adelante en la temporada, su crecimiento (season_templates).
+#   Los constructores viven aquí y no en CardDB porque necesitan el club: su arquetipo y cuántas
+#   firmas suman sus titulares (para no pasar de DeckManager.DECK_MAX).
 #   Las cartas "canterano" pasan a ser de un Sub-21 del plantel. owner_id = id del jugador, así el
 #   motor aplica el Ejecutor Natural cuando el dueño está en la cancha (PlayerStats.lineup).
 
@@ -21,6 +25,8 @@ var _real := {}            # team_id -> Array de jugadores
 var _cache := {}           # team_id -> Array de jugadores (reales o generados, ya normalizados)
 var _signature_cards := {} # card_id -> diccionario de carta
 var _signature_template := {}
+var _catalog := {}         # card_id -> plantilla de data/cards.json (CardDB.load_catalog)
+var _decks := {}           # data/decks.json
 
 
 func load_all(p_league: LeagueManager) -> bool:
@@ -40,6 +46,15 @@ func load_all(p_league: LeagueManager) -> bool:
         _signature_template = sig.get("template", {})
     else:
         load_errors.append("Cartas firma inválidas: %s" % SIGNATURES_PATH)
+    _catalog = CardDB.load_catalog()
+    _decks = CardDB.load_decks()
+    if _catalog.is_empty():
+        load_errors.append("Catálogo de cartas inválido: %s" % CardDB.CARDS_PATH)
+    if _decks.is_empty():
+        load_errors.append("Mazos inválidos: %s" % CardDB.DECKS_PATH)
+    for id in deck_card_ids():
+        if not _catalog.has(id):
+            load_errors.append("%s: la carta '%s' no está en %s" % [CardDB.DECKS_PATH, id, CardDB.CARDS_PATH])
     return load_errors.is_empty()
 
 
@@ -167,6 +182,42 @@ func signature_card_for(player: Dictionary) -> Dictionary:
     return d
 
 
+# Cartas del DT con que empieza el club: el mazo estándar con la carta de rasgo de su arquetipo.
+func starter_templates(team_id: String) -> Array:
+    return season_templates(team_id, 0)
+
+
+# Cartas del DT del club a mitad de temporada: el mazo estándar más las primeras `extra` cartas del
+# crecimiento de su arquetipo, sin que el mazo del partido (con las firmas de sus titulares) pase
+# de DeckManager.DECK_MAX.
+func season_templates(team_id: String, extra: int) -> Array:
+    var archetype := String(league.get_team(team_id).get("archetype", ""))
+    var starter := CardDB.archetype_templates(_catalog, _decks, archetype, 0)
+    var room := DeckManager.DECK_MAX - starter.size() - signature_count(team_id)
+    return CardDB.archetype_templates(_catalog, _decks, archetype, clampi(extra, 0, maxi(0, room)))
+
+
+# Cuántas cartas firma suma el club con sus titulares.
+func signature_count(team_id: String) -> int:
+    var n := 0
+    for p in pick_starters(team_id):
+        if not signature_card_for(p).is_empty():
+            n += 1
+    return n
+
+
+# Todos los ids que nombra data/decks.json (mazo estándar, rasgos y crecimiento), sin "@rasgo".
+func deck_card_ids() -> Array:
+    var ids: Array = []
+    for id in _decks.get("estandar", []):
+        if id != CardDB.RASGO:
+            ids.append(id)
+    ids.append_array(_decks.get("rasgos", {}).values())
+    for list in _decks.get("crecimiento", {}).values():
+        ids.append_array(list)
+    return ids
+
+
 # Mazo unificado del club como cartas listas para el partido.
 func build_match_deck(team_id: String, templates: Array) -> Array:
     var deck: Array = []
@@ -176,7 +227,8 @@ func build_match_deck(team_id: String, templates: Array) -> Array:
 
 
 # Mazo unificado del club como diccionarios (lo que usa SimRunner para construir un mazo nuevo
-# por partido): cartas del DT + cartas de canteranos asignadas + firmas de los titulares.
+# por partido): cartas del DT (`templates`, por ejemplo starter_templates) + cartas de canteranos
+# asignadas + firmas de los titulares.
 func build_match_templates(team_id: String, templates: Array) -> Array:
     var starters := pick_starters(team_id)
     var starter_ids := {}

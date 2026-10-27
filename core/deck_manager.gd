@@ -7,7 +7,7 @@ extends RefCounted
 
 enum Possession { POSSESSION_ATTACK, POSSESSION_DEFENSE }
 
-const DECK_MIN := 18
+const DECK_MIN := 10   # el mazo estándar arranca con 12 (D-23) y crece hasta DECK_MAX
 const DECK_MAX := 20
 
 var active: Array = []       # mazo activo del partido

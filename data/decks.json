@@ -1,0 +1,19 @@
+{
+  "_notes": "Mazos de juego (D-23, GDD 3.5). estandar = las cartas del DT con que empieza todo club, una entrada por copia, por id de data/cards.json; \"@rasgo\" se reemplaza por la carta de rasgo del arquetipo del club (rasgos). SquadManager les suma las cartas firma de los titulares y asigna las Promesas a un Sub-21: 10 básicas + el rasgo + la firma de la figura = 12 cartas. crecimiento = las cartas que suma cada arquetipo durante la temporada, en orden: core/sim.gd mide el mazo con las primeras 0, 4 y 8 (inicio, mitad y final) y T-06 las usará para que los rivales crezcan. Valores medidos con balance-lab en tests/lab/m2_propuesta.json y m2_crecimiento.json.",
+  "estandar": ["pase_corto", "pase_corto", "pase_corto", "pase_corto", "promesa_control", "promesa_control",
+    "remate_simple", "marca", "marca", "despeje", "@rasgo"],
+  "rasgos": {
+    "Tiki-Taka": "toque_toque",
+    "Directo": "pelotazo",
+    "Catenaccio": "cerrojo",
+    "Kamikaze": "remate_en_carrera",
+    "Contragolpe": "anticipo"
+  },
+  "crecimiento": {
+    "Tiki-Taka": ["pase_filtrado", "presion", "intercepcion", "remate_primera", "amague", "despeje", "tiro_lejano", "centro"],
+    "Directo": ["tiro_lejano", "despeje", "remate_primera", "presion", "centro", "intercepcion", "chilena", "pase_al_pie"],
+    "Catenaccio": ["bloqueo", "tiro_lejano", "despeje", "remate_primera", "pausa", "intercepcion", "presion", "pase_al_pie"],
+    "Kamikaze": ["presion", "remate_primera", "despeje", "amague", "chilena", "intercepcion", "bloqueo", "movimiento"],
+    "Contragolpe": ["intercepcion", "pase_filtrado", "tiro_lejano", "despeje", "remate_primera", "bloqueo", "movimiento", "presion"]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "_notes": "Mazos de juego (D-23, GDD 3.5). Las cartas son ids del catálogo data/cards.json (CardDB.load_catalog). estandar = las 11 cartas del DT con que arranca todo club, una entrada por copia; \"@rasgo\" se reemplaza por la carta de rasgo de su arquetipo (rasgos). SquadManager.starter_templates(team_id) arma ese mazo de inicio y build_match_templates le suma la firma de su figura titular (12 cartas). crecimiento = 8 cartas por arquetipo, en orden, que se suman al mazo durante la temporada (SquadManager.season_templates(team_id, extra) toma las primeras extra, sin pasar de DeckManager.DECK_MAX con las firmas): core/sim.gd las usa para medir la mitad (+4) y el final (+8) de la temporada y T-06 para que los rivales crezcan. Las listas alternan ataque y defensa (un corte cada ~3 cartas) y salen de tests/lab/m2_crecimiento.json; no se cambian para arreglar el balance sin una decisión nueva.",
+  "estandar": ["pase_corto", "pase_corto", "pase_corto", "pase_corto", "promesa_control", "promesa_control",
+    "remate_simple", "marca", "marca", "despeje", "@rasgo"],
+  "rasgos": {
+    "Tiki-Taka": "toque_toque",
+    "Directo": "pelotazo",
+    "Catenaccio": "cerrojo",
+    "Kamikaze": "remate_en_carrera",
+    "Contragolpe": "anticipo"
+  },
+  "crecimiento": {
+    "Tiki-Taka": ["pase_filtrado", "presion", "intercepcion", "remate_primera", "amague", "despeje", "tiro_lejano", "centro"],
+    "Directo": ["tiro_lejano", "despeje", "remate_primera", "presion", "centro", "intercepcion", "chilena", "pase_al_pie"],
+    "Catenaccio": ["bloqueo", "tiro_lejano", "despeje", "remate_primera", "pausa", "intercepcion", "presion", "pase_al_pie"],
+    "Kamikaze": ["presion", "remate_primera", "despeje", "amague", "chilena", "intercepcion", "bloqueo", "movimiento"],
+    "Contragolpe": ["intercepcion", "pase_filtrado", "tiro_lejano", "despeje", "remate_primera", "bloqueo", "movimiento", "presion"]
+  }
+}

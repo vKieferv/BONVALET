@@ -48,3 +48,10 @@ documentada, en el mismo formato que Colo-Colo, U. de Chile y UC.
 Si `query.wikidata.org` no responde desde el entorno, **no uses otras fuentes de memoria ni inventes**:
 abre el PR con una nota del bloqueo y nada más. Esta tarea ya funcionó desde el PC del usuario, y se
 puede correr ahí.
+
+## Intentos
+- **2026-10-27, sesión en la nube: bloqueada.** La política de red del entorno rechaza
+  `query.wikidata.org` (el proxy responde 403 al CONNECT), así que no hubo consultas SPARQL. Siguiendo
+  "Si no hay acceso a Wikidata", no se tocó `data/squads_2006.json` ni se usó otra fuente. Para
+  reintentar en la nube hay que agregar `query.wikidata.org` en *Allowed domains* del entorno (o subir
+  su nivel de acceso a la red); si no, correrla desde el PC del usuario.

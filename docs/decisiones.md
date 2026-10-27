@@ -196,6 +196,19 @@ Respuestas del usuario a la maqueta de la pantalla (`cartas.md`, "Pantalla de du
 Los valores (probabilidades de quién te sale, parte de los fallos que son robo, castigo por distancia,
 cómo actúa el cansancio sin romper D-04) son propuestas de prueba en `cartas.md`.
 
+**D-32 · 2026-10-27 · Ajustes de los duelos tras la maqueta** · VIGENTE (diseño de I-45, sin código)
+- **Fórmula de habilidades más corta:** ajuste del puesto hasta +3, perfil +6, tope 95. Reemplaza los
+  números de D-29 (+5, +10, tope 99). Por qué: Alcázar con 95 de Remate era excesivo (usuario). Quedan
+  Alcázar 89, Suazo 95, M14 90 de Regate.
+- **Bravo lleva perfil** de arquero (Atajador): Atajada 86.
+- **El Ejecutor Natural se mantiene, más chico:** es la carta del jugador, pero +15 era mucho (usuario).
+  Valor de prueba: +5. En el modelo de duelos reemplaza el +15 de GDD 2.5.
+- **Robo según la línea:** en la salida 1 de cada 3 fallos, en el medio 1 de cada 5 (usuario). La
+  definición queda por decidir (propuesta en `cartas.md`).
+- **El cansancio quita PA** (idea del usuario, a probar): las cartas de un jugador cansado cuestan +1 PA.
+  No toca el % de acierto; amplía D-04, que hasta ahora solo dejaba al cansancio cambiar el robo de
+  cartas, las lesiones y las penalizaciones.
+
 ### Descartadas (para no reabrirlas sin datos nuevos)
 - **Tempo ofensivo +7 / regen +3** (2026-10-26): no llegaba al objetivo de goles y quedó obsoleto con
   PA + Estamina; el stash se borró.

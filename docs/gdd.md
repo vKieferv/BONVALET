@@ -55,6 +55,7 @@ Romper el Flow cuesta 15% de estamina (salvo al Aguantar el Balón).
 
 ### 2.5 Ejecutor Natural [DECIDIDO]
 Si la carta la juega su dueño (titular en cancha): +15 de acierto, doble carga de Flow y resplandor.
+En el modelo de duelos (I-45) el bono baja a +5 de prueba (D-32).
 
 ### 2.6 Aguantar el Balón [EN PRUEBA]
 Botón fijo junto a "Ceder Jugada", una vez por Momento: 1 PA (0 si no quedan, y si sale bien
@@ -75,7 +76,8 @@ Cada jugada del Momento cruza una línea del rival y enfrenta a uno de sus jugad
 atributo de tu jugador contra el de él (como los enemigos de Slay the Spire). La formación del estilo
 define cuántos hay en cada línea (superioridad numérica, I-44) y el nivel de tu DT, cuánto ves antes
 (I-41, I-46). Decidido en papel: habilidades (D-29), cinco formaciones, una por estilo (D-30), y las
-reglas de los duelos (D-31: fallar no corta el Momento, eliges a quién pasar, cansancio por jugador).
+reglas de los duelos (D-31: fallar no corta el Momento, eliges a quién pasar, cansancio por jugador),
+y sus ajustes (D-32: fórmula más corta, Ejecutor Natural +5, robo según la línea, el cansancio quita PA).
 Borrador y ejemplos (M14 contra Kalule, un Momento contra Palestino) y maqueta de la pantalla: `cartas.md`.
 
 ## 3. Cartas y mazo

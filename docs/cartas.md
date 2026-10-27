@@ -112,19 +112,20 @@ Cuando el rival ataca es al revés: tu Quite y tu Lectura le bajan su % aunque n
 "84 contra 72"; con ocho o más (velocidad, cabezazo, visión...) no caben en una lámina y hay que
 asignarlas a ~340 jugadores (19 clubes × 18). Velocidad y Juego aéreo pueden llegar después (D-28).
 
-**De dónde salen:** habilidad = nivel (`skill_rating`) + ajuste del puesto + perfil (+10), tope 99.
-Ajuste del puesto (punto de partida):
+**De dónde salen (D-32):** habilidad = nivel (`skill_rating`, la media) + ajuste del puesto + perfil
+(+6), tope 95. Los ajustes positivos no pasan de +3, para que nadie se dispare (con +5 y +10, Alcázar
+llegaba a 95 de Remate).
 | Puesto | Pase | Regate | Remate | Quite | Lectura |
 |---|---|---|---|---|---|
-| DFC | −10 | −20 | −25 | +5 | +5 |
+| DFC | −10 | −20 | −25 | +3 | +3 |
 | LAT | −5 | −5 | −20 | 0 | −5 |
-| MCD | 0 | −10 | −15 | +5 | +5 |
-| MCO | +5 | 0 | −5 | −15 | −10 |
-| EXT | −5 | +5 | −5 | −20 | −15 |
-| DEL | −10 | 0 | +5 | −25 | −20 |
+| MCD | 0 | −10 | −15 | +3 | +3 |
+| MCO | +3 | 0 | −5 | −15 | −10 |
+| EXT | −5 | +3 | −5 | −20 | −15 |
+| DEL | −10 | 0 | +3 | −25 | −20 |
 | POR | Atajada = nivel | | | | |
 
-**Perfiles** (+10 a una habilidad): **solo la élite**, 1-2 por club. La mayoría no tiene perfil, y eso
+**Perfiles** (+6 a una habilidad): **solo la élite**, 1-2 por club. La mayoría no tiene perfil, y eso
 es lo que separa a los buenos de la élite (usuario). Los asigna el diseño, como los estilos de las cartas
 firma (juicio de diseño en datos reemplazables, D-26). Tipos: Gambeteador (Regate), Enganche (Pase),
 Goleador (Remate), Perro de presa (Quite), Recuperador (Lectura), Atleta (Físico), Atajador (Atajada);
@@ -133,27 +134,27 @@ Goleador (Remate), Perro de presa (Quite), Recuperador (Lectura), Atleta (Físic
 **Láminas de ejemplo** (con la fórmula; perfiles puestos para el ejemplo):
 | Jugador | Puesto · nivel | Perfil | Pase | Regate | Remate | Quite | Lectura |
 |---|---|---|---|---|---|---|---|
-| Matías Fernández (M14) | MCO 84 | Gambeteador | 89 | **94** | 79 | 69 | 74 |
-| Rodrigo "Kalule" Meléndez | MCD 72 | — | 72 | 62 | 57 | 77 | 77 |
-| Humberto Suazo | DEL 86 | Goleador | 76 | 86 | **99** | 61 | 66 |
-| Claudio Bravo | POR 80 | — | Atajada 80 | | | | |
-| Un DFC generado | DFC 66 | — | 56 | 46 | 41 | 71 | 71 |
+| Matías Fernández (M14) | MCO 84 | Gambeteador | 87 | **90** | 79 | 69 | 74 |
+| Rodrigo "Kalule" Meléndez | MCD 72 | — | 72 | 62 | 57 | 75 | 75 |
+| Humberto Suazo | DEL 86 | Goleador | 76 | 86 | **95** | 61 | 66 |
+| Claudio Bravo | POR 80 | Atajador | Atajada **86** | | | | |
+| Un DFC generado | DFC 66 | — | 56 | 46 | 41 | 69 | 69 |
 
 **El duelo en %:** % = 39 + carta + **0,5** × (tu habilidad − la suya). El 0,5 es el valor de prueba
 (usuario). El 39 es lo de hoy (base 54 menos la defensa rival de 15): **a igual habilidad cada carta queda
-con el % de hoy**, así no se pierde el balance medido. El desglose lo muestra como "Duelo: Regate 94
-contra Quite 77 · +8,5" (pilar 2). Jugada 2, te toca Kalule (Quite 77, Lectura 77):
-- M14 juega Amague: 39 + 18 + 8,5 = **66%**. A Kalule le queda 34%.
-- Un jugador como el FF de tu ejemplo (Regate 65, Pase 70): Amague 39 + 18 − 6 = **51%**; Pase filtrado
-  39 + 20 − 3,5 = **56%**; Pelotazo sin duelo **39%**, pero avanza 2 (una tirada en vez de dos).
-- Contra un "Perro de presa" (Quite 85, Lectura 70) hasta M14 debería pasarla: Amague 62%, Pase
-  filtrado 69%.
+con el % de hoy**, así no se pierde el balance medido. El desglose lo muestra como "Duelo: Regate 90
+contra Quite 75 · +7,5" (pilar 2). Jugada 2, te toca Kalule (Quite 75, Lectura 75):
+- M14 juega Amague: 39 + 18 + 7,5 = **65%**. A Kalule le queda 35%.
+- Un jugador como el FF de tu ejemplo (Regate 65, Pase 70): Amague 39 + 18 − 5 = **52%**; Pase filtrado
+  39 + 20 − 2,5 = **57%**; Pelotazo sin duelo **39%**, pero avanza 2 (una tirada en vez de dos).
+- Contra un "Perro de presa" (Quite 85, Lectura 70) hasta M14 debería pasarla: Amague 60%, Pase
+  filtrado 68%.
 
 **Por decidir o medir:**
-- Cuántos % vale cada punto de diferencia: **0,5 para las pruebas** (usuario). Con 1, Suazo con Remate de
-  primera contra un arquero de 80 llegaba al tope (95%); con 0,5 queda en 89%. Se ajusta con `balance-lab`.
+- Cuántos % vale cada punto de diferencia: **0,5 para las pruebas** (usuario). Con la fórmula de D-32,
+  Suazo con Remate de primera contra un arquero de 80 queda en 87%. Se ajusta con `balance-lab`.
 - Quién juega cada carta: ver "Formaciones".
-- El Ejecutor Natural (+15) se suma a la habilidad del dueño: revisar si sobra o se achica.
+- El Ejecutor Natural se mantiene, más chico: +5 de prueba (D-32; antes +15).
 - Técnica (del equipo) desaparece: la reemplazan los duelos. Visión (mano), ritmo y concentración siguen
   siendo del equipo por ahora. El Físico podría dar la estamina del equipo (promedio de los titulares).
 - Con el nivel del DT (I-46): con nivel bajo ves el nivel general del rival; con nivel alto, sus
@@ -187,8 +188,8 @@ estilos (I-47). Las formaciones salen del estilo (diseño), no de la formación 
   formación pone el tope: el 5-3-2 nunca tiene más de 3 arriba.
 - **Azar, como los encuentros de Slay the Spire:** en cada jugada la línea rival puede tener uno más o uno
   menos (alguien llegó o quedó mal parado). Con el nivel de tu DT lo ves antes de elegir la carta (I-41).
-- **Quién juega tu carta:** el mejor de tu línea en la habilidad que usa la carta (el Amague del medio lo
-  juega M14); la firma, su dueño. **A quién enfrentas:** a uno de su línea, al azar.
+- **Quién juega tu carta:** el que tiene el balón; al pasar eliges a quién se la das (D-31).
+  **A quién enfrentas:** lo más probable, a uno de la línea que cruzas (D-31).
 - **Las cartas de defensa se leen como jugadores:** Presión = uno más en todas tus líneas (6); Bloqueo = dos
   más atrás contra su remate (12, lo que vale hoy); Línea de cinco = dos más atrás.
 - **Transición** = el rival quedó desordenado: una de sus líneas con uno menos en tu próximo Momento.
@@ -198,8 +199,8 @@ Palestino (5-3-2), los dos en NORMAL. % = 39 + carta + duelo + números.
 | Jugada | Tu carta (quién) | Te enfrenta | Duelo | Números | % | Hoy* |
 |---|---|---|---|---|---|---|
 | 1 · Salida | Pase corto (Aceval, Pase 66) | un DEL (Lectura 50) | +8 | 4 contra 2: +12 | 65% | 45% |
-| 2 · Medio | Amague (M14, Regate 94) | un MCD (Quite 75) | +9,5 | 4 contra 3: +6 | 73% | 57% |
-| 3 · Definición | Remate de primera (Suazo, Remate 99) | su arquero (Atajada 72) | +13,5 | 2 contra 5: −18 | 75% | 79% |
+| 2 · Medio | Amague (M14, Regate 90) | un MCD (Quite 75) | +7,5 | 4 contra 3: +6 | 71% | 57% |
+| 3 · Definición | Remate de primera (Suazo, Remate 95) | su arquero (Atajada 72) | +11,5 | 2 contra 5: −18 | 73% | 79% |
 \* con la dificultad base de hoy. Contra el Catenaccio se llega fácil, pero en el área esperan cinco. Al
 revés, Palestino (2 jugadas) sale con 5 contra tus 2 de arriba (+18) y define con 2 contra tus 4 de atrás
 (−12). Ojo: con estos valores Colo-Colo arma mucho más fácil que hoy; es la jerarquía buscada (D-18), pero
@@ -224,8 +225,11 @@ https://claude.ai/artifact/AeeGQGHLiq8XzefCjZ1nFW. Ejemplo: Colo-Colo (4-1-2-1-2
   contra Quite de Iturra), la cuenta del duelo y los números de esa línea.
 - **Desglose** (al pasar sobre una carta): base, carta, duelo y números, y el total que se tira.
 - **Transmisión:** lo que pasó, lo que pasa y lo que viene, en texto de relato.
-- **Mano:** cada carta muestra PA, tipo, nombre, verbo y contra qué habilidad va, **quién la juega**, el
-  %, su efecto o los modificadores, y el desgaste. Los remates aparecen apagados fuera de la definición.
+- **Mano:** arriba dice quién tiene el balón (él juega las cartas). Cada carta muestra PA, tipo, nombre,
+  verbo y contra qué habilidad va, el % con el robo al lado ("71% · robo 6%"), su efecto o los
+  modificadores, y el desgaste. Las de pase muestran a quién pueden ir, con un punto naranja si ese
+  jugador está cansado. El Tiro de lejos se juega desde el medio con su castigo; los demás remates
+  aparecen apagados fuera de la definición.
 
 **Defensa:** la franja pasa a ser la **intención del rival** (su camino por tus líneas, con lo que le
 suma o le resta cada línea). Al pasar sobre una carta defensiva se ve cómo cambian los números
@@ -235,18 +239,21 @@ suma o le resta cada línea). Al pasar sobre una carta defensiva se ve cómo cam
 3 = a quién vas a enfrentar y quién remata. **Lo que tiras siempre se ve completo** (pilar 2): el nivel
 solo muestra lo que viene.
 
-**Láminas:** nivel, puesto, club, edad, las 5 habilidades con barras y el Físico en celeste. La élite
-lleva marco dorado y su perfil ("Gambeteador: +10 a Regate"); los demás, "sin perfil". El arquero
-muestra Atajada y Físico.
+**Láminas:** la media (el nivel) con estrellas, puesto, club, edad, las 5 habilidades con barras y el
+Físico en celeste. La élite lleva marco dorado y su perfil ("Gambeteador: +6 a Regate"); los demás, "sin
+perfil". El arquero muestra Atajada y Físico (Bravo, élite: Atajador). En el partido, las láminas
+chicas muestran además la carga del jugador.
 
 **Reglas de los duelos (D-31; respuestas del usuario del 2026-10-27, con propuestas para probar):**
 1. **A quién enfrentas:** se decide al empezar el Momento. Cualquier rival te puede salir, pero es más
    probable el más cercano. Propuesta: 70% uno de la línea que cruzas, 25% uno de una línea vecina, 5%
    cualquiera. El arquero solo aparece contra los remates.
 2. **Fallar no corta el Momento:** sigues contra el mismo rival hasta que se te acaben los PA (o las
-   cartas) o te la roben. Reemplaza "2 fallos lo pierden" (GDD 2.1) en el modelo de duelos. Propuesta:
-   1 de cada 3 fallos es robo, y la carta lo muestra ("pasa 72% · robo 9%"). Si te la roban en la
-   salida o en el medio, el rival queda con contragolpe; en la definición, no.
+   cartas) o te la roben. Reemplaza "2 fallos lo pierden" (GDD 2.1) en el modelo de duelos. **Robo
+   según la línea (D-32):** en la salida 1 de cada 3 fallos, en el medio 1 de cada 5; la carta lo
+   muestra ("71% · robo 6%"). Propuesta para la definición: 1 de cada 5 en las jugadas y, si un remate
+   falla, 1 de cada 2 veces el arquero se queda con la pelota (se acaba el Momento). Si te la roban en
+   la salida o en el medio, el rival queda con contragolpe; en la definición, no.
 3. **Los remates solo se juegan en la definición**, salvo las cartas de tiro lejano, que se juegan desde
    más atrás con castigo por la distancia. Propuesta: desde el medio −15 y desde la salida −35; no
    cuentan los números del área (el tiro pasa por encima), solo el arquero.
@@ -256,26 +263,33 @@ muestra Atajada y Físico.
    decisión). Los rechazos (despejes) caen al azar. Propuesta para el arranque: en un Momento normal
    eliges quién sale de tu línea de atrás; tras una intercepción arranca el que la cortó; tras un
    despeje, uno al azar.
-6. **Cada jugador se cansa por separado**, para obligar a rotar (si juegas todo con M14, se funde).
-   Propuesta que respeta D-04 (la estamina no toca el %): cada jugador suma carga con el desgaste de las
-   cartas que juega; pasado su Físico queda **cansado** y, como un funado (D-06), sus cartas gastan +50%
-   de estamina y su riesgo de lesión sube. Alternativa: que el cansancio baje sus habilidades (se vería
-   en el desglose), pero eso reemplaza parte de D-04.
+6. **Cada jugador se cansa por separado**, para obligar a rotar (si juegas todo con M14, se funde). Cada
+   jugador suma carga con el desgaste de las cartas que juega y la recupera entre Momentos. **Idea del
+   usuario (D-32, a probar): el cansancio quita PA.** Propuesta: pasado su Físico, el jugador queda
+   cansado y sus cartas cuestan +1 PA (en naranja, como el reuso en Flow). No toca el % de acierto
+   (D-04). Valor de prueba: cansado cuando su carga pasa la mitad de su Físico.
 
-**Por revisar (punto 6 del usuario):**
-- **Bravo lleva perfil** de arquero (su rasgo de "héroe"): Atajador.
-- **Alcázar con 95 de Remate es demasiado.** Propuesta de fórmula más corta: ajuste del puesto hasta +3
-  (antes +5), perfil +6 (antes +10), tope 95. Quedan Alcázar 89, Suazo 95, M14 90 de Regate, Bravo 86 de
-  Atajada e Iturra 75 de Quite.
-- **Escala:** 1-100 en el partido, porque el desglose necesita el número exacto (pilar 2); estrellas solo
-  como resumen de la media en los menús (plantel, fichajes, ojeo). La media es el nivel que ya existe.
-- **Lógica del remate:** contra el área llena cuentan los números; si antes superas la última línea (un
-  regate o un pase en la definición), quedas **mano a mano** y solo cuenta el arquero. Con la fórmula
-  corta, Bravo con perfil y sin Ejecutor Natural, la Arremetida de Alcázar queda en 75% contra 3 contra
-  4, 69% si además presionas (3 contra 5) y 81% mano a mano. Los bonos de los remates (+40) se
-  calibraron sin duelos: se vuelven a medir con `balance-lab`.
-- **Ejecutor Natural:** si la carta firma solo la puede jugar su dueño (tiene que tener el balón), el +15
-  sobra.
+**Revisión del punto 6 (D-32):**
+- Fórmula más corta (puesto hasta +3, perfil +6, tope 95) y Bravo con perfil Atajador: Alcázar 89 de
+  Remate, Suazo 95, M14 90 de Regate, Bravo 86 de Atajada.
+- El Ejecutor Natural se mantiene, más chico (+5 de prueba): es la carta del jugador, pero +15 era mucho.
+- Propuestas sin objeción (por confirmar): escala 1-100 en el partido y estrellas como resumen de la media
+  en los menús (★ por tramo: 60-69 dos, 70-79 tres, 80-89 cuatro, 90 o más cinco); y el **mano a mano**:
+  si antes superas la última línea con un regate o un pase en la definición, el remate solo cuenta al
+  arquero.
+- **El remate sigue alto, y por qué** (Arremetida de Alcázar contra Bravo, 3 contra 4 en el área):
+  | Parte | Antes | Con D-32 | Con el bono de remate −10 |
+  |---|---|---|---|
+  | Base | 39 | 39 | 39 |
+  | Carta (Arremetida) | +40 | +40 | +30 |
+  | Duelo, Remate contra Atajada (×0,5) | 95 contra 80: +7,5 | 89 contra 86: +1,5 | +1,5 |
+  | Números (3 contra 4) | −6 | −6 | −6 |
+  | Ejecutor Natural | +15 | +5 | +5 |
+  | **Total** | 95 (tope) | **80%** | **70%** |
+  | Mano a mano | 95 (tope) | 86% | 76% |
+  Lo que más pesa es el bono de la carta: los +40 de los remates se calibraron sin duelos, cuando el bono
+  tenía que hacer todo el trabajo. Propuesta para `balance-lab`: bajar los remates unos 10 puntos en el
+  modelo de duelos y comprobar que la matriz siga en 2.3-2.6 goles.
 
 ## Intención del rival y superioridad numérica (I-41, I-44)
 - **Qué ves depende del nivel de tu DT frente al del rival** (usuario). El tuyo sube con la experiencia;

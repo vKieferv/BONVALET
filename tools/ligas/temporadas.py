@@ -167,6 +167,8 @@ for country, ss in seasons.items():
             for m in re.finditer(r"\[\[([^\]|#]+)(?:#[^\]|]*)?(?:\|[^\]]*)?\]\]", text):
                 t = cap(m.group(1))
                 counts[t] = counts.get(t, 0) + 1
+            # Tabla de posiciones con el módulo Sports table (en.wikipedia y otras): |name_XXX=[[Club]].
+            table = {cap(m.group(1)) for m in re.finditer(r"\|\s*name_[^=|]+=\s*(?:\{\{[^}]*\}\}\s*)?\[\[([^\]|#]+)", text)}
             # Enlaces del artículo -> qid (siguiendo redirecciones), de a 500.
             to_q = {}
             cont = {}
@@ -190,6 +192,8 @@ for country, ss in seasons.items():
                 if item:
                     s["linked"].setdefault(item, {})[lang] = s["linked"].get(item, {}).get(lang, 0) + n
                     all_linked.add(item)
+            if table:
+                s.setdefault("table", {})[lang] = sorted({to_q[t] for t in table if t in to_q})
         print(country, s["label"], {k: len(v) for k, v in [("enlaces", s["linked"])]}, flush=True)
 
 # 5. Cuáles de los enlazados son clubes de fútbol y de qué país.

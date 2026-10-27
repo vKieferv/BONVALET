@@ -11,7 +11,6 @@ signal defense_finished
 enum Ball { NONE, OURS, THEIRS }   # quién tiene la pelota (badge de posesión)
 
 const CARD_SCENE := preload("res://scenes/card_ui.tscn")
-const DECK_PATH := "res://data/cards.json"
 const BASE_DIFFICULTY := 0.15
 const DEFAULT_REGEN := 0.22
 const LEAGUE_ID := "chile_2006"
@@ -62,7 +61,6 @@ const COLOR_NATURAL := Color("#ffd24a")
 @onready var _rival_option: OptionButton = %RivalOption
 @onready var _start_button: Button = %StartButton
 
-var _templates: Array = []
 var _engine: MatchEngine
 var _player: PlayerStats
 var _rival: BotProfile
@@ -94,7 +92,6 @@ var _rival_fill: StyleBoxFlat
 
 
 func _ready() -> void:
-    _templates = CardDB.load_templates(DECK_PATH)
     if Career.current != null and Career.current.pending_match:
         _career = Career.current
         _league = _career.league
@@ -515,7 +512,9 @@ func _begin_match() -> void:
     rng.randomize()
     _player = PlayerStats.new()
     _player.lineup = _squads.lineup_ids(_my_team_id())   # titulares: activan el Ejecutor Natural de sus cartas
-    var cards := _squads.build_match_deck(_my_team_id(), _templates)
+    # Mazo estándar del club con su carta de rasgo (D-23); en carrera, el que arma la carrera.
+    var cards: Array = _career.build_deck() if _career != null \
+            else _squads.build_match_deck(_my_team_id(), _squads.starter_templates(_my_team_id()))
     var deck := DeckManager.new(cards, [], rng)
     var errors: Array = _league.validate_deck(cards, LEAGUE_ID)["errors"].duplicate()
     if deck.size_error() != "":
@@ -557,7 +556,7 @@ func _setup_rival_engine() -> void:
     var rng := RandomNumberGenerator.new()
     rng.randomize()
     var rival_id := String(_rival_team["id"])
-    var deck := DeckManager.new(_squads.build_match_deck(rival_id, _templates), [], rng)
+    var deck := DeckManager.new(_squads.build_match_deck(rival_id, _squads.starter_templates(rival_id)), [], rng)
     var player := PlayerStats.new()
     player.lineup = _squads.lineup_ids(rival_id)
     _rival_engine = MatchEngine.new(player, deck, rng,

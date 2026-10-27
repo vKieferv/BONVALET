@@ -1,6 +1,7 @@
 # Ligas de Sudamérica 2006-2026 (referencia de uso propio, no para el juego). Paso 3, sin red:
 # arma un JSON por liga y año calendario con los clubes y sus jugadores (nombre, posición estimada y
-# edad al 1 de julio) desde out/temporadas.json y out/jugadores.json.gz.
+# edad al 1 de julio) desde out/temporadas.json, out/jugadores.json.gz (Wikidata) y, si está,
+# out/wikipedia.json.gz (fichas de en.wikipedia, que cubren los años recientes).
 #   python tools/ligas/armar.py tools/ligas/out tools/ligas/datos
 import gzip
 import json
@@ -17,7 +18,7 @@ LABEL_LANG = {"brasil": ("pt", "es", "en"), "argentina": ("es", "en", "pt"), "ch
 # Temporadas que no son el campeonato (goleadores, desempates, finales sueltas, temporadas de todas las divisiones).
 NOT_LEAGUE = re.compile(r"goleador|desempate|final del|máxima|maxima|del fútbol chileno|del futbol chileno", re.I)
 POSITIONS = [  # (palabra en la etiqueta en inglés de P413, línea), gana la primera que calce
-    ("goalkeeper", "POR"), ("back", "DEF"), ("defender", "DEF"), ("sweeper", "DEF"), ("libero", "DEF"),
+    ("goalkeeper", "POR"), ("centre-back", "DEF"), ("center-back", "DEF"), ("back", "DEF"), ("defender", "DEF"), ("sweeper", "DEF"), ("libero", "DEF"),
     ("stopper", "DEF"), ("defensive midfielder", "MED"), ("midfielder", "MED"), ("wing half", "MED"),
     ("playmaker", "MED"), ("winger", "DEL"), ("forward", "DEL"), ("striker", "DEL"), ("attacker", "DEL"),
 ]
@@ -49,6 +50,15 @@ def line_of(pos):
             if word in l:
                 return line
     return None
+
+
+def age_from_birth(birth, year):
+    y, m, d = birth
+    return year - y - (1 if (m, d) > (7, 1) else 0)
+
+
+def wiki_name(title):
+    return re.sub(r"\s*\([^)]*\)$", "", title)
 
 
 def age_in(dobs, year):
@@ -86,6 +96,19 @@ def main():
     with gzip.open(os.path.join(OUT, "jugadores.json.gz"), "rt", encoding="utf-8") as f:
         data = json.load(f)
     clubs_info = temporadas["clubs"]
+    # Membresías por club: (clave del jugador, desde, hasta, estimada, fuente).
+    stints = {}
+    for club, sts in data["clubs"].items():
+        for st in sts:
+            stints.setdefault(club, []).append(("wd", st))
+    wiki = {}
+    path = os.path.join(OUT, "wikipedia.json.gz")
+    if os.path.exists(path):
+        with gzip.open(path, "rt", encoding="utf-8") as f:
+            wiki = json.load(f)["players"]
+        for title, w in wiki.items():
+            for club, a, b, loan in w["rows"]:
+                stints.setdefault(club, []).append(("wp", (title, a, min(b, LAST))))
     resumen = {}
     for country, seasons in temporadas["seasons"].items():
         langs = LABEL_LANG[country]
@@ -105,23 +128,51 @@ def main():
                 info = clubs_info.get(club, {})
                 name = next((info.get(l) for l in langs if info.get(l)), club)
                 players = {}
-                for st in data["clubs"].get(club, []):
-                    ok, estimated = in_year(st, year)
-                    if not ok or st[0] not in data["players"]:
-                        continue
-                    p = data["players"][st[0]]
-                    age, approx = age_in(p["dob"], year)
+                for kind, st in stints.get(club, []):
+                    if kind == "wd":
+                        ok, estimated = in_year(st, year)
+                        key = st[0]
+                        p = data["players"].get(key)
+                        if not ok or p is None:
+                            continue
+                        age, approx = age_in(p["dob"], year)
+                        name = next((p.get(l) for l in langs if p.get(l)), key)
+                        line = line_of(p["pos"])
+                    else:
+                        title, a, b = st
+                        if not (a <= year <= b):
+                            continue
+                        w = wiki[title]
+                        key = w.get("qid") or title
+                        p = data["players"].get(key)
+                        estimated = False
+                        if p:
+                            age, approx = age_in(p["dob"], year)
+                            name = next((p.get(l) for l in langs if p.get(l)), wiki_name(title))
+                            line = line_of(p["pos"]) or line_of([w["position"]])
+                        else:
+                            age, approx = (age_from_birth(w["birth"], year), False) if w.get("birth") else (None, False)
+                            name = wiki_name(title)
+                            line = line_of([w["position"]])
                     if age is not None and not (14 <= age <= 45):
                         continue
-                    row = {"nombre": next((p.get(l) for l in langs if p.get(l)), st[0]), "posicion": line_of(p["pos"]),
-                           "edad": age, "wikidata": st[0]}
+                    prev = players.get(key)
+                    if prev is not None:
+                        prev["fuente"] = sorted(set(prev["fuente"]) | {"wikidata" if kind == "wd" else "wikipedia"})
+                        if prev.get("membresia_estimada") and not estimated:
+                            del prev["membresia_estimada"]
+                        if prev["posicion"] is None:
+                            prev["posicion"] = line
+                        if prev["edad"] is None and age is not None:
+                            prev["edad"] = age
+                        continue
+                    row = {"nombre": name, "posicion": line, "edad": age, "wikidata": key if key.startswith("Q") else None,
+                           "fuente": ["wikidata" if kind == "wd" else "wikipedia"]}
                     if approx:
                         row["edad_aproximada"] = True
                     if estimated:
                         row["membresia_estimada"] = True
-                    prev = players.get(st[0])
-                    if prev is None or (prev.get("membresia_estimada") and not estimated):
-                        players[st[0]] = row
+                    players[key] = row
                 order = {"POR": 0, "DEF": 1, "MED": 2, "DEL": 3, None: 4}
                 rows = sorted(players.values(), key=lambda r: (order[r["posicion"]], r["nombre"]))
                 equipos.append({"club": name, "wikidata": club, "temporadas": sorted({l for l, _ in seen}),
@@ -129,10 +180,10 @@ def main():
                                 "jugadores": rows})
             equipos.sort(key=lambda e: e["club"])
             doc = {"liga": NAMES[country], "pais": country, "año": year,
-                   "fuente": "Wikidata (CC0) y Wikipedia; instantánea del 27-oct-2026 (tools/ligas/)",
+                   "fuente": "Wikidata (CC0) y en.wikipedia; instantánea del 27-oct-2026 (tools/ligas/)",
                    "notas": ["Datos de referencia de uso propio, no para el juego.",
                              "Clubes: los de las temporadas del campeonato que tocan este año calendario (tabla de posiciones de Wikipedia o, si no hay, los clubes más enlazados desde el artículo de la temporada).",
-                             "Jugadores: membresías P54 de Wikidata que incluyen el año. Sin fecha de fin cuenta el año en que llegó (o hasta hoy si llegó desde 2023): membresia_estimada. Los planteles pueden estar incompletos; jugadores_encontrados dice cuántos hay.",
+                             "Jugadores: membresías P54 de Wikidata que incluyen el año y años por club de la ficha del jugador en en.wikipedia (fuente dice cuál). En Wikidata sin fecha de fin cuenta el año en que llegó (o hasta hoy si llegó desde 2023): membresia_estimada. Los años de la ficha son por temporada, así que un jugador que cambió de club a mitad de año puede salir en los dos. Los planteles pueden estar incompletos; jugadores_encontrados dice cuántos hay.",
                              "posicion: línea estimada desde P413 (POR, DEF, MED, DEL; null si Wikidata no la tiene). edad: al 1 de julio; edad_aproximada si la fecha de nacimiento no tiene día o tiene fechas distintas."],
                    "equipos": equipos}
             path = os.path.join(DEST, country, "%d.json" % year)

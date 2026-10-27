@@ -17,9 +17,10 @@ Para agregar una, la skill `idea-nueva` hace el análisis y la anota aquí.
 | I-03 | Mejorar cartas (subir % o bajar PA/desgaste) | Género | 1 | NUEVA | M2 |
 | I-04 | Perfiles de DT con tamaño de mazo y mano propios; Catenaccio con casillero defensivo fijo; Kamikaze con Descarte Agresivo (2 cartas → +25%) | GDD original | 1 | ACEPTADA | M2 |
 | I-05 | Progresión de canteranos: suben atributos y desbloquean su carta privada | GDD original | 3 | ACEPTADA | M2 |
-| I-06 | Atributos de los titulares afectan el motor (hoy solo activan el Ejecutor Natural); carta jugada por un compañero usa sus atributos | GDD original | 1 | EN ESPERA | — |
-| I-07 | Largo de jugada por arquetipo (Tiki-Taka 3-4, Directo 1-2, Contragolpe 2, Catenaccio 1) en vez de 3 fijas | GDD / pizarra | 1 | EN ESPERA | M1 (decidir) |
+| I-06 | Atributos de los titulares afectan el motor (hoy solo activan el Ejecutor Natural); carta jugada por un compañero usa sus atributos. También define la jerarquía entre clubes (D-18) | GDD original | 1, 4 | ACEPTADA | M2/M3 |
+| I-07 | Largo de jugada por arquetipo (Tiki-Taka 3-4, Directo 1-2, Contragolpe 2, Catenaccio 1) en vez de 3 fijas | GDD / pizarra | 1 | DESCARTADA en su forma literal (D-16: solo Catenaccio 2) | — |
 | I-08 | Kamikaze: "Presión Asfixiante", en HIGH el rival gasta +1 de estamina para responder | Pizarra | 1 | NUEVA | — |
+| I-09 | Tiki-Taka con jugadas de 3-4 pases que premien el pase largo (p. ej. Flow o acierto que crece con cada pase) — sin compensación, alargar la jugada lo hunde (D-16) | M1 | 1 | EN ESPERA | M2 |
 | I-10 | Fixture completo del Apertura 2006, tabla y fin del torneo | GDD original | 3 | ACEPTADA | M3 |
 | I-11 | Guardar y cargar la carrera | Necesario | — | ACEPTADA · implementada en T-01 | M3 |
 | I-12 | Clausura y Primera B (ascensos/descensos) | GDD original | 4 | EN ESPERA | M5 |
@@ -34,3 +35,4 @@ Para agregar una, la skill `idea-nueva` hace el análisis y la anota aquí.
 | I-21 | Otras ligas o épocas como expansiones (otro conjunto de JSON) | Análisis comercial | 4 | EN ESPERA | post-lanzamiento |
 | I-30 | Dirección de arte: transmisión de TV 2006 + cartas como láminas de álbum | Análisis | 4 | NUEVA | M4 |
 | I-31 | Cinemática o resplandor más fuerte para el Ejecutor Natural (`FxLayer`) | GDD original | 1 | NUEVA | M4 |
+| I-32 | Indicador de "jugada armable": avisar si la mano puede llegar al gol con los PA del turno (y cuál), usando `CoachBot.best_plan` | M1 (sensación de juego) | 1, 2 | NUEVA | M1 (si los playtests lo piden) |

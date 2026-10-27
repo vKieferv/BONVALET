@@ -58,7 +58,7 @@ Desmarque 0 PA (física, desgaste alto), Tiro de lejos 1, Remate de primera y el
 [figura]" 2, firmas con nombre propio 3 (Zapatazo, Arremetida; Sangre fría 2). Mide: constructibilidad
 de mano ≥85% (Momentos de 3 jugadas, estamina llena). Resultado: 87%.
 
-**D-12 · 2026-10-26 · 4 Momentos por equipo, de 3 jugadas** · VIGENTE · EN REVISIÓN en M1
+**D-12 · 2026-10-26 · 4 Momentos por equipo, de 3 jugadas** · VIGENTE (precisada por D-16)
 4 Momentos propios (LOW 3, HIGH puede sumar) y todos piden 3 jugadas; los de 2 salen solo del
 contragolpe o del espacio rival. Por qué: con remates a 2 PA y Aguantar, la matriz subió a 2.96
 goles; 3 jugadas fijas la dejan en rango sin bajar los % que ve el jugador. Descartado: dificultad
@@ -78,6 +78,31 @@ simulador; la diversión se valida con playtests humanos (`docs/playtests/`).
 Pilares (`pilares.md`), GDD vivo con estados (`gdd.md`), buzón de ideas (`ideas.md`), este
 registro y hitos con criterio de salida (`roadmap.md`). Las ideas nuevas no entran al sprint en
 curso. Las sesiones autónomas implementan tareas decididas; las reglas del partido se deciden juntos.
+
+**D-16 · 2026-10-26 · Largo de jugada: 3 para todos, 2 para Catenaccio** · VIGENTE
+Los Momentos piden 3 jugadas salvo Catenaccio, que pide 2 (su identidad "ultra corta" del GDD). Vale
+para bots y para el jugador: si diriges un club Catenaccio, tus Momentos son de 2. Por qué
+(`tests/lab/m1.json`): Catenaccio 2 sube a Palestino de 0.72 a 1.18 goles y la matriz queda en 2.57.
+Descartado: largo del GDD por arquetipo (3.46 goles) y el GDD suavizado (2.72), porque alargar la
+jugada sin compensación hunde a Tiki-Taka (Colo-Colo 0.63-1.01 goles). Tiki-Taka 3-4 queda en I-09,
+atado a una mecánica que premie el pase largo. Cierra también la pregunta "Catenaccio marca poco"
+(cambiar cuándo remata el bot no movía nada).
+
+**D-17 · 2026-10-26 · Kamikaze: lesión tardía ×2.5** · VIGENTE
+`late_injury_mult` de Kamikaze baja de 4.0 a 2.5: La Serena pasa de 21% a 14-15% de partidos con
+lesión (el "hasta 15%" del diseño) y el total de la liga de 4.5% a ~3.2%, sin cambiar los goles.
+Descartado: ×2 (~12%) y dejar ×4.
+
+**D-18 · 2026-10-26 · La Intercepción no se toca** · VIGENTE
+Los datos no la señalan: corta ~0.9 ataques por partido a Colo-Colo y quitarla o encarecerla casi
+no cambia la tabla. La ventaja de la UC (Contragolpe) es de ataque (1.58 goles). La jerarquía entre
+clubes (el Colo-Colo de 2006 debería ser el mejor) se resuelve con la fuerza del plantel (I-06),
+no con el arquetipo. Nota: la Intercepción ya tiene bono 0 y el motor ignora los bonos negativos.
+
+**D-19 · 2026-10-26 · Cerrar el juego a mitad de partido: se repite el partido** · VIGENTE
+Como funciona desde T-01: al volver, el partido se juega desde el principio. Se acepta que se
+pueda abusar (juego para un jugador). Descartado: perder por secretaría 0-3 y guardar a mitad de
+partido (caro: estado completo del motor).
 
 ### Descartadas (para no reabrirlas sin datos nuevos)
 - **Tempo ofensivo +7 / regen +3** (2026-10-26): no llegaba al objetivo de goles y quedó obsoleto con

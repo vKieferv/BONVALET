@@ -71,6 +71,7 @@ contra ti según su estilo.
 El % de cada carta es el que se tira, con desglose en el tooltip (pilar 2).
 
 ## 3. Cartas y mazo
+Catálogo por familia, nombres, variantes y jugadas anotadas: `cartas.md` (bloc de trabajo).
 
 ### 3.1 Mazo unificado [DECIDIDO] · tamaño EN DISEÑO (ver 3.5)
 Hoy 18-20 cartas: cartas del DT (`data/cards.json`) + cartas firma de los titulares

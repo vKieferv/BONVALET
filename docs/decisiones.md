@@ -159,6 +159,13 @@ y documentada. Sin fuente, `null` y una entrada en `review` (D-02). Descartado: 
 juegos (Football Manager, archivos de PES): son propiedad de sus estudios o de origen dudoso, y sus
 puntajes son trabajo creativo ajeno.
 
+**D-28 · 2026-10-27 · Complejidad progresiva, como Slay the Spire** · VIGENTE
+Se empieza con jugadas básicas: el mazo inicial solo tiene cartas cuyo efecto es su verbo y su %, sin
+texto extra. Las cartas con más texto y combinaciones (transición, saltar una línea, marcaje al hombre)
+se desbloquean jugando. Por qué: decisión del usuario; agregar mecánicas puede enredar el partido, y
+así cada mecánica llega cuando el jugador ya domina las anteriores. Mecanismo propuesto: el nivel del
+DT, que sube con la experiencia (I-46). Coincide con el mazo estándar de D-23.
+
 ### Descartadas (para no reabrirlas sin datos nuevos)
 - **Tempo ofensivo +7 / regen +3** (2026-10-26): no llegaba al objetivo de goles y quedó obsoleto con
   PA + Estamina; el stash se borró.

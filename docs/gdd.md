@@ -70,8 +70,16 @@ contra ti según su estilo.
 ### 2.8 Transparencia [DECIDIDO]
 El % de cada carta es el que se tira, con desglose en el tooltip (pilar 2).
 
+### 2.9 Duelos por línea [IDEA · I-45] · M2/M3
+Cada jugada del Momento cruza una línea del rival y enfrenta a uno de sus jugadores: la carta usa un
+atributo de tu jugador contra el de él (como los enemigos de Slay the Spire). La formación del estilo
+define cuántos hay en cada línea (superioridad numérica, I-44) y el nivel de tu DT, cuánto ves antes
+(I-41, I-46). Borrador y ejemplo (M14 contra Kalule): `cartas.md`.
+
 ## 3. Cartas y mazo
 Catálogo por familia, nombres, variantes y jugadas anotadas: `cartas.md` (bloc de trabajo).
+**Complejidad progresiva [DECIDIDO · D-28]:** se empieza con cartas básicas (verbo y %, sin texto); las
+cartas con más texto se desbloquean jugando, con el nivel del DT (I-46).
 
 ### 3.1 Mazo unificado [DECIDIDO] · tamaño EN DISEÑO (ver 3.5)
 Hoy 18-20 cartas: cartas del DT (`data/cards.json`) + cartas firma de los titulares

@@ -103,6 +103,48 @@ _Sin entradas todavía._
 - El largo de la jugada ya depende del estilo en parte (Catenaccio 2, D-16); la intención lo muestra.
   Cartas que den más jugadas o PA: más adelante.
 
+## Duelos por línea (borrador, I-45) y nivel del DT (I-46)
+Idea del usuario (2026-10-27): los enfrentamientos son como en Slay the Spire, pero en cada jugada te
+enfrentas a un defensa central, a un volante o a un delantero rival. Así importan las valoraciones de
+los jugadores.
+
+**Estructura propuesta:** las 3 jugadas del Momento son las 3 líneas del rival.
+| Jugada | Cruzas | Te enfrenta | Duelo típico |
+|---|---|---|---|
+| 1 · Salida | sus delanteros (presionan) | un DEL o MC rival | pase contra presión |
+| 2 · Medio | sus volantes | un MC rival | regate contra quite, pase contra anticipación |
+| 3 · Definición | sus defensas y el arquero | un DFC y el POR | remate contra arquero, centro contra juego aéreo |
+- Catenaccio (2 jugadas, D-16) = salida y definición: se salta el medio, juega directo.
+- La **formación del estilo** dice cuántos hay en cada línea; la postura mueve uno, pero la formación
+  pone el tope (Catenaccio en HIGH sigue con pocos arriba). Cuál de sus jugadores te toca es azar, como
+  el encuentro de Slay the Spire. Más gente en la línea = Inferioridad numérica en el desglose (I-44).
+- **Transición** = el rival quedó desordenado: una de sus líneas con uno menos en tu próximo Momento.
+- **Pase largo / Pelotazo** = te saltas una línea (avanza 2), sin duelo en ella.
+
+**Ejemplo (números inventados para ilustrar):** jugada 2, te toca Kalule Meléndez (Quite 85).
+- M14 (Regate 95) juega Amague: base 50 + carta 18 + duelo (95 − 85) = **78%**. Igual le queda 22% a
+  Kalule.
+- Felipe Flores (Regate 60) con el mismo Amague: 50 + 18 + (60 − 85) = **43%**. Le conviene el
+  Pelotazo: no hay duelo con Kalule, ~50%, y avanza 2 (se salta el medio).
+- El desglose lo muestra: "Regate de Fernández +95 · Quite de Meléndez −85" o similar (pilar 2).
+
+**Qué hace falta (por qué es un cambio grande):** hoy cada jugador tiene un solo número
+(`skill_rating`: Matías Fernández 84, Rodrigo Meléndez 72) y el partido usa un único `PlayerStats`.
+Hacen falta 3-4 atributos por jugador (por ejemplo Pase, Regate, Remate, Quite; arquero: Atajada),
+asignados por diseño en datos reemplazables (D-26, D-27), un desglose nuevo y bots que elijan carta
+según el duelo. Se recalibra todo el balance.
+
+**Pasos propuestos (básico primero, como D-28):**
+1. Duelo contra la **línea**: un número por línea (promedio del plantel). Prueba si la estructura de 3
+   líneas es divertida.
+2. Duelo contra un **jugador** de la línea, con atributos y figuras que destacan (Kalule, M14).
+3. **Verbos que interactúan** (regate contra quite, pase largo que salta), superioridad numérica e
+   intención según el nivel del DT.
+
+**Nivel del DT (I-46):** el tuyo sube con la experiencia; cada nivel muestra más de la intención del
+rival y suma cartas más complejas a las ofertas del entrenamiento (D-28). Cada DT rival tiene un nivel
+estimado para la IA, asignado en los datos como el arquetipo.
+
 ## Transición: reglas por decidir (I-40)
 Cálculo simplificado de la escala (Momento de 3 jugadas al 60%, un fallo de margen, sin contar PA):
 sin bono ~48% de gol · +10 solo en la primera ~52% · +6 en todas ("uno más") ~58% · +10 en todas ~65%.
@@ -113,7 +155,7 @@ sin bono ~48% de gol · +10 solo en la primera ~52% · +6 en todas ("uno más") 
 | ¿Se pierde si te hacen gol? | sí / no | sí: saque del medio. Es la apuesta de dejar atacar al rival |
 | ¿Cuánto dura? | próximo Momento / se guarda | solo tu próximo Momento, con aviso "TRANSICIÓN LISTA" como el del contragolpe |
 
-## Cartas de estilo por arquetipo (borrador, I-42)
+## Cartas de estilo por arquetipo (aceptadas como dirección, I-42)
 La personalidad del DT vive en las cartas que le ofrece su entrenamiento (las "2 de tu estilo" de
 T-05), como las clases de Slay the Spire. Hoy las listas de crecimiento de T-04 son las mismas cartas
 genéricas en otro orden: lo único propio de cada estilo es su rasgo. Cada carta usa un verbo del idioma

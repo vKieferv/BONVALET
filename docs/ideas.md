@@ -12,10 +12,10 @@ Para agregar una, la skill `idea-nueva` hace el análisis y la anota aquí.
 
 | ID | Idea | Origen | Pilar | Estado | Hito |
 |---|---|---|---|---|---|
-| I-01 | Ganar cartas: los entrenamientos de la semana generan cartas tácticas para el mazo (60% DT / 40% plantel) | GDD original | 3 | ACEPTADA | M2 |
-| I-02 | Quitar cartas del mazo (con costo: dinero, semana o moral) | Género | 1 | NUEVA | M2 |
-| I-03 | Mejorar cartas (subir % o bajar PA/desgaste) | Género | 1 | NUEVA | M2 |
-| I-04 | Perfiles de DT con tamaño de mazo y mano propios; Catenaccio con casillero defensivo fijo; Kamikaze con Descarte Agresivo (2 cartas → +25%) | GDD original | 1 | ACEPTADA | M2 |
+| I-01 | Ganar cartas: los entrenamientos de la semana generan cartas tácticas para el mazo (60% DT / 40% plantel) | GDD original | 3 | DECIDIDA: elegir 1 de 3 en el Bloque 2 (D-20) | M2 |
+| I-02 | Quitar cartas del mazo (con costo: dinero, semana o moral) | Género | 1 | DECIDIDA: la carta nueva reemplaza a otra si el mazo está en su tope (D-20) | M2 |
+| I-03 | Mejorar cartas (subir % o bajar PA/desgaste) | Género | 1 | DECIDIDA: sesión de video en el Bloque 2 (D-21) | M2 |
+| I-04 | Perfiles de DT con tamaño de mazo y mano propios; Catenaccio con casillero defensivo fijo; Kamikaze con Descarte Agresivo (2 cartas → +25%) | GDD original | 1 | REEMPLAZADA por el mazo estándar + carta de rasgo (GDD 3.5, en diseño) | M2 |
 | I-05 | Progresión de canteranos: suben atributos y desbloquean su carta privada | GDD original | 3 | ACEPTADA | M2 |
 | I-06 | Atributos de los titulares afectan el motor (hoy solo activan el Ejecutor Natural); carta jugada por un compañero usa sus atributos. También define la jerarquía entre clubes (D-18) | GDD original | 1, 4 | ACEPTADA | M2/M3 |
 | I-07 | Largo de jugada por arquetipo (Tiki-Taka 3-4, Directo 1-2, Contragolpe 2, Catenaccio 1) en vez de 3 fijas | GDD / pizarra | 1 | DESCARTADA en su forma literal (D-16: solo Catenaccio 2) | — |

@@ -1,0 +1,20 @@
+[
+	{"name": "hoy: 20 cartas iguales para todos"},
+	{"name": "estándar 13: 4 pase, 1 pie, 1 desm, 2 tiro, 1 remate, 2 pres, 1 bloq + firma",
+		"cards": {"pase_corto": {"count": 4}, "promesa_control": {"count": 0}, "pausa": {"count": 0},
+			"pase_filtrado": {"count": 0}, "amague": {"count": 0}, "centro": {"count": 0},
+			"tiro_lejano": {"count": 2}, "chilena": {"count": 0}, "intercepcion": {"count": 0}, "despeje": {"count": 0}}},
+	{"name": "estándar 13 + 4 elegidas (17): filtrado, centro, chilena, despeje",
+		"cards": {"pase_corto": {"count": 4}, "promesa_control": {"count": 0}, "pausa": {"count": 0},
+			"amague": {"count": 0}, "tiro_lejano": {"count": 2}, "intercepcion": {"count": 0}}},
+	{"name": "estándar 13, mano de 5",
+		"cards": {"pase_corto": {"count": 4}, "promesa_control": {"count": 0}, "pausa": {"count": 0},
+			"pase_filtrado": {"count": 0}, "amague": {"count": 0}, "centro": {"count": 0},
+			"tiro_lejano": {"count": 2}, "chilena": {"count": 0}, "intercepcion": {"count": 0}, "despeje": {"count": 0}},
+		"player_for": {"colo_colo": {"vision": 35}, "palestino": {"vision": 35}, "universidad_catolica": {"vision": 35}, "cobreloa": {"vision": 35}, "deportes_la_serena": {"vision": 35}}},
+	{"name": "estándar 13 en Colo-Colo + 1 carta (Remate de primera extra), rivales igual",
+		"cards": {"pase_corto": {"count": 4}, "promesa_control": {"count": 0}, "pausa": {"count": 0},
+			"pase_filtrado": {"count": 0}, "amague": {"count": 0}, "centro": {"count": 0},
+			"tiro_lejano": {"count": 2}, "chilena": {"count": 0}, "intercepcion": {"count": 0}, "despeje": {"count": 0}},
+		"cards_for": {"colo_colo": {"remate_primera": {"count": 2}}}}
+]

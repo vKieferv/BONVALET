@@ -40,9 +40,13 @@ Tareas:
 - [ ] Playtests 1-5 (usuario) → skill `playtest`; los arreglos que salgan, como tareas nuevas
 
 ## M2 · Deckbuilder de verdad (en diseño)
-- [ ] Diseñar el bucle: ganar, quitar y mejorar cartas (I-01 a I-03), perfiles de DT (I-04),
-      canteranos (I-05). Datos de partida en `tests/lab/m2_cartas.json`: hoy todos los clubes tienen
-      casi el mismo mazo y ±1 carta mueve ~±0.1 goles por partido (la mano o la técnica, ~±0.2).
+- [x] Bucle del mazo decidido (D-20 a D-22): Bloque 2 = carta (1 de 3) / mejora / kinesiología;
+      los rivales también crecen. Detalle en GDD 3.4.
+- [ ] Mazo inicial estándar + carta de rasgo del DT (GDD 3.5, en diseño): diseñar las cartas básicas
+      débiles y los rasgos, medirlos con `balance-lab` y decidir tamaños.
+- [ ] Canteranos y progresión (I-05).
+- [ ] Tareas de implementación (cuando 3.5 esté decidido): Bloque 2 nuevo con elección y mejora,
+      crecimiento de los rivales, mazo estándar; cada una con `-Balance`.
 - [ ] Modo Copa (I-34): partida corta de 5-6 partidos con mazo que crece; sirve de demo.
 - Ojo: la matriz está en 2.55 goles (tope 2.6); lo que sume goles en M2 tiene que compensarse.
 

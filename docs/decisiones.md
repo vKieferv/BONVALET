@@ -104,6 +104,22 @@ Como funciona desde T-01: al volver, el partido se juega desde el principio. Se 
 pueda abusar (juego para un jugador). Descartado: perder por secretaría 0-3 y guardar a mitad de
 partido (caro: estado completo del motor).
 
+**D-20 · 2026-10-27 · Las cartas nuevas salen del entrenamiento: elegir 1 de 3** · VIGENTE
+En el Bloque 2, el entrenamiento táctico ofrece 3 cartas de tu estilo y te quedas con una (ritmo de
+una carta por semana, como Slay the Spire). Si el mazo está en su tope, la nueva reemplaza a otra:
+así también se quitan cartas. Descartado: premio por resultado (el que pierde se queda atrás) y
+mercado con presupuesto (economía que todavía no existe). Fichajes y canteranos serán otra fuente (M3).
+
+**D-21 · 2026-10-27 · Bloque 2: elegir UNA entre carta, mejora o kinesiología** · VIGENTE
+Entrenamiento táctico (carta nueva, D-20), sesión de video (mejorar una carta: +10 pts o −1 PA) o
+kinesiología (−25 de fatiga). Crecer el mazo compite con descansar (pilar 3). La forma +3% del
+entrenamiento táctico actual se reemplaza por la carta. Descartado: carta gratis todas las semanas.
+
+**D-22 · 2026-10-27 · Los rivales también crecen durante la temporada** · VIGENTE
+Cada semana el mazo del rival suma o mejora una carta de su arquetipo (paridad, D-08), para que el
+simulador siga midiendo el juego real y el jugador no se vuelva imparable a mitad de torneo.
+Descartado: mazo fijo con dificultad que sube por fecha.
+
 ### Descartadas (para no reabrirlas sin datos nuevos)
 - **Tempo ofensivo +7 / regen +3** (2026-10-26): no llegaba al objetivo de goles y quedó obsoleto con
   PA + Estamina; el stash se borró.

@@ -72,8 +72,8 @@ El % de cada carta es el que se tira, con desglose en el tooltip (pilar 2).
 
 ## 3. Cartas y mazo
 
-### 3.1 Mazo unificado [DECIDIDO]
-18-20 cartas: cartas del DT (`data/cards.json`) + cartas firma de los titulares
+### 3.1 Mazo unificado [DECIDIDO] · tamaño EN DISEÑO (ver 3.5)
+Hoy 18-20 cartas: cartas del DT (`data/cards.json`) + cartas firma de los titulares
 (`data/signature_cards.json`). Reglas de liga: máx. 6 extranjeros, mín. 2 Sub-21.
 
 ### 3.2 Cartas del DT [EN PRUEBA]
@@ -86,18 +86,39 @@ Propias de una figura (Zapatazo de Suazo, Arremetida de Alcázar, Sangre fría d
 genérica "Sello de [figura]". Estilos por tag: potencia (el bloqueo cuenta la mitad), sangre fría
 (+10 con el Momento a un fallo de perderse), física.
 
-### 3.4 Construcción del mazo — el corazón del deckbuilder [IDEA] · prioridad M2
-Hoy el mazo **se arma solo**: el jugador no elige, quita ni mejora cartas. Es la mayor brecha con
-el género. Diseño original: el 60% del mazo son cartas tácticas que **generan los entrenamientos de
-la semana**, el 40% cartas privadas de los titulares. Falta definir: cómo se ganan cartas, cómo se
-quitan, cómo se mejoran y qué límites hay. Ver `ideas.md` (I-01 a I-04).
+### 3.4 Construcción del mazo — el corazón del deckbuilder [DECIDIDO] · se implementa en M2
+Decidido el 2026-10-27 (D-20 a D-22):
+- **Bloque 2 = la decisión del mazo.** Eliges UNA: **entrenamiento táctico** (te ofrecen 3 cartas de
+  tu estilo y eliges 1; si el mazo está en su tope, reemplaza a otra), **sesión de video** (mejoras
+  una carta: +10 pts o −1 PA) o **kinesiología** (−25 de fatiga). Crecer compite con descansar.
+- **Los rivales también crecen** con cartas de su arquetipo, una por semana (paridad).
+- Fichajes, ojeo y canteranos serán otra fuente de cartas (M3).
 
-### 3.5 Perfiles de DT [IDEA] · M2
-- Posesión: mazo 20-22, mano de 6.
-- Directo: mazo 12-15, mano de 4.
-- Catenaccio: mazo 16, un casillero fijo de defensa/enfriamiento.
-- Kamikaze: mazo 18, Descarte Agresivo (descartar 2 para +25% en la jugada).
+Datos (`tests/lab/m2_cartas.json`, `m2_estandar.json`): con un mazo de 20, una carta mueve ~±0.04-0.11
+goles por partido; con uno de 13, el doble. La mano pesa más que una carta (mano 7: +0.18; mano 5: −0.23).
 
+### 3.5 Mazo inicial estándar y carta de rasgo del DT [EN DISEÑO] · M2
+Idea del usuario (2026-10-27): como en Slay the Spire, todos empiezan con un **mazo estándar de
+cartas básicas** (ataque básico, defensa básica) más **una carta de acción con el rasgo del DT**, y
+el mazo crece con las elecciones. Reemplaza los "perfiles de DT con mazos de 12-22" del GDD original.
+Preguntas abiertas:
+1. **Las básicas tienen que ser débiles a propósito.** Una aproximación con cartas que ya existen
+   (13 cartas sin Chilena, Intercepción ni Despeje) dio **2.94 goles** (sube, porque son cartas
+   buenas y hay menos cortes) y mucho cansancio (78% en el 2T). Con mano de 5, 2.51. Hay que diseñar
+   cartas básicas nuevas y calibrarlas.
+2. **Tamaño inicial y tope:** ¿~10-13 al empezar y hasta ~20? Hoy la regla es 18-20 (`DeckManager`).
+3. **Carta de rasgo:** ¿una por arquetipo (5 cartas) o una por DT real (32, más nostalgia)? Se
+   puede empezar por arquetipo y sumar las de DT famosos después.
+4. **Firmas de los titulares:** ¿entran al mazo inicial o se ganan durante la carrera?
+5. **Reglas de liga** (máx. 6 extranjeros, mín. 2 Sub-21 en el mazo): ¿cómo conviven con un mazo chico?
+
+Borrador para discutir (no decidido):
+- **Básicas:** Pase corto ×4-5 (ataque, 0 PA), Remate simple ×2 (1 PA, acierto bajo), Marca ×3
+  (defensa, efecto chico).
+- **Rasgo por arquetipo:** Tiki-Taka "Toque-toque" (pase que, si sale, roba una carta: premia la
+  jugada larga, ver I-09); Directo "Pelotazo" (cuenta como 2 pasos, acierto bajo); Catenaccio
+  "Cerrojo" (defensa que bloquea y abarata tu próximo ataque); Kamikaze "Presión total" (presión fuerte
+  que gasta mucha estamina); Contragolpe "Salida rápida" (tras cortar, tu Momento parte avanzado).
 ### 3.6 Canteranos y progresión [IDEA] · M2
 Cualquier jugador (también Sub-21) mejora con entrenamientos y puede desbloquear su propia carta
 privada. Hoy las cartas "canterano" solo se asignan a un Sub-21 del plantel.

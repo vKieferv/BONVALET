@@ -445,8 +445,9 @@ def main():
                         "sources": sources,
                         "picked": len(pick) if pick else 0, "review": review}
         if pick is None or (figure is not None and not fig_in):
-            pending[club] = ["%d jugadores con membresía fechada en 2006 en Wikidata y %d utilizables (faltan %d para 18): %s" % (
-                len(cands[club]), len(pool), max(0, 18 - len(pool)),
+            missing = max(0, 18 - len(pool))
+            pending[club] = ["%d jugadores con membresía fechada en 2006 en Wikidata y %d utilizables (%s %d para 18): %s" % (
+                len(cands[club]), len(pool), "falta" if missing == 1 else "faltan", missing,
                 ", ".join("%s (%s)" % (x[0]["name"], x[0]["qid"]) for x in sorted(pool, key=lambda x: x[0]["name"])))] + \
                 review + ["%s (%s): %s" % (x[0]["name"], x[0]["qid"], n) for x in pool for n in x[3]]
             continue

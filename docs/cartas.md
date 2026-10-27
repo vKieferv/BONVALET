@@ -239,18 +239,43 @@ solo muestra lo que viene.
 lleva marco dorado y su perfil ("Gambeteador: +10 a Regate"); los demás, "sin perfil". El arquero
 muestra Atajada y Físico.
 
-**Reglas que la maqueta da por hechas (por confirmar):**
-1. El camino se arma al empezar el Momento (cuántos hay y a quién enfrentas en cada línea); el nivel del
-   DT decide cuánto ves antes de llegar.
-2. Si fallas una jugada, sigues frente al mismo rival hasta pasar su línea.
-3. Los remates solo se juegan en la definición (hoy se pueden jugar antes y cuentan como avance).
-4. Duelos de las cartas de defensa: Presión = tu Quite contra el Regate de su creador; Bloqueo = tu Quite
-   contra el Remate de su rematador; Despeje = tu Lectura contra el Pase de su creador.
-5. Quién juega: el mejor de tu línea en esa habilidad. En el medio de Colo-Colo eso es casi siempre M14.
+**Reglas de los duelos (D-31; respuestas del usuario del 2026-10-27, con propuestas para probar):**
+1. **A quién enfrentas:** se decide al empezar el Momento. Cualquier rival te puede salir, pero es más
+   probable el más cercano. Propuesta: 70% uno de la línea que cruzas, 25% uno de una línea vecina, 5%
+   cualquiera. El arquero solo aparece contra los remates.
+2. **Fallar no corta el Momento:** sigues contra el mismo rival hasta que se te acaben los PA (o las
+   cartas) o te la roben. Reemplaza "2 fallos lo pierden" (GDD 2.1) en el modelo de duelos. Propuesta:
+   1 de cada 3 fallos es robo, y la carta lo muestra ("pasa 72% · robo 9%"). Si te la roban en la
+   salida o en el medio, el rival queda con contragolpe; en la definición, no.
+3. **Los remates solo se juegan en la definición**, salvo las cartas de tiro lejano, que se juegan desde
+   más atrás con castigo por la distancia. Propuesta: desde el medio −15 y desde la salida −35; no
+   cuentan los números del área (el tiro pasa por encima), solo el arquero.
+4. **Duelos de las cartas de defensa**, como en la maqueta: Presión y Bloqueo con tu Quite, Despeje con
+   tu Lectura.
+5. **La carta la juega el que tiene el balón**, y al pasar eliges a quién se la das (es una segunda
+   decisión). Los rechazos (despejes) caen al azar. Propuesta para el arranque: en un Momento normal
+   eliges quién sale de tu línea de atrás; tras una intercepción arranca el que la cortó; tras un
+   despeje, uno al azar.
+6. **Cada jugador se cansa por separado**, para obligar a rotar (si juegas todo con M14, se funde).
+   Propuesta que respeta D-04 (la estamina no toca el %): cada jugador suma carga con el desgaste de las
+   cartas que juega; pasado su Físico queda **cansado** y, como un funado (D-06), sus cartas gastan +50%
+   de estamina y su riesgo de lesión sube. Alternativa: que el cansancio baje sus habilidades (se vería
+   en el desglose), pero eso reemplaza parte de D-04.
 
-**Alerta de balance:** una figura con perfil, carta firma y Ejecutor Natural llega al tope: la
-Arremetida de Alcázar contra Bravo da 95%. Va con la revisión del Ejecutor Natural (Habilidades, "Por
-decidir o medir").
+**Por revisar (punto 6 del usuario):**
+- **Bravo lleva perfil** de arquero (su rasgo de "héroe"): Atajador.
+- **Alcázar con 95 de Remate es demasiado.** Propuesta de fórmula más corta: ajuste del puesto hasta +3
+  (antes +5), perfil +6 (antes +10), tope 95. Quedan Alcázar 89, Suazo 95, M14 90 de Regate, Bravo 86 de
+  Atajada e Iturra 75 de Quite.
+- **Escala:** 1-100 en el partido, porque el desglose necesita el número exacto (pilar 2); estrellas solo
+  como resumen de la media en los menús (plantel, fichajes, ojeo). La media es el nivel que ya existe.
+- **Lógica del remate:** contra el área llena cuentan los números; si antes superas la última línea (un
+  regate o un pase en la definición), quedas **mano a mano** y solo cuenta el arquero. Con la fórmula
+  corta, Bravo con perfil y sin Ejecutor Natural, la Arremetida de Alcázar queda en 75% contra 3 contra
+  4, 69% si además presionas (3 contra 5) y 81% mano a mano. Los bonos de los remates (+40) se
+  calibraron sin duelos: se vuelven a medir con `balance-lab`.
+- **Ejecutor Natural:** si la carta firma solo la puede jugar su dueño (tiene que tener el balón), el +15
+  sobra.
 
 ## Intención del rival y superioridad numérica (I-41, I-44)
 - **Qué ves depende del nivel de tu DT frente al del rival** (usuario). El tuyo sube con la experiencia;

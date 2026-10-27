@@ -182,6 +182,20 @@ superioridad numérica de cada jugada, I-44) y a quién enfrentas. Más adelante
 (I-47). Asignación (confirmada por el usuario): Catenaccio 5-3-2, Directo 4-4-2, Tiki-Taka 4-1-2-1-2,
 Contragolpe 4-3-3, Kamikaze 3-5-2. Salen del estilo, no de la formación real de cada club en 2006.
 
+**D-31 · 2026-10-27 · Reglas de los duelos** · VIGENTE (diseño de I-45, sin código)
+Respuestas del usuario a la maqueta de la pantalla (`cartas.md`, "Pantalla de duelos"):
+1. A quién enfrentas se decide al empezar el Momento; cualquier rival puede salirte, pero es más
+   probable el más cercano.
+2. **Fallar no corta el Momento:** sigues hasta que se te acaben los PA o te la roben. Reemplaza, en el
+   modelo de duelos, el "2 fallos lo pierden" de GDD 2.1; el juego actual lo mantiene hasta implementarlo.
+3. Los remates solo se juegan en la definición, salvo las cartas de tiro lejano, que se juegan desde más
+   atrás con castigo por la distancia.
+4. Duelos de defensa: Presión y Bloqueo con el Quite, Despeje con la Lectura.
+5. La carta la juega el que tiene el balón; al pasar se elige a quién; los rechazos caen al azar.
+6. Cada jugador se cansa por separado, para obligar a rotar.
+Los valores (probabilidades de quién te sale, parte de los fallos que son robo, castigo por distancia,
+cómo actúa el cansancio sin romper D-04) son propuestas de prueba en `cartas.md`.
+
 ### Descartadas (para no reabrirlas sin datos nuevos)
 - **Tempo ofensivo +7 / regen +3** (2026-10-26): no llegaba al objetivo de goles y quedó obsoleto con
   PA + Estamina; el stash se borró.

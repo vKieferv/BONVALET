@@ -57,3 +57,8 @@ puede correr ahí.
   "Si no hay acceso a Wikidata", no se tocó `data/squads_2006.json` ni se usó otra fuente. Para
   reintentar en la nube hay que agregar `query.wikidata.org` en *Allowed domains* del entorno (o subir
   su nivel de acceso a la red); si no, correrla desde el PC del usuario.
+- **2026-10-27, misma sesión: hecha por GitHub Actions** (autorizada por el usuario). Un workflow
+  temporal corrió `tools/t08/fetch.py` (Wikidata) y `tools/t08/fetch_wiki.py` (fichas de es.wikipedia)
+  y subió la instantánea a la rama; `tools/t08/build.py` eligió los 18 y calculó los atributos. Con
+  fechas en Wikidata, 3 de los 16 clubes llegan a 18 (Audax, Unión Española, Palestino); los demás
+  siguen generados y lo encontrado está en el `review` de la raíz de `data/squads_2006.json`.

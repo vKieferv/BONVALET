@@ -6,6 +6,7 @@
 import json
 import math
 import os
+import re
 import sys
 import unicodedata
 
@@ -216,6 +217,81 @@ def club_stints(pdata, club_qids):
     return out
 
 
+# Clubes en la trayectoria de es.wikipedia: palabras del enlace o del texto, y palabras que lo
+# descartan (homónimos de otros países).
+WIKI_CLUBS = {
+    "cobreloa": (["cobreloa"], []), "audax_italiano": (["audax"], []), "huachipato": (["huachipato"], []),
+    "union_espanola": (["union espanola"], []), "everton": (["everton"], ["football club", "f. c.", "fc"]),
+    "santiago_wanderers": (["santiago wanderers"], []), "universidad_de_concepcion": (["universidad de concepcion"], []),
+    "o_higgins": (["higgins"], ["instituto"]), "cobresal": (["cobresal"], []), "palestino": (["palestino"], []),
+    "deportes_antofagasta": (["antofagasta"], []), "deportes_la_serena": (["la serena"], []),
+    "coquimbo_unido": (["coquimbo"], []), "deportes_puerto_montt": (["puerto montt"], []),
+    "rangers": (["rangers"], ["glasgow", "football club", "queens", "fc"]), "santiago_morning": (["santiago morning"], []),
+}
+
+
+def wiki_career(ficha):
+    """[(texto del club, año inicio, año fin)] desde el campo equipos de la ficha, en orden."""
+    if not ficha:
+        return None
+    text = "\n".join(m.group(1) for m in re.finditer(
+        r"\|\s*(?:equipos|clubesanteriores|clubesanterioresjug)\s*=(.*?)(?=\n\s*\|\s*[a-zñ_ ]+\s*=|\Z)", ficha, re.S | re.I))
+    out = []
+    for line in re.split(r"\n|<br\s*/?>", text):
+        link = re.search(r"\[\[([^\]|]+)(?:\|([^\]]+))?\]\]", line)
+        years = re.search(r"\((\d{4})(?:\s*[-–]\s*(\d{2,4}|presente|actualidad)?)?\)", line)
+        if not link or not years:
+            continue
+        a = int(years.group(1))
+        b = years.group(2)
+        if b is None:
+            end = a
+        elif not b.isdigit():
+            end = 9999
+        elif len(b) == 2:
+            end = int(str(a)[:2] + b)
+        else:
+            end = int(b)
+        out.append((norm(link.group(1)) + " | " + norm(link.group(2) or ""), a, end))
+    return out or None
+
+
+def wiki_says(career, club):
+    """True si la trayectoria lo pone en el club en 2006, False si no, None si no hay trayectoria."""
+    if career is None:
+        return None
+    words, bad = WIKI_CLUBS[club]
+    return any(all(w in txt for w in words) and not any(b in txt.split(" | ")[0] for b in bad) and a <= 2006 <= e
+               for txt, a, e in career)
+
+
+def wiki_last_2006(career, clubs):
+    """De varios clubes, el último que la trayectoria muestra en 2006 (el orden de la lista)."""
+    last = None
+    for txt, a, e in career or []:
+        if not (a <= 2006 <= e):
+            continue
+        for club in clubs:
+            words, bad = WIKI_CLUBS[club]
+            if all(w in txt for w in words) and not any(b in txt.split(" | ")[0] for b in bad):
+                last = club
+    return last
+
+
+def final_lineups():
+    """Títulos de los artículos enlazados en las alineaciones de las finales 2006 (es.wikipedia)."""
+    names = set()
+    for page in ("Final_del_Torneo_Apertura_2006_(Chile)", "Final_del_Torneo_Clausura_2006_(Chile)"):
+        path = os.path.join(OUT, "wikipedia", page + ".wikitext")
+        if not os.path.exists(path):
+            continue
+        for line in open(path, encoding="utf-8"):
+            if re.search(r"\|(?:POR|DEF|MED|DEL)\]\]", line):
+                for m in re.finditer(r"\{\{Bandera\|[A-Z]{3}\}\}\s*\[\[([^\]|]+)", line):
+                    names.add(m.group(1).strip())
+    return names
+
+
 def stamina(role, age):
     base = {"POR": 64, "DFC": 68, "LAT": 74, "MCD": 76, "MCO": 68, "EXT": 76, "DEL": 68}[role]
     if age is None:
@@ -255,8 +331,8 @@ def skill(level, f, figure):
     else:
         mod = -2
     sel = 6 if f["senior"] else (2 if f["youth"] else 0)
-    fame = min(6, f["sitelinks"] // 5)
-    return max(40, min(99, base + mod + sel + fame + (10 if figure else 0)))
+    fame = min(4, f["sitelinks"] // 5)
+    return max(40, min(99, base + mod + sel + fame + (8 if figure else 0)))
 
 
 def support(f, stint_matches):
@@ -269,8 +345,14 @@ def main():
     chosen = load("clubs_elegidos.json")
     players = load("jugadores.json")
     figs = load("figuras.json")
+    fichas = load("wikipedia/fichas.json")
+    careers = {q: wiki_career(v.get("ficha")) for q, v in fichas.items()}
+    finals = final_lineups()
     taken = {p["id"] for t in squads["squads"].values() for p in t["players"]}
     taken_names = {norm(p["name"]) for t in squads["squads"].values() for p in t["players"]}
+    # ids de las figuras de los clubes que pueden quedar generados (SquadGenerator usa slug(figura)).
+    reserved = {t["id"]: slug(t["signature_card"]) for t in teams.values()
+                if t.get("signature_card") and t["id"] not in squads["squads"]}
 
     # 1. Candidatos por club: membresía con fechas que se cruza con la temporada 2006.
     cands = {}
@@ -292,6 +374,7 @@ def main():
     #    sigue después de 2006; si todas terminan en 2006, la que empezó más tarde. Empate: fuera.
     owner = {}
     moved = {}
+    by_wiki = set()
     for q, hs in homes.items():
         clubs_q = sorted({h[0] for h in hs})
         owner[q] = clubs_q[0]
@@ -309,12 +392,17 @@ def main():
         last = sorted({c for c, st, en in hs if lo(st) == latest and st[1] is not None} or
                       {c for c, st, en in hs if lo(st) == latest})
         owner[q] = last[0] if len(last) == 1 else None
+        if owner[q] is None:
+            owner[q] = wiki_last_2006(careers.get(q), clubs_q)
+            if owner[q] is not None:
+                by_wiki.add(q)
     for club in CLUBS:
         team = teams[club]
         level = int(team.get("facilities_level", 1))
         figure = team.get("signature_card")
         review = []
         pool = []
+        sources = {}
         fig_qids = {m["qid"] for m in figs.get(club, {}).get("matches", [])}
         fig_in = False
         for q, matches in sorted(cands[club].items()):
@@ -330,30 +418,41 @@ def main():
                     continue
                 if owner[q] != club:
                     continue
-                notes.append("en 2006 también en %s; terminó el año aquí" % others)
-            if norm(label) in taken_names or slug(label) in taken:
-                review.append("%s: también en 2006 aquí, pero ya está en el plantel de otro club real" % tag)
+                notes.append("en 2006 también en %s; terminó el año aquí%s" % (
+                    others, " según el orden de su trayectoria en es.wikipedia" if q in by_wiki else ""))
+            if norm(label) in taken_names:
+                loan = any(m.get("loan") == "Q2914547" for st, en, m in club_stints(pdata, {chosen[club]["qid"]}))
+                review.append("%s: en 2006 aquí%s, pero ya está en el plantel real de su club" % (tag, " a préstamo" if loan else ""))
                 continue
+            says = wiki_says(careers.get(q), club)
+            if says is False:
+                blocking.append("Wikidata lo pone en el club en 2006, pero su trayectoria en es.wikipedia no")
+            in_final = (fichas.get(q) or {}).get("title") in finals
             if blocking:
                 review.append("%s: %s; queda fuera" % (tag, "; ".join(blocking + notes)))
                 continue
             if is_fig:
                 fig_in = True
-            pool.append((f, support(f, matches), is_fig, notes))
+            pool.append((f, support(f, matches) + (5 if says else 0) + (5 if in_final else 0), is_fig, notes))
+            sources[q] = (says, in_final)
         if figure is not None and not fig_in:
             review.append("figura %s: no queda en el plantel con membresía fechada en 2006 (coincidencias por nombre: %s)" % (
                 figure, ", ".join(sorted(fig_qids)) or "ninguna"))
         pick = select(pool)
         report[club] = {"qid": chosen.get(club, {}).get("qid"), "candidates": len(cands[club]), "usable": len(pool),
+                        "sources": sources,
                         "picked": len(pick) if pick else 0, "review": review}
         if pick is None or (figure is not None and not fig_in):
-            pending[club] = ["%d jugadores con membresía fechada en 2006 en Wikidata, %d utilizables" % (
-                len(cands[club]), len(pool))] + review + ["%s (%s): %s" % (x[0]["name"], x[0]["qid"], n) for x in pool for n in x[3]]
+            pending[club] = ["%d jugadores con membresía fechada en 2006 en Wikidata y %d utilizables (faltan %d para 18): %s" % (
+                len(cands[club]), len(pool), max(0, 18 - len(pool)),
+                ", ".join("%s (%s)" % (x[0]["name"], x[0]["qid"]) for x in sorted(pool, key=lambda x: x[0]["name"])))] + \
+                review + ["%s (%s): %s" % (x[0]["name"], x[0]["qid"], n) for x in pool for n in x[3]]
             continue
         rows = []
         for f, sup, is_fig, notes in pick:
             pid = slug(f["name"])
-            if pid in taken:
+            own = is_fig and reserved.get(club) == pid
+            if pid in taken or (pid in reserved.values() and not own):
                 pid = "%s_%s" % (pid, club)
             taken.add(pid)
             rows.append({"id": pid, "name": figure if is_fig else f["name"], "age": f["age"],
@@ -425,6 +524,68 @@ def select(pool):
     return picked
 
 
+# ------------------------------------------------------------------ Escritura de data/squads_2006.json
+# El archivo está alineado a mano (un jugador por línea), así que se insertan bloques de texto con el
+# mismo estilo en vez de volver a serializarlo entero.
+
+KEYS = ["id", "name", "age", "nationality", "position", "role", "stamina_max", "skill_rating",
+        "signature_card_id", "wikidata"]
+
+
+def player_lines(players):
+    cells = [["%s: %s," % (json.dumps(k), json.dumps(p[k], ensure_ascii=False)) for k in KEYS] for p in players]
+    for row in cells:
+        row[-1] = row[-1].rstrip(",")
+    widths = [max(len(row[i]) for row in cells) for i in range(len(KEYS))]
+    lines = []
+    for row in cells:
+        parts = [c.ljust(widths[i]) if i < 2 else c for i, c in enumerate(row)]
+        lines.append("        {" + " ".join(parts) + "}")
+    return ",\n".join(lines)
+
+
+def club_block(club, data):
+    review = ",\n".join("        " + json.dumps(r, ensure_ascii=False) for r in data["review"])
+    return ('    %s: {\n      "players": [\n%s\n      ],\n      "review": [%s]\n    }' % (
+        json.dumps(club), player_lines(data["players"]), "\n" + review + "\n      " if review else ""))
+
+
+def write(result, pending, notes):
+    text = open(SQUADS, encoding="utf-8").read()
+    tail = "\n  }\n}\n"
+    assert text.endswith(tail), "fin inesperado en %s" % SQUADS
+    body = text[:-len(tail)]
+    for club in CLUBS:
+        if club in result:
+            body += ",\n" + club_block(club, result[club])
+    review = ",\n".join('    %s: [\n%s\n    ]' % (json.dumps(c), ",\n".join("      " + json.dumps(r, ensure_ascii=False) for r in pending[c]))
+                        for c in CLUBS if c in pending)
+    body += "\n  },\n  \"review\": {\n" + review + "\n  }\n}\n"
+    old_first = notes[0][0]
+    assert old_first in body
+    body = body.replace(old_first, notes[0][1])
+    anchor = '    "signature_card_id: carta de data/signature_cards.json.'
+    i = body.index(anchor)
+    j = body.index("\n", i)
+    body = body[:j].rstrip() + ",\n" + ",\n".join("    " + json.dumps(n, ensure_ascii=False) for n in notes[1:]) + body[j:]
+    json.loads(body)  # sigue siendo JSON válido
+    open(SQUADS, "w", encoding="utf-8").write(body)
+
+
+def notes_for(result):
+    names = {"colo_colo": "Colo-Colo", "universidad_de_chile": "U. de Chile", "universidad_catolica": "U. Católica"}
+    teams = {t["id"]: t for t in json.load(open(TEAMS, encoding="utf-8"))["teams"]}
+    real = [names[c] for c in names] + [teams[c].get("short_name") or teams[c]["name"] for c in CLUBS if c in result]
+    first_old = "Planteles reales base (18 jugadores) de Colo-Colo, U. de Chile y U. Católica."
+    first_new = "Planteles reales base (18 jugadores) de %s y %s." % (", ".join(real[:-1]), real[-1])
+    return [(first_old, first_new),
+            "T-08 (%s): instantánea de Wikidata y es.wikipedia del 27-oct-2026 (consulta: tools/t08/fetch.py y fetch_wiki.py; selección y atributos: tools/t08/build.py, determinista). Candidatos: membresía P54 al club con inicio y fin que se cruzan con la temporada 2006 (27-ene a 31-dic). Un jugador en dos clubes del juego en 2006 queda donde terminó el año, la convención del Clausura de teams_chile_2006.json (la membresía que sigue después de 2006; si no, la que empezó más tarde; si las fechas no lo dicen, el orden de su trayectoria en es.wikipedia); un préstamo desde Colo-Colo, U. de Chile o U. Católica se queda en su club. Se cruza con la trayectoria de la ficha del artículo en es.wikipedia: si la tiene y no lo pone en el club en 2006, queda fuera (review). No hay planteles 2006 por club publicados en es.wikipedia; para Audax se cruzó además con las alineaciones de la final del Clausura 2006." % ", ".join(teams[c].get("short_name") or teams[c]["name"] for c in CLUBS if c in result),
+            "T-08, hechos: edad desde P569 (si hay varias fechas y todas dan la misma edad al 1-jul-2006 se usa esa; si no, null). nationality: P1532 (país deportivo), si no P27 única, si no la ciudadanía cuya selección defendió (P54); sin eso, queda fuera. position y role desde P413: arquero si alguna posición lo es; si no, la línea con más posiciones y su posición más específica (las genéricas defensa, mediocampista y delantero dan DFC, MCD y DEL; extremo da EXT). Sin P413, queda fuera.",
+            "T-08, los 18: respaldo = sitelinks de Wikidata + 3 si tiene artículo en es.wikipedia + 5 si su trayectoria allí lo confirma + 5 si jugó la final 2006 + partidos en el club según Wikidata ÷ 10 (máx. 6). Cuotas por línea 2 POR, 6 DEF, 6 MED y 4 DEL por respaldo; si una línea no alcanza, se completa con los de más respaldo (máx. 3 arqueros). La figura del club siempre; mín. 2 Sub-21 y máx. 6 extranjeros, reemplazando a los de menos respaldo de la misma línea.",
+            "T-08, atributos (fórmula propia; nada de puntajes de otros juegos): skill_rating = 50 + 6 × facilities_level + 4 (la base de SquadGenerator para Primera A) + edad (≤18: −10, 19-20: −6, 21-22: −2, 23-25: 0, 26-30: +2, 31-33: 0, ≥34: −2; null: 0) + selección adulta con membresía desde 2006 o antes en Wikidata +6 (solo juveniles +2) + notoriedad min(4, sitelinks ÷ 5) + 8 si es la figura del club; acotado a 40-99. stamina_max = base por rol (POR 64, DFC 68, LAT 74, MCD 76, MCO 68, EXT 76, DEL 68) + edad (≤20: +4, 21-26: +2, 27-30: 0, 31-32: −4, 33-34: −8, ≥35: −12; null: 0); acotado a 40-100.",
+            "wikidata: entidad del jugador en Wikidata (solo en los planteles de T-08). review (en la raíz): lo encontrado para los clubes que siguen generados porque no llegaron a 18 jugadores con fuente."]
+
+
 if __name__ == "__main__":
     squads, result, pending, report = main()
     for club in CLUBS:
@@ -437,3 +598,6 @@ if __name__ == "__main__":
                       p["stamina_max"], p["skill_rating"], p["wikidata"]))
         for line in r["review"]:
             print("   review:", line)
+    if WRITE:
+        write(result, pending, notes_for(result))
+        print("escrito", SQUADS)

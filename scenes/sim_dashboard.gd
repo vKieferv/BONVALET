@@ -16,7 +16,7 @@ const TABLE_HEADERS := ["Pos", "Arquetipo", "PJ", "PG", "PE", "PP", "GF", "GC", 
 const TABLE_WIDTHS := [50, 140, 80, 80, 80, 80, 80, 80, 70, 120, 110]
 
 var _profiles: Array = []
-var _templates: Array = []
+var _templates: Array = []    # mazo de cada perfil (mismo orden que _profiles)
 var _thread: Thread = null
 var _active_progress: ProgressBar
 
@@ -50,7 +50,11 @@ var _audit_grid: GridContainer
 func _ready() -> void:
     get_window().min_size = Vector2i(900, 600)
     _profiles = BotProfile.presets()
-    _templates = CardDB.load_templates("res://data/cards.json")
+    # Mazo estándar con la carta de rasgo de cada arquetipo (D-23), sin firmas: los presets no son clubes.
+    var catalog := CardDB.load_catalog()
+    var lists := CardDB.load_deck_lists()
+    for p in _profiles:
+        _templates.append(CardDB.archetype_templates(catalog, lists, p.profile_name))
     _build_ui()
     _refresh_profile_info()
     _update_slider_labels()
@@ -486,8 +490,8 @@ func _worker_duel(pa: BotProfile, pb: BotProfile, n: int, cfg: Dictionary) -> vo
     var cb_b := func(f: float) -> void: call_deferred("_set_progress", 0.5 + f * 0.5)
     var ca := SimRunner.cfg_vs(cfg, pb)
     var cb := SimRunner.cfg_vs(cfg, pa)
-    var ra := SimRunner.run(pa, n, ca, _templates, cb_a)
-    var rb := SimRunner.run(pb, n, cb, _templates, cb_b)
+    var ra := SimRunner.run(pa, n, ca, _templates[_profiles.find(pa)], cb_a)
+    var rb := SimRunner.run(pb, n, cb, _templates[_profiles.find(pb)], cb_b)
     call_deferred("_on_duel_done", ra, rb, pa, pb)
 
 

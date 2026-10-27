@@ -4,7 +4,10 @@ extends RefCounted
 # Planteles (18 jugadores por club) y su vínculo con el mazo unificado del partido.
 # - Planteles reales: data/squads_2006.json. El resto: SquadGenerator (determinista).
 # - Titulares: los 11 mejores por rol según FORMATION.
-# - Mazo: cartas colectivas del DT (data/cards.json) + carta firma de cada titular que la tenga.
+# - Mazo: cartas colectivas del DT + carta firma de cada titular que la tenga. Las cartas del DT de
+#   un club salen de data/decks.json (starter_templates: mazo estándar + carta de rasgo de su
+#   arquetipo; season_templates: + su crecimiento) resueltas contra el catálogo de cards.json. Viven
+#   aquí y no en CardDB porque necesitan el arquetipo del club y cuántas firmas trae (el tope del mazo).
 #   Las cartas "canterano" pasan a ser de un Sub-21 del plantel. owner_id = id del jugador, así el
 #   motor aplica el Ejecutor Natural cuando el dueño está en la cancha (PlayerStats.lineup).
 
@@ -21,6 +24,8 @@ var _real := {}            # team_id -> Array de jugadores
 var _cache := {}           # team_id -> Array de jugadores (reales o generados, ya normalizados)
 var _signature_cards := {} # card_id -> diccionario de carta
 var _signature_template := {}
+var catalog := {}          # cartas del DT por id (CardDB.load_catalog)
+var deck_lists := {}       # data/decks.json: estandar, rasgos, crecimiento
 
 
 func load_all(p_league: LeagueManager) -> bool:
@@ -40,7 +45,30 @@ func load_all(p_league: LeagueManager) -> bool:
         _signature_template = sig.get("template", {})
     else:
         load_errors.append("Cartas firma inválidas: %s" % SIGNATURES_PATH)
+    catalog = CardDB.load_catalog()
+    if catalog.is_empty():
+        load_errors.append("Catálogo de cartas inválido: %s" % CardDB.CARDS_PATH)
+    deck_lists = CardDB.load_deck_lists()
+    if not (deck_lists.get("estandar") is Array and deck_lists.get("rasgos") is Dictionary \
+            and deck_lists.get("crecimiento") is Dictionary):
+        load_errors.append("Mazos inválidos: %s (faltan estandar, rasgos o crecimiento)" % CardDB.DECKS_PATH)
+    else:
+        for id in deck_lists_ids():
+            if not catalog.has(id):
+                load_errors.append("%s nombra una carta que no está en el catálogo: %s" % [CardDB.DECKS_PATH, id])
     return load_errors.is_empty()
+
+
+# Todos los ids que nombra decks.json (estándar, rasgos y crecimiento), sin el lugar del rasgo.
+func deck_lists_ids() -> Array:
+    var ids: Array = []
+    for id in deck_lists.get("estandar", []):
+        if id != CardDB.TRAIT_SLOT:
+            ids.append(id)
+    ids.append_array(deck_lists.get("rasgos", {}).values())
+    for arch in deck_lists.get("crecimiento", {}):
+        ids.append_array(deck_lists["crecimiento"][arch])
+    return ids
 
 
 func _read_json(path: String) -> Variant:
@@ -165,6 +193,31 @@ func signature_card_for(player: Dictionary) -> Dictionary:
         return {}
     _stamp_owner(d, player)
     return d
+
+
+# Cartas del DT con que arranca la temporada un club: el mazo estándar con la carta de rasgo de su
+# arquetipo (11). Pasadas por build_match_templates suman la firma de su figura titular (12).
+func starter_templates(team_id: String) -> Array:
+    return season_templates(team_id, 0)
+
+
+# Cartas del DT del club en una etapa de la temporada: el mazo de inicio + las primeras `extra`
+# cartas del crecimiento de su arquetipo, sin que el mazo del partido (con las firmas de los
+# titulares) pase de DeckManager.DECK_MAX.
+func season_templates(team_id: String, extra: int) -> Array:
+    var arch := String(league.get_team(team_id).get("archetype", ""))
+    var base := CardDB.deck_ids(deck_lists, arch, 0).size()
+    var room := DeckManager.DECK_MAX - base - signature_count(team_id)
+    return CardDB.archetype_templates(catalog, deck_lists, arch, clampi(extra, 0, maxi(0, room)))
+
+
+# Cuántas cartas firma suma build_match_templates (una por titular que la tenga).
+func signature_count(team_id: String) -> int:
+    var n := 0
+    for p in pick_starters(team_id):
+        if not signature_card_for(p).is_empty():
+            n += 1
+    return n
 
 
 # Mazo unificado del club como cartas listas para el partido.

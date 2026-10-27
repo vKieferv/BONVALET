@@ -33,10 +33,11 @@ jobs:
           else
             changed=$(git diff --name-only "$BEFORE" "$GITHUB_SHA")
           fi
+          # Cada paso usa el resultado del anterior: desde el primero que cambió, corren todos los siguientes.
+          run=0
           for s in temporadas jugadores wikipedia; do
-            if echo "$changed" | grep -q "tools/ligas/$s.py"; then
-              python3 "tools/ligas/$s.py" tools/ligas/out
-            fi
+            if echo "$changed" | grep -q "tools/ligas/$s.py"; then run=1; fi
+            if [ "$run" = 1 ]; then python3 "tools/ligas/$s.py" tools/ligas/out; fi
           done
 
       - name: Subir el resultado a la rama

@@ -128,11 +128,34 @@ SELECT ?s (SAMPLE(?lab) AS ?label) (MIN(?st) AS ?start) (MAX(?en) AS ?end) (SAMP
     seasons[country] = out
     print(country, len(out), "temporadas en %d-%d" % (FIRST, LAST), flush=True)
 
+# 2b. Años sin temporada en Wikidata: el artículo de en.wikipedia por su nombre habitual.
+FALLBACK = {"brasil": ["{y} Campeonato Brasileiro Série A"],
+            "argentina": ["{y} Argentine Primera División", "{y} Argentine Primera División season"],
+            "chile": ["{y} Chilean Primera División", "{y} Chilean Primera División season", "{y} Liga de Primera"]}
+for country, ss in seasons.items():
+    covered = {y for s in ss for y in s["years"]}
+    for y in range(FIRST, LAST + 1):
+        if y in covered:
+            continue
+        for pattern in FALLBACK[country]:
+            title = pattern.format(y=y)
+            time.sleep(0.2)
+            res = http_json("https://en.wikipedia.org/w/api.php?" + urllib.parse.urlencode(
+                {"action": "query", "titles": title, "redirects": 1, "prop": "pageprops", "ppprop": "wikibase_item",
+                 "format": "json", "formatversion": 2}))
+            pages = (res or {}).get("query", {}).get("pages", [])
+            if pages and not pages[0].get("missing"):
+                ss.append({"qid": (pages[0].get("pageprops") or {}).get("wikibase_item"), "label": pages[0]["title"],
+                           "years": [y], "p1923": 0, "wiki": {"en": pages[0]["title"]}, "fallback": True})
+                print(country, y, "->", pages[0]["title"], flush=True)
+                break
+
 # 3. Participantes de Wikidata (P1923).
 for country, ss in seasons.items():
-    by_q = {s["qid"]: s for s in ss}
-    for i in range(0, len(ss), 40):
-        vals = " ".join("wd:" + s["qid"] for s in ss[i:i + 40])
+    with_q = [s for s in ss if s.get("qid")]
+    by_q = {s["qid"]: s for s in with_q}
+    for i in range(0, len(with_q), 40):
+        vals = " ".join("wd:" + s["qid"] for s in with_q[i:i + 40])
         for r in sparql("SELECT ?s ?t WHERE { VALUES ?s { %s } ?s wdt:P1923 ?t . }" % vals):
             by_q[qid(r["s"])].setdefault("participants", []).append(qid(r["t"]))
 

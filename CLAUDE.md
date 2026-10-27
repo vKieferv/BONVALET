@@ -65,15 +65,15 @@ Pruebas individuales (desde la raíz del repo; `--import` primero si creaste o r
 
 | Métrica | Inicio (12 cartas) | Mitad (+4) | Final (+8) | Objetivo |
 |---|---|---|---|---|
-| Goles totales por partido | 2.47 | 2.73 | 2.65 | 2.3-2.6 |
+| Goles totales por partido | 2.50 | 2.75 | 2.68 | 2.3-2.6 |
 | Equipos lesionados por partido | 2.8% | 3.2% | 3.5% | 2-5% |
-| Momentos que empiezan cansados (1T / 2T) | 16% / 49% | 17% / 53% | 16% / 53% | cansancio en el 2T |
+| Momentos que empiezan cansados (1T / 2T) | 15% / 49% | 17% / 53% | 16% / 53% | cansancio en el 2T |
 
 | Otras métricas (mazo de inicio) | Valor | Objetivo |
 |---|---|---|
 | Constructibilidad de Colo-Colo (3 jugadas, estamina llena) | 92% | ≥85% |
-| Goles en tus partidos (Colo-Colo bot contra 6 rivales) | 2.50 | — |
-| Palestino (Catenaccio) goles a favor en la matriz | 1.18 | — |
+| Goles en tus partidos (Colo-Colo bot contra 6 rivales) | 2.55 | — |
+| Palestino (Catenaccio, plantel real desde T-08) goles a favor en la matriz | 1.26 | — |
 | La Serena (Kamikaze) partidos con lesión | 13% | "hasta 15%" |
 
 Valores calibrados que la sostienen: PA por turno LOW 3 / NORMAL 3 / HIGH 4 y 2 en defensa; `STAMINA_SCALE` 1.6; `INJURY_CHANCE_MAX` 0.009; 4 Momentos por equipo de 3 jugadas (`MOMENT_STEPS`; Catenaccio 2 con `BotProfile.moment_steps`); Kamikaze lesión tardía ×2.5 (`late_injury_mult`); Aguantar 80% / 1 PA / 3 de estamina; Pase corto, Desmarque, canteranos y Toque-toque a 0 PA, tácticas, Tiro de lejos, Remate simple, Marca y las otras cartas de rasgo 1, Remate de primera y "Sello de" 2, firmas con nombre propio 3 (2 la Sangre fría), Despeje e Intercepción 2. En la carrera, la fatiga tras el partido es 6 + 18 × (estamina gastada) y define con cuánta estamina se arranca el siguiente (tope × (1 − fatiga/200)); el Bloque 2 suma +10 de fatiga con el táctico, 0 con el video y −25 con la kinesiología, y las mejoras del video son +10 de acierto o −1 PA (valores iniciales, sin medir en playtests).

@@ -86,6 +86,79 @@ Aguantar el Balón, Ceder Jugada y Despeje de Emergencia. No son cartas: no llev
 
 _Sin entradas todavía._
 
+## Habilidades de los jugadores (propuesta, 2026-10-27, paso 2 de I-45)
+Principios: pocas, para que quepan en una lámina de álbum (I-30); cada habilidad tiene su rival en el
+duelo; salen de lo que ya tenemos (nivel y puesto) más un perfil de diseño para los que destacan, sin
+copiar puntajes de otros juegos (D-27); básico primero (D-28).
+
+**Cinco de campo + Atajada, y el Físico que ya existe:**
+| Habilidad | Qué mide | Tus cartas que la usan | En el duelo, contra |
+|---|---|---|---|
+| **Pase** | poner el balón donde va | Pase corto, Pase al pie, Pase filtrado, Centro, Toque-toque | Lectura |
+| **Regate** | ganar el uno contra uno, técnica con balón | Amague, Desmarque, Promesa: Control | Quite |
+| **Remate** | definir | todos los remates y las firmas | Atajada |
+| **Quite** | quitar, presionar, poner el cuerpo | Presión, Marca, Bloqueo | Regate |
+| **Lectura** | anticipar, cortar líneas de pase | Intercepción, Anticipo, Despeje, Cerrojo | Pase |
+| **Atajada** | solo el arquero | ninguna: frena todos los remates del rival | Remate |
+| **Físico** | ya existe (`stamina_max`), hoy sin uso en el partido | estamina y cartas físicas | — |
+
+Para recordarlas: **el regate se mide con el quite, el pase con la lectura y el remate con la atajada.**
+Cada defensa tiene dos números (Quite y Lectura): si uno es bajo, ese es su lado débil, como la
+debilidad de un enemigo de Slay the Spire. El Pelotazo no pelea: se salta la línea.
+Cuando el rival ataca es al revés: tu Quite y tu Lectura le bajan su % aunque no juegues carta (el
+"escudo"); tus cartas de defensa suman encima.
+
+**Por qué cinco:** con tres (Ataque, Defensa, Físico) no hay lado débil y M14 contra Kalule sería solo
+"84 contra 72"; con ocho o más (velocidad, cabezazo, visión...) no caben en una lámina y hay que
+asignarlas a ~340 jugadores (19 clubes × 18). Velocidad y Juego aéreo pueden llegar después (D-28).
+
+**De dónde salen:** habilidad = nivel (`skill_rating`) + ajuste del puesto + perfil (+10), tope 99.
+Ajuste del puesto (punto de partida):
+| Puesto | Pase | Regate | Remate | Quite | Lectura |
+|---|---|---|---|---|---|
+| DFC | −10 | −20 | −25 | +5 | +5 |
+| LAT | −5 | −5 | −20 | 0 | −5 |
+| MCD | 0 | −10 | −15 | +5 | +5 |
+| MCO | +5 | 0 | −5 | −15 | −10 |
+| EXT | −5 | +5 | −5 | −20 | −15 |
+| DEL | −10 | 0 | +5 | −25 | −20 |
+| POR | Atajada = nivel | | | | |
+
+**Perfiles** (+10 a una habilidad; los asigna el diseño, 2-3 por club, como los estilos de las cartas
+firma: juicio de diseño en datos reemplazables, D-26): Gambeteador (Regate), Enganche (Pase), Goleador
+(Remate), Perro de presa (Quite), Recuperador (Lectura), Atleta (Físico), Atajador (Atajada). Nombres por
+decidir. Los demás jugadores no llevan perfil. T-08 no cambia: entrega nivel y puesto.
+
+**Láminas de ejemplo** (con la fórmula; perfiles puestos para el ejemplo):
+| Jugador | Puesto · nivel | Perfil | Pase | Regate | Remate | Quite | Lectura |
+|---|---|---|---|---|---|---|---|
+| Matías Fernández (M14) | MCO 84 | Gambeteador | 89 | **94** | 79 | 69 | 74 |
+| Rodrigo "Kalule" Meléndez | MCD 72 | — | 72 | 62 | 57 | 77 | 77 |
+| Humberto Suazo | DEL 86 | Goleador | 76 | 86 | **99** | 61 | 66 |
+| Claudio Bravo | POR 80 | — | Atajada 80 | | | | |
+| Un DFC generado | DFC 66 | — | 56 | 46 | 41 | 71 | 71 |
+
+**El duelo en %:** % = 39 + carta + (tu habilidad − la suya). El 39 es lo de hoy (base 54 menos la
+defensa rival de 15): **a igual habilidad cada carta queda con el % de hoy**, así no se pierde el balance
+medido. El desglose lo muestra como "Duelo: Regate 94 contra Quite 77 · +17" (pilar 2).
+Jugada 2, te toca Kalule (Quite 77, Lectura 77):
+- M14 juega Amague: 39 + 18 + (94 − 77) = **74%**. A Kalule le queda 26%.
+- Un jugador como el FF de tu ejemplo (Regate 65, Pase 70): Amague 39 + 18 − 12 = **45%**; Pase filtrado
+  39 + 20 − 7 = **52%**; Pelotazo sin duelo **39%**, pero avanza 2 (una tirada en vez de dos).
+- Contra un "Perro de presa" (Quite 85, Lectura 70) hasta M14 debería pasarla: Amague 66%, Pase
+  filtrado 78%.
+
+**Por decidir o medir:**
+- Cuántos % vale cada punto de diferencia (arriba, 1 = 1%). Con 1, las figuras pesan mucho: Suazo con
+  Remate de primera contra un arquero de 80 llega al tope (95%). Se mide con `balance-lab` (¿0.5?).
+- Quién juega cada carta: propuesta, el mejor de tu línea para esa habilidad (el Amague del medio lo
+  juega M14); la firma, su dueño. Va con la formación (siguiente tema).
+- El Ejecutor Natural (+15) se suma a la habilidad del dueño: revisar si sobra o se achica.
+- Técnica (del equipo) desaparece: la reemplazan los duelos. Visión (mano), ritmo y concentración siguen
+  siendo del equipo por ahora. El Físico podría dar la estamina del equipo (promedio de los titulares).
+- Con el nivel del DT (I-46): con nivel bajo ves el nivel general del rival; con nivel alto, sus
+  habilidades (su lado débil).
+
 ## Intención del rival y superioridad numérica (I-41, I-44)
 - **Qué ves depende del nivel de tu DT frente al del rival** (idea del usuario). El "nivel del DT" no
   existe todavía: falta decidir si es fijo por club, si sube en la carrera o ambas cosas.
@@ -121,18 +194,13 @@ los jugadores.
 - **Transición** = el rival quedó desordenado: una de sus líneas con uno menos en tu próximo Momento.
 - **Pase largo / Pelotazo** = te saltas una línea (avanza 2), sin duelo en ella.
 
-**Ejemplo (números inventados para ilustrar):** jugada 2, te toca Kalule Meléndez (Quite 85).
-- M14 (Regate 95) juega Amague: base 50 + carta 18 + duelo (95 − 85) = **78%**. Igual le queda 22% a
-  Kalule.
-- Felipe Flores (Regate 60) con el mismo Amague: 50 + 18 + (60 − 85) = **43%**. Le conviene el
-  Pelotazo: no hay duelo con Kalule, ~50%, y avanza 2 (se salta el medio).
-- El desglose lo muestra: "Regate de Fernández +95 · Quite de Meléndez −85" o similar (pilar 2).
+**Ejemplo:** ver "Habilidades de los jugadores" más abajo (M14 contra Kalule, con la fórmula propuesta).
 
 **Qué hace falta (por qué es un cambio grande):** hoy cada jugador tiene un solo número
-(`skill_rating`: Matías Fernández 84, Rodrigo Meléndez 72) y el partido usa un único `PlayerStats`.
-Hacen falta 3-4 atributos por jugador (por ejemplo Pase, Regate, Remate, Quite; arquero: Atajada),
-asignados por diseño en datos reemplazables (D-26, D-27), un desglose nuevo y bots que elijan carta
-según el duelo. Se recalibra todo el balance.
+(`skill_rating`: Matías Fernández 84, Rodrigo Meléndez 72) y el partido usa un único `PlayerStats`:
+todos los clubes tienen la misma técnica (60) y las diferencias salen de las instalaciones. Hacen falta
+habilidades por jugador (propuesta abajo), un desglose nuevo y bots que elijan carta según el duelo.
+Se recalibra todo el balance.
 
 **Pasos propuestos (básico primero, como D-28):**
 1. Duelo contra la **línea**: un número por línea (promedio del plantel). Prueba si la estructura de 3

@@ -86,7 +86,7 @@ Aguantar el Balón, Ceder Jugada y Despeje de Emergencia. No son cartas: no llev
 
 _Sin entradas todavía._
 
-## Habilidades de los jugadores (propuesta, 2026-10-27, paso 2 de I-45)
+## Habilidades de los jugadores (aprobadas, D-29; paso 2 de I-45)
 Principios: pocas, para que quepan en una lámina de álbum (I-30); cada habilidad tiene su rival en el
 duelo; salen de lo que ya tenemos (nivel y puesto) más un perfil de diseño para los que destacan, sin
 copiar puntajes de otros juegos (D-27); básico primero (D-28).
@@ -124,10 +124,11 @@ Ajuste del puesto (punto de partida):
 | DEL | −10 | 0 | +5 | −25 | −20 |
 | POR | Atajada = nivel | | | | |
 
-**Perfiles** (+10 a una habilidad; los asigna el diseño, 2-3 por club, como los estilos de las cartas
-firma: juicio de diseño en datos reemplazables, D-26): Gambeteador (Regate), Enganche (Pase), Goleador
-(Remate), Perro de presa (Quite), Recuperador (Lectura), Atleta (Físico), Atajador (Atajada). Nombres por
-decidir. Los demás jugadores no llevan perfil. T-08 no cambia: entrega nivel y puesto.
+**Perfiles** (+10 a una habilidad): **solo la élite**, 1-2 por club. La mayoría no tiene perfil, y eso
+es lo que separa a los buenos de la élite (usuario). Los asigna el diseño, como los estilos de las cartas
+firma (juicio de diseño en datos reemplazables, D-26). Tipos: Gambeteador (Regate), Enganche (Pase),
+Goleador (Remate), Perro de presa (Quite), Recuperador (Lectura), Atleta (Físico), Atajador (Atajada);
+¿sacar uno? (candidato: Atleta, porque el Físico no pelea duelos). T-08 no cambia: entrega nivel y puesto.
 
 **Láminas de ejemplo** (con la fórmula; perfiles puestos para el ejemplo):
 | Jugador | Puesto · nivel | Perfil | Pase | Regate | Remate | Quite | Lectura |
@@ -138,41 +139,87 @@ decidir. Los demás jugadores no llevan perfil. T-08 no cambia: entrega nivel y 
 | Claudio Bravo | POR 80 | — | Atajada 80 | | | | |
 | Un DFC generado | DFC 66 | — | 56 | 46 | 41 | 71 | 71 |
 
-**El duelo en %:** % = 39 + carta + (tu habilidad − la suya). El 39 es lo de hoy (base 54 menos la
-defensa rival de 15): **a igual habilidad cada carta queda con el % de hoy**, así no se pierde el balance
-medido. El desglose lo muestra como "Duelo: Regate 94 contra Quite 77 · +17" (pilar 2).
-Jugada 2, te toca Kalule (Quite 77, Lectura 77):
-- M14 juega Amague: 39 + 18 + (94 − 77) = **74%**. A Kalule le queda 26%.
-- Un jugador como el FF de tu ejemplo (Regate 65, Pase 70): Amague 39 + 18 − 12 = **45%**; Pase filtrado
-  39 + 20 − 7 = **52%**; Pelotazo sin duelo **39%**, pero avanza 2 (una tirada en vez de dos).
-- Contra un "Perro de presa" (Quite 85, Lectura 70) hasta M14 debería pasarla: Amague 66%, Pase
-  filtrado 78%.
+**El duelo en %:** % = 39 + carta + **0,5** × (tu habilidad − la suya). El 0,5 es el valor de prueba
+(usuario). El 39 es lo de hoy (base 54 menos la defensa rival de 15): **a igual habilidad cada carta queda
+con el % de hoy**, así no se pierde el balance medido. El desglose lo muestra como "Duelo: Regate 94
+contra Quite 77 · +8,5" (pilar 2). Jugada 2, te toca Kalule (Quite 77, Lectura 77):
+- M14 juega Amague: 39 + 18 + 8,5 = **66%**. A Kalule le queda 34%.
+- Un jugador como el FF de tu ejemplo (Regate 65, Pase 70): Amague 39 + 18 − 6 = **51%**; Pase filtrado
+  39 + 20 − 3,5 = **56%**; Pelotazo sin duelo **39%**, pero avanza 2 (una tirada en vez de dos).
+- Contra un "Perro de presa" (Quite 85, Lectura 70) hasta M14 debería pasarla: Amague 62%, Pase
+  filtrado 69%.
 
 **Por decidir o medir:**
-- Cuántos % vale cada punto de diferencia (arriba, 1 = 1%). Con 1, las figuras pesan mucho: Suazo con
-  Remate de primera contra un arquero de 80 llega al tope (95%). Se mide con `balance-lab` (¿0.5?).
-- Quién juega cada carta: propuesta, el mejor de tu línea para esa habilidad (el Amague del medio lo
-  juega M14); la firma, su dueño. Va con la formación (siguiente tema).
+- Cuántos % vale cada punto de diferencia: **0,5 para las pruebas** (usuario). Con 1, Suazo con Remate de
+  primera contra un arquero de 80 llegaba al tope (95%); con 0,5 queda en 89%. Se ajusta con `balance-lab`.
+- Quién juega cada carta: ver "Formaciones".
 - El Ejecutor Natural (+15) se suma a la habilidad del dueño: revisar si sobra o se achica.
 - Técnica (del equipo) desaparece: la reemplazan los duelos. Visión (mano), ritmo y concentración siguen
   siendo del equipo por ahora. El Físico podría dar la estamina del equipo (promedio de los titulares).
 - Con el nivel del DT (I-46): con nivel bajo ves el nivel general del rival; con nivel alto, sus
   habilidades (su lado débil).
 
+## Formaciones (D-30; la asignación a cada estilo está por confirmar)
+Decidido (usuario, 2026-10-27): cinco formaciones, una por estilo de DT. Más adelante se podrán mezclar
+estilos (I-47). Las formaciones salen del estilo (diseño), no de la formación real de cada club en 2006.
+
+| Formación | Estilo (propuesta) | Atrás · Medio · Arriba | Puestos | Identidad en los duelos |
+|---|---|---|---|---|
+| 5-3-2 | Catenaccio | 5 · 3 · 2 | 3 DFC, 2 LAT · 2 MCD, MCO · 2 DEL | definir contra ellos es lo más difícil; arriba nunca más de 3, aun en HIGH; sus Momentos de 2 se saltan el medio |
+| 4-4-2 | Directo | 4 · 4 · 2 | 2 DFC, 2 LAT · 2 MCD, 2 EXT · 2 DEL | equilibrada; extremos para el centro y dos puntas para el pelotazo |
+| 4-1-2-1-2 | Tiki-Taka | 4 · 4 · 2 | 2 DFC, 2 LAT · MCD, 2 volantes, MCO · 2 DEL | mismos números que el 4-4-2, pero todo por adentro: enganche detrás de los puntas (M14 en Colo-Colo), sin extremos |
+| 4-3-3 | Contragolpe | 4 · 3 · 3 | 2 DFC, 2 LAT · MCD, 2 volantes · 2 EXT, DEL | tres arriba que esperan la contra y presionan tu salida; medio más corto |
+| 3-5-2 | Kamikaze | 3 · 5 · 2 | 3 DFC · 2 carrileros, MCD, volante, MCO · 2 DEL | domina el medio pero deja 3 atrás: partidos locos; los carrileros gastan más estamina |
+- Carrilero = un LAT o un EXT; volante = un MCD, MCO o EXT. La línea la da el puesto en la formación, no
+  el rol del jugador (en el 4-3-3 los extremos juegan arriba).
+- Por qué el rombo para Tiki-Taka: el clásico es el 4-3-3, pero con 3 volantes perdería el medio contra
+  un 4-4-2; el rombo le da 4 por adentro y pone a M14 de enganche.
+
+**Cómo se usan:** en cada jugada se compara tu línea con la de ellos que te espera.
+| Jugada | Tu línea | Su línea | Duelo |
+|---|---|---|---|
+| 1 · Salida | atrás (sales jugando) | arriba (te presionan) | contra uno de sus delanteros |
+| 2 · Medio | medio | medio | contra uno de sus volantes |
+| 3 · Definición | arriba | atrás | contra su arquero (remate) o un defensa (regate, pase) |
+- **Números:** la diferencia es una línea del desglose; **1 jugador = 6 pts** para las pruebas (lo que
+  vale hoy una Presión). Como en el fútbol, salir jugando suele ser con ventaja y definir, en inferioridad.
+- **Postura:** en HIGH un volante sube (medio −1, arriba +1); en LOW uno baja (medio −1, atrás +1). La
+  formación pone el tope: el 5-3-2 nunca tiene más de 3 arriba.
+- **Azar, como los encuentros de Slay the Spire:** en cada jugada la línea rival puede tener uno más o uno
+  menos (alguien llegó o quedó mal parado). Con el nivel de tu DT lo ves antes de elegir la carta (I-41).
+- **Quién juega tu carta:** el mejor de tu línea en la habilidad que usa la carta (el Amague del medio lo
+  juega M14); la firma, su dueño. **A quién enfrentas:** a uno de su línea, al azar.
+- **Las cartas de defensa se leen como jugadores:** Presión = uno más en todas tus líneas (6); Bloqueo = dos
+  más atrás contra su remate (12, lo que vale hoy); Línea de cinco = dos más atrás.
+- **Transición** = el rival quedó desordenado: una de sus líneas con uno menos en tu próximo Momento.
+
+**Ejemplo** (valores de prueba; los jugadores de Palestino, inventados): Colo-Colo (4-1-2-1-2) ataca a
+Palestino (5-3-2), los dos en NORMAL. % = 39 + carta + duelo + números.
+| Jugada | Tu carta (quién) | Te enfrenta | Duelo | Números | % | Hoy* |
+|---|---|---|---|---|---|---|
+| 1 · Salida | Pase corto (Aceval, Pase 66) | un DEL (Lectura 50) | +8 | 4 contra 2: +12 | 65% | 45% |
+| 2 · Medio | Amague (M14, Regate 94) | un MCD (Quite 75) | +9,5 | 4 contra 3: +6 | 73% | 57% |
+| 3 · Definición | Remate de primera (Suazo, Remate 99) | su arquero (Atajada 72) | +13,5 | 2 contra 5: −18 | 75% | 79% |
+\* con la dificultad base de hoy. Contra el Catenaccio se llega fácil, pero en el área esperan cinco. Al
+revés, Palestino (2 jugadas) sale con 5 contra tus 2 de arriba (+18) y define con 2 contra tus 4 de atrás
+(−12). Ojo: con estos valores Colo-Colo arma mucho más fácil que hoy; es la jerarquía buscada (D-18), pero
+hay que medir cuánto con `balance-lab`.
+
+**Por decidir o medir:**
+- La asignación estilo → formación (propuesta arriba).
+- 1 jugador = 6 pts y el azar de ±1: valores de prueba.
+- La postura no puede contar dos veces: si en LOW un volante baja (−6 arriba), el −15 de LOW en los
+  remates de hoy sobra o se achica.
+
 ## Intención del rival y superioridad numérica (I-41, I-44)
-- **Qué ves depende del nivel de tu DT frente al del rival** (idea del usuario). El "nivel del DT" no
-  existe todavía: falta decidir si es fijo por club, si sube en la carrera o ambas cosas.
+- **Qué ves depende del nivel de tu DT frente al del rival** (usuario). El tuyo sube con la experiencia;
+  cada DT rival tiene un nivel estimado para la IA (I-46).
   - Tu DT por debajo: "Ataca Colo-Colo · atacan 4-5".
   - Parejo: "atacan 5 · jugada de 3".
   - Por encima: "atacan 5 · jugada de 3 · remata Suazo con el Zapatazo".
-- **Cuántos atacan contra cuántos defienden:** la diferencia es una línea del desglose
-  ("Superioridad numérica +X" o "Inferioridad −X"), visible en cada carta (pilar 2). Punto de partida
-  para medir: 1 jugador de diferencia = 6 pts, lo que vale hoy una Presión. Así la Presión y la Marca
-  se leen como "pongo uno más en defensa".
-  - Ejemplo: Colo-Colo ataca en HIGH con 5. Defiendes con 5 y juegas Marca (+1): 5 contra 6, sus
-    jugadas −6. Si en vez de eso juegas Salida limpia: 5 contra 5, sin efecto, pero tu próximo ataque
-    sale con uno más.
-  - Por decidir: de dónde sale la base (postura, estilo) sin contar dos veces lo que la postura ya hace.
+- **Cuántos atacan contra cuántos defienden:** se cuenta por línea, en cada jugada, con la formación,
+  la postura y algo de azar (ver "Formaciones"). La diferencia es una línea del desglose ("4 contra 2:
+  +12"), visible en cada carta (pilar 2).
 - El largo de la jugada ya depende del estilo en parte (Catenaccio 2, D-16); la intención lo muestra.
   Cartas que den más jugadas o PA: más adelante.
 
@@ -184,13 +231,11 @@ los jugadores.
 **Estructura propuesta:** las 3 jugadas del Momento son las 3 líneas del rival.
 | Jugada | Cruzas | Te enfrenta | Duelo típico |
 |---|---|---|---|
-| 1 · Salida | sus delanteros (presionan) | un DEL o MC rival | pase contra presión |
-| 2 · Medio | sus volantes | un MC rival | regate contra quite, pase contra anticipación |
-| 3 · Definición | sus defensas y el arquero | un DFC y el POR | remate contra arquero, centro contra juego aéreo |
+| 1 · Salida | sus delanteros (presionan) | uno de sus delanteros | pase contra lectura |
+| 2 · Medio | sus volantes | uno de sus volantes | regate contra quite, pase contra lectura |
+| 3 · Definición | sus defensas y el arquero | su arquero o un defensa | remate contra atajada |
 - Catenaccio (2 jugadas, D-16) = salida y definición: se salta el medio, juega directo.
-- La **formación del estilo** dice cuántos hay en cada línea; la postura mueve uno, pero la formación
-  pone el tope (Catenaccio en HIGH sigue con pocos arriba). Cuál de sus jugadores te toca es azar, como
-  el encuentro de Slay the Spire. Más gente en la línea = Inferioridad numérica en el desglose (I-44).
+- La **formación del estilo** dice cuántos hay en cada línea (ver "Formaciones", D-30).
 - **Transición** = el rival quedó desordenado: una de sus líneas con uno menos en tu próximo Momento.
 - **Pase largo / Pelotazo** = te saltas una línea (avanza 2), sin duelo en ella.
 

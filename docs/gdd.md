@@ -74,7 +74,8 @@ El % de cada carta es el que se tira, con desglose en el tooltip (pilar 2).
 Cada jugada del Momento cruza una línea del rival y enfrenta a uno de sus jugadores: la carta usa un
 atributo de tu jugador contra el de él (como los enemigos de Slay the Spire). La formación del estilo
 define cuántos hay en cada línea (superioridad numérica, I-44) y el nivel de tu DT, cuánto ves antes
-(I-41, I-46). Borrador y ejemplo (M14 contra Kalule): `cartas.md`.
+(I-41, I-46). Decidido en papel: habilidades (D-29) y cinco formaciones, una por estilo (D-30).
+Borrador y ejemplos (M14 contra Kalule, un Momento contra Palestino): `cartas.md`.
 
 ## 3. Cartas y mazo
 Catálogo por familia, nombres, variantes y jugadas anotadas: `cartas.md` (bloc de trabajo).

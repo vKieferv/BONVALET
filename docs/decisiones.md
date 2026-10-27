@@ -166,6 +166,22 @@ se desbloquean jugando. Por qué: decisión del usuario; agregar mecánicas pued
 así cada mecánica llega cuando el jugador ya domina las anteriores. Mecanismo propuesto: el nivel del
 DT, que sube con la experiencia (I-46). Coincide con el mazo estándar de D-23.
 
+**D-29 · 2026-10-27 · Habilidades de los jugadores** · VIGENTE (diseño de I-45, sin código)
+Cinco habilidades de campo (Pase, Regate, Remate, Quite, Lectura) y la Atajada del arquero; el Físico es
+el `stamina_max` que ya existe. En el duelo, el regate se mide con el quite, el pase con la lectura y el
+remate con la atajada, así cada defensa tiene un lado débil. Salen de una fórmula propia: nivel
+(`skill_rating`) + ajuste del puesto + perfil (+10). Solo la élite lleva perfil (1-2 por club): es lo que
+separa a los buenos de la élite. Valor de prueba: cada punto de diferencia vale 0,5 pts de acierto. Por
+qué: que importen los jugadores reales (pilares 1 y 4) con una lámina que se lee de un vistazo.
+Descartado: 3 habilidades (sin lado débil) y 8 o más (no caben en una lámina y habría que asignarlas a
+~340 jugadores). Detalle y ejemplos: `cartas.md`.
+
+**D-30 · 2026-10-27 · Cinco formaciones, una por estilo** · VIGENTE (diseño de I-45, sin código)
+5-3-2, 4-4-2, 4-1-2-1-2, 4-3-3 y 3-5-2, una por estilo de DT. Dicen cuántos hay en cada línea (la
+superioridad numérica de cada jugada, I-44) y a quién enfrentas. Más adelante se podrán mezclar estilos
+(I-47). Asignación propuesta, por confirmar: Catenaccio 5-3-2, Directo 4-4-2, Tiki-Taka 4-1-2-1-2,
+Contragolpe 4-3-3, Kamikaze 3-5-2. Salen del estilo, no de la formación real de cada club en 2006.
+
 ### Descartadas (para no reabrirlas sin datos nuevos)
 - **Tempo ofensivo +7 / regen +3** (2026-10-26): no llegaba al objetivo de goles y quedó obsoleto con
   PA + Estamina; el stash se borró.

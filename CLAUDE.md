@@ -76,7 +76,7 @@ Pendientes conocidos de balance: el margen de goles queda justo (2.55 de 2.6); l
 
 ## Contenido
 - Clubes, DT y jugadores son reales (2006). Marcas, sponsors, diarios y canales **nunca** usan nombres reales: siempre parodias nostálgicas (p. ej. Cerveza Glaciar por Cristal, Telnet por Entel, Diario El Chisme por La Cuarta, Televisora Nacional por TVN).
-- Datos históricos solo con fuente; si no se puede confirmar, `null` (el juego tiene textos por defecto) y una entrada en `review`. Para planteles, Wikidata (membresía P54 con fechas, nacimiento P569, ciudadanía P27) vía `query.wikidata.org` funcionó bien; Transfermarkt bloquea las consultas.
+- Datos históricos solo con fuente; si no se puede confirmar, `null` (el juego tiene textos por defecto) y una entrada en `review`. Para planteles, Wikidata (membresía P54 con fechas, nacimiento P569, ciudadanía P27) vía `query.wikidata.org` funcionó bien, y la ficha del jugador en es.wikipedia fecha las membresías que Wikidata deja sin fechas y afina la posición (D-28). Transfermarkt no es fuente libre y además bloquea las consultas. Desde la nube esos dominios están bloqueados; T-08 los consultó con un workflow temporal de GitHub Actions (`tools/t08/`).
 - Los jugadores generados tienen nombres ficticios; solo la figura del club (de `teams_chile_2006.json`) es real, y su edad queda en `null` si no tiene fuente.
 
 ## Convenciones

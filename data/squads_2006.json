@@ -7,9 +7,9 @@
     "age: edad al 1 de julio de 2006. nationality: código de 3 letras (CHI, ARG...).",
     "position: línea (POR, DEF, MED, DEL). role, stamina_max (40-100) y skill_rating (40-99) son valores de diseño para el juego, no estadísticas reales.",
     "signature_card_id: carta de data/signature_cards.json. La figura del club (signature_card en teams_chile_2006.json) sin carta propia recibe una carta firma genérica.",
-    "T-08 (Audax, U. Española, Palestino): instantánea de Wikidata y es.wikipedia del 27-oct-2026 (consulta: tools/t08/fetch.py y fetch_wiki.py; selección y atributos: tools/t08/build.py, determinista). Candidatos: membresía P54 al club con inicio y fin que se cruzan con la temporada 2006 (27-ene a 31-dic). Un jugador en dos clubes del juego en 2006 queda donde terminó el año, la convención del Clausura de teams_chile_2006.json (la membresía que sigue después de 2006; si no, la que empezó más tarde; si las fechas no lo dicen, el orden de su trayectoria en es.wikipedia); un préstamo desde Colo-Colo, U. de Chile o U. Católica se queda en su club. Se cruza con la trayectoria de la ficha del artículo en es.wikipedia: si la tiene y no lo pone en el club en 2006, queda fuera (review). No hay planteles 2006 por club publicados en es.wikipedia; para Audax se cruzó además con las alineaciones de la final del Clausura 2006.",
-    "T-08, hechos: edad desde P569 (si hay varias fechas y todas dan la misma edad al 1-jul-2006 se usa esa; si no, null). nationality: P1532 (país deportivo), si no P27 única, si no la ciudadanía cuya selección defendió (P54); sin eso, queda fuera. position y role desde P413: arquero si alguna posición lo es; si no, la línea con más posiciones y su posición más específica (las genéricas defensa, mediocampista y delantero dan DFC, MCD y DEL; extremo da EXT). Sin P413, queda fuera.",
-    "T-08, los 18: respaldo = sitelinks de Wikidata + 3 si tiene artículo en es.wikipedia + 5 si su trayectoria allí lo confirma + 5 si jugó la final 2006 + partidos en el club según Wikidata ÷ 10 (máx. 6). Cuotas por línea 2 POR, 6 DEF, 6 MED y 4 DEL por respaldo; si una línea no alcanza, se completa con los de más respaldo (máx. 3 arqueros). La figura del club siempre; mín. 2 Sub-21 y máx. 6 extranjeros, reemplazando a los de menos respaldo de la misma línea.",
+    "T-08 (Audax, U. Española, Palestino): instantánea de Wikidata y es.wikipedia del 27-oct-2026 (consulta: tools/t08/fetch.py y fetch_wiki.py; selección y atributos: tools/t08/build.py, determinista). Candidatos (D-27 y D-28): membresía P54 al club con inicio y fin que se cruzan con la temporada 2006 (27-ene a 31-dic), o membresía P54 sin inicio o sin fin que la trayectoria de la ficha del jugador en es.wikipedia pone en 2006. Si la ficha tiene trayectoria y no lo pone en el club en 2006, queda fuera (review). Un jugador en dos clubes del juego en 2006 queda donde terminó el año, la convención del Clausura de teams_chile_2006.json (la membresía que sigue después de 2006; si no, la que empezó más tarde; si las fechas no lo dicen, el orden de su trayectoria en es.wikipedia); un préstamo desde Colo-Colo, U. de Chile o U. Católica se queda en su club. No hay planteles 2006 por club publicados en es.wikipedia; para Audax se cruzó además con las alineaciones de la final del Clausura 2006.",
+    "T-08, hechos: edad desde P569 (si hay varias fechas y todas dan la misma edad al 1-jul-2006 se usa esa; si se contradicen o faltan, la fecha de la ficha de es.wikipedia cuando coincide con una de Wikidata o Wikidata no tiene día; si no, null). nationality: P1532 (país deportivo), si no P27 única, si no la ciudadanía cuya selección defendió (P54 o la ficha); sin P27, la nacionalidad de la ficha; sin eso, queda fuera. position y role desde P413: arquero si alguna posición lo es; si no, la línea con más posiciones y su posición más específica (las genéricas defensa, mediocampista y delantero dan DFC, MCD y DEL; extremo da EXT). Un rol genérico se afina con la posición escrita en la ficha si es de la misma línea, y sin P413 se usa la de la ficha; sin ninguna, queda fuera.",
+    "T-08, los 18: respaldo = sitelinks de Wikidata + 3 si tiene artículo en es.wikipedia + 5 si su trayectoria allí lo pone en el club en 2006 + 5 si jugó la final 2006 + partidos en el club según Wikidata ÷ 10 (máx. 6). Cuotas por línea 2 POR, 6 DEF, 6 MED y 4 DEL por respaldo; si una línea no alcanza, se completa con los de más respaldo (máx. 3 arqueros). La figura del club siempre; mín. 2 Sub-21 y máx. 6 extranjeros, reemplazando a los de menos respaldo de la misma línea.",
     "T-08, atributos (fórmula propia; nada de puntajes de otros juegos): skill_rating = 50 + 6 × facilities_level + 4 (la base de SquadGenerator para Primera A) + edad (≤18: −10, 19-20: −6, 21-22: −2, 23-25: 0, 26-30: +2, 31-33: 0, ≥34: −2; null: 0) + selección adulta con membresía desde 2006 o antes en Wikidata +6 (solo juveniles +2) + notoriedad min(4, sitelinks ÷ 5) + 8 si es la figura del club; acotado a 40-99. stamina_max = base por rol (POR 64, DFC 68, LAT 74, MCD 76, MCO 68, EXT 76, DEL 68) + edad (≤20: +4, 21-26: +2, 27-30: 0, 31-32: −4, 33-34: −8, ≥35: −12; null: 0); acotado a 40-100.",
     "wikidata: entidad del jugador en Wikidata (solo en los planteles de T-08). review (en la raíz): lo encontrado para los clubes que siguen generados porque no llegaron a 18 jugadores con fuente."
   ],
@@ -95,11 +95,11 @@
         {"id": "cristian_gabriel_fernandez",   "name": "Cristian Gabriel Fernández",   "age": 26, "nationality": "ARG", "position": "DEF", "role": "DFC", "stamina_max": 70, "skill_rating": 69, "signature_card_id": null, "wikidata": "Q3697376"},
         {"id": "juan_gonzalez_calderon",       "name": "Juan González Calderón",       "age": 30, "nationality": "CHI", "position": "DEF", "role": "DFC", "stamina_max": 68, "skill_rating": 69, "signature_card_id": null, "wikidata": "Q9015576"},
         {"id": "fernando_gutierrez_fernandez", "name": "Fernando Gutiérrez Fernández", "age": 25, "nationality": "CHI", "position": "DEF", "role": "DFC", "stamina_max": 70, "skill_rating": 67, "signature_card_id": null, "wikidata": "Q5408595"},
-        {"id": "carlos_villanueva",            "name": "Carlos Villanueva",            "age": 20, "nationality": "CHI", "position": "MED", "role": "MCD", "stamina_max": 80, "skill_rating": 70, "signature_card_id": null, "wikidata": "Q716965"},
-        {"id": "mauricio_rojas",               "name": "Mauricio Rojas",               "age": 28, "nationality": "CHI", "position": "MED", "role": "MCD", "stamina_max": 76, "skill_rating": 70, "signature_card_id": null, "wikidata": "Q2076742"},
+        {"id": "carlos_villanueva",            "name": "Carlos Villanueva",            "age": 20, "nationality": "CHI", "position": "MED", "role": "MCO", "stamina_max": 72, "skill_rating": 70, "signature_card_id": null, "wikidata": "Q716965"},
         {"id": "cesar_santis",                 "name": "César Santis",                 "age": 27, "nationality": "CHI", "position": "MED", "role": "MCD", "stamina_max": 76, "skill_rating": 69, "signature_card_id": null, "wikidata": "Q3822721"},
         {"id": "miguel_angel_romero",          "name": "Miguel Ángel Romero",          "age": 30, "nationality": "ARG", "position": "MED", "role": "MCD", "stamina_max": 76, "skill_rating": 69, "signature_card_id": null, "wikidata": "Q6844942"},
         {"id": "fabian_orellana",              "name": "Fabián Orellana",              "age": 20, "nationality": "CHI", "position": "MED", "role": "EXT", "stamina_max": 80, "skill_rating": 66, "signature_card_id": null, "wikidata": "Q367851"},
+        {"id": "enzo_cabrera",                 "name": "Enzo Cabrera",                 "age": 21, "nationality": "CHI", "position": "MED", "role": "MCD", "stamina_max": 78, "skill_rating": 65, "signature_card_id": null, "wikidata": "Q5381493"},
         {"id": "matias_campos",                "name": "Matías Campos",                "age": 17, "nationality": "CHI", "position": "MED", "role": "MCD", "stamina_max": 80, "skill_rating": 60, "signature_card_id": null, "wikidata": "Q892443"},
         {"id": "aristides_masi",               "name": "Aristides Masi",               "age": 29, "nationality": "PAR", "position": "DEL", "role": "DEL", "stamina_max": 68, "skill_rating": 75, "signature_card_id": null, "wikidata": "Q3624715"},
         {"id": "leandro_dos_santos_branco",    "name": "Leandro dos Santos Branco",    "age": 23, "nationality": "BRA", "position": "DEL", "role": "DEL", "stamina_max": 70, "skill_rating": 67, "signature_card_id": null, "wikidata": "Q5485378"},
@@ -107,6 +107,7 @@
         {"id": "diego_de_gregorio",            "name": "Diego de Gregorio",            "age": 19, "nationality": "CHI", "position": "DEL", "role": "DEL", "stamina_max": 72, "skill_rating": 61, "signature_card_id": null, "wikidata": "Q5274867"}
       ],
       "review": [
+        "membresía en Wikidata sin fechas, fechada en 2006 por su trayectoria en es.wikipedia: enzo_cabrera",
         "Carlos Germán Arangio (Q5552276): en 2006 también en palestino y las fechas no dicen dónde terminó el año; fuera de ambos",
         "cesar_santis: en 2006 también en deportes_antofagasta; terminó el año aquí"
       ]
@@ -117,9 +118,9 @@
         {"id": "jean_carlos_gaona",     "name": "Jean Carlos Gaona",     "age": 33, "nationality": "ARG", "position": "POR", "role": "POR", "stamina_max": 56, "skill_rating": 67, "signature_card_id": null, "wikidata": "Q11686854"},
         {"id": "francisco_rojas_rojas", "name": "Francisco Rojas Rojas", "age": 31, "nationality": "CHI", "position": "DEF", "role": "DFC", "stamina_max": 64, "skill_rating": 76, "signature_card_id": null, "wikidata": "Q669321"},
         {"id": "pedro_reyes_g",         "name": "Pedro Reyes G.",        "age": 33, "nationality": "CHI", "position": "DEF", "role": "DFC", "stamina_max": 60, "skill_rating": 76, "signature_card_id": null, "wikidata": "Q2602528"},
+        {"id": "sebastian_miranda",     "name": "Sebastián Miranda",     "age": 26, "nationality": "CHI", "position": "DEF", "role": "DFC", "stamina_max": 70, "skill_rating": 69, "signature_card_id": null, "wikidata": "Q325459"},
         {"id": "adan_vergara",          "name": "Adán Vergara",          "age": 25, "nationality": "CHI", "position": "DEF", "role": "DFC", "stamina_max": 70, "skill_rating": 67, "signature_card_id": null, "wikidata": "Q380292"},
         {"id": "alexis_norambuena",     "name": "Alexis Norambuena",     "age": 22, "nationality": "CHI", "position": "DEF", "role": "DFC", "stamina_max": 70, "skill_rating": 67, "signature_card_id": null, "wikidata": "Q2706167"},
-        {"id": "sebastian_miranda",     "name": "Sebastián Miranda",     "age": null, "nationality": "CHI", "position": "DEF", "role": "DFC", "stamina_max": 68, "skill_rating": 67, "signature_card_id": null, "wikidata": "Q325459"},
         {"id": "christian_sepulveda",   "name": "Christian Sepúlveda",   "age": 19, "nationality": "CHI", "position": "DEF", "role": "DFC", "stamina_max": 72, "skill_rating": 61, "signature_card_id": null, "wikidata": "Q5767524"},
         {"id": "clarence_acuna",        "name": "Clarence Acuña",        "age": 31, "nationality": "CHI", "position": "MED", "role": "MCD", "stamina_max": 72, "skill_rating": 76, "signature_card_id": null, "wikidata": "Q2603260"},
         {"id": "jose_luis_sierra",      "name": "José Luis Sierra",      "age": 37, "nationality": "CHI", "position": "MED", "role": "MCD", "stamina_max": 64, "skill_rating": 74, "signature_card_id": null, "wikidata": "Q1341599"},
@@ -133,7 +134,7 @@
         {"id": "cristian_montecinos",   "name": "Cristian Montecinos",   "age": 35, "nationality": "CHI", "position": "DEL", "role": "DEL", "stamina_max": 56, "skill_rating": 72, "signature_card_id": null, "wikidata": "Q2634639"}
       ],
       "review": [
-        "sebastian_miranda: fecha de nacimiento dudosa o sin día (1980-06-26, 1980-08-26): edad null"
+        "sebastian_miranda: fecha de nacimiento 26-06-1980 según es.wikipedia (Wikidata: 1980-06-26, 1980-08-26)"
       ]
     },
     "palestino": {
@@ -144,8 +145,8 @@
         {"id": "mauricio_segovia",         "name": "Mauricio Segovia",         "age": 28, "nationality": "CHI", "position": "DEF", "role": "DFC", "stamina_max": 68, "skill_rating": 63, "signature_card_id": null, "wikidata": "Q6171772"},
         {"id": "cristian_basaure",         "name": "Cristián Basaure",         "age": 25, "nationality": "CHI", "position": "DEF", "role": "DFC", "stamina_max": 70, "skill_rating": 61, "signature_card_id": null, "wikidata": "Q5186407"},
         {"id": "christian_vilches",        "name": "Christian Vilches",        "age": 22, "nationality": "CHI", "position": "DEF", "role": "DFC", "stamina_max": 70, "skill_rating": 60, "signature_card_id": null, "wikidata": "Q5110245"},
-        {"id": "rodrigo_barrera",          "name": "Rodrigo Barrera",          "age": null, "nationality": "CHI", "position": "MED", "role": "MCD", "stamina_max": 76, "skill_rating": 70, "signature_card_id": null, "wikidata": "Q672081"},
-        {"id": "fabian_estay",             "name": "Fabián Estay",             "age": 37, "nationality": "CHI", "position": "MED", "role": "MCD", "stamina_max": 64, "skill_rating": 68, "signature_card_id": null, "wikidata": "Q2454389"},
+        {"id": "fabian_estay",             "name": "Fabián Estay",             "age": 37, "nationality": "CHI", "position": "MED", "role": "MCO", "stamina_max": 56, "skill_rating": 68, "signature_card_id": null, "wikidata": "Q2454389"},
+        {"id": "rodrigo_barrera",          "name": "Rodrigo Barrera",          "age": 36, "nationality": "CHI", "position": "MED", "role": "MCD", "stamina_max": 64, "skill_rating": 68, "signature_card_id": null, "wikidata": "Q672081"},
         {"id": "rodrigo_toloza",           "name": "Rodrigo Toloza",           "age": 22, "nationality": "CHI", "position": "MED", "role": "MCD", "stamina_max": 78, "skill_rating": 65, "signature_card_id": null, "wikidata": "Q7357429"},
         {"id": "esteban_eduardo_gonzalez", "name": "Esteban Eduardo González", "age": 24, "nationality": "CHI", "position": "MED", "role": "MCD", "stamina_max": 78, "skill_rating": 61, "signature_card_id": null, "wikidata": "Q5849048"},
         {"id": "angel_carreno",            "name": "Ángel Carreño",            "age": 24, "nationality": "CHI", "position": "MED", "role": "MCD", "stamina_max": 78, "skill_rating": 61, "signature_card_id": null, "wikidata": "Q8076818"},
@@ -154,14 +155,15 @@
         {"id": "luis_pavez",               "name": "Luis Pavez",               "age": 18, "nationality": "CHI", "position": "MED", "role": "MCD", "stamina_max": 80, "skill_rating": 51, "signature_card_id": null, "wikidata": "Q6700975"},
         {"id": "juan_pablo_ubeda",         "name": "Juan Pablo Úbeda",         "age": 25, "nationality": "CHI", "position": "DEL", "role": "DEL", "stamina_max": 70, "skill_rating": 71, "signature_card_id": null, "wikidata": "Q6300721"},
         {"id": "daniel_perez",             "name": "Daniel Pérez",             "age": 30, "nationality": "CHI", "position": "DEL", "role": "DEL", "stamina_max": 68, "skill_rating": 69, "signature_card_id": null, "wikidata": "Q5218502"},
-        {"id": "juan_angel_paredes",       "name": "Juan Ángel Paredes",       "age": 27, "nationality": "PAR", "position": "DEL", "role": "DEL", "stamina_max": 68, "skill_rating": 62, "signature_card_id": null, "wikidata": "Q6301423"},
-        {"id": "francisco_ibanez_campos",  "name": "Francisco Ibáñez Campos",  "age": 20, "nationality": "CHI", "position": "DEL", "role": "DEL", "stamina_max": 72, "skill_rating": 55, "signature_card_id": null, "wikidata": "Q5483469"}
+        {"id": "francisco_ibanez_campos",  "name": "Francisco Ibáñez Campos",  "age": 20, "nationality": "CHI", "position": "DEL", "role": "DEL", "stamina_max": 72, "skill_rating": 55, "signature_card_id": null, "wikidata": "Q5483469"},
+        {"id": "jean_paul_pineda",         "name": "Jean Paul Pineda",         "age": 17, "nationality": "CHI", "position": "DEL", "role": "DEL", "stamina_max": 72, "skill_rating": 52, "signature_card_id": null, "wikidata": "Q2741350"}
       ],
       "review": [
-        "Jean Paul Pineda (Q2741350): sin nacionalidad; Wikidata registra 2 fechas de nacimiento (1989-02-24, 1989-04-24); todas dan 17 años al 1-jul-2006; queda fuera",
         "Carlos Germán Arangio (Q5552276): en 2006 también en audax_italiano y las fechas no dicen dónde terminó el año; fuera de ambos",
         "juan_pablo_ubeda: en 2006 también en everton; terminó el año aquí",
-        "rodrigo_barrera: fecha de nacimiento dudosa o sin día (1970-03-30, 1970-10-30): edad null",
+        "rodrigo_barrera: fecha de nacimiento 30-03-1970 según es.wikipedia (Wikidata: 1970-03-30, 1970-10-30)",
+        "jean_paul_pineda: Wikidata registra 2 fechas de nacimiento (1989-02-24, 1989-04-24); todas dan 17 años al 1-jul-2006",
+        "jean_paul_pineda: sin nacionalidad en Wikidata; CHI según su ficha en es.wikipedia",
         "daniel_perez: ciudadanías ARG, CHI; se usa CHI, la selección que defendió",
         "joan_henriquez: Wikidata registra 2 fechas de nacimiento (1986-04-24, 1986-04-25); todas dan 20 años al 1-jul-2006",
         "leonardo_fernandez: ciudadanías ARG, BOL; se usa BOL, la selección que defendió"
@@ -170,81 +172,82 @@
   },
   "review": {
     "cobreloa": [
-      "18 jugadores con membresía fechada en 2006 en Wikidata y 17 utilizables (falta 1 para 18): Boris González (Q4945268), Bryan Aldave (Q2889199), Charles Aránguiz (Q797945), Cristián Morán (Q5186416), Fernando Hurtado (Q5444766), Iván Vásquez (Q3156385), Jonathan Cisternas (Q512603), José Luis Díaz (Q6292759), Juan Luis González (Q6300253), Lucas Barrios (Q154623), Luis Fuentes (Q2634757), Mauricio Aros (Q656129), Nicolás Asencio (Q2563253), Rodrigo Mannara (Q7357376), Rodrigo Pérez (Q2461895), Sebastián Pinto (Q970194), Sergio Vargas Pino (Q7454436)",
+      "18 jugadores con membresía en 2006 (18 con fechas de Wikidata y 0 fechados por es.wikipedia) y 17 utilizables (falta 1 para 18): Boris González (Q4945268), Bryan Aldave (Q2889199), Charles Aránguiz (Q797945), Cristián Morán (Q5186416), Fernando Hurtado (Q5444766), Iván Vásquez (Q3156385), Jonathan Cisternas (Q512603), José Luis Díaz (Q6292759), Juan Luis González (Q6300253), Lucas Barrios (Q154623), Luis Fuentes (Q2634757), Mauricio Aros (Q656129), Nicolás Asencio (Q2563253), Rodrigo Mannara (Q7357376), Rodrigo Pérez (Q2461895), Sebastián Pinto (Q970194), Sergio Vargas Pino (Q7454436)",
       "Albert Acevedo (Q4709607): en 2006 aquí a préstamo, pero ya está en el plantel real de su club",
       "Sergio Vargas Pino (Q7454436): en 2006 también en everton; terminó el año aquí",
       "Sebastián Pinto (Q970194): Wikidata registra 2 fechas de nacimiento (1986-02-05, 1986-02-15); todas dan 20 años al 1-jul-2006"
     ],
     "huachipato": [
-      "18 jugadores con membresía fechada en 2006 en Wikidata y 15 utilizables (faltan 3 para 18): Arnaldo Espínola (Q3623498), Cristián Fernando Muñoz (Q5186417), Cristián Reynero (Q5186421), Dagoberto Currimilla (Q2842347), Edson Puch (Q2475246), Gabriel Sandoval (Q5515846), Gonzalo Jara (Q349172), Jaime Riveros (Q2190003), Juan Gonzalo Lorca (Q2412263), Leonardo Mas (Q4283697), Mauricio Salazar (Q10518166), Pedro Morales (Q718771), Renzo Yáñez (Q7313636), Rodolfo Madrid (Q7357175), Rodrigo Millar (Q329496)",
+      "18 jugadores con membresía en 2006 (18 con fechas de Wikidata y 0 fechados por es.wikipedia) y 15 utilizables (faltan 3 para 18): Arnaldo Espínola (Q3623498), Cristián Fernando Muñoz (Q5186417), Cristián Reynero (Q5186421), Dagoberto Currimilla (Q2842347), Edson Puch (Q2475246), Gabriel Sandoval (Q5515846), Gonzalo Jara (Q349172), Jaime Riveros (Q2190003), Juan Gonzalo Lorca (Q2412263), Leonardo Mas (Q4283697), Mauricio Salazar (Q10518166), Pedro Morales (Q718771), Renzo Yáñez (Q7313636), Rodolfo Madrid (Q7357175), Rodrigo Millar (Q329496)",
       "Mauricio Arias (Q5479760): Wikidata lo pone en el club en 2006, pero su trayectoria en es.wikipedia no; queda fuera",
       "Diego Alejandro Ruiz (Q553811): varias nacionalidades (CHI, GER) y ninguna selección que las desempate; queda fuera",
       "Jaime González (Q6123771): Wikidata lo pone en el club en 2006, pero su trayectoria en es.wikipedia no; queda fuera",
       "Jaime Riveros (Q2190003): en 2006 también en santiago_wanderers; terminó el año aquí"
     ],
     "everton": [
-      "20 jugadores con membresía fechada en 2006 en Wikidata y 14 utilizables (faltan 4 para 18): Alejandro Escalona (Q1621381), Alejandro Vásquez (Q4714695), Braulio Leal (Q2067398), Carlos María Morales (Q2777768), Cristián Gómez (Q5186412), Cristián Uribe (Q5186432), Emilio Hernández (Q2002714), Francisco Sánchez Silva (Q5483977), Javier Menghini (Q6165630), Joel Estay (Q3180234), Marco Estrada (Q361068), Rodrigo Naranjo (Q7357383), Sebastián Varas (Q5681430), Ángel Rojas Ortega (Q8076899)",
+      "20 jugadores con membresía en 2006 (20 con fechas de Wikidata y 0 fechados por es.wikipedia) y 14 utilizables (faltan 4 para 18): Alejandro Escalona (Q1621381), Alejandro Vásquez (Q4714695), Braulio Leal (Q2067398), Carlos María Morales (Q2777768), Cristián Gómez (Q5186412), Cristián Uribe (Q5186432), Emilio Hernández (Q2002714), Francisco Sánchez Silva (Q5483977), Javier Menghini (Q6165630), Joel Estay (Q3180234), Marco Estrada (Q361068), Rodrigo Naranjo (Q7357383), Sebastián Varas (Q5681430), Ángel Rojas Ortega (Q8076899)",
       "John Munizaga (Q5933478): Wikidata lo pone en el club en 2006, pero su trayectoria en es.wikipedia no; queda fuera",
       "Alejandro Vásquez (Q4714695): fecha de nacimiento dudosa o sin día (1984-06-05, 1984-07-05): edad null",
       "Francisco Sánchez Silva (Q5483977): fecha de nacimiento dudosa o sin día (1985, 1986-09-08): edad null"
     ],
     "santiago_wanderers": [
-      "15 jugadores con membresía fechada en 2006 en Wikidata y 13 utilizables (faltan 5 para 18): Carlos Muñoz Rojas (Q1919079), Christian Gálvez Núñez (Q5109659), Francisco Prieto (Q3132182), Jaime Grondona (Q5867708), José Contreras Arrau (Q5611658), José Luis Jiménez (Q9014057), José María Franco (Q1421875), Juan Silva (Q6301010), Luis Durán Riquelme (Q3462709), Luis Oyarzún Rebolledo (Q6700969), Michael Silva (Q6176149), Sebastián Roco (Q2706748), Silvio Fernández Dos Santos (Q924086)",
-      "José María Franco (Q1421875): fecha de nacimiento dudosa o sin día (1933-09-28, 1978-09-28): edad null",
-      "Christian Gálvez Núñez (Q5109659): en 2006 también en cobresal; terminó el año aquí"
+      "18 jugadores con membresía en 2006 (15 con fechas de Wikidata y 3 fechados por es.wikipedia) y 16 utilizables (faltan 2 para 18): Carlos Muñoz Rojas (Q1919079), Christian Gálvez Núñez (Q5109659), Eric Godoy (Q5386589), Francisco Prieto (Q3132182), Jaime Grondona (Q5867708), José Contreras Arrau (Q5611658), José Luis Jiménez (Q9014057), José María Franco (Q1421875), Juan Silva (Q6301010), Luis Durán Riquelme (Q3462709), Luis Oyarzún Rebolledo (Q6700969), Michael Silva (Q6176149), Miguel Catalán Paz (Q6014112), Sebastián Méndez (Q7442663), Sebastián Roco (Q2706748), Silvio Fernández Dos Santos (Q924086)",
+      "José María Franco (Q1421875): fecha de nacimiento 28-09-1978 según es.wikipedia (Wikidata: 1933-09-28, 1978-09-28)",
+      "Christian Gálvez Núñez (Q5109659): en 2006 también en cobresal; terminó el año aquí",
+      "Eric Godoy (Q5386589): Wikidata registra 2 fechas de nacimiento (1987-03-26, 1987-05-05); todas dan 19 años al 1-jul-2006"
     ],
     "universidad_de_concepcion": [
-      "17 jugadores con membresía fechada en 2006 en Wikidata y 15 utilizables (faltan 3 para 18): Andrés Oroz (Q2152503), Cristian Febre (Q4502614), Fabián Benítez (Q5427900), Federico Elduayen (Q1361625), Fernando Solís Núñez (Q5444931), Jairo Neira (Q6124232), Juan Francisco Viveros Opazo (Q9015524), Juan José Ossandón (Q6300158), Juan José Ribera (Q5950468), Leonardo Monje (Q3053228), Lisandro Henríquez (Q6558545), Luis Aguiar (Q2560073), Osvaldo González (Q2699209), Ricardo Parada (Q3430313), Rodrigo Rain (Q7357404)",
-      "Fernando Meneses (Q2421827): en 2006 también en o_higgins y las fechas no dicen dónde terminó el año; fuera de ambos",
+      "18 jugadores con membresía en 2006 (17 con fechas de Wikidata y 1 fechados por es.wikipedia) y 16 utilizables (faltan 2 para 18): Andrés Oroz (Q2152503), Cristian Febre (Q4502614), Fabián Benítez (Q5427900), Federico Elduayen (Q1361625), Fernando Solís Núñez (Q5444931), Jairo Neira (Q6124232), Juan Francisco Viveros Opazo (Q9015524), Juan José Ossandón (Q6300158), Juan José Ribera (Q5950468), Juan Luis Mora Parada (Q6300265), Leonardo Monje (Q3053228), Lisandro Henríquez (Q6558545), Luis Aguiar (Q2560073), Osvaldo González (Q2699209), Ricardo Parada (Q3430313), Rodrigo Rain (Q7357404)",
       "Ismael Espiga (Q6084558): en 2006 también en santiago_morning y las fechas no dicen dónde terminó el año; fuera de ambos",
-      "Federico Elduayen (Q1361625): fecha de nacimiento dudosa o sin día (1977-06-25, 1977-07-25): edad null",
+      "Federico Elduayen (Q1361625): fecha de nacimiento 25-06-1977 según es.wikipedia (Wikidata: 1977-06-25, 1977-07-25)",
       "Andrés Oroz (Q2152503): en 2006 también en santiago_morning; terminó el año aquí según el orden de su trayectoria en es.wikipedia",
       "Luis Aguiar (Q2560073): ciudadanías ITA, URU; se usa URU, la selección que defendió",
       "Leonardo Monje (Q3053228): en 2006 también en deportes_puerto_montt; terminó el año aquí",
-      "Cristian Febre (Q4502614): fecha de nacimiento dudosa o sin día (1980-12-10, 1983-12-10): edad null",
+      "Cristian Febre (Q4502614): fecha de nacimiento 10-12-1980 según es.wikipedia (Wikidata: 1980-12-10, 1983-12-10)",
       "Juan José Ribera (Q5950468): Wikidata registra 2 fechas de nacimiento (1980-08-07, 1980-10-11); todas dan 25 años al 1-jul-2006",
       "Jairo Neira (Q6124232): fecha de nacimiento dudosa o sin día (1986-12-09, 1987): edad null"
     ],
     "o_higgins": [
-      "17 jugadores con membresía fechada en 2006 en Wikidata y 14 utilizables (faltan 4 para 18): Adrián Berbia (Q974044), Alejandro Javier Acosta (Q890670), Baltazar Astorga (Q4852629), Cristián Canío (Q3295329), César Henríquez (Q5202562), Daniel González (Q5217308), Diego Guidi (Q5274687), Diego Olate (Q5274755), Giancarlo Maldonado (Q596136), Joel Soto (Q6213983), Mariano Messera (Q6762367), Nicolás Diez (Q7030355), Roberto González (Q7351722), Rodrigo Ramírez (Q7357405)",
-      "Fernando Meneses (Q2421827): en 2006 también en universidad_de_concepcion y las fechas no dicen dónde terminó el año; fuera de ambos",
+      "17 jugadores con membresía en 2006 (17 con fechas de Wikidata y 0 fechados por es.wikipedia) y 15 utilizables (faltan 3 para 18): Adrián Berbia (Q974044), Alejandro Javier Acosta (Q890670), Baltazar Astorga (Q4852629), Cristián Canío (Q3295329), César Henríquez (Q5202562), Daniel González (Q5217308), Diego Guidi (Q5274687), Diego Olate (Q5274755), Fernando Meneses (Q2421827), Giancarlo Maldonado (Q596136), Joel Soto (Q6213983), Mariano Messera (Q6762367), Nicolás Diez (Q7030355), Roberto González (Q7351722), Rodrigo Ramírez (Q7357405)",
       "Marcelo Medina (Q6756594): en 2006 también en cobresal y las fechas no dicen dónde terminó el año; fuera de ambos",
+      "Fernando Meneses (Q2421827): Wikidata registra 2 fechas de nacimiento (1985-08-27, 1985-09-27); todas dan 20 años al 1-jul-2006",
+      "Fernando Meneses (Q2421827): en 2006 también en universidad_de_concepcion; terminó el año aquí según el orden de su trayectoria en es.wikipedia",
       "Daniel González (Q5217308): en 2006 también en everton; terminó el año aquí",
       "Nicolás Diez (Q7030355): en 2006 también en everton; terminó el año aquí",
       "Roberto González (Q7351722): en 2006 también en everton; terminó el año aquí"
     ],
     "cobresal": [
-      "15 jugadores con membresía fechada en 2006 en Wikidata y 13 utilizables (faltan 5 para 18): César Díaz Escobar (Q3010417), Guillermo Orellana (Q5616223), Hugo Díaz (Q5933925), Iván Guillauma (Q6100072), Juan Carvajal Cerda (Q6299473), Juan Quiroga (Q6300824), Manuel Ibarra Valdés (Q1439130), Raúl Celis Sanzotti (Q7296187), Richar Estigarribia (Q7325544), Rodrigo Barra (Q9070218), Rodrigo Núñez (Q1440373), Rodrigo Viligrón (Q7357437), Ángel Puertas (Q8076884)",
+      "15 jugadores con membresía en 2006 (15 con fechas de Wikidata y 0 fechados por es.wikipedia) y 13 utilizables (faltan 5 para 18): César Díaz Escobar (Q3010417), Guillermo Orellana (Q5616223), Hugo Díaz (Q5933925), Iván Guillauma (Q6100072), Juan Carvajal Cerda (Q6299473), Juan Quiroga (Q6300824), Manuel Ibarra Valdés (Q1439130), Raúl Celis Sanzotti (Q7296187), Richar Estigarribia (Q7325544), Rodrigo Barra (Q9070218), Rodrigo Núñez (Q1440373), Rodrigo Viligrón (Q7357437), Ángel Puertas (Q8076884)",
       "Marcelo Medina (Q6756594): en 2006 también en o_higgins y las fechas no dicen dónde terminó el año; fuera de ambos"
     ],
     "deportes_antofagasta": [
-      "14 jugadores con membresía fechada en 2006 en Wikidata y 13 utilizables (faltan 5 para 18): Alonso Zúñiga (Q4734499), César Cáceres Cañete (Q2893585), Giovanni Narváez (Q5563926), Gonzalo Klusener (Q5883027), José Félix Pedroso (Q9013862), Luciano Pocrnjic (Q6696864), Luis Alegría (Q5681809), Luis Flores Abarca (Q5663173), Mauricio Donoso (Q3852456), Patricio Gutiérrez (Q7145948), Paulo Magalhaes (Q2634554), Renato Ramos (Q7312673), Rubén Bascuñán (Q7376452)",
+      "18 jugadores con membresía en 2006 (14 con fechas de Wikidata y 4 fechados por es.wikipedia) y 17 utilizables (falta 1 para 18): Alonso Zúñiga (Q4734499), Cristián Rojas Sanhueza (Q5186422), César Cáceres Cañete (Q2893585), Giovanni Narváez (Q5563926), Gonzalo Klusener (Q5883027), José Félix Pedroso (Q9013862), Luciano Pocrnjic (Q6696864), Luis Alegría (Q5681809), Luis Eugenio Díaz Fuenzalida (Q15630916), Luis Flores Abarca (Q5663173), Luis Godoy (Q6700657), Mauricio Donoso (Q3852456), Patricio Gutiérrez (Q7145948), Paulo Magalhaes (Q2634554), Renato Ramos (Q7312673), René Bugueño (Q7313677), Rubén Bascuñán (Q7376452)",
       "Luis Flores Abarca (Q5663173): en 2006 también en o_higgins; terminó el año aquí"
     ],
     "deportes_la_serena": [
-      "18 jugadores con membresía fechada en 2006 en Wikidata y 17 utilizables (falta 1 para 18): Alejandro Schiapparelli (Q4714668), Benjamín Ruiz (Q4889498), Carlos Alzamora (Q5041753), Carlos Fernando Asprilla (Q3660018), Carlos Rivas Godoy (Q5042557), Carlos Tejas (Q2436056), Fernando Saavedra (Q5444914), Kilian Virviescas (Q946265), Luis Rueda (Q969477), Mario Pardo Acuña (Q369332), Matías Urbano (Q3852367), Pedro Carrizo (Q7159507), Raúl Palacios (Q3930844), Rodolfo Moya (Q5691352), Rodrigo Brito (Q2882588), Róbinson Zapata (Q594243), Sebastián Páez (Q9075356)",
+      "18 jugadores con membresía en 2006 (18 con fechas de Wikidata y 0 fechados por es.wikipedia) y 17 utilizables (falta 1 para 18): Alejandro Schiapparelli (Q4714668), Benjamín Ruiz (Q4889498), Carlos Alzamora (Q5041753), Carlos Fernando Asprilla (Q3660018), Carlos Rivas Godoy (Q5042557), Carlos Tejas (Q2436056), Fernando Saavedra (Q5444914), Kilian Virviescas (Q946265), Luis Rueda (Q969477), Mario Pardo Acuña (Q369332), Matías Urbano (Q3852367), Pedro Carrizo (Q7159507), Raúl Palacios (Q3930844), Rodolfo Moya (Q5691352), Rodrigo Brito (Q2882588), Róbinson Zapata (Q594243), Sebastián Páez (Q9075356)",
       "Benjamín Ruiz (Q4889498): Wikidata registra 2 fechas de nacimiento (1981-08-21, 1982-02-01); todas dan 24 años al 1-jul-2006"
     ],
     "coquimbo_unido": [
-      "16 jugadores con membresía fechada en 2006 en Wikidata y 15 utilizables (faltan 3 para 18): Alí Manouchehri (Q4738861), Carlos Carmona Tello (Q349162), Carlos Escobar Ortiz (Q5042046), Daniel Andrés Ferreyra (Q5217132), Diego Acoglanis (Q3707127), Felipe Muñoz Flores (Q5442014), Gamadiel García (Q5519543), Gonzalo Garavano (Q5582197), Gustavo Lorenzetti (Q5621441), Luciano Álvarez (Q4356351), Marcelo Corrales (Q3845716), Mario Aravena (Q3293355), Nicolás Crovetto (Q2721817), Rodrigo Rivera (Q7357409), Víctor Cancino (Q7944597)",
+      "17 jugadores con membresía en 2006 (16 con fechas de Wikidata y 1 fechados por es.wikipedia) y 16 utilizables (faltan 2 para 18): Alfredo Calderón (Q5667575), Alí Manouchehri (Q4738861), Carlos Carmona Tello (Q349162), Carlos Escobar Ortiz (Q5042046), Daniel Andrés Ferreyra (Q5217132), Diego Acoglanis (Q3707127), Felipe Muñoz Flores (Q5442014), Gamadiel García (Q5519543), Gonzalo Garavano (Q5582197), Gustavo Lorenzetti (Q5621441), Luciano Álvarez (Q4356351), Marcelo Corrales (Q3845716), Mario Aravena (Q3293355), Nicolás Crovetto (Q2721817), Rodrigo Rivera (Q7357409), Víctor Cancino (Q7944597)",
       "Juan Manuel Lucero (Q4300940): varias nacionalidades (ARG, CHI) y ninguna selección que las desempate; queda fuera"
     ],
     "deportes_puerto_montt": [
-      "13 jugadores con membresía fechada en 2006 en Wikidata y 11 utilizables (faltan 7 para 18): César Cortés (Q2474885), Ever Cantero (Q923797), Fernando Giménez (Q3742915), Gabriel Vargas (Q2056903), Iván Álvarez (Q6100230), Jorge Schwager (Q9012915), Leandro Delgado (Q6509632), Matías Garavano (Q3852357), Pablo Reinoso (Q7121734), Rodolfo Quinteros (Q6059764), Víctor Hugo Ávalos (Q7944652)",
+      "13 jugadores con membresía en 2006 (13 con fechas de Wikidata y 0 fechados por es.wikipedia) y 11 utilizables (faltan 7 para 18): César Cortés (Q2474885), Ever Cantero (Q923797), Fernando Giménez (Q3742915), Gabriel Vargas (Q2056903), Iván Álvarez (Q6100230), Jorge Schwager (Q9012915), Leandro Delgado (Q6509632), Matías Garavano (Q3852357), Pablo Reinoso (Q7121734), Rodolfo Quinteros (Q6059764), Víctor Hugo Ávalos (Q7944652)",
       "Willy Topp (Q8022620): en 2006 aquí a préstamo, pero ya está en el plantel real de su club"
     ],
     "rangers": [
-      "9 jugadores con membresía fechada en 2006 en Wikidata y 7 utilizables (faltan 11 para 18): Eduardo Picart (Q5819559), Francisco Huaiquipán (Q5483454), Jorge Ariel Fernández (Q6277683), Juan Martínez Marconi (Q5951327), Omar Enrique Mallea (Q2842692), Ramón Ávila (Q7290583), Román Cuello (Q7363402)",
-      "Gustavo Dalsasso (Q5621383): varias nacionalidades (ARG, CHI) y ninguna selección que las desempate; queda fuera",
+      "10 jugadores con membresía en 2006 (9 con fechas de Wikidata y 1 fechados por es.wikipedia) y 9 utilizables (faltan 9 para 18): Eduardo Picart (Q5819559), Eduardo Pinto (Q5340728), Francisco Huaiquipán (Q5483454), Gustavo Dalsasso (Q5621383), Jorge Ariel Fernández (Q6277683), Juan Martínez Marconi (Q5951327), Omar Enrique Mallea (Q2842692), Ramón Ávila (Q7290583), Román Cuello (Q7363402)",
       "Horacio Chiorazzo (Q5683335): varias nacionalidades (ARG, BOL) y ninguna selección que las desempate; queda fuera",
+      "Gustavo Dalsasso (Q5621383): ciudadanías ARG, CHI; se usa CHI, la selección o nacionalidad deportiva de su ficha en es.wikipedia",
       "Juan Martínez Marconi (Q5951327): Wikidata registra 2 fechas de nacimiento (1982-05-01, 1982-05-31); todas dan 24 años al 1-jul-2006",
       "Jorge Ariel Fernández (Q6277683): fecha de nacimiento dudosa o sin día (1982-03-09, 1982-09-03): edad null"
     ],
     "santiago_morning": [
-      "15 jugadores con membresía fechada en 2006 en Wikidata y 12 utilizables (faltan 6 para 18): Alex Comas (Q3377020), Cristián Muñoz Corrales (Q10471818), Fernando Manríquez (Q5444809), Francisco Fernández Torrejón (Q1092276), Gustavo Fuentes (Q5621401), Juan Robledo (Q1338908), Marco Villaseca (Q2462247), Mauricio Pozo (Q3852460), Mauricio Weber (Q6793656), Pedro González Vera (Q924250), Rodrigo Goldberg (Q2919966), Víctor Loyola (Q9095315)",
+      "15 jugadores con membresía en 2006 (15 con fechas de Wikidata y 0 fechados por es.wikipedia) y 12 utilizables (faltan 6 para 18): Alex Comas (Q3377020), Cristián Muñoz Corrales (Q10471818), Fernando Manríquez (Q5444809), Francisco Fernández Torrejón (Q1092276), Gustavo Fuentes (Q5621401), Juan Robledo (Q1338908), Marco Villaseca (Q2462247), Mauricio Pozo (Q3852460), Mauricio Weber (Q6793656), Pedro González Vera (Q924250), Rodrigo Goldberg (Q2919966), Víctor Loyola (Q9095315)",
       "Ismael Espiga (Q6084558): en 2006 también en universidad_de_concepcion y las fechas no dicen dónde terminó el año; fuera de ambos",
       "Michael Rios (Q6834061): Wikidata lo pone en el club en 2006, pero su trayectoria en es.wikipedia no; Wikidata registra 2 fechas de nacimiento (1985-04-24, 1985-06-19); todas dan 21 años al 1-jul-2006; queda fuera",
-      "figura Esteban Paredes: no queda en el plantel con membresía fechada en 2006 (coincidencias por nombre: Q439914)",
+      "figura Esteban Paredes: no queda en el plantel con membresía en 2006 (coincidencias por nombre: Q439914)",
       "Cristián Muñoz Corrales (Q10471818): en 2006 también en deportes_la_serena, santiago_wanderers; terminó el año aquí según el orden de su trayectoria en es.wikipedia"
     ]
   }

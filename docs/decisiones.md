@@ -159,6 +159,16 @@ y documentada. Sin fuente, `null` y una entrada en `review` (D-02). Descartado: 
 juegos (Football Manager, archivos de PES): son propiedad de sus estudios o de origen dudoso, y sus
 puntajes son trabajo creativo ajeno.
 
+**D-28 · 2026-10-27 · Planteles: es.wikipedia fecha lo que Wikidata deja sin fechas** · VIGENTE
+Amplía D-27 (T-08). Si Wikidata registra que un jugador fue del club (P54) pero sin fecha de inicio o
+de fin, la trayectoria de la ficha de su artículo en es.wikipedia (años por club) decide si estuvo en
+2006. La ficha también afina una posición genérica de Wikidata en la misma línea (defensa → lateral),
+da la posición si Wikidata no la tiene y desempata nacimiento y nacionalidad cuando Wikidata se
+contradice o no los tiene. Los hechos siguen saliendo de fuentes libres. Por qué: con fechas, Wikidata
+solo alcanzaba para 3 de los 16 clubes. Descartado: Transfermarkt (no es una fuente libre: sus
+condiciones prohíben la extracción automatizada y su base está protegida; además bloquea las
+consultas). Se mide en T-08: cuántos clubes de Primera A llegan a 18 jugadores con fuente.
+
 ### Descartadas (para no reabrirlas sin datos nuevos)
 - **Tempo ofensivo +7 / regen +3** (2026-10-26): no llegaba al objetivo de goles y quedó obsoleto con
   PA + Estamina; el stash se borró.

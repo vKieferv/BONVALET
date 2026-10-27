@@ -58,7 +58,7 @@ Diseño:
 
 Tareas (en este orden; cada una termina en un PR):
 - [x] T-04 · mazo estándar, cartas de rasgo y balance por etapa (PR #4, mezclada el 2026-10-28)
-- [ ] T-05 · Bloque 2 con carta, video o kinesiología y mazo propio guardado (`T-05-bloque2-mazo.md`, lanzada en la nube)
+- [x] T-05 · Bloque 2 con carta, video o kinesiología y mazo propio guardado (mezclada el 2026-10-28)
 - [ ] T-06 · los rivales crecen durante la temporada (`T-06-rivales-crecen.md`, tras T-04; mejor después de T-05)
 
 ## M3 · Una temporada (diseño decidido, datos en preparación)
@@ -67,8 +67,9 @@ Tareas (en este orden; cada una termina en un PR):
       con Wikidata y atributos propios (D-27).
 - [x] T-07 · datos históricos del Apertura y Clausura 2006 (mezclada el 2026-10-28; corrida en el PC)
 - [x] Descenso real de 2006 (D-33): último directo; 17.º y 18.º a liguilla con Primera B.
-- [ ] T-08 · planteles 2006 de Primera A desde Wikidata (`T-08-planteles-2006.md`, corriendo en el PC;
-      cruzar con la base de referencia de la rama `claude/awesome-johnson-mfjxwu`, que no entra a `main`)
+- [x] T-08 · planteles 2006 desde Wikidata (mezclada el 2026-10-28): Audax, Unión Española y Palestino
+      quedaron reales (D-34); los demás siguen generados. Por decisión del usuario se cierra la extracción
+      de bases: para desarrollar basta Chile 2006 tal como está.
 - [ ] Implementación de la temporada (fixture real, tabla, grupos, repechaje, playoffs, descenso,
       comparación): briefs después de M2.
 

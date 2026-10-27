@@ -97,12 +97,12 @@ Decidido el 2026-10-27 (D-20 a D-22):
 Datos (`tests/lab/m2_cartas.json`, `m2_estandar.json`): con un mazo de 20, una carta mueve ~±0.04-0.11
 goles por partido; con uno de 13, el doble. La mano pesa más que una carta (mano 7: +0.18; mano 5: −0.23).
 
-### 3.5 Mazo inicial estándar y carta de rasgo del DT [EN DISEÑO · propuesta medida] · M2
+### 3.5 Mazo inicial estándar y carta de rasgo del DT [EN PRUEBA · D-23] · se implementa en M2 (T-04 a T-06)
 Idea del usuario (2026-10-27): como en Slay the Spire, todos empiezan con un **mazo estándar de
 cartas básicas** más **una carta de acción con el rasgo del DT**, y el mazo crece con las elecciones.
-Reemplaza los "perfiles de DT con mazos de 12-22" del GDD original. Propuesta medida con
-`balance-lab` en la rama `diseno/m2-mazo-estandar` (`tests/lab/m2_propuesta.json`, cada rasgo por
-separado en `m2_rasgos_2.json`), pendiente de que el usuario la apruebe:
+Reemplaza los "perfiles de DT con mazos de 12-22" del GDD original. Aprobada el 2026-10-27 (D-23)
+tras medirla con `balance-lab` (`tests/lab/m2_propuesta.json`; cada rasgo por separado en
+`m2_rasgos_2.json`). Los números son iniciales: se ajustan con playtests.
 
 **Mazo estándar (11 cartas del DT + la firma de la figura = 12):**
 | Carta | Copias | Qué es |
@@ -142,16 +142,16 @@ separado en `m2_rasgos_2.json`), pendiente de que el usuario la apruebe:
   valor cuando el mazo crece. El bot lo subestima; con una persona debería rendir más.
 - Con 2 Remates simples en vez de 1: inicio 2.51 y constructibilidad 99-100% (demasiado parejo).
 
-Preguntas abiertas:
-1. **La mitad de temporada queda alta (2.71):** las primeras cartas que suman los bots son de
+Preguntas abiertas (cada una con la tarea que la resuelve):
+1. **La mitad de temporada queda alta (2.71)** (T-04): las primeras cartas que suman los bots son de
    ataque. Ajustar el orden de sus elecciones (alternar ataque y defensa) o aceptar un pico leve.
-2. **Tiki-Taka termina con constructibilidad 80%:** su lista de cartas tiene muchos pases y un solo
+2. **Tiki-Taka termina con constructibilidad 80%** (T-04 y T-05): su lista de cartas tiene muchos pases y un solo
    remate; definir bien qué ofrece el entrenamiento a cada estilo (las 3 cartas de D-20).
-3. **Tamaño:** se empieza en 12 y se llega a ~20. ¿Tope 20? Hoy la regla es 18-20 (`DeckManager`).
-4. **Firmas de los titulares:** en la medición entraron al mazo inicial (una por club). ¿Se quedan?
+3. **Tamaño** (T-04): se empieza en 12 y el tope es 20; la regla de hoy (18-20, `DeckManager`) pasa a 10-20.
+4. **Firmas de los titulares:** entran al mazo inicial (una por club), como en la medición.
 5. **Reglas de liga:** las 2 Promesas cubren los Sub-21; los extranjeros no son problema con 12 cartas.
 6. **Motor:** los efectos `steps`, `draw`, `effect` y `counter` de `Card` y el planificador que los
-   entiende están solo en la rama de diseño (sin uso en el juego todavía).
+   entiende ya están en `main` (sin uso en los datos del juego hasta T-04).
 ### 3.6 Canteranos y progresión [IDEA] · M2
 Cualquier jugador (también Sub-21) mejora con entrenamientos y puede desbloquear su propia carta
 privada. Hoy las cartas "canterano" solo se asignan a un Sub-21 del plantel.
@@ -174,7 +174,8 @@ La IA en ataque planifica combinaciones de su mano y en defensa elige según su 
 
 ### 5.1 Bucle de 3 bloques [DECIDIDO]
 1. **Planificación y prensa:** sponsor (Cerveza Glaciar o Telnet) y evento social.
-2. **Preparación:** entrenamiento táctico (+3 de forma, +10 de fatiga) o kinesiología (−25 de fatiga).
+2. **Preparación:** hoy, entrenamiento táctico (+3 de forma, +10 de fatiga) o kinesiología (−25 de fatiga).
+   En M2 pasa a ser la decisión del mazo: carta nueva, sesión de video o kinesiología (D-21, T-05).
 3. **El partido** (`match_view`), previa validación del mazo.
 
 ### 5.2 Reputación y funas [DECIDIDO] · contenido [EN PRUEBA]

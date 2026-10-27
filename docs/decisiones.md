@@ -120,6 +120,17 @@ Cada semana el mazo del rival suma o mejora una carta de su arquetipo (paridad, 
 simulador siga midiendo el juego real y el jugador no se vuelva imparable a mitad de torneo.
 Descartado: mazo fijo con dificultad que sube por fecha.
 
+**D-23 · 2026-10-27 · Mazo inicial estándar y cartas de rasgo del DT** · VIGENTE · EN PRUEBA
+Todos los clubes empiezan con el mismo mazo estándar de 11 cartas del DT (Pase corto ×4, Promesa:
+Control ×2, Remate simple ×1, Marca ×2, Despeje ×1) + una carta de rasgo según el arquetipo + la carta
+firma de su figura (12 en total). Rasgos: Toque-toque (Tiki-Taka), Pelotazo (Directo), Cerrojo
+(Catenaccio), Remate en carrera (Kamikaze) y Anticipo (Contragolpe); valores en GDD 3.5. Por qué:
+idea del usuario (identidad desde la semana 1 y un mazo que crece con las elecciones, como Slay the
+Spire). Medido en `tests/lab/m2_propuesta.json`: 2.47 / 2.71 / 2.61 goles al inicio, a mitad y al
+final de la temporada. Reemplaza I-04 (perfiles de DT con mazos de 12-22). Los números de las cartas
+son iniciales y se validan con playtests. Descartado: rasgos de Presión o Bloqueo reforzados (diluyen
+el Despeje y empeoraban la defensa de su propio club) y 2 Remates simples (constructibilidad 99-100%).
+
 ### Descartadas (para no reabrirlas sin datos nuevos)
 - **Tempo ofensivo +7 / regen +3** (2026-10-26): no llegaba al objetivo de goles y quedó obsoleto con
   PA + Estamina; el stash se borró.

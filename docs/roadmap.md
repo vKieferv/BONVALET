@@ -39,16 +39,21 @@ Tareas:
       hace visible que el azar es justo (pilar 2) y ayuda a responder los playtests (brief por escribir)
 - [ ] Playtests 1-5 (usuario) → skill `playtest`; los arreglos que salgan, como tareas nuevas
 
-## M2 · Deckbuilder de verdad (en diseño)
-- [x] Bucle del mazo decidido (D-20 a D-22): Bloque 2 = carta (1 de 3) / mejora / kinesiología;
-      los rivales también crecen. Detalle en GDD 3.4.
-- [ ] Mazo inicial estándar + carta de rasgo del DT (GDD 3.5, en diseño): diseñar las cartas básicas
-      débiles y los rasgos, medirlos con `balance-lab` y decidir tamaños.
-- [ ] Canteranos y progresión (I-05).
-- [ ] Tareas de implementación (cuando 3.5 esté decidido): Bloque 2 nuevo con elección y mejora,
-      crecimiento de los rivales, mazo estándar; cada una con `-Balance`.
-- [ ] Modo Copa (I-34): partida corta de 5-6 partidos con mazo que crece; sirve de demo.
-- Ojo: la matriz está en 2.55 goles (tope 2.6); lo que sume goles en M2 tiene que compensarse.
+## M2 · Deckbuilder de verdad (diseño cerrado, en implementación)
+Diseño:
+- [x] Bucle del mazo (D-20 a D-22): Bloque 2 = carta (1 de 3) / mejora / kinesiología; los rivales
+      también crecen. Detalle en GDD 3.4.
+- [x] Mazo inicial estándar + carta de rasgo del DT (D-23, EN PRUEBA): medido con `balance-lab`
+      (`tests/lab/m2_propuesta.json`, `m2_crecimiento.json`). Detalle en GDD 3.5.
+- [ ] Curva de la temporada: inicio ~2.47 goles, mitad ~2.73 y final ~2.65 (los mazos mejoran y se
+      ataca mejor; ninguna lista de crecimiento lo evita). Se decide con la medición oficial de T-04.
+- [ ] Canteranos y progresión (I-05): por diseñar.
+- [ ] Modo Copa (I-34): por diseñar; partida corta de 5-6 partidos con mazo que crece, sirve de demo.
+
+Tareas (en este orden; cada una termina en un PR):
+- [ ] T-04 · mazo estándar, cartas de rasgo y balance por etapa (`docs/tareas/T-04-mazo-estandar.md`)
+- [ ] T-05 · Bloque 2 con carta, video o kinesiología y mazo propio guardado (`T-05-bloque2-mazo.md`, tras T-04)
+- [ ] T-06 · los rivales crecen durante la temporada (`T-06-rivales-crecen.md`, tras T-04; mejor después de T-05)
 
 ## Antes de M4 (comercial, del estudio `docs/mercado.md`)
 - [ ] Textos traducibles con las tablas de Godot, para una demo en inglés y español (I-33, tarea autónoma)

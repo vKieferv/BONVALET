@@ -97,28 +97,61 @@ Decidido el 2026-10-27 (D-20 a D-22):
 Datos (`tests/lab/m2_cartas.json`, `m2_estandar.json`): con un mazo de 20, una carta mueve ~±0.04-0.11
 goles por partido; con uno de 13, el doble. La mano pesa más que una carta (mano 7: +0.18; mano 5: −0.23).
 
-### 3.5 Mazo inicial estándar y carta de rasgo del DT [EN DISEÑO] · M2
+### 3.5 Mazo inicial estándar y carta de rasgo del DT [EN DISEÑO · propuesta medida] · M2
 Idea del usuario (2026-10-27): como en Slay the Spire, todos empiezan con un **mazo estándar de
-cartas básicas** (ataque básico, defensa básica) más **una carta de acción con el rasgo del DT**, y
-el mazo crece con las elecciones. Reemplaza los "perfiles de DT con mazos de 12-22" del GDD original.
-Preguntas abiertas:
-1. **Las básicas tienen que ser débiles a propósito.** Una aproximación con cartas que ya existen
-   (13 cartas sin Chilena, Intercepción ni Despeje) dio **2.94 goles** (sube, porque son cartas
-   buenas y hay menos cortes) y mucho cansancio (78% en el 2T). Con mano de 5, 2.51. Hay que diseñar
-   cartas básicas nuevas y calibrarlas.
-2. **Tamaño inicial y tope:** ¿~10-13 al empezar y hasta ~20? Hoy la regla es 18-20 (`DeckManager`).
-3. **Carta de rasgo:** ¿una por arquetipo (5 cartas) o una por DT real (32, más nostalgia)? Se
-   puede empezar por arquetipo y sumar las de DT famosos después.
-4. **Firmas de los titulares:** ¿entran al mazo inicial o se ganan durante la carrera?
-5. **Reglas de liga** (máx. 6 extranjeros, mín. 2 Sub-21 en el mazo): ¿cómo conviven con un mazo chico?
+cartas básicas** más **una carta de acción con el rasgo del DT**, y el mazo crece con las elecciones.
+Reemplaza los "perfiles de DT con mazos de 12-22" del GDD original. Propuesta medida con
+`balance-lab` en la rama `diseno/m2-mazo-estandar` (`tests/lab/m2_propuesta.json`, cada rasgo por
+separado en `m2_rasgos_2.json`), pendiente de que el usuario la apruebe:
 
-Borrador para discutir (no decidido):
-- **Básicas:** Pase corto ×4-5 (ataque, 0 PA), Remate simple ×2 (1 PA, acierto bajo), Marca ×3
-  (defensa, efecto chico).
-- **Rasgo por arquetipo:** Tiki-Taka "Toque-toque" (pase que, si sale, roba una carta: premia la
-  jugada larga, ver I-09); Directo "Pelotazo" (cuenta como 2 pasos, acierto bajo); Catenaccio
-  "Cerrojo" (defensa que bloquea y abarata tu próximo ataque); Kamikaze "Presión total" (presión fuerte
-  que gasta mucha estamina); Contragolpe "Salida rápida" (tras cortar, tu Momento parte avanzado).
+**Mazo estándar (11 cartas del DT + la firma de la figura = 12):**
+| Carta | Copias | Qué es |
+|---|---|---|
+| Pase corto | 4 | ataque básico, 0 PA |
+| Promesa: Control | 2 | ataque básico de un canterano (cumple la regla de 2 Sub-21) |
+| **Remate simple** (nueva) | 1 | remate barato y poco certero: 1 PA, +10 |
+| **Marca** (nueva) | 2 | defensa básica: presión chica, 1 PA, +4 |
+| Despeje | 1 | la única carta que corta un ataque al empezar |
+| Carta de rasgo | 1 | según el arquetipo del DT |
+
+**Cartas de rasgo (por arquetipo; las de DT famosos, después):**
+| Arquetipo | Carta | Efecto | Medido (goles por partido de ese club) |
+|---|---|---|---|
+| Tiki-Taka | **Toque-toque** | pase de 0 PA, +20; si sale bien robas una carta | +0.07 a +0.10 (sube a medida que el mazo crece) |
+| Directo | **Pelotazo** | balonazo de 1 PA, +0; si sale bien cuenta como 2 avances | +0.11 a +0.14 |
+| Catenaccio | **Cerrojo** | despeje barato: corta el ataque, 1 PA, +0 | neutro (identidad: "cancela la iniciativa rival") |
+| Kamikaze | **Remate en carrera** | remate de 1 PA, +25, desgaste muy alto (10) | +0.14 a favor y +0.12 en contra: partidos locos |
+| Contragolpe | **Anticipo** | intercepción de 1 PA: corta y deja listo el contragolpe | +0.09 a favor, defensa igual |
+
+**Resultados (matriz neutral, 400 partidos por cruce):**
+| Momento de la temporada | Goles | Lesiones | Cansancio 1T/2T | Constructibilidad |
+|---|---|---|---|---|
+| Inicio (12 cartas) | **2.47** | 2.8% | 16% / 49% | 91-99% |
+| Mitad (+4 cartas de su estilo) | 2.71 | 3.4% | 17% / 53% | 88-99% |
+| Final (+8 cartas) | 2.61 | 3.2% | 18% / 57% | 80-98% |
+
+**Lo que se aprendió midiendo (para no repetir experimentos):**
+- **Sin un Despeje en el mazo estándar no hay cortes:** cada equipo ataca ~3.9 veces por partido en
+  vez de ~2.9 y los goles suben a ~3.0, aunque las básicas sean débiles (los goles por Momento
+  incluso bajan). Con un Despeje: 2.35 sin rasgos.
+- **En un mazo chico la defensa es frágil:** con 3 cartas defensivas y mano defensiva de 3, el
+  Despeje sale siempre; una cuarta carta defensiva lo diluye. Por eso un rasgo defensivo tiene que
+  **cortar él mismo** (Cerrojo, Anticipo) o ser de ataque: los rasgos de Presión/Bloqueo reforzados
+  (Cerrojo ×2 de bloqueo, Presión total, Salida rápida) empeoraban la defensa de su propio club.
+- **Robar cartas vale poco con mazo chico** (casi siempre ya hay plan de gol): Toque-toque gana
+  valor cuando el mazo crece. El bot lo subestima; con una persona debería rendir más.
+- Con 2 Remates simples en vez de 1: inicio 2.51 y constructibilidad 99-100% (demasiado parejo).
+
+Preguntas abiertas:
+1. **La mitad de temporada queda alta (2.71):** las primeras cartas que suman los bots son de
+   ataque. Ajustar el orden de sus elecciones (alternar ataque y defensa) o aceptar un pico leve.
+2. **Tiki-Taka termina con constructibilidad 80%:** su lista de cartas tiene muchos pases y un solo
+   remate; definir bien qué ofrece el entrenamiento a cada estilo (las 3 cartas de D-20).
+3. **Tamaño:** se empieza en 12 y se llega a ~20. ¿Tope 20? Hoy la regla es 18-20 (`DeckManager`).
+4. **Firmas de los titulares:** en la medición entraron al mazo inicial (una por club). ¿Se quedan?
+5. **Reglas de liga:** las 2 Promesas cubren los Sub-21; los extranjeros no son problema con 12 cartas.
+6. **Motor:** los efectos `steps`, `draw`, `effect` y `counter` de `Card` y el planificador que los
+   entiende están solo en la rama de diseño (sin uso en el juego todavía).
 ### 3.6 Canteranos y progresión [IDEA] · M2
 Cualquier jugador (también Sub-21) mejora con entrenamientos y puede desbloquear su propia carta
 privada. Hoy las cartas "canterano" solo se asignan a un Sub-21 del plantel.

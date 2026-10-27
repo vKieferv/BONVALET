@@ -20,8 +20,9 @@ Desde la raíz del repo (`futbolista/`):
 
 ## Variantes
 Un JSON con una lista; formato y claves en la cabecera de `tests/balance_lab.gd`:
-`no_hold`, `steps`, `steps3_p`, `steps_by_archetype`, `diff_add`, `stamina_mult`, `cards` (por id; `@sello` = la firma genérica), `profile` (campos del `BotProfile` por arquetipo).
-Además del total, imprime una línea por club (goles a favor-en contra, % con lesión, ataques cortados): úsala para ver a quién afecta una palanca, no solo el promedio.
+`no_hold`, `steps`, `steps3_p`, `steps_by_archetype`, `diff_add`, `stamina_mult`, `cards` (por id; `@sello` = la firma genérica), `profile` (campos del `BotProfile` por arquetipo), `cards_for` y `player_for` (cambios a un solo club: sirven para medir cuánto vale ganar, quitar o mejorar una carta), y para mazos completos `card_defs` (cartas nuevas), `deck` (reemplaza las cartas del DT; `@rasgo` según `rasgos` por arquetipo), `picks` + `pick_pools` (crecimiento durante la temporada). Un elemento `{"defaults": {...}}` se aplica a las variantes que lo siguen.
+Para medir una carta nueva de un arquetipo sin mezclar efectos, dásela solo a ese arquetipo (los demás reciben una básica en su lugar): si todos cambian a la vez, los goles en contra de un club reflejan las cartas de sus rivales. Ejemplo completo: `tests/lab/m2_rasgos_2.json`.
+Además del total, imprime una línea por club (goles a favor-en contra, % con lesión, ataques cortados, tamaño del mazo y constructibilidad con su propio perfil): úsala para ver a quién afecta una palanca, no solo el promedio.
 Ojo: `profile_for_team` le pone al perfil el nombre del club; el arquetipo sale de `teams_chile_2006.json` (el laboratorio ya lo resuelve así). Una variante que da exactamente la línea base casi siempre es una clave que no se aplicó: revísala antes de concluir "no tiene efecto". Los bonos de carta negativos se ignoran (`effective_bonus`).
 Escribe los experimentos de una tarea en `tests/lab/<tema>.json` y bórralos al terminar, salvo que sirvan de referencia.
 

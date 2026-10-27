@@ -1,0 +1,41 @@
+[
+	{"defaults": {
+		"card_defs": {
+			"remate_simple": {"name": "Remate simple", "type": "basic", "kind": "shot", "ap": 1, "stamina": 4, "bonus": 0.10},
+			"marca": {"name": "Marca", "type": "basic", "kind": "press", "ap": 1, "stamina": 2, "bonus": 0.04},
+			"toque_toque": {"name": "Toque-toque", "type": "tactical", "kind": "pass", "ap": 0, "stamina": 2, "bonus": 0.10, "draw": 1},
+			"pelotazo": {"name": "Pelotazo", "type": "tactical", "kind": "pass", "ap": 1, "stamina": 3, "bonus": 0.00, "steps": 2},
+			"cerrojo": {"name": "Cerrojo", "type": "tactical", "kind": "block", "ap": 1, "stamina": 2, "bonus": 0.08, "effect": 0.24},
+			"presion_total": {"name": "Presión total", "type": "tactical", "kind": "press", "ap": 1, "stamina": 8, "bonus": 0.06, "effect": 0.12, "tags": ["fisica"]},
+			"salida_rapida": {"name": "Salida rápida", "type": "tactical", "kind": "press", "ap": 1, "stamina": 4, "bonus": 0.04, "effect": 0.03, "counter": true}
+		},
+		"rasgos": {"Tiki-Taka": "toque_toque", "Directo": "pelotazo", "Catenaccio": "cerrojo", "Kamikaze": "presion_total", "Contragolpe": "salida_rapida"},
+		"deck": ["pase_corto", "pase_corto", "pase_corto", "promesa_control", "promesa_control",
+			"remate_simple", "remate_simple", "marca", "marca", "despeje", "@rasgo"],
+		"pick_pools": {
+			"Tiki-Taka": ["pase_filtrado", "remate_primera", "amague", "pase_al_pie", "centro", "presion", "pausa", "movimiento"],
+			"Directo": ["tiro_lejano", "remate_primera", "centro", "despeje", "chilena", "pase_al_pie", "presion", "movimiento"],
+			"Catenaccio": ["bloqueo", "despeje", "tiro_lejano", "pausa", "remate_primera", "pase_al_pie", "bloqueo", "centro"],
+			"Kamikaze": ["presion", "remate_primera", "amague", "chilena", "movimiento", "presion", "centro", "pase_filtrado"],
+			"Contragolpe": ["intercepcion", "pase_filtrado", "tiro_lejano", "remate_primera", "movimiento", "despeje", "centro", "amague"]
+		}
+	}},
+	{"name": "v2 sin rasgo (Pase corto en su lugar)",
+		"rasgos": {"Tiki-Taka": "pase_corto", "Directo": "pase_corto", "Catenaccio": "pase_corto", "Kamikaze": "pase_corto", "Contragolpe": "pase_corto"}},
+	{"name": "v2 + todos los rasgos"},
+	{"name": "solo Tiki-Taka: Toque-toque",
+		"rasgos": {"Tiki-Taka": "toque_toque", "Directo": "pase_corto", "Catenaccio": "pase_corto", "Kamikaze": "pase_corto", "Contragolpe": "pase_corto"}},
+	{"name": "solo Directo: Pelotazo",
+		"rasgos": {"Tiki-Taka": "pase_corto", "Directo": "pelotazo", "Catenaccio": "pase_corto", "Kamikaze": "pase_corto", "Contragolpe": "pase_corto"}},
+	{"name": "solo Catenaccio: Cerrojo",
+		"rasgos": {"Tiki-Taka": "pase_corto", "Directo": "pase_corto", "Catenaccio": "cerrojo", "Kamikaze": "pase_corto", "Contragolpe": "pase_corto"}},
+	{"name": "solo Kamikaze: Presión total",
+		"rasgos": {"Tiki-Taka": "pase_corto", "Directo": "pase_corto", "Catenaccio": "pase_corto", "Kamikaze": "presion_total", "Contragolpe": "pase_corto"}},
+	{"name": "solo Contragolpe: Salida rápida",
+		"rasgos": {"Tiki-Taka": "pase_corto", "Directo": "pase_corto", "Catenaccio": "pase_corto", "Kamikaze": "pase_corto", "Contragolpe": "salida_rapida"}},
+	{"name": "v2 + rasgos, un solo Remate simple",
+		"deck": ["pase_corto", "pase_corto", "pase_corto", "pase_corto", "promesa_control", "promesa_control",
+			"remate_simple", "marca", "marca", "despeje", "@rasgo"]},
+	{"name": "v2 + rasgos + 4 cartas (mitad)", "picks": 4},
+	{"name": "v2 + rasgos + 8 cartas (final)", "picks": 8}
+]

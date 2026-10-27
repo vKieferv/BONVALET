@@ -25,6 +25,12 @@ var wear: int = 0                # oxidación/degradación: cada punto resta 2% 
 var flow_uses: int = 0           # reusos dentro del Flow actual (cada uno +1 PA)
 var playable: bool = true        # las cartas de penalización no se pueden jugar
 var is_temporary: bool = false
+# Efectos opcionales (por defecto, el comportamiento de siempre). Pensados para las cartas de rasgo
+# del DT (GDD 3.5, en diseño):
+var steps: int = 1               # avances que suma una jugada de ataque exitosa (Pelotazo: 2)
+var draw: int = 0                # cartas que roba al salir bien (Toque-toque: 1)
+var effect: float = -1.0         # fuerza de una Presión o Bloqueo exitoso; -1 = la de su tipo
+var counter: bool = false        # en defensa, si sale bien tu próximo Momento arranca con 1 jugada
 # Metadatos de jugador. owner_id = "" -> carta colectiva (del DT), sin dueño.
 # owner_id identifica al Ejecutor Natural y cuenta para el plantel en las reglas de liga.
 var owner_id: String = ""
@@ -60,4 +66,8 @@ static func from_dict(d: Dictionary) -> Card:
 	c.nationality = String(d.get("nationality", ""))
 	c.is_foreigner = bool(d.get("foreign", false))
 	c.age = int(d.get("age", 0))
+	c.steps = maxi(1, int(d.get("steps", 1)))
+	c.draw = maxi(0, int(d.get("draw", 0)))
+	c.effect = float(d.get("effect", -1.0))
+	c.counter = bool(d.get("counter", false))
 	return c

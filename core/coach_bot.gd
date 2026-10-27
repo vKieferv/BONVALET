@@ -46,8 +46,12 @@ static func choose_defense(e: MatchEngine, profile: BotProfile) -> int:
         var score := e.success_chance(c)
         if c.kind == focus:
             score *= DEFENSE_FOCUS_WEIGHT
-        elif c.kind == Card.Kind.INTERCEPT or c.kind == Card.Kind.CLEARANCE:
+        elif c.kind == Card.Kind.INTERCEPT or c.kind == Card.Kind.CLEARANCE or c.counter:
             score *= DEFENSE_CUT_WEIGHT
+        if c.effect > 0.0 and (c.kind == Card.Kind.PRESS or c.kind == Card.Kind.BLOCK):
+            # Presión o Bloqueo reforzados (cartas de rasgo): valen más que los de su tipo.
+            var base := MatchEngine.PRESS_EFFECT if c.kind == Card.Kind.PRESS else MatchEngine.BLOCK_EFFECT
+            score *= clampf(c.effect / base, 1.0, 2.0)
         if score > best_score:
             best_score = score
             best = i
@@ -58,6 +62,7 @@ static func choose_defense(e: MatchEngine, profile: BotProfile) -> int:
 
 const HOLD := -2                    # choose(): aguantar el balón en vez de jugar una carta
 const HOLD_MIN_CHANCE := 0.5        # bajo esta retención no se arriesga a regalar un contragolpe
+const DIG_MIN_CHANCE := 0.5         # sin plan, juega una carta que roba si sale al menos así de seguido
 
 
 # Un paso del turno de ataque: juega la carta elegida, aguanta el balón o cede. Es el único lugar que
@@ -83,6 +88,9 @@ static func choose(e: MatchEngine, profile: BotProfile) -> int:
         # balón para robar una mano nueva, o cede si no puede.
         if pause >= 0 and e.player.zone() != PlayerStats.Zone.SAFE:
             return pause
+        var dig := _playable_draw(e)   # una carta que roba (Toque-toque) busca el remate que falta
+        if dig >= 0:
+            return dig
         return HOLD if _should_hold(e, profile) else -1
     var last_chance := e.fails >= MatchEngine.MAX_FAILS - 1
     # Enfriar: si el remate final del mejor plan no convence, el perfil temporiza (aguanta) o cede.
@@ -98,7 +106,8 @@ static func choose(e: MatchEngine, profile: BotProfile) -> int:
 
 
 # Mejor plan de gol para el turno: combinaciones de cartas de la mano que caben en los PA que quedan,
-# con tantas jugadas como faltan para completar el Momento y terminadas en un remate.
+# con los avances que faltan para completar el Momento (casi siempre una jugada = un avance; un
+# Pelotazo vale 2) y terminadas en un remate.
 # Puntaje = probabilidad de que salgan todas, ajustada por el perfil (élite, desgaste, riesgo).
 # Devuelve {cards: [índices en orden de juego], score, p, shot_p, ap, wear} o {} si no hay plan.
 static func best_plan(e: MatchEngine, profile: BotProfile) -> Dictionary:
@@ -121,7 +130,7 @@ static func best_plan(e: MatchEngine, profile: BotProfile) -> Dictionary:
         if shot.kind != Card.Kind.SHOT:
             continue
         var others: Array = steps.filter(func(i): return i != s)
-        for combo in _subsets(others, need - 1):
+        for combo in _step_combos(e, others, need - 1):
             var cards: Array = combo.duplicate()
             var ap := e.ap_cost_of(shot)
             for i in cards:
@@ -155,6 +164,25 @@ static func best_plan(e: MatchEngine, profile: BotProfile) -> Dictionary:
     return best
 
 
+# Pasos previos que suman al menos k avances sin que sobre ninguno (quitar cualquiera dejaría la
+# suma bajo k). Con cartas de 1 avance son exactamente los subconjuntos de k cartas, como siempre.
+static func _step_combos(e: MatchEngine, items: Array, k: int) -> Array:
+    if k <= 0:
+        return [[]]
+    var out: Array = []
+    for size in range(1, k + 1):
+        for combo in _subsets(items, size):
+            var total := 0
+            var smallest := 99
+            for i in combo:
+                var st: int = (e.deck.hand[i] as Card).steps
+                total += st
+                smallest = mini(smallest, st)
+            if total >= k and total - smallest < k:
+                out.append(combo)
+    return out
+
+
 # Subconjuntos de k elementos de `items` (k chico: a lo más los pasos que faltan del Momento).
 static func _subsets(items: Array, k: int) -> Array:
     if k <= 0:
@@ -174,6 +202,16 @@ static func _should_hold(e: MatchEngine, profile: BotProfile) -> bool:
     if not e.can_hold() or e.hold_chance() < HOLD_MIN_CHANCE:
         return false
     return not (profile.energy_conservation >= 0.8 and e.player.zone() != PlayerStats.Zone.SAFE)
+
+
+# Carta de ataque que roba al salir bien (y no es un remate), con buena probabilidad; -1 si no hay.
+static func _playable_draw(e: MatchEngine) -> int:
+    for i in e.playable_indices():
+        var c: Card = e.deck.hand[i]
+        if c.draw > 0 and c.kind != Card.Kind.SHOT and c.kind != Card.Kind.PAUSE \
+                and e.success_chance(c) >= DIG_MIN_CHANCE:
+            return i
+    return -1
 
 
 static func _playable_pause(e: MatchEngine) -> int:

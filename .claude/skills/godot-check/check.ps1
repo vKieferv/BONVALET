@@ -69,6 +69,8 @@ if ($failed.Count -eq 0) {
     if ($code -ne 0) { $failed += "engine_rules" }
     $code = Invoke-Godot "career_rules" @("-s", "res://tests/career_rules.gd")
     if ($code -ne 0) { $failed += "career_rules" }
+    $code = Invoke-Godot "data_rules" @("-s", "res://tests/data_rules.gd")
+    if ($code -ne 0) { $failed += "data_rules" }
 }
 
 # 4. Prueba de humo del partido (solo si compila)

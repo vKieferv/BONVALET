@@ -1,0 +1,87 @@
+{
+  "_notes": [
+    "Historia real del Apertura y el Clausura 2006 de Primera División de Chile (T-07; D-24, D-25, D-02). El juego no copia estos resultados: en M3 sirven para el calendario real y para mostrar 'en la realidad pasó esto' (I-36).",
+    "ESTADO PENDIENTE: la sesión en la nube del 2026-10-27 no pudo abrir las fuentes (ver review). Solo están el formato y la prueba tests/data_rules.gd; ningún dato histórico se cargó todavía.",
+    "estado: 'pendiente' (sin datos), 'parcial' o 'completo'. tests/data_rules.gd comprueba cada sección que tenga datos; con 'completo' exige todas y la fecha de consulta de cada fuente.",
+    "Ids de clubes: los de data/teams_chile_2006.json (Primera A en los torneos, Primera B en ascensos y en el rival de la liguilla). Un club de 2006 que no esté ahí va a review, no se agrega.",
+    "Torneo (apertura, clausura): inicio y fin (AAAA-MM-DD); equipos (19 ids); grupos {A, B, C, D: [ids]}; fechas [{numero 1-19, libre: id, partidos: [9 partidos]}]; tabla de la fase regular en el orden publicado [{club, pj, pg, pe, pp, gf, gc, pts}]; repechaje [llaves], vacío si no hubo; playoffs {cuartos: [4 llaves], semis: [2 llaves], final: llave}; campeon: id; goleadores [{nombre, club, goles}] (más de uno si empataron).",
+    "Partido: {local, visita, goles_local, goles_visita, dia (AAAA-MM-DD), estadio}. dia y estadio pueden ser null; goles null solo con una entrada de review tipo 'sin_fuente' cuyo donde sea '<torneo>.fecha N' (la tabla de esos clubes solo se compara en pj).",
+    "Llave: {ida: partido, vuelta: partido o null si fue a partido único (la vuelta invierte local y visita), global: {id: goles, id: goles}, penales: null o {id: goles, id: goles}, avanza: id, criterio}. criterio null = lo decide el global o los penales; 'gol_de_visita' o 'ventaja_deportiva' (mejor puesto en la tabla de la fase regular) cuando el global quedó empatado sin penales.",
+    "tabla_acumulada: suma de las tablas de la fase regular de ambos torneos, en el orden publicado. descenso: {directo: último de la acumulada, liguilla: {club: penúltimo, llave contra un club de Primera B, se_mantiene: bool}}. ascensos: [ids de Primera B]; si el club de Primera A pierde la liguilla, su rival tiene que estar en ascensos.",
+    "review: [{tipo, donde, detalle}] con tipo 'bloqueo', 'sin_fuente', 'discrepancia' o 'sancion'. Una 'sancion' lleva además club y pts (puntos sumados o descontados, p. ej. -3) y donde ('apertura.tabla', 'clausura.tabla' o 'tabla_acumulada'): es la única forma en que la prueba acepta que una tabla publicada no salga de los resultados.",
+    "sources: [{id, titulo, url, consultada (AAAA-MM-DD o null si no se pudo abrir), uso}]. Se copian hechos (equipos, días, marcadores), no textos."
+  ],
+  "estado": "pendiente",
+  "sources": [
+    {
+      "id": "es_wiki_apertura",
+      "titulo": "Torneo Apertura 2006 (Chile), es.wikipedia",
+      "url": "https://es.wikipedia.org/wiki/Torneo_Apertura_2006_(Chile)",
+      "consultada": null,
+      "uso": "Apertura: equipos, grupos, tabla, repechaje, playoffs, campeón y goleador; enlaza al anexo de resultados de la fase regular (calendario fecha por fecha)."
+    },
+    {
+      "id": "es_wiki_clausura",
+      "titulo": "Torneo Clausura 2006 (Chile), es.wikipedia",
+      "url": "https://es.wikipedia.org/wiki/Torneo_Clausura_2006_(Chile)",
+      "consultada": null,
+      "uso": "Clausura: lo mismo que el Apertura, más tabla acumulada, descenso y liguilla de promoción."
+    },
+    {
+      "id": "rsssf_chile_2006",
+      "titulo": "Chile 2006, RSSSF",
+      "url": "https://www.rsssf.org/tablesc/chile06.html",
+      "consultada": null,
+      "uso": "Cruce de resultados fecha por fecha, tablas y playoffs de ambos torneos."
+    }
+  ],
+  "apertura": {
+    "inicio": null,
+    "fin": null,
+    "equipos": [],
+    "grupos": {},
+    "fechas": [],
+    "tabla": [],
+    "repechaje": [],
+    "playoffs": {"cuartos": [], "semis": [], "final": null},
+    "campeon": null,
+    "goleadores": []
+  },
+  "clausura": {
+    "inicio": null,
+    "fin": null,
+    "equipos": [],
+    "grupos": {},
+    "fechas": [],
+    "tabla": [],
+    "repechaje": [],
+    "playoffs": {"cuartos": [], "semis": [], "final": null},
+    "campeon": null,
+    "goleadores": []
+  },
+  "tabla_acumulada": [],
+  "descenso": {"directo": null, "liguilla": null},
+  "ascensos": [],
+  "review": [
+    {
+      "tipo": "bloqueo",
+      "donde": "*",
+      "detalle": "2026-10-27, sesión en la nube: la política de red del entorno rechaza es.wikipedia.org, en.wikipedia.org, wikidata.org, rsssf.org y web.archive.org (solo responde el buscador, con fragmentos sueltos). Por D-02 y el brief de T-07 no se armó el archivo con esos fragmentos. Para completarlo: correr T-07 desde el PC del usuario o permitir esos dominios en la red del entorno."
+    },
+    {
+      "tipo": "sin_fuente",
+      "donde": "apertura.inicio",
+      "detalle": "El brief de T-07 trae 2006-01-27 y 2006-07-02 como ejemplo de formato; confirmarlos con la fuente antes de usarlos."
+    },
+    {
+      "tipo": "sin_fuente",
+      "donde": "playoffs",
+      "detalle": "Falta confirmar cómo se desempataba cada ronda (penales, gol de visita o ventaja deportiva). D-24 dice penales si hay empate global; la prueba acepta cualquiera de los tres si el campo criterio lo declara."
+    },
+    {
+      "tipo": "sin_fuente",
+      "donde": "descenso.liguilla",
+      "detalle": "Falta confirmar el formato de la liguilla de promoción. El formato supone una llave contra un club de Primera B (D-24: penúltimo a liguilla); si fue otro (p. ej. un cuadrangular), ajustar el formato y la prueba."
+    }
+  ]
+}

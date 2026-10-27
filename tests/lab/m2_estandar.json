@@ -1,4 +1,5 @@
 [
+	{"defaults": {"deck": "clasico"}},
 	{"name": "hoy: 20 cartas iguales para todos"},
 	{"name": "estándar 13: 4 pase, 1 pie, 1 desm, 2 tiro, 1 remate, 2 pres, 1 bloq + firma",
 		"cards": {"pase_corto": {"count": 4}, "promesa_control": {"count": 0}, "pausa": {"count": 0},

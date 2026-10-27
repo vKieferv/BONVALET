@@ -28,6 +28,7 @@ var rival_defense_plays := 0
 var holds := 0
 var _defense_open := false
 var card_checks := 0
+var effect_checks := 0   # líneas de efecto (avanza, roba, corta, contragolpe) verificadas en tooltips
 var ui_checked_errors := false   # tras el primer error de UI se deja de revisar (evita miles de líneas)
 
 
@@ -174,6 +175,14 @@ func _check_ui_matches_engine() -> void:
 				var wear := "Desgaste: %d Est." % roundi(e.stamina_cost_of(ui.card))
 				if ui.cost_label.text != wear:
 					errors.append("La carta %s muestra '%s' pero desgasta '%s'" % [ui.card.display_name, ui.cost_label.text, wear])
+			# Sus efectos (avanza 2, roba, corta, contragolpe) se ven en la carta y en su tooltip (pilar 2).
+			var effect := CardUI.effect_text(ui.card)
+			if ui.effect_label.text != effect or ui.effect_label.visible != (effect != ""):
+				errors.append("La carta %s muestra el efecto '%s' pero tiene '%s'" % [ui.card.display_name, ui.effect_label.text, effect])
+			for line in CardUI.effect_details(ui.card):
+				effect_checks += 1
+				if not ui.tooltip_text.contains(line):
+					errors.append("El tooltip de %s no explica: %s" % [ui.card.display_name, line])
 	ui_checked_errors = not errors.is_empty()
 
 
@@ -205,8 +214,11 @@ func _finish() -> bool:
 		errors.append("El rival nunca defendió tus ataques")
 	if played > 0 and holds == 0:
 		errors.append("Nunca se probó Aguantar el Balón")
+	if played > 0 and effect_checks == 0:
+		errors.append("Ninguna carta en pantalla mostró un efecto (el mazo estándar trae Despeje y la carta de rasgo)")
 	print("  aguantaste el balón %d veces" % holds)
 	print("  el rival jugó %d cartas defensivas contra tus ataques" % rival_defense_plays)
+	print("  %d efectos de carta verificados en sus tooltips" % effect_checks)
 	print("smoke_match: %d partidos, %d defensas (%d despejes de emergencia), Ejecutor Natural: %d tuyas y %d del rival, %d chequeos de postura, %d cartas en pantalla verificadas contra el motor, contragolpe visto: %s" % [
 		played, defenses, emergencies, natural_plays[0], rival_natural_plays[0], lock_checks, card_checks, "sí" if exploit_seen else "no"])
 	for e in errors:

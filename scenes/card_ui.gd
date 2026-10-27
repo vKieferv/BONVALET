@@ -59,6 +59,7 @@ var _cost_tip := ""
 @onready var type_label: Label = $Body/VBox/TopRow/TypeLabel
 @onready var name_label: Label = $Body/VBox/NameLabel
 @onready var kind_label: Label = $Body/VBox/KindLabel
+@onready var effect_label: Label = $Body/VBox/EffectLabel
 @onready var chance_label: Label = $Body/VBox/ChanceLabel
 @onready var mod_label: Label = $Body/VBox/ModLabel
 @onready var cost_label: Label = $Body/VBox/CostLabel
@@ -96,6 +97,52 @@ func setup(c: Card, index: int) -> void:
     kind_label.text = "No jugable" if c.type == Card.Type.PENALTY else KIND_NAMES.get(c.kind, "")
     if c.owner_id != "":
         kind_label.text += " ★"   # carta firma: tiene Ejecutor Natural
+    effect_label.text = effect_text(c)
+    effect_label.visible = effect_label.text != ""
+
+
+# Lo que hace la carta además de su % (pilar 2: se lee en la carta, no en el resultado). Línea corta
+# para la carta; el detalle va en el tooltip (effect_details). Vacío si la carta solo suma su %.
+static func effect_text(c: Card) -> String:
+    var parts: Array = []
+    match c.kind:
+        Card.Kind.INTERCEPT:
+            parts.append("Corta + contragolpe")
+        Card.Kind.CLEARANCE:
+            parts.append("Corta el ataque")
+        Card.Kind.PRESS, Card.Kind.BLOCK:
+            if c.effect >= 0.0:
+                parts.append("%s +%d" % ["Presión" if c.kind == Card.Kind.PRESS else "Bloqueo", roundi(c.effect * 100.0)])
+    if c.counter and c.kind != Card.Kind.INTERCEPT:
+        parts.append("Si sale, contragolpe")
+    if c.steps > 1:
+        parts.append("Avanza %d" % c.steps)
+    if c.draw > 0:
+        parts.append("Si sale, robas %d %s" % [c.draw, "carta" if c.draw == 1 else "cartas"])
+    return " · ".join(parts)
+
+
+static func effect_details(c: Card) -> Array:
+    var counter := "tu próximo Momento arranca con una jugada hecha (contragolpe; un Momento de 2 jugadas no se acorta)"
+    var out: Array = []
+    match c.kind:
+        Card.Kind.INTERCEPT:
+            out.append("Si sale, corta el ataque rival y %s." % counter)
+        Card.Kind.CLEARANCE:
+            out.append("Si sale, corta el ataque rival.")
+        Card.Kind.PRESS:
+            out.append("Si sale, todas sus jugadas de este ataque −%d." % roundi(
+                    (c.effect if c.effect >= 0.0 else MatchEngine.PRESS_EFFECT) * 100.0))
+        Card.Kind.BLOCK:
+            out.append("Si sale, sus remates de este ataque −%d." % roundi(
+                    (c.effect if c.effect >= 0.0 else MatchEngine.BLOCK_EFFECT) * 100.0))
+    if c.counter and c.kind != Card.Kind.INTERCEPT:
+        out.append("Si sale, %s." % counter)
+    if c.steps > 1:
+        out.append("Si sale, cuenta como %d jugadas del Momento." % c.steps)
+    if c.draw > 0:
+        out.append("Si sale, robas %d %s de ataque." % [c.draw, "carta" if c.draw == 1 else "cartas"])
+    return out
 
 
 # ap = PA que cuesta ahora (con reusos en Flow, etc.), base_ap = PA impresos en la carta,
@@ -155,6 +202,7 @@ func _show_breakdown(breakdown: Array, chance: float) -> void:
     if breakdown.is_empty():
         return
     tip.append("= %d%% (tirada de 0 a 99: éxito si sale menos de %d)" % [roundi(chance * 100.0), roundi(chance * 100.0)])
+    tip.append_array(effect_details(card))
     for tag in card.tags:
         if TAG_TEXT.has(tag):
             tip.append(TAG_TEXT[tag])

@@ -5,7 +5,7 @@ name: t08-wikidata
 on:
   push:
     branches: [tarea/t-08-planteles-2006]
-    paths: [tools/t08/fetch.py, .github/workflows/t08-wikidata.yml]
+    paths: [tools/t08/fetch.py, tools/t08/fetch_wiki.py, .github/workflows/t08-wikidata.yml]
 
 permissions:
   contents: write
@@ -21,14 +21,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Consultar Wikidata y es.wikipedia
-        run: python3 tools/t08/fetch.py tools/t08/out
+      # La instantánea de Wikidata (fetch.py) ya está en la rama; esta pasada solo cruza con es.wikipedia.
+      - name: Fichas de es.wikipedia de los candidatos
+        run: python3 tools/t08/fetch_wiki.py tools/t08/out
 
       - name: Subir la instantánea a la rama
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
           git add tools/t08/out
-          git commit -q -m "chore(t-08): instantánea de Wikidata (${GITHUB_SHA::7})" || { echo "sin cambios"; exit 0; }
+          git commit -q -m "chore(t-08): instantánea de Wikidata/Wikipedia (${GITHUB_SHA::7})" || { echo "sin cambios"; exit 0; }
           git pull --rebase -q origin "${GITHUB_REF_NAME}"
           git push -q origin "HEAD:${GITHUB_REF_NAME}"

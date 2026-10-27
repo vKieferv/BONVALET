@@ -66,6 +66,28 @@ Aguantar el Balón, Ceder Jugada y Despeje de Emergencia. No son cartas: no llev
 
 _Sin entradas todavía._
 
+## Cartas de estilo por arquetipo (borrador, I-40 a I-42)
+Idea: que la personalidad del DT viva en las cartas que le ofrece su entrenamiento (las "2 de tu
+estilo" de T-05), como las clases de Slay the Spire. Hoy las listas de crecimiento de T-04 son las
+mismas cartas genéricas en otro orden: el único naipe propio de cada estilo es su rasgo.
+
+Dos ideas de reglas que lo sostienen:
+- **Transición (I-40):** carta de la mano defensiva que no frena al rival, pero si sale tu próximo
+  Momento arranca mejor. *Rápida* = arrancas con una jugada hecha (ya existe: el contragolpe de la
+  Intercepción y el campo `counter`). *Elaborada* = tu próximo Momento suma "Transición +X" en el
+  desglose (nueva). Con 2 PA de defensa, la decisión es cortar su ataque o preparar el tuyo.
+- **Intención visible (I-41):** antes de defender ves cómo viene el rival (largo de la jugada, con qué
+  remate). Sin eso, elegir entre Presión, Bloqueo o cortar es a ciegas.
+
+Bocetos, sin números (✓ = se arma con los campos que ya existen y se puede medir hoy en `balance-lab`):
+| Arquetipo | Cómo defiende | Transición | Cartas boceto |
+|---|---|---|---|
+| Tiki-Taka | presiona para recuperar | elaborada (probabilidad) | **Presión tras pérdida**: presión chica; si sale, Transición +X · **Salida limpia**: no frena; si sale, Transición +X y robas 1 |
+| Directo | gana la segunda pelota | rápida | **Segunda pelota**: bloqueo que, si sale, deja el contragolpe ✓ |
+| Catenaccio | corta y anula a la figura | rápida, poca | **Marcaje al hombre**: el remate firma del rival pierde el Ejecutor Natural y −X (luce con I-41) |
+| Kamikaze | presión alta que desgasta a los dos | rápida | **Presión asfixiante** (I-08): presión que le cuesta estamina al rival · **Recuperar arriba**: presión con contragolpe ✓ |
+| Contragolpe | intercepta | rápida + probabilidad | **Contra letal**: intercepción; si sale, contragolpe y +X al remate de ese Momento |
+
 ## Cartas especiales con efecto propio (en espera)
 Se diseñan después de cerrar el bucle del mazo (T-04 y T-05) y de los primeros playtests (I-39). Aquí
 van solo ideas sueltas, sin números.

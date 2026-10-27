@@ -526,6 +526,8 @@ func _begin_match() -> void:
     _engine = MatchEngine.new(_player, deck, rng,
             LeagueManager.attack_difficulty_vs(_rival_team, _rival, BASE_DIFFICULTY))
     _engine.posture = _posture
+    # Largo de los Momentos según el arquetipo de tu club (Catenaccio pide 2 jugadas, D-16).
+    _engine.moment_steps = _league.profile_for_team(_league.get_team(_my_team_id())).moment_steps
     if _career != null:
         _career.configure_match(_engine, _player)   # fatiga, hype, forma y funados de la semana
     _engine.natural_executor_played.connect(_on_natural_executor)

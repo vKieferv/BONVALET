@@ -16,6 +16,7 @@ func _initialize() -> void:
 	_test_natural_executor()
 	_test_defense_and_emergency()
 	_test_kamikaze_phases()
+	_test_moment_steps_by_archetype()
 	_test_big_clubs_punish_low()
 	_test_team_database()
 	_test_chance_matches_roll()
@@ -194,6 +195,37 @@ func _test_kamikaze_phases() -> void:
 	_check(is_equal_approx(p_early - p_late, 0.20), "Kamikaze: +20 pts en M1-M2 (diferencia %.2f)" % (p_early - p_late))
 	_check(is_equal_approx(wear_late, wear_early * 2.0), "Kamikaze: desgaste doble desde M3 (%.1f -> %.1f)" % [wear_early, wear_late])
 	_check(e.ap_cost_of(card) == ap_early, "el desgaste tardío no cambia los PA")
+
+
+# D-16: los Momentos de un club Catenaccio piden 2 jugadas y los del resto 3 (también los extra);
+# el espacio rival y el contragolpe no acortan un Momento de 2. D-17: Kamikaze lesión tardía x2.5.
+func _test_moment_steps_by_archetype() -> void:
+	var league := _league()
+	_check(is_equal_approx(BotProfile.kamikaze().late_injury_mult, 2.5), "Kamikaze debería multiplicar la lesión tardía por 2.5")
+	for id in ["palestino", "colo_colo", "deportes_la_serena"]:
+		var team := league.get_team(id)
+		var expected := 2 if team["archetype"] == "Catenaccio" else MatchEngine.MOMENT_STEPS
+		var p := league.profile_for_team(team)
+		_check(p.moment_steps == expected, "%s (%s) debería pedir %d jugadas por Momento" % [id, team["archetype"], expected])
+		var e := _new_engine(61)
+		p.configure_engine(e)
+		e.start()
+		e.grant_extra_moment(10)
+		_check(e.moments.all(func(x: Dictionary) -> bool: return int(x["steps_required"]) == expected),
+				"%s: todos sus Momentos (también los extra) deberían pedir %d jugadas" % [id, expected])
+		e.exploit_rival_space = true
+		e.begin_moment()
+		var left := int(e.current_moment()["steps_required"]) - e.progress
+		_check(left == maxi(2, expected - 1),
+				"%s: con espacio rival el Momento debería pedir %d jugadas (pide %d)" % [id, maxi(2, expected - 1), left])
+	# Momento de 2 con contragolpe solo: sigue pidiendo 2.
+	var c := _new_engine(62)
+	BotProfile.catenaccio().configure_engine(c)
+	c.start()
+	c.counter_ready = true
+	c.begin_moment()
+	_check(c.moment_over or (int(c.current_moment()["steps_required"]) == 2 and c.progress == 0 and not c.counter_ready),
+			"Catenaccio: el contragolpe no debería acortar un Momento de 2 jugadas")
 
 
 func _test_big_clubs_punish_low() -> void:

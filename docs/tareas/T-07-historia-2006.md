@@ -65,3 +65,8 @@ puede correr después desde el PC del usuario.
   archive.org (solo responde el buscador). La página de RSSSF es `rsssf.org/tablesc/chile06.html`.
   Falta: llenar el archivo desde las fuentes, pasar `"estado"` a `"completo"` y anotar la fecha de
   consulta de cada fuente.
+- **2026-10-27 (PC del usuario):** archivo cargado y en `"completo"`. Calendario de los anexos de
+  es.wikipedia, estadios de la página de cada torneo, todo cruzado con RSSSF: coinciden los 342
+  partidos y los playoffs, y las tablas publicadas salen exactas de los resultados. El descenso real
+  no calza con D-24 (liguilla para el 17.º y el 18.º, Deportes Concepción bajó sin jugar): el formato
+  de `descenso` y la prueba se ajustaron, y la decisión de qué hace el juego queda para el usuario.

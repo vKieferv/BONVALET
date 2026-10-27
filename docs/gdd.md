@@ -193,9 +193,10 @@ Apertura y Clausura fieles a 2006: 19 clubes, una vuelta de 19 fechas (cada club
 libre), 4 grupos para clasificar, repechaje, cuartos, semis y final a ida y vuelta, y descenso por tabla
 acumulada (último directo, penúltimo a liguilla). El calendario es el real de 2006; los demás partidos
 de la fecha se simulan con los bots. La realidad se muestra como comparación (I-36). Datos históricos:
-`data/history_2006.json` (T-07), validado por `tests/data_rules.gd`; por ahora solo tiene el formato,
-porque la sesión que debía cargarlo no pudo abrir Wikipedia ni RSSSF. Hoy la carrera es una sucesión de
-semanas contra una lista fija de rivales, sin tabla ni final.
+`data/history_2006.json` (T-07: calendario, resultados, tablas y playoffs reales de es.wikipedia y RSSSF),
+validado por `tests/data_rules.gd`; ojo, el descenso real de 2006 no fue el de arriba (el 17.º y el 18.º
+fueron a liguilla, ver su `review`). Hoy la carrera es una sucesión de semanas contra una lista fija de
+rivales, sin tabla ni final.
 
 **Guardado (T-01):** una sola ranura, automática: se guarda tras cada acción de bloque, al ir al
 partido y al volver al calendario. "Continuar carrera" retoma la misma semana con el mismo estado,

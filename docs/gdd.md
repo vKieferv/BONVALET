@@ -260,11 +260,14 @@ chicos que invierten en gimnasio y centro médico para bajar fatiga y lesiones.
 - Todo en JSON: otra liga u otra época = otro conjunto de datos.
 - Marcas siempre parodiadas (D-01); datos históricos solo con fuente (D-02).
 
-## 7. Presentación [DECIDIDO: dirección visual, D-35] · en T-09
-Dirección (D-35): transmisión de TV 2006 + cartas como láminas de álbum, fondo oscuro, letras Barlow y
-Barlow Condensed, jugadores sin caras, escudos generados con los colores del club. Primero el tema y la
-semana (T-09); la pantalla del partido se rehace junto con el partido por zonas. Hoy: UI de prototipo,
-cancha dibujada por código, sin audio. Pendiente: sonido, menú principal, tutorial.
+## 7. Presentación [DECIDIDO: D-35 y D-37] · semana en T-09, partido en T-11
+Dirección (D-35): transmisión de TV 2006 + cartas como láminas de álbum, jugadores sin caras, escudos
+generados con los colores del club. Concepto (D-37, maqueta v3 del lienzo "Dirección visual"): la semana
+es la mesa del DT (objetos con su material, timbres de tinta y plumón, una acción a la vez con
+chinchetas numeradas y la luz de la lámpara) y el partido es la señal de TV (cámara en perspectiva,
+telestrador, gráficas de 2006), con las láminas en la mano. Íconos propios y palabras clave en vez de
+oraciones; texto de juego de 14 px o más. Hoy: UI de prototipo, cancha dibujada por código, sin audio.
+Pendiente: sonido, menú principal, tutorial.
 
 ## 8. Comercial [IDEA] · antes de M4
 Steam PC primero, página temprana para wishlists, demo en itch.io. Riesgo principal: licencias de

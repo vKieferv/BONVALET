@@ -276,6 +276,36 @@ en vez de 1/3 y 1/5 de D-32) y cuánto pesa el cansancio. Descartados: retrocede
 (marca mucho menos y deja sin cartas) y quitar los porcentajes como en Slay the Spire puro (rompe los
 duelos de D-29 a D-31 y lo futbolero de que una jugada pueda salir mal).
 
+**D-37 · 2026-10-28 · Concepto visual: la mesa del DT y la señal de TV (maqueta v3)** · VIGENTE
+Amplía D-35 con el concepto elegido tras tres propuestas y tres versiones de maqueta (lienzo
+"Dirección visual", fila v3, https://claude.ai/artifact/TxaUdVLTzGyWHzVjyD4jhm):
+- **La semana es la mesa del DT, vista desde arriba:** cada cosa es un objeto con su material (hoja de
+  calendario, libreta, diario El Chisme, contratos, post-its, portapapeles, cassette VHS, ficha médica,
+  sobre de láminas, televisor de tubo, pizarra con imanes, entrada al estadio). Los pasos de la semana
+  son los separadores de un archivador. Nada de barras de app, tarjetas web ni etiquetas tipo píldora:
+  los efectos son timbres de tinta, cinta Dymo y plumón.
+- **El partido es la señal de TV:** cancha en perspectiva de cámara, zonas marcadas con telestrador
+  amarillo, marcador, zonas y relato como gráficas brillantes inclinadas de 2006, y carteles de los
+  sponsors parodia. Tus láminas se sostienen frente al televisor; el desglose del % es una gráfica de TV
+  sobre el relato.
+- **La lámina:** doble marco impreso, banda de color por tipo, moneda dorada de PA (arriba a la derecha),
+  sello negro con el bono (igual en la semana y en el partido), ventana con el dibujo de la jugada y, en el
+  partido, la silueta del que la juega (camiseta del club y puesto, sin cara; no hay dorsales en los
+  datos), placa de TV con el % (verde 60% o más, dorada 40-59%, coral menos de 40%; el número siempre
+  visible) y pie con desgaste y robo. Las cartas que no se pueden jugar llevan una cinta que dice por qué.
+- **Íconos propios** (nunca emojis): PA, estamina (gota), robo (pelota que se escapa), fatiga (batería),
+  acierto (mira), popularidad (megáfono), disciplina (tarjeta) y riesgo (dado). Palabras clave en vez de
+  oraciones.
+- **Una acción a la vez:** chinchetas numeradas en lo pendiente (✓ en lo hecho) y la luz de la lámpara
+  sobre lo que toca decidir; lo demás queda en penumbra. Texto de juego de 14 px o más (Steam Deck).
+- **Letras:** Barlow y Barlow Condensed (cursiva con sombra dura en la TV, recta en las láminas),
+  Permanent Marker solo para lo escrito a mano por el DT y Playfair Display solo para el nombre del diario.
+Por qué: el usuario pidió cruzar la gráfica de TV del Apertura 2006 con la mesa de un DT llena de
+recortes y láminas, sin tarjetas tipo web; la maqueta v1 se criticó (parecía un panel web con fondo de
+madera), la v2 sumó materiales, sombras y TV, y la v3 aplicó una revisión externa (láminas vacías, número
+grande que cambiaba de significado, demasiada prosa, decisiones sin orden). Descartados: el concepto
+sobrio de planilla impresa y el puramente televisivo; emojis como íconos; etiquetas tipo píldora.
+
 ### Descartadas (para no reabrirlas sin datos nuevos)
 - **Tempo ofensivo +7 / regen +3** (2026-10-26): no llegaba al objetivo de goles y quedó obsoleto con
   PA + Estamina; el stash se borró.

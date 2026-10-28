@@ -7,6 +7,7 @@ extends SceneTree
 
 const SAVE := "user://test_capturas.json"
 const MAX_FRAMES := 20000
+const SETTLE_FRAMES := 90   # frames para que la mano termine de aparecer antes de capturarla
 
 var out := "user://capturas"
 var frames := 0
@@ -14,6 +15,7 @@ var step := "boot"
 var view: Node
 var _wait := 0
 var _taken := {}
+var _settled := ""   # captura del partido que ya esperó a que la mano terminara de entrar
 
 
 func _initialize() -> void:
@@ -73,10 +75,18 @@ func _process(_delta: float) -> bool:
 		"play":
 			if view._busy:
 				return false
+			# La mano entra con una animación: se espera a que termine antes de capturar.
+			var pending := ""
 			if view._in_moment and not _taken.has("5_partido_ataque"):
-				_shot("5_partido_ataque")
+				pending = "5_partido_ataque"
 			elif view._in_defense and not _taken.has("6_partido_defensa"):
-				_shot("6_partido_defensa")
+				pending = "6_partido_defensa"
+			if pending != "":
+				if _settled != pending:
+					_settled = pending
+					_wait = SETTLE_FRAMES
+					return false
+				_shot(pending)
 			if _taken.has("5_partido_ataque") and _taken.has("6_partido_defensa"):
 				return _finish(0)
 			if view._in_defense or view._in_moment:

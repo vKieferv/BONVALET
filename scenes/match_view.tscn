@@ -95,7 +95,7 @@ size_flags_horizontal = 3
 [node name="PlayerBarLabel" type="Label" parent="TopScoreboard/VBox/BarsRow/PlayerBarBox"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 14
 text = "TU ESTAMINA"
 text_overrun_behavior = 3
 
@@ -127,7 +127,7 @@ size_flags_horizontal = 3
 [node name="RivalBarLabel" type="Label" parent="TopScoreboard/VBox/BarsRow/RivalBarBox"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 14
 text = "ESTAMINA RIVAL"
 horizontal_alignment = 2
 text_overrun_behavior = 3
@@ -190,25 +190,6 @@ size_flags_horizontal = 3
 toggle_mode = true
 text = "HIGH"
 
-[node name="PostureHint" type="Label" parent="."]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -300.0
-offset_top = -18.0
-offset_right = -14.0
-offset_bottom = 70.0
-grow_horizontal = 0
-grow_vertical = 2
-theme_override_font_sizes/font_size = 14
-text = "NORMAL"
-horizontal_alignment = 2
-autowrap_mode = 3
-
 [node name="HandOverlay" type="MarginContainer" parent="."]
 unique_name_in_owner = true
 layout_mode = 1
@@ -216,7 +197,7 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -300.0
+offset_top = -342.0
 grow_horizontal = 2
 grow_vertical = 0
 
@@ -312,7 +293,7 @@ horizontal_alignment = 1
 
 [node name="ApCaption" type="Label" parent="HandOverlay/HandMargin/HandVBox/HandRow/ApOrb/ApVBox"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 13
+theme_override_font_sizes/font_size = 14
 text = "PA"
 horizontal_alignment = 1
 

@@ -260,10 +260,11 @@ chicos que invierten en gimnasio y centro médico para bajar fatiga y lesiones.
 - Todo en JSON: otra liga u otra época = otro conjunto de datos.
 - Marcas siempre parodiadas (D-01); datos históricos solo con fuente (D-02).
 
-## 7. Presentación [IDEA] · M4
-Hoy: UI de prototipo, cancha dibujada por código, sin arte ni audio. Pendiente: dirección de arte
-sostenible para un desarrollador solo (propuesta: transmisión de TV 2006 + cartas como láminas de
-álbum, I-30), sonido, menú principal, tutorial.
+## 7. Presentación [DECIDIDO: dirección visual, D-35] · en T-09
+Dirección (D-35): transmisión de TV 2006 + cartas como láminas de álbum, fondo oscuro, letras Barlow y
+Barlow Condensed, jugadores sin caras, escudos generados con los colores del club. Primero el tema y la
+semana (T-09); la pantalla del partido se rehace junto con el partido por zonas. Hoy: UI de prototipo,
+cancha dibujada por código, sin audio. Pendiente: sonido, menú principal, tutorial.
 
 ## 8. Comercial [IDEA] · antes de M4
 Steam PC primero, página temprana para wishlists, demo en itch.io. Riesgo principal: licencias de

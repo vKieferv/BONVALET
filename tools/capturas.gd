@@ -1,0 +1,97 @@
+# Capturas de la UI para revisar cambios visuales: semana (inicio, Bloque 1, entrenamiento táctico),
+# partido (menú, ataque, defensa). Necesita pantalla: NO se corre con --headless.
+# Uso (desde futbolista/):
+#   ..\Godot_v4.7.2-stable_win64_console.exe --path . -s res://tools/capturas.gd -- --out=C:/ruta/capturas
+# Sin --out guarda en user://capturas. Guarda la carrera en su propia ruta y la borra al final.
+extends SceneTree
+
+const SAVE := "user://test_capturas.json"
+const MAX_FRAMES := 20000
+
+var out := "user://capturas"
+var frames := 0
+var step := "boot"
+var view: Node
+var _wait := 0
+var _taken := {}
+
+
+func _initialize() -> void:
+	for arg in OS.get_cmdline_user_args():
+		if arg.begins_with("--out="):
+			out = arg.get_slice("=", 1)
+	DirAccess.make_dir_recursive_absolute(out)
+	Career.current = null
+	Career.save_path = SAVE
+	change_scene_to_file("res://scenes/calendar_view.tscn")
+
+
+func _shot(shot_name: String) -> void:
+	root.get_texture().get_image().save_png(out.path_join(shot_name + ".png"))
+	_taken[shot_name] = true
+	print("captura: ", out.path_join(shot_name + ".png"))
+
+
+func _process(_delta: float) -> bool:
+	frames += 1
+	if frames > MAX_FRAMES:
+		print("capturas: tiempo agotado en el paso '%s'" % step)
+		return _finish(1)
+	if _wait > 0:
+		_wait -= 1
+		return false
+	var scene := current_scene
+	if scene == null:
+		return false
+	match step:
+		"boot":
+			if frames > 10:
+				_shot("1_inicio")
+				scene._on_start_career()
+				step = "week"
+				_wait = 10
+		"week":
+			_shot("2_semana")
+			scene._sponsor_option.select(2)
+			scene._on_sponsor_selected(2)
+			scene._on_event(true)
+			scene._on_training("tactical")
+			step = "tactical"
+			_wait = 10
+		"tactical":
+			_shot("3_entrenamiento_tactico")
+			Career.current = null
+			change_scene_to_file("res://scenes/match_view.tscn")
+			step = "menu"
+			_wait = 20
+		"menu":
+			view = current_scene
+			_shot("4_partido_menu")
+			view._on_start_pressed()
+			step = "play"
+			_wait = 5
+		"play":
+			if view._busy:
+				return false
+			if view._in_moment and not _taken.has("5_partido_ataque"):
+				_shot("5_partido_ataque")
+			elif view._in_defense and not _taken.has("6_partido_defensa"):
+				_shot("6_partido_defensa")
+			if _taken.has("5_partido_ataque") and _taken.has("6_partido_defensa"):
+				return _finish(0)
+			if view._in_defense or view._in_moment:
+				for ui in view._hand_box.get_children():
+					if view._engine.can_play(ui.card):
+						view._on_card_chosen(ui)
+						_wait = 30
+						return false
+				view._on_yield_pressed()
+				_wait = 30
+	return false
+
+
+func _finish(code: int) -> bool:
+	if FileAccess.file_exists(SAVE):
+		DirAccess.remove_absolute(SAVE)
+	quit(code)
+	return true

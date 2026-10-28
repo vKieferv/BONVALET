@@ -229,6 +229,20 @@ solo alcanzaba para 3 de los 16 clubes. Descartado: Transfermarkt (no es una fue
 condiciones prohíben la extracción automatizada y su base está protegida; además bloquea las
 consultas). Se mide en T-08: cuántos clubes de Primera A llegan a 18 jugadores con fuente.
 
+**D-35 · 2026-10-28 · Dirección visual: transmisión de TV 2006 + láminas de álbum** · VIGENTE
+Fondo oscuro; marcador y relato como gráficas de TV de la época ("Televisora Nacional"); cartas como
+láminas de papel crema con una banda de color por tipo y una moneda dorada para los PA; eventos de la
+semana como portadas de Diario El Chisme. Letras Barlow y Barlow Condensed (libres, SIL OFL: se
+incluyen en el juego). **Jugadores sin caras:** camiseta o silueta con los colores del club, número y
+nombre. **Escudos generados** por el juego con una forma y los colores del club, nunca los reales. Lo
+visual va **antes** del partido por zonas, para no rediseñar la pantalla del partido dos veces.
+Por qué: el usuario (2026-10-28): "el menú de semana es horrible y ni ganas dan de probarlo"; las
+reseñas de la competencia castigan la presentación de los proyectos chicos (`mercado.md`); es
+sostenible para un desarrollador solo, y sin caras ni escudos reales sirve igual para la versión con
+nombres inventados (D-26). Descartados: álbum de papel claro y pizarra del DT (menos ambiente de
+partido); retratos ilustrados (~340 jugadores, quedan para después). Maquetas (privadas del usuario):
+lienzo "Dirección visual", https://claude.ai/artifact/TxaUdVLTzGyWHzVjyD4jhm. Acepta I-30.
+
 ### Descartadas (para no reabrirlas sin datos nuevos)
 - **Tempo ofensivo +7 / regen +3** (2026-10-26): no llegaba al objetivo de goles y quedó obsoleto con
   PA + Estamina; el stash se borró.

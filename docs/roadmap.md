@@ -45,6 +45,13 @@ Momento, cansancio por jugador). Si se adopta, cambia el corazón de M1 y obliga
 paso: un **prototipo medido** en una rama de diseño (motor mínimo + `balance-lab` + playtest) antes de
 decidir. Mientras tanto no se sigue afinando el modelo actual (la curva de M2 espera esa decisión).
 
+## Ahora · Cara visual y partido por zonas (2026-10-28)
+Antes de seguir, el juego tiene que dar ganas de jugarlo (usuario). Orden decidido (D-35): primero lo
+visual, después el partido por zonas con su pantalla nueva.
+- [ ] T-09 · tema del juego y semana nueva (`T-09-cara-visual.md`, en el PC: necesita pantalla)
+- [ ] T-10 · partido por zonas (Salida, Medio, Área), primer paso de los duelos (I-48, I-45): reglas en
+      debate con el usuario; brief por escribir
+
 ## M2 · Deckbuilder de verdad (diseño cerrado, en implementación)
 Diseño:
 - [x] Bucle del mazo (D-20 a D-22): Bloque 2 = carta (1 de 3) / mejora / kinesiología; los rivales

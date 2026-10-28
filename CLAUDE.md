@@ -27,6 +27,10 @@ Pruebas individuales (desde la raíz del repo; `--import` primero si creaste o r
 ..\Godot_v4.7.2-stable_win64_console.exe --headless --path . -s res://core/sim.gd   # métricas de balance
 ..\Godot_v4.7.2-stable_win64_console.exe --headless --path . -s res://tests/balance_lab.gd -- --variants=res://tests/lab/ejemplo.json   # palancas lado a lado
 ```
+Capturas de la UI (necesita pantalla, sin `--headless`; semana, Bloque 1, entrenamiento táctico y partido en ataque y defensa):
+```powershell
+..\Godot_v4.7.2-stable_win64_console.exe --path . -s res://tools/capturas.gd -- --out=C:/ruta/capturas
+```
 `scenes/sim_dashboard.tscn` es la versión visual de la simulación (duelo 1v1 y liga todos contra todos con hilos), para abrir en el editor.
 
 ## Arquitectura

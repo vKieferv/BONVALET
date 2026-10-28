@@ -33,7 +33,7 @@ Para agregar una, la skill `idea-nueva` hace el análisis y la anota aquí.
 | I-19 | Más eventos sociales con humor de época | GDD original | 4 | NUEVA | M5 |
 | I-20 | Licencias: nombres ficticios para la versión comercial + datos editables por la comunidad (como PES); consultar a un abogado antes de anunciar; el juego debe funcionar completo con un paquete de datos ficticio (`mercado.md` §4) | Análisis comercial | 4 | ACEPTADA (consulta del usuario) | antes de M4 |
 | I-21 | Otras ligas o épocas como expansiones (otro conjunto de JSON) | Análisis comercial | 4 | EN ESPERA | post-lanzamiento |
-| I-30 | Dirección de arte: transmisión de TV 2006 + cartas como láminas de álbum | Análisis | 4 | NUEVA | M4 |
+| I-30 | Dirección de arte: transmisión de TV 2006 + cartas como láminas de álbum | Análisis | 4 | DECIDIDA (D-35) · en T-09 | M2 |
 | I-31 | Cinemática o resplandor más fuerte para el Ejecutor Natural (`FxLayer`) | GDD original | 1 | NUEVA | M4 |
 | I-32 | Indicador de "jugada armable": avisar si la mano puede llegar al gol con los PA del turno (y cuál), usando `CoachBot.best_plan` | M1 (sensación de juego) | 1, 2 | NUEVA | M1 (si los playtests lo piden) |
 | I-33 | Textos traducibles (tablas de traducción de Godot) y demo en inglés + español: el público hispanohablante es ~5% de Steam (`mercado.md`) | Estudio de mercado | 4 | ACEPTADA (tarea autónoma) | antes de M4 |

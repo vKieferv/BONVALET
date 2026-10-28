@@ -182,6 +182,9 @@ func update_stats(ap: int, base_ap: int, stamina: float, chance: float, usable: 
             cost_label.add_theme_color_override("font_color", sc)
         _cost_tip = "Cuesta %d PA del turno · desgasta %d de estamina" % [ap, roundi(stamina)]
         _show_breakdown(breakdown, chance)
+        var outcome := _outcome_tip(card, chance)
+        if outcome != "":
+            tooltip_text = outcome if tooltip_text == "" else tooltip_text + "\n" + outcome
         var tip := effect_tip(card)
         if tip != "":
             tooltip_text = tip if tooltip_text == "" else tooltip_text + "\n" + tip
@@ -211,6 +214,37 @@ func _show_breakdown(breakdown: Array, chance: float) -> void:
     tooltip_text = "\n".join(tip)
     mod_label.text = " · ".join(mods)
     mod_label.add_theme_color_override("font_color", Color("#f85149") if penalized else Color("#ecc94b"))
+
+
+func _outcome_tip(c: Card, chance: float) -> String:
+    if c == null or c.type == Card.Type.PENALTY:
+        return ""
+    var risk := "bajo" if chance >= 0.70 else ("medio" if chance >= 0.45 else "alto")
+    var success := "Si sale: "
+    var fail := "Si falla: "
+    match c.kind:
+        Card.Kind.PAUSE:
+            success += "recuperas estamina y no avanzas la jugada."
+            fail += "pierdes el turno y se acerca el fallo del Momento."
+        Card.Kind.PRESS:
+            success += "sube la dificultad de todas sus jugadas en este ataque."
+            fail += "el rival mantiene su plan sin castigo."
+        Card.Kind.BLOCK:
+            success += "su remate pierde potencia en este ataque."
+            fail += "su remate llega sin este bloqueo."
+        Card.Kind.INTERCEPT:
+            success += "cortas el ataque y dejas el contragolpe listo."
+            fail += "el ataque rival sigue vivo."
+        Card.Kind.CLEARANCE:
+            success += "cortas el ataque rival de inmediato."
+            fail += "el rival sigue atacando."
+        Card.Kind.SHOT:
+            success += "conviertes gol y cierras el Momento."
+            fail += "aumenta el riesgo de perder el Momento."
+        _:
+            success += "avanzas la jugada hacia el remate."
+            fail += "sube el contador de fallos del Momento."
+    return "Riesgo de la jugada: %s.\n%s\n%s" % [risk, success, fail]
 
 
 func set_interactive(v: bool) -> void:

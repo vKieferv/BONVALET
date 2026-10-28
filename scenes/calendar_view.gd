@@ -39,9 +39,14 @@ var _event_text: Label
 var _event_terms: Label
 var _accept_button: Button
 var _decline_button: Button
+var _event_confirm_button: Button
+var _event_preview: Label
 var _event_result: Label
+var _event_pick: int = -1   # -1: sin elegir, 0: rechazar, 1: aceptar
 var _training_buttons := {}
 var _training_status: Label
+var _training_impact: Label
+var _training_reco: Label
 var _b2_detail: VBoxContainer   # lo que pide la opción abierta: las cartas ofrecidas o tu mazo para el video
 var _b2_view := ""              # opción del Bloque 2 abierta y sin resolver ("tactical" | "video")
 var _replace_for := -1          # carta de la oferta que espera elegir cuál sale (mazo en su tope)
@@ -104,6 +109,31 @@ func _button(text: String, handler: Callable) -> Button:
     b.text = text
     b.custom_minimum_size = Vector2(0, 40)
     b.pressed.connect(handler)
+    return b
+
+
+func _interactive_card_button(text: String, handler: Callable, tint: Color = Color("#1f2a3b")) -> Button:
+    var b := _button(text, handler)
+    b.alignment = HORIZONTAL_ALIGNMENT_LEFT
+    b.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+    b.custom_minimum_size = Vector2(0, 56)
+    var normal := _flat(tint, 6)
+    normal.border_color = tint.lightened(0.35)
+    normal.set_border_width_all(2)
+    var hover := _flat(tint.lightened(0.08), 6)
+    hover.border_color = COLOR_GOLD
+    hover.set_border_width_all(2)
+    var pressed := _flat(tint.lightened(0.14), 6)
+    pressed.border_color = COLOR_GOLD
+    pressed.set_border_width_all(3)
+    b.add_theme_stylebox_override("normal", normal)
+    b.add_theme_stylebox_override("hover", hover)
+    b.add_theme_stylebox_override("pressed", pressed)
+    b.add_theme_stylebox_override("focus", hover)
+    b.mouse_entered.connect(func() -> void:
+        create_tween().tween_property(b, "scale", Vector2(1.02, 1.02), 0.08))
+    b.mouse_exited.connect(func() -> void:
+        create_tween().tween_property(b, "scale", Vector2.ONE, 0.08))
     return b
 
 
@@ -196,13 +226,18 @@ func _build_ui() -> void:
     b1.add_child(_event_terms)
     var event_row := HBoxContainer.new()
     event_row.add_theme_constant_override("separation", 10)
-    _accept_button = _button("Aceptar", _on_event.bind(true))
-    _decline_button = _button("Rechazar", _on_event.bind(false))
+    _accept_button = _interactive_card_button("Aceptar", _on_event_pick.bind(true), Color("#2f3b1f"))
+    _decline_button = _interactive_card_button("Rechazar", _on_event_pick.bind(false), Color("#3d2a1f"))
     _accept_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
     _decline_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
     event_row.add_child(_accept_button)
     event_row.add_child(_decline_button)
     b1.add_child(event_row)
+    _event_preview = _label("", 14, COLOR_GOLD)
+    b1.add_child(_event_preview)
+    _event_confirm_button = _button("CONFIRMAR DECISIÓN", _on_event_confirm)
+    _event_confirm_button.custom_minimum_size = Vector2(0, 44)
+    b1.add_child(_event_confirm_button)
     _event_result = _label("", 14)
     b1.add_child(_event_result)
 
@@ -210,7 +245,7 @@ func _build_ui() -> void:
     var b2 := _block("BLOQUE 2 · ENTRENAMIENTO, VIDEO O KINESIOLOGÍA")
     b2.add_child(_label("Elige UNA por semana: una carta nueva, mejorar una carta o descansar.", 15, COLOR_MUTED))
     for kind in Career.TRAINING_KINDS:
-        var b := _button("", _on_training.bind(kind))
+        var b := _interactive_card_button("", _on_training.bind(kind), Color("#243246"))
         b.toggle_mode = true
         b.alignment = HORIZONTAL_ALIGNMENT_LEFT
         b.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -222,6 +257,10 @@ func _build_ui() -> void:
     b2.add_child(_b2_detail)
     _training_status = _label("", 14, COLOR_MUTED)
     b2.add_child(_training_status)
+    _training_impact = _label("", 14, COLOR_GOLD)
+    b2.add_child(_training_impact)
+    _training_reco = _label("", 14, COLOR_OK)
+    b2.add_child(_training_reco)
     _deck_button = _button("VER MAZO", _on_view_deck)
     b2.add_child(_deck_button)
 
@@ -305,6 +344,7 @@ func _set_blocks_enabled(on: bool) -> void:
     _sponsor_option.disabled = not on
     _accept_button.disabled = not on
     _decline_button.disabled = not on
+    _event_confirm_button.disabled = not on
     for b in _training_buttons.values():
         b.disabled = not on
     _deck_button.disabled = not on
@@ -334,11 +374,41 @@ func _refresh_block1() -> void:
     var resolved := not _career.event_result.is_empty()
     _accept_button.disabled = resolved or locked
     _decline_button.disabled = resolved or locked
+    _event_confirm_button.disabled = resolved or locked or _event_pick < 0
+    if not resolved:
+        _event_result.text = ""
+        _event_preview.text = _event_preview_text(ev, _event_pick)
+        _event_preview.add_theme_color_override("font_color", COLOR_GOLD if _event_pick >= 0 else COLOR_MUTED)
+        _accept_button.text = ("✓ " if _event_pick == 1 else "") + _accept_button.text
+        _decline_button.text = ("✓ " if _event_pick == 0 else "") + _decline_button.text
+        if _event_pick >= 0:
+            _event_confirm_button.text = "CONFIRMAR: " + ("DAR PERMISO" if _event_pick == 1 else "CONCENTRACIÓN EN HOTEL")
+        else:
+            _event_confirm_button.text = "CONFIRMAR DECISIÓN"
     if resolved:
+        _event_pick = -1
         _event_result.text = "\n".join(_career.event_result["lines"])
         _event_result.add_theme_color_override("font_color", COLOR_BAD if _career.event_result["funa"] else COLOR_OK)
-    else:
-        _event_result.text = ""
+        _event_preview.text = ""
+        _event_confirm_button.text = "DECISIÓN CERRADA"
+
+
+func _event_preview_text(ev: Dictionary, pick: int) -> String:
+    if pick < 0:
+        return "Elige una opción para ver su impacto inmediato en popularidad, disciplina y riesgo."
+    if pick == 1:
+        var reward: Dictionary = ev.get("reward", {})
+        var risk: Dictionary = ev.get("risk", {})
+        return "Si aceptas: +%d%% acierto (Momentos 1-%d) · popularidad %+d.\nRiesgo de funa %d%%: disciplina %+d y titular con +%d%% desgaste." % [
+            roundi(float(reward.get("opening_bonus", 0.0)) * 100.0),
+            int(reward.get("opening_moments", 2)),
+            int(reward.get("popularity", 0)),
+            roundi(float(risk.get("chance", 0.0)) * 100.0),
+            int(risk.get("discipline", 0)),
+            roundi(float(risk.get("funado_stamina_extra", 0.5)) * 100.0)]
+    var dec: Dictionary = ev.get("decline", {})
+    return "Si rechazas: disciplina %+d · popularidad %+d · sin riesgo de funa." % [
+        int(dec.get("discipline", 0)), int(dec.get("popularity", 0))]
 
 
 func _refresh_block2() -> void:
@@ -368,8 +438,40 @@ func _refresh_block2() -> void:
     _training_status.text = done + ("Fatiga actual: %d%%. Sin cambios arrancarías con %d%% de estamina (%s, Mano: %d). " +
             "La estamina vuelve a ese valor en cada partido; la fatiga se arrastra y sube más si terminas agotado.") % [
             int(_career.fatigue), now["pct"], now["zone"], now["hand"]]
+    _training_impact.text = _training_impact_text()
+    _training_reco.text = _training_recommendation()
     _deck_button.disabled = false
     _deck_button.text = "OCULTAR MAZO" if _deck_open else "VER MAZO (%d CARTAS)" % _career.deck_size()
+
+
+func _training_impact_text() -> String:
+    var kind := _career.training if _career.training != "" else _b2_view
+    if kind == "":
+        return "Impacto neto: elige una opción para comparar beneficio hoy vs costo para el partido."
+    var t: Dictionary = _career.data.get("training", {}).get(kind, {})
+    var fatigue_delta := int(t.get("fatigue", 0))
+    var after := _career.start_stamina_preview(float(fatigue_delta))
+    var benefit := ""
+    match kind:
+        "tactical":
+            benefit = "Beneficio hoy: +1 carta al mazo (o reemplazo en tope)."
+        "video":
+            benefit = "Beneficio hoy: mejoras 1 carta (+acierto o −PA)."
+        _:
+            benefit = "Beneficio hoy: recuperación física inmediata."
+    return "%s Costo para el partido: fatiga %+d → arrancas con %d%% (%s, Mano: %d)." % [
+        benefit, fatigue_delta, after["pct"], after["zone"], after["hand"]]
+
+
+func _training_recommendation() -> String:
+    var now := _career.start_stamina_preview()
+    if _career.training != "":
+        return "Bloque 2 resuelto. Enfócate en preparar el partido."
+    if _career.fatigue >= 60.0:
+        return "Recomendación: estás muy cargado (%d%% fatiga). Kinesiología te ayuda a no llegar agotado." % int(_career.fatigue)
+    if now["zone"] != "ÓPTIMO":
+        return "Recomendación: prioriza recuperación o video antes de sumar más carga táctica."
+    return "Recomendación: estás en buena zona física. Táctico o video son opciones seguras."
 
 
 # Entrenamiento táctico: las cartas ofrecidas y "No tomar ninguna"; con el mazo en su tope, después
@@ -389,7 +491,7 @@ func _fill_offer() -> void:
         if copies > 0:
             text += "\nYa tienes %d en el mazo." % copies
         _b2_detail.add_child(_choice_button(text, _on_offer_chosen.bind(i)))
-    _b2_detail.add_child(_button("No tomar ninguna", _on_offer_declined))
+    _b2_detail.add_child(_interactive_card_button("No tomar ninguna", _on_offer_declined, Color("#263246")))
 
 
 func _fill_replace() -> void:
@@ -405,7 +507,7 @@ func _fill_replace() -> void:
         var b := _choice_button(text, _on_replace_chosen.bind(index))
         b.disabled = reason != ""
         _b2_detail.add_child(b)
-    _b2_detail.add_child(_button("Cancelar", _on_replace_cancel))
+    _b2_detail.add_child(_interactive_card_button("Cancelar", _on_replace_cancel, Color("#263246")))
 
 
 # Sesión de video: tus cartas del DT con sus dos mejoras (las copias iguales en una fila: se mejora una).
@@ -423,7 +525,7 @@ func _fill_video() -> void:
         var row := HBoxContainer.new()
         row.add_theme_constant_override("separation", 8)
         for m in CardDB.UPGRADES:
-            var b := _button(_upgrade_text(m), _on_upgrade.bind(index, m))
+            var b := _interactive_card_button(_upgrade_text(m), _on_upgrade.bind(index, m), Color("#243246"))
             b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
             b.disabled = not _career.can_upgrade(index, m)
             if b.disabled:
@@ -487,11 +589,7 @@ func _upgrade_text(mejora: String) -> String:
 
 
 func _choice_button(text: String, handler: Callable) -> Button:
-    var b := _button(text, handler)
-    b.alignment = HORIZONTAL_ALIGNMENT_LEFT
-    b.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-    b.custom_minimum_size = Vector2(0, 56)
-    return b
+    return _interactive_card_button(text, handler, Color("#263246"))
 
 
 func _clear(box: Container) -> void:
@@ -591,10 +689,18 @@ func _on_sponsor_selected(index: int) -> void:
     _refresh()
 
 
-func _on_event(accept: bool) -> void:
+func _on_event_pick(accept: bool) -> void:
+    _event_pick = 1 if accept else 0
+    _refresh()
+
+
+func _on_event_confirm() -> void:
     if _career == null:
         return
-    _career.resolve_event(accept)
+    if _event_pick < 0:
+        return
+    _career.resolve_event(_event_pick == 1)
+    _event_pick = -1
     _save()
     _refresh()
 

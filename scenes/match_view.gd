@@ -299,11 +299,44 @@ func _update_hud() -> void:
         _progress_label.text = ""
     if _last_roll_text != "" and (_in_moment or _in_defense):
         _progress_label.text += " · " + _last_roll_text
+    if _in_moment:
+        _progress_label.text += "\nPA %d/%d · %s · %s" % [_engine.ap, _engine.ap_max, _moment_risk_text(), _critical_state_text()]
+    elif _in_defense:
+        _progress_label.text += "\nPA %d/%d · %s" % [_engine.ap, _engine.ap_max, _critical_state_text()]
     _yield_button.disabled = not (_in_moment or _in_defense) or _busy
     _update_hold_button()
     _emergency_button.text = "Despeje de emergencia (todos tus PA, −%d est.)" % roundi(_engine.emergency_stamina_cost())
     _emergency_button.disabled = not _in_defense or _busy or not _engine.can_emergency_clear()
     _update_hand_stats()
+
+
+func _moment_risk_text() -> String:
+    if _engine.fails >= MatchEngine.MAX_FAILS - 1:
+        return "Riesgo jugada: ALTO (a un fallo de perder el Momento)"
+    var playable := _engine.playable_indices()
+    if playable.is_empty():
+        return "Riesgo jugada: ALTO (sin cartas jugables)"
+    var best := 0.0
+    for i in playable:
+        best = maxf(best, _engine.success_chance(_engine.deck.hand[i]))
+    if best >= 0.70:
+        return "Riesgo jugada: BAJO"
+    if best >= 0.45:
+        return "Riesgo jugada: MEDIO"
+    return "Riesgo jugada: ALTO"
+
+
+func _critical_state_text() -> String:
+    var states: Array = []
+    if _engine.flow_active:
+        states.append("FLOW ACTIVO")
+    if _player.zone() == PlayerStats.Zone.TIRED:
+        states.append("CANSADO")
+    elif _player.zone() == PlayerStats.Zone.EXHAUSTED:
+        states.append("AGOTADO")
+    if _in_moment and _engine.can_hold():
+        states.append("AGUANTAR DISPONIBLE")
+    return " · ".join(states) if not states.is_empty() else "Estado estable"
 
 
 func _update_bars() -> void:

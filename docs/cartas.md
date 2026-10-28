@@ -211,6 +211,43 @@ hay que medir cuánto con `balance-lab`.
 - La postura no puede contar dos veces: si en LOW un volante baja (−6 arriba), el −15 de LOW en los
   remates de hoy sobra o se achica.
 
+## Partido por zonas (T-10, primer paso de los duelos; en diseño, 2026-10-28)
+Las 3 jugadas del Momento pasan a ser 3 zonas de la cancha: **Salida**, **Medio** y **Área** (I-48).
+Cada zona tiene su personalidad: en la Salida los números suelen estar a tu favor pero perderla es lo
+peor; en el Área te esperan más y ahí se remata.
+
+**Acuerdos del usuario (2026-10-28):**
+1. **Los remates se juegan en el Área.** Desde fuera solo con cartas especiales específicas de tiro
+   lejano (hoy, el Tiro de lejos), con su castigo por la distancia. Precisa la regla 3 de D-31.
+2. **Qué pasa al fallar:** en análisis (abajo).
+3. **Los números de cada zona salen de dos fuentes, con valores chicos y medidos:** la formación de cada
+   estilo (D-30: "4 contra 2", 6 pts por jugador de diferencia, valor de prueba) y la fuerza de la línea
+   (promedio de `skill_rating` de los titulares de esa línea, tuya contra la suya; el factor se mide con
+   `balance-lab`). La fuerza de línea es la que trae la jerarquía entre clubes (D-18).
+4. **La postura mueve un jugador entre líneas** (HIGH: uno del medio sube; LOW: uno baja) **sin contar
+   dos veces:** si la postura ya cambia los números de una zona, sobra el castigo plano que hoy pone LOW a
+   los remates; se decide midiendo.
+
+**Fallos, cuenta de servilleta** (no es el motor: una mano de 6 cartas, 4 de avance y 2 remates, 65% en
+la Salida, 55% en el Medio y 45% el remate; cada intento gasta una carta; 200 000 Momentos):
+| Regla | Gol | Robo (contra rival) | Perdido | Sin cartas |
+|---|---|---|---|---|
+| A · hoy: 2 fallos y se pierde | 38% | 0% | 62% | 0% |
+| B · fallar no corta (D-31) + robo 1/3 Salida, 1/5 Medio | 38% | 26% | 23% | 13% |
+| B con robo 1/4 y 1/6 | 40% | 21% | 24% | 14% |
+| C · 2 fallos + robo según la zona | 35% | 24% | 42% | 0% |
+| E · fallar te hace retroceder una zona + robo | 31% | 28% | 19% | 22% |
+Con mano de 4 (cansado: 3 de avance, 1 remate) la regla B baja a 26% de gol y 34-38% sin cartas.
+Lo que muestra:
+- **El límite real de "fallar no corta" es la mano**, no los PA: cada intento gasta una carta, así que
+  los pases de 0 PA no dan intentos infinitos. Con la regla B se marca casi lo mismo que hoy.
+- Lo que cambia es **qué pasa con la pelota**: con robo 1/3 y 1/5, uno de cada cuatro Momentos tuyos
+  termina en contragolpe rival (cerca de uno por partido por equipo). Es mucho; con 1/4 y 1/6, uno de
+  cada cinco.
+- **El cansancio pesa más:** con la mano chica te quedas sin cartas a menudo. Calza con D-04 (el
+  cansancio cambia el robo de cartas, no el %) y le da más valor a Aguantar (mano nueva).
+- Retroceder una zona (E) se ve futbolero pero marca mucho menos y deja a muchos sin cartas: descartada.
+
 ## Pantalla de duelos (borrador, 2026-10-27)
 Maqueta en el lienzo "Pantalla de duelos" (privado del usuario):
 https://claude.ai/artifact/AeeGQGHLiq8XzefCjZ1nFW. Ejemplo: Colo-Colo (4-1-2-1-2) contra U. de Chile

@@ -554,7 +554,9 @@ func _setup_rival_engine() -> void:
     var rng := RandomNumberGenerator.new()
     rng.randomize()
     var rival_id := String(_rival_team["id"])
-    var deck := DeckManager.new(_starter_deck(rival_id), [], rng)
+    # En la carrera, el rival suma su crecimiento según la semana (T-06); en partido rápido, mazo de inicio.
+    var cards := _career.build_rival_deck(rival_id) if _career != null else _starter_deck(rival_id)
+    var deck := DeckManager.new(cards, [], rng)
     var player := PlayerStats.new()
     player.lineup = _squads.lineup_ids(rival_id)
     _rival_engine = MatchEngine.new(player, deck, rng,
@@ -564,7 +566,7 @@ func _setup_rival_engine() -> void:
 
 
 # Mazo de inicio de un club (mazo estándar + carta de rasgo de su arquetipo + firmas de sus
-# titulares, D-23). El rival juega siempre con este; que crezca durante la carrera llega con T-06.
+# titulares, D-23). Con él juega el rival del partido rápido; en la carrera crece con la semana (T-06).
 func _starter_deck(team_id: String) -> Array:
     return _squads.build_match_deck(team_id, _squads.starter_templates(team_id))
 

@@ -257,6 +257,19 @@ func build_deck() -> Array:
     return squads.build_match_deck(team_id, deck_templates())
 
 
+# Cartas del DT del rival de la semana (D-22, T-06): su mazo de inicio + las primeras week − 1 cartas
+# del crecimiento de su arquetipo, en orden (SquadManager.season_templates, lo mismo que miden las
+# etapas de sim.gd). Se deriva de la semana, sin guardar nada; season_templates lo topa para que su
+# mazo del partido no pase de DeckManager.DECK_MAX. Solo suma cartas: mejorarlas queda para después.
+func rival_templates(id: String = rival_id) -> Array:
+    return squads.season_templates(id, week - 1)
+
+
+# Mazo del partido del rival: rival_templates + sus Promesas asignadas y las firmas de sus titulares.
+func build_rival_deck(id: String = rival_id) -> Array:
+    return squads.build_match_deck(id, rival_templates(id))
+
+
 # Cartas del mazo del partido: tus cartas del DT + las firmas de los titulares.
 func deck_size() -> int:
     return deck.size() + squads.signature_count(team_id)

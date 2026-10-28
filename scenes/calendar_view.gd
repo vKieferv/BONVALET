@@ -505,8 +505,10 @@ func _refresh_block3() -> void:
     if rival.is_empty():
         _rival_label.text = "Sin rival disponible."
     else:
-        _rival_label.text = "Rival: %s (%s) · %s · DT %s\nEstadio: %s" % [
-            rival["name"], rival["division"], rival["archetype"], _league.dt_name(rival), rival.get("stadium", "?")]
+        # Su mazo crece con la semana (T-06): mazo de inicio + week − 1 cartas de su crecimiento.
+        _rival_label.text = "Rival: %s (%s) · %s · DT %s · mazo de %d cartas\nEstadio: %s" % [
+            rival["name"], rival["division"], rival["archetype"], _league.dt_name(rival),
+            _career.build_rival_deck().size(), rival.get("stadium", "?")]
     var owners := {}
     for c in _career.build_deck():
         owners[c.owner_id] = true

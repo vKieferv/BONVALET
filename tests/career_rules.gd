@@ -31,6 +31,7 @@ func _initialize() -> void:
 	_test_video_upgrades()
 	_test_career_stamina()
 	_test_rivals_and_sponsor_scale()
+	_test_rival_growth()
 	_test_save_round_trip()
 	_test_save_pending_match()
 	_test_save_v1_migration()
@@ -428,6 +429,39 @@ func _test_rivals_and_sponsor_scale() -> void:
 	var small := Career.new()
 	small.setup(league, squads, "magallanes", 7)
 	_check(small.sponsor_offer(telnet)["weekly"] < big, "un club de Primera B nivel 0 debería recibir menos que Colo-Colo")
+
+
+# T-06 (D-22): el rival de la semana N juega con su mazo de inicio + las primeras N − 1 cartas del
+# crecimiento de su arquetipo, en orden, sin pasar de DeckManager.DECK_MAX con sus firmas.
+func _test_rival_growth() -> void:
+	var c := Career.new()
+	_check(c.setup(league, squads, "colo_colo", 7), "Career no arranca: %s" % [c.load_errors])
+	var growth_all: Dictionary = squads.deck_lists.get("crecimiento", {})
+	for t in league.teams:
+		var id := String(t["id"])
+		var start_ids: Array = squads.starter_templates(id).map(func(d): return d["id"])
+		var growth: Array = growth_all.get(String(t.get("archetype", "")), [])
+		var firmas := squads.signature_count(id)
+		for week in [1, 2, 5, 9, 10, 30]:
+			c.week = week
+			var ids: Array = c.rival_templates(id).map(func(d): return d["id"])
+			var deck := c.build_rival_deck(id)
+			var room := DeckManager.DECK_MAX - start_ids.size() - firmas
+			var added := mini(week - 1, mini(growth.size(), room))
+			_check(ids.slice(0, start_ids.size()) == start_ids, "%s semana %d: el rival debería conservar su mazo de inicio" % [id, week])
+			_check(ids.slice(start_ids.size()) == growth.slice(0, added),
+					"%s semana %d: las cartas agregadas deberían ser las primeras %d de su crecimiento, en orden (tiene %s)" % [id, week, added, ids.slice(start_ids.size())])
+			_check(deck.size() == start_ids.size() + added + firmas and deck.size() <= DeckManager.DECK_MAX,
+					"%s semana %d: el mazo del rival tiene %d cartas" % [id, week, deck.size()])
+			_check(league.validate_deck(deck, LEAGUE_ID)["valid"], "%s semana %d: el mazo del rival no pasa validate_deck" % [id, week])
+	# Semana 1 = mazo de inicio (12 con la firma); semana 5 = inicio + 4.
+	c.week = 1
+	_check(c.build_rival_deck("universidad_de_chile").size() == 12, "en la semana 1 el rival juega con su mazo de inicio (12)")
+	c.week = 5
+	_check(c.build_rival_deck("universidad_de_chile").size() == 16, "en la semana 5 el rival suma 4 cartas (16)")
+	c.week = 1
+	_check(c.build_rival_deck().size() == squads.build_match_deck(c.rival_id, squads.starter_templates(c.rival_id)).size(),
+			"sin argumento, build_rival_deck usa el rival de la semana")
 
 
 # Guardado: dos semanas completas (una carta nueva y una mejora) y otra a medias, guardar, cargar →

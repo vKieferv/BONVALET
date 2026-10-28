@@ -306,6 +306,26 @@ madera), la v2 sumó materiales, sombras y TV, y la v3 aplicó una revisión ext
 grande que cambiaba de significado, demasiada prosa, decisiones sin orden). Descartados: el concepto
 sobrio de planilla impresa y el puramente televisivo; emojis como íconos; etiquetas tipo píldora.
 
+**D-38 · 2026-10-28 · Cartas v2: 8 por estilo con su "+", instrucciones y jugadas de crack** · VIGENTE (diseño; números por medir)
+Respuestas del usuario a la propuesta inspirada en Slay the Spire y NUTMEG (`cartas.md`, "Cartas v2"):
+1. **8 cartas propias por estilo** (por ahora): 3 básicas, 3 tácticas, 1 élite (UNA VEZ) y 1 instrucción.
+   Las ofrece el entrenamiento táctico de ese estilo; las élite salen poco.
+2. **Cada carta tiene su "+"** y la consigue la **sesión de video**. Reemplaza, en la sesión de video, la
+   mejora genérica de D-21 (+10 pts o −1 PA); el resto de D-21 sigue igual. Las cartas que ya existen
+   necesitan su "+".
+3. **Las instrucciones tácticas entran** (cartas que quedan activas todo el partido), pero hay que
+   revisarlas bien. Propuesta por confirmar: una sola activa a la vez.
+4. **Palabras clave:** el usuario aprobó todo el glosario (`cartas.md`). Las básicas usan solo efectos
+   simples; lo demás se desbloquea con el nivel del DT (D-28, I-46).
+5. **Jugadas de crack por perfil del jugador** (idea del usuario): cartas llamativas (caño, bicicleta,
+   sombrerito, rabona, chilena, vaselina...) que solo aparecen si en tu plantel hay un jugador con ese
+   perfil (D-29) y que juega ese jugador. Necesitan los perfiles en los datos.
+Por qué: hoy las ofertas de cada estilo son las mismas cartas genéricas en otro orden (I-42) y la mejora
+del video es igual para todas; el usuario quiere más cartas, más vistosas y con dos niveles. De NUTMEG se
+toma lo que funciona (mejoras con nombre propio, cartas que salen del plantel) y se evitan sus críticas
+(pocas decisiones reales, secuencias repetidas, azar opaco). Pendiente: AMARILLA (mecánica nueva), el
+tope de instrucciones, las "+" de las cartas genéricas y medir todo con `balance-lab` junto con T-10.
+
 ### Descartadas (para no reabrirlas sin datos nuevos)
 - **Tempo ofensivo +7 / regen +3** (2026-10-26): no llegaba al objetivo de goles y quedó obsoleto con
   PA + Estamina; el stash se borró.

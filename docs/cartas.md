@@ -388,7 +388,7 @@ sin bono ~48% de gol · +10 solo en la primera ~52% · +6 en todas ("uno más") 
 | ¿Se pierde si te hacen gol? | sí / no | sí: saque del medio. Es la apuesta de dejar atacar al rival |
 | ¿Cuánto dura? | próximo Momento / se guarda | solo tu próximo Momento, con aviso "TRANSICIÓN LISTA" como el del contragolpe |
 
-## Cartas de estilo por arquetipo (aceptadas como dirección, I-42)
+## Cartas de estilo por arquetipo (primer boceto, I-42; lo reemplaza «Cartas v2», D-38)
 La personalidad del DT vive en las cartas que le ofrece su entrenamiento (las "2 de tu estilo" de
 T-05), como las clases de Slay the Spire. Hoy las listas de crecimiento de T-04 son las mismas cartas
 genéricas en otro orden: lo único propio de cada estilo es su rasgo. Cada carta usa un verbo del idioma
@@ -401,6 +401,138 @@ con el toque del estilo. Sin números (✓ = se arma con campos que ya existen y
 | Catenaccio | **Pelota parada** (remate): la Presión rival no le afecta, solo el Bloqueo | — (su identidad es cortar) | **Marcaje al hombre**: la firma rival pierde el Ejecutor Natural · **Línea de cinco**: +2 defensores |
 | Kamikaze | **Todos al área** (centro): +1 atacante en este Momento, desgaste muy alto | **Recuperar arriba** (presión): si sale, contragolpe ✓ | **Presión asfixiante** (I-08): el rival gasta más estamina |
 | Contragolpe | **Pase en profundidad**: avanza 2 si el Momento es un contragolpe | **Salida en velocidad**: no frena; si sale, contragolpe ✓ | **Contra letal** (intercepción): si sale, contragolpe y +X al remate |
+
+## Cartas v2: estilo del DT y jugadas de crack (propuesta, 2026-10-28, D-38)
+Inspiración: Slay the Spire (cada carta con su "+", rarezas, poderes, cartas temporales) y NUTMEG
+(mejoras con nombre de folclore, cartas que salen de la táctica y del plantel; sus críticas —pocas
+decisiones reales, secuencias repetidas, azar opaco— son lo que hay que evitar). Todo sin números
+medidos: son **valores de partida**, dentro del rango de las cartas actuales, que se miden con
+`balance-lab` al implementarlas (la mayoría necesita el partido por zonas, T-10).
+
+**Estructura (D-38):**
+- **8 cartas por estilo** (40): 3 básicas, 3 tácticas, 1 élite (jugada de laboratorio, UNA VEZ) y 1
+  instrucción táctica. Las ofrece el entrenamiento táctico de ese estilo; las élite salen poco.
+- **Cada carta tiene su "+"**, como en Slay the Spire: la sesión de video convierte una carta en su "+"
+  (reemplaza la mejora genérica de +10 o −1 PA de D-21). Las cartas genéricas que ya existen también
+  necesitan su "+" (por definir).
+- **Jugadas de crack:** cartas de lujo (caño, bicicleta, chilena...) que solo aparecen si en tu plantel hay
+  un jugador con ese perfil (D-29), y que juega ese jugador (Ejecutor Natural).
+- **Complejidad progresiva (D-28):** las básicas usan solo efectos simples; tácticas, élite e
+  instrucciones se desbloquean con el nivel del DT (I-46). Sin nivel del DT implementado, se ofrecen
+  desde la mitad de la temporada.
+
+### Palabras clave (glosario; el usuario aprobó todas)
+| Palabra | Qué significa en la carta |
+|---|---|
+| **AVANZA 2** | Si sale, cuenta como 2 jugadas (salta una zona). Ya existe (`steps`) |
+| **ROBA N** | Si sale, robas N cartas. Ya existe (`draw`) |
+| **CONTRAGOLPE** | Si sale, tu próximo Momento arranca en el Medio. Ya existe (`counter`) |
+| **SIN ROBO** | Si fallas, no te la quitan |
+| **+1 ATACANTE / +N DEFENSORES** | Cambia los números de una zona ("4 contra 2") por este Momento o este ataque |
+| **UNA VEZ** | Se juega una vez por partido; después sale del mazo hasta el próximo partido |
+| **GUARDAR** | Puedes dejarla para tu próximo Momento en vez de perderla |
+| **TITULAR** | Siempre está en tu primera mano del partido |
+| **AL TOQUE** | Si no la juegas en este Momento, se descarta |
+| **LEER N** | Miras tus próximas N cartas y descartas las que quieras |
+| **+PA** | Suma PA a este Momento |
+| **TODO O NADA** | Gasta todos tus PA; el efecto crece con cada PA |
+| **INSTRUCCIÓN** | Se juega una vez y queda activa el resto del partido |
+| **DESORDENADO** | Una línea rival juega con un jugador menos durante 2 jugadas |
+| **ASFIXIA N** | El rival gasta +N de estamina por cada carta que juega; se acumula |
+| **TEMPORAL** | Carta creada en el partido; desaparece al terminar el Momento |
+| **AMARILLA** | Te amonestan; con 2 en el partido, una de tus líneas juega con uno menos (por decidir) |
+
+### Tiki-Taka · brilla en el Medio: cadenas baratas, posesión, nunca perder la pelota
+| Carta | Rareza | Tipo | PA | Desg. | Bono | Efecto | "+" |
+|---|---|---|---|---|---|---|---|
+| **Salida limpia** | básica | control | 0 | 2 | +10 | SIN ROBO (en la Salida) | +16 |
+| **Paredita** | básica | pase | 0 | 3 | +12 | Cuenta doble para el Flow | +18 |
+| **Posesión** | básica | control | 1 | 2 | +14 | Si sale, tu próxima carta cuesta −1 PA | Cuesta 0 PA |
+| **Rondo** | táctica | control | 1 | 3 | +10 | Crea 2 Toquecitos (pase, 0 PA, +8, TEMPORAL) | Crea 3 |
+| **Leer el medio** | táctica | control | 1 | 2 | +12 | LEER 3 | LEER 3 y ROBA 1 |
+| **Presión tras pérdida** | táctica | presión (def.) | 1 | 5 | +6 | Si el rival falla en su Salida, se la robas seguro (CONTRAGOLPE) | +10 |
+| **La pelota es nuestra** | élite | control | 2 | 4 | — | UNA VEZ: en este Momento tus fallos no cuentan ni hay robo | Cuesta 1 PA |
+| **Juego de posición** | instrucción | — | 2 | 0 | — | INSTRUCCIÓN: tus pases +4 en el Medio | +6 |
+
+### Directo · se salta el Medio y vive de centros y llegadas al Área
+| Carta | Rareza | Tipo | PA | Desg. | Bono | Efecto | "+" |
+|---|---|---|---|---|---|---|---|
+| **Bajarla de pecho** | básica | control | 0 | 3 | +10 | Si sale, tu siguiente jugada +10 | Siguiente +15 |
+| **Segunda pelota** | básica | bloqueo (def.) | 1 | 3 | +8 | CONTRAGOLPE | +14 |
+| **Saque largo del arquero** | básica | pase | 0 | 2 | +0 | Desde la Salida, AVANZA 2 | +12 |
+| **Llegada de segunda línea** | táctica | pase | 1 | 4 | +12 | +1 ATACANTE en el Área este Momento | +18 |
+| **Cabezazo** | táctica | remate | 1 | 5 | +30 | Solo después de un Centro o un Pelotazo | +38 |
+| **Desborde por la banda** | táctica | regate | 1 | 5 | +16 | Si sale, tu próximo Centro +12 | Próximo Centro +18 |
+| **Lluvia de centros** | élite | centro | 2 | 8 | +20 | UNA VEZ: los remates de este Momento ignoran los números del Área | Cuesta 1 PA |
+| **Fútbol directo** | instrucción | — | 1 | 0 | — | INSTRUCCIÓN: tus Pelotazos y saques largos +8 | +12 |
+
+### Catenaccio · cierra su Área, gasta poco y marca de pelota parada
+| Carta | Rareza | Tipo | PA | Desg. | Bono | Efecto | "+" |
+|---|---|---|---|---|---|---|---|
+| **Línea de cinco** | básica | bloqueo (def.) | 1 | 2 | +8 | +2 DEFENSORES en tu Área | Cuesta 0 PA |
+| **Hacer tiempo** | básica | pausa | 1 | 0 | +25 | Variante de la Pausa: si sale, recupera estamina | Recupera más |
+| **Doble pivote** | básica | presión (def.) | 1 | 2 | +6 | +1 DEFENSOR en tu Medio | También +1 en tu Área |
+| **Pelota parada** | táctica | remate | 2 | 5 | +28 | Ignora los números del Área | +36 |
+| **Marcaje al hombre** | táctica | presión (def.) | 1 | 3 | +4 | La figura rival pierde su Ejecutor Natural en este ataque | Y su carta propia −6 |
+| **Falta táctica** | táctica | presión (def.) | 0 | 2 | +10 | Corta su ataque en el Medio, pero AMARILLA | +16 |
+| **El muro** | élite | bloqueo (def.) | 2 | 3 | — | UNA VEZ: el próximo ataque rival no puede rematar | Cuesta 1 PA |
+| **Bloque bajo** | instrucción | — | 1 | 0 | — | INSTRUCCIÓN: tus cartas de defensa +4 | +6 |
+
+### Kamikaze · todos arriba, mucho desgaste, nunca se rinde
+| Carta | Rareza | Tipo | PA | Desg. | Bono | Efecto | "+" |
+|---|---|---|---|---|---|---|---|
+| **Recuperar arriba** | básica | presión (def.) | 1 | 6 | +6 | CONTRAGOLPE | +12 |
+| **Todos al área** | básica | centro | 1 | 8 | +18 | +1 ATACANTE en el Área este Momento | +24 |
+| **A lo que salga** | básica | remate | 1 | 9 | +32 | Si falla, rebote seguro: sigues en el Área | +38 |
+| **Presión asfixiante** | táctica | presión (def.) | 2 | 8 | +8 | ASFIXIA 1 (I-08) | ASFIXIA 2 |
+| **Todo o nada** | táctica | remate | todos | 10 | — | TODO O NADA: +14 por cada PA | +18 por cada PA |
+| **Carrilero desbocado** | táctica | regate | 0 | 7 | +14 | AL TOQUE; si sale, +1 PA | +20 |
+| **Último minuto** | élite | control | 1 | 5 | — | UNA VEZ, solo en el 2T: robas hasta llenar la mano y +2 PA | Cuesta 0 PA |
+| **Presión total** | instrucción | — | 1 | 0 | — | INSTRUCCIÓN: tus Presiones +4, pero todas tus cartas desgastan +1 | Sin el desgaste extra |
+
+### Contragolpe · espera, roba y sale rápido
+| Carta | Rareza | Tipo | PA | Desg. | Bono | Efecto | "+" |
+|---|---|---|---|---|---|---|---|
+| **Salida en velocidad** | básica | defensa | 0 | 4 | +12 | No frena; si sale, CONTRAGOLPE (la transición, I-40) | +18 |
+| **Repliegue** | básica | bloqueo (def.) | 1 | 2 | +6 | +1 DEFENSOR en tu Área; si su remate falla, CONTRAGOLPE | +10 |
+| **Pase en profundidad** | básica | pase | 1 | 4 | +14 | En un contragolpe, AVANZA 2 | +20 |
+| **Leer el pase** | táctica | intercepción (def.) | 1 | 3 | — | Corta; tu contragolpe arranca en el Medio | Arranca en el Área |
+| **Contra letal** | táctica | intercepción (def.) | 2 | 4 | — | Corta, CONTRAGOLPE y tu próximo remate +10 | +16 |
+| **Esperar atrás** | táctica | control | 0 | 0 | — | GUARDAR hasta 2 cartas para tu próximo Momento | Hasta 3 |
+| **Contra de manual** | élite | pase | 1 | 6 | — | UNA VEZ, en un contragolpe: vas directo al Área y tu remate +15 | +25 |
+| **Transiciones** | instrucción | — | 1 | 0 | — | INSTRUCCIÓN: tus contragolpes arrancan con +1 PA | Y robas 1 |
+
+### Jugadas de crack · dependen del perfil del jugador (D-29)
+Solo se ofrecen si en tu plantel hay un jugador con ese perfil, y las juega él (Ejecutor Natural). Son
+lo vistoso del juego: el usuario pidió cartas más llamativas, como el caño y la bicicleta.
+| Perfil | Carta | Tipo | PA | Desg. | Bono | Efecto | "+" |
+|---|---|---|---|---|---|---|---|
+| Gambeteador | **Caño** | regate | 1 | 4 | +18 | Ignora la Presión rival | Y DESORDENADO su línea |
+| Gambeteador | **Bicicleta** | regate | 0 | 5 | +12 | Si sale, tu siguiente jugada +8 | +18 |
+| Gambeteador | **Sombrerito** | regate | 1 | 5 | +16 | Si sale, un defensor menos en esta zona | +22 |
+| Enganche | **Taco** | pase | 0 | 3 | +14 | AL TOQUE; ROBA 1 | ROBA 2 |
+| Enganche | **Pase de la muerte** | centro | 1 | 4 | +20 | Tu siguiente remate +12 | +18 |
+| Enganche | **Rabona** | pase | 1 | 5 | +24 | Si sale, +1 de popularidad en la semana | +30 |
+| Goleador | **Chilena** | remate | 3 | 8 | +45 | Ya existe; pasaría a ser del Goleador | Cuesta 2 PA |
+| Goleador | **Palomita** | remate | 1 | 6 | +28 | Solo después de un Centro | +36 |
+| Goleador | **Vaselina** | remate | 2 | 5 | +30 | Mano a mano: solo cuenta el arquero | +38 |
+| Perro de presa | **Barrida** | bloqueo (def.) | 1 | 5 | +12 | Corta su jugada; 1 de cada 4, AMARILLA | +18 |
+| Perro de presa | **Pierna fuerte** | presión (def.) | 1 | 4 | +8 | DESORDENADO su Medio | +12 |
+| Recuperador | **Corte y salida** | intercepción (def.) | 1 | 3 | — | Corta y CONTRAGOLPE | Cuesta 0 PA |
+| Atleta | **Pique largo** | pase | 1 | 8 | +10 | AVANZA 2 | +16 |
+| Atajador | **Achique** | defensa | 1 | 3 | +10 | Su remate en mano a mano −10 | −16 |
+| Atajador | **Atajada imposible** | defensa | 2 | 4 | — | UNA VEZ: anula un remate que iba a ser gol | Cuesta 1 PA |
+
+### Por revisar (instrucciones y lo nuevo)
+- **Instrucciones:** son poderes de todo el partido y pueden escalar demasiado. Propuesta: **una sola
+  instrucción activa a la vez** (la nueva reemplaza a la anterior), como la indicación principal del DT.
+- **AMARILLA:** mecánica nueva (dos = un jugador menos en una línea). Decidir si entra o si la Falta
+  táctica y la Barrida cuestan otra cosa.
+- **Las "+" de las cartas genéricas** que ya existen (Pase corto, Remate de primera, etc.).
+- **Qué se puede probar ya** (sin zonas ni efectos nuevos): Segunda pelota, Hacer tiempo, Recuperar
+  arriba y Salida en velocidad (`counter`), Saque largo y Pique largo (`steps`), Taco (`draw`).
+- **Balance:** las de "+1 atacante", ignorar números, la Pelota parada y las élite suben los goles; la
+  curva de la temporada ya está sobre el rango, así que se miden junto con T-10.
 
 ## Cartas especiales con efecto propio (en espera)
 Se diseñan después de cerrar el bucle del mazo (T-04 y T-05) y de los primeros playtests (I-39). Aquí

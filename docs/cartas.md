@@ -211,7 +211,7 @@ hay que medir cuánto con `balance-lab`.
 - La postura no puede contar dos veces: si en LOW un volante baja (−6 arriba), el −15 de LOW en los
   remates de hoy sobra o se achica.
 
-## Partido por zonas (T-10, primer paso de los duelos; en diseño, 2026-10-28)
+## Partido por zonas (D-36; T-10 el motor, T-11 la pantalla; 2026-10-28)
 Las 3 jugadas del Momento pasan a ser 3 zonas de la cancha: **Salida**, **Medio** y **Área** (I-48).
 Cada zona tiene su personalidad: en la Salida los números suelen estar a tu favor pero perderla es lo
 peor; en el Área te esperan más y ahí se remata.
@@ -219,7 +219,10 @@ peor; en el Área te esperan más y ahí se remata.
 **Acuerdos del usuario (2026-10-28):**
 1. **Los remates se juegan en el Área.** Desde fuera solo con cartas especiales específicas de tiro
    lejano (hoy, el Tiro de lejos), con su castigo por la distancia. Precisa la regla 3 de D-31.
-2. **Qué pasa al fallar:** en análisis (abajo).
+2. **Qué pasa al fallar:** "fallar no corta, el límite es la mano", en el espíritu de Slay the Spire
+   (el riesgo se ve antes, los errores desgastan): robo 1/4 en la Salida y 1/6 en el Medio con
+   contragolpe rival, fallar cuesta la mitad del desgaste de la carta, remate fallado 1/2 atajada y 1/2
+   rebote, sin cartas se puede Aguantar. Queda en D-36; la cuenta que lo apoyó, abajo.
 3. **Los números de cada zona salen de dos fuentes, con valores chicos y medidos:** la formación de cada
    estilo (D-30: "4 contra 2", 6 pts por jugador de diferencia, valor de prueba) y la fuerza de la línea
    (promedio de `skill_rating` de los titulares de esa línea, tuya contra la suya; el factor se mide con

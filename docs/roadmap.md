@@ -49,8 +49,10 @@ decidir. Mientras tanto no se sigue afinando el modelo actual (la curva de M2 es
 Antes de seguir, el juego tiene que dar ganas de jugarlo (usuario). Orden decidido (D-35): primero lo
 visual, después el partido por zonas con su pantalla nueva.
 - [ ] T-09 · tema del juego y semana nueva (`T-09-cara-visual.md`, en el PC: necesita pantalla)
-- [ ] T-10 · partido por zonas (Salida, Medio, Área), primer paso de los duelos (I-48, I-45): reglas en
-      debate con el usuario; brief por escribir
+- [ ] T-10 · motor del partido por zonas, bots y medición (`T-10-partido-por-zonas.md`, D-36; puede
+      correr en la nube; mejor tras mezclar T-06)
+- [ ] T-11 · pantalla del partido por zonas (`T-11-pantalla-partido.md`, en el PC; tras T-09 y T-10)
+- [ ] Decisión del usuario tras medir y jugar: ¿el modo de zonas reemplaza al actual?
 
 ## M2 · Deckbuilder de verdad (diseño cerrado, en implementación)
 Diseño:

@@ -243,6 +243,39 @@ nombres inventados (D-26). Descartados: álbum de papel claro y pizarra del DT (
 partido); retratos ilustrados (~340 jugadores, quedan para después). Maquetas (privadas del usuario):
 lienzo "Dirección visual", https://claude.ai/artifact/TxaUdVLTzGyWHzVjyD4jhm. Acepta I-30.
 
+**D-36 · 2026-10-28 · Partido por zonas, primer paso de los duelos** · VIGENTE (diseño; se implementa en T-10 como modo que se puede activar)
+Las 3 jugadas del Momento son 3 zonas: **Salida** (tu línea de atrás contra sus delanteros), **Medio**
+(medio contra medio) y **Área** (tus delanteros contra su defensa). Reglas, con valores de prueba que se
+miden con `balance-lab`:
+1. **Remates en el Área.** Desde fuera, solo cartas especiales de tiro lejano (hoy, el Tiro de lejos),
+   con castigo por la distancia. Precisa la regla 3 de D-31.
+2. **Fallar no corta el Momento: el límite es tu mano** (D-31, regla 2), en el espíritu de Slay the
+   Spire: el riesgo se ve antes y los errores desgastan en vez de matar de golpe.
+   - Un fallo puede ser **robo**: 1 de cada 4 en la Salida y 1 de cada 6 en el Medio; el robo deja
+     contragolpe al rival. La carta muestra el riesgo ("61% · robo 10%") y sale de una sola función,
+     como el %.
+   - **Fallar cuesta estamina:** la mitad del desgaste de la carta fallada, además del normal.
+   - **Remate fallado:** la mitad de las veces el arquero se queda con la pelota (se acaba el Momento,
+     sin contragolpe); la otra mitad hay rebote y sigues en el Área.
+   - **Sin cartas para seguir:** puedes Aguantar el Balón (mano nueva, una vez por Momento); si no, el
+     Momento se pierde sin contragolpe.
+3. **Los números de cada zona salen de la formación del estilo** (D-30; "4 contra 2", 6 pts por jugador
+   de diferencia) **y de la fuerza de la línea** (promedio de `skill_rating` de los titulares de esa
+   línea, tuya contra la suya, ×0,5). Valores chicos, para medir; la fuerza de línea trae la jerarquía
+   entre clubes (D-18).
+4. **La postura mueve un jugador entre líneas** (HIGH: uno del medio sube; LOW: uno baja; el 5-3-2 nunca
+   pasa de 3 arriba), **sin contar dos veces**: se mide con y sin el castigo plano que hoy pone LOW a
+   los remates (`LOW_SHOT_PENALTY`).
+Lo que ya calza: el Catenaccio (2 jugadas) juega Salida y Área; el contragolpe y el espacio rival
+arrancan en el Medio; el Pelotazo (avanza 2) se salta una zona. Reemplaza, en el modo de zonas, el "2
+fallos lo pierden" de GDD 2.1; el modo actual sigue igual hasta que el usuario elija tras medir y jugar.
+Por qué: el usuario quiere que cada zona se sienta distinta (2026-10-28). Una simulación simple
+(`cartas.md`, "Partido por zonas") mostró que con "fallar no corta" se marca casi lo mismo que hoy,
+porque el límite real es la mano; lo que cambia es cuántos contragolpes hay (por eso el robo 1/4 y 1/6
+en vez de 1/3 y 1/5 de D-32) y cuánto pesa el cansancio. Descartados: retroceder una zona al fallar
+(marca mucho menos y deja sin cartas) y quitar los porcentajes como en Slay the Spire puro (rompe los
+duelos de D-29 a D-31 y lo futbolero de que una jugada pueda salir mal).
+
 ### Descartadas (para no reabrirlas sin datos nuevos)
 - **Tempo ofensivo +7 / regen +3** (2026-10-26): no llegaba al objetivo de goles y quedó obsoleto con
   PA + Estamina; el stash se borró.

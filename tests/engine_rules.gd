@@ -904,6 +904,7 @@ func _test_zone_numbers() -> void:
 	e.rival_formation = [4, 3, 3]
 	e.rival_line_strength = [72.0, 60.0, 64.0]
 	e.rival_posture = MatchEngine.Posture.NORMAL
+	e.zone_numbers_pts = 0.06   # el valor de prueba de D-30, para que las cuentas sean simples
 	# Salida: tus 4 de atrás contra sus 3 de arriba (+6) y fuerza 70 contra 64 (+3).
 	var labels: Array = e.chance_breakdown(pass_card).map(func(i): return i["label"])
 	_check(labels.has("Salida: 4 contra 3") and labels.has("Fuerza de línea"), "el desglose de la Salida muestra los números y la fuerza")

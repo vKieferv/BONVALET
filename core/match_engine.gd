@@ -89,7 +89,8 @@ enum Zone { SALIDA, MEDIO, AREA }
 const ZONE_NAMES := ["Salida", "Medio", "Área"]
 const ZONE_STEAL_SALIDA := 0.25       # un fallo en la Salida es robo 1 de cada 4 veces...
 const ZONE_STEAL_MEDIO := 1.0 / 6.0   # ...y en el Medio, 1 de cada 6 (el Área no tiene robo)
-const ZONE_NUMBERS_PTS := 0.06        # 6 pts por jugador de diferencia entre tu línea y la suya (D-30)
+const ZONE_NUMBERS_PTS := 0.12        # 12 pts por jugador de diferencia entre tu línea y la suya (D-30 decía 6;
+# con 6 pts por jugador la matriz del modo de zonas daba 2.83 goles; con 12, 2.52: balance-lab, T-10)
 const ZONE_LINE_FACTOR := 0.5         # pts por punto de skill_rating de diferencia entre las líneas
 const LONG_SHOT_PENALTY := 0.15       # tiro lejano desde el Medio: -15 pts por la distancia
 const ZONE_FAIL_STAMINA := 0.5        # un fallo gasta además la mitad del desgaste de la carta

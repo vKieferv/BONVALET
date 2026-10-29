@@ -43,7 +43,6 @@ const COLOR_NATURAL := Color("#ffd24a")
 @onready var _possession_badge: PanelContainer = %PossessionBadge
 @onready var _possession_label: Label = %PossessionLabel
 @onready var _posture_buttons: Array = [%PostureLow, %PostureNormal, %PostureHigh]
-@onready var _posture_hint: Label = %PostureHint
 @onready var _banner: PanelContainer = %BroadcastBanner
 @onready var _banner_label: Label = %BannerLabel
 @onready var _backdrop: Panel = %Backdrop
@@ -89,6 +88,8 @@ var _screen_glow: ColorRect
 var _flow_tween: Tween
 var _player_fill: StyleBoxFlat
 var _rival_fill: StyleBoxFlat
+var _local_crest: Escudo
+var _away_crest: Escudo
 
 
 func _ready() -> void:
@@ -112,6 +113,7 @@ func _ready() -> void:
     _emergency_button.pressed.connect(_on_emergency_pressed)
     _reset_hud()
     _local_name.text = String(_league.get_team(_my_team_id()).get("short_name", "TÚ")).to_upper()
+    _local_crest.set_club(_league.get_team(_my_team_id()))
     if _career != null:
         # Modo carrera: el rival y la semana ya están definidos en el calendario.
         _rival_option.visible = false
@@ -143,6 +145,16 @@ func _style_ui() -> void:
     _scoreboard.add_theme_stylebox_override("panel", sb)
     _local_goals.add_theme_color_override("font_color", COLOR_GOLD)
     _away_goals.add_theme_color_override("font_color", COLOR_GOLD)
+    # Escudos generados de los dos clubes junto a sus nombres (D-35).
+    _local_crest = Escudo.crear({}, 44.0)
+    _away_crest = Escudo.crear({}, 44.0)
+    for crest in [_local_crest, _away_crest]:
+        crest.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+    var row := _local_name.get_parent()
+    row.add_child(_local_crest)
+    row.move_child(_local_crest, _local_name.get_index() + 1)
+    row.add_child(_away_crest)
+    row.move_child(_away_crest, _away_name.get_index())
 
     _player_fill = _flat(COLOR_OK, 5)
     _rival_fill = _flat(COLOR_OK, 5)
@@ -228,24 +240,33 @@ func _lock_posture(locked: bool) -> void:
     _update_posture_hint()
 
 
+# Lo que hace cada postura, en el tooltip de su botón (antes era un texto fijo junto a los botones).
 func _update_posture_hint() -> void:
+    for i in _posture_buttons.size():
+        var hint := _posture_text(i)
+        if _posture_locked:
+            hint = "[FIJA DURANTE LA JUGADA] " + hint
+        _posture_buttons[i].tooltip_text = hint
+
+
+func _posture_text(p: int) -> String:
+    var hint := ""
     var base: float = _player.regen_normal_pct if _player != null else DEFAULT_REGEN
-    var rec := roundi(base * MatchEngine.RECOVERY_RATIO[_posture] * 100.0)
-    var ap: int = MatchEngine.AP_BY_POSTURE[_posture]
-    var wear := roundi((float(MatchEngine.STAMINA_MULT[_posture]) - 1.0) * 100.0)
+    var rec := roundi(base * MatchEngine.RECOVERY_RATIO[p] * 100.0)
+    var ap: int = MatchEngine.AP_BY_POSTURE[p]
+    var wear := roundi((float(MatchEngine.STAMINA_MULT[p]) - 1.0) * 100.0)
     var wear_text := "desgaste normal" if wear == 0 else "desgaste %+d%%" % wear
-    match _posture:
+    match p:
         MatchEngine.Posture.LOW:
-            _posture_hint.text = "LOW: %d PA por turno · %s · recuperas %d%% · remates −%d pts · máx. %d momentos" % [
+            hint = "LOW: %d PA por turno · %s · recuperas %d%% · remates −%d pts · máx. %d momentos" % [
                 ap, wear_text, rec, roundi(MatchEngine.LOW_SHOT_PENALTY * 100.0), MatchEngine.LOW_MAX_MOMENTS]
             if _rival != null and _rival.punishes_passivity:
-                _posture_hint.text += " · %s castiga el repliegue" % _rival.profile_name
+                hint += " · %s castiga el repliegue" % _rival.profile_name
         MatchEngine.Posture.NORMAL:
-            _posture_hint.text = "NORMAL: %d PA por turno · %s · recuperas %d%%" % [ap, wear_text, rec]
+            hint = "NORMAL: %d PA por turno · %s · recuperas %d%%" % [ap, wear_text, rec]
         _:
-            _posture_hint.text = "HIGH: %d PA por turno · %s · recuperas solo %d%% · más momentos extra" % [ap, wear_text, rec]
-    if _posture_locked:
-        _posture_hint.text = "[FIJA DURANTE LA JUGADA] " + _posture_hint.text
+            hint = "HIGH: %d PA por turno · %s · recuperas solo %d%% · más momentos extra" % [ap, wear_text, rec]
+    return hint
 
 
 func _reset_hud() -> void:
@@ -537,6 +558,7 @@ func _begin_match() -> void:
     _prev_hand.clear()
     _reset_hud()
     _away_name.text = _rival.profile_name.to_upper()
+    _away_crest.set_club(_rival_team)
     _away_name.add_theme_color_override("font_color", _league.team_display_color(_rival_team))
     _menu.visible = false
     await _banner_show("¡COMIENZA EL PARTIDO!", COLOR_GOLD, 0.9)
@@ -872,13 +894,39 @@ func _build_hand() -> void:
     for i in cards.size():
         var ui: CardUI = CARD_SCENE.instantiate()
         _hand_box.add_child(ui)
-        ui.setup(cards[i], i)
+        ui.setup(cards[i], i, _card_context(cards[i]))
         ui.chosen.connect(_on_card_chosen)
         if not _prev_hand.has(cards[i]):
             ui.appear(0.04 * i)
+    _fit_hand()
     _prev_hand = cards.duplicate()
     _update_hand_stats()
 
+
+
+# Quién juega cada carta (D-37): las cartas con dueño muestran su silueta con la camiseta del club y
+# su puesto, y "PROPIA" cuando es titular (Ejecutor Natural). Las del DT las juega el que tenga el balón.
+func _card_context(c: Card) -> Dictionary:
+    var ctx := {}
+    if c.owner_id == "":
+        return ctx
+    var p := _squads.find_player(_my_team_id(), c.owner_id)
+    if p.is_empty():
+        return ctx
+    ctx["jugador"] = {"name": String(p.get("name", "")), "role": String(p.get("role", ""))}
+    ctx["colores"] = _league.team_colors(_league.get_team(_my_team_id()))
+    ctx["propia"] = _player != null and _player.lineup.has(c.owner_id)
+    return ctx
+
+
+# Las láminas se superponen un poco si la mano no cabe a lo ancho.
+func _fit_hand() -> void:
+    var n := _hand_box.get_child_count()
+    var room := _hand_box.size.x if _hand_box.size.x > 0.0 else 1000.0
+    var sep := 10.0
+    if n > 1:
+        sep = clampf((room - n * CardUI.TAMANO.x) / (n - 1), -CardUI.TAMANO.x * 0.4, 10.0)
+    _hand_box.add_theme_constant_override("separation", roundi(sep))
 
 func _clear_hand() -> void:
     for c in _hand_box.get_children():
@@ -901,7 +949,7 @@ func _update_hand_stats() -> void:
 func _show_card_stats(ui: CardUI, card: Card, usable: bool) -> void:
     ui.update_stats(_engine.ap_cost_of(card), card.ap_cost, _engine.stamina_cost_of(card),
             _engine.success_chance(card), usable, card.flow_uses > 0 and _engine.flow_active,
-            _engine.chance_breakdown(card))
+            _engine.chance_breakdown(card), "" if _busy else CardUI.unplayable_reason(_engine, card))
 
 
 func _on_card_chosen(ui: CardUI) -> void:
@@ -943,7 +991,7 @@ func _on_natural_executor(_card: Card) -> void:
 func _spawn_clone(src: CardUI) -> CardUI:
     var c: CardUI = CARD_SCENE.instantiate()
     _fx.add_child(c)
-    c.setup(src.card, -1)
+    c.setup(src.card, -1, _card_context(src.card))
     c.interactive = false
     _show_card_stats(c, src.card, true)
     c.global_position = src.global_position

@@ -1,5 +1,5 @@
-# Capturas de la UI para revisar cambios visuales: semana (inicio, Bloque 1, entrenamiento táctico),
-# partido (menú, ataque, defensa). Necesita pantalla: NO se corre con --headless.
+# Capturas de la UI para revisar cambios visuales: semana (inicio, prensa, prensa resuelta, entrenamiento
+# táctico, sesión de video, Ver mazo, semana lista para el partido) y partido (menú, ataque, defensa). Necesita pantalla: NO se corre con --headless.
 # Uso (desde futbolista/):
 #   ..\Godot_v4.7.2-stable_win64_console.exe --path . -s res://tools/capturas.gd -- --out=C:/ruta/capturas
 # Sin --out guarda en user://capturas. Guarda la carrera en su propia ruta y la borra al final.
@@ -7,6 +7,8 @@ extends SceneTree
 
 const SAVE := "user://test_capturas.json"
 const MAX_FRAMES := 20000
+const SETTLE_FRAMES := 90   # frames para que la mano termine de aparecer antes de capturarla
+const LAMP_FRAMES := 40     # frames para que la luz de la lámpara llegue a lo que toca decidir
 
 var out := "user://capturas"
 var frames := 0
@@ -14,6 +16,7 @@ var step := "boot"
 var view: Node
 var _wait := 0
 var _taken := {}
+var _settled := ""   # captura del partido que ya esperó a que la mano terminara de entrar
 
 
 func _initialize() -> void:
@@ -49,17 +52,37 @@ func _process(_delta: float) -> bool:
 				_shot("1_inicio")
 				scene._on_start_career()
 				step = "week"
-				_wait = 10
+				_wait = LAMP_FRAMES
 		"week":
 			_shot("2_semana")
-			scene._sponsor_option.select(2)
-			scene._on_sponsor_selected(2)
+			scene._on_sponsor("telnet")
 			scene._on_event(true)
+			step = "press_done"
+			_wait = LAMP_FRAMES
+		"press_done":
+			_shot("2b_prensa_resuelta")
 			scene._on_training("tactical")
 			step = "tactical"
-			_wait = 10
+			_wait = LAMP_FRAMES
 		"tactical":
 			_shot("3_entrenamiento_tactico")
+			scene._on_training("video")
+			step = "video"
+			_wait = LAMP_FRAMES
+		"video":
+			_shot("3b_sesion_video")
+			scene._on_view_deck()
+			step = "deck"
+			_wait = LAMP_FRAMES
+		"deck":
+			_shot("3c_ver_mazo")
+			scene._on_view_deck()
+			scene._on_training("tactical")
+			scene._on_offer_chosen(0)
+			step = "resolved"
+			_wait = LAMP_FRAMES
+		"resolved":
+			_shot("3d_semana_lista")
 			Career.current = null
 			change_scene_to_file("res://scenes/match_view.tscn")
 			step = "menu"
@@ -73,10 +96,18 @@ func _process(_delta: float) -> bool:
 		"play":
 			if view._busy:
 				return false
+			# La mano entra con una animación: se espera a que termine antes de capturar.
+			var pending := ""
 			if view._in_moment and not _taken.has("5_partido_ataque"):
-				_shot("5_partido_ataque")
+				pending = "5_partido_ataque"
 			elif view._in_defense and not _taken.has("6_partido_defensa"):
-				_shot("6_partido_defensa")
+				pending = "6_partido_defensa"
+			if pending != "":
+				if _settled != pending:
+					_settled = pending
+					_wait = SETTLE_FRAMES
+					return false
+				_shot(pending)
 			if _taken.has("5_partido_ataque") and _taken.has("6_partido_defensa"):
 				return _finish(0)
 			if view._in_defense or view._in_moment:

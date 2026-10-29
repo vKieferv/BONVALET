@@ -83,7 +83,12 @@ failed=()
 
 # 1. Importar (regenera la caché de class_name; en una copia limpia es obligatorio)
 run_godot import "$TIMEOUT_SEC" --import
-if grep -qE "SCRIPT ERROR|Parse Error" "$LOG_DIR/import.err.txt"; then failed+=(import); fi
+if grep -qE "SCRIPT ERROR|Parse Error" "$LOG_DIR/import.err.txt"; then
+	# En una copia sin caché, el tema del proyecto se carga antes de importar sus letras: una segunda
+	# importación ya las encuentra. Solo cuenta el error si se repite.
+	run_godot import "$TIMEOUT_SEC" --import
+	if grep -qE "SCRIPT ERROR|Parse Error" "$LOG_DIR/import.err.txt"; then failed+=(import); fi
+fi
 
 # 2. Compilar todos los scripts y escenas
 run_godot check_scripts "$TIMEOUT_SEC" -s res://tests/check_scripts.gd || failed+=(check_scripts)

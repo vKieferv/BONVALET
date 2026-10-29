@@ -7,7 +7,8 @@ Detalle técnico (reglas del motor, carrera, guardado, mazos, línea base de bal
 ## Arquitectura
 - `core/`: lógica pura (`RefCounted`, sin nodos ni RNG global; cada motor recibe su `RandomNumberGenerator`).
   `MatchEngine` (partido), `CoachBot` (bots), `DuelRunner`/`sim.gd` (partidos bot contra bot y balance).
-- `scenes/`: UI. `calendar_view` (semana, escena principal), `match_view` (partido), `card_ui` (lámina).
+- `scenes/`: UI. `calendar_view` (semana como mesa del DT, escena principal), `match_view` (partido),
+  `card_ui` (lámina) y `scenes/ui/` (tema, `Paleta`, `Icono`, `Escudo`, `Mesa`; letras en `assets/fonts/`).
 - `scripts/`: carrera y liga (`Career`, `SquadManager`, `LeagueManager`). `Career.current` sobrevive entre escenas.
 - `data/`: catálogo y reglas en JSON (`cards.json`, `decks.json`, `career_2006.json`, ...).
 - `tests/`: `engine_rules`, `career_rules`, `data_rules`, `smoke_match`, `smoke_career`, `balance_lab`.

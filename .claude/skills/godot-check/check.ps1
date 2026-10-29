@@ -65,6 +65,12 @@ $failed = @()
 # 1. Importar (regenera la caché de class_name tras crear o renombrar scripts)
 $code = Invoke-Godot "import" @("--import")
 $scriptErrors = Select-String -Path (Join-Path $logDir "import.err.txt") -Pattern "SCRIPT ERROR|Parse Error" -ErrorAction SilentlyContinue
+if ($scriptErrors) {
+    # En una copia sin caché, el tema del proyecto se carga antes de importar sus letras: una segunda
+    # importación ya las encuentra. Solo cuenta el error si se repite.
+    $code = Invoke-Godot "import" @("--import")
+    $scriptErrors = Select-String -Path (Join-Path $logDir "import.err.txt") -Pattern "SCRIPT ERROR|Parse Error" -ErrorAction SilentlyContinue
+}
 if ($scriptErrors) { $failed += "import" }
 
 # 2. Compilar todos los scripts y escenas

@@ -71,6 +71,10 @@ func _process(_delta: float) -> bool:
 	if view._busy:
 		return false
 	_check_ui_matches_engine()
+	if match_frames % 150 == 0 and not ui_checked_errors:
+		for t in Paleta.textos_chicos(view):   # ningún texto de juego bajo 14 px (D-37)
+			errors.append("Texto bajo %d px en el partido: %s" % [Paleta.TEXTO_MIN, t])
+		ui_checked_errors = not errors.is_empty()
 	if view._in_defense:
 		if not _defense_open:
 			_defense_open = true
@@ -168,29 +172,36 @@ func _check_ui_matches_engine() -> void:
 			var real := "%d%%" % roundi(e.success_chance(ui.card) * 100.0)
 			if ui.chance_label.text != real:
 				errors.append("La carta %s muestra %s pero el motor tira contra %s" % [ui.card.display_name, ui.chance_label.text, real])
-			var ap := "%d PA" % e.ap_cost_of(ui.card)
+			var ap := "%d" % e.ap_cost_of(ui.card)   # moneda de PA de la lámina
 			if ui.ap_label.text != ap:
 				errors.append("La carta %s muestra %s pero cuesta %s" % [ui.card.display_name, ui.ap_label.text, ap])
 			if ui.card.kind != Card.Kind.PAUSE:
-				var wear := "Desgaste: %d Est." % roundi(e.stamina_cost_of(ui.card))
+				var wear := "%d" % roundi(e.stamina_cost_of(ui.card))   # junto a la gota, en el pie
 				if ui.cost_label.text != wear:
 					errors.append("La carta %s muestra '%s' pero desgasta '%s'" % [ui.card.display_name, ui.cost_label.text, wear])
 			_check_effect_line(ui)
+			# La carta que no se puede jugar lleva la cinta con el motivo (no se apaga); la jugable, sin cinta.
+			var reason := CardUI.unplayable_reason(e, ui.card)
+			if ui.ribbon.visible != (reason != "") or (reason != "" and ui.ribbon.text != reason):
+				errors.append("La carta %s muestra la cinta '%s' (visible: %s) pero el motivo es '%s'" % [
+					ui.card.display_name, ui.ribbon.text, ui.ribbon.visible, reason])
+			if not ui.chance_label.visible:
+				errors.append("La carta %s no muestra la placa con el %%" % ui.card.display_name)
 	ui_checked_errors = not errors.is_empty()
 
 
-# La línea de efecto de la carta nombra lo que hace (avances, robo, corte) y solo se ve si tiene texto.
+# Las palabras clave de la lámina nombran lo que hace (avances, robo, corte) y solo se ven si tienen texto.
 func _check_effect_line(ui: CardUI) -> void:
 	var fx: String = ui.effect_label.text
 	var expected: Array = []
 	if ui.card.steps > 1:
-		expected.append("Avanza %d" % ui.card.steps)
+		expected.append("AVANZA %d" % ui.card.steps)
 	if ui.card.draw > 0:
-		expected.append("robas %d" % ui.card.draw)
+		expected.append("ROBA %d" % ui.card.draw)
 	if ui.card.kind in [Card.Kind.INTERCEPT, Card.Kind.CLEARANCE]:
-		expected.append("Corta")
+		expected.append("CORTA")
 	if ui.card.kind == Card.Kind.INTERCEPT or ui.card.counter:
-		expected.append("contragolpe")
+		expected.append("CONTRAGOLPE")
 	if not expected.is_empty():
 		effect_checks += 1
 	for word in expected:

@@ -61,6 +61,11 @@ jueguen bien y que `balance-lab` lo compare lado a lado con el modo actual. **El
 6. **Pruebas en `engine_rules.gd`** para cada regla: zona según el avance, remate rechazado fuera del
    Área, tiro lejano con su castigo, robo con contragolpe, costo de estamina del fallo, rebote o atajada,
    sin cartas, números de zona en el desglose y `steal_chance` igual a lo que se tira.
+7. **Cortes de ataque (playtest 2026-10-29):** hoy el rival te corta ~1 ataque por partido antes de que
+   empiece (Intercepción/Despeje) y Colo-Colo (Tiki-Taka, foco en Presión) casi nunca corta: 1.14 vs.
+   1.36 goles aunque tus jugadas tienen mejor %. Corre `tests/lab/medir_rival.gd` con y sin el modo de
+   zonas y reporta en el PR los cortes por lado y los goles. No lo arregles aquí si no lo cambia el modo
+   de zonas: solo mídelo.
 
 ## Fuera de alcance
 - La pantalla nueva del partido (T-11) y cualquier cambio visual más allá de la casilla y la línea de texto.

@@ -1,5 +1,5 @@
 # Capturas de la UI para revisar cambios visuales: semana (inicio, prensa, prensa resuelta, entrenamiento
-# táctico, sesión de video, Ver mazo) y partido (menú, ataque, defensa). Necesita pantalla: NO se corre con --headless.
+# táctico, sesión de video, Ver mazo, semana lista para el partido) y partido (menú, ataque, defensa). Necesita pantalla: NO se corre con --headless.
 # Uso (desde futbolista/):
 #   ..\Godot_v4.7.2-stable_win64_console.exe --path . -s res://tools/capturas.gd -- --out=C:/ruta/capturas
 # Sin --out guarda en user://capturas. Guarda la carrera en su propia ruta y la borra al final.
@@ -76,6 +76,13 @@ func _process(_delta: float) -> bool:
 			_wait = LAMP_FRAMES
 		"deck":
 			_shot("3c_ver_mazo")
+			scene._on_view_deck()
+			scene._on_training("tactical")
+			scene._on_offer_chosen(0)
+			step = "resolved"
+			_wait = LAMP_FRAMES
+		"resolved":
+			_shot("3d_semana_lista")
 			Career.current = null
 			change_scene_to_file("res://scenes/match_view.tscn")
 			step = "menu"

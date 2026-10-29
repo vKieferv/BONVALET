@@ -8,7 +8,7 @@ Cada sección lleva su estado:
 - **[IDEA]** diseñado en papel, sin código. Se detalla en `ideas.md` antes de implementarlo.
 
 Los números exactos viven en el código (cabecera de `core/match_engine.gd`, `data/*.json`); aquí va
-la intención. Arquitectura y comandos: `CLAUDE.md`. Filtro de ideas: `pilares.md`.
+la intención. Arquitectura: `arquitectura.md` (resumen y comandos en `CLAUDE.md`). Filtro de ideas: `pilares.md`.
 
 ---
 

@@ -5,11 +5,20 @@ description: Procedimiento para ejecutar sola, sin el usuario presente (sesión 
 
 # tarea-autonoma
 
+## Restricción de Lectura
+- **No escanees carpetas enteras** (`data/`, `docs/`, `core/`, `scenes/`): busca con Grep o Glob y lee solo
+  los archivos y las líneas que necesitas (`offset`/`limit`).
+- Nunca leas enteros `data/squads_2006.json`, `data/history_2006.json`, `data/teams_chile_2006.json` ni
+  `docs/mercado.md`: para el formato, `head -n 20`; para un dato, `grep`.
+- De `docs/arquitectura.md`, `docs/decisiones.md`, `docs/gdd.md` y `docs/cartas.md` lee solo la sección
+  que corresponde (busca su título con grep).
+
 El usuario revisa el resultado desde el celular, así que el PR tiene que poder entenderse sin abrir
 el código, y la tarea no puede tomar decisiones de diseño por él.
 
 ## Antes de empezar
-1. Lee el brief `docs/tareas/T-NN-*.md`, `CLAUDE.md` y las entradas de `docs/decisiones.md` que cite.
+1. Lee el brief `docs/tareas/T-NN-*.md`, `CLAUDE.md`, las secciones de `docs/arquitectura.md` que toca la
+   tarea y las entradas de `docs/decisiones.md` que cite (solo esas, buscándolas con grep).
 2. Comprueba que el brief tenga objetivo, alcance, fuera de alcance y definición de terminado. Si
    falta algo esencial, **no lo inventes**: abre el PR solo con el brief completado como propuesta, o
    detente explicando qué falta.

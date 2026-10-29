@@ -5,6 +5,14 @@ description: Analiza una idea nueva de diseño para Futbolista Deckbuilder (mec�
 
 # idea-nueva
 
+## Restricción de Lectura
+- **No escanees carpetas enteras** (`data/`, `docs/`, `core/`, `scenes/`): busca con Grep o Glob y lee solo
+  los archivos y las líneas que necesitas (`offset`/`limit`).
+- Nunca leas enteros `data/squads_2006.json`, `data/history_2006.json`, `data/teams_chile_2006.json` ni
+  `docs/mercado.md`: para el formato, `head -n 20`; para un dato, `grep`.
+- De `docs/arquitectura.md`, `docs/decisiones.md`, `docs/gdd.md` y `docs/cartas.md` lee solo la sección
+  que corresponde (busca su título con grep).
+
 Objetivo: que ninguna idea se pierda y que ninguna entre al código sin pasar por el filtro. El
 usuario itera rápido y muchas ideas contradicen otras ya implementadas; esta skill evita corregir
 a cada rato.

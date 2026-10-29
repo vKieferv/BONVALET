@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 # Verificación headless de Futbolista Deckbuilder para Linux (GitHub Actions, sesiones en la nube).
 # Mismos pasos que check.ps1. Uso (desde la raíz del repo):
-#   bash .claude/skills/godot-check/check.sh [--matches N] [--balance] [--skip-smoke]
+#   bash .claude/skills/godot-check/check.sh [--matches N] [--balance] [--skip-smoke] [--full]
+# Salida corta: una línea si pasa (más las métricas con --balance) o las últimas 25 líneas si falla.
+# El detalle de cada paso queda en $TMPDIR/godot-check/resumen.txt; --full lo imprime entero.
 # Godot se busca en $GODOT, en el PATH y en ~/.cache/godot; si no está, se descarga la versión
 # oficial (GODOT_VERSION) a ~/.cache/godot.
 set -u
@@ -10,6 +12,7 @@ GODOT_VERSION="${GODOT_VERSION:-4.7.2}"
 MATCHES=5
 BALANCE=0
 SKIP_SMOKE=0
+FULL=0
 TIMEOUT_SEC="${TIMEOUT_SEC:-240}"
 BALANCE_TIMEOUT_SEC="${BALANCE_TIMEOUT_SEC:-600}"   # sim.gd juega miles de partidos con el planificador de CoachBot
 
@@ -18,6 +21,7 @@ while [ $# -gt 0 ]; do
 		--matches) MATCHES="$2"; shift ;;
 		--balance) BALANCE=1 ;;
 		--skip-smoke) SKIP_SMOKE=1 ;;
+		--full) FULL=1 ;;
 		*) echo "Opción desconocida: $1"; exit 2 ;;
 	esac
 	shift
@@ -26,6 +30,8 @@ done
 PROJECT="$(cd "$(dirname "$0")/../../.." && pwd)"
 LOG_DIR="${TMPDIR:-/tmp}/godot-check"
 mkdir -p "$LOG_DIR"
+SUMMARY="$LOG_DIR/resumen.txt"
+: >"$SUMMARY"
 
 find_godot() {
 	if [ -n "${GODOT:-}" ] && [ -x "$GODOT" ]; then echo "$GODOT"; return; fi
@@ -57,19 +63,19 @@ run_godot() {
 	timeout "$limit" "$GODOT_BIN" --headless --path "$PROJECT" "$@" >"$out" 2>"$err"
 	local code=$?
 	if [ $code -eq 124 ]; then
-		echo "[$name] TIEMPO AGOTADO tras $limit s"
+		echo "[$name] TIEMPO AGOTADO tras $limit s" >>"$SUMMARY"
 		return 124
 	fi
 	# Un error de script en ejecución no cambia el código de salida de Godot: se cuenta aparte.
 	if [ "$name" != "import" ] && grep -q "SCRIPT ERROR" "$err"; then
-		echo "[$name] Hubo errores de script en ejecución (ver $err)"
-		grep -E "SCRIPT ERROR|at: " "$err" | head -n 10 | sed "s/^/[$name] /"
+		echo "[$name] Hubo errores de script en ejecución (ver $err)" >>"$SUMMARY"
+		grep -E "SCRIPT ERROR|at: " "$err" | head -n 10 | sed "s/^/[$name] /" >>"$SUMMARY"
 		return 3
 	fi
 	if [ "$name" != "import" ]; then   # la salida del import es solo progreso del editor
-		grep -v -e '^Godot Engine v' -e '^$' "$out" | sed "s/^/[$name] /"
+		grep -v -e '^Godot Engine v' -e '^$' "$out" | sed "s/^/[$name] /" >>"$SUMMARY"
 	fi
-	grep -E "ERROR|WARNING|at: " "$err" | head -n 30 | sed "s/^/[$name] /"
+	grep -E "ERROR|WARNING|at: " "$err" | head -n 30 | sed "s/^/[$name] /" >>"$SUMMARY"
 	return $code
 }
 
@@ -100,11 +106,22 @@ if [ $BALANCE -eq 1 ] && [ ${#failed[@]} -eq 0 ]; then
 	run_godot balance "$BALANCE_TIMEOUT_SEC" -s res://core/sim.gd || failed+=(balance)
 fi
 
-echo ""
-echo "Logs completos: $LOG_DIR"
 if [ ${#failed[@]} -gt 0 ]; then
-	echo "RESULTADO: FALLA (${failed[*]})"
+	echo "RESULTADO: FALLA (${failed[*]})" >>"$SUMMARY"
+else
+	echo "RESULTADO: OK" >>"$SUMMARY"
+fi
+if [ $FULL -eq 1 ]; then
+	cat "$SUMMARY"
+elif [ ${#failed[@]} -gt 0 ]; then
+	tail -n 25 "$SUMMARY"
+elif [ $BALANCE -eq 1 ]; then
+	grep '^\[balance\]' "$SUMMARY"   # con --balance las métricas son el resultado
+fi
+echo "Log completo: $SUMMARY"
+if [ ${#failed[@]} -gt 0 ]; then
+	echo "❌ FALLA: godot-check (${failed[*]})"
 	exit 1
 fi
-echo "RESULTADO: OK"
+echo "✅ OK: godot-check pasó"
 exit 0

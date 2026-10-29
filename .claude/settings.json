@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(**/.godot/**)",
+      "Read(**/*.uid)",
+      "Read(**/tools/t08/**)",
+      "Read(**/data/squads_2006.json)",
+      "Read(**/data/history_2006.json)",
+      "Read(**/data/teams_chile_2006.json)"
+    ]
+  }
+}

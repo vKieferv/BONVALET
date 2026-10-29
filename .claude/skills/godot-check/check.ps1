@@ -1,10 +1,13 @@
 ﻿# Verificación headless de Futbolista Deckbuilder.
-# Uso (desde la raíz del repo): & .\.claude\skills\godot-check\check.ps1 [-Matches 5] [-Balance] [-SkipSmoke]
+# Uso (desde la raíz del repo): & .\.claude\skills\godot-check\check.ps1 [-Matches 5] [-Balance] [-SkipSmoke] [-Full]
+# Salida corta: una línea si pasa (más las métricas con -Balance) o las últimas 25 líneas si falla.
+# El detalle de cada paso queda en %TEMP%\godot-check\resumen.txt; -Full lo imprime entero.
 # Godot se busca en: variable de entorno GODOT, la carpeta que contiene el repo, y el PATH.
 param(
     [int]$Matches = 5,
     [switch]$Balance,
     [switch]$SkipSmoke,
+    [switch]$Full,
     [int]$TimeoutSec = 240,
     [int]$BalanceTimeoutSec = 600   # sim.gd juega miles de partidos con el planificador de CoachBot
 )
@@ -12,6 +15,11 @@ param(
 $project = (Resolve-Path (Join-Path $PSScriptRoot "..\..\..")).Path
 $logDir = Join-Path $env:TEMP "godot-check"
 New-Item -ItemType Directory -Force $logDir | Out-Null
+$summary = Join-Path $logDir "resumen.txt"
+Set-Content -Path $summary -Value "" -Encoding UTF8
+
+# Lo que antes iba a la consola va al resumen; al final se imprime solo lo necesario.
+function Say([string]$line) { Add-Content -Path $summary -Value $line -Encoding UTF8 }
 
 $godot = $env:GODOT
 if (-not $godot -or -not (Test-Path $godot)) {
@@ -35,20 +43,20 @@ function Invoke-Godot([string]$name, [string[]]$godotArgs, [int]$timeout = $Time
     $null = $p.Handle   # sin esto ExitCode queda vacío al terminar
     if (-not $p.WaitForExit($timeout * 1000)) {
         $p.Kill()
-        Write-Host "[$name] TIEMPO AGOTADO tras $timeout s"
+        Say "[$name] TIEMPO AGOTADO tras $timeout s"
         return 124
     }
     $p.WaitForExit()
     # Un error de script en ejecución no cambia el código de salida de Godot: se cuenta aparte.
     if ($name -ne "import" -and (Select-String -Path $err -Pattern "SCRIPT ERROR" -Quiet)) {
-        Write-Host "[$name] Hubo errores de script en ejecución (ver $err)"
-        Get-Content $err | Where-Object { $_ -match 'SCRIPT ERROR|at: ' } | Select-Object -First 10 | ForEach-Object { Write-Host "[$name] $_" }
+        Say "[$name] Hubo errores de script en ejecución (ver $err)"
+        Get-Content $err | Where-Object { $_ -match 'SCRIPT ERROR|at: ' } | Select-Object -First 10 | ForEach-Object { Say "[$name] $_" }
         return 3
     }
     if ($name -ne "import") {   # la salida del import es solo progreso del editor
-        Get-Content $out | Where-Object { $_ -and $_ -notmatch '^Godot Engine v' } | ForEach-Object { Write-Host "[$name] $_" }
+        Get-Content $out | Where-Object { $_ -and $_ -notmatch '^Godot Engine v' } | ForEach-Object { Say "[$name] $_" }
     }
-    Get-Content $err | Where-Object { $_ -match 'ERROR|WARNING|at: ' } | Select-Object -First 30 | ForEach-Object { Write-Host "[$name] $_" }
+    Get-Content $err | Where-Object { $_ -match 'ERROR|WARNING|at: ' } | Select-Object -First 30 | ForEach-Object { Say "[$name] $_" }
     return $p.ExitCode
 }
 
@@ -87,11 +95,23 @@ if ($Balance -and $failed.Count -eq 0) {
     if ($code -ne 0) { $failed += "balance" }
 }
 
-Write-Output ""
-Write-Output "Logs completos: $logDir"
 if ($failed.Count -gt 0) {
-    Write-Output "RESULTADO: FALLA ($($failed -join ', '))"
+    Say "RESULTADO: FALLA ($($failed -join ', '))"
+} else {
+    Say "RESULTADO: OK"
+}
+if ($Full) {
+    Get-Content $summary | ForEach-Object { Write-Output $_ }
+} elseif ($failed.Count -gt 0) {
+    Get-Content $summary | Select-Object -Last 25 | ForEach-Object { Write-Output $_ }
+} elseif ($Balance) {
+    # Con -Balance las métricas son el resultado: se imprimen aunque todo pase.
+    Get-Content $summary | Where-Object { $_ -like "[balance]*" } | ForEach-Object { Write-Output $_ }
+}
+Write-Output "Log completo: $summary"
+if ($failed.Count -gt 0) {
+    Write-Output "❌ FALLA: godot-check ($($failed -join ', '))"
     exit 1
 }
-Write-Output "RESULTADO: OK"
+Write-Output "✅ OK: godot-check pasó"
 exit 0

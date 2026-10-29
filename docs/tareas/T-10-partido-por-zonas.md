@@ -14,7 +14,7 @@ pantalla. La pantalla nueva del partido es T-11.
 ## Objetivo
 Que el motor tenga un **modo de zonas** que se puede activar, con las reglas de D-36, que los bots lo
 jueguen bien y que `balance-lab` lo compare lado a lado con el modo actual. **El modo actual no cambia**
-(con el modo apagado, la línea base de `CLAUDE.md` tiene que dar lo mismo).
+(con el modo apagado, la línea base de `docs/arquitectura.md` ("Versión actual") tiene que dar lo mismo).
 
 ## Alcance
 1. **Modo de zonas en `MatchEngine`** (un campo, por ejemplo `zone_mode`, apagado por defecto), que
@@ -72,7 +72,7 @@ jueguen bien y que `balance-lab` lo compare lado a lado con el modo actual. **El
 - [ ] `godot-check -Balance` en verde; con el modo apagado, la matriz igual a la línea base.
 - [ ] Tabla de `balance-lab` con todas las variantes del punto 4 en el PR.
 - [ ] Pruebas nuevas en `engine_rules.gd`.
-- [ ] `CLAUDE.md` (arquitectura: el modo de zonas) y `docs/gdd.md` (2.1, modo en prueba) actualizados.
+- [ ] `docs/arquitectura.md` (el modo de zonas) y `docs/gdd.md` (2.1, modo en prueba) actualizados.
 - [ ] PR con recomendación de valores y lo que quedó sin verificar.
 
 ## Preguntas abiertas

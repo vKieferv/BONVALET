@@ -21,7 +21,7 @@ Qué tiene que ser verdad al terminar, en una o dos frases.
 ## Definición de terminado
 - [ ] `godot-check` en verde (y `-Balance` si toca el motor o los datos)
 - [ ] Pruebas nuevas en `tests/` para cada regla nueva
-- [ ] `CLAUDE.md` / `docs/gdd.md` actualizados si cambia la arquitectura o el diseño
+- [ ] `docs/arquitectura.md` (y `CLAUDE.md` solo si cambia el resumen) / `docs/gdd.md` actualizados si cambia la arquitectura o el diseño
 - [ ] PR abierto con resumen, métricas antes/después y lo que quedó sin verificar
 
 ## Preguntas abiertas

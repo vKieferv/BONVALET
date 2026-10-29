@@ -49,5 +49,5 @@ reglas.
 - [ ] `godot-check` en verde.
 - [ ] Capturas de antes y después (ataque y defensa, en los dos modos) con `tools/capturas.gd`.
 - [ ] Ningún texto de juego bajo 14 px a 1280×720.
-- [ ] `CLAUDE.md` actualizado si cambia la estructura de `match_view`.
+- [ ] `docs/arquitectura.md` actualizado si cambia la estructura de `match_view`.
 - [ ] PR con lo que se apartó de la maqueta y por qué.

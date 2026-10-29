@@ -5,7 +5,7 @@ pantalla (`tools/capturas.gd`).
 
 - **Hito:** M1/M2
 - **Rama:** `tarea/t-11-pantalla-partido`
-- **Decisiones / ideas:** **D-37** (concepto visual: léelo primero), D-35, D-36 (reglas por zonas), I-48,
+- **Decisiones / ideas:** **D-37** (concepto visual: léelo primero), D-35, D-36 (reglas por zonas), I-48, I-60,
   I-41 (intención del rival)
 - **Requisitos:** T-09 (tema, letras, íconos, láminas, escudos) y T-10 (modo de zonas en el motor)
   mezcladas en `main`.
@@ -33,6 +33,10 @@ reglas.
   "NOMBRE · BASE · CARTA · ZONA = % · efecto si sale", con el % en la placa de su color. No tapa la cancha.
 - **Relato:** barra inclinada abajo de la cancha.
 - **Defensa:** la misma cancha muestra el camino del rival por tus zonas, con sus números.
+- **Ataque del rival a la vista (I-60):** su Momento se juega en la cancha jugada a jugada, como el
+  tuyo: lámina chica de su carta, su % y el dado ("Pase filtrado 55% · sacó 71 · ¡FALLA!"). Botón para
+  acelerar y otro para saltar al resultado. Hoy `_play_rival_moment` lo resuelve de una vez y solo
+  muestra si fue gol: recorre los eventos de `CoachBot.act` y anímalos uno por uno.
 - **Mano:** las láminas de T-09 casi derechas (±4°), la que está bajo el mouse levantada con borde dorado;
   placa de TV con el % y pie con desgaste y robo; los remates fuera del Área llevan la cinta "solo en el
   área".

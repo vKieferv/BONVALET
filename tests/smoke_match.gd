@@ -71,6 +71,10 @@ func _process(_delta: float) -> bool:
 	if view._busy:
 		return false
 	_check_ui_matches_engine()
+	if match_frames % 150 == 0 and not ui_checked_errors:
+		for t in Paleta.textos_chicos(view):   # ningún texto de juego bajo 14 px (D-37)
+			errors.append("Texto bajo %d px en el partido: %s" % [Paleta.TEXTO_MIN, t])
+		ui_checked_errors = not errors.is_empty()
 	if view._in_defense:
 		if not _defense_open:
 			_defense_open = true

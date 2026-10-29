@@ -244,3 +244,17 @@ static func moneda(colores: Array) -> Texture2D:
 # Grano repetido sobre un rectángulo de un CanvasItem (el CanvasItem necesita texture_repeat).
 static func dibujar_grano(ci: CanvasItem, rect: Rect2, fuerza: float = 1.0) -> void:
     ci.draw_texture_rect(grano(), rect, true, Color(1, 1, 1, fuerza))
+
+
+# Textos visibles bajo TEXTO_MIN dentro de `root` (etiquetas y botones con texto). Lo revisan
+# smoke_career y smoke_match en cada pantalla que recorren; [] = todo se lee.
+static func textos_chicos(root: Node) -> Array:
+    var out: Array = []
+    for n in root.find_children("*", "Control", true, false):
+        var c := n as Control
+        if not (c is Label or c is Button) or not c.is_visible_in_tree() or String(c.get("text")) == "":
+            continue
+        var tam := c.get_theme_font_size("font_size")
+        if tam < TEXTO_MIN:
+            out.append("'%s' (%d px)" % [String(c.get("text")).left(30), tam])
+    return out

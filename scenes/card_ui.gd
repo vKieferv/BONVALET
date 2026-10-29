@@ -131,6 +131,14 @@ func _init() -> void:
     mouse_exited.connect(_on_exit)
 
 
+# Las medidas de las etiquetas necesitan el tema, que llega al entrar al árbol: se rehace el armado.
+# Fuera de un contenedor, la lámina toma el tamaño pedido (custom_minimum_size) al entrar.
+func _ready() -> void:
+    if custom_minimum_size != Vector2.ZERO and not (get_parent() is Container):
+        size = custom_minimum_size
+    _layout()
+
+
 func _texto(nombre: String, color: Color) -> Label:
     var l := Paleta.etiqueta("", nombre, Paleta.TEXTO_MIN, color)
     body.add_child(l)

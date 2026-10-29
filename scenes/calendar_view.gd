@@ -167,6 +167,13 @@ func _focus_rect() -> Rect2:
     return R_ENTRADA
 
 
+# "TORNEO 2006": la temporada sale de la liga (league_config.json), no del código. La liga chilena 2006 es
+# la base; una liga de otro paquete trae la suya (D-26, I-55).
+func _torneo() -> String:
+    var season = _league.get_league(Career.LEAGUE_ID).get("season")
+    return "TORNEO" if season == null else "TORNEO %d" % int(season)
+
+
 func _missing_steps() -> Array:
     var done := _career.blocks_done()
     var out: Array = []
@@ -236,7 +243,7 @@ func _build_prensa(page: Control) -> void:
     # Hoja del calendario: semana, tu club y el rival del domingo.
     var cal := Mesa.objeto(Rect2(30, 22, 250, 214), -3.0, _draw_calendario)
     page.add_child(cal)
-    var head := Paleta.etiqueta("TORNEO 2006", "condensada_negra", 19, Color.WHITE, 3)
+    var head := Paleta.etiqueta(_torneo(), "condensada_negra", 19, Color.WHITE, 3)
     head.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
     head.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
     head.size = Vector2(250, 40)
@@ -601,7 +608,7 @@ func _build_sobre(page: Control, torn: bool) -> void:
     var sobre := Mesa.objeto(Rect2(372, 476, 470, 214), -2.0, _draw_sobre.bind(torn), _on_view_deck)
     sobre.tooltip_text = "Ver tu mazo (%d láminas)" % _career.deck_size()
     page.add_child(sobre)
-    var title := Mesa.placa_tv("LÁMINAS · TORNEO 2006", 32, [Paleta.TV_FONDO], Paleta.DORADO)
+    var title := Mesa.placa_tv("LÁMINAS · " + _torneo(), 32, [Paleta.TV_FONDO], Paleta.DORADO)
     title.position = Vector2((470 - title.size.x) / 2.0, 118)
     sobre.add_child(title)
     var sub := Paleta.etiqueta("TU MAZO: %d DE %d" % [_career.deck_size(), DeckManager.DECK_MAX], "condensada_negra", 17, Color.WHITE, 3)
@@ -981,7 +988,7 @@ func _build_inicio(page: Control) -> void:
     var t1 := Mesa.placa_tv("MODO CARRERA", 24, Paleta.PLACA_DORADA, Paleta.TV_FONDO)
     t1.position = Vector2(176, 30)
     page.add_child(t1)
-    var t2 := Mesa.placa_tv("TORNEO NACIONAL 2006", 24, Paleta.TV_AZUL, Color.WHITE)
+    var t2 := Mesa.placa_tv(String(_league.get_league(Career.LEAGUE_ID).get("name", "Torneo")).to_upper(), 24, Paleta.TV_AZUL, Color.WHITE)
     t2.position = Vector2(174 + t1.size.x, 30)
     page.add_child(t2)
 

@@ -29,6 +29,10 @@ func _initialize() -> void:
 	_test_signature_styles()
 	_test_bot_defense_styles()
 	_test_duel_runner()
+	_test_zone_mode()
+	_test_zone_numbers()
+	_test_zone_fails()
+	_test_zone_bot()
 	print("engine_rules: %d comprobaciones, %d fallas" % [checks, failures.size()])
 	for f in failures:
 		print("  FALLA: " + f)
@@ -754,3 +758,332 @@ func _test_team_database() -> void:
 		_check(t["archetype"] in ["Tiki-Taka", "Directo", "Catenaccio", "Kamikaze", "Contragolpe"],
 				"%s: arquetipo desconocido %s" % [t["id"], t["archetype"]])
 		_check(int(t.get("facilities_level", -1)) in [0, 1, 2, 3], "%s: facilities_level fuera de 0-3" % t["id"])
+
+
+
+# ---------- Partido por zonas (D-36, T-10) ----------
+
+# Motor en el modo de zonas con un Momento recién empezado, mano vacía y PA de sobra.
+func _zone_engine(seed: int, steps: int = 3) -> MatchEngine:
+	var e := _new_engine(seed)
+	e.zone_mode = true
+	e.moment_steps = steps
+	e.start()
+	e.begin_moment()
+	e.moment_over = false
+	e.deck.hand.clear()
+	e.ap = 10
+	return e
+
+
+# Juega `card_maker.call()` en motores de zonas con semillas distintas hasta que la jugada salga bien;
+# setup(e) prepara cada motor. Devuelve [motor, evento] o [] si ninguna semilla sirve.
+func _zone_success(setup: Callable, card_maker: Callable, steps: int = 3) -> Array:
+	for seed in range(1, 400):
+		var e := _zone_engine(seed, steps)
+		setup.call(e)
+		var card: Card = card_maker.call()
+		e.deck.hand.append(card)
+		var ev := e.play_card(e.deck.hand.find(card))
+		if ev["success"]:
+			return [e, ev]
+	return []
+
+
+func _no_setup(_e: MatchEngine) -> void:
+	pass
+
+
+func _at_medio(e: MatchEngine) -> void:
+	e.progress = 1
+	e.zone = MatchEngine.Zone.MEDIO
+
+
+func _sure_pass() -> Card:
+	return _card(Card.Kind.PASS, 1.0, 0)
+
+
+func _sure_pelotazo() -> Card:
+	var c := _card(Card.Kind.PASS, 1.0, 0)
+	c.steps = 2
+	return c
+
+
+func _sure_far_shot() -> Card:
+	var c := _card(Card.Kind.SHOT, 1.0)
+	c.long_range = true
+	return c
+
+
+# Defensa rival imposible: toda jugada queda en el 5% (el bono de una carta no baja de 0).
+func _make_hard(e: MatchEngine) -> void:
+	e.current_moment()["difficulty"] = 2.0
+
+
+func _weak_pass() -> Card:
+	return _card(Card.Kind.PASS, 0.0, 0)   # con _make_hard, 5%: casi siempre falla
+
+
+# Zona según el avance: Salida → Medio → Área; Momentos de 2 = Salida y Área; contragolpe y espacio
+# rival arrancan en el Medio; el Pelotazo se salta una zona. Remates solo en el Área; el tiro lejano,
+# también desde el Medio con su castigo.
+func _test_zone_mode() -> void:
+	var off := _new_engine(80)
+	off.start()
+	off.begin_moment()
+	off.ap = 10
+	_check(not off.zone_mode and off.can_play(_card(Card.Kind.SHOT, 0.20)), "sin el modo de zonas un remate se juega en cualquier jugada")
+	_check(off.steal_chance(_card(Card.Kind.PASS, 0.0)) == 0.0, "sin el modo de zonas no hay robo al fallar")
+
+	var e := _zone_engine(81)
+	_check(e.zone == MatchEngine.Zone.SALIDA, "el Momento arranca en la Salida")
+	var r := _zone_success(_no_setup, _sure_pass)
+	_check(not r.is_empty() and r[0].zone == MatchEngine.Zone.MEDIO, "un pase que sale bien en la Salida lleva al Medio")
+	r = _zone_success(_at_medio, _sure_pass)
+	_check(not r.is_empty() and r[0].zone == MatchEngine.Zone.AREA, "un pase que sale bien en el Medio lleva al Área")
+	r = _zone_success(_no_setup, _sure_pass, 2)
+	_check(not r.is_empty() and r[0].zone == MatchEngine.Zone.AREA, "en un Momento de 2 jugadas (Catenaccio) se pasa de la Salida al Área")
+	r = _zone_success(_no_setup, _sure_pelotazo)
+	_check(not r.is_empty() and r[0].zone == MatchEngine.Zone.AREA, "el Pelotazo (avanza 2) se salta el Medio")
+	r = _zone_success(_at_medio, _sure_far_shot)
+	_check(not r.is_empty() and r[1]["goal"] and r[0].moment_over, "un tiro lejano que entra desde el Medio es gol")
+
+	var c := _new_engine(82)
+	c.zone_mode = true
+	c.start()
+	c.counter_ready = true
+	c.begin_moment()
+	_check(c.zone == MatchEngine.Zone.MEDIO and c.progress == 1, "el contragolpe arranca en el Medio")
+	_check(c.stats["counters"] == 1, "el Momento con contragolpe se cuenta")
+	var x := _new_engine(83)
+	x.zone_mode = true
+	x.exploit_rival_space = true
+	x.start()
+	x.begin_moment()
+	_check(x.zone == MatchEngine.Zone.MEDIO and int(x.current_moment()["steps_required"]) == 2,
+			"el espacio rival acorta el Momento y arranca en el Medio")
+
+	# Remates: solo en el Área. El tiro lejano, también desde el Medio, con -15 y sin los números del Área.
+	var z := _zone_engine(84)
+	var shot := _card(Card.Kind.SHOT, 0.20)
+	var far := _card(Card.Kind.SHOT, 0.20)
+	far.long_range = true
+	z.deck.hand.append_array([shot, far])
+	_check(not z.can_play(shot) and z.zone_block_reason(shot) == "SOLO EN EL ÁREA", "en la Salida un remate no se juega")
+	_check(not z.can_play(far) and z.zone_block_reason(far) == "DESDE EL MEDIO", "el tiro lejano no se juega desde la Salida")
+	_check(not z.playable_indices().has(z.deck.hand.find(shot)), "playable_indices no ofrece remates fuera del Área")
+	_check(not z.play_card(z.deck.hand.find(shot))["ok"], "play_card rechaza un remate fuera del Área")
+	z.zone = MatchEngine.Zone.MEDIO
+	_check(not z.can_play(shot) and z.can_play(far), "desde el Medio solo se juega el tiro lejano")
+	var labels: Array = z.chance_breakdown(far).map(func(i): return i["label"])
+	_check(labels.has("Tiro de lejos"), "el desglose del tiro lejano nombra el castigo de la distancia")
+	var medio_far := z.success_chance(far)
+	z.zone = MatchEngine.Zone.AREA
+	_check(z.can_play(shot) and z.can_play(far), "en el Área se juega cualquier remate")
+	_check(is_equal_approx(z.success_chance(far) - medio_far, MatchEngine.LONG_SHOT_PENALTY),
+			"en el Área el tiro lejano no tiene el castigo de la distancia")
+	var cat := CardDB.load_catalog(DECK_PATH)
+	_check(Card.from_dict(cat["tiro_lejano"]).long_range and not Card.from_dict(cat["remate_primera"]).long_range,
+			"el Tiro de lejos es la carta marcada como lejana (lejano: true)")
+
+
+# Números de la zona en el desglose: formación con la postura (6 pts por jugador) y fuerza de línea (×0,5).
+func _test_zone_numbers() -> void:
+	_check(MatchEngine.lines_for([4, 4, 2], MatchEngine.Posture.HIGH) == [4, 3, 3], "en HIGH un volante sube")
+	_check(MatchEngine.lines_for([4, 4, 2], MatchEngine.Posture.LOW) == [5, 3, 2], "en LOW un volante baja")
+	_check(MatchEngine.lines_for([5, 3, 2, 3], MatchEngine.Posture.HIGH) == [5, 2, 3], "el 5-3-2 en HIGH queda con 3 arriba")
+	_check(MatchEngine.lines_for([5, 3, 3, 3], MatchEngine.Posture.HIGH) == [5, 3, 3], "con el tope de 3 arriba, HIGH no sube a nadie más")
+	var e := _zone_engine(85)
+	var pass_card := _card(Card.Kind.PASS, 0.10, 0)
+	var plain := e.success_chance(pass_card)
+	var zone_labels := e.chance_breakdown(pass_card).filter(
+			func(i): return String(i["label"]).begins_with("Salida") or i["label"] == "Fuerza de línea")
+	_check(zone_labels.is_empty(), "sin formaciones ni líneas no hay números de zona")
+	e.formation = [4, 4, 2]
+	e.line_strength = [70.0, 66.0, 80.0]
+	e.rival_formation = [4, 3, 3]
+	e.rival_line_strength = [72.0, 60.0, 64.0]
+	e.rival_posture = MatchEngine.Posture.NORMAL
+	# Salida: tus 4 de atrás contra sus 3 de arriba (+6) y fuerza 70 contra 64 (+3).
+	var labels: Array = e.chance_breakdown(pass_card).map(func(i): return i["label"])
+	_check(labels.has("Salida: 4 contra 3") and labels.has("Fuerza de línea"), "el desglose de la Salida muestra los números y la fuerza")
+	_check(is_equal_approx(e.success_chance(pass_card) - plain, 0.06 + 0.03), "Salida: +6 por un jugador más y +3 por 6 puntos de fuerza")
+	# Medio: 4 contra 3 (+6), fuerza 66 contra 60 (+3). Área: 2 contra 4 (−12), 80 contra 72 (+4).
+	_check(is_equal_approx(e.success_chance(pass_card, MatchEngine.Zone.MEDIO) - plain, 0.06 + 0.03), "Medio: 4 contra 3 y fuerza +6")
+	_check(is_equal_approx(e.success_chance(pass_card, MatchEngine.Zone.AREA) - plain, -0.12 + 0.04), "Área: 2 contra 4 y fuerza +8")
+	# Si el rival sube en HIGH, en la Salida te esperan 4: sin diferencia de números.
+	e.rival_posture = MatchEngine.Posture.HIGH
+	_check(is_equal_approx(e.success_chance(pass_card) - plain, 0.03), "con el rival en HIGH la Salida queda 4 contra 4")
+	e.zone_numbers_pts = 0.0
+	e.zone_line_factor = 0.0
+	_check(is_equal_approx(e.success_chance(pass_card), plain), "con 0 pts y factor 0 la zona no suma nada")
+	# LOW_SHOT_PENALTY se puede apagar en el modo de zonas (D-36, regla 4); el modo actual no cambia.
+	var low := _zone_engine(86)
+	low.posture = MatchEngine.Posture.LOW
+	low.zone = MatchEngine.Zone.AREA
+	var shot := _card(Card.Kind.SHOT, 0.20)
+	var with_pen := low.success_chance(shot)
+	low.zone_low_shot_penalty = false
+	_check(is_equal_approx(low.success_chance(shot) - with_pen, MatchEngine.LOW_SHOT_PENALTY), "sin el castigo plano, LOW no resta a los remates")
+	# Sangre fría sin MAX_FAILS: +10 después de cualquier fallo del Momento.
+	var cold := _card(Card.Kind.SHOT, 0.20)
+	cold.tags = ["sangre_fria"]
+	var calm := low.success_chance(cold)
+	low.fails = 1
+	_check(is_equal_approx(low.success_chance(cold) - calm, MatchEngine.COLD_BLOOD_BONUS), "por zonas, sangre fría suma tras un fallo")
+	# zone_data: formación por estilo y fuerza = promedio de skill_rating de cada línea.
+	var league := _league()
+	var squads := SquadManager.new()
+	_check(squads.load_all(league), "SquadManager no carga")
+	var palestino := squads.zone_data("palestino")
+	_check(palestino["formation"] == [5, 3, 2, 3] and (palestino["line_strength"] as Array).size() == 3,
+			"Palestino (Catenaccio) juega 5-3-2 con la fuerza de sus 3 líneas")
+	var total := 0.0
+	var count := 0
+	for p in squads.pick_starters("colo_colo"):
+		if p["role"] in ["MCD", "MCO", "EXT"]:
+			total += float(p["skill_rating"])
+			count += 1
+	var colo: Array = squads.zone_data("colo_colo")["line_strength"]
+	_check(count > 0 and is_equal_approx(float(colo[1]), total / count), "la fuerza del medio es el promedio de sus titulares MCD, MCO y EXT")
+
+
+# Fallos por zonas: no cortan; robo en la Salida y el Medio (contragolpe); cuestan media carta de
+# estamina; remate fallado = atajada o rebote; sin cartas ni Aguantar se pierde sin contragolpe. El
+# robo y la atajada salen de la misma tirada que el %: lo que muestra la carta es lo que se tira.
+func _test_zone_fails() -> void:
+	var probe := _zone_engine(87)
+	_make_hard(probe)
+	var w := _weak_pass()
+	_check(is_equal_approx(probe.steal_chance(w), roundi(0.95 * MatchEngine.ZONE_STEAL_SALIDA * 100.0) / 100.0),
+			"robo en la Salida = fallar × 1/4")
+	_check(is_equal_approx(probe.steal_chance(w, MatchEngine.Zone.MEDIO), roundi(0.95 * MatchEngine.ZONE_STEAL_MEDIO * 100.0) / 100.0),
+			"robo en el Medio = fallar × 1/6")
+	_check(probe.steal_chance(w, MatchEngine.Zone.AREA) == 0.0 and probe.steal_chance(_card(Card.Kind.SHOT, 0.0)) == 0.0,
+			"ni el Área ni los remates tienen robo")
+	var stolen_seen := 0
+	var kept_seen := 0
+	for seed in range(1, 200):
+		var e := _zone_engine(seed)
+		_make_hard(e)
+		var card := _weak_pass()
+		e.deck.hand.append_array([card, _card(Card.Kind.PASS, 0.10, 0)])
+		var shown := e.steal_chance(card)
+		var energy_before := e.player.energy
+		var stamina := e.stamina_cost_of(card)
+		var ev := e.play_card(0)
+		if ev["success"] or ev["injury"]:
+			continue
+		_check(is_equal_approx(ev["steal_chance"], shown), "el robo de la tirada es el que mostraba la carta")
+		var should_steal: bool = ev["roll"] >= 1.0 - shown
+		_check(ev.get("stolen", false) == should_steal, "robo si y solo si la tirada cae en el robo %% (semilla %d)" % seed)
+		_check(is_equal_approx(energy_before - e.player.energy, stamina * 1.5),
+				"fallar cuesta el desgaste de la carta y la mitad más (semilla %d)" % seed)
+		if should_steal:
+			stolen_seen += 1
+			_check(e.moment_over and e.stats["steals"] == 1, "un robo pierde el Momento")
+		else:
+			kept_seen += 1
+			_check(not e.moment_over and e.zone == MatchEngine.Zone.SALIDA, "un fallo sin robo no corta el Momento ni avanza")
+	_check(stolen_seen > 0 and kept_seen > 0, "las semillas deberían dar fallos con y sin robo")
+	# El robo deja contragolpe al rival en DuelRunner (por zonas hay robos y contragolpes).
+	var tpl := CardDB.load_templates(DECK_PATH)
+	var a := {"profile": BotProfile.tiki_taka(), "templates": tpl, "defends": true, "zone_mode": true,
+		"formation": [4, 4, 2], "line_strength": [60.0, 60.0, 60.0]}
+	var b := {"profile": BotProfile.directo(), "templates": tpl, "defends": true, "zone_mode": true,
+		"formation": [4, 4, 2], "line_strength": [60.0, 60.0, 60.0]}
+	var zr := DuelRunner.run(a, b, 60)
+	_check(zr["steals"] > 0 and zr["counters"] >= zr["steals"], "por zonas cada robo deja un contragolpe al rival")
+	a.erase("zone_mode")
+	b.erase("zone_mode")
+	_check(DuelRunner.run(a, b, 60)["steals"] == 0, "sin el modo de zonas no hay robos al fallar")
+
+	# Remate fallado en el Área: atajada (fin, sin contragolpe) o rebote (sigues en el Área).
+	var saved := 0
+	var rebound := 0
+	for seed in range(1, 200):
+		var e := _zone_engine(seed)
+		_make_hard(e)
+		e.progress = 2
+		e.zone = MatchEngine.Zone.AREA
+		var shot := _card(Card.Kind.SHOT, 0.0)
+		e.deck.hand.append_array([shot, _card(Card.Kind.SHOT, 0.10)])
+		var shown := e.save_chance(shot)
+		var ev := e.play_card(0)
+		if ev["success"] or ev["injury"]:
+			continue
+		var should_save: bool = ev["roll"] >= 1.0 - shown
+		_check(ev.get("saved", false) == should_save and ev.get("rebound", false) == (not should_save),
+				"atajada si y solo si la tirada cae en su %%, si no rebote (semilla %d)" % seed)
+		_check(not ev.get("stolen", false), "un remate fallado nunca es robo")
+		if should_save:
+			saved += 1
+			_check(e.moment_over, "con atajada se acaba el Momento")
+		else:
+			rebound += 1
+			_check(not e.moment_over and e.zone == MatchEngine.Zone.AREA, "con rebote sigues en el Área")
+	_check(saved > 0 and rebound > 0, "las semillas deberían dar atajadas y rebotes")
+
+	# Sin cartas jugables: Aguantar si queda; si no, se pierde sin contragolpe.
+	var stuck_checked := false
+	for seed in range(1, 60):
+		var e := _zone_engine(seed)
+		_make_hard(e)
+		e.holds = MatchEngine.MAX_HOLDS
+		var card := _weak_pass()
+		e.deck.hand.append_array([card, _card(Card.Kind.SHOT, 0.20)])   # el remate no se juega en la Salida
+		var ev := e.play_card(0)
+		if ev["success"] or ev.get("stolen", false) or ev["injury"]:
+			continue
+		_check(e.moment_over and ev["out_of_ap"], "sin cartas para seguir ni Aguantar, el Momento se pierde")
+		stuck_checked = true
+		break
+	_check(stuck_checked, "las semillas deberían dar un fallo sin robo que deja la mano sin jugadas")
+
+
+# El bot por zonas: no planea remates fuera del Área (salvo el lejano desde el Medio), en la Salida
+# juega primero la carta más segura y, al llegar al Área sin remate, aguanta.
+func _test_zone_bot() -> void:
+	var profile := BotProfile.directo()
+	var e := _zone_engine(88)
+	var safe := _card(Card.Kind.PASS, 0.20, 0)
+	var risky := _card(Card.Kind.PASS, 0.0, 0)
+	var shot := _card(Card.Kind.SHOT, 0.20, 1)
+	e.deck.hand.append_array([risky, shot, safe])
+	var plan := CoachBot.best_plan(e, profile)
+	_check(not plan.is_empty() and plan["cards"].size() == 3 and e.deck.hand[plan["cards"][-1]] == shot,
+			"por zonas el plan llega al Área y remata ahí")
+	_check(not plan.is_empty() and e.deck.hand[plan["cards"][0]] == safe, "en la Salida juega primero la carta más segura")
+	_check(CoachBot.choose(e, profile) == e.deck.hand.find(safe), "choose juega la carta segura en la Salida")
+	# Con solo un tiro lejano: lo planea desde el Medio con un paso, no espera al Área.
+	var f := _zone_engine(89)
+	var far := _card(Card.Kind.SHOT, 0.60, 1)
+	far.long_range = true
+	f.deck.hand.append_array([_card(Card.Kind.PASS, 0.20, 0), far])
+	var far_plan := CoachBot.best_plan(f, profile)
+	_check(not far_plan.is_empty() and far_plan["cards"].size() == 2 and f.deck.hand[far_plan["cards"][-1]] == far,
+			"el tiro lejano se planea desde el Medio")
+	# En el Área sin remate: aguanta. Antes del Área sin remate: avanza con la carta más segura.
+	var h := _zone_engine(90)
+	var h_safe := _card(Card.Kind.PASS, 0.20, 0)
+	h.deck.hand.append_array([_card(Card.Kind.PASS, 0.0, 0), h_safe])
+	_check(CoachBot.best_plan(h, profile).is_empty() and CoachBot.choose(h, profile) == h.deck.hand.find(h_safe),
+			"sin remate, antes del Área avanza con la carta más segura")
+	h.zone = MatchEngine.Zone.AREA
+	h.progress = 2
+	_check(CoachBot.choose(h, profile) == CoachBot.HOLD, "en el Área sin remate el bot aguanta")
+	# Partidos enteros de bots por zonas terminan (sin bucles) y nadie remata fuera del Área.
+	var bad_shots := 0
+	for seed in range(1, 30):
+		var g := _new_engine(seed)
+		g.zone_mode = true
+		g.start()
+		while not g.finished:
+			g.begin_moment()
+			while not g.moment_over:
+				var zone_before: int = g.zone
+				var ev := CoachBot.act(g, profile)
+				if ev.get("kind", -1) == Card.Kind.SHOT and zone_before == MatchEngine.Zone.SALIDA:
+					bad_shots += 1
+			g.advance(MatchEngine.Posture.NORMAL)
+	_check(bad_shots == 0, "el bot solo remata en el Área (o de lejos desde el Medio): %d remates desde la Salida" % bad_shots)

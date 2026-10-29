@@ -1,6 +1,7 @@
 # Prueba de humo de la escena del partido: juega partidos completos de match_view
 # (un rival por arquetipo, rotando la postura) eligiendo siempre la primera carta jugable,
 # tanto en ataque como en las fases defensivas (cada tercera defensa usa el Despeje de Emergencia).
+# Uno de cada dos partidos marca la casilla "Partido por zonas (prueba)" (D-36, T-10).
 # Uso: godot --headless --path . -s res://tests/smoke_match.gd [-- --matches=5]
 # Sale con código 1 si un partido se cuelga, el marcador no cuadra, la postura cambia durante
 # una jugada, nunca hay fase defensiva o no se prueba el contragolpe contra tu LOW.
@@ -29,6 +30,7 @@ var holds := 0
 var _defense_open := false
 var card_checks := 0
 var effect_checks := 0         # cartas con efecto (avanza, roba, corta) cuya línea de efecto se revisó
+var zone_checks := 0           # jugadas por zonas cuya línea de zona se comparó con el motor
 var ui_checked_errors := false   # tras el primer error de UI se deja de revisar (evita miles de líneas)
 
 
@@ -133,7 +135,10 @@ func _start_match() -> void:
 		exploit_expected = true
 	view._posture_buttons[posture].button_pressed = true
 	view._set_posture(posture)
+	view._zone_check.button_pressed = played % 2 == 1   # uno de cada dos, partido por zonas (T-10)
 	view._on_start_pressed()
+	if view._engine != null and view._engine.zone_mode != (played % 2 == 1):
+		errors.append("La casilla de zonas no llegó al motor (partido %d)" % (played + 1))
 	if view._engine != null:
 		view._engine.natural_executor_played.connect(func(_c: Card) -> void: natural_plays[0] += 1)
 	if view._rival_engine != null:
@@ -159,6 +164,11 @@ func _check_ui_matches_engine() -> void:
 		var orb := "%d/%d" % [e.ap, e.ap_max]
 		if view._ap_value.text != orb:
 			errors.append("El orbe muestra %s PA pero el turno tiene %s" % [view._ap_value.text, orb])
+		if view._in_moment and e.zone_mode:
+			zone_checks += 1
+			var zone_line := "ZONA: " + String(MatchEngine.ZONE_NAMES[e.zone]).to_upper()
+			if not view._progress_label.text.begins_with(zone_line):
+				errors.append("Por zonas la línea dice '%s' pero el motor está en %s" % [view._progress_label.text, zone_line])
 		if view._in_moment and view._hold_button.disabled != not e.can_hold():
 			errors.append("El botón Aguantar está %s pero el motor dice can_hold = %s" % [
 				"deshabilitado" if view._hold_button.disabled else "habilitado", e.can_hold()])
@@ -242,7 +252,9 @@ func _finish() -> bool:
 		errors.append("Nunca se probó Aguantar el Balón")
 	if played > 0 and effect_checks == 0:
 		errors.append("Nunca hubo en la mano una carta con efecto (Despeje, Toque-toque...) para revisar su texto")
-	print("  aguantaste el balón %d veces" % holds)
+	if played > 1 and zone_checks == 0:
+		errors.append("Nunca se revisó la línea del partido por zonas")
+	print("  aguantaste el balón %d veces · %d jugadas por zonas revisadas" % [holds, zone_checks])
 	print("  el rival jugó %d cartas defensivas contra tus ataques" % rival_defense_plays)
 	print("smoke_match: %d partidos, %d defensas (%d despejes de emergencia), Ejecutor Natural: %d tuyas y %d del rival, %d chequeos de postura, %d cartas en pantalla verificadas contra el motor (%d con efecto), contragolpe visto: %s" % [
 		played, defenses, emergencies, natural_plays[0], rival_natural_plays[0], lock_checks, card_checks, effect_checks, "sí" if exploit_seen else "no"])

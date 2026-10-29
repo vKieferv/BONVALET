@@ -91,8 +91,14 @@ static func choose(e: MatchEngine, profile: BotProfile) -> int:
         var dig := _playable_draw(e)   # una carta que roba (Toque-toque) busca el remate que falta
         if dig >= 0:
             return dig
+        if e.zone_mode and e.zone != MatchEngine.Zone.AREA:
+            # Partido por zonas: fallar no corta, así que avanza con la carta más segura y, al llegar
+            # al Área sin remate, aguanta para robar una mano nueva.
+            var step := _zone_advance_card(e)
+            if step >= 0:
+                return step
         return HOLD if _should_hold(e, profile) else -1
-    var last_chance := e.fails >= MatchEngine.MAX_FAILS - 1
+    var last_chance := e.fails >= MatchEngine.MAX_FAILS - 1 and not e.zone_mode
     # Enfriar: si el remate final del mejor plan no convence, el perfil temporiza (aguanta) o cede.
     if not last_chance and profile.shot_min_chance >= 0.0 and plan["shot_p"] < profile.shot_min_chance:
         if pause >= 0 and e.player.zone() != PlayerStats.Zone.SAFE:
@@ -115,7 +121,7 @@ static func best_plan(e: MatchEngine, profile: BotProfile) -> Dictionary:
     if playable.is_empty():
         return {}
     var need := maxi(1, int(e.current_moment()["steps_required"]) - e.progress)
-    var last_chance := e.fails >= MatchEngine.MAX_FAILS - 1
+    var last_chance := e.fails >= MatchEngine.MAX_FAILS - 1 and not e.zone_mode
     var max_e := e.player.max_energy()
     var reserve := profile.elite_reserve_pct()
     var floor_p := lerpf(0.75, 0.30, profile.risk_tolerance) if profile.risk_tolerance >= 0.0 else 0.0
@@ -125,6 +131,8 @@ static func best_plan(e: MatchEngine, profile: BotProfile) -> Dictionary:
         if e.deck.hand[i].kind != Card.Kind.PAUSE:
             steps.append(i)
     var best := {}
+    if e.zone_mode:
+        return _zone_plan(e, profile, playable, steps, need, max_e, reserve, floor_p)
     for s in playable:
         var shot: Card = e.deck.hand[s]
         if shot.kind != Card.Kind.SHOT:
@@ -161,6 +169,98 @@ static func best_plan(e: MatchEngine, profile: BotProfile) -> Dictionary:
                 cards.sort_custom(func(a, b): return e.success_chance(e.deck.hand[a]) > e.success_chance(e.deck.hand[b]))
                 cards.append(s)
                 best = {"cards": cards, "score": score, "p": p, "shot_p": e.success_chance(shot), "ap": ap, "wear": wear}
+    return best
+
+
+# best_plan en el partido por zonas (D-36): cada carta se evalúa en la zona donde se jugaría, el remate
+# tiene que caer en el Área (un tiro lejano, también en el Medio, con menos pasos previos) y el puntaje
+# castiga el riesgo de robo de cada paso (prefiere la carta más segura en la Salida). Los remates
+# entran aunque hoy no se puedan jugar: se juegan al final, cuando el plan llegue al Área.
+static func _zone_plan(e: MatchEngine, profile: BotProfile, playable: Array, steps: Array, need: int,
+        max_e: float, reserve: float, floor_p: float) -> Dictionary:
+    var best := {}
+    var required := int(e.current_moment()["steps_required"])
+    var shots: Array = []
+    for i in e.deck.hand.size():
+        var c: Card = e.deck.hand[i]
+        if c.kind == Card.Kind.SHOT and c.playable and e.ap_cost_of(c) <= e.ap:
+            shots.append(i)
+    for s in shots:
+        var shot: Card = e.deck.hand[s]
+        var others: Array = steps.filter(func(i): return i != s and playable.has(i))
+        var ks: Array = [need - 1]
+        if shot.long_range:
+            if e.zone == MatchEngine.Zone.MEDIO:
+                ks.append(0)
+            elif e.zone == MatchEngine.Zone.SALIDA and required - e.progress >= 3:
+                ks.append(1)
+        for k in ks:
+            for combo in _step_combos(e, others, k):
+                var cards: Array = combo.duplicate()
+                var ap := e.ap_cost_of(shot)
+                for i in cards:
+                    ap += e.ap_cost_of(e.deck.hand[i])
+                if ap > e.ap:
+                    continue
+                cards.sort_custom(func(a, b): return e.success_chance(e.deck.hand[a]) > e.success_chance(e.deck.hand[b]))
+                cards.append(s)
+                var z: int = e.zone
+                var prog := e.progress
+                var p := 1.0
+                var keep := 1.0   # probabilidad de no regalar un robo en los pasos
+                var wear := 0.0
+                var has_elite := false
+                var risk := 1.0
+                var shot_p := 0.0
+                var legal := true
+                for i in cards:
+                    var c: Card = e.deck.hand[i]
+                    if c.kind == Card.Kind.SHOT and z != MatchEngine.Zone.AREA \
+                            and not (c.long_range and z == MatchEngine.Zone.MEDIO):
+                        legal = false
+                        break
+                    var cp := e.success_chance(c, z)
+                    p *= cp
+                    keep *= 1.0 - e.steal_chance(c, z)
+                    wear += e.stamina_cost_of(c)
+                    has_elite = has_elite or c.type == Card.Type.ELITE
+                    if floor_p > 0.0:
+                        risk *= pow(clampf(cp / floor_p, 0.0, 1.0), 2.0)
+                    if c.kind == Card.Kind.SHOT:
+                        shot_p = cp
+                    else:
+                        prog += c.steps
+                        z = MatchEngine.Zone.AREA if required - prog <= 1 else mini(MatchEngine.Zone.AREA, z + c.steps)
+                if not legal:
+                    continue
+                var score := p * risk * keep
+                score *= 1.0 - profile.energy_conservation * PLAN_WEAR_WEIGHT * clampf(wear / max_e, 0.0, 1.0)
+                if has_elite:
+                    score *= 1.0 + PLAN_ELITE_WEIGHT * profile.elite_preference
+                    if (e.player.energy - wear) / max_e < reserve:
+                        score *= PLAN_RESERVE_PENALTY
+                if best.is_empty() or score > best["score"]:
+                    best = {"cards": cards, "score": score, "p": p, "shot_p": shot_p, "ap": ap, "wear": wear}
+    return best
+
+
+# Partido por zonas, sin plan de gol: la carta de avance más segura (acierto menos riesgo de robo,
+# mejor si es barata) para llegar al Área y aguantar ahí. -1 si no conviene avanzar: sin remate en la
+# mano y sin Aguantar, avanzar solo arriesga un robo.
+static func _zone_advance_card(e: MatchEngine) -> int:
+    var has_shot := e.deck.hand.any(func(c): return (c as Card).kind == Card.Kind.SHOT)
+    if not has_shot and not e.can_hold():
+        return -1
+    var best := -1
+    var best_score := -INF
+    for i in e.playable_indices():
+        var c: Card = e.deck.hand[i]
+        if c.kind == Card.Kind.SHOT or c.kind == Card.Kind.PAUSE:
+            continue
+        var score := e.success_chance(c) - e.steal_chance(c) - 0.05 * e.ap_cost_of(c)
+        if score > best_score:
+            best_score = score
+            best = i
     return best
 
 

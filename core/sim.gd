@@ -19,12 +19,19 @@ const CONSTRUCT_TARGET := 85
 const SEASON_STAGES := [["inicio", 0], ["mitad", 4], ["final", 8]]
 
 
+var zonas := false   # -- --zonas: todo con el partido por zonas (D-36, en prueba); sin él, el modo actual
+
+
 func _init() -> void:
+	zonas = OS.get_cmdline_user_args().has("--zonas")
+	if zonas:
+		print("PARTIDO POR ZONAS (D-36, modo en prueba)")
 	var catalog := CardDB.load_catalog()
 	var lists := CardDB.load_deck_lists()
 	print("Arquetipos (2000 partidos c/u, rival en postura NORMAL, mazo estándar con su carta de rasgo, sin firmas):")
 	for p in BotProfile.presets():
-		var m := SimRunner.metrics(SimRunner.run(p, MATCHES, {}, CardDB.archetype_templates(catalog, lists, p.profile_name)))
+		var arch_cfg := {"zone_mode": true, "formation": SquadManager.FORMATIONS[p.profile_name]} if zonas else {}
+		var m := SimRunner.metrics(SimRunner.run(p, MATCHES, arch_cfg, CardDB.archetype_templates(catalog, lists, p.profile_name)))
 		print("%-11s | goles/partido %.2f | gol/momento %.0f%% | Flow %.0f%% | cansancio %.0f%% | lesiones %.1f%% | élite/partido %.2f" % [
 			p.profile_name, m["goals_per_match"], m["goal_pct"], m["flow_pct"],
 			m["tired_pct"], m["injury_pct"], m["elite_per_match"]])
@@ -54,6 +61,11 @@ func _init() -> void:
 		var cfg := {"rival_difficulty": LeagueManager.team_attack_difficulty(team, BASE_DIFFICULTY)}
 		var cfg_squad := cfg.duplicate()
 		cfg_squad["lineup"] = squads.lineup_ids(id)
+		if zonas:   # te ataca a ti (Colo-Colo) en NORMAL
+			var own := squads.zone_data(id)
+			var mine := squads.zone_data("colo_colo")
+			cfg_squad.merge({"zone_mode": true, "formation": own["formation"], "line_strength": own["line_strength"],
+				"rival_formation": mine["formation"], "rival_line_strength": mine["line_strength"]})
 		var cfg_low := cfg_squad.duplicate()
 		cfg_low["rival_posture"] = MatchEngine.Posture.LOW
 		var g_generic: float = SimRunner.metrics(SimRunner.run(prof, MATCHES, cfg, tpl))["goals_per_match"]
@@ -87,6 +99,8 @@ func _init() -> void:
 			"lineup": squads.lineup_ids(id), "defends": false,
 			"attack_difficulty": LeagueManager.team_attack_difficulty(opp, BASE_DIFFICULTY),
 			"defense_difficulty": LeagueManager.defense_difficulty_vs(you, BASE_DIFFICULTY)}
+		_zones(a, squads, you_id)
+		_zones(b, squads, id)
 		var before := DuelRunner.run(a, b, DUELS)
 		b["defends"] = true
 		var now := DuelRunner.run(a, b, DUELS)
@@ -177,6 +191,7 @@ func _constructibility(squads: SquadManager, team_id: String, steps: int, zone_p
 		var player := PlayerStats.new()
 		player.lineup = squads.lineup_ids(team_id)
 		var e := MatchEngine.new(player, DeckManager.new(squads.build_match_deck(team_id, squads.starter_templates(team_id)), [], rng), rng, BASE_DIFFICULTY)
+		e.zone_mode = zonas
 		e.start()
 		e.current_moment()["steps_required"] = steps
 		player.energy = player.max_energy() * zone_pct
@@ -191,7 +206,16 @@ func _constructibility(squads: SquadManager, team_id: String, steps: int, zone_p
 func _neutral_side(league: LeagueManager, squads: SquadManager, id: String, opp_id: String, extra: int) -> Dictionary:
 	var team := league.get_team(id)
 	var opp := league.get_team(opp_id)
-	return {"profile": league.profile_for_team(team), "templates": squads.build_match_templates(id, squads.season_templates(id, extra)),
+	var side := {"profile": league.profile_for_team(team), "templates": squads.build_match_templates(id, squads.season_templates(id, extra)),
 		"lineup": squads.lineup_ids(id), "defends": true,
 		"attack_difficulty": LeagueManager.attack_difficulty_vs(opp, league.profile_for_team(opp), BASE_DIFFICULTY),
 		"defense_difficulty": LeagueManager.defense_difficulty_vs(opp, BASE_DIFFICULTY)}
+	_zones(side, squads, id)
+	return side
+
+
+# Con --zonas, el lado de DuelRunner juega el partido por zonas con la formación y las líneas del club.
+func _zones(side: Dictionary, squads: SquadManager, id: String) -> void:
+	if zonas:
+		side["zone_mode"] = true
+		side.merge(squads.zone_data(id))

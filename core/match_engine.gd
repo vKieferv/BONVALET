@@ -79,6 +79,22 @@ const BLOCK_EFFECT := 0.12            # Bloqueo: +12 pts de dificultad a sus rem
 const EMERGENCY_STAMINA_PCT := 0.15   # Despeje de Emergencia: todos tus PA de defensa + 15% de estamina...
 const EMERGENCY_SHOT_PENALTY := 0.25  # ...-25 pts a los remates de ese ataque, y el rival recupera el balón
 
+# --- Partido por zonas (D-36, T-10): modo en prueba, apagado por defecto (zone_mode) ---
+# Las jugadas del Momento son zonas: Salida (tu línea de atrás contra sus delanteros), Medio (medio
+# contra medio) y Área (tus delanteros contra su defensa). Remates solo en el Área (los tiros
+# lejanos, también desde el Medio), fallar no corta el Momento (sin MAX_FAILS) y un fallo en la
+# Salida o el Medio puede ser robo con contragolpe rival. Valores de prueba: cada motor los copia en
+# variables (zone_*) para que tests/balance_lab.gd los varíe sin tocar estas constantes.
+enum Zone { SALIDA, MEDIO, AREA }
+const ZONE_NAMES := ["Salida", "Medio", "Área"]
+const ZONE_STEAL_SALIDA := 0.25       # un fallo en la Salida es robo 1 de cada 4 veces...
+const ZONE_STEAL_MEDIO := 1.0 / 6.0   # ...y en el Medio, 1 de cada 6 (el Área no tiene robo)
+const ZONE_NUMBERS_PTS := 0.06        # 6 pts por jugador de diferencia entre tu línea y la suya (D-30)
+const ZONE_LINE_FACTOR := 0.5         # pts por punto de skill_rating de diferencia entre las líneas
+const LONG_SHOT_PENALTY := 0.15       # tiro lejano desde el Medio: -15 pts por la distancia
+const ZONE_FAIL_STAMINA := 0.5        # un fallo gasta además la mitad del desgaste de la carta
+const ZONE_SAVE_CHANCE := 0.5         # remate fallado: la mitad, el arquero se queda (fin, sin contragolpe)
+
 var player: PlayerStats
 var deck: DeckManager
 var rng: RandomNumberGenerator
@@ -104,6 +120,23 @@ var owner_stamina_mult := {}     # owner_id -> multiplicador de desgaste en sus 
 # Defensa rival aplicada al Momento en curso (la fija quien defiende; se limpia en advance()).
 var opponent_pressure := 0.0
 var opponent_block := 0.0
+# Partido por zonas (D-36). Las líneas van como [atrás, medio, arriba]: formation = jugadores por línea
+# según el estilo (D-30; un 4.º valor opcional es el tope de arriba, el 5-3-2 nunca más de 3) y
+# line_strength = promedio de skill_rating de los titulares de cada línea. Las de este equipo las
+# pasa quien arma el partido (SquadManager.zone_data); las del rival, set_zone_rival() antes de cada ataque.
+var zone_mode := false
+var zone := Zone.SALIDA
+var formation: Array = []
+var line_strength: Array = []
+var rival_formation: Array = []
+var rival_line_strength: Array = []
+var rival_posture: Posture = Posture.NORMAL
+var zone_steal_salida := ZONE_STEAL_SALIDA
+var zone_steal_medio := ZONE_STEAL_MEDIO
+var zone_numbers_pts := ZONE_NUMBERS_PTS
+var zone_line_factor := ZONE_LINE_FACTOR
+var long_shot_penalty := LONG_SHOT_PENALTY
+var zone_low_shot_penalty := true   # false: en el modo de zonas, LOW no castiga los remates (D-36, regla 4)
 
 # Puntos de Acción del turno en curso (Momento o fase defensiva)
 var ap := 0
@@ -130,7 +163,10 @@ var defense_result := {}     # {pressure, block, cancelled, emergency}
 
 var stats := {"goals": 0, "moments": 0, "flow_moments": 0, "flow_breaks": 0, "injuries": 0,
 	"plays": 0, "elite_plays": 0, "tired_plays": 0, "natural_plays": 0, "skipped": 0,
-	"defense_plays": 0, "interceptions": 0, "emergencies": 0, "out_of_ap": 0, "holds": 0, "holds_lost": 0}
+	"defense_plays": 0, "interceptions": 0, "emergencies": 0, "out_of_ap": 0, "holds": 0, "holds_lost": 0,
+	"counters": 0, "steals": 0, "saves": 0, "rebounds": 0}
+# counters: Momentos propios que arrancaron con contragolpe. steals / saves / rebounds (modo de zonas):
+# fallos que fueron robo, remates fallados que se quedó el arquero y remates fallados con rebote.
 
 
 func _init(p_player: PlayerStats, p_deck: DeckManager, p_rng: RandomNumberGenerator, p_rival_difficulty := 0.15) -> void:
@@ -210,13 +246,21 @@ func begin_moment() -> Dictionary:
 	moment_over = false
 	ap_max = int(AP_BY_POSTURE[posture])
 	ap = ap_max
+	# Zonas: se arranca en la Salida; el contragolpe y el espacio rival arrancan en el Medio.
+	zone = Zone.SALIDA
 	if exploit_rival_space:
 		var m: Dictionary = current_moment()
-		m["steps_required"] = maxi(2, int(m["steps_required"]) - 1)
+		var before := int(m["steps_required"])
+		m["steps_required"] = maxi(2, before - 1)
+		if int(m["steps_required"]) < before:
+			zone = Zone.MEDIO
 	if counter_ready:
 		if moment_steps > 2:   # con Momentos de 2 (Catenaccio) el contragolpe no lo acorta más
 			progress = 1
 		counter_ready = false
+		stats["counters"] += 1
+		zone = Zone.MEDIO
+	_advance_zone(0)
 	deck.reset_flow_uses()
 	deck.set_possession(DeckManager.Possession.POSSESSION_ATTACK)
 	deck.draw(player.draw_count())   # robo según la zona de estamina; no se repone por jugada
@@ -225,8 +269,18 @@ func begin_moment() -> Dictionary:
 		deck.insert_into_hand(CardDB.make_penalty("nervios"))
 	_check_exhaustion({})
 	if playable_indices().is_empty() and not can_hold():
+		stats["out_of_ap"] += 1
 		_finish_moment(false)
 	return current_moment()
+
+
+# Zona tras sumar `steps` avances: a una jugada del final siempre es el Área; si no, se avanza una
+# zona por avance (el Pelotazo, que vale 2, se salta una). Momentos de 2 jugadas: Salida y Área.
+func _advance_zone(steps: int) -> void:
+	if int(current_moment()["steps_required"]) - progress <= 1:
+		zone = Zone.AREA
+	else:
+		zone = mini(Zone.AREA, zone + steps) as Zone
 
 
 # El rival recuperó el balón antes de que este Momento empezara (intercepción o despeje).
@@ -273,7 +327,9 @@ func stamina_cost_of(card: Card) -> float:
 # Desglose de la probabilidad de éxito de una carta: [{label, value}], value en puntos
 # (0.10 = 10). Es la única fuente del cálculo: success_chance() lo suma y la carta lo muestra.
 # La estamina no toca la probabilidad: sus zonas solo cambian el robo, la lesión y las penalizaciones.
-func chance_breakdown(card: Card) -> Array:
+# at_zone (modo de zonas): calcula como si la jugada fuera en esa zona (el planificador del bot mira
+# las jugadas que vienen); -1 = la zona actual.
+func chance_breakdown(card: Card, at_zone: int = -1) -> Array:
 	var items: Array = [{"label": "Base (técnica)", "value": player.base_success()}]
 	if card.effective_bonus() != 0.0:
 		items.append({"label": "Carta", "value": card.effective_bonus()})
@@ -290,27 +346,110 @@ func chance_breakdown(card: Card) -> Array:
 			items.append({"label": "Apertura", "value": opening_bonus})
 		if opponent_pressure != 0.0:
 			items.append({"label": "Presión rival", "value": -opponent_pressure})
-		if card.tags.has("sangre_fria") and fails == MAX_FAILS - 1:
+		# Sangre fría: a un fallo de perder el Momento; en el modo de zonas (sin MAX_FAILS), después de
+		# cualquier fallo del Momento (opción conservadora, la decide el usuario).
+		if card.tags.has("sangre_fria") and (fails >= 1 if zone_mode else fails == MAX_FAILS - 1):
 			items.append({"label": "Sangre fría", "value": COLD_BLOOD_BONUS})
 		if card.kind == Card.Kind.SHOT:
 			if opponent_block != 0.0:
 				items.append({"label": "Bloqueo rival", "value": -opponent_block})
 				if card.tags.has("potencia"):
 					items.append({"label": "Potencia", "value": opponent_block * (1.0 - POWER_BLOCK_FACTOR)})
-			if posture == Posture.LOW:
+			if posture == Posture.LOW and (not zone_mode or zone_low_shot_penalty):
 				items.append({"label": "Postura LOW", "value": -LOW_SHOT_PENALTY})
 			if exploit_rival_space:
 				items.append({"label": "Espacios del rival", "value": exploit_shot_bonus})
+		if zone_mode:
+			_zone_items(card, zone if at_zone < 0 else at_zone, items)
 	return items
+
+
+# Números de la zona (D-36, regla 3): jugadores de tu línea contra los de la suya (con la postura de
+# cada uno) y la fuerza de las líneas; y el castigo del tiro lejano desde el Medio.
+func _zone_items(card: Card, z: int, items: Array) -> void:
+	var mine := lines_for(formation, posture)
+	var theirs := lines_for(rival_formation, rival_posture)
+	var mine_line := z               # Salida: tu línea de atrás; Medio: el medio; Área: arriba
+	var their_line := 2 - z          # ...contra sus delanteros, su medio y su defensa
+	if not mine.is_empty() and not theirs.is_empty() and mine[mine_line] != theirs[their_line]:
+		items.append({"label": "%s: %d contra %d" % [ZONE_NAMES[z], mine[mine_line], theirs[their_line]],
+			"value": float(mine[mine_line] - theirs[their_line]) * zone_numbers_pts})
+	if line_strength.size() == 3 and rival_line_strength.size() == 3 and zone_line_factor != 0.0:
+		var diff := float(line_strength[mine_line]) - float(rival_line_strength[their_line])
+		if diff != 0.0:
+			items.append({"label": "Fuerza de línea", "value": diff * zone_line_factor / 100.0})
+	if card.kind == Card.Kind.SHOT and card.long_range and z == Zone.MEDIO:
+		items.append({"label": "Tiro de lejos", "value": -long_shot_penalty})
+
+
+# Los números de la zona (los mismos de chance_breakdown, sin los de la carta) para mostrarlos en la UI.
+func zone_breakdown(at_zone: int = -1) -> Array:
+	var items: Array = []
+	if zone_mode:
+		_zone_items(Card.new(), zone if at_zone < 0 else at_zone, items)
+	return items
+
+
+# Jugadores por línea [atrás, medio, arriba] de una formación con la postura: en HIGH uno del medio
+# sube y en LOW uno baja (D-30); el 4.º valor de la formación, si está, es el tope de arriba.
+static func lines_for(f: Array, p: Posture) -> Array:
+	if f.size() < 3:
+		return []
+	var out := [int(f[0]), int(f[1]), int(f[2])]
+	var max_up := int(f[3]) if f.size() > 3 else 99
+	if p == Posture.HIGH and out[1] > 0 and out[2] < max_up:
+		out[1] -= 1
+		out[2] += 1
+	elif p == Posture.LOW and out[1] > 0:
+		out[1] -= 1
+		out[0] += 1
+	return out
+
+
+# Antes de cada ataque en el modo de zonas: las líneas y la postura del equipo que defiende.
+func set_zone_rival(rival: MatchEngine) -> void:
+	rival_formation = rival.formation
+	rival_line_strength = rival.line_strength
+	rival_posture = rival.posture
 
 
 # Probabilidad de éxito (0-1) redondeada a puntos enteros: el 88% que muestra la carta es
 # exactamente el 0.88 contra el que se tira (rng.randf() < 0.88, o sea, tirada 0-99 menor que 88).
-func success_chance(card: Card) -> float:
+func success_chance(card: Card, at_zone: int = -1) -> float:
 	var p := 0.0
-	for item in chance_breakdown(card):
+	for item in chance_breakdown(card, at_zone):
 		p += float(item["value"])
 	return roundi(clampf(p, MIN_CHANCE, MAX_CHANCE) * 100.0) / 100.0
+
+
+# Modo de zonas: probabilidad de que jugar la carta termine en robo (fallar × robo de la zona), en
+# puntos enteros. Es la única fuente del "robo %" de la carta y la tirada usa exactamente este número:
+# con la misma tirada de play_card, roll < success_chance es éxito y roll ≥ 1 − steal_chance es robo.
+# Los remates y la Pausa no tienen robo; el Área tampoco.
+func steal_chance(card: Card, at_zone: int = -1) -> float:
+	if not zone_mode or in_defense or card.kind == Card.Kind.SHOT or card.kind == Card.Kind.PAUSE:
+		return 0.0
+	var z := zone if at_zone < 0 else at_zone
+	var s := zone_steal_salida if z == Zone.SALIDA else (zone_steal_medio if z == Zone.MEDIO else 0.0)
+	return roundi((1.0 - success_chance(card, at_zone)) * s * 100.0) / 100.0
+
+
+# Modo de zonas: probabilidad de que un remate termine con la pelota en manos del arquero (fallar ×
+# ZONE_SAVE_CHANCE); el resto de los fallos es rebote. Misma tirada que steal_chance.
+func save_chance(card: Card, at_zone: int = -1) -> float:
+	if not zone_mode or in_defense or card.kind != Card.Kind.SHOT:
+		return 0.0
+	return roundi((1.0 - success_chance(card, at_zone)) * ZONE_SAVE_CHANCE * 100.0) / 100.0
+
+
+# Modo de zonas: por qué no se puede jugar la carta en esta zona ("" = se puede). Remates solo en el
+# Área; los tiros lejanos, también desde el Medio.
+func zone_block_reason(card: Card) -> String:
+	if not zone_mode or in_defense or card.kind != Card.Kind.SHOT or zone == Zone.AREA:
+		return ""
+	if card.long_range:
+		return "" if zone == Zone.MEDIO else "DESDE EL MEDIO"
+	return "SOLO EN EL ÁREA"
 
 
 # Se puede jugar si alcanzan los PA del turno. La estamina nunca bloquea (agotado se juega igual,
@@ -319,6 +458,8 @@ func can_play(card: Card) -> bool:
 	if not card.playable or ap_cost_of(card) > ap:
 		return false
 	if not DeckManager.fits_possession(card, deck.possession):
+		return false
+	if zone_mode and zone_block_reason(card) != "":
 		return false
 	return not (card.kind == Card.Kind.PAUSE and pauses >= MAX_PAUSES)
 
@@ -343,6 +484,8 @@ func play_card(hand_index: int) -> Dictionary:
 	var ap_cost := ap_cost_of(card)
 	var stamina := stamina_cost_of(card)
 	var p := success_chance(card)
+	var steal := steal_chance(card)   # modo de zonas: lo que mostraba la carta antes de jugarla
+	var save := save_chance(card)
 	var natural := is_natural_executor(card)
 	ap -= ap_cost
 	player.energy = maxf(0.0, player.energy - stamina)
@@ -363,6 +506,10 @@ func play_card(hand_index: int) -> Dictionary:
 		"defense": in_defense, "flow_started": false, "flow_broken": false, "goal": false,
 		"injury": false, "cancelled": false, "out_of_ap": false,
 	}
+	if zone_mode and not in_defense:
+		ev["play_zone"] = zone   # zona de la cancha donde se jugó la carta
+		ev["steal_chance"] = steal
+		ev["save_chance"] = save
 	if natural:
 		stats["natural_plays"] += 1
 		natural_executor_played.emit(card)
@@ -381,7 +528,9 @@ func play_card(hand_index: int) -> Dictionary:
 	ev["moment_over"] = moment_over
 	ev["defense_over"] = not in_defense
 	ev["energy"] = player.energy
-	ev["zone"] = player.zone()
+	ev["zone"] = player.zone()   # zona de estamina; la de la cancha: "play_zone" (antes) y "field_zone" (después)
+	if zone_mode and not ev["defense"]:
+		ev["field_zone"] = zone
 	ev["progress"] = progress
 	ev["ap_left"] = ap
 	return ev
@@ -406,11 +555,16 @@ func _resolve_attack(card: Card, success: bool, natural: bool, ev: Dictionary) -
 				flow_cards.append(card)
 		else:
 			deck.discard_from_hand(card)
-		if card.kind == Card.Kind.SHOT and progress >= current_moment()["steps_required"]:
+		# En el modo de zonas un remate solo se juega en el Área (o de lejos desde el Medio): si entra, es gol.
+		if card.kind == Card.Kind.SHOT and (zone_mode or progress >= current_moment()["steps_required"]):
 			ev["goal"] = true
 			_finish_moment(true)
+		else:
+			_advance_zone(card.steps)
 		if card.draw > 0 and not moment_over:
 			ev["drawn"] = deck.draw(card.draw)   # la jugada abre opciones: roba cartas de ataque
+	elif zone_mode:
+		_resolve_zone_fail(card, ev)
 	else:
 		fails += 1
 		streak = 0
@@ -427,6 +581,41 @@ func _resolve_attack(card: Card, success: bool, natural: bool, ev: Dictionary) -
 			_finish_moment(false)
 
 	_end_if_stuck(ev)
+
+
+# Fallo en el modo de zonas (D-36, regla 2): no corta el Momento, el límite es la mano. Cuesta la
+# mitad del desgaste de la carta; en la Salida o el Medio puede ser robo (Momento perdido y
+# contragolpe rival: quien arma el partido lee ev["stolen"], como al aguantar); un remate fallado
+# termina en manos del arquero (fin, sin contragolpe) o en rebote (sigues donde estabas).
+# Usa la misma tirada de la jugada: roll ≥ 1 − steal_chance (o save_chance) es robo (o atajada).
+func _resolve_zone_fail(card: Card, ev: Dictionary) -> void:
+	fails += 1
+	streak = 0
+	if flow_active:
+		ev["flow_broken"] = true
+		stats["flow_breaks"] += 1
+		for c in flow_cards:
+			deck.discard_from_hand(c)
+		flow_cards.clear()
+		flow_active = false
+		player.energy = maxf(0.0, player.energy - player.max_energy() * FLOW_BREAK_LOSS_PCT)
+	deck.discard_from_hand(card)
+	var extra := float(ev["stamina"]) * ZONE_FAIL_STAMINA
+	player.energy = maxf(0.0, player.energy - extra)
+	ev["fail_stamina"] = extra
+	var roll: float = ev["roll"]
+	if card.kind == Card.Kind.SHOT:
+		if roll >= 1.0 - float(ev["save_chance"]):
+			ev["saved"] = true
+			stats["saves"] += 1
+			_finish_moment(false)
+		else:
+			ev["rebound"] = true
+			stats["rebounds"] += 1
+	elif roll >= 1.0 - float(ev["steal_chance"]):
+		ev["stolen"] = true
+		stats["steals"] += 1
+		_finish_moment(false)
 
 
 # Sin PA (o sin cartas) para seguir y sin Aguantar disponible: la jugada se pierde. Con Aguantar

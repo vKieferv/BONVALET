@@ -256,6 +256,9 @@ static func unplayable_reason(engine: MatchEngine, c: Card) -> String:
         return "ES DE DEFENSA" if c.is_defensive() else "ES DE ATAQUE"
     if c.kind == Card.Kind.PAUSE and engine.pauses >= MatchEngine.MAX_PAUSES:
         return "YA HICISTE PAUSA"
+    var zone_reason := engine.zone_block_reason(c)   # partido por zonas: remates solo en el Área
+    if zone_reason != "":
+        return zone_reason
     var missing := engine.ap_cost_of(c) - engine.ap
     if missing > 0:
         return "FALTA 1 PA" if missing == 1 else "FALTAN %d PA" % missing

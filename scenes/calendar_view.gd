@@ -904,6 +904,8 @@ func _build_tv(page: Control, rival: Dictionary) -> void:
     var lines: Array = ["%s: %s" % [rival.get("short_name", "?"), rival.get("archetype", "?")]]
     if rival.get("signature_card") != null and String(rival["signature_card"]) != "":
         lines.append("ojo: %s" % Mesa.apellido(String(rival["signature_card"])))
+    # Su mazo crece con la semana (T-06): mazo de inicio + week − 1 cartas de su crecimiento.
+    lines.append("mazo: %d cartas" % _career.build_rival_deck().size())
     var post := Mesa.objeto(Rect2(1112, 232, 150, 104), 6.0, _draw_postit.bind(Paleta.POSTIT_AMARILLO))
     post.tooltip_text = "Rival: %s (%s) · DT %s" % [rival.get("name", "?"), rival.get("division", "?"), _league.dt_name(rival)]
     page.add_child(post)

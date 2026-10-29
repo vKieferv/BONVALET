@@ -24,6 +24,7 @@ var _wait := 0
 var _real_save_time := 0   # fecha de modificación de la partida real (0 = no existe)
 var _closed_scene_id := 0  # calendario de antes de "cerrar el juego"
 var _new_card := ""        # id de la carta que se tomó en el entrenamiento táctico de la semana 1
+var _rival_checked := 0    # semanas en que se comprobó el mazo del rival (T-06)
 
 
 func _initialize() -> void:
@@ -86,6 +87,17 @@ func _process(_delta: float) -> bool:
 		"match":
 			if scene.scene_file_path != MATCH:
 				return false
+			# T-06: el rival de la semana N juega con su mazo de inicio + N − 1 cartas de su crecimiento.
+			if _rival_checked == week_done and scene._rival_engine != null:
+				var c := Career.current
+				var rid := c.rival_id
+				var expected := _rival_deck_size(c, rid)
+				var got: int = scene._rival_engine.deck.active.size()
+				if got != expected:
+					errors.append("Semana %d: el rival juega con %d cartas y debería tener %d" % [c.week, got, expected])
+					return _finish()
+				print("  Semana %d: rival %s con mazo de %d cartas" % [c.week, rid, got])
+				_rival_checked += 1
 			_autoplay(scene)
 			if scene._menu.visible and not scene._busy and not Career.current.pending_match:
 				week_done += 1
@@ -185,6 +197,12 @@ func _deck_shows(scene: Node, card_name: String) -> bool:
 		scene._on_view_deck()
 	return scene._deck_panel.visible and scene._deck_list.get_children().any(
 			func(n): return n is CardUI and n.card.display_name.contains(card_name))
+
+
+# Mazo esperado del rival: el de inicio del club + week − 1 cartas de su crecimiento, con sus firmas.
+func _rival_deck_size(c: Career, rid: String) -> int:
+	var start := c.squads.build_match_deck(rid, c.squads.starter_templates(rid)).size()
+	return mini(start + c.week - 1, DeckManager.DECK_MAX)
 
 
 # Mismo criterio que smoke_match: primera carta jugable; si no hay, en defensa deja pasar y en

@@ -100,7 +100,7 @@ Propias de una figura (Zapatazo de Suazo, Arremetida de Alcázar, Sangre fría d
 genérica "Sello de [figura]". Estilos por tag: potencia (el bloqueo cuenta la mitad), sangre fría
 (+10 con el Momento a un fallo de perderse), física.
 
-### 3.4 Construcción del mazo — el corazón del deckbuilder [DECIDIDO] · tu mazo en el juego desde T-05; los rivales, T-06
+### 3.4 Construcción del mazo — el corazón del deckbuilder [DECIDIDO] · tu mazo en el juego desde T-05; los rivales, desde T-06
 Decidido el 2026-10-27 (D-20 a D-22):
 - **Bloque 2 = la decisión del mazo.** Eliges UNA: **entrenamiento táctico** (te ofrecen 3 cartas de
   tu estilo y eliges 1; si el mazo está en su tope, reemplaza a otra), **sesión de video** (mejoras
@@ -123,10 +123,18 @@ Decidido el 2026-10-27 (D-20 a D-22):
 - **Kinesiología:** −25 de fatiga, como antes.
 - Cada opción es final para la semana; "Ver mazo" muestra el mazo completo con sus mejoras.
 
+**Los rivales en la carrera (T-06):** el rival de la semana N juega con su mazo de inicio + las
+primeras N − 1 cartas del `crecimiento` de su arquetipo, en orden (las mismas etapas que mide
+`sim.gd`). No se guarda nada: se deriva de la semana. Tope 20 con sus firmas, así que desde la
+semana 9 la lista de 8 se agota y el rival se queda en su mazo de final de temporada (por defecto;
+si el torneo es más largo, decidir si la lista se repite). El Bloque 3 muestra su tamaño ("mazo de 15
+cartas"). Por ahora solo suman: que también **mejoren** cartas (D-22 dice "suma o mejora") queda para
+después. En partido rápido el rival juega con su mazo de inicio.
+
 Datos (`tests/lab/m2_cartas.json`, `m2_estandar.json`): con un mazo de 20, una carta mueve ~±0.04-0.11
 goles por partido; con uno de 13, el doble. La mano pesa más que una carta (mano 7: +0.18; mano 5: −0.23).
 
-### 3.5 Mazo inicial estándar y carta de rasgo del DT [EN PRUEBA · D-23] · en el juego desde T-04; crece con T-05 y T-06
+### 3.5 Mazo inicial estándar y carta de rasgo del DT [EN PRUEBA · D-23] · en el juego desde T-04; crece con T-05 (tuyo) y T-06 (rivales)
 Idea del usuario (2026-10-27): como en Slay the Spire, todos empiezan con un **mazo estándar de
 cartas básicas** más **una carta de acción con el rasgo del DT**, y el mazo crece con las elecciones.
 Reemplaza los "perfiles de DT con mazos de 12-22" del GDD original. Aprobada el 2026-10-27 (D-23)
@@ -179,8 +187,8 @@ Preguntas abiertas (cada una con la tarea que la resuelve):
 1. **La curva de la temporada queda sobre el rango** (2.73 a mitad y 2.65 al final; medido en T-04):
    alternar ataque y defensa en el crecimiento no la bajó (la propuesta daba 2.71 / 2.61). Decidir con
    el usuario: aceptar la curva (los mazos mejoran y se ataca mejor), bajar el inicio o un ajuste global.
-   En la carrera, tu mazo ya crece (T-05, a tu ritmo: una carta por semana si eliges el táctico); los
-   rivales todavía no (T-06).
+   En la carrera, tu mazo crece a tu ritmo (T-05: una carta por semana si eliges el táctico) y el de
+   los rivales, una por semana (T-06).
 2. **Constructibilidad de Tiki-Taka al final:** con las listas de `decks.json` queda en 93% (era 80%
    con las de la propuesta). Lo que ofrece el entrenamiento a cada estilo quedó, para empezar, igual a
    su crecimiento + una lista general (T-05, 3.4); se revisa con playtests.

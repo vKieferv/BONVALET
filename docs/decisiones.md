@@ -326,6 +326,28 @@ toma lo que funciona (mejoras con nombre propio, cartas que salen del plantel) y
 (pocas decisiones reales, secuencias repetidas, azar opaco). Pendiente: AMARILLA (mecánica nueva), el
 tope de instrucciones, las "+" de las cartas genéricas y medir todo con `balance-lab` junto con T-10.
 
+**D-39 · 2026-10-29 · Cartas v2: poda y reglas antes de medir** · VIGENTE
+Ajustes del usuario a D-38 antes de dibujar ninguna carta (`cartas.md`, "Cartas v2"):
+1. **Una sola instrucción activa a la vez.** Jugar otra la reemplaza; jugar la misma la renueva.
+2. **Sin amarillas.** Seguir qué jugador está amonestado pesa en los datos y en un partido de 4 Momentos
+   casi nunca llega a la expulsión. La Falta táctica corta el ataque rival, pero **es tiro libre**: su
+   próximo Momento arranca en tu Área. La Barrida, 1 de cada 4 veces.
+3. **La pelota es nuestra** deja de ser invencible: sus 2 primeros fallos del Momento no pierden la
+   pelota, pero cansan igual.
+4. **Jugadas de crack bloqueadas si el jugador está fundido** ("DESGASTE EXCESIVO"). Mientras no exista
+   el cansancio por jugador (D-31), fundido = el equipo en la zona AGOTADO.
+5. **8 palabras clave** (AVANZA 2, ROBA, CONTRAGOLPE, +ATACANTE/DEFENSORES, UNA VEZ, AL TOQUE, +PA,
+   INSTRUCCIÓN). Si una palabra la usa una sola carta, su efecto va escrito en la carta.
+6. **Regla del 4%:** cada carta se mide con 1 copia en el mazo de todos los equipos de la matriz; si los
+   goles por partido suben más de un 4%, se encarece o se le pone condición. Las de daño grande no entran
+   hasta pasarla, junto con T-10.
+7. **No se dibujan láminas de las cartas v2 hasta medirlas**; para probar el diseño de la lámina bastan
+   2 cartas de ejemplo en `card_ui`.
+8. **Las "+" de las cartas genéricas** se definen carta por carta al revisar el gameplay y los mazos, sin
+   una regla automática (el usuario no quiso fijar una antes de revisarlas).
+Por qué: dibujar 55 láminas antes de medirlas congela el arte; acumular instrucciones o amarillas suma
+peso al motor y a la UI sin dar suficiente diversión. Reemplaza en esos puntos lo propuesto en D-38.
+
 ### Descartadas (para no reabrirlas sin datos nuevos)
 - **Tempo ofensivo +7 / regen +3** (2026-10-26): no llegaba al objetivo de goles y quedó obsoleto con
   PA + Estamina; el stash se borró.

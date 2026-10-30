@@ -8,6 +8,9 @@ pantalla (`tools/capturas.gd`).
 - **Decisiones / ideas:** **D-37** (concepto visual: léelo primero), D-35, D-36 (reglas por zonas), I-48, I-60,
   I-41 (intención del rival)
 - **Requisitos:** T-09 (tema, letras, íconos, láminas, escudos) y T-10 (modo de zonas en el motor)
+- **Ojo, D-40 (2026-10-30):** la cancha debe mostrar las fichas de tus jugadores y las marcas del rival
+  (libre, 1 contra 1, 1 contra 2), y el pase se juega arrastrando la carta sobre un compañero. Antes de
+  lanzar esta tarea va una maqueta de ese pase y el motor de D-40; actualiza este brief con ambos.
   mezcladas en `main`.
 - **Maqueta (referencia):** lienzo "Dirección visual", https://claude.ai/artifact/TxaUdVLTzGyWHzVjyD4jhm,
   tablero **"v3 · Partido por zonas"** (y "v3 · Anatomía de la lámina e íconos" para las láminas).

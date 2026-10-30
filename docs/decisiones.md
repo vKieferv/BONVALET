@@ -348,6 +348,32 @@ Ajustes del usuario a D-38 antes de dibujar ninguna carta (`cartas.md`, "Cartas 
 Por qué: dibujar 55 láminas antes de medirlas congela el arte; acumular instrucciones o amarillas suma
 peso al motor y a la UI sin dar suficiente diversión. Reemplaza en esos puntos lo propuesto en D-38.
 
+**D-40 · 2026-10-30 · El portador cambia con cada pase y el rival reparte marcas (I-61)** · VIGENTE (diseño, sin código)
+Tras jugar el modo por zonas (T-10), el usuario pide que el jugador con el balón cambie a cada rato,
+como el personaje en Slay the Spire, y que el pase sea elegir contra cuántos te enfrentas:
+1. **La carta la juega el portador** (D-31 regla 5): sus habilidades, su perfil (abre sus jugadas de
+   crack, D-38) y su Ejecutor Natural. Al pasar, arrastras la carta sobre un compañero de la zona
+   siguiente y ese pasa a ser el portador.
+2. **La IA del rival reparte sus marcas** en cada zona, según su estilo: los jugadores de su línea se
+   ponen sobre los tuyos; si son menos, alguien queda libre; si son más, alguien queda con marca doble
+   (por ejemplo, dos sobre M14 y el lateral libre). **Reemplaza D-31 regla 1** (rival al azar). Las
+   marcas de la jugada que vas a tirar siempre se ven (pilar 2); el nivel del DT (I-41, I-46) solo decide
+   cuánto ves de las zonas que vienen.
+3. **Libre, 1 contra 1, 1 contra 2:** libre suma por números (12 pts de T-10 por jugador), 1 contra 1
+   es un duelo y 1 contra 2 es duelo contra el mejor de los dos más el castigo por números. El pase se
+   tira con el Pase del portador contra la Lectura de quien marca al receptor; el regate, con el Regate
+   del portador contra el Quite de su marcador.
+4. **Las 5 habilidades se enfrentan** (D-29, D-32): Pase contra Lectura, Regate contra Quite, Remate
+   contra Atajada, con la fórmula nivel + puesto + perfil (×0,5 de prueba). No se cargan datos nuevos
+   salvo los perfiles de la élite.
+5. **Volver atrás solo con cartas:** el pase normal va hacia adelante. Solo algunas cartas devuelven la
+   pelota a la zona anterior (por ejemplo, para escapar de una marca doble y que el rival vuelva a
+   repartir). Cuáles y con qué palabra clave se define al revisar los mazos (D-39 regla 8).
+Por qué: hoy la zona es un contador y cualquier carta sirve en cualquier parte; elegir receptor convierte
+cada pase en una decisión (arriesgar con la figura marcada o jugar seguro con el libre) y les da uso a
+los 11 titulares. Valores, IA de las marcas y cartas de vuelta atrás se miden con `balance-lab` antes
+de fijarlos.
+
 ### Descartadas (para no reabrirlas sin datos nuevos)
 - **Tempo ofensivo +7 / regen +3** (2026-10-26): no llegaba al objetivo de goles y quedó obsoleto con
   PA + Estamina; el stash se borró.

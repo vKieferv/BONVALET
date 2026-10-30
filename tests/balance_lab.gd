@@ -39,6 +39,14 @@
 #   pick_pools: {"Tiki-Taka": [ids en orden]}   reemplaza el crecimiento de esos arquetipos
 #   card_defs: {"remate_simple": {...carta completa...}}   cartas nuevas o redefinidas (se suman al
 #                                    catálogo de cards.json, por id)
+# Partido por zonas (D-36, T-10; ver tests/lab/zonas.json):
+#   zonas: true                      los dos lados juegan por zonas (formación y líneas de
+#                                    SquadManager.zone_data)
+#   zone: {"steal_salida": 0.25, "steal_medio": 0.1667, "numbers_pts": 0.06, "line_factor": 0.5,
+#          "long_shot_penalty": 0.15, "low_shot_penalty": true}   valores del modo (las variables
+#                                    zone_* del motor; por defecto, las constantes ZONE_* de match_engine)
+#   extra_clubs: ["universidad_de_chile"]   clubes que además juegan contra cada club de la matriz
+#                                    (la jerarquía); no cuentan en el promedio de goles
 # Un elemento {"defaults": {...}} en la lista se aplica a todas las variantes que lo siguen (las
 # claves de la variante mandan; los diccionarios se mezclan).
 # Además de la línea total, imprime una línea por club: goles a favor-en contra, % de partidos con
@@ -100,7 +108,8 @@ func _init() -> void:
 	print("Laboratorio de balance · %d clubes · %d partidos por cruce · objetivo 2.3-2.6 goles, 2-5%% lesiones" % [clubs.size(), per_pair])
 	for v in variants:
 		var t0 := Time.get_ticks_msec()
-		var acc := {"goals": 0, "matches": 0, "injuries": 0, "m1": 0, "t1": 0, "m2": 0, "t2": 0, "holds": 0, "holds_lost": 0}
+		var acc := {"goals": 0, "matches": 0, "injuries": 0, "m1": 0, "t1": 0, "m2": 0, "t2": 0, "holds": 0, "holds_lost": 0,
+			"steals": 0, "counters": 0, "no_cards": 0, "saves": 0, "rebounds": 0}
 		var per_club := {}   # id -> {gf, ga, inj, cut, n}
 		for id in clubs:
 			per_club[id] = {"gf": 0, "ga": 0, "inj": 0, "cut": 0, "n": 0}
@@ -128,6 +137,8 @@ func _init() -> void:
 				acc["t2"] += r["tired_2h"]
 				acc["holds"] += r["holds"]
 				acc["holds_lost"] += r["holds_lost"]
+				for k in ["steals", "counters", "no_cards", "saves", "rebounds"]:
+					acc[k] += r[k]
 		var n := float(acc["matches"])
 		var moments := float(acc["m1"] + acc["m2"])
 		print("%-44s | goles %.2f | lesiones %.1f%% | cansancio 1T %d%% / 2T %d%% | Momentos/equipo %.2f | gol/Momento %d%% | aguantar/equipo %.2f (%.2f robados) | %d s" % [
@@ -135,6 +146,10 @@ func _init() -> void:
 			roundi(100.0 * acc["t1"] / maxf(1.0, acc["m1"])), roundi(100.0 * acc["t2"] / maxf(1.0, acc["m2"])),
 			moments / (2.0 * n), roundi(100.0 * acc["goals"] / maxf(1.0, moments)),
 			acc["holds"] / (2.0 * n), acc["holds_lost"] / (2.0 * n), (Time.get_ticks_msec() - t0) / 1000])
+		# Por partido (los dos equipos): robos al fallar (zonas), contragolpes jugados, Momentos perdidos
+		# sin cartas, y remates fallados que atajó el arquero o dieron rebote (zonas).
+		print("    por partido: robos %.2f · contragolpes %.2f · sin cartas %.2f · atajadas %.2f · rebotes %.2f" % [
+			acc["steals"] / n, acc["counters"] / n, acc["no_cards"] / n, acc["saves"] / n, acc["rebounds"] / n])
 		var cells: Array = []
 		for id in clubs:
 			var c: Dictionary = per_club[id]
@@ -143,6 +158,21 @@ func _init() -> void:
 			cells.append("%s (%s) %.2f-%.2f les %d%% cortes %.1f mazo %d constr %d%%" % [team["short_name"], String(team["archetype"]).left(5),
 				c["gf"] / cn, c["ga"] / cn, roundi(100.0 * c["inj"] / cn), c["cut"] / cn, deck_size[id], construct[id]])
 		print("    " + " · ".join(cells))
+		var extra_cells: Array = []
+		for extra_id in v.get("extra_clubs", []):
+			var gf := 0
+			var ga := 0
+			for id in clubs:
+				if id == extra_id:
+					continue
+				var r := DuelRunner.run(_side(league, squads, tpl, extra_id, id, v),
+						_side(league, squads, tpl, id, extra_id, v), per_pair, hooks)
+				gf += r["goals_a"]
+				ga += r["goals_b"]
+			var games := float(per_pair * clubs.filter(func(c): return c != extra_id).size())
+			extra_cells.append("%s %.2f-%.2f" % [league.get_team(extra_id)["short_name"], gf / games, ga / games])
+		if not extra_cells.is_empty():
+			print("    contra la matriz: " + " · ".join(extra_cells))
 	quit()
 
 
@@ -204,6 +234,11 @@ func _constructibility(side: Dictionary, v: Dictionary) -> int:
 		var e := MatchEngine.new(player, DeckManager.new(CardDB.build_deck(side["templates"]), [], rng), rng,
 				side["attack_difficulty"])
 		profile.configure_engine(e)
+		if side.get("zone_mode", false):
+			e.zone_mode = true
+			e.formation = side["formation"]
+			e.line_strength = side["line_strength"]
+			_apply_zone_values(e, v)
 		e.start()
 		e.begin_moment()
 		if not e.moment_over and not CoachBot.best_plan(e, profile).is_empty():
@@ -249,15 +284,35 @@ func _side(league: LeagueManager, squads: SquadManager, tpl: Array, id: String, 
 	if prof_overrides.has(arch):
 		for field in prof_overrides[arch]:
 			profile.set(field, prof_overrides[arch][field])
-	return {"id": id, "profile": profile, "archetype": arch, "templates": cards,
+	var side := {"id": id, "profile": profile, "archetype": arch, "templates": cards,
 		"lineup": squads.lineup_ids(id), "defends": true,
 		"attack_difficulty": LeagueManager.attack_difficulty_vs(opp, league.profile_for_team(opp), BASE_DIFFICULTY) + float(v.get("diff_add", 0.0)),
 		"defense_difficulty": LeagueManager.defense_difficulty_vs(opp, BASE_DIFFICULTY)}
+	if v.get("zonas", false):
+		side["zone_mode"] = true
+		side.merge(squads.zone_data(id))
+	return side
+
+
+# Valores del partido por zonas de la variante ("zone") en el motor; sin la clave, las constantes ZONE_*.
+func _apply_zone_values(e: MatchEngine, v: Dictionary) -> void:
+	var z: Dictionary = v.get("zone", {})
+	e.zone_steal_salida = float(z.get("steal_salida", MatchEngine.ZONE_STEAL_SALIDA))
+	e.zone_steal_medio = float(z.get("steal_medio", MatchEngine.ZONE_STEAL_MEDIO))
+	e.zone_numbers_pts = float(z.get("numbers_pts", MatchEngine.ZONE_NUMBERS_PTS))
+	e.zone_line_factor = float(z.get("line_factor", MatchEngine.ZONE_LINE_FACTOR))
+	e.long_shot_penalty = float(z.get("long_shot_penalty", MatchEngine.LONG_SHOT_PENALTY))
+	e.zone_low_shot_penalty = bool(z.get("low_shot_penalty", true))
 
 
 func _hooks(v: Dictionary) -> Dictionary:
 	var hooks := {}
+	if v.get("zonas", false) and v.has("zone"):
+		hooks["after_start"] = func(e: MatchEngine, _side: Dictionary) -> void:
+			_apply_zone_values(e, v)
 	if v.has("steps") or v.has("steps3_p") or v.has("steps_by_archetype") or v.has("player_for"):
+		if hooks.has("after_start"):
+			print("  AVISO: \"zone\" no se combina con steps/player_for en esta versión; se ignora \"zone\"")
 		var by_arch: Dictionary = v.get("steps_by_archetype", {})
 		var player_for: Dictionary = v.get("player_for", {})
 		hooks["after_start"] = func(e: MatchEngine, side: Dictionary) -> void:

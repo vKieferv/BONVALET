@@ -1,7 +1,8 @@
 # Medición temporal (playtest 2026-10-29): ¿el rival acierta más que tú con las reglas de match_view?
 # Juega Colo-Colo (bot) contra cada club de Primera A con las mismas dificultades que match_view y
 # separa ataque y defensa de cada lado: % mostrado promedio, % de acierto real y goles.
-# Uso: ..\Godot_v4.7.2-stable_win64_console.exe --headless --path . -s res://tests/lab/medir_rival.gd
+# Uso: ..\Godot_v4.7.2-stable_win64_console.exe --headless --path . -s res://tests/lab/medir_rival.gd [-- --zonas]
+# Con --zonas, los dos juegan el partido por zonas (D-36, T-10).
 extends SceneTree
 
 const BASE := 0.15
@@ -10,9 +11,13 @@ const ME := "colo_colo"
 
 var league: LeagueManager
 var squads: SquadManager
+var zonas := false
 
 
 func _initialize() -> void:
+	zonas = OS.get_cmdline_user_args().has("--zonas")
+	if zonas:
+		print("PARTIDO POR ZONAS")
 	league = LeagueManager.new()
 	league.load_all()
 	squads = SquadManager.new()
@@ -36,11 +41,13 @@ func _initialize() -> void:
 		_pair(tot, "my_att"), _pair(tot, "rv_att"), _pair(tot, "my_def"), _pair(tot, "rv_def"),
 		tot["my_goals"] / float(tot["n"]), tot["rv_goals"] / float(tot["n"])])
 	print("Momentos jugados por partido tú %.2f / él %.2f · ataques cortados por ti %.2f / por él %.2f" % [tot["my_moments"] / float(tot["n"]), tot["rv_moments"] / float(tot["n"]), tot["my_cut"] / float(tot["n"]), tot["rv_cut"] / float(tot["n"])])
+	print("Robos con contragolpe por partido: los tuyos %.2f / los de él %.2f" % [tot["my_steals"] / float(tot["n"]), tot["rv_steals"] / float(tot["n"])])
 	quit(0)
 
 
 func _acc() -> Dictionary:
-	var d := {"n": 0, "my_goals": 0.0, "rv_goals": 0.0, "my_moments": 0, "rv_moments": 0, "my_cut": 0, "rv_cut": 0}
+	var d := {"n": 0, "my_goals": 0.0, "rv_goals": 0.0, "my_moments": 0, "rv_moments": 0, "my_cut": 0, "rv_cut": 0,
+		"my_steals": 0, "rv_steals": 0}
 	for k in ["my_att", "rv_att", "my_def", "rv_def"]:
 		d[k + "_n"] = 0
 		d[k + "_p"] = 0.0
@@ -76,6 +83,11 @@ func _engine(team: Dictionary, diff: float, seed: int) -> MatchEngine:
 	player.lineup = squads.lineup_ids(id)
 	var e := MatchEngine.new(player, deck, rng, diff)
 	league.profile_for_team(team).configure_engine(e)
+	if zonas:
+		var z := squads.zone_data(id)
+		e.zone_mode = true
+		e.formation = z["formation"]
+		e.line_strength = z["line_strength"]
 	e.start()
 	return e
 
@@ -113,8 +125,14 @@ func _attack(att: MatchEngine, ap: BotProfile, def: MatchEngine, dp: BotProfile,
 	att.opponent_block = r["block"]
 	a[at + "_moments"] += 1
 	var goals_before: int = att.stats["goals"]
+	if att.zone_mode:
+		att.set_zone_rival(def)
 	att.begin_moment()
 	while not att.moment_over:
-		_rec(a, at + "_att", CoachBot.act(att, ap))
+		var ev := CoachBot.act(att, ap)
+		_rec(a, at + "_att", ev)
+		if ev.get("stolen", false):
+			def.counter_ready = true   # robo (al aguantar o, por zonas, al fallar): contragolpe del que defendía
+			a[dt + "_steals"] += 1
 	a[at + "_goals"] += att.stats["goals"] - goals_before
 	att.advance(ap.default_posture as MatchEngine.Posture)

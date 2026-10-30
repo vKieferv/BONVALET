@@ -16,7 +16,13 @@ const SIGNATURES_PATH := "res://data/signature_cards.json"
 const LEAGUE_ID := "chile_2006"
 const FORMATION := ["POR", "DFC", "DFC", "LAT", "LAT", "MCD", "MCD", "MCO", "EXT", "DEL", "DEL"]
 const ROLES := ["POR", "DFC", "LAT", "MCD", "MCO", "EXT", "DEL"]
-const ACCENTS := {"á": "a", "é": "e", "í": "i", "ó": "o", "ú": "u", "ü": "u", "ñ": "n"}
+# Partido por zonas: formación de cada estilo (D-30) y línea de cada rol (zone_data).
+const FORMATIONS := {
+    "Catenaccio": [5, 3, 2, 3], "Directo": [4, 4, 2], "Tiki-Taka": [4, 4, 2],
+    "Contragolpe": [4, 3, 3], "Kamikaze": [3, 5, 2],
+}
+const ZONE_LINE_OF_ROLE := {"DFC": 0, "LAT": 0, "MCD": 1, "MCO": 1, "EXT": 1, "DEL": 2}
+const ACCENTS :={"á": "a", "é": "e", "í": "i", "ó": "o", "ú": "u", "ü": "u", "ñ": "n"}
 
 var league: LeagueManager
 var load_errors: Array = []
@@ -174,6 +180,30 @@ func lineup_ids(team_id: String) -> Array[String]:
     for p in pick_starters(team_id):
         out.append(String(p["id"]))
     return out
+
+
+# Partido por zonas (D-36): formación del estilo del club (D-30, [atrás, medio, arriba] y, en el
+# 5-3-2, el tope de 3 arriba) y fuerza de cada línea = promedio de skill_rating de sus titulares
+# (atrás DFC y LAT, medio MCD, MCO y EXT, arriba DEL). Es lo que quien arma el partido le pasa al
+# motor (MatchEngine.formation / line_strength). Una línea sin titulares toma el promedio del campo.
+func zone_data(team_id: String) -> Dictionary:
+    var archetype := String(league.get_team(team_id).get("archetype", "Directo"))
+    var sums := [0.0, 0.0, 0.0]
+    var counts := [0, 0, 0]
+    var total := 0.0
+    var n := 0
+    for p in pick_starters(team_id):
+        if not ZONE_LINE_OF_ROLE.has(p["role"]):
+            continue
+        var line: int = ZONE_LINE_OF_ROLE[p["role"]]
+        sums[line] += float(p["skill_rating"])
+        counts[line] += 1
+        total += float(p["skill_rating"])
+        n += 1
+    var strength: Array = []
+    for i in 3:
+        strength.append(sums[i] / counts[i] if counts[i] > 0 else total / maxf(1.0, float(n)))
+    return {"formation": FORMATIONS.get(archetype, FORMATIONS["Directo"]), "line_strength": strength}
 
 
 # ------------------------------------------------------------------ Mazo

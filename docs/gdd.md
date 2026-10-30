@@ -32,6 +32,17 @@ diriges un club Catenaccio). 2 fallos lo pierden. Tras un contragolpe o con espa
 - El largo del diseño original por arquetipo (Tiki-Taka 3-4, Directo 1-2, Contragolpe 2) se
   descartó en M1 (D-16): hundía a Tiki-Taka. Tiki-Taka 3-4 queda en I-09, atado a una mecánica
   que premie el pase largo.
+- **Partido por zonas [EN PRUEBA · D-36, T-10]:** existe en el motor como modo que se activa (en el
+  partido rápido, la casilla "Partido por zonas (prueba)"; la carrera sigue con las reglas de arriba
+  hasta que el usuario decida). Las jugadas son zonas: **Salida → Medio → Área** (Catenaccio: Salida y
+  Área; contragolpe y espacio rival arrancan en el Medio; el Pelotazo se salta una). **Remates solo en
+  el Área**; el Tiro de lejos también desde el Medio, con −15. **Fallar no corta**: un fallo gasta media
+  carta más de estamina y en la Salida es robo 1 de cada 4 veces (en el Medio, 1 de cada 6) con
+  contragolpe rival; un remate fallado es atajada (fin) o rebote (sigues en el Área). Cada zona suma
+  sus números: jugadores de tu línea contra la suya (formación del estilo, D-30, con la postura) y la
+  fuerza de las líneas (×0,5). La carta muestra su % y su robo %. Medido con `balance-lab` (T-10): con
+  6 pts por jugador la matriz daba 2.83 goles; con **12 pts** (valor por defecto actual) da 2.52 al
+  inicio, 2.78 a mitad y 2.65 al final, con ~1 robo y ~1 contragolpe por partido. La pantalla es T-11.
 
 ### 2.2 Puntos de Acción y Estamina Global [DECIDIDO]
 - **PA por turno:** LOW 3 / NORMAL 3 / HIGH 4; 2 en cada fase defensiva. No se acumulan.

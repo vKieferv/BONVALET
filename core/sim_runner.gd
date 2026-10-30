@@ -7,7 +7,9 @@ extends RefCounted
 # cfg (opcional): energy_max (tope con Stamina 60), regen_normal_pct, rival_difficulty, defense_influence,
 # lineup (ids de titulares: activan el Ejecutor Natural de las cartas con owner_id; ver
 # SquadManager.build_match_templates para simular a un club con su plantel),
-# opponent_pressure / opponent_block (defensa rival fija en cada Momento, como la que deja tu fase defensiva).
+# opponent_pressure / opponent_block (defensa rival fija en cada Momento, como la que deja tu fase defensiva),
+# zone_mode con formation / line_strength y rival_formation / rival_line_strength (partido por zonas,
+# D-36; los datos salen de SquadManager.zone_data; el rival juega en rival_posture).
 static func run(profile: BotProfile, n: int, cfg: Dictionary, templates: Array, progress: Callable = Callable()) -> Dictionary:
 	var totals := {}
 	var goals := PackedInt32Array()
@@ -26,6 +28,13 @@ static func run(profile: BotProfile, n: int, cfg: Dictionary, templates: Array, 
 		profile.configure_engine(e)
 		e.exploit_rival_space = profile.punishes_passivity \
 				and int(cfg.get("rival_posture", MatchEngine.Posture.NORMAL)) == MatchEngine.Posture.LOW
+		if cfg.get("zone_mode", false):
+			e.zone_mode = true
+			e.formation = cfg.get("formation", [])
+			e.line_strength = cfg.get("line_strength", [])
+			e.rival_formation = cfg.get("rival_formation", [])
+			e.rival_line_strength = cfg.get("rival_line_strength", [])
+			e.rival_posture = int(cfg.get("rival_posture", MatchEngine.Posture.NORMAL)) as MatchEngine.Posture
 		e.start()
 		while not e.finished:
 			e.opponent_pressure = cfg.get("opponent_pressure", 0.0)   # advance() la limpia en cada Momento

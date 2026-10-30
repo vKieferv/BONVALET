@@ -79,6 +79,8 @@ var _prev_hand: Array = []
 var _active_clone: CardUI
 var _last_roll_text := ""      # resultado visible de la última tirada de la jugada en curso
 var _possession := Ball.NONE
+var _zone_check: CheckBox      # partido rápido: "Partido por zonas (prueba)" (D-36, T-10; la pantalla es T-11)
+var _zone_mode := false        # la carrera juega el modo actual hasta que el usuario decida
 var _shown_ap := -1            # PA que muestra el orbe (para animar cuando cambian)
 var _ap_style: StyleBoxFlat
 
@@ -121,6 +123,10 @@ func _ready() -> void:
         _rival = _league.profile_for_team(_rival_team)
         _begin_match()
     else:
+        _zone_check = CheckBox.new()
+        _zone_check.text = "Partido por zonas (prueba)"
+        _zone_check.tooltip_text = "Salida, Medio y Área: remates solo en el Área, fallar no corta el Momento y un fallo en la Salida o el Medio puede ser robo."
+        _rival_option.add_sibling(_zone_check)
         _show_menu("TRANSMISIÓN EN VIVO", "Partido rápido con %s. Elige al rival y empieza el partido." % _local_name.text)
 
 
@@ -306,7 +312,11 @@ func _update_hud() -> void:
     _update_stamina_labels()
     _energy_readout.text = "ESTAMINA %d/%d (%d%%)" % [int(_player.energy), int(_player.max_energy()),
             roundi(_player.energy_pct() * 100.0)]
-    if _in_moment:
+    if _in_moment and _engine.zone_mode:
+        _progress_label.text = _zone_text()
+        if _engine.playable_indices().is_empty() and _engine.can_hold():
+            _progress_label.text += " · Sin jugadas: aguanta el balón o cede"
+    elif _in_moment:
         var m := _engine.current_moment()
         _progress_label.text = "Jugada %d/%d · Fallos %d/%d" % [
             _engine.progress, m["steps_required"], _engine.fails, MatchEngine.MAX_FAILS]
@@ -325,6 +335,26 @@ func _update_hud() -> void:
     _emergency_button.text = "Despeje de emergencia (todos tus PA, −%d est.)" % roundi(_engine.emergency_stamina_cost())
     _emergency_button.disabled = not _in_defense or _busy or not _engine.can_emergency_clear()
     _update_hand_stats()
+
+
+# Partido por zonas (texto provisorio; la pantalla es T-11): zona, sus números y el robo % de cada
+# carta de avance que se puede jugar (MatchEngine.steal_chance, lo mismo que se tira).
+func _zone_text() -> String:
+    var parts: Array = ["ZONA: %s" % MatchEngine.ZONE_NAMES[_engine.zone].to_upper()]
+    for item in _engine.zone_breakdown():
+        parts.append("%s %+d" % [item["label"], roundi(float(item["value"]) * 100.0)])
+    var risks: Array = []
+    for i in _engine.playable_indices():
+        var c: Card = _engine.deck.hand[i]
+        var s := _engine.steal_chance(c)
+        var entry := "%s %d%%" % [c.display_name, roundi(s * 100.0)]
+        if s > 0.0 and not risks.has(entry) and risks.size() < 4:
+            risks.append(entry)
+    if not risks.is_empty():
+        parts.append("Robo si fallas: " + ", ".join(risks))
+    elif _engine.zone == MatchEngine.Zone.AREA:
+        parts.append("Remate fallado: atajada o rebote")
+    return " · ".join(parts)
 
 
 func _update_bars() -> void:
@@ -525,7 +555,18 @@ func _on_start_pressed() -> void:
     var team_id: String = _rival_option.get_item_metadata(_rival_option.selected)
     _rival_team = _league.get_team(team_id)
     _rival = _league.profile_for_team(_rival_team)
+    _zone_mode = _zone_check != null and _zone_check.button_pressed
     _begin_match()
+
+
+# Partido por zonas: el motor recibe la formación y la fuerza de las líneas del club.
+func _setup_zones(e: MatchEngine, team_id: String) -> void:
+    if not _zone_mode:
+        return
+    var z := _squads.zone_data(team_id)
+    e.zone_mode = true
+    e.formation = z["formation"]
+    e.line_strength = z["line_strength"]
 
 
 func _begin_match() -> void:
@@ -546,6 +587,7 @@ func _begin_match() -> void:
     _engine.posture = _posture
     # Largo de los Momentos según el arquetipo de tu club (Catenaccio pide 2 jugadas, D-16).
     _engine.moment_steps = _league.profile_for_team(_league.get_team(_my_team_id())).moment_steps
+    _setup_zones(_engine, _my_team_id())
     if _career != null:
         _career.configure_match(_engine, _player)   # fatiga, hype, forma y funados de la semana
     _engine.natural_executor_played.connect(_on_natural_executor)
@@ -584,6 +626,7 @@ func _setup_rival_engine() -> void:
     _rival_engine = MatchEngine.new(player, deck, rng,
             LeagueManager.team_attack_difficulty(_rival_team, BASE_DIFFICULTY))
     _rival.configure_engine(_rival_engine)
+    _setup_zones(_rival_engine, rival_id)
     _rival_engine.start()
 
 
@@ -604,6 +647,8 @@ func _play_rival_moment(exploited: bool, defense: Dictionary) -> Dictionary:
     e.exploit_rival_space = exploited
     e.opponent_pressure = defense.get("pressure", 0.0)
     e.opponent_block = defense.get("block", 0.0)
+    if e.zone_mode:
+        e.set_zone_rival(_engine)
     var m := e.begin_moment()
     var goals_before: int = e.stats["goals"]
     var scorer := {}
@@ -613,7 +658,7 @@ func _play_rival_moment(exploited: bool, defense: Dictionary) -> Dictionary:
         var pev := CoachBot.act(e, _rival)
         if pev.get("stolen", false):
             stolen = true
-            _engine.counter_ready = true   # el rival quiso aguantar y le robaste el balón: tu contragolpe
+            _engine.counter_ready = true   # le robaste el balón (al aguantar o, por zonas, al fallar): tu contragolpe
         if pev.get("natural", false) and not natural_names.has(pev["card_name"]):
             natural_names.append(pev["card_name"])
         if pev.get("goal", false):
@@ -686,6 +731,8 @@ func _rival_event() -> bool:
         if not ev["scorer"].is_empty():
             how = " · " + String(ev["scorer"]["card_name"]).to_upper()
         await _banner_show("¡GOL DE %s!%s" % [nm, how], COLOR_BAD, 1.3)
+    elif ev["stolen"] and _zone_mode:
+        await _banner_show("¡LE ROBASTE EL BALÓN A %s! · CONTRAGOLPE LISTO" % nm, COLOR_OK, 1.0)
     elif ev["stolen"]:
         await _banner_show("¡%s QUISO AGUANTAR Y LE ROBASTE EL BALÓN! · CONTRAGOLPE LISTO" % nm, COLOR_OK, 1.0)
     else:
@@ -741,6 +788,8 @@ func _player_moment_start() -> void:
         return
     _engine.opponent_pressure = defense["pressure"]   # se ven en tus cartas como Presión/Bloqueo rival
     _engine.opponent_block = defense["block"]
+    if _engine.zone_mode:
+        _engine.set_zone_rival(_rival_engine)
     var defense_text := _rival_defense_text(defense)
     if defense_text != "":
         await _banner_show(defense_text, COLOR_WARN, 0.8)
@@ -1032,6 +1081,13 @@ func _present_result(ev: Dictionary, clone: CardUI) -> void:
         await _banner_show("¡SE ROMPIÓ EL FLOW!", COLOR_WARN, 0.6)
     if ev.has("penalties_added"):
         await _banner_show("¡JUGADOR EXHAUSTO!", COLOR_BAD, 0.7)
+    if ev.get("stolen", false):
+        _rival_engine.counter_ready = true   # partido por zonas: el fallo fue robo
+        await _banner_show("¡TE ROBARON EL BALÓN! · CONTRAGOLPE DE %s" % _rival.profile_name.to_upper(), COLOR_BAD, 1.0)
+    elif ev.get("saved", false):
+        await _banner_show("¡ATAJÓ EL ARQUERO!", COLOR_BAD, 0.8)
+    elif ev.get("rebound", false):
+        await _banner_show("¡REBOTE! SIGUES EN EL ÁREA", COLOR_WARN, 0.8)
     if ev.get("out_of_ap", false):
         await _banner_show("SIN PA PARA SEGUIR · SE PIERDE LA JUGADA", COLOR_WARN, 0.8)
     if ev["injury"]:

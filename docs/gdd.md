@@ -279,7 +279,7 @@ chicos que invierten en gimnasio y centro médico para bajar fatiga y lesiones.
 - Todo en JSON: otra liga u otra época = otro conjunto de datos.
 - Marcas siempre parodiadas (D-01); datos históricos solo con fuente (D-02).
 
-## 7. Presentación [DECIDIDO: D-35 y D-37] · semana en T-09, partido en T-11
+## 7. Presentación [DECIDIDO: D-35, D-37 y D-41] · semana en T-09, partido en T-11 (cancha en 3D low poly)
 Dirección (D-35): transmisión de TV 2006 + cartas como láminas de álbum, jugadores sin caras, escudos
 generados con los colores del club. Concepto (D-37, maqueta v3 del lienzo "Dirección visual"): la semana
 es la mesa del DT (objetos con su material, timbres de tinta y plumón, una acción a la vez con

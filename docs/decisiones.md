@@ -374,6 +374,18 @@ cada pase en una decisión (arriesgar con la figura marcada o jugar seguro con e
 los 11 titulares. Valores, IA de las marcas y cartas de vuelta atrás se miden con `balance-lab` antes
 de fijarlos.
 
+**D-41 · 2026-10-30 · La cancha del partido va en 3D low poly** · VIGENTE
+El usuario vio la prueba técnica (T-12) y eligió 3D para T-11: "Si 3d, por ahora está bien". Precisa D-35
+y D-37; sigue valiendo lo demás de ambas (TV de 2006, láminas de álbum, sin caras, escudos generados).
+1. **Solo la cancha es 3D:** jugadores, pelota, pasto y cámara de TV, dentro de un `SubViewport`. Las
+   láminas, los botones y las gráficas de TV siguen en 2D. El motor (`core/`) no cambia.
+2. **Jugadores de pocos polígonos hechos en código,** sin cara, que se distinguen por el uniforme, la piel
+   y el pelo.
+3. **Límite de arte (propuesto por el análisis; revísalo si el arte lo pide):** animación solo por código,
+   sin modelos con esqueleto ni Blender.
+Por qué: la prueba se vio bien sin descargar nada y dio más de 60 cuadros por segundo en el PC del usuario.
+Falta medir en una Steam Deck antes de cerrar T-11: lo que hay es una estimación.
+
 ### Descartadas (para no reabrirlas sin datos nuevos)
 - **Tempo ofensivo +7 / regen +3** (2026-10-26): no llegaba al objetivo de goles y quedó obsoleto con
   PA + Estamina; el stash se borró.

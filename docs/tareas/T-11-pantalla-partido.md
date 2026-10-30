@@ -9,6 +9,7 @@ pantalla (`tools/capturas.gd`).
   I-41 (intención del rival)
 - **Requisitos:** T-09 (tema, letras, íconos, láminas, escudos) y T-10 (modo de zonas en el motor)
   mezcladas en `main`.
+- **Ojo, D-41 (2026-10-30):** la cancha va en 3D low poly, partiendo de `scenes/prueba_3d/` (T-12).
 - **Ojo, D-40 (2026-10-30):** la cancha debe mostrar las fichas de tus jugadores y las marcas del rival
   (libre, 1 contra 1, 1 contra 2), y el pase se juega arrastrando la carta sobre un compañero. Antes de
   lanzar esta tarea va el motor de D-40; la maqueta ya está: lienzo "Dirección visual", fila v4

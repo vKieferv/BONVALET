@@ -5,7 +5,7 @@ description: Reglas de estilo visual de Futbolista Deckbuilder ("transmisión de
 
 # director-arte-2006
 
-Fuente: D-35 y D-37 en `docs/decisiones.md`. Referencia visual: lienzo "Dirección visual"
+Fuente: D-35, D-37 y D-41 (cancha en 3D low poly, animación solo por código) en `docs/decisiones.md`. Referencia visual: lienzo "Dirección visual"
 (https://claude.ai/artifact/TxaUdVLTzGyWHzVjyD4jhm), **fila v3** (las filas de arriba son descartes).
 Solo mira capturas si este resumen no alcanza.
 

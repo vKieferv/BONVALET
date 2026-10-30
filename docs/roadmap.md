@@ -49,8 +49,8 @@ decidir. Mientras tanto no se sigue afinando el modelo actual (la curva de M2 es
 Antes de seguir, el juego tiene que dar ganas de jugarlo (usuario). Orden decidido (D-35): primero lo
 visual, después el partido por zonas con su pantalla nueva.
 - [x] T-09 · lámina, íconos y semana como mesa del DT (mezclada el 2026-10-29; capturas en `../capturas-t09/`)
-- [ ] T-10 · motor del partido por zonas, bots y medición (`T-10-partido-por-zonas.md`, D-36; puede
-      correr en la nube; mejor tras mezclar T-06)
+- [x] T-10 · motor del partido por zonas, bots y medición (`T-10-partido-por-zonas.md`, D-36; puede
+      correr en la nube; mejor tras mezclar T-06) · mezclada 2026-10-30 como modo en prueba (12 pts por jugador); falta jugarla a mano
 - [ ] T-11 · pantalla del partido como señal de TV por zonas (`T-11-pantalla-partido.md`, D-37; en el PC; tras T-09 y T-10)
 - [ ] Decisión del usuario tras medir y jugar: ¿el modo de zonas reemplaza al actual?
 

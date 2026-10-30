@@ -11,7 +11,8 @@ pantalla (`tools/capturas.gd`).
   mezcladas en `main`.
 - **Ojo, D-40 (2026-10-30):** la cancha debe mostrar las fichas de tus jugadores y las marcas del rival
   (libre, 1 contra 1, 1 contra 2), y el pase se juega arrastrando la carta sobre un compañero. Antes de
-  lanzar esta tarea va una maqueta de ese pase y el motor de D-40; actualiza este brief con ambos.
+  lanzar esta tarea va el motor de D-40; la maqueta ya está: lienzo "Dirección visual", fila v4
+  (`docs/cartas.md`, "Pase con marcas"). Actualiza este brief con ambos.
 - **Maqueta (referencia):** lienzo "Dirección visual", https://claude.ai/artifact/TxaUdVLTzGyWHzVjyD4jhm,
   tablero **"v3 · Partido por zonas"** (y "v3 · Anatomía de la lámina e íconos" para las láminas).
 

@@ -251,6 +251,24 @@ Lo que muestra:
   cansancio cambia el robo de cartas, no el %) y le da más valor a Aguantar (mano nueva).
 - Retroceder una zona (E) se ve futbolero pero marca mucho menos y deja a muchos sin cartas: descartada.
 
+## Pase con marcas (D-40; maqueta del 2026-10-30)
+Lienzo "Dirección visual", fila **v4** (https://claude.ai/artifact/TxaUdVLTzGyWHzVjyD4jhm): Colo-Colo
+contra U. de Chile, valores de prueba (×0,5 por punto de habilidad, 12 por jugador de diferencia).
+- **Antes del pase:** Aceval (LAT, Pase 66) tiene la pelota en la Salida. La U hace doble marca a
+  Fernández. Al arrastrar el Pase corto sobre cada compañero se ve su %:
+  | Receptor | Marca | Cuenta | % | Robo (1/4) |
+  |---|---|---|---|---|
+  | Vidal, Meléndez | libre | 39 + 6 + 12 | 57% | 11% |
+  | Sánchez | 1 vs 1 (Candelo, Lectura 66) | 39 + 6 + 0 | 45% | 14% |
+  | Fernández | 1 vs 2 (Iturra, Lectura 75) | 39 + 6 − 4,5 − 12 | 29% | 18% |
+  La tentación: Fernández tiene Regate 90. El Amague de Aceval (Regate 66 contra el Quite 53 de su
+  marcador) da 64% y lo deja con la pelota.
+- **Después del pase:** las mismas láminas pasan a ser de Fernández (silueta MCO). Amague: 39 + 18 +
+  7,5 (Regate 90 contra Quite 75) − 12 (1 vs 2) = 53%. El Área está cerrada (2 sobre cada delantero) y
+  la Descarga (ATRÁS) vuelve a la Salida con 67-70%.
+- **Reglas de pantalla que salen de aquí:** las marcas ("libre", "1 vs 2") se ven siempre en la zona
+  siguiente; el % solo aparece mientras arrastras una carta. La gráfica CON EL BALÓN dice quién juega.
+
 ## Pantalla de duelos (borrador, 2026-10-27)
 Maqueta en el lienzo "Pantalla de duelos" (privado del usuario):
 https://claude.ai/artifact/AeeGQGHLiq8XzefCjZ1nFW. Ejemplo: Colo-Colo (4-1-2-1-2) contra U. de Chile

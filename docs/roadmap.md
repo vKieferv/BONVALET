@@ -52,6 +52,7 @@ visual, después el partido por zonas con su pantalla nueva.
 - [x] T-10 · motor del partido por zonas, bots y medición (`T-10-partido-por-zonas.md`, D-36; puede
       correr en la nube; mejor tras mezclar T-06) · mezclada 2026-10-30 como modo en prueba (12 pts por jugador); falta jugarla a mano
 - [x] T-12 · prueba técnica de la cancha 3D low poly (`T-12-prueba-3d.md`, I-54) · mezclada 2026-11-01 en `scenes/prueba_3d/`: T-11 va en 3D (D-41), falta medir en Steam Deck
+- [ ] T-13 · motor de D-40: portador, marcas y habilidades (`T-13-motor-portador-marcas.md`; sin pantalla; antes de T-11)
 - [ ] T-11 · pantalla del partido como señal de TV por zonas (`T-11-pantalla-partido.md`, D-37; en el PC; tras T-09 y T-10)
 - [ ] Decisión del usuario tras medir y jugar: ¿el modo de zonas reemplaza al actual?
 

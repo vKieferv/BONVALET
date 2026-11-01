@@ -10,6 +10,7 @@ const Jugador := preload("res://scenes/prueba_3d/jugador_low_poly.gd")
 const Cancha := preload("res://scenes/prueba_3d/cancha_3d.gd")
 const Grafica := preload("res://scenes/prueba_3d/grafica_tv.gd")
 const Malla := preload("res://scenes/prueba_3d/malla_low_poly.gd")
+const Trayectoria := preload("res://scenes/prueba_3d/trayectoria.gd")
 const CARD_SCENE := preload("res://scenes/card_ui.tscn")
 
 const ALTO_MANO := 260.0        # lo que queda abajo para las láminas; la señal toma el resto de la ventana
@@ -68,16 +69,21 @@ const BASE_DUELO := 39.0
 const FACTOR_DUELO := 0.5
 const NUMEROS := 12.0
 
+const CENTRO_MANO := 603.0
+const ANCHO_MANO := 915.0
+const SIN_DUELO := ["pelotazo"]   # docs/cartas.md: "El Pelotazo no pelea: se salta la línea"
+
 const MANO := [
-    {"id": "pase_corto", "giro": -3.0, "baja": 0.0, "motivo": ""},
-    {"id": "toque_toque", "giro": -1.0, "baja": 6.0, "motivo": ""},
-    {"id": "amague", "giro": 1.0, "baja": 8.0, "motivo": ""},
-    {"id": "remate_simple", "giro": 3.0, "baja": 10.0, "motivo": "solo en el área"},
+    {"id": "pase_corto", "giro": -5.0, "baja": 8.0, "motivo": ""},
+    {"id": "toque_toque", "giro": -3.0, "baja": 3.0, "motivo": ""},
+    {"id": "pase_filtrado", "giro": -1.0, "baja": 0.0, "motivo": ""},
+    {"id": "pelotazo", "giro": 1.0, "baja": 0.0, "motivo": ""},
+    {"id": "amague", "giro": 3.0, "baja": 3.0, "motivo": ""},
+    {"id": "remate_simple", "giro": 5.0, "baja": 8.0, "motivo": "solo en el área"},
 ]
 
 const GRIS_FLECHA := Color("#c3c7cf")
 const CONTORNO_FLECHA := Color("#0d1118")
-const TECHO_FLECHA := 46.0      # la flecha no sube a la barra de arriba
 
 var _vista: SubViewport
 var _senal: SubViewportContainer
@@ -108,23 +114,21 @@ var _ancho := 1280.0
 var _alto_senal := 460.0
 var _reloj := 0.0
 var _cam_x := 0.0
+var _vuelo_carta := ""
 var _vuelo_desde := Vector3.ZERO
 var _vuelo_hasta := Vector3.ZERO
 var _vuelo_ini := -1.0
 var _vuelo_dura := 1.0
-var _vuelo_alto := 2.0
+var _pelota_antes := Vector3.ZERO
 var _pase_t := -1.0             # tiempo desde que el portador empezó a patear; negativo = no hay pase
 var _pase_a := ""
+var _pase_carta := ""
+var _pase_contacto := 0.0
 var _arrastre: CardUI           # lámina que se está arrastrando
 var _mouse := Vector2.ZERO
 var _apuntado := ""
-var _c1 := Vector2.ZERO         # puntos de control de la flecha y a dónde van (se mueven suave)
-var _c2 := Vector2.ZERO
-var _c1_objetivo := Vector2.ZERO
-var _c2_objetivo := Vector2.ZERO
-var _fin_calculado := Vector2(-9999, -9999)
-var _apuntado_calculado := ""
-var _reloj_curva := 0.0
+var _linea_3d := PackedVector3Array()   # la curva que se ve y que recorrerá la pelota
+var ver_trayectoria_en_vuelo := false   # deja la línea tenue durante el vuelo (para las capturas de comprobación)
 
 
 func _ready() -> void:
@@ -423,10 +427,9 @@ func _rect_con_balon() -> Rect2:
 
 
 func _rect_punta() -> Rect2:
-    if _apuntado == "":
+    if _arrastre == null or _linea_3d.is_empty():
         return Rect2()
-    var fin := _fin_flecha()
-    return Rect2(fin - Vector2(26, 44), Vector2(52, 50))
+    return Rect2(_a_pantalla(_linea_3d[-1]) - Vector2(26, 26), Vector2(52, 52))
 
 
 # Elige dónde va cada etiqueta para no tapar a nadie. Primero el portador y el apuntado; los demás, de
@@ -439,11 +442,10 @@ func _colocar_etiquetas(delta: float) -> void:
         cuerpos[nombre] = _rect_cuerpo(_jugadores[nombre])
     var pelota := _rect_pelota()
     var ocupados: Array[Rect2] = [_rect_con_balon()]
-    if _apuntado != "":
-        ocupados.append(_rect_punta())
     if _arrastre != null:
-        for p in _curva(_inicio_flecha(), _c1_objetivo, _c2_objetivo, _fin_flecha(), 28):
-            ocupados.append(Rect2(p - Vector2(9, 9), Vector2(18, 18)))
+        ocupados.append(_rect_punta())
+        for i in range(0, _linea_3d.size(), 2):
+            ocupados.append(Rect2(_a_pantalla(_linea_3d[i]) - Vector2(9, 9), Vector2(18, 18)))
     for zona: Array in _zonas:
         var l: Label = zona[0]
         ocupados.append(Rect2(l.position, l.size))
@@ -587,8 +589,8 @@ func _armar_mano() -> void:
     _volver_btn.position = Vector2(1072, 556)
     _volver_btn.mouse_filter = Control.MOUSE_FILTER_STOP
     _volver_btn.gui_input.connect(_al_pulsar_volver)
-    var aviso := Paleta.etiqueta("arrastra un pase\na un compañero.\n% de muestra, sin tirada", "plumon", 14, Paleta.PLUMON_CREMA)
-    aviso.position = Vector2(26, 604)
+    var aviso := Paleta.etiqueta("arrastra un pase\na un compañero.\n% de muestra,\nsin tirada", "plumon", 14, Paleta.PLUMON_CREMA)
+    aviso.position = Vector2(18, 596)
     aviso.rotation_degrees = -2.0
     _raiz_mano.add_child(aviso)
 
@@ -628,21 +630,29 @@ func _ordenar_mano() -> void:
     for ui in _laminas:
         if ui.visible:
             visibles.append(ui)
-    var paso := 174.0
-    var x := 640.0 - (visibles.size() * paso - 14.0) * 0.5
+    # Entre la moneda de PA y CEDER JUGADA; con la mano llena se montan un poco.
+    var paso := minf(174.0, (ANCHO_MANO - CardUI.TAMANO.x) / maxf(visibles.size() - 1.0, 1.0))
+    var x := CENTRO_MANO - (paso * (visibles.size() - 1.0) + CardUI.TAMANO.x) * 0.5
     for ui in visibles:
         var baja: float = MANO[_laminas.find(ui)]["baja"]
-        var alza := 16.0 if ui == _arrastre else 0.0
+        var alza := 26.0 if ui == _arrastre else 0.0
         ui.position = Vector2(x, 464.0 + baja - alza)
+        ui.z_index = 1 if ui == _arrastre else 0
         x += paso
 
 
 # % de muestra, con los números de docs/cartas.md: libre suma por números, 1 contra 1 es duelo y 1 contra 2
-# es duelo contra el mejor de los dos con el castigo por números. No sale del motor y no se tira.
+# es duelo contra el mejor de los dos con el castigo por números. No sale del motor y no se tira. La forma
+# de la trayectoria no entra aquí: una línea que pasa cerca de un rival no suma riesgo.
+# El Pelotazo no tiene duelo (39%). Lo de sus marcas no está definido: lo conservador es que libre no sume
+# y la doble marca sí reste.
 func porcentaje_pase(portador: String, receptor: String, c: Card) -> float:
     var marcas: Array = MARCAS[receptor]
     var pts := BASE_DUELO + c.effective_bonus() * 100.0
-    if marcas.is_empty():
+    if SIN_DUELO.has(c.id):
+        if marcas.size() > 1:
+            pts -= NUMEROS
+    elif marcas.is_empty():
         pts += NUMEROS
     else:
         var lectura := 0
@@ -680,11 +690,8 @@ func _al_tomar_lamina(ui: CardUI) -> void:
     _arrastre = ui
     _mouse = ui.global_position + ui.size * 0.5
     ui.flash(Paleta.DORADO)
-    _fin_calculado = Vector2(-9999, -9999)
     _apuntado = ""
     _actualizar_apuntado()
-    _c1 = _c1_objetivo
-    _c2 = _c2_objetivo
     _refrescar_mano()
 
 
@@ -737,40 +744,44 @@ func _actualizar_apuntado() -> void:
         _refrescar_mano()
         _actualizar_etiquetas()
         _actualizar_anillos()
-    var fin := _fin_flecha()
-    # También cada tanto: las etiquetas se corren para dejarle paso y el arco puede bajar.
-    if fin.distance_to(_fin_calculado) > 10.0 or _apuntado != _apuntado_calculado or _reloj - _reloj_curva > 0.25:
-        _fin_calculado = fin
-        _apuntado_calculado = _apuntado
-        _reloj_curva = _reloj
-        var curva := _elegir_curva(_inicio_flecha(), fin)
-        _c1_objetivo = curva[0]
-        _c2_objetivo = curva[1]
+    _linea_3d = Trayectoria.puntos(_arrastre.card.id, _pelota.position, _fin_linea())
 
 
 func _soltar(aceptar: bool) -> void:
     var ui := _arrastre
     var receptor := _apuntado if aceptar else ""
+    var destino := _fin_linea()
     _arrastre = null
     _apuntado = ""
     ui.flash(Color(0, 0, 0, 0))
     if receptor != "":
         ui.visible = false     # la lámina se gasta solo si el pase se hizo
-        _lanzar_pase(receptor)
+        _lanzar_pase(receptor, ui.card.id, destino)
     _refrescar_mano()
     _actualizar_etiquetas()
     _actualizar_anillos()
 
 
-func _inicio_flecha() -> Vector2:
-    return _arrastre.global_position + Vector2(_arrastre.size.x * 0.5, 8.0)
+# Dónde llega la pelota: a los pies del apuntado, del lado por donde viene.
+func _llegada(nombre: String) -> Vector3:
+    var pies: Vector3 = _jugadores[nombre].position
+    var viene := Vector3(_pelota.position.x - pies.x, 0.0, _pelota.position.z - pies.z).normalized()
+    return pies + viene * 0.6 + Vector3(0, RADIO_PELOTA, 0)
 
 
-# La flecha termina sobre la cabeza del apuntado, o en el mouse si no apunta a nadie.
-func _fin_flecha() -> Vector2:
+# La línea termina a los pies del apuntado o, sin objetivo, en el punto del pasto bajo el mouse.
+func _fin_linea() -> Vector3:
     if _apuntado != "":
-        return _a_pantalla(_jugadores[_apuntado].position + Vector3(0, Jugador.ALTURA + 0.22, 0))
-    return _mouse
+        return _llegada(_apuntado)
+    return _punto_bajo_mouse()
+
+
+func _punto_bajo_mouse() -> Vector3:
+    var m := Vector2(clampf(_mouse.x, 2.0, _ancho - 2.0), clampf(_mouse.y, 44.0, _alto_senal - 2.0)) * _k
+    var o := _camara.project_ray_origin(m)
+    var d := _camara.project_ray_normal(m)
+    var p := o + d * ((RADIO_PELOTA - o.y) / d.y)
+    return Vector3(clampf(p.x, Cancha.X_MIN, Cancha.X_MAX), RADIO_PELOTA, clampf(p.z, Cancha.FONDO_Z, Cancha.FRENTE_Z))
 
 
 func _tono_apuntado() -> String:
@@ -798,110 +809,55 @@ func tono_flecha() -> String:
     return _tono_apuntado()
 
 
-func _curva(ini: Vector2, c1: Vector2, c2: Vector2, fin: Vector2, n: int) -> PackedVector2Array:
-    var pts := PackedVector2Array()
-    for i in n + 1:
-        pts.append(ini.bezier_interpolate(c1, c2, fin, float(i) / n))
-    return pts
+# La línea que se ve ahora, en el mundo 3D (lo usa tools/prueba_3d_captura.gd).
+func puntos_linea() -> PackedVector3Array:
+    return _linea_3d
 
 
-# Busca el arco más bajo que no pase sobre otro jugador ni sobre otra etiqueta: sube desde la lámina, cruza
-# por arriba y baja sobre la cabeza del apuntado. No sube a la barra de arriba.
-func _elegir_curva(ini: Vector2, fin: Vector2) -> Array:
-    var estorbos := _estorbos_flecha()
-    var dx := fin.x - ini.x
-    var mas_alto := minf(ini.y, fin.y)
-    var mejor := [ini, fin]
-    var mejor_costo := INF
-    for salida: float in [0.1, 0.3, -0.05, -0.14]:
-        var cima := mas_alto - 24.0
-        while true:
-            var y_ctrl := (cima - (ini.y + fin.y) / 8.0) / 0.75
-            var c1 := Vector2(ini.x + dx * salida, y_ctrl)
-            var c2 := Vector2(fin.x - dx * 0.2, y_ctrl)
-            var pts := _curva(ini, c1, c2, fin, 24)
-            var costo := (mas_alto - cima) * 0.02 + (1.0 if salida < 0.0 else 0.0)   # salir hacia atrás, solo si hace falta
-            for p in pts:
-                if p.y < TECHO_FLECHA - 6.0:
-                    costo += 50.0
-                    break
-            var limpio := true
-            for clave: String in _cruces(pts, estorbos):
-                limpio = false
-                costo += 3.0 if clave.begins_with("zona ") else 10.0
-            if costo < mejor_costo:
-                mejor_costo = costo
-                mejor = [c1, c2]
-            # Un arco más alto solo cuesta más: si este no toca a nadie, no se sigue subiendo.
-            if limpio or cima <= TECHO_FLECHA:
-                break
-            cima = maxf(cima - 26.0, TECHO_FLECHA)
-    return mejor
-
-# Lo que la flecha debe esquivar. Los nombres de zona pesan menos: mejor sobre un nombre que sobre alguien.
-func _estorbos_flecha() -> Dictionary:
-    var out := {}
-    for nombre: String in _jugadores:
-        if nombre != _apuntado:
-            out[nombre] = _rect_cuerpo(_jugadores[nombre])
-    for nombre: String in _rect_etiqueta:
-        if nombre != _apuntado:
-            out["etiqueta " + nombre] = _rect_etiqueta[nombre]
-    for zona: Array in _zonas:
-        var l: Label = zona[0]
-        if l.visible:
-            out["zona " + l.text] = Rect2(l.position, l.size)
-    return out
-
-
-func _cruces(pts: PackedVector2Array, estorbos: Dictionary) -> Array:
-    var out: Array = []
-    for clave: String in estorbos:
-        var r: Rect2 = estorbos[clave]
-        for i in range(1, pts.size()):
-            if r.intersects(Rect2(pts[i - 1], Vector2.ZERO).expand(pts[i])):
-                out.append(clave)
-                break
-    return out
-
-
-# Por dónde pasa la flecha que se ve ahora (lo usa tools/prueba_3d_captura.gd).
-func cruces_flecha() -> Array:
-    if _arrastre == null:
-        return []
-    return _cruces(_curva(_inicio_flecha(), _c1, _c2, _fin_flecha(), 40), _estorbos_flecha())
-
-
-# Flecha al estilo Slay the Spire: tramos gruesos que crecen hacia la punta, contorno oscuro para leerse
-# sobre el pasto y las gráficas, y una punta grande orientada según la curva.
+# La línea del pase: la trayectoria real de la pelota, proyectada a la pantalla. Tramos gruesos que crecen
+# hacia la punta, contorno oscuro para leerse sobre jugadores y gráficas, y una punta orientada según la curva.
 func _dibujar_flecha() -> void:
-    if _arrastre == null:
-        return
-    var ini := _inicio_flecha()
-    var fin := _fin_flecha()
-    var color := _color_apuntar(_tono_apuntado())
-    var pts := _curva(ini, _c1, _c2, fin, 64)
-    var largos := PackedFloat32Array([0.0])
-    for i in range(1, pts.size()):
-        largos.append(largos[i - 1] + pts[i].distance_to(pts[i - 1]))
+    if _arrastre != null and not _linea_3d.is_empty():
+        _dibujar_linea(_arrastre.card.id, _color_apuntar(_tono_apuntado()), 1.0, true)
+    elif ver_trayectoria_en_vuelo and en_vuelo():
+        _dibujar_linea(_vuelo_carta, Color.WHITE, 0.55, false)
+
+
+func _dibujar_linea(carta: String, color: Color, alfa: float, con_punta: bool) -> void:
+    var f := Trayectoria.forma(carta)
+    var pts := PackedVector2Array()
+    var largos := PackedFloat32Array()
+    for i in _linea_3d.size():
+        pts.append(_a_pantalla(_linea_3d[i]))
+        largos.append(0.0 if i == 0 else largos[i - 1] + pts[i].distance_to(pts[i - 1]))
     var total := largos[-1]
     if total < 6.0:
         return
-    var tramo := 26.0
-    var hueco := 12.0
-    var largo_punta := minf(40.0, total * 0.5)
-    var limite := total - largo_punta + 6.0
-    var s := fmod(_reloj * 46.0, tramo + hueco) - tramo
+    if f["sombra"]:
+        var suelo := PackedVector2Array()
+        for p in _linea_3d:
+            suelo.append(_a_pantalla(Vector3(p.x, 0.03, p.z)))
+        _flecha.draw_polyline(suelo, Color(0, 0, 0, 0.4 * alfa), 8.0, true)
+    var tramo: float = f["tramo"]
+    var hueco: float = f["hueco"]
+    var largo_punta := minf(36.0, total * 0.5)
+    var limite := total - (largo_punta - 6.0 if con_punta else 0.0)
+    var contorno := Color(CONTORNO_FLECHA, alfa)
+    var relleno := Color(color, alfa)
+    var s := fmod(_reloj * float(f["velocidad"]) * 5.0, tramo + hueco) - tramo
     while s < limite:
-        var a := maxf(s, 0.0)
+        var a := maxf(s, 16.0)     # empieza después de la pelota, para no taparla
         var b := minf(s + tramo, limite)
         if b - a > 2.0:
             var parte := _sub_curva(pts, largos, a, b)
             var ancho := lerpf(7.0, 13.0, (a + b) * 0.5 / total)
-            _flecha.draw_polyline(parte, CONTORNO_FLECHA, ancho + 5.0, true)
-            _flecha.draw_polyline(parte, color, ancho, true)
+            _flecha.draw_polyline(parte, contorno, ancho + 5.0, true)
+            _flecha.draw_polyline(parte, relleno, ancho, true)
         s += tramo + hueco
-    var dir := (pts[-1] - pts[-5]).normalized()
+    if not con_punta:
+        return
+    var fin := pts[-1]
+    var dir := (fin - pts[-4]).normalized()
     var lado := Vector2(-dir.y, dir.x)
     var ancho_punta := largo_punta * 0.58
     var atras := fin - dir * largo_punta
@@ -929,6 +885,10 @@ func _sub_curva(pts: PackedVector2Array, largos: PackedFloat32Array, a: float, b
 
 func ocupado() -> bool:
     return _pase_t >= 0.0
+
+
+func en_vuelo() -> bool:
+    return _vuelo_ini >= 0.0
 
 
 func portador() -> String:
@@ -978,12 +938,12 @@ func _set_portador(nombre: String) -> void:
     _camino.queue_redraw()
 
 
-# A dónde corre cada uno: el receptor sale al encuentro de la pelota, sus marcas se le pegan y los demás
-# se acercan un poco a la jugada. Los rivales guardan su distancia con el que marcan.
+# A dónde corre cada uno: el receptor espera la pelota donde apuntó la línea, sus marcas se quedan con él y
+# los demás se acercan un poco a la jugada. Los rivales guardan su distancia con el que marcan.
 func _destino_propio(nombre: String, receptor: String) -> Vector3:
     var base := _base(nombre)
     if nombre == receptor:
-        return base + (_pelota.position - base).normalized() * 1.1 * Vector3(1, 0, 1)
+        return _jugadores[nombre].position
     return base.move_toward(_base(receptor), 0.8)
 
 
@@ -996,10 +956,14 @@ func _destino(nombre: String, receptor: String) -> Vector3:
     return _base(nombre)
 
 
-func _lanzar_pase(receptor: String) -> void:
+func _lanzar_pase(receptor: String, carta: String, destino: Vector3) -> void:
     _pase_a = receptor
+    _pase_carta = carta
+    _vuelo_hasta = destino
     _pase_t = 0.0
-    _jugadores[_portador].patear()
+    var rapidez: float = Trayectoria.forma(carta)["patada"]
+    _pase_contacto = Jugador.CONTACTO_PATADA / rapidez
+    _jugadores[_portador].patear(rapidez)
 
 
 func _avanzar_pase(delta: float) -> void:
@@ -1007,18 +971,14 @@ func _avanzar_pase(delta: float) -> void:
         return
     var antes := _pase_t
     _pase_t += delta
-    if antes < Jugador.CONTACTO_PATADA and _pase_t >= Jugador.CONTACTO_PATADA:
-        var llegada := _destino(_pase_a, _pase_a)
-        var fin := llegada + llegada.direction_to(_pelota.position * Vector3(1, 0, 1)) * 0.6
-        var distancia := _pelota.position.distance_to(fin)
+    if antes < _pase_contacto and _pase_t >= _pase_contacto:
+        _vuelo_carta = _pase_carta
         _vuelo_desde = _pelota.position
-        _vuelo_hasta = fin
         _vuelo_ini = _reloj
-        _vuelo_dura = clampf(distancia / 10.0, 0.7, 1.3)
-        _vuelo_alto = clampf(distancia * 0.2, 1.0, 3.0)
+        _vuelo_dura = Trayectoria.duracion(_pase_carta, _vuelo_desde, _vuelo_hasta)
         for nombre: String in _jugadores:
-            _jugadores[nombre].ir_a(_destino(nombre, _pase_a), _vuelo_dura - 0.05)
-    elif antes >= Jugador.CONTACTO_PATADA and _vuelo_ini < 0.0:
+            _jugadores[nombre].ir_a(_destino(nombre, _pase_a), _vuelo_dura)
+    elif antes >= _pase_contacto and _vuelo_ini < 0.0:
         _pase_t = -1.0
         _set_portador(_pase_a)
 
@@ -1034,30 +994,36 @@ func _process(delta: float) -> void:
     _colocar_etiquetas(delta)
     if _arrastre != null:
         _actualizar_apuntado()
-        var suave := 1.0 - exp(-18.0 * delta)
-        _c1 = _c1.lerp(_c1_objetivo, suave)
-        _c2 = _c2.lerp(_c2_objetivo, suave)
     _flecha.queue_redraw()
 
 
 func _mover_pelota(delta: float) -> void:
     if _vuelo_ini >= 0.0:
-        var k := (_reloj - _vuelo_ini) / _vuelo_dura
-        if k >= 1.0:
+        var t := (_reloj - _vuelo_ini) / _vuelo_dura
+        _pelota_antes = _pelota.position
+        if t >= 1.0:
             _vuelo_ini = -1.0
-            _pelota.position = Vector3(_vuelo_hasta.x, RADIO_PELOTA, _vuelo_hasta.z)
+            _pelota.position = _vuelo_hasta
         else:
-            var p := _vuelo_desde.lerp(_vuelo_hasta, k)
-            p.y = RADIO_PELOTA + 4.0 * _vuelo_alto * k * (1.0 - k)
-            _pelota.position = p
-            _pelota.rotate_object_local(Vector3.RIGHT, -delta * 11.0)
-            _pelota.rotate_object_local(Vector3.UP, delta * 3.0)
+            _pelota.position = Trayectoria.punto(_vuelo_carta, _vuelo_desde, _vuelo_hasta, Trayectoria.avance(_vuelo_carta, t))
+            _girar_pelota(delta)
     var altura := _pelota.position.y - RADIO_PELOTA
     var radio := clampf(0.34 + altura * 0.1, 0.34, 0.7)
     _sombra_pelota.position = Vector3(_pelota.position.x, 0.05, _pelota.position.z)
     _sombra_pelota.scale = Vector3(radio, 1.0, radio)
     var mat: StandardMaterial3D = _sombra_pelota.get_surface_override_material(0)
     mat.albedo_color.a = clampf(0.55 - altura * 0.09, 0.22, 0.55)
+
+
+# La pelota rueda en la dirección que lleva; cada carta le da su giro y su efecto.
+func _girar_pelota(delta: float) -> void:
+    var f := Trayectoria.forma(_vuelo_carta)
+    var rumbo := _pelota.position - _pelota_antes
+    rumbo.y = 0.0
+    if rumbo.length() > 0.0001:
+        _pelota.rotate(Vector3.UP.cross(rumbo).normalized(), delta * float(f["giro"]))
+    if float(f["efecto"]) != 0.0:
+        _pelota.rotate(Vector3.UP, delta * float(f["efecto"]))
 
 
 func _objetivo_camara(x_pelota: float) -> float:

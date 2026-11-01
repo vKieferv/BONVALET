@@ -22,6 +22,7 @@ var _carrera := 0.0             # 0 quieto, 1 corriendo: mezcla de las dos anima
 var _t := 0.0
 var _fase_pasos := 0.0
 var _patada := -1.0             # segundos desde que empezó la patada; negativo = no patea
+var _patada_rapidez := 1.0
 
 var _cuerpo: Node3D
 var _torso: Node3D
@@ -170,8 +171,10 @@ func ir_a(pos: Vector3, tiempo: float) -> void:
     _velocidad = position.distance_to(pos) / maxf(tiempo, 0.05)
 
 
-func patear() -> void:
+# rapidez 1 = la patada normal; más alta, un toque seco.
+func patear(rapidez: float = 1.0) -> void:
     _patada = 0.0
+    _patada_rapidez = rapidez
 
 
 # Pone o saca el anillo del suelo (portador, receptor, libre). null = sin anillo.
@@ -240,7 +243,7 @@ func _animar(delta: float) -> void:
 
 # La pierna derecha va atrás, pasa por la pelota y vuelve. Los brazos abren para equilibrar.
 func _animar_patada(delta: float) -> void:
-    _patada += delta
+    _patada += delta * _patada_rapidez
     var t := _patada
     if t >= DURACION_PATADA:
         _patada = -1.0

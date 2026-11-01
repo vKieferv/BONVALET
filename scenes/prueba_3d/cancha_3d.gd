@@ -1,8 +1,8 @@
 extends Node3D
 
 # T-12: la cancha de la prueba, a escala de TV (no a escala real: la zona mide 17 m para que los
-# jugadores se vean como en la maqueta v5). Pasto con franjas, líneas, telestrador amarillo de la zona
-# con su nombre pintado, carteles parodia y una tribuna con público generado por código.
+# jugadores se vean como en la maqueta v5). Pasto con franjas, líneas, telestrador amarillo de la zona,
+# carteles parodia y una tribuna con público generado por código. Los nombres de zona van en 2D (prueba_3d.gd).
 
 const Malla := preload("res://scenes/prueba_3d/malla_low_poly.gd")
 
@@ -32,7 +32,6 @@ const CARTEL_Z := -10.7
 func _ready() -> void:
     _armar_pasto()
     _armar_marcas()
-    _armar_nombres()
     _armar_carteles()
     _armar_tribuna()
 
@@ -73,23 +72,6 @@ func _armar_marcas() -> void:
     mi.set_surface_override_material(0, Malla.material_vertices(false, true))
     mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
     add_child(mi)
-
-
-func _armar_nombres() -> void:
-    for dato: Array in [["SALIDA", -14.0, 0.85], ["MEDIO", -2.5, 0.85], ["ÁREA", 19.0, 0.5]]:
-        var l := Label3D.new()
-        l.text = dato[0]
-        l.font = Paleta.letra("plumon")
-        l.font_size = 128
-        l.outline_size = 0
-        l.pixel_size = 0.015
-        l.modulate = Color(TELESTRADOR, dato[2])
-        l.shaded = false
-        l.rotation.x = -PI / 2.0
-        l.scale = Vector3(1.0, 2.0, 1.0)   # estirado a lo largo, como las letras pintadas en el pasto
-        l.position = Vector3(dato[1], 0.035, -7.4)
-        l.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-        add_child(l)
 
 
 func _armar_carteles() -> void:

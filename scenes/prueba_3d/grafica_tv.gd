@@ -15,6 +15,7 @@ var puntos := 0
 var color_puntos := Color.WHITE
 var borde := Color(0, 0, 0, 0)
 var margen := 9.0
+var triangulo := false            # triángulo al final del texto (ELIGE)
 
 
 func _init() -> void:
@@ -39,6 +40,8 @@ func medida() -> Vector2:
     var alto := f.get_height(tam) + 2.0
     if puntos > 0:
         w += 6.0 + puntos * (_radio_punto() * 2.0 + 4.0)
+    if triangulo:
+        w += tam * 0.7
     return Vector2(w + margen * 2.0 + alto * SKEW, alto)
 
 
@@ -63,6 +66,10 @@ func _draw() -> void:
     var base := Vector2(margen + dx * 0.5, f.get_ascent(tam) + 1.0)
     draw_string(f, base + Vector2(0, 1.5), texto, HORIZONTAL_ALIGNMENT_LEFT, -1, tam, Color(0, 0, 0, 0.55))
     draw_string(f, base, texto, HORIZONTAL_ALIGNMENT_LEFT, -1, tam, color_texto)
+    if triangulo:
+        var x0 := base.x + f.get_string_size(texto, HORIZONTAL_ALIGNMENT_LEFT, -1, tam).x + tam * 0.2
+        var mitad := s.y * 0.5
+        draw_colored_polygon(PackedVector2Array([Vector2(x0, mitad - tam * 0.3), Vector2(x0 + tam * 0.42, mitad), Vector2(x0, mitad + tam * 0.3)]), color_texto)
     if puntos > 0:
         var r := _radio_punto()
         var x := base.x + f.get_string_size(texto, HORIZONTAL_ALIGNMENT_LEFT, -1, tam).x + 6.0 + r

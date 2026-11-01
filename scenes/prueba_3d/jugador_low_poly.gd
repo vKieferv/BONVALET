@@ -7,6 +7,8 @@ extends Node3D
 const Malla := preload("res://scenes/prueba_3d/malla_low_poly.gd")
 
 const ALTURA_CADERA := 0.92
+const ESCALA := 1.15            # más grande que una persona, para que se lea como en la maqueta v5
+const ALTURA := 2.2             # de los pies a la cabeza, con la escala
 const DURACION_PATADA := 0.55
 const CONTACTO_PATADA := 0.25   # segundos desde que empieza la patada hasta que toca la pelota
 
@@ -42,12 +44,12 @@ static func _forma(nombre: String) -> ArrayMesh:
 static func _armar_formas() -> void:
     # Pelvis (short)
     var m := Malla.new()
-    m.prisma(-0.1, Vector2(0.17, 0.115), 0.1, Vector2(0.195, 0.125), 6)
+    m.prisma(-0.1, Vector2(0.2, 0.145), 0.1, Vector2(0.225, 0.155), 6)
     _formas["pelvis"] = m.a_malla()
     # Torso: camiseta y cuello
     m = Malla.new()
-    m.prisma(0.0, Vector2(0.19, 0.135), 0.36, Vector2(0.28, 0.18), 6)
-    m.prisma(0.36, Vector2(0.28, 0.18), 0.52, Vector2(0.17, 0.12), 6)
+    m.prisma(0.0, Vector2(0.22, 0.165), 0.36, Vector2(0.33, 0.22), 6)
+    m.prisma(0.36, Vector2(0.33, 0.22), 0.52, Vector2(0.2, 0.145), 6)
     _formas["torso"] = m.a_malla()
     m = Malla.new()
     m.prisma(0.5, Vector2(0.095, 0.09), 0.56, Vector2(0.085, 0.08), 6)
@@ -76,26 +78,26 @@ static func _armar_formas() -> void:
     _formas["pelo_afro"] = m.a_malla()
     # Muslo: short y piel
     m = Malla.new()
-    m.prisma(-0.23, Vector2(0.1, 0.1), 0.05, Vector2(0.115, 0.115), 6)
+    m.prisma(-0.23, Vector2(0.125, 0.13), 0.05, Vector2(0.145, 0.15), 6)
     _formas["muslo"] = m.a_malla()
     m = Malla.new()
-    m.prisma(-0.44, Vector2(0.07, 0.075), -0.23, Vector2(0.09, 0.09), 6)
+    m.prisma(-0.44, Vector2(0.09, 0.095), -0.23, Vector2(0.115, 0.12), 6)
     m.a_malla(_formas["muslo"])
     # Pierna: media y bota
     m = Malla.new()
-    m.prisma(-0.37, Vector2(0.058, 0.062), 0.0, Vector2(0.075, 0.08), 6)
+    m.prisma(-0.37, Vector2(0.07, 0.075), 0.0, Vector2(0.095, 0.1), 6)
     _formas["pierna"] = m.a_malla()
     m = Malla.new()
-    m.prisma(-0.47, Vector2(0.075, 0.13), -0.39, Vector2(0.07, 0.11), 6, Color.WHITE, Vector2(0, -0.05), Vector2(0, -0.04))
-    m.prisma(-0.39, Vector2(0.066, 0.075), -0.36, Vector2(0.06, 0.066), 6)
+    m.prisma(-0.47, Vector2(0.09, 0.145), -0.39, Vector2(0.085, 0.125), 6, Color.WHITE, Vector2(0, -0.05), Vector2(0, -0.04))
+    m.prisma(-0.39, Vector2(0.08, 0.09), -0.36, Vector2(0.072, 0.08), 6)
     m.a_malla(_formas["pierna"])
     # Brazo: manga y piel
     m = Malla.new()
-    m.prisma(-0.24, Vector2(0.07, 0.07), 0.03, Vector2(0.085, 0.085), 6)
+    m.prisma(-0.24, Vector2(0.09, 0.09), 0.03, Vector2(0.105, 0.105), 6)
     _formas["brazo"] = m.a_malla()
     m = Malla.new()
-    m.prisma(-0.46, Vector2(0.048, 0.048), -0.24, Vector2(0.06, 0.06), 5)
-    m.prisma(-0.53, Vector2(0.04, 0.05), -0.46, Vector2(0.055, 0.055), 5)
+    m.prisma(-0.46, Vector2(0.058, 0.058), -0.24, Vector2(0.072, 0.072), 5)
+    m.prisma(-0.53, Vector2(0.05, 0.06), -0.46, Vector2(0.066, 0.066), 5)
     m.a_malla(_formas["brazo"])
 
 
@@ -111,6 +113,7 @@ static func triangulos_por_jugador(estilo: String = "corto") -> int:
 
 func armar(p_kit: Dictionary) -> void:
     kit = p_kit
+    scale = Vector3.ONE * ESCALA
     _rumbo = randf_range(0.0, TAU)
     _t = randf_range(0.0, 6.0)
     _cuerpo = _pivote(self, Vector3(0, ALTURA_CADERA, 0))
@@ -118,15 +121,16 @@ func armar(p_kit: Dictionary) -> void:
     _torso = _pivote(_cuerpo, Vector3(0, 0.08, 0))
     _pieza(_torso, "torso", [kit["camiseta"], kit["acento"]])
     _cabeza = _pivote(_torso, Vector3(0, 0.52, 0))
+    _cabeza.scale = Vector3.ONE * 1.12
     _pieza(_cabeza, "cabeza", [kit["piel"]])
     var estilo := String(kit.get("estilo", "corto"))
     if estilo != "pelado":
         _pieza(_cabeza, "pelo_" + estilo, [kit["pelo"]])
     for lado: float in [-1.0, 1.0]:
-        var brazo := _pivote(_torso, Vector3(lado * 0.31, 0.45, 0))
+        var brazo := _pivote(_torso, Vector3(lado * 0.37, 0.45, 0))
         _pieza(brazo, "brazo", [kit["camiseta"], kit["piel"]])
         _brazos.append(brazo)
-        var muslo := _pivote(_cuerpo, Vector3(lado * 0.105, -0.02, 0))
+        var muslo := _pivote(_cuerpo, Vector3(lado * 0.125, -0.02, 0))
         _pieza(muslo, "muslo", [kit["short"], kit["piel"]])
         _muslos.append(muslo)
         var rodilla := _pivote(muslo, Vector3(0, -0.43, 0))
@@ -274,4 +278,4 @@ func junto_al_pie(hacia: Vector3, radio_pelota: float) -> Vector3:
     dir.y = 0.0
     if dir.length() < 0.01:
         dir = Vector3.FORWARD
-    return position + dir.normalized() * 0.42 + Vector3(0, radio_pelota, 0)
+    return position + dir.normalized() * 0.6 + Vector3(0, radio_pelota, 0)

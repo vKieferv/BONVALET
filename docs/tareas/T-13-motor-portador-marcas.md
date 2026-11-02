@@ -46,7 +46,7 @@ habilidades. Los bots lo juegan y `balance-lab` lo mide. **Con el modo apagado, 
 4. **`DuelRunner`, `SimRunner`, `sim.gd`:** pasan el modo y los datos. `match_view` no cambia.
 5. **Medición (`balance-lab`, `tests/lab/duelos.json`):** zonas contra duelos y, dentro de duelos: 0,5 contra
    0,25 por punto; 12 contra 6 pts por marca; remates con −10 de bono (propuesta de `cartas.md`); las dos
-   reglas del Pelotazo (ver preguntas). Por variante: goles (inicio, mitad, final), lesiones, cansancio 1T/2T,
+   reglas del Pelotazo (marcas a la mitad o a un cuarto, ver respuestas). Por variante: goles (inicio, mitad, final), lesiones, cansancio 1T/2T,
    robos y contragolpes, Momentos sin cartas, constructibilidad, jerarquía entre clubes y **cuánto se reparte el
    balón** (toques por jugador). Corre también `tests/lab/medir_rival.gd`.
 6. **Ajuste:** si queda fuera de 2,3-2,6 goles al inicio, se ajustan solo los valores nuevos de este modo. Si no
@@ -67,11 +67,10 @@ habilidades. Los bots lo juegan y `balance-lab` lo mide. **Con el modo apagado, 
 - [ ] `docs/arquitectura.md` y `docs/gdd.md` (modo en prueba) actualizados.
 - [ ] Rama subida e informe con recomendación de valores y lo que quedó sin verificar.
 
-## Preguntas abiertas (para el usuario; se mide con la opción conservadora y se anota)
-- **Pelotazo y marcas:** sin duelo. T-12 usó "libre no suma, doble marca resta". Alternativa: las marcas no
-  cuentan, porque salta la línea. Medir las dos.
-- **Regate al entrar a otra zona:** el portador llega sin un lugar en esa línea. Conservadora: el rival vuelve a
-  repartir contándolo a él.
-- **Carta firma de otro jugador:** la juega el portador, sin Ejecutor Natural. ¿O solo se puede jugar si la tiene
-  su dueño? Conservadora: se juega sin bono.
+## Respuestas del usuario (2026-11-02)
+- **Pelotazo y marcas:** sin duelo, y las marcas **sí cuentan, pero poco**. Valor de prueba: la mitad
+  (libre +6, doble marca −6); en la medición, compara también con un cuarto (±3).
+- **Regate al entrar a otra zona:** "probemos": el rival vuelve a repartir las marcas contándolo a él. Mide
+  qué tan seguido el regate termina en marca doble.
+- **Carta firma de otro jugador:** la juega el portador, **sin bono** del Ejecutor Natural.
 - Cualquier otra duda de diseño: no se inventa; opción conservadora y nota en el informe.

@@ -9,7 +9,8 @@ extends RefCounted
 # SquadManager.build_match_templates para simular a un club con su plantel),
 # opponent_pressure / opponent_block (defensa rival fija en cada Momento, como la que deja tu fase defensiva),
 # zone_mode con formation / line_strength y rival_formation / rival_line_strength (partido por zonas,
-# D-36; los datos salen de SquadManager.zone_data; el rival juega en rival_posture).
+# D-36; los datos salen de SquadManager.zone_data; el rival juega en rival_posture) y duel_mode con
+# players / style y rival_players / rival_style (modo de duelos, D-40: SquadManager.duel_data).
 static func run(profile: BotProfile, n: int, cfg: Dictionary, templates: Array, progress: Callable = Callable()) -> Dictionary:
 	var totals := {}
 	var goals := PackedInt32Array()
@@ -35,6 +36,12 @@ static func run(profile: BotProfile, n: int, cfg: Dictionary, templates: Array, 
 			e.rival_formation = cfg.get("rival_formation", [])
 			e.rival_line_strength = cfg.get("rival_line_strength", [])
 			e.rival_posture = int(cfg.get("rival_posture", MatchEngine.Posture.NORMAL)) as MatchEngine.Posture
+			if cfg.get("duel_mode", false):
+				e.duel_mode = true
+				e.duel_players = cfg.get("players", [])
+				e.mark_style = cfg.get("style", "")
+				e.rival_players = cfg.get("rival_players", [])
+				e.rival_mark_style = cfg.get("rival_style", "")
 		e.start()
 		while not e.finished:
 			e.opponent_pressure = cfg.get("opponent_pressure", 0.0)   # advance() la limpia en cada Momento

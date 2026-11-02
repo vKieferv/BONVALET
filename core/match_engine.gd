@@ -96,6 +96,21 @@ const LONG_SHOT_PENALTY := 0.15       # tiro lejano desde el Medio: -15 pts por 
 const ZONE_FAIL_STAMINA := 0.5        # un fallo gasta además la mitad del desgaste de la carta
 const ZONE_SAVE_CHANCE := 0.5         # remate fallado: la mitad, el arquero se queda (fin, sin contragolpe)
 
+# --- Modo de duelos (D-40, T-13): en prueba, apagado por defecto (duel_mode, exige zone_mode) ---
+# La carta la juega el portador; el pase elige un receptor de la zona siguiente; el rival reparte sus
+# marcas en cada zona (CoachBot.assign_marks) y se enfrentan las habilidades: Pase contra Lectura del
+# mejor marcador del receptor, Regate contra Quite del mejor marcador del portador, Remate contra
+# Atajada. % = base fija + carta + factor × (tu habilidad − la suya) + marcas: reemplaza la técnica, la
+# dificultad rival y los números y la fuerza de la zona. Valores de prueba, en variables duel_* para
+# que tests/balance_lab.gd los varíe.
+const DUEL_BASE := 0.39               # base 54 de hoy menos la defensa rival de 15 (D-32)
+const DUEL_SKILL_FACTOR := 0.5        # pts por punto de habilidad de diferencia (×0,5 de prueba)
+const DUEL_MARK_PTS := 0.12           # libre +12, 1 contra 1 = 0, cada marcador extra −12
+const DUEL_PELOTAZO_FACTOR := 0.5     # el Pelotazo no pelea: sus marcas cuentan la mitad (usuario, 2026-11-02)
+const DUEL_NATURAL_BONUS := 0.05      # Ejecutor Natural: solo si la carta es del portador (D-32)
+# Orden de los puestos de atrás hacia adelante: reparte a los titulares en las líneas de la formación.
+const ROLE_DEPTH := {"DFC": 0, "LAT": 1, "MCD": 2, "MCO": 3, "EXT": 4, "DEL": 5}
+
 var player: PlayerStats
 var deck: DeckManager
 var rng: RandomNumberGenerator
@@ -138,6 +153,28 @@ var zone_numbers_pts := ZONE_NUMBERS_PTS
 var zone_line_factor := ZONE_LINE_FACTOR
 var long_shot_penalty := LONG_SHOT_PENALTY
 var zone_low_shot_penalty := true   # false: en el modo de zonas, LOW no castiga los remates (D-36, regla 4)
+# Modo de duelos (D-40). Los titulares van como datos simples (SquadManager.duel_data):
+# {id, name, role, pase, regate, remate, quite, lectura, atajada}; los del rival y su estilo de marca
+# los copia set_zone_rival() antes de cada ataque.
+var duel_mode := false
+var duel_players: Array = []
+var mark_style := ""                # estilo de este equipo al marcar (su arquetipo)
+var rival_players: Array = []
+var rival_mark_style := ""
+var duel_base := DUEL_BASE
+var duel_skill_factor := DUEL_SKILL_FACTOR
+var duel_mark_pts := DUEL_MARK_PTS
+var duel_pelotazo_factor := DUEL_PELOTAZO_FACTOR
+var duel_natural_bonus := DUEL_NATURAL_BONUS
+var duel_shot_adjust := 0.0         # puntos que se suman a los remates en este modo (propuesta: −10)
+var carrier: Dictionary = {}        # el portador: juega las cartas del Momento
+var carrier_extra := false          # llegó a esta zona con un regate: el rival lo cuenta al repartir
+var carrier_chosen := false         # quien juega ya eligió el portador de la Salida (set_carrier)
+var marks := {}                     # zona -> {id de tu jugador: [sus marcadores, del mejor al peor]}
+var touches := {}                   # id -> veces que fue portador en el partido
+var moment_plays := 0               # jugadas del Momento en curso (el portador se elige antes de la primera)
+var _my_lines: Array = [[], [], []]
+var _their_lines: Array = [[], [], []]
 
 # Puntos de Acción del turno en curso (Momento o fase defensiva)
 var ap := 0
@@ -165,9 +202,12 @@ var defense_result := {}     # {pressure, block, cancelled, emergency}
 var stats := {"goals": 0, "moments": 0, "flow_moments": 0, "flow_breaks": 0, "injuries": 0,
 	"plays": 0, "elite_plays": 0, "tired_plays": 0, "natural_plays": 0, "skipped": 0,
 	"defense_plays": 0, "interceptions": 0, "emergencies": 0, "out_of_ap": 0, "holds": 0, "holds_lost": 0,
-	"counters": 0, "steals": 0, "saves": 0, "rebounds": 0}
+	"counters": 0, "steals": 0, "saves": 0, "rebounds": 0,
+	"dribble_entries": 0, "dribble_doubled": 0, "back_plays": 0}
 # counters: Momentos propios que arrancaron con contragolpe. steals / saves / rebounds (modo de zonas):
 # fallos que fueron robo, remates fallados que se quedó el arquero y remates fallados con rebote.
+# Modo de duelos: dribble_entries = regates que entraron a otra zona; dribble_doubled = de ellos, los
+# que terminaron con el portador en marca doble o más; back_plays = vueltas atrás que salieron bien.
 
 
 func _init(p_player: PlayerStats, p_deck: DeckManager, p_rng: RandomNumberGenerator, p_rival_difficulty := 0.15) -> void:
@@ -205,6 +245,7 @@ func start() -> void:
 	in_defense = false
 	ap = 0
 	ap_max = 0
+	touches.clear()
 
 
 # Un Momento pide moment_steps jugadas exitosas (la última, un remate); el contragolpe y el espacio
@@ -222,6 +263,8 @@ func current_moment() -> Dictionary:
 
 
 func is_natural_executor(card: Card) -> bool:
+	if duel_on():   # modo de duelos: solo si la carta es del portador; la firma de otro la juega él, sin bono
+		return card.owner_id != "" and card.owner_id == String(carrier.get("id", ""))
 	return card.owner_id != "" and (card.owner_id == player.player_id or player.lineup.has(card.owner_id))
 
 
@@ -262,6 +305,8 @@ func begin_moment() -> Dictionary:
 		stats["counters"] += 1
 		zone = Zone.MEDIO
 	_advance_zone(0)
+	if duel_on():
+		_duel_begin()
 	deck.reset_flow_uses()
 	deck.set_possession(DeckManager.Possession.POSSESSION_ATTACK)
 	deck.draw(player.draw_count())   # robo según la zona de estamina; no se repone por jugada
@@ -330,16 +375,19 @@ func stamina_cost_of(card: Card) -> float:
 # La estamina no toca la probabilidad: sus zonas solo cambian el robo, la lesión y las penalizaciones.
 # at_zone (modo de zonas): calcula como si la jugada fuera en esa zona (el planificador del bot mira
 # las jugadas que vienen); -1 = la zona actual.
-func chance_breakdown(card: Card, at_zone: int = -1) -> Array:
-	var items: Array = [{"label": "Base (técnica)", "value": player.base_success()}]
+# receiver (modo de duelos): id del compañero que recibe un pase; "" = el mejor receptor (best_receiver).
+func chance_breakdown(card: Card, at_zone: int = -1, receiver: String = "") -> Array:
+	var duel := duel_on()
+	var items: Array = [{"label": "Base", "value": duel_base}] if duel \
+			else [{"label": "Base (técnica)", "value": player.base_success()}]
 	if card.effective_bonus() != 0.0:
 		items.append({"label": "Carta", "value": card.effective_bonus()})
 	if in_defense:
 		items.append({"label": "Ataque rival", "value": -defense_difficulty})
-	else:
+	elif not duel:   # en el modo de duelos la defensa rival son sus marcas y sus habilidades
 		items.append({"label": "Defensa rival", "value": -float(current_moment()["difficulty"])})
 	if is_natural_executor(card):
-		items.append({"label": "Ejecutor Natural", "value": NATURAL_EXECUTOR_BONUS})
+		items.append({"label": "Ejecutor Natural", "value": duel_natural_bonus if duel else NATURAL_EXECUTOR_BONUS})
 	if form_bonus != 0.0:
 		items.append({"label": "Entrenamiento", "value": form_bonus})
 	if not in_defense:
@@ -360,7 +408,9 @@ func chance_breakdown(card: Card, at_zone: int = -1) -> Array:
 				items.append({"label": "Postura LOW", "value": -LOW_SHOT_PENALTY})
 			if exploit_rival_space:
 				items.append({"label": "Espacios del rival", "value": exploit_shot_bonus})
-		if zone_mode:
+		if duel:
+			_duel_items(card, zone if at_zone < 0 else at_zone, receiver, items)
+		elif zone_mode:
 			_zone_items(card, zone if at_zone < 0 else at_zone, items)
 	return items
 
@@ -412,40 +462,50 @@ func set_zone_rival(rival: MatchEngine) -> void:
 	rival_formation = rival.formation
 	rival_line_strength = rival.line_strength
 	rival_posture = rival.posture
+	rival_players = rival.duel_players   # modo de duelos: sus titulares y cómo reparte las marcas
+	rival_mark_style = rival.mark_style
 
 
 # Probabilidad de éxito (0-1) redondeada a puntos enteros: el 88% que muestra la carta es
 # exactamente el 0.88 contra el que se tira (rng.randf() < 0.88, o sea, tirada 0-99 menor que 88).
-func success_chance(card: Card, at_zone: int = -1) -> float:
+func success_chance(card: Card, at_zone: int = -1, receiver: String = "") -> float:
 	var p := 0.0
-	for item in chance_breakdown(card, at_zone):
+	for item in chance_breakdown(card, at_zone, receiver):
 		p += float(item["value"])
-	return roundi(clampf(p, MIN_CHANCE, MAX_CHANCE) * 100.0) / 100.0
+	var pts := clampf(p, MIN_CHANCE, MAX_CHANCE) * 100.0
+	if duel_on():
+		pts += 0.0001   # los medios puntos del duelo (×0,5) suben, sin que la coma flotante los baje (28,5 → 29)
+	return roundi(pts) / 100.0
 
 
 # Modo de zonas: probabilidad de que jugar la carta termine en robo (fallar × robo de la zona), en
 # puntos enteros. Es la única fuente del "robo %" de la carta y la tirada usa exactamente este número:
 # con la misma tirada de play_card, roll < success_chance es éxito y roll ≥ 1 − steal_chance es robo.
 # Los remates y la Pausa no tienen robo; el Área tampoco.
-func steal_chance(card: Card, at_zone: int = -1) -> float:
+func steal_chance(card: Card, at_zone: int = -1, receiver: String = "") -> float:
 	if not zone_mode or in_defense or card.kind == Card.Kind.SHOT or card.kind == Card.Kind.PAUSE:
 		return 0.0
 	var z := zone if at_zone < 0 else at_zone
 	var s := zone_steal_salida if z == Zone.SALIDA else (zone_steal_medio if z == Zone.MEDIO else 0.0)
-	return roundi((1.0 - success_chance(card, at_zone)) * s * 100.0) / 100.0
+	return roundi((1.0 - success_chance(card, at_zone, receiver)) * s * 100.0) / 100.0
 
 
 # Modo de zonas: probabilidad de que un remate termine con la pelota en manos del arquero (fallar ×
 # ZONE_SAVE_CHANCE); el resto de los fallos es rebote. Misma tirada que steal_chance.
-func save_chance(card: Card, at_zone: int = -1) -> float:
+func save_chance(card: Card, at_zone: int = -1, receiver: String = "") -> float:
 	if not zone_mode or in_defense or card.kind != Card.Kind.SHOT:
 		return 0.0
-	return roundi((1.0 - success_chance(card, at_zone)) * ZONE_SAVE_CHANCE * 100.0) / 100.0
+	return roundi((1.0 - success_chance(card, at_zone, receiver)) * ZONE_SAVE_CHANCE * 100.0) / 100.0
 
 
 # Modo de zonas: por qué no se puede jugar la carta en esta zona ("" = se puede). Remates solo en el
-# Área; los tiros lejanos, también desde el Medio.
+# Área; los tiros lejanos, también desde el Medio. Modo de duelos: un pase necesita un compañero en la
+# zona a la que va, y volver atrás, una zona anterior.
 func zone_block_reason(card: Card) -> String:
+	if duel_on() and is_pass(card):
+		if card.back and zone == Zone.SALIDA:
+			return "NO HAY ZONA ANTERIOR"
+		return "SIN COMPAÑERO" if receivers(card).is_empty() else ""
 	if not zone_mode or in_defense or card.kind != Card.Kind.SHOT or zone == Zone.AREA:
 		return ""
 	if card.long_range:
@@ -454,13 +514,16 @@ func zone_block_reason(card: Card) -> String:
 
 
 # Se puede jugar si alcanzan los PA del turno. La estamina nunca bloquea (agotado se juega igual,
-# con riesgo de lesión).
-func can_play(card: Card) -> bool:
+# con riesgo de lesión). receiver (modo de duelos): el pase solo a un compañero de la zona siguiente.
+func can_play(card: Card, receiver: String = "") -> bool:
 	if not card.playable or ap_cost_of(card) > ap:
 		return false
 	if not DeckManager.fits_possession(card, deck.possession):
 		return false
 	if zone_mode and zone_block_reason(card) != "":
+		return false
+	if receiver != "" and duel_on() and is_pass(card) \
+			and not receivers(card).any(func(r): return r["id"] == receiver):
 		return false
 	return not (card.kind == Card.Kind.PAUSE and pauses >= MAX_PAUSES)
 
@@ -474,19 +537,22 @@ func playable_indices() -> Array[int]:
 
 
 # Juega una carta de la mano (ataque o defensa, según la fase). Devuelve un evento con todo
-# lo que la UI/animación necesita.
-func play_card(hand_index: int) -> Dictionary:
+# lo que la UI/animación necesita. receiver (modo de duelos): a quién va el pase; "" = el mejor receptor.
+func play_card(hand_index: int, receiver: String = "") -> Dictionary:
 	if not (in_defense or not moment_over) or hand_index < 0 or hand_index >= deck.hand.size():
 		return {"ok": false, "reason": "invalid"}
 	var card: Card = deck.hand[hand_index]
-	if not can_play(card):
+	var duel := duel_on()
+	if duel and is_pass(card) and receiver == "":
+		receiver = best_receiver(card)
+	if not can_play(card, receiver):
 		return {"ok": false, "reason": "not_playable"}
 
 	var ap_cost := ap_cost_of(card)
 	var stamina := stamina_cost_of(card)
-	var p := success_chance(card)
-	var steal := steal_chance(card)   # modo de zonas: lo que mostraba la carta antes de jugarla
-	var save := save_chance(card)
+	var p := success_chance(card, -1, receiver)
+	var steal := steal_chance(card, -1, receiver)   # modo de zonas: lo que mostraba la carta antes de jugarla
+	var save := save_chance(card, -1, receiver)
 	var natural := is_natural_executor(card)
 	ap -= ap_cost
 	player.energy = maxf(0.0, player.energy - stamina)
@@ -511,6 +577,10 @@ func play_card(hand_index: int) -> Dictionary:
 		ev["play_zone"] = zone   # zona de la cancha donde se jugó la carta
 		ev["steal_chance"] = steal
 		ev["save_chance"] = save
+	if duel:
+		ev["carrier"] = String(carrier.get("id", ""))   # quién jugó la carta
+		ev["receiver"] = receiver                      # a quién iba el pase ("" si no es pase)
+		moment_plays += 1
 	if natural:
 		stats["natural_plays"] += 1
 		natural_executor_played.emit(card)
@@ -544,7 +614,11 @@ func _resolve_attack(card: Card, success: bool, natural: bool, ev: Dictionary) -
 		player.energy = minf(player.max_energy(), player.energy + player.max_energy() * PAUSE_STAMINA_PCT)
 		deck.discard_from_hand(card)
 	elif success:
-		progress += card.steps   # casi siempre 1; un Pelotazo vale 2
+		var back := duel_on() and card.back
+		if back:   # modo de duelos: la pelota vuelve a la zona anterior (deshace un avance)
+			progress = maxi(0, progress - 1)
+		else:
+			progress += card.steps   # casi siempre 1; un Pelotazo vale 2
 		streak += NATURAL_FLOW_CHARGE if natural else 1
 		if not flow_active and streak >= player.flow_threshold():
 			flow_active = true
@@ -560,8 +634,14 @@ func _resolve_attack(card: Card, success: bool, natural: bool, ev: Dictionary) -
 		if card.kind == Card.Kind.SHOT and (zone_mode or progress >= current_moment()["steps_required"]):
 			ev["goal"] = true
 			_finish_moment(true)
+		elif back:
+			zone = maxi(Zone.SALIDA, zone - 1) as Zone
+			_duel_after_success(card, String(ev.get("receiver", "")), ev)
 		else:
+			var zone_before := zone
 			_advance_zone(card.steps)
+			if duel_on():
+				_duel_after_success(card, String(ev.get("receiver", "")), ev, zone_before)
 		if card.draw > 0 and not moment_over:
 			ev["drawn"] = deck.draw(card.draw)   # la jugada abre opciones: roba cartas de ataque
 	elif zone_mode:
@@ -633,6 +713,268 @@ func _end_if_stuck(ev: Dictionary) -> void:
 func abort_moment() -> void:
 	if not moment_over:
 		_finish_moment(false)
+
+
+# ---------- Modo de duelos (D-40, T-13) ----------
+
+func duel_on() -> bool:
+	return duel_mode and zone_mode and not in_defense and not duel_players.is_empty()
+
+
+# Las cartas que eligen receptor: pases y centros (también el Pelotazo y la vuelta atrás).
+static func is_pass(card: Card) -> bool:
+	return card.kind == Card.Kind.PASS or card.kind == Card.Kind.CROSS
+
+
+# Regate y control: el portador sigue con la pelota.
+static func is_dribble(card: Card) -> bool:
+	return card.kind == Card.Kind.DRIBBLE or card.kind == Card.Kind.CONTROL
+
+
+# Lo peligroso que es un jugador con la pelota: su mejor habilidad de ataque (el rival marca primero
+# al más peligroso).
+static func threat(pl: Dictionary) -> float:
+	return maxf(float(pl.get("pase", 0)), maxf(float(pl.get("regate", 0)), float(pl.get("remate", 0))))
+
+
+# Titulares de campo repartidos en las líneas [atrás, medio, arriba] de la formación con la postura
+# (lines_for), de atrás hacia adelante según el puesto (ROLE_DEPTH): en el 4-3-3 los extremos juegan
+# arriba y en LOW baja el volante más defensivo. Sin formación, cada uno en la línea de su puesto.
+static func lines_of(players: Array, f: Array, p: Posture) -> Array:
+	var order: Array = []
+	for i in players.size():
+		var role := String(players[i].get("role", ""))
+		if ROLE_DEPTH.has(role):
+			order.append([int(ROLE_DEPTH[role]) * 100 + i, players[i]])
+	order.sort_custom(func(a, b): return a[0] < b[0])
+	var out: Array = [[], [], []]
+	var counts := lines_for(f, p)
+	for item in order:
+		if counts.is_empty():
+			var depth: int = int(item[0]) / 100
+			out[0 if depth <= 1 else (2 if depth >= 5 else 1)].append(item[1])
+			continue
+		var line := 0
+		while line < 2 and (out[line] as Array).size() >= int(counts[line]):
+			line += 1
+		out[line].append(item[1])
+	return out
+
+
+static func keeper_of(players: Array) -> Dictionary:
+	for pl in players:
+		if String(pl.get("role", "")) == "POR":
+			return pl
+	return {}
+
+
+# Tus jugadores de la línea que juega en la zona z.
+func zone_players(z: int) -> Array:
+	return _my_lines[z]
+
+
+# Marcadores de tu jugador `id` en la zona z, del mejor al peor; [] = libre.
+func markers_of(z: int, id: String) -> Array:
+	return (marks.get(z, {}) as Dictionary).get(id, [])
+
+
+func carrier_markers() -> Array:
+	return markers_of(zone, String(carrier.get("id", "")))
+
+
+# Zona a la que va la pelota si la carta sale bien jugada desde z: la vuelta atrás, a la anterior; el
+# resto avanza como _advance_zone (el Pelotazo se salta una; a una jugada del final, el Área).
+func target_zone(card: Card, z: int = -1) -> int:
+	if z < 0:
+		z = zone
+	if card.back:
+		return maxi(Zone.SALIDA, z - 1)
+	if z == zone and int(current_moment()["steps_required"]) - (progress + card.steps) <= 1:
+		return Zone.AREA
+	return mini(Zone.AREA, z + card.steps)
+
+
+# Compañeros que pueden recibir el pase: los de la línea de la zona a la que va, menos el portador.
+func receivers(card: Card, z: int = -1) -> Array:
+	if not is_pass(card):
+		return []
+	var cid := String(_assumed_carrier(zone if z < 0 else z).get("id", ""))
+	return zone_players(target_zone(card, z)).filter(func(r): return r["id"] != cid)
+
+
+# El receptor con el mejor % para la carta ("" si no hay ninguno).
+func best_receiver(card: Card) -> String:
+	var best := ""
+	var best_p := -1.0
+	for r in receivers(card):
+		var p := success_chance(card, -1, r["id"])
+		if p > best_p:
+			best_p = p
+			best = r["id"]
+	return best
+
+
+# Quien juega elige al portador de la primera zona antes de la primera jugada del Momento.
+func set_carrier(id: String) -> bool:
+	if not duel_on() or moment_plays > 0:
+		return false
+	for pl in zone_players(zone):
+		if pl["id"] == id:
+			if not carrier.is_empty():   # el toque del portador por defecto pasa al elegido
+				touches[carrier["id"]] = int(touches.get(carrier["id"], 1)) - 1
+			carrier = pl
+			carrier_chosen = true
+			_touch()
+			return true
+	return false
+
+
+# Para planear las zonas que vienen: el compañero de esa línea al que más conviene darle la pelota (el
+# menos marcado y, a igualdad, el más peligroso). En la zona actual, el portador.
+func _assumed_carrier(z: int) -> Dictionary:
+	if z == zone:
+		return carrier
+	return _least_marked(zone_players(z), z, "")
+
+
+func _least_marked(players: Array, z: int, skip_id: String) -> Dictionary:
+	var best := {}
+	var best_key := -INF
+	for pl in players:
+		if pl["id"] == skip_id:
+			continue
+		var key := -100.0 * markers_of(z, pl["id"]).size() + threat(pl)
+		if key > best_key:
+			best_key = key
+			best = pl
+	return best
+
+
+func _player_by_id(id: String) -> Dictionary:
+	for pl in duel_players:
+		if pl["id"] == id:
+			return pl
+	return {}
+
+
+# Al empezar el Momento: líneas de los dos equipos con su postura, marcas de las tres zonas (las de la
+# zona siguiente siempre se ven) y el portador por defecto de la primera zona (el menos marcado y más
+# peligroso; quien juega lo cambia con set_carrier antes de la primera jugada).
+func _duel_begin() -> void:
+	_my_lines = lines_of(duel_players, formation, posture)
+	_their_lines = lines_of(rival_players, rival_formation, rival_posture)
+	carrier_extra = false
+	carrier_chosen = false
+	moment_plays = 0
+	carrier = {}
+	marks.clear()
+	_redistribute_from(Zone.SALIDA)
+	carrier = _least_marked(zone_players(zone), zone, "")
+	_touch()
+
+
+# El rival reparte sus marcas en las zonas desde z (su línea que defiende esa zona sobre tus jugadores).
+func _redistribute_from(z: int) -> void:
+	for zz in range(z, Zone.AREA + 1):
+		var attackers: Array = zone_players(zz).duplicate()
+		if carrier_extra and zz == zone and not attackers.has(carrier):
+			attackers.append(carrier)   # llegó con un regate: el rival lo cuenta
+		marks[zz] = CoachBot.assign_marks(attackers, _their_lines[2 - zz], rival_mark_style, rng)
+
+
+func _touch() -> void:
+	if not carrier.is_empty():
+		touches[carrier["id"]] = int(touches.get(carrier["id"], 0)) + 1
+
+
+# Tras una jugada que sale bien: el pase le da la pelota al receptor (la vuelta atrás hace que el rival
+# reparta de nuevo); el regate que entra a otra zona sigue con el portador y el rival reparte contándolo.
+func _duel_after_success(card: Card, receiver: String, ev: Dictionary, zone_before: int = -1) -> void:
+	if is_pass(card):
+		var r := _player_by_id(receiver)
+		if not r.is_empty():
+			carrier = r
+			carrier_extra = false
+			_touch()
+		if card.back:
+			stats["back_plays"] += 1
+			_redistribute_from(zone)
+	elif is_dribble(card) and zone != zone_before:
+		carrier_extra = not zone_players(zone).has(carrier)
+		_redistribute_from(zone)
+		stats["dribble_entries"] += 1
+		var n := carrier_markers().size()
+		if n >= 2:
+			stats["dribble_doubled"] += 1
+		ev["carrier_markers"] = n
+	ev["new_carrier"] = String(carrier.get("id", ""))
+
+
+# Duelos y marcas del desglose (D-40): el pase, contra la Lectura del mejor marcador del receptor y
+# sus marcas (el Pelotazo no pelea: solo sus marcas, por duel_pelotazo_factor); el regate y el control,
+# contra el Quite del mejor marcador del portador y sus marcas; el remate, contra la Atajada del
+# arquero y las marcas del portador. La Pausa no tiene duelo.
+func _duel_items(card: Card, z: int, receiver: String, items: Array) -> void:
+	if card.kind == Card.Kind.SHOT:
+		if card.long_range and z == Zone.MEDIO:
+			items.append({"label": "Tiro de lejos", "value": -long_shot_penalty})
+		if duel_shot_adjust != 0.0:
+			items.append({"label": "Remates (duelos)", "value": duel_shot_adjust})
+	var c := _assumed_carrier(z)
+	if c.is_empty() or card.kind == Card.Kind.PAUSE:
+		return
+	if is_pass(card):
+		var tz := target_zone(card, z)
+		var r := {}
+		if receiver != "":
+			r = _player_by_id(receiver)
+		elif z == zone:
+			r = _player_by_id(best_receiver(card))
+		else:
+			r = _least_marked(zone_players(tz), tz, String(c["id"]))
+		if r.is_empty():
+			return
+		var m := markers_of(tz, r["id"])
+		if card.steps >= 2 and not card.back:   # Pelotazo: sin duelo, se salta la línea
+			_mark_item(r, m, duel_pelotazo_factor, items)
+			return
+		if not m.is_empty():
+			_duel_item("Pase", c, "Lectura", _best_by(m, "lectura"), items)
+		_mark_item(r, m, 1.0, items)
+	elif card.kind == Card.Kind.SHOT:
+		var keeper := keeper_of(rival_players)
+		if not keeper.is_empty():
+			_duel_item("Remate", c, "Atajada", keeper, items)
+		_mark_item(c, markers_of(z, c["id"]), 1.0, items)
+	elif is_dribble(card):
+		var m := markers_of(z, c["id"])
+		if not m.is_empty():
+			_duel_item("Regate", c, "Quite", _best_by(m, "quite"), items)
+		_mark_item(c, m, 1.0, items)
+
+
+static func _best_by(players: Array, skill: String) -> Dictionary:
+	var best: Dictionary = players[0]
+	for pl in players:
+		if int(pl.get(skill, 0)) > int(best.get(skill, 0)):
+			best = pl
+	return best
+
+
+# "Duelo: Pase 66 contra Lectura 75 (Manuel Iturra)" · factor × (tu habilidad − la suya).
+func _duel_item(mine: String, attacker: Dictionary, theirs: String, defender: Dictionary, items: Array) -> void:
+	var a := int(attacker.get(mine.to_lower(), 0))
+	var d := int(defender.get(theirs.to_lower(), 0))
+	items.append({"label": "Duelo: %s %d contra %s %d (%s)" % [mine, a, theirs, d, defender.get("name", "")],
+		"value": duel_skill_factor * float(a - d) / 100.0})
+
+
+# "Marca de Matías Fernández: 1 contra 2" · libre +duel_mark_pts, 1 contra 1 = 0, cada marcador extra −.
+func _mark_item(who: Dictionary, markers: Array, factor: float, items: Array) -> void:
+	var n := markers.size()
+	var value := (duel_mark_pts if n == 0 else -duel_mark_pts * float(n - 1)) * factor
+	items.append({"label": "Marca de %s: %s" % [who.get("name", ""), "libre" if n == 0 else "1 contra %d" % n],
+		"value": value})
 
 
 # ---------- Aguantar el Balón ----------

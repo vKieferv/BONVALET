@@ -1,8 +1,8 @@
 # Medición temporal (playtest 2026-10-29): ¿el rival acierta más que tú con las reglas de match_view?
 # Juega Colo-Colo (bot) contra cada club de Primera A con las mismas dificultades que match_view y
 # separa ataque y defensa de cada lado: % mostrado promedio, % de acierto real y goles.
-# Uso: ..\Godot_v4.7.2-stable_win64_console.exe --headless --path . -s res://tests/lab/medir_rival.gd [-- --zonas]
-# Con --zonas, los dos juegan el partido por zonas (D-36, T-10).
+# Uso: ..\Godot_v4.7.2-stable_win64_console.exe --headless --path . -s res://tests/lab/medir_rival.gd [-- --zonas | --duelos]
+# Con --zonas, los dos juegan el partido por zonas (D-36, T-10); con --duelos, el modo de duelos (D-40, T-13).
 extends SceneTree
 
 const BASE := 0.15
@@ -12,10 +12,14 @@ const ME := "colo_colo"
 var league: LeagueManager
 var squads: SquadManager
 var zonas := false
+var duelos := false
 
 
 func _initialize() -> void:
-	zonas = OS.get_cmdline_user_args().has("--zonas")
+	duelos = OS.get_cmdline_user_args().has("--duelos")
+	zonas = duelos or OS.get_cmdline_user_args().has("--zonas")
+	if duelos:
+		print("MODO DE DUELOS")
 	if zonas:
 		print("PARTIDO POR ZONAS")
 	league = LeagueManager.new()
@@ -88,6 +92,11 @@ func _engine(team: Dictionary, diff: float, seed: int) -> MatchEngine:
 		e.zone_mode = true
 		e.formation = z["formation"]
 		e.line_strength = z["line_strength"]
+		if duelos:
+			var d := squads.duel_data(id)
+			e.duel_mode = true
+			e.duel_players = d["players"]
+			e.mark_style = d["style"]
 	e.start()
 	return e
 

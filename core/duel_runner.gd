@@ -9,7 +9,9 @@ extends RefCounted
 #        attack_difficulty: float, defense_difficulty: float (dificultad de sus jugadas defensivas),
 #        defends: bool,
 #        zone_mode: bool, formation: Array, line_strength: Array (partido por zonas, D-36: los dos de
-#        SquadManager.zone_data; sin zone_mode, el partido de siempre)}
+#        SquadManager.zone_data; sin zone_mode, el partido de siempre),
+#        duel_mode: bool, players: Array, style: String (modo de duelos, D-40: los de
+#        SquadManager.duel_data; exige zone_mode)}
 #
 # hooks (opcional, para experimentos de tests/balance_lab.gd; sin hooks el partido es el de siempre):
 #   "after_start": Callable(e: MatchEngine, side: Dictionary) tras start();
@@ -24,7 +26,9 @@ static func run(a: Dictionary, b: Dictionary, n: int, hooks: Dictionary = {}) ->
 		"cuts_by_a": 0, "cuts_by_b": 0, "def_plays_a": 0, "def_plays_b": 0,
 		"moments_1h": 0, "tired_1h": 0, "moments_2h": 0, "tired_2h": 0, "injuries": 0,
 		"injuries_a": 0, "injuries_b": 0, "holds": 0, "holds_lost": 0,
-		"counters": 0, "steals": 0, "saves": 0, "rebounds": 0, "no_cards": 0}
+		"counters": 0, "steals": 0, "saves": 0, "rebounds": 0, "no_cards": 0,
+		"dribble_entries": 0, "dribble_doubled": 0, "back_plays": 0,
+		"touch_total": 0, "touch_top": 0, "touch_distinct": 0, "touch_teams": 0, "touches_a": {}, "touches_b": {}}
 	for s in n:
 		var ea := _engine(a, s * 2 + 1)
 		var eb := _engine(b, s * 2 + 2)
@@ -42,9 +46,25 @@ static func run(a: Dictionary, b: Dictionary, n: int, hooks: Dictionary = {}) ->
 				_attack(eb, b, ea, a, out, "a", hooks)
 		out["holds"] += int(ea.stats["holds"]) + int(eb.stats["holds"])
 		out["holds_lost"] += int(ea.stats["holds_lost"]) + int(eb.stats["holds_lost"])
-		for k in ["counters", "steals", "saves", "rebounds"]:
+		for k in ["counters", "steals", "saves", "rebounds", "dribble_entries", "dribble_doubled", "back_plays"]:
 			out[k] += int(ea.stats[k]) + int(eb.stats[k])
 		out["no_cards"] += int(ea.stats["out_of_ap"]) + int(eb.stats["out_of_ap"])
+		# Modo de duelos: cuánto se reparte el balón (veces que cada titular fue portador).
+		for pair in [[ea, "touches_a"], [eb, "touches_b"]]:
+			var t: Dictionary = (pair[0] as MatchEngine).touches
+			if t.is_empty():
+				continue
+			var top := 0
+			var distinct := 0
+			for id in t:
+				var c := int(t[id])
+				out["touch_total"] += c
+				top = maxi(top, c)
+				distinct += 1 if c > 0 else 0
+				out[pair[1]][id] = int(out[pair[1]].get(id, 0)) + c
+			out["touch_top"] += top
+			out["touch_distinct"] += distinct
+			out["touch_teams"] += 1
 		var ga: int = ea.stats["goals"]
 		var gb: int = eb.stats["goals"]
 		out["goals_a"] += ga
@@ -73,6 +93,10 @@ static func _engine(side: Dictionary, seed: int) -> MatchEngine:
 		e.zone_mode = true
 		e.formation = side.get("formation", [])
 		e.line_strength = side.get("line_strength", [])
+		if side.get("duel_mode", false):
+			e.duel_mode = true
+			e.duel_players = side.get("players", [])
+			e.mark_style = side.get("style", "")
 	return e
 
 

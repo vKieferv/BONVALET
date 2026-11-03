@@ -452,7 +452,10 @@ func _build_postits(page: Control, ev: Dictionary, locked: bool) -> void:
                 risk.add_child(Icono.crear("tarjeta", dark, 15))
                 risk.add_child(Paleta.etiqueta("%+d ·" % int(efectos[j].get("disciplina", 0)), "condensada_negra", 16, dark))
                 risk.add_child(Icono.crear("gota", dark, 14))
-                risk.add_child(Paleta.etiqueta("+%d%% A UN TITULAR" % roundi(float(efectos[j].get("extra", 0.5)) * 100.0),
+                # Un titular al azar no se nombra (sería adelantar a quién funan); el capitán, sí.
+                var quien := String(efectos[j].get("quien", "titular"))
+                var victima := "UN TITULAR" if quien == "titular" else Mesa.apellido(c.target_name(quien)).to_upper()
+                risk.add_child(Paleta.etiqueta("+%d%% A %s" % [roundi(float(efectos[j].get("extra", 0.5)) * 100.0), victima],
                         "condensada_negra", 16, dark))
                 for n in risk.get_children():
                     n.size_flags_vertical = Control.SIZE_SHRINK_CENTER

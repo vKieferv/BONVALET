@@ -743,6 +743,18 @@ func _test_event_effects() -> void:
 	_apply(r, [{"tipo": "rama", "evento": "c7_fotos", "semanas": 2}, {"tipo": "rama", "evento": "c5_multa", "semanas": 1, "chance": 0.0}])
 	_check(r.event_marks.size() == 1 and r.event_marks[0]["evento"] == "c7_fotos" and r.event_marks[0]["semana"] == 3,
 			"una rama segura deja su marca para la semana 3 y una con 0%% no: %s" % [r.event_marks])
+	_check(c._effect_line({"tipo": "rama", "evento": "c5_multa", "semanas": 1, "chance": 0.3}) == "30%: esta historia vuelve en 1 semana(s).",
+			"una rama con probabilidad dice su % y sus semanas")
+	# Todas las opciones del catálogo tienen su texto y sus timbres, con los nombres ya llenados.
+	for ev in c.events["eventos"]:
+		var x := _new_career(19)
+		x.set_week_event(ev["id"])
+		_check(not x.event_title().contains("[") and not x.event_text().contains("["), "%s: quedan corchetes sin llenar" % ev["id"])
+		for op in x.event_options():
+			var text := x.effects_text(op["efectos"])
+			_check(not text.is_empty() and not text.contains("%d") and not text.contains("%s"), "%s: texto de efectos roto: %s" % [ev["id"], text])
+			for b in x.effect_badges(op["efectos"]):
+				_check(not String(b["texto"]).is_empty(), "%s: timbre vacío: %s" % [ev["id"], b])
 	for e in Career.EFFECTS:
 		var probe := {"tipo": e, "quien": "nueve", "carta": "nervios", "evento": "c7_fotos"}
 		_check(not c._effect_line(probe).is_empty() and not String(c._badge(probe)["texto"]).is_empty(),

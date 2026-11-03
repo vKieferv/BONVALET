@@ -425,11 +425,11 @@ func _badge(e: Dictionary) -> Dictionary:
             return {"texto": "+%d%% · %s" % [roundi(float(e.get("extra", 0.5)) * 100.0), _short(String(e["quien"]))], "icono": "gota", "tono": -1}
         "carta_temporal":
             var bad := String(e["carta"]) == "nervios"
-            var card_name := "NERVIOS" if bad else String(squads.catalog.get(String(e["carta"]), {}).get("name", e["carta"])).to_upper()
+            # Nombre corto de la carta (lo de antes de los dos puntos: "Promesa: Control" → PROMESA).
+            var card_name := "NERVIOS" if bad else String(squads.catalog.get(String(e["carta"]), {}).get("name", e["carta"])).get_slice(":", 0).to_upper()
             return {"texto": "%s · %s" % [card_name, _short(String(e["quien"]))], "icono": "carta", "tono": -1 if bad else 1}
         "carta_nueva":
-            return {"texto": "+ %s" % String(squads.catalog.get(String(e["carta"]), {}).get("name", e["carta"])).to_upper(),
-                "icono": "carta", "tono": 1}
+            return {"texto": "CARTA NUEVA", "icono": "carta", "tono": 1}
         "promesa":
             var win: Array = effect_badges(e.get("si_ganas", [])).map(func(b): return b["texto"])
             var lose: Array = effect_badges(e.get("si_no", [])).map(func(b): return b["texto"])
@@ -485,7 +485,8 @@ func _effect_line(e: Dictionary) -> String:
             return "El rival sale motivado: %+d%% de acierto en sus Momentos 1-%d." % [roundi(v * 100.0), int(e.get("momentos", 2))]
         "funa":
             return "Riesgo: %d%% de funa → disciplina %+d y %s con +%d%% de desgaste de estamina en sus cartas ese partido%s." % [
-                roundi(float(e.get("chance", 1.0)) * 100.0), int(e.get("disciplina", 0)), _who(String(e.get("quien", "titular"))),
+                roundi(float(e.get("chance", 1.0)) * 100.0), int(e.get("disciplina", 0)),
+                "un titular" if String(e.get("quien", "titular")) == "titular" else _who(String(e["quien"])),
                 roundi(float(e.get("extra", 0.5)) * 100.0),
                 "; con un sponsor con cláusula de conducta, se pierde el pago de la semana" if e.get("clausula", false) else ""]
         "desgaste":
@@ -501,8 +502,10 @@ func _effect_line(e: Dictionary) -> String:
                 effects_text(e.get("si_no", [])).to_lower()]
         "rama":
             var chance := float(e.get("chance", 1.0))
-            return ("Esta historia vuelve en %d semana(s)." if chance >= 1.0 else "%d%%: esta historia vuelve en %%d semana(s)." % roundi(chance * 100.0)) \
-                    % int(e.get("semanas", 1))
+            var weeks := int(e.get("semanas", 1))
+            if chance >= 1.0:
+                return "Esta historia vuelve en %d semana(s)." % weeks
+            return "%d%%: esta historia vuelve en %d semana(s)." % [roundi(chance * 100.0), weeks]
         "azar":
             var line := "%d%%: %s" % [roundi(float(e.get("chance", 0.5)) * 100.0), effects_text(e.get("efectos", [])).replace("\n", " ")]
             if e.has("si_no"):

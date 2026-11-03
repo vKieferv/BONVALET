@@ -238,7 +238,7 @@
        {"texto": "Pagar la multa", "sello": "PAGADA", "efectos": [{"tipo": "presupuesto", "valor": -15}]},
        {"texto": "Apelar", "sello": "APELADO", "efectos": [{"tipo": "presupuesto", "valor": -5}, {"tipo": "popularidad", "valor": -2}]}
      ]},
-    {"id": "c7_fotos", "grupo": "conferencia", "medio": "el_chisme", "pregunta": "farandula", "foto": "fiesta", "solo_rama": true,
+    {"id": "c7_fotos", "grupo": "conferencia", "medio": "el_chisme", "pregunta": "farandula", "foto": "siluetas", "solo_rama": true,
      "titulo": "¡El Chisme tiene las fotos!",
      "texto": "Tú y la actriz de la teleserie de las 8, en un café. Ella pidió té; tú, la cuenta.",
      "opciones": [

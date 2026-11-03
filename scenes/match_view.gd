@@ -608,6 +608,10 @@ func _begin_match() -> void:
         # La funa de la semana: sus cartas gastan +50% de estamina (se ve en naranja en su desgaste).
         await _banner_show("FUNA: %s GASTA +%d%% DE ESTAMINA" % [_career.funado_name().to_upper(),
                 roundi((float(_career.match_mods.get("funado_stamina_mult", 1.5)) - 1.0) * 100.0)], COLOR_WARN, 1.0)
+    if _career != null and float(_career.match_mods.get("rival_bonus", 0.0)) > 0.0:
+        # Lo que dijiste en la prensa: el rival arranca con más acierto en sus primeros Momentos.
+        await _banner_show("%s SALE MOTIVADO: +%d%% EN SUS PRIMEROS MOMENTOS" % [_rival.profile_name.to_upper(),
+                roundi(float(_career.match_mods["rival_bonus"]) * 100.0)], COLOR_WARN, 1.0)
     _next_step()
 
 
@@ -626,6 +630,8 @@ func _setup_rival_engine() -> void:
     _rival_engine = MatchEngine.new(player, deck, rng,
             LeagueManager.team_attack_difficulty(_rival_team, BASE_DIFFICULTY))
     _rival.configure_engine(_rival_engine)
+    if _career != null:
+        _career.configure_rival_match(_rival_engine)   # rival motivado por lo que dijiste en la semana
     _setup_zones(_rival_engine, rival_id)
     _rival_engine.start()
 

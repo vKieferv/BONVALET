@@ -43,6 +43,19 @@ diriges un club Catenaccio). 2 fallos lo pierden. Tras un contragolpe o con espa
   fuerza de las líneas (×0,5). La carta muestra su % y su robo %. Medido con `balance-lab` (T-10): con
   6 pts por jugador la matriz daba 2.83 goles; con **12 pts** (valor por defecto actual) da 2.52 al
   inicio, 2.78 a mitad y 2.65 al final, con ~1 robo y ~1 contragolpe por partido. La pantalla es T-11.
+- **Modo de duelos [EN PRUEBA · D-40, T-13]:** solo en el motor y los bots (sin pantalla; apagado por
+  defecto, encima del modo por zonas). **La carta la juega el que tiene la pelota** (el portador): el
+  Momento arranca con el defensa que elijas (el contragolpe, con uno del medio). **El pase elige
+  receptor** entre los compañeros de la zona siguiente y, si sale, ese pasa a tener la pelota; el regate
+  sigue con el mismo jugador y el rival vuelve a repartir contándolo a él. **El rival reparte sus marcas**
+  en cada zona según su estilo (zonal Tiki-Taka y Directo; doble marca a tu figura Contragolpe y
+  Kamikaze; a tus dos figuras Catenaccio): libre +12, 1 contra 1 = 0, cada marcador extra −12. **Se
+  enfrentan las habilidades** (nivel + puesto + perfil, D-32): % = 39 + carta + 0,5 × (tu habilidad −
+  la suya) + marcas; Pase contra la Lectura del mejor marcador del receptor, Regate contra el Quite del
+  mejor marcador del portador, Remate contra la Atajada del arquero. El Pelotazo no pelea (marcas a la
+  mitad); el Ejecutor Natural (+5) solo si la carta es del portador. Las cartas con "atras" devuelven la
+  pelota a la zona anterior (ninguna en los mazos todavía). Medido con `balance-lab` (T-13): 2.37 goles
+  al inicio, 2.74 a mitad y 2.64 al final; la defensa aún no usa Quite ni Lectura.
 
 ### 2.2 Puntos de Acción y Estamina Global [DECIDIDO]
 - **PA por turno:** LOW 3 / NORMAL 3 / HIGH 4; 2 en cada fase defensiva. No se acumulan.

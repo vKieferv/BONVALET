@@ -32,6 +32,7 @@ var _signature_cards := {} # card_id -> diccionario de carta
 var _signature_template := {}
 var catalog := {}          # cartas del DT por id (CardDB.load_catalog)
 var deck_lists := {}       # data/decks.json: estandar, rasgos, crecimiento, ofertas
+var habilidades := Habilidades.new()   # modo de duelos (D-40): habilidades y perfiles de la élite
 
 
 func load_all(p_league: LeagueManager) -> bool:
@@ -51,6 +52,8 @@ func load_all(p_league: LeagueManager) -> bool:
         _signature_template = sig.get("template", {})
     else:
         load_errors.append("Cartas firma inválidas: %s" % SIGNATURES_PATH)
+    if not habilidades.load_profiles():
+        load_errors.append("Perfiles inválidos: %s" % Habilidades.PERFILES_PATH)
     catalog = CardDB.load_catalog()
     if catalog.is_empty():
         load_errors.append("Catálogo de cartas inválido: %s" % CardDB.CARDS_PATH)
@@ -204,6 +207,16 @@ func zone_data(team_id: String) -> Dictionary:
     for i in 3:
         strength.append(sums[i] / counts[i] if counts[i] > 0 else total / maxf(1.0, float(n)))
     return {"formation": FORMATIONS.get(archetype, FORMATIONS["Directo"]), "line_strength": strength}
+
+
+# Modo de duelos (D-40, T-13): los 11 titulares con sus habilidades (Habilidades.of) y el estilo del
+# club, que decide cómo reparte sus marcas (CoachBot.assign_marks). Quien arma el partido lo pasa al
+# motor (MatchEngine.duel_players / mark_style), junto con zone_data.
+func duel_data(team_id: String) -> Dictionary:
+    var players: Array = []
+    for p in pick_starters(team_id):
+        players.append(habilidades.of(p))
+    return {"players": players, "style": String(league.get_team(team_id).get("archetype", "Directo"))}
 
 
 # ------------------------------------------------------------------ Mazo

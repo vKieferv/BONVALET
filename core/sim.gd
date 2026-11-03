@@ -20,10 +20,14 @@ const SEASON_STAGES := [["inicio", 0], ["mitad", 4], ["final", 8]]
 
 
 var zonas := false   # -- --zonas: todo con el partido por zonas (D-36, en prueba); sin él, el modo actual
+var duelos := false   # -- --duelos: el modo de duelos (D-40, en prueba) sobre el de zonas; los arquetipos sin plantel, por zonas
 
 
 func _init() -> void:
-	zonas = OS.get_cmdline_user_args().has("--zonas")
+	duelos = OS.get_cmdline_user_args().has("--duelos")
+	zonas = duelos or OS.get_cmdline_user_args().has("--zonas")
+	if duelos:
+		print("MODO DE DUELOS (D-40, modo en prueba)")
 	if zonas:
 		print("PARTIDO POR ZONAS (D-36, modo en prueba)")
 	var catalog := CardDB.load_catalog()
@@ -66,6 +70,11 @@ func _init() -> void:
 			var mine := squads.zone_data("colo_colo")
 			cfg_squad.merge({"zone_mode": true, "formation": own["formation"], "line_strength": own["line_strength"],
 				"rival_formation": mine["formation"], "rival_line_strength": mine["line_strength"]})
+			if duelos:
+				var own_d := squads.duel_data(id)
+				var mine_d := squads.duel_data("colo_colo")
+				cfg_squad.merge({"duel_mode": true, "players": own_d["players"], "style": own_d["style"],
+					"rival_players": mine_d["players"], "rival_style": mine_d["style"]})
 		var cfg_low := cfg_squad.duplicate()
 		cfg_low["rival_posture"] = MatchEngine.Posture.LOW
 		var g_generic: float = SimRunner.metrics(SimRunner.run(prof, MATCHES, cfg, tpl))["goals_per_match"]
@@ -192,6 +201,15 @@ func _constructibility(squads: SquadManager, team_id: String, steps: int, zone_p
 		player.lineup = squads.lineup_ids(team_id)
 		var e := MatchEngine.new(player, DeckManager.new(squads.build_match_deck(team_id, squads.starter_templates(team_id)), [], rng), rng, BASE_DIFFICULTY)
 		e.zone_mode = zonas
+		if duelos:   # contra la U (Contragolpe): sus marcas y su arquero
+			var own := squads.duel_data(team_id)
+			var riv := squads.duel_data("universidad_de_chile")
+			e.duel_mode = true
+			e.duel_players = own["players"]
+			e.formation = squads.zone_data(team_id)["formation"]
+			e.rival_players = riv["players"]
+			e.rival_mark_style = riv["style"]
+			e.rival_formation = squads.zone_data("universidad_de_chile")["formation"]
 		e.start()
 		e.current_moment()["steps_required"] = steps
 		player.energy = player.max_energy() * zone_pct
@@ -219,3 +237,6 @@ func _zones(side: Dictionary, squads: SquadManager, id: String) -> void:
 	if zonas:
 		side["zone_mode"] = true
 		side.merge(squads.zone_data(id))
+		if duelos:
+			side["duel_mode"] = true
+			side.merge(squads.duel_data(id))

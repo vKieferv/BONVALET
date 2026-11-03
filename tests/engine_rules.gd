@@ -33,6 +33,13 @@ func _initialize() -> void:
 	_test_zone_numbers()
 	_test_zone_fails()
 	_test_zone_bot()
+	_test_duel_skills()
+	_test_duel_pass_example()
+	_test_duel_rules()
+	_test_duel_marks()
+	_test_duel_bot()
+	_test_duel_d42()
+	_test_duel_d43()
 	print("engine_rules: %d comprobaciones, %d fallas" % [checks, failures.size()])
 	for f in failures:
 		print("  FALLA: " + f)
@@ -1088,3 +1095,435 @@ func _test_zone_bot() -> void:
 					bad_shots += 1
 			g.advance(MatchEngine.Posture.NORMAL)
 	_check(bad_shots == 0, "el bot solo remata en el Área (o de lejos desde el Medio): %d remates desde la Salida" % bad_shots)
+
+
+# ---------- Modo de duelos (D-40, T-13) ----------
+
+var _duel_squads: SquadManager
+
+
+func _squads() -> SquadManager:
+	if _duel_squads == null:
+		_duel_squads = SquadManager.new()
+		_check(_duel_squads.load_all(_league()), "SquadManager no carga")
+	return _duel_squads
+
+
+func _pl(players: Array, id: String) -> Dictionary:
+	for p in players:
+		if p["id"] == id:
+			return p
+	return {}
+
+
+# Colo-Colo (4-1-2-1-2, Tiki-Taka) ataca a la U (4-3-3, Contragolpe), los dos en NORMAL, con un
+# Momento recién empezado en la Salida, la mano vacía y PA de sobra. Sin apertura, entrenamiento ni
+# defensa rival.
+func _duel_engine(seed: int, steps: int = 3) -> MatchEngine:
+	var squads := _squads()
+	var e := _zone_engine(seed, steps)
+	var colo := squads.duel_data("colo_colo")
+	var u := squads.duel_data("universidad_de_chile")
+	e.duel_mode = true
+	e.duel_players = colo["players"]
+	e.mark_style = colo["style"]
+	e.formation = squads.zone_data("colo_colo")["formation"]
+	e.rival_players = u["players"]
+	e.rival_mark_style = u["style"]
+	e.rival_formation = squads.zone_data("universidad_de_chile")["formation"]
+	e.zone = MatchEngine.Zone.SALIDA
+	e.progress = 0
+	e._duel_begin()
+	e.moment_over = false
+	e.deck.hand.clear()
+	e.ap = 10
+	return e
+
+
+# Habilidades = nivel + puesto + perfil (+6), tope 95 (D-32), con las láminas de ejemplo de cartas.md.
+func _test_duel_skills() -> void:
+	var colo: Array = _squads().duel_data("colo_colo")["players"]
+	var u: Array = _squads().duel_data("universidad_de_chile")["players"]
+	var m14 := _pl(colo, "matias_fernandez")
+	_check([m14["pase"], m14["regate"], m14["remate"], m14["quite"], m14["lectura"]] == [87, 90, 79, 69, 74],
+			"M14 (MCO 84, Gambeteador): Pase 87, Regate 90, Remate 79, Quite 69, Lectura 74")
+	var suazo := _pl(colo, "humberto_suazo")
+	_check([suazo["pase"], suazo["regate"], suazo["remate"], suazo["quite"], suazo["lectura"]] == [76, 86, 95, 61, 66],
+			"Suazo (DEL 86, Goleador): Remate 95 con el tope")
+	var kalule := _pl(colo, "rodrigo_melendez")
+	_check([kalule["pase"], kalule["regate"], kalule["quite"], kalule["lectura"]] == [72, 62, 75, 75] and kalule["perfil"] == "",
+			"Kalule (MCD 72, sin perfil): Pase 72, Regate 62, Quite 75, Lectura 75")
+	_check(int(_pl(colo, "claudio_bravo")["atajada"]) == 86, "Bravo (POR 80, Atajador): Atajada 86")
+	_check(int(_pl(colo, "miguel_aceval")["pase"]) == 66 and int(_pl(u, "manuel_iturra")["lectura"]) == 75
+			and int(_pl(u, "mayer_candelo")["lectura"]) == 66, "Aceval Pase 66, Iturra Lectura 75, Candelo Lectura 66")
+	var h := Habilidades.new()
+	_check(h.load_profiles() and h.perfiles.size() == 3, "perfiles_2006.json trae solo los 3 perfiles de cartas.md")
+	var starters := {}
+	for p in _squads().pick_starters("colo_colo"):
+		starters[p["id"]] = true
+	for pid in h.perfiles:
+		_check(starters.has(pid), "el perfil de %s es de un titular de Colo-Colo" % pid)
+		_check(h.tipos.has(h.perfiles[pid]), "el perfil de %s es de un tipo conocido" % pid)
+	# Líneas de la formación: el extremo de la U (4-3-3) juega arriba; en LOW baja un volante.
+	var u_lines := MatchEngine.lines_of(u, [4, 3, 3], MatchEngine.Posture.NORMAL)
+	_check((u_lines[2] as Array).has(_pl(u, "hugo_droguett")) and (u_lines[1] as Array).size() == 3,
+			"en el 4-3-3 el extremo juega arriba y quedan 3 en el medio")
+	var c_lines := MatchEngine.lines_of(colo, [4, 4, 2], MatchEngine.Posture.NORMAL)
+	var medio: Array = (c_lines[1] as Array).map(func(p): return p["id"])
+	medio.sort()
+	_check(medio == ["alexis_sanchez", "arturo_vidal", "matias_fernandez", "rodrigo_melendez"],
+			"el medio de Colo-Colo es Vidal, Meléndez, Fernández y Sánchez")
+	var low := MatchEngine.lines_of(colo, [4, 4, 2], MatchEngine.Posture.LOW)
+	_check((low[0] as Array).size() == 5 and (low[0] as Array).has(_pl(colo, "arturo_vidal")),
+			"en LOW baja el volante más defensivo")
+
+
+# La tabla de "Pase con marcas" (cartas.md, D-40): Aceval con el Pase corto en la Salida, la U con
+# doble marca a Fernández (Iturra y Díaz), Candelo sobre Sánchez, Vidal y Meléndez libres.
+func _test_duel_pass_example() -> void:
+	var e := _duel_engine(91)
+	e.duel_press_divisor = 0.0   # la tabla es de D-40: la presión de Salas sobre Aceval (D-43) se prueba en _test_duel_d43
+	var u: Array = e.rival_players
+	e.carrier = _pl(e.duel_players, "miguel_aceval")
+	e.marks[MatchEngine.Zone.MEDIO] = {"matias_fernandez": [_pl(u, "manuel_iturra"), _pl(u, "marcelo_diaz")],
+		"alexis_sanchez": [_pl(u, "mayer_candelo")], "arturo_vidal": [], "rodrigo_melendez": []}
+	e.marks[MatchEngine.Zone.SALIDA] = {"miguel_aceval": [_pl(u, "marcelo_salas")]}
+	var cat := CardDB.load_catalog(DECK_PATH)
+	var pase := Card.from_dict(cat["pase_corto"])
+	e.deck.hand.append(pase)
+	var ids: Array = e.receivers(pase).map(func(r): return r["id"])
+	_check(ids.size() == 4 and ids.has("matias_fernandez") and not ids.has("miguel_aceval"),
+			"el pase de la Salida va a uno de los 4 del medio")
+	_check(e.success_chance(pase, -1, "matias_fernandez") == 0.29,
+			"Aceval a Fernández (1 vs 2, Iturra Lectura 75): 29%% (da %s)" % e.success_chance(pase, -1, "matias_fernandez"))
+	_check(e.success_chance(pase, -1, "arturo_vidal") == 0.57,
+			"Aceval a Vidal (libre): 57%% (da %s)" % e.success_chance(pase, -1, "arturo_vidal"))
+	_check(e.success_chance(pase, -1, "alexis_sanchez") == 0.45,
+			"Aceval a Sánchez (1 vs 1 con Candelo): 45%% (da %s)" % e.success_chance(pase, -1, "alexis_sanchez"))
+	_check(e.steal_chance(pase, -1, "arturo_vidal") == 0.11 and e.steal_chance(pase, -1, "alexis_sanchez") == 0.14
+			and e.steal_chance(pase, -1, "matias_fernandez") == 0.18, "robo 1/4: 11%, 14% y 18%")
+	var labels: Array = e.chance_breakdown(pase, -1, "matias_fernandez").map(func(i): return i["label"])
+	_check(labels.has("Duelo: Pase 66 contra Lectura 75 (Manuel Iturra)") and labels.has("Marca de Matías Fernández: 1 contra 2 · Marcelo Díaz (Lectura 67)")
+			and not labels.has("Defensa rival") and not labels.has("Base (técnica)"),
+			"el desglose escribe el duelo y la marca, sin técnica ni defensa rival: %s" % [labels])
+	var amague := Card.from_dict(cat["amague"])
+	_check(e.success_chance(amague) == 0.64, "el Amague de Aceval (Regate 66 contra Quite 53 de Salas): 64%% (da %s)" % e.success_chance(amague))
+	# Lo mostrado es lo que se tira, y el receptor pasa a ser el portador.
+	var shown := e.success_chance(pase, -1, "arturo_vidal")
+	var ev := e.play_card(0, "arturo_vidal")
+	_check(ev["ok"] and is_equal_approx(ev["chance"], shown) and ev["success"] == (ev["roll"] < shown),
+			"la tirada usa el % mostrado para ese receptor")
+	if ev["success"]:
+		_check(e.carrier["id"] == "arturo_vidal" and e.zone == MatchEngine.Zone.MEDIO, "si el pase sale, Vidal es el portador en el Medio")
+	else:
+		_check(e.carrier["id"] == "miguel_aceval", "si el pase falla, Aceval sigue con la pelota")
+	# Después del pase: Fernández con el Amague contra Iturra (Quite 75) en 1 vs 2 = 53%.
+	var f := _duel_engine(92)
+	f.zone = MatchEngine.Zone.MEDIO
+	f.progress = 1
+	f.carrier = _pl(f.duel_players, "matias_fernandez")
+	f.marks[MatchEngine.Zone.MEDIO] = {"matias_fernandez": [_pl(u, "manuel_iturra"), _pl(u, "marcelo_diaz")]}
+	_check(f.success_chance(amague) == 0.53, "Fernández con el Amague en 1 vs 2: 53%% (da %s)" % f.success_chance(amague))
+	# El % que muestra cada carta es el que se tira, en muchas jugadas con receptor elegido.
+	var mismatches := 0
+	for seed in range(200, 260):
+		var g := _duel_engine(seed)
+		var card := Card.from_dict(cat["pase_corto"])
+		g.deck.hand.append(card)
+		var target: String = g.receivers(card)[seed % 4]["id"]
+		var p := g.success_chance(card, -1, target)
+		var gev := g.play_card(0, target)
+		if not is_equal_approx(gev["chance"], p) or gev["success"] != (gev["roll"] < p):
+			mismatches += 1
+	_check(mismatches == 0, "el %% mostrado por receptor es el que se tira (%d diferencias)" % mismatches)
+
+
+# Reglas del modo: sin jugadores o sin zonas no cambia nada; portador al empezar y en el contragolpe;
+# pase solo a la zona siguiente; remate contra el arquero; Ejecutor Natural solo del portador;
+# Pelotazo sin duelo y marcas a la mitad; regate que sigue con la pelota; vuelta atrás.
+func _test_duel_rules() -> void:
+	var squads := _squads()
+	var cat := CardDB.load_catalog(DECK_PATH)
+	var off := _zone_engine(93)
+	var pase := Card.from_dict(cat["pase_corto"])
+	var zone_only := off.chance_breakdown(pase)
+	off.duel_mode = true
+	_check(off.chance_breakdown(pase) == zone_only, "sin jugadores, el modo de duelos no cambia el desglose")
+	off.duel_players = squads.duel_data("colo_colo")["players"]
+	off.zone_mode = false
+	_check(not off.duel_on(), "el modo de duelos exige el de zonas")
+
+	var e := _duel_engine(94)
+	_check(not e.carrier.is_empty() and e.zone_players(MatchEngine.Zone.SALIDA).has(e.carrier),
+			"el Momento arranca con un portador de la Salida")
+	var other: Dictionary = e.zone_players(MatchEngine.Zone.SALIDA).filter(func(p): return p != e.carrier)[0]
+	_check(e.set_carrier(other["id"]) and e.carrier == other, "quien juega elige al portador de la Salida")
+	_check(not e.set_carrier("humberto_suazo"), "el portador de la Salida tiene que ser de la línea de atrás")
+	e.deck.hand.append(pase)
+	_check(not e.can_play(pase, "humberto_suazo"), "desde la Salida no se pasa a un delantero")
+	_check(e.can_play(pase, "matias_fernandez"), "desde la Salida se pasa a uno del medio")
+	var ce := _duel_engine(95)
+	ce.counter_ready = true
+	ce.begin_moment()
+	_check(ce.zone == MatchEngine.Zone.MEDIO and ce.zone_players(MatchEngine.Zone.MEDIO).has(ce.carrier),
+			"el contragolpe arranca con un portador del Medio")
+	# Remate en el Área: Remate del portador contra la Atajada del arquero, con sus marcas.
+	var s := _duel_engine(96)
+	s.zone = MatchEngine.Zone.AREA
+	s.progress = 2
+	s.carrier = _pl(s.duel_players, "humberto_suazo")
+	s.marks[MatchEngine.Zone.AREA] = {"humberto_suazo": [_pl(s.rival_players, "waldo_ponce")]}
+	var shot := Card.from_dict(cat["remate_primera"])
+	var labels: Array = s.chance_breakdown(shot).map(func(i): return i["label"])
+	_check(labels.has("Duelo: Remate 95 contra Atajada 74 (Miguel Pinto)"), "el remate pelea contra el arquero: %s" % [labels])
+	_check(is_equal_approx(s.success_chance(shot), 0.90), "Remate de primera de Suazo en 1 vs 1: 39 + 40 + 10,5 = 89,5 → 90%% (da %s)" % s.success_chance(shot))
+	s.duel_shot_adjust = -0.10
+	_check(is_equal_approx(s.success_chance(shot), 0.80), "con −10 a los remates, 80%")
+	s.duel_shot_adjust = 0.0
+	# Ejecutor Natural: solo si la carta es del portador (+5); la firma de otro, sin bono.
+	var own := _card(Card.Kind.SHOT, 0.20, 1, "humberto_suazo")
+	var foreign := _card(Card.Kind.SHOT, 0.20, 1, "matias_fernandez")
+	_check(is_equal_approx(s.success_chance(own) - s.success_chance(foreign), MatchEngine.DUEL_NATURAL_BONUS),
+			"el Ejecutor Natural vale +5 y solo para el portador")
+	_check(s.is_natural_executor(own) and not s.is_natural_executor(foreign), "la firma de otro titular la juega el portador, sin bono")
+	# Pelotazo: sin duelo, marcas a la mitad (libre +6, doble −6).
+	var p := _duel_engine(97)
+	p.marks[MatchEngine.Zone.AREA] = {"humberto_suazo": [_pl(p.rival_players, "waldo_ponce"), _pl(p.rival_players, "nicolas_sartori")],
+		"hector_mancilla": []}
+	var pelotazo := Card.from_dict(cat["pelotazo"])
+	var to_suazo := p.chance_breakdown(pelotazo, -1, "humberto_suazo")
+	_check(not to_suazo.any(func(i): return String(i["label"]).begins_with("Duelo")), "el Pelotazo no pelea")
+	_check(is_equal_approx(p.success_chance(pelotazo, -1, "hector_mancilla") - p.success_chance(pelotazo, -1, "humberto_suazo"), 0.12),
+			"el Pelotazo a un libre (+6) contra uno en doble marca (−6)")
+	_check(p.receivers(pelotazo).all(func(r): return p.zone_players(MatchEngine.Zone.AREA).has(r)), "el Pelotazo va al Área")
+	# Regate: si sale, sigue con la pelota y el rival reparte el Medio contándolo a él.
+	var dribbled := false
+	for seed in range(100, 200):
+		var d := _duel_engine(seed)
+		var carrier: Dictionary = d.carrier
+		var am := Card.from_dict(cat["amague"])
+		am.bonus = 1.0
+		d.deck.hand.append(am)
+		var ev := d.play_card(0)
+		if not ev["success"]:
+			continue
+		_check(d.carrier == carrier and d.zone == MatchEngine.Zone.MEDIO and d.carrier_extra, "con el regate sigue con la pelota al Medio")
+		_check((d.marks[MatchEngine.Zone.MEDIO] as Dictionary).has(carrier["id"]), "el rival reparte el Medio contándolo a él")
+		_check(d.stats["dribble_entries"] == 1, "el regate que entra al Medio se cuenta")
+		dribbled = true
+		break
+	_check(dribbled, "las semillas deberían dar un regate que sale")
+	# Vuelta atrás ("atras": true): no se juega en la Salida; desde el Medio vuelve y el rival reparte.
+	var back_dict: Dictionary = (cat["pase_corto"] as Dictionary).duplicate()
+	back_dict["atras"] = true
+	back_dict["bonus"] = 1.0
+	var b := _duel_engine(98)
+	var back := Card.from_dict(back_dict)
+	_check(back.back, "la carta con \"atras\" vuelve atrás")
+	b.deck.hand.append(back)
+	_check(not b.can_play(back) and b.zone_block_reason(back) == "NO HAY ZONA ANTERIOR", "en la Salida no se vuelve atrás")
+	var went_back := false
+	for seed in range(100, 200):
+		var g := _duel_engine(seed)
+		g.zone = MatchEngine.Zone.MEDIO
+		g.progress = 1
+		g.carrier = g.zone_players(MatchEngine.Zone.MEDIO)[0]
+		g.marks.erase(MatchEngine.Zone.SALIDA)
+		var bk := Card.from_dict(back_dict)
+		g.deck.hand.append(bk)
+		_check(g.receivers(bk).all(func(r): return g.zone_players(MatchEngine.Zone.SALIDA).has(r)), "la vuelta atrás va a la Salida")
+		var ev := g.play_card(0)
+		if not ev["success"]:
+			continue
+		_check(g.zone == MatchEngine.Zone.SALIDA and g.progress == 0 and g.zone_players(MatchEngine.Zone.SALIDA).has(g.carrier),
+				"la vuelta atrás deja la pelota en la Salida con un defensa")
+		_check(g.marks.has(MatchEngine.Zone.SALIDA) and g.stats["back_plays"] == 1, "al volver atrás el rival reparte de nuevo")
+		went_back = true
+		break
+	_check(went_back, "las semillas deberían dar una vuelta atrás que sale")
+
+
+# Marcas por estilo: la figura recibe más marca; si son menos, alguien queda libre.
+func _test_duel_marks() -> void:
+	var colo: Array = _squads().duel_data("colo_colo")["players"]
+	var u: Array = _squads().duel_data("universidad_de_chile")["players"]
+	var medio: Array = MatchEngine.lines_of(colo, [4, 4, 2], MatchEngine.Posture.NORMAL)[1]
+	var u_medio: Array = MatchEngine.lines_of(u, [4, 3, 3], MatchEngine.Posture.NORMAL)[1]
+	var rng := RandomNumberGenerator.new()
+	rng.seed = 7
+	var m := CoachBot.assign_marks(medio, u_medio, "Contragolpe", rng)
+	_check((m["matias_fernandez"] as Array).size() == 2 and m["matias_fernandez"][0]["id"] == "manuel_iturra",
+			"Contragolpe: doble marca a Fernández, con Iturra (el mejor) adelante")
+	var counts: Array = m.values().map(func(a): return (a as Array).size())
+	counts.sort()
+	_check(counts == [0, 0, 1, 2], "Contragolpe en el medio: dos libres, uno en 1 vs 1 y Fernández en 1 vs 2")
+	var z := CoachBot.assign_marks(medio, u_medio, "Tiki-Taka", rng)
+	var zc: Array = z.values().map(func(a): return (a as Array).size())
+	zc.sort()
+	_check(zc == [0, 1, 1, 1] and (z["matias_fernandez"] as Array).size() == 1, "zonal: uno sobre cada uno y uno libre")
+	var area: Array = MatchEngine.lines_of(colo, [4, 4, 2], MatchEngine.Posture.NORMAL)[2]
+	var back5: Array = MatchEngine.lines_of(u, [5, 3, 2, 3], MatchEngine.Posture.NORMAL)[0]
+	var cat := CoachBot.assign_marks(area, back5, "Catenaccio", rng)
+	_check((cat["humberto_suazo"] as Array).size() >= 2 and (cat["hector_mancilla"] as Array).size() >= 2,
+			"Catenaccio con 5 atrás: doble marca a los dos delanteros")
+	var same_a := RandomNumberGenerator.new()
+	same_a.seed = 3
+	var same_b := RandomNumberGenerator.new()
+	same_b.seed = 3
+	_check(CoachBot.assign_marks(medio, u_medio, "Directo", same_a) == CoachBot.assign_marks(medio, u_medio, "Directo", same_b),
+			"las marcas son deterministas dado el RNG")
+
+
+# Los bots juegan el modo de duelos: eligen receptor entre los válidos, los partidos terminan, la pelota
+# pasa por varios titulares y con el modo apagado DuelRunner no tiene portador.
+func _test_duel_bot() -> void:
+	var squads := _squads()
+	var e := _duel_engine(99)
+	var pase := _card(Card.Kind.PASS, 0.10, 0)
+	e.deck.hand.append(pase)
+	var r := CoachBot.choose_receiver(e, pase)
+	_check(e.receivers(pase).any(func(x): return x["id"] == r), "el bot elige un receptor de la zona siguiente")
+	var tpl_a := squads.build_match_templates("colo_colo", squads.starter_templates("colo_colo"))
+	var tpl_b := squads.build_match_templates("universidad_de_chile", squads.starter_templates("universidad_de_chile"))
+	var a := {"profile": BotProfile.tiki_taka(), "templates": tpl_a, "lineup": squads.lineup_ids("colo_colo"), "defends": true,
+		"zone_mode": true, "duel_mode": true}
+	a.merge(squads.zone_data("colo_colo"))
+	a.merge(squads.duel_data("colo_colo"))
+	var b := {"profile": BotProfile.contragolpe(), "templates": tpl_b, "lineup": squads.lineup_ids("universidad_de_chile"),
+		"defends": true, "zone_mode": true, "duel_mode": true}
+	b.merge(squads.zone_data("universidad_de_chile"))
+	b.merge(squads.duel_data("universidad_de_chile"))
+	var out := DuelRunner.run(a, b, 40)
+	_check(out["goals_a"] + out["goals_b"] > 0, "por duelos hay goles")
+	_check(out["touch_teams"] >= 70 and float(out["touch_distinct"]) / out["touch_teams"] >= 3.0,
+			"la pelota pasa por varios titulares (%.1f por partido)" % (float(out["touch_distinct"]) / maxf(1.0, out["touch_teams"])))
+	a.erase("duel_mode")
+	b.erase("duel_mode")
+	_check(DuelRunner.run(a, b, 10)["touch_teams"] == 0, "sin el modo de duelos no hay portador")
+
+
+# D-42: cada marcador extra resta según su defensa (habilidad ÷ 6) y en una transición solo te esperan
+# los rivales que se quedaron atrás al atacar, según su estilo y su postura.
+func _test_duel_d42() -> void:
+	var cat := CardDB.load_catalog(DECK_PATH)
+	var amague := Card.from_dict(cat["amague"])
+	var f := _duel_engine(301)
+	var u: Array = f.rival_players
+	f.zone = MatchEngine.Zone.MEDIO
+	f.progress = 1
+	f.carrier = _pl(f.duel_players, "matias_fernandez")
+	f.marks[MatchEngine.Zone.MEDIO] = {"matias_fernandez": [_pl(u, "manuel_iturra"), _pl(u, "marcelo_diaz")]}
+	var with_mid := f.success_chance(amague)
+	var mark: Dictionary = f.chance_breakdown(amague).filter(func(i): return String(i["label"]).begins_with("Marca de"))[0]
+	_check(is_equal_approx(float(mark["value"]), -67.0 / 6.0 / 100.0) and String(mark["label"]).ends_with("Marcelo Díaz (Quite 67)"),
+			"el marcador extra resta su Quite ÷ 6 y sale con su nombre: %s" % [mark])
+	_check(with_mid == 0.53, "Amague de Fernández contra Iturra y Díaz: 39 + 18 + 7,5 − 11,2 = 53%% (da %s)" % with_mid)
+	f.marks[MatchEngine.Zone.MEDIO] = {"matias_fernandez": [_pl(u, "manuel_iturra"), _pl(u, "marcelo_salas")]}
+	_check(f.success_chance(amague) == 0.56, "un delantero que presiona (Salas, Quite 53) resta menos: −8,8 → 56%% (da %s)" % f.success_chance(amague))
+	f.duel_mark_divisor = 0.0
+	mark = f.chance_breakdown(amague).filter(func(i): return String(i["label"]).begins_with("Marca de"))[0]
+	_check(is_equal_approx(float(mark["value"]), -MatchEngine.DUEL_MARK_PTS), "con divisor 0, el −12 fijo de D-40")
+	# Pelotazo: sin duelo, el extra resta su Lectura ÷ 6 a la mitad.
+	var p := _duel_engine(302)
+	p.marks[MatchEngine.Zone.AREA] = {"humberto_suazo": [_pl(p.rival_players, "waldo_ponce"), _pl(p.rival_players, "nicolas_sartori")]}
+	var pel := Card.from_dict(cat["pelotazo"])
+	var pm: Dictionary = p.chance_breakdown(pel, -1, "humberto_suazo").filter(func(i): return String(i["label"]).begins_with("Marca de"))[0]
+	_check(is_equal_approx(float(pm["value"]), -73.0 / 6.0 / 100.0 * MatchEngine.DUEL_PELOTAZO_FACTOR),
+			"Pelotazo en doble marca: Sartori (Lectura 73) resta ÷ 6 a la mitad")
+	# Transición: cuántos se quedan atrás por estilo y postura.
+	_check(MatchEngine.transition_stay("Kamikaze", MatchEngine.Posture.NORMAL) == [2, 2], "Kamikaze deja 2 atrás y 2 en el medio")
+	_check(MatchEngine.transition_stay("Kamikaze", MatchEngine.Posture.HIGH) == [1, 2], "en HIGH deja uno menos atrás")
+	_check(MatchEngine.transition_stay("Kamikaze", MatchEngine.Posture.LOW) == [3, 2], "en LOW deja uno más atrás")
+	_check(MatchEngine.transition_stay("Catenaccio", MatchEngine.Posture.NORMAL) == [5, 3], "Catenaccio deja a todos atrás")
+	var totals := func(e: MatchEngine, z: int) -> int:
+		var t := 0
+		for id in e.marks.get(z, {}):
+			t += (e.marks[z][id] as Array).size()
+		return t
+	var normal := _duel_engine(303)
+	normal.rival_mark_style = "Kamikaze"
+	normal.begin_moment()
+	_check(totals.call(normal, MatchEngine.Zone.AREA) == 4 and not normal.transition, "en un ataque normal te esperan sus 4 de atrás")
+	var counter := _duel_engine(304)
+	counter.rival_mark_style = "Kamikaze"
+	counter.counter_ready = true
+	counter.begin_moment()
+	_check(counter.transition and totals.call(counter, MatchEngine.Zone.AREA) == 2 and totals.call(counter, MatchEngine.Zone.MEDIO) == 2,
+			"en la contra contra un Kamikaze solo te esperan 2 atrás y 2 en el medio")
+	_check(counter.stats["transition_moments"] == 1, "el Momento de transición se cuenta")
+	var off := _duel_engine(305)
+	off.rival_mark_style = "Kamikaze"
+	off.duel_transition = false
+	off.counter_ready = true
+	off.begin_moment()
+	_check(totals.call(off, MatchEngine.Zone.AREA) == 4, "sin la regla de transición, la contra encuentra su formación completa")
+	# Robo en tu Salida: se cuenta y, si fue en un regate, lo hizo un delantero que presiona.
+	var stolen := false
+	for seed in range(310, 500):
+		var g := _duel_engine(seed)
+		g.carrier = _pl(g.duel_players, "celso_ayala")
+		g.marks[MatchEngine.Zone.SALIDA] = {"celso_ayala": [_pl(g.rival_players, "marcelo_salas")]}
+		g.deck.hand.append(Card.from_dict(cat["amague"]))
+		var ev := g.play_card(0)
+		if not ev.get("stolen", false):
+			continue
+		_check(g.stats["salida_steals"] == 1 and g.stats["salida_steals_fwd"] == 1 and ev["stealer"] == "marcelo_salas"
+				and g.stats["salida_steal_skill"] == 53, "el robo en la Salida lo hace el delantero que presionaba (Quite 53)")
+		stolen = true
+		break
+	_check(stolen, "las semillas deberían dar un robo en la Salida")
+
+
+# D-43: presión al portador en sus pases (Quite ÷ 12, línea propia), jugada corta en los Momentos de 2
+# (el Área con los que se quedan atrás) y el bot que mira una jugada más al elegir receptor.
+func _test_duel_d43() -> void:
+	var cat := CardDB.load_catalog(DECK_PATH)
+	var e := _duel_engine(401)
+	var u: Array = e.rival_players
+	e.carrier = _pl(e.duel_players, "miguel_aceval")
+	e.marks[MatchEngine.Zone.MEDIO] = {"arturo_vidal": [], "matias_fernandez": [_pl(u, "manuel_iturra"), _pl(u, "marcelo_diaz")]}
+	e.marks[MatchEngine.Zone.SALIDA] = {"miguel_aceval": [_pl(u, "marcelo_salas")]}
+	var pase := Card.from_dict(cat["pase_corto"])
+	e.deck.hand.append(pase)
+	var labels: Array = e.chance_breakdown(pase, -1, "arturo_vidal").map(func(i): return i["label"])
+	_check(labels.has("Presión de Marcelo Salas (Quite 53)"), "la presión al portador sale en su línea: %s" % [labels])
+	_check(e.success_chance(pase, -1, "arturo_vidal") == 0.53, "Aceval a Vidal con Salas encima: 57 − 4,4 = 53%% (da %s)" % e.success_chance(pase, -1, "arturo_vidal"))
+	e.duel_press_divisor = 6.0
+	_check(e.success_chance(pase, -1, "arturo_vidal") == 0.48, "con la presión completa (÷6): 57 − 8,8 = 48%% (da %s)" % e.success_chance(pase, -1, "arturo_vidal"))
+	e.duel_press_divisor = 12.0
+	var shown := e.success_chance(pase, -1, "arturo_vidal")
+	var ev := e.play_card(0, "arturo_vidal")
+	_check(is_equal_approx(ev["chance"], shown) and ev["success"] == (ev["roll"] < shown), "con presión, el % mostrado es el que se tira")
+	# Jugada corta: en un Momento de 2 jugadas el Área del rival tiene solo los que se quedan atrás (Tiki-Taka: 3 de 4).
+	var count := func(m: MatchEngine, z: int) -> int:
+		var t := 0
+		for id in m.marks.get(z, {}):
+			t += (m.marks[z][id] as Array).size()
+		return t
+	var short := _duel_engine(402, 2)
+	short.rival_mark_style = "Tiki-Taka"
+	short.begin_moment()
+	_check(short.short_play and count.call(short, MatchEngine.Zone.AREA) == 3, "jugada corta: en el Área esperan 3 de sus 4 defensas")
+	var long := _duel_engine(403, 3)
+	long.rival_mark_style = "Tiki-Taka"
+	long.begin_moment()
+	_check(not long.short_play and count.call(long, MatchEngine.Zone.AREA) == 4, "en un Momento de 3 jugadas el Área tiene la defensa completa")
+	var off := _duel_engine(404, 2)
+	off.rival_mark_style = "Tiki-Taka"
+	off.duel_short_play = false
+	off.begin_moment()
+	_check(count.call(off, MatchEngine.Zone.AREA) == 4, "sin la regla, la jugada corta encuentra la defensa completa")
+	# Bot con lookahead: valora la jugada siguiente del receptor (el Amague de Fernández, Regate 90, contra
+	# el de Vidal, Regate 64) y deja el motor como estaba.
+	var b := _duel_engine(405)
+	b.carrier = _pl(b.duel_players, "miguel_aceval")
+	var diaz := _pl(u, "marcelo_diaz")
+	b.marks[MatchEngine.Zone.MEDIO] = {"arturo_vidal": [diaz], "matias_fernandez": [diaz], "rodrigo_melendez": [diaz], "alexis_sanchez": [diaz]}
+	var p2 := Card.from_dict(cat["pase_corto"])
+	b.deck.hand.append_array([p2, Card.from_dict(cat["amague"])])
+	var before := [b.carrier, b.zone, b.progress]
+	var next_f := CoachBot._next_value(b, p2, _pl(b.duel_players, "matias_fernandez"))
+	var next_v := CoachBot._next_value(b, p2, _pl(b.duel_players, "arturo_vidal"))
+	_check(next_f > next_v, "Fernández puede hacer más después de recibir que Vidal (%s contra %s)" % [next_f, next_v])
+	_check([b.carrier, b.zone, b.progress] == before, "mirar una jugada más no cambia el motor")
+	_check(CoachBot.choose_receiver(b, p2) == "matias_fernandez", "con el mismo % de recibir, el bot se la da a Fernández")

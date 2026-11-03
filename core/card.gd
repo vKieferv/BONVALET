@@ -32,6 +32,7 @@ var draw: int = 0                # cartas que roba al salir bien (Toque-toque: 1
 var effect: float = -1.0         # fuerza de una Presión o Bloqueo exitoso; -1 = la de su tipo
 var counter: bool = false        # en defensa, si sale bien tu próximo Momento arranca con 1 jugada
 var long_range: bool = false     # tiro lejano: en el partido por zonas se remata desde el Medio (D-36)
+var back: bool = false           # modo de duelos (D-40): la pelota vuelve a la zona anterior y el rival reparte de nuevo
 # Metadatos de jugador. owner_id = "" -> carta colectiva (del DT), sin dueño.
 # owner_id identifica al Ejecutor Natural y cuenta para el plantel en las reglas de liga.
 var owner_id: String = ""
@@ -72,4 +73,5 @@ static func from_dict(d: Dictionary) -> Card:
 	c.effect = float(d.get("effect", -1.0))
 	c.counter = bool(d.get("counter", false))
 	c.long_range = bool(d.get("lejano", false))
+	c.back = bool(d.get("atras", false))
 	return c

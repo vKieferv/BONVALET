@@ -1,0 +1,16 @@
+{
+	"_nota": "Perfiles de la élite (D-29, D-32): +6 a una habilidad. Solo los de docs/cartas.md; el resto los decide el usuario.",
+	"tipos": {
+		"Gambeteador": "regate",
+		"Enganche": "pase",
+		"Goleador": "remate",
+		"Perro de presa": "quite",
+		"Recuperador": "lectura",
+		"Atajador": "atajada"
+	},
+	"perfiles": {
+		"matias_fernandez": "Gambeteador",
+		"humberto_suazo": "Goleador",
+		"claudio_bravo": "Atajador"
+	}
+}

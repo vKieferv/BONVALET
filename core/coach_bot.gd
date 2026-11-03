@@ -69,12 +69,16 @@ const DIG_MIN_CHANCE := 0.5         # sin plan, juega una carta que roba si sale
 # ejecuta las decisiones del bot (lo usan match_view, SimRunner y DuelRunner). Devuelve el evento
 # del motor, o {} si cedió. Si el evento trae "stolen", quien arma el partido le da contragolpe al rival.
 static func act(e: MatchEngine, profile: BotProfile) -> Dictionary:
+    if e.duel_on() and e.moment_plays == 0 and not e.carrier_chosen:
+        e.set_carrier(choose_carrier(e))   # modo de duelos: quién arranca con la pelota
     var idx := choose(e, profile)
     if idx == HOLD:
         return e.hold_ball()
     if idx < 0:
         e.abort_moment()
         return {}
+    if e.duel_on() and MatchEngine.is_pass(e.deck.hand[idx]):
+        return e.play_card(idx, choose_receiver(e, e.deck.hand[idx]))
     return e.play_card(idx)
 
 
@@ -83,6 +87,9 @@ static func act(e: MatchEngine, profile: BotProfile) -> Dictionary:
 static func choose(e: MatchEngine, profile: BotProfile) -> int:
     var plan := best_plan(e, profile)
     var pause := _playable_pause(e)
+    var back := _duel_back_card(e, plan)
+    if back >= 0:
+        return back
     if plan.is_empty():
         # Sin plan de gol: si está cansado, primero recupera aire con la Pausa; después aguanta el
         # balón para robar una mano nueva, o cede si no puede.
@@ -126,9 +133,10 @@ static func best_plan(e: MatchEngine, profile: BotProfile) -> Dictionary:
     var reserve := profile.elite_reserve_pct()
     var floor_p := lerpf(0.75, 0.30, profile.risk_tolerance) if profile.risk_tolerance >= 0.0 else 0.0
 
-    var steps: Array = []     # cartas que pueden ser pasos previos (todo menos la Pausa)
+    var steps: Array = []     # cartas que pueden ser pasos previos (todo menos la Pausa y, por duelos, la vuelta atrás)
     for i in playable:
-        if e.deck.hand[i].kind != Card.Kind.PAUSE:
+        var c: Card = e.deck.hand[i]
+        if c.kind != Card.Kind.PAUSE and not (c.back and e.duel_on()):
             steps.append(i)
     var best := {}
     if e.zone_mode:
@@ -255,7 +263,7 @@ static func _zone_advance_card(e: MatchEngine) -> int:
     var best_score := -INF
     for i in e.playable_indices():
         var c: Card = e.deck.hand[i]
-        if c.kind == Card.Kind.SHOT or c.kind == Card.Kind.PAUSE:
+        if c.kind == Card.Kind.SHOT or c.kind == Card.Kind.PAUSE or (c.back and e.duel_on()):
             continue
         var score := e.success_chance(c) - e.steal_chance(c) - 0.05 * e.ap_cost_of(c)
         if score > best_score:
@@ -319,3 +327,162 @@ static func _playable_pause(e: MatchEngine) -> int:
         if e.deck.hand[i].kind == Card.Kind.PAUSE:
             return i
     return -1
+
+
+# ---------- Modo de duelos (D-40, T-13) ----------
+
+# Cómo reparte sus marcas cada estilo (valores de prueba): cuántas figuras tuyas reciben marca doble
+# antes de cubrir al resto. Zonal (Tiki-Taka, Directo): primero uno sobre cada uno y los que sobran,
+# sobre tus figuras. A la figura (Contragolpe, Kamikaze): doble a tu mejor jugador y después uno sobre
+# cada uno. Cerrojo (Catenaccio): doble a tus dos mejores.
+const MARK_DOUBLES := {"Tiki-Taka": 0, "Directo": 0, "Contragolpe": 1, "Kamikaze": 1, "Catenaccio": 2}
+const MARK_JITTER := 4.0            # azar al ordenar tus figuras: dos parecidas pueden cambiar de orden
+const BACK_MAX_STEP_P := 0.40       # vuelve atrás si su mejor carta para avanzar no llega a esto...
+const BACK_MIN_P := 0.60            # ...y la vuelta atrás sale al menos así de seguido
+const RECEIVER_THREAT_WEIGHT := 0.1 # al elegir receptor, cuánto pesa lo peligroso que es (por punto / 100)
+const LOOKAHEAD_FLOOR := 0.25       # con lookahead (D-43): lo mínimo que vale recibir aunque después no haya jugada
+
+
+# Marcas del rival en una zona: sus defensores (los de su línea que la defiende) sobre tus atacantes.
+# Tus atacantes se ordenan por peligro (MatchEngine.threat, con un poco de azar del rng del motor) y
+# sus defensores por calidad (su mejor Quite o Lectura); los mejores marcan a los más peligrosos. Si
+# son menos, alguien queda libre; si son más, alguien queda con marca doble.
+# Devuelve {id de tu jugador: [sus marcadores, del mejor al peor]} (vacío = libre).
+static func assign_marks(attackers: Array, defenders: Array, style: String, rng: RandomNumberGenerator) -> Dictionary:
+    var out := {}
+    for a in attackers:
+        out[a["id"]] = []
+    if attackers.is_empty() or defenders.is_empty():
+        return out
+    var ranked: Array = []
+    for i in attackers.size():
+        ranked.append([MatchEngine.threat(attackers[i]) + rng.randf_range(-MARK_JITTER, MARK_JITTER), i, attackers[i]])
+    ranked.sort_custom(func(a, b): return a[0] > b[0] or (a[0] == b[0] and a[1] < b[1]))
+    var queue: Array = defenders.duplicate()
+    queue.sort_custom(func(a, b): return _mark_quality(a) > _mark_quality(b))
+    var doubles := mini(int(MARK_DOUBLES.get(style, 0)), ranked.size())
+    for i in doubles:   # marca doble a las figuras
+        if queue.size() >= 2:
+            out[ranked[i][2]["id"]].append_array([queue.pop_front(), queue.pop_front()])
+    for r in ranked:    # uno sobre cada uno de los que siguen libres, del más peligroso al menos
+        if queue.is_empty():
+            break
+        if (out[r[2]["id"]] as Array).is_empty():
+            out[r[2]["id"]].append(queue.pop_front())
+    var k := 0
+    while not queue.is_empty():   # los que sobran, sobre las figuras
+        out[ranked[k % ranked.size()][2]["id"]].append(queue.pop_front())
+        k += 1
+    for id in out:
+        (out[id] as Array).sort_custom(func(a, b): return _mark_quality(a) > _mark_quality(b))
+    return out
+
+
+static func _mark_quality(pl: Dictionary) -> int:
+    return maxi(int(pl.get("quite", 0)), int(pl.get("lectura", 0)))
+
+
+# Portador de la primera zona: el compañero con quien la mejor carta de la mano sale más seguido. Con
+# duel_bot_lookahead (D-43), cada carta vale lo de _play_value: un pase, mirando también lo que podrá
+# hacer el receptor después.
+static func choose_carrier(e: MatchEngine) -> String:
+    var best := String(e.carrier.get("id", ""))
+    var best_p := -INF
+    var current := best
+    for pl in e.zone_players(e.zone):
+        e.carrier = pl
+        var p := -INF
+        for i in e.playable_indices():
+            var c: Card = e.deck.hand[i]
+            if c.kind != Card.Kind.PAUSE:
+                p = maxf(p, _play_value(e, c) if e.duel_bot_lookahead else e.success_chance(c))
+        if p > best_p + 0.001:
+            best_p = p
+            best = pl["id"]
+    e.carrier = e._player_by_id(current)
+    return best
+
+
+# Receptor del pase: el de mejor puntaje (_receiver_score).
+static func choose_receiver(e: MatchEngine, card: Card) -> String:
+    var best := ""
+    var best_score := -INF
+    for r in e.receivers(card):
+        var score := _receiver_score(e, card, r)
+        if score > best_score:
+            best_score = score
+            best = r["id"]
+    return best
+
+
+# Sin lookahead: % de recibir menos riesgo de robo, con un poco de preferencia por el más peligroso. Con
+# lookahead (D-43, un solo paso): el % de recibir por lo que vale su mejor jugada siguiente (al menos
+# LOOKAHEAD_FLOOR, para no despreciar un pase seguro cuando la mano se acaba), menos el robo.
+static func _receiver_score(e: MatchEngine, card: Card, r: Dictionary) -> float:
+    var p := e.success_chance(card, -1, r["id"])
+    var s := e.steal_chance(card, -1, r["id"])
+    if not e.duel_bot_lookahead:
+        return p - s + RECEIVER_THREAT_WEIGHT * MatchEngine.threat(r) / 100.0
+    return p * (LOOKAHEAD_FLOOR + (1.0 - LOOKAHEAD_FLOOR) * _next_value(e, card, r)) - s
+
+
+# Lo que vale jugar la carta ahora: un pase, el puntaje de su mejor receptor; el resto, su % menos el robo.
+static func _play_value(e: MatchEngine, c: Card) -> float:
+    if MatchEngine.is_pass(c):
+        var r := choose_receiver(e, c)
+        return -INF if r == "" else _receiver_score(e, c, e._player_by_id(r))
+    return e.success_chance(c) - e.steal_chance(c)
+
+
+# El mejor % que tendría `r` en la jugada siguiente si recibe `card`: con sus habilidades y sus marcas en
+# la zona a la que llega y con las cartas que quedan en la mano (sin la Pausa ni la vuelta atrás; los
+# remates, solo si llega al Área o, de lejos, al Medio) y los PA que sobran. Simula el estado del motor y
+# lo deja como estaba.
+static func _next_value(e: MatchEngine, card: Card, r: Dictionary) -> float:
+    var saved := [e.carrier, e.zone, e.progress, e.carrier_extra]
+    var tz := e.target_zone(card)
+    e.progress = maxi(0, e.progress - 1) if card.back else e.progress + card.steps
+    e.zone = tz as MatchEngine.Zone
+    e.carrier = r
+    e.carrier_extra = false
+    var ap_left := e.ap - e.ap_cost_of(card)
+    var best := 0.0
+    for c in e.deck.hand:
+        if c == card or not c.playable or c.kind == Card.Kind.PAUSE or c.back or c.is_defensive():
+            continue
+        if c.kind == Card.Kind.SHOT and tz != MatchEngine.Zone.AREA \
+                and not (c.long_range and tz == MatchEngine.Zone.MEDIO):
+            continue
+        if e.ap_cost_of(c) > ap_left:
+            continue
+        best = maxf(best, e.success_chance(c))
+    e.carrier = saved[0]
+    e.zone = saved[1]
+    e.progress = saved[2]
+    e.carrier_extra = saved[3]
+    return best
+
+
+# Vuelta atrás (cartas con "atras"): si el portador está tan marcado que su mejor carta para avanzar no
+# llega a BACK_MAX_STEP_P y la vuelta atrás sale seguido, devuelve la pelota para que el rival reparta
+# de nuevo. -1 si no conviene.
+static func _duel_back_card(e: MatchEngine, plan: Dictionary) -> int:
+    if not e.duel_on() or e.zone == MatchEngine.Zone.SALIDA:
+        return -1
+    var back := -1
+    var back_p := 0.0
+    var step_p := 0.0
+    for i in e.playable_indices():
+        var c: Card = e.deck.hand[i]
+        if c.back:
+            var p := e.success_chance(c)
+            if p > back_p:
+                back_p = p
+                back = i
+        elif c.kind != Card.Kind.PAUSE and (c.kind != Card.Kind.SHOT or e.zone == MatchEngine.Zone.AREA):
+            step_p = maxf(step_p, e.success_chance(c))
+    if back < 0 or back_p < BACK_MIN_P or step_p >= BACK_MAX_STEP_P:
+        return -1
+    if not plan.is_empty() and e.deck.hand[plan["cards"][0]].kind == Card.Kind.SHOT:
+        return -1   # ya está para rematar
+    return back

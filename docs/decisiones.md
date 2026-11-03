@@ -409,6 +409,18 @@ que presionan casi nunca roban):
 3. **Los bots piensan una jugada más:** al elegir receptor, valoran lo que ese jugador puede hacer después
    (por ejemplo, el regate de 90 de Fernández), no solo el % de recibir. No cambia las reglas.
 
+**D-44 · 2026-11-02 · La defensa es el ataque al revés** · VIGENTE (diseño, sin código)
+Hoy las cartas de defensa no usan Quite ni Lectura y el rival te corta casi un ataque por partido. El
+usuario aprobó:
+1. **Se arrastra la carta sobre un rival,** como el pase: Presión sobre el que tiene la pelota (tu Quite
+   contra su Regate; si sale, su próxima jugada pierde %), Intercepción sobre la línea de su pase (tu
+   Lectura contra su Pase; si sale, recuperas), Bloqueo sobre el que va a rematar (tu Quite contra su Remate).
+2. **La juega tu defensor más cercano** a ese rival: importan tus defensas y volantes, no solo tus cartas.
+3. **La intención del rival se ve** antes de defender: quién tiene la pelota, a quién va a pasar y con qué %.
+   El nivel del DT (I-41, I-46) solo decide cuánto ves de las jugadas que vienen después.
+Por qué: el modelo de D-40 a D-43 solo cubría el ataque; así la defensa usa las mismas reglas y la misma
+pantalla. Los valores (cuánto baja la Presión, etc.) se miden después de T-13.
+
 ### Descartadas (para no reabrirlas sin datos nuevos)
 - **Tempo ofensivo +7 / regen +3** (2026-10-26): no llegaba al objetivo de goles y quedó obsoleto con
   PA + Estamina; el stash se borró.

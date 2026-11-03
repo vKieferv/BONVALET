@@ -108,6 +108,17 @@ const DUEL_SKILL_FACTOR := 0.5        # pts por punto de habilidad de diferencia
 const DUEL_MARK_PTS := 0.12           # libre +12, 1 contra 1 = 0, cada marcador extra −12
 const DUEL_PELOTAZO_FACTOR := 0.5     # el Pelotazo no pelea: sus marcas cuentan la mitad (usuario, 2026-11-02)
 const DUEL_NATURAL_BONUS := 0.05      # Ejecutor Natural: solo si la carta es del portador (D-32)
+# D-42: cada marcador extra (el que no pelea el duelo) resta su habilidad para esa jugada ÷ este valor
+# (Lectura contra un pase, Quite contra un regate o un remate): un defensa resta más que un delantero que
+# presiona. 0 = el −DUEL_MARK_PTS fijo por marcador de D-40.
+const DUEL_MARK_DIVISOR := 6.0
+# D-42, transición: en un Momento que nace de una recuperación (contragolpe), en el Medio y el Área te
+# esperan solo los rivales que se quedaron atrás al atacar, según su estilo: [en su defensa, en su medio].
+# Su postura mueve uno en la defensa (HIGH uno menos, LOW uno más). Valores de prueba.
+const TRANSITION_STAY := {
+	"Kamikaze": [2, 2], "Tiki-Taka": [3, 3], "Directo": [3, 2], "Contragolpe": [4, 3], "Catenaccio": [5, 3],
+}
+const TRANSITION_STAY_DEFAULT := [4, 3]
 # Orden de los puestos de atrás hacia adelante: reparte a los titulares en las líneas de la formación.
 const ROLE_DEPTH := {"DFC": 0, "LAT": 1, "MCD": 2, "MCO": 3, "EXT": 4, "DEL": 5}
 
@@ -167,6 +178,9 @@ var duel_mark_pts := DUEL_MARK_PTS
 var duel_pelotazo_factor := DUEL_PELOTAZO_FACTOR
 var duel_natural_bonus := DUEL_NATURAL_BONUS
 var duel_shot_adjust := 0.0         # puntos que se suman a los remates en este modo (propuesta: −10)
+var duel_mark_divisor := DUEL_MARK_DIVISOR
+var duel_transition := true         # false: en el contragolpe el rival te espera con su formación completa (D-40)
+var transition := false             # el Momento en curso nació de una recuperación (D-42)
 var carrier: Dictionary = {}        # el portador: juega las cartas del Momento
 var carrier_extra := false          # llegó a esta zona con un regate: el rival lo cuenta al repartir
 var carrier_chosen := false         # quien juega ya eligió el portador de la Salida (set_carrier)
@@ -203,7 +217,9 @@ var stats := {"goals": 0, "moments": 0, "flow_moments": 0, "flow_breaks": 0, "in
 	"plays": 0, "elite_plays": 0, "tired_plays": 0, "natural_plays": 0, "skipped": 0,
 	"defense_plays": 0, "interceptions": 0, "emergencies": 0, "out_of_ap": 0, "holds": 0, "holds_lost": 0,
 	"counters": 0, "steals": 0, "saves": 0, "rebounds": 0,
-	"dribble_entries": 0, "dribble_doubled": 0, "back_plays": 0}
+	"dribble_entries": 0, "dribble_doubled": 0, "back_plays": 0,
+	"transition_moments": 0, "transition_goals": 0, "salida_steals": 0, "salida_steals_fwd": 0,
+	"salida_steal_skill": 0}
 # counters: Momentos propios que arrancaron con contragolpe. steals / saves / rebounds (modo de zonas):
 # fallos que fueron robo, remates fallados que se quedó el arquero y remates fallados con rebote.
 # Modo de duelos: dribble_entries = regates que entraron a otra zona; dribble_doubled = de ellos, los
@@ -292,6 +308,7 @@ func begin_moment() -> Dictionary:
 	ap = ap_max
 	# Zonas: se arranca en la Salida; el contragolpe y el espacio rival arrancan en el Medio.
 	zone = Zone.SALIDA
+	transition = counter_ready and duel_on()
 	if exploit_rival_space:
 		var m: Dictionary = current_moment()
 		var before := int(m["steps_required"])
@@ -595,6 +612,8 @@ func play_card(hand_index: int, receiver: String = "") -> Dictionary:
 		_resolve_defense(card, success, ev)
 	else:
 		_resolve_attack(card, success, natural, ev)
+		if duel and ev.get("stolen", false) and int(ev.get("play_zone", -1)) == Zone.SALIDA:
+			_count_salida_steal(card, receiver, ev)
 
 	ev["moment_over"] = moment_over
 	ev["defense_over"] = not in_defense
@@ -863,6 +882,12 @@ func _player_by_id(id: String) -> Dictionary:
 func _duel_begin() -> void:
 	_my_lines = lines_of(duel_players, formation, posture)
 	_their_lines = lines_of(rival_players, rival_formation, rival_posture)
+	if transition:
+		stats["transition_moments"] += 1
+	if transition and duel_transition:   # D-42: solo te esperan los que se quedaron atrás (los más defensivos de cada línea)
+		var stay := transition_stay(rival_mark_style, rival_posture)
+		for line in 2:
+			_their_lines[line] = (_their_lines[line] as Array).slice(0, stay[line])
 	carrier_extra = false
 	carrier_chosen = false
 	moment_plays = 0
@@ -936,21 +961,21 @@ func _duel_items(card: Card, z: int, receiver: String, items: Array) -> void:
 			return
 		var m := markers_of(tz, r["id"])
 		if card.steps >= 2 and not card.back:   # Pelotazo: sin duelo, se salta la línea
-			_mark_item(r, m, duel_pelotazo_factor, items)
+			_mark_item(r, m, duel_pelotazo_factor, items, "lectura")
 			return
 		if not m.is_empty():
 			_duel_item("Pase", c, "Lectura", _best_by(m, "lectura"), items)
-		_mark_item(r, m, 1.0, items)
+		_mark_item(r, m, 1.0, items, "lectura")
 	elif card.kind == Card.Kind.SHOT:
 		var keeper := keeper_of(rival_players)
 		if not keeper.is_empty():
 			_duel_item("Remate", c, "Atajada", keeper, items)
-		_mark_item(c, markers_of(z, c["id"]), 1.0, items)
+		_mark_item(c, markers_of(z, c["id"]), 1.0, items, "quite")
 	elif is_dribble(card):
 		var m := markers_of(z, c["id"])
 		if not m.is_empty():
 			_duel_item("Regate", c, "Quite", _best_by(m, "quite"), items)
-		_mark_item(c, m, 1.0, items)
+		_mark_item(c, m, 1.0, items, "quite")
 
 
 static func _best_by(players: Array, skill: String) -> Dictionary:
@@ -969,12 +994,61 @@ func _duel_item(mine: String, attacker: Dictionary, theirs: String, defender: Di
 		"value": duel_skill_factor * float(a - d) / 100.0})
 
 
-# "Marca de Matías Fernández: 1 contra 2" · libre +duel_mark_pts, 1 contra 1 = 0, cada marcador extra −.
-func _mark_item(who: Dictionary, markers: Array, factor: float, items: Array) -> void:
+# Robo en tu Salida (medición de D-42): quién se la quedó. En un regate, el mejor Quite de los que marcan
+# al portador (sus delanteros que presionan); en un pase, la mejor Lectura de los que marcan al receptor.
+# salida_steals_fwd cuenta los que hizo un delantero que presiona y salida_steal_skill suma su Quite.
+func _count_salida_steal(card: Card, receiver: String, ev: Dictionary) -> void:
+	stats["salida_steals"] += 1
+	var stealer := {}
+	if is_pass(card):
+		var m := markers_of(target_zone(card, Zone.SALIDA), receiver)
+		if not m.is_empty():
+			stealer = _best_by(m, "lectura")
+	else:
+		var m := markers_of(Zone.SALIDA, String(carrier.get("id", "")))
+		if not m.is_empty():
+			stealer = _best_by(m, "quite")
+	if stealer.is_empty():
+		return
+	ev["stealer"] = stealer["id"]
+	if (_their_lines[2] as Array).has(stealer):
+		stats["salida_steals_fwd"] += 1
+		stats["salida_steal_skill"] += int(stealer.get("quite", 0))
+
+
+# Cuántos rivales se quedaron atrás al atacar (D-42), [en su defensa, en su medio], según su estilo y su
+# postura: HIGH deja uno menos en la defensa y LOW uno más. Nunca menos de uno.
+static func transition_stay(style: String, p: Posture) -> Array:
+	var stay: Array = (TRANSITION_STAY.get(style, TRANSITION_STAY_DEFAULT) as Array).duplicate()
+	if p == Posture.HIGH:
+		stay[0] -= 1
+	elif p == Posture.LOW:
+		stay[0] += 1
+	return [maxi(1, int(stay[0])), maxi(1, int(stay[1]))]
+
+
+# "Marca de Matías Fernández: 1 contra 2 · Marcelo Díaz (Lectura 67)" · libre +duel_mark_pts, 1 contra 1
+# = 0 y cada marcador extra (los que no pelean el duelo) resta su `skill` ÷ duel_mark_divisor (D-42; con
+# divisor 0, −duel_mark_pts fijo como en D-40). Todo × factor (el Pelotazo, la mitad).
+func _mark_item(who: Dictionary, markers: Array, factor: float, items: Array, skill: String) -> void:
 	var n := markers.size()
-	var value := (duel_mark_pts if n == 0 else -duel_mark_pts * float(n - 1)) * factor
-	items.append({"label": "Marca de %s: %s" % [who.get("name", ""), "libre" if n == 0 else "1 contra %d" % n],
-		"value": value})
+	var label := "Marca de %s: %s" % [who.get("name", ""), "libre" if n == 0 else "1 contra %d" % n]
+	var value := duel_mark_pts if n == 0 else 0.0
+	if n >= 2:
+		var duelist := markers.find(_best_by(markers, skill))   # el que pelea el duelo no resta acá
+		var extras: Array = []
+		for i in n:
+			if i == duelist:
+				continue
+			var m: Dictionary = markers[i]
+			if duel_mark_divisor > 0.0:
+				value -= float(m.get(skill, 0)) / duel_mark_divisor / 100.0
+				extras.append("%s (%s %d)" % [m.get("name", ""), skill.capitalize(), int(m.get(skill, 0))])
+			else:
+				value -= duel_mark_pts
+				extras.append(String(m.get("name", "")))
+		label += " · " + ", ".join(extras)
+	items.append({"label": label, "value": value * factor})
 
 
 # ---------- Aguantar el Balón ----------
@@ -1180,6 +1254,8 @@ func _finish_moment(success: bool) -> void:
 	stats["moments"] += 1
 	if success:
 		stats["goals"] += 1
+		if transition:
+			stats["transition_goals"] += 1
 	if moment_had_flow:
 		stats["flow_moments"] += 1
 	flow_active = false

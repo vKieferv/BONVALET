@@ -51,7 +51,9 @@
 #   duelos: true                     los dos lados juegan el modo de duelos (implica zonas: true), con
 #                                    los titulares y el estilo de SquadManager.duel_data
 #   duel: {"base": 0.39, "skill_factor": 0.5, "mark_pts": 0.12, "pelotazo_factor": 0.5,
-#          "shot_adjust": -0.10, "natural_bonus": 0.05}   valores del modo (variables duel_* del motor)
+#          "shot_adjust": -0.10, "natural_bonus": 0.05, "mark_divisor": 6, "transition": true}
+#                                    valores del modo (variables duel_* del motor; mark_divisor 0 y
+#                                    transition false = las reglas de D-40, sin D-42)
 #   Imprime además regates que entran a otra zona (y cuántos terminan en marca doble), vueltas atrás,
 #   cuántos titulares tocan la pelota por partido y los toques por jugador de Colo-Colo.
 # Un elemento {"defaults": {...}} en la lista se aplica a todas las variantes que lo siguen (las
@@ -118,6 +120,7 @@ func _init() -> void:
 		var acc := {"goals": 0, "matches": 0, "injuries": 0, "m1": 0, "t1": 0, "m2": 0, "t2": 0, "holds": 0, "holds_lost": 0,
 			"steals": 0, "counters": 0, "no_cards": 0, "saves": 0, "rebounds": 0,
 			"dribble_entries": 0, "dribble_doubled": 0, "back_plays": 0, "touch_total": 0, "touch_top": 0,
+			"transition_moments": 0, "transition_goals": 0, "salida_steals": 0, "salida_steals_fwd": 0, "salida_steal_skill": 0,
 			"touch_distinct": 0, "touch_teams": 0}
 		var per_club := {}   # id -> {gf, ga, inj, cut, n, touches: {id del jugador: veces que fue portador}}
 		for id in clubs:
@@ -147,7 +150,8 @@ func _init() -> void:
 				acc["holds"] += r["holds"]
 				acc["holds_lost"] += r["holds_lost"]
 				for k in ["steals", "counters", "no_cards", "saves", "rebounds", "dribble_entries", "dribble_doubled",
-						"back_plays", "touch_total", "touch_top", "touch_distinct", "touch_teams"]:
+						"back_plays", "touch_total", "touch_top", "touch_distinct", "touch_teams", "transition_moments",
+						"transition_goals", "salida_steals", "salida_steals_fwd", "salida_steal_skill"]:
 					acc[k] += r[k]
 				for pair in [[ca, "touches_a"], [cb, "touches_b"]]:
 					for pid in r[pair[1]]:
@@ -170,6 +174,14 @@ func _init() -> void:
 			print("    duelos: regates que entran a otra zona %.2f/partido (%d%% en marca doble) · vueltas atrás %.2f · portadores distintos %.1f por equipo · el que más la toca %d%% de los toques" % [
 				acc["dribble_entries"] / n, roundi(100.0 * acc["dribble_doubled"] / maxf(1.0, acc["dribble_entries"])),
 				acc["back_plays"] / n, acc["touch_distinct"] / teams, roundi(100.0 * acc["touch_top"] / maxf(1.0, acc["touch_total"]))])
+			# D-42: goles que nacen de una transición (contragolpe) separados de los de un Momento normal, y
+			# robos en la Salida (cuántos hace un delantero que presiona al portador y su Quite promedio).
+			var t_moments: float = acc["transition_moments"]
+			var normal_moments := moments - t_moments
+			print("    transición: %.2f Momentos y %.2f goles por partido (gol/Momento %d%%) · normal: %.2f goles (gol/Momento %d%%) · robos en la Salida %.2f/partido, %.2f de un delantero que presiona (Quite promedio %d)" % [
+				t_moments / n, acc["transition_goals"] / n, roundi(100.0 * acc["transition_goals"] / maxf(1.0, t_moments)),
+				(acc["goals"] - acc["transition_goals"]) / n, roundi(100.0 * (acc["goals"] - acc["transition_goals"]) / maxf(1.0, normal_moments)),
+				acc["salida_steals"] / n, acc["salida_steals_fwd"] / n, roundi(acc["salida_steal_skill"] / maxf(1.0, acc["salida_steals_fwd"]))])
 			var colo: Dictionary = per_club[clubs[0]]["touches"]
 			var total := 0
 			for pid in colo:
@@ -351,6 +363,8 @@ func _apply_zone_values(e: MatchEngine, v: Dictionary) -> void:
 	e.duel_pelotazo_factor = float(d.get("pelotazo_factor", MatchEngine.DUEL_PELOTAZO_FACTOR))
 	e.duel_natural_bonus = float(d.get("natural_bonus", MatchEngine.DUEL_NATURAL_BONUS))
 	e.duel_shot_adjust = float(d.get("shot_adjust", 0.0))
+	e.duel_mark_divisor = float(d.get("mark_divisor", MatchEngine.DUEL_MARK_DIVISOR))
+	e.duel_transition = bool(d.get("transition", true))
 
 
 func _hooks(v: Dictionary) -> Dictionary:

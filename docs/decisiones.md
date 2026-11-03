@@ -421,6 +421,18 @@ usuario aprobó:
 Por qué: el modelo de D-40 a D-43 solo cubría el ataque; así la defensa usa las mismas reglas y la misma
 pantalla. Los valores (cuánto baja la Presión, etc.) se miden después de T-13.
 
+**D-45 · 2026-11-03 · Mazo de inicio nuevo y cartas v2 en el juego** · VIGENTE (se mide al implementar)
+El mazo de inicio de hoy (4 Pase corto, 2 Promesa: Control, 1 Remate simple, 2 Marca, 1 Despeje y la carta
+de rasgo) no calza con D-40 a D-44: un solo remate cuando solo se remata en el Área, pases iguales cuando
+cada carta tiene su trayectoria (I-63), ningún regate y una defensa que no es la de D-44. El usuario aprobó:
+1. **Mazo de inicio de 12 + la firma:** 2 Pase corto, 1 Pase al pie, 1 Pase largo, 1 Amague, 1 Promesa:
+   Control, 2 Remate simple, 1 Presión, 1 Intercepción, 1 Bloqueo y la carta de rasgo.
+2. **Entran las cartas v2** (D-38 y D-39): las 8 de cada estilo y las jugadas de crack por perfil, con la
+   regla del 4% de D-39 para medirlas. Reemplazan el crecimiento y las ofertas de hoy.
+3. **La carta para volver atrás necesita un premio** (en la medición de T-13 restaba goles): se define al
+   revisarla, por ejemplo 0 PA y robar 1.
+Se implementa después de mezclar T-13 (las reglas nuevas viven ahí) y se mide con `balance-lab`.
+
 ### Descartadas (para no reabrirlas sin datos nuevos)
 - **Tempo ofensivo +7 / regen +3** (2026-10-26): no llegaba al objetivo de goles y quedó obsoleto con
   PA + Estamina; el stash se borró.

@@ -36,6 +36,15 @@ func _initialize() -> void:
 	_test_save_pending_match()
 	_test_save_v1_migration()
 	_test_save_errors()
+	_test_event_effects()
+	_test_event_match_effects()
+	_test_promises()
+	_test_event_deck()
+	_test_event_conditions()
+	_test_branch_returns()
+	_test_bautizazo_same()
+	_test_save_events()
+	_test_save_v2_migration()
 	if FileAccess.file_exists(TEST_SAVE):
 		DirAccess.remove_absolute(TEST_SAVE)
 	print("career_rules: %d comprobaciones, %d fallas" % [checks, failures.size()])
@@ -48,6 +57,13 @@ func _check(cond: bool, msg: String) -> void:
 	checks += 1
 	if not cond:
 		failures.append(msg)
+
+
+# El Bautizazo (el evento de antes de T-14) como evento de la semana: aceptar = opción 0, negarse = 1.
+# Las pruebas de antes lo fuerzan para seguir midiendo lo mismo.
+func _bautizazo(c: Career, accept: bool) -> Dictionary:
+	c.set_week_event("bautizazo")
+	return c.resolve_event(0 if accept else 1)
 
 
 func _test_all_squads() -> void:
@@ -179,7 +195,7 @@ func _test_week_flow() -> void:
 	_check(c.setup(league, squads, "colo_colo", 1234), "Career no arranca: %s" % [c.load_errors])
 	_check(not c.prepare_match()["ok"], "sin completar los bloques no se debería poder jugar")
 	_check(c.choose_sponsor("telnet"), "debería poder elegir Telnet")
-	var ev := c.resolve_event(true)
+	var ev := _bautizazo(c, true)
 	_check(ev.has("lines") and not ev["lines"].is_empty(), "el evento debería devolver su resultado")
 	_check(c.match_mods.get("opening_bonus", 0.0) > 0.0, "aceptar la fiesta debería dar el bono de apertura")
 	if ev["funa"]:
@@ -241,7 +257,7 @@ func _test_training_offer() -> void:
 				variety[",".join(offer)] = true
 				c.decline_offer()
 				c.choose_sponsor("telnet")
-				c.resolve_event(false)
+				_bautizazo(c, false)
 				c.prepare_match()
 				c.record_match(1, 1)
 		_check(variety.size() > 5, "%s: las ofertas deberían variar con la semilla y la semana (%d distintas)" % [arch, variety.size()])
@@ -254,14 +270,14 @@ func _test_training_offer() -> void:
 	_check(a.training_offer == b.training_offer, "misma semilla, misma oferta en la semana 1")
 	for x in [a, b]:
 		x.choose_sponsor("telnet")
-		x.resolve_event(true)
+		_bautizazo(x, true)
 		x.take_offer(0)
 		x.prepare_match()
 		x.record_match(2, 0)
 	_check(a.training_offer == b.training_offer and a.deck == b.deck, "misma semilla y mismas decisiones: misma oferta en la semana 2")
 	var week_offer := a.training_offer.duplicate()
 	a.choose_sponsor("cerveza_glaciar")
-	a.resolve_event(true)   # la funa usa el azar
+	_bautizazo(a, true)   # la funa usa el azar
 	_check(a.training_offer == week_offer, "la oferta de la semana no cambia al usar el azar en el Bloque 1")
 
 
@@ -327,7 +343,7 @@ func _test_video_upgrades() -> void:
 	_check(not c.upgrade_card(youth, "acierto"), "una mejora por semana")
 	var fatigue := c.fatigue
 	c.choose_sponsor("telnet")
-	c.resolve_event(false)
+	_bautizazo(c, false)
 	_check(c.prepare_match()["ok"] and c.fatigue == fatigue, "la sesión de video no suma fatiga")
 	c.record_match(1, 0)
 	_check(not c.can_upgrade(shot, "pa") and not c.upgrade_card(shot, "pa"), "una carta ya mejorada no se mejora otra vez")
@@ -362,7 +378,7 @@ func _test_career_stamina() -> void:
 		var t := Career.new()
 		t.setup(league, squads, "colo_colo", seed)
 		t.choose_sponsor("cerveza_glaciar")
-		if t.resolve_event(true)["funa"]:
+		if _bautizazo(t, true)["funa"]:
 			c = t
 			break
 	_check(c != null, "alguna semilla debería producir una funa al aceptar la fiesta")
@@ -471,17 +487,17 @@ func _test_save_round_trip() -> void:
 	var c := Career.new()
 	c.setup(league, squads, "colo_colo", 4321)
 	c.choose_sponsor("telnet")
-	c.resolve_event(true)
+	_bautizazo(c, true)
 	_check(c.take_offer(0), "la semana 1 de la prueba de guardado toma una carta")
 	_check(c.prepare_match()["ok"], "la semana 1 de la prueba de guardado debería poder jugarse")
 	c.record_match(2, 1, 0.3)
 	c.choose_sponsor("cerveza_glaciar")
-	c.resolve_event(false)
+	_bautizazo(c, false)
 	_check(c.upgrade_card(_index_of(c, "remate_simple"), "acierto"), "la semana 2 de la prueba de guardado mejora una carta")
 	c.prepare_match()
 	c.record_match(0, 1, 0.5)
 	c.choose_sponsor("cerveza_glaciar")
-	c.resolve_event(true)   # semana 3 a medias: evento resuelto, Bloque 2 por hacer (con su oferta)
+	_bautizazo(c, true)   # semana 3 a medias: evento resuelto, Bloque 2 por hacer (con su oferta)
 	_check(c.save(), "save() debería escribir %s" % TEST_SAVE)
 	var loaded := Career.load_saved(league, squads)
 	_check(loaded != null, "la carrera guardada debería cargar: %s" % [Career.last_load_errors])
@@ -503,7 +519,7 @@ func _test_save_round_trip() -> void:
 		x.prepare_match()
 		x.record_match(0, 0)
 		x.choose_sponsor("telnet")
-		x.resolve_event(true)
+		_bautizazo(x, true)
 	_check(c.week == 4 and loaded.week == 4, "ambas carreras deberían llegar a la semana 4")
 	_check(c.event_result == loaded.event_result and c.match_mods == loaded.match_mods,
 			"el evento de la semana 4 debería salir igual tras cargar: %s vs %s" % [c.event_result, loaded.event_result])
@@ -526,7 +542,7 @@ func _test_save_pending_match() -> void:
 	var c := Career.new()
 	c.setup(league, squads, "universidad_catolica", 77)
 	c.choose_sponsor("telnet")
-	c.resolve_event(false)
+	_bautizazo(c, false)
 	c.take_offer(0)
 	c.prepare_match()
 	c.save()
@@ -550,7 +566,7 @@ func _test_save_v1_migration() -> void:
 	var c := Career.new()
 	c.setup(league, squads, "universidad_de_chile", 808)
 	c.choose_sponsor("telnet")
-	c.resolve_event(false)
+	_bautizazo(c, false)
 	var v1 := c.to_dict()
 	v1["version"] = 1
 	v1.erase("deck")
@@ -640,3 +656,315 @@ func _test_save_errors() -> void:
 		_check(loaded == null and not Career.last_load_errors.is_empty(),
 				"guardado con %s: la carga debería devolver null con motivo" % name)
 	DirAccess.remove_absolute(TEST_SAVE)
+
+
+# ------------------------------------------------------------------ Eventos de la semana (T-14)
+
+func _new_career(seed: int, team: String = "colo_colo") -> Career:
+	var c := Career.new()
+	c.setup(league, squads, team, seed)
+	return c
+
+
+func _apply(c: Career, effects: Array) -> Dictionary:
+	var out := {"funa": false, "funado_id": "", "lines": []}
+	c._apply_effects(effects, out)
+	return out
+
+
+# Un efecto de cada tipo de la tabla 1 de docs/eventos.md, aplicado sobre la carrera.
+func _test_event_effects() -> void:
+	var c := _new_career(11)
+	c.choose_sponsor("telnet")
+	var pop := c.popularity
+	var disc := c.discipline
+	var budget := c.budget
+	var fatigue := c.fatigue
+	_apply(c, [{"tipo": "popularidad", "valor": 5}, {"tipo": "disciplina", "valor": -3}, {"tipo": "presupuesto", "valor": -30},
+		{"tipo": "fatiga", "valor": 15}])
+	_check(c.popularity == pop + 5 and c.discipline == disc - 3, "popularidad y disciplina se suman")
+	_check(is_equal_approx(c.budget, budget - 30.0) and is_equal_approx(c.fatigue, fatigue + 15.0), "presupuesto y fatiga se suman")
+	_apply(c, [{"tipo": "arranque", "valor": 0.03}, {"tipo": "arranque", "valor": -0.05, "momentos": 3}])
+	_check(is_equal_approx(c.match_mods["opening_bonus"], -0.02) and c.match_mods["opening_moments"] == 3,
+			"dos arranques se suman (también negativo) y valen en los Momentos del más largo: %s" % [c.match_mods])
+	_apply(c, [{"tipo": "rival_motivado", "valor": 0.05}])
+	_check(is_equal_approx(c.match_mods["rival_bonus"], 0.05) and c.match_mods["rival_moments"] == 2, "el rival motivado queda para el partido")
+
+	var funa := _apply(c, [{"tipo": "funa", "chance": 1.0, "disciplina": -10, "extra": 0.5, "clausula": true, "quien": "capitan"}])
+	_check(funa["funa"] and c.match_mods["funado_id"] == c.event_names["capitan"] and c.sponsor_week_lost,
+			"una funa segura: el capitán funado y Telnet (cláusula) no paga")
+	var safe := _new_career(11)
+	var none := _apply(safe, [{"tipo": "funa", "chance": 0.0, "quien": "capitan"}])
+	_check(not none["funa"] and not safe.match_mods.has("funado_id"), "una funa con 0% nunca pasa")
+
+	var d := _new_career(12)
+	_apply(d, [{"tipo": "desgaste", "quien": "arquero", "extra": 0.5}])
+	var gk := String(d.event_names.get("arquero", ""))
+	_check(gk != "" and d.squads.find_player("colo_colo", gk)["role"] == "POR" and is_equal_approx(d.match_mods["owner_mults"][gk], 1.5),
+			"el desgaste cae sobre el arquero titular")
+
+	var t := _new_career(13)
+	var size := t.build_deck().size()
+	_apply(t, [{"tipo": "carta_temporal", "carta": "promesa_control", "quien": "juvenil"}])
+	_check(t.build_deck().size() == size + 1 and t.deck.size() == 11, "una carta temporal buena entra al mazo del partido, no a tu mazo")
+	_check(t.prepare_match()["errors"].filter(func(e): return String(e).contains("mazo")).is_empty(), "el mazo con la carta temporal sigue siendo válido")
+	t.pending_match = true
+	t.record_match(1, 0)
+	_check(t.build_deck().size() == size and t.temp_cards.is_empty(), "la carta temporal dura una semana")
+
+	var n := _new_career(14)
+	_apply(n, [{"tipo": "carta_nueva", "carta": "remate_primera"}])
+	_check(n.deck.size() == 12 and n.deck.back()["id"] == "remate_primera", "una carta nueva entra a tu mazo")
+
+	var s := _new_career(15)
+	s.choose_sponsor("cerveza_glaciar")
+	_apply(s, [{"tipo": "sin_pago_sponsor"}])
+	_check(not s.sponsor_week_lost, "sin cláusula de conducta el sponsor paga igual")
+	s.choose_sponsor("telnet")
+	_apply(s, [{"tipo": "sin_pago_sponsor"}])
+	_check(s.sponsor_week_lost, "con cláusula de conducta, el sponsor no paga la semana")
+
+	var a := _new_career(16)
+	var pa := a.popularity
+	_apply(a, [{"tipo": "azar", "chance": 1.0, "efectos": [{"tipo": "popularidad", "valor": 4}], "si_no": [{"tipo": "popularidad", "valor": -9}]},
+		{"tipo": "azar", "chance": 0.0, "efectos": [{"tipo": "popularidad", "valor": 4}], "si_no": [{"tipo": "popularidad", "valor": -1}]}])
+	_check(a.popularity == pa + 3, "el azar aplica sus efectos o los de si_no (%d -> %d)" % [pa, a.popularity])
+
+	var v := _new_career(17)
+	_apply(v, [{"tipo": "vender", "quien": "nueve"}])
+	var nine_id := String(v.event_names.get("nueve", ""))
+	var sig := v.squads.signature_card_for(v.squads.find_player("colo_colo", nine_id))
+	_check(nine_id != "" and not sig.is_empty(), "tu 9 es un delantero titular con carta firma (%s)" % nine_id)
+	_check(not v.build_deck().any(func(x: Card): return x.owner_id == nine_id and x.id == String(sig.get("id", ""))),
+			"vender a tu 9 saca su carta firma del mazo")
+	_check(v.deck_size() == v.build_deck().size(), "deck_size cuenta sin la firma del vendido (%d vs %d)" % [v.deck_size(), v.build_deck().size()])
+
+	var r := _new_career(18)
+	_apply(r, [{"tipo": "rama", "evento": "c7_fotos", "semanas": 2}, {"tipo": "rama", "evento": "c5_multa", "semanas": 1, "chance": 0.0}])
+	_check(r.event_marks.size() == 1 and r.event_marks[0]["evento"] == "c7_fotos" and r.event_marks[0]["semana"] == 3,
+			"una rama segura deja su marca para la semana 3 y una con 0%% no: %s" % [r.event_marks])
+	for e in Career.EFFECTS:
+		var probe := {"tipo": e, "quien": "nueve", "carta": "nervios", "evento": "c7_fotos"}
+		_check(not c._effect_line(probe).is_empty() and not String(c._badge(probe)["texto"]).is_empty(),
+				"el efecto %s debería tener su texto y su timbre" % e)
+
+
+# Lo que llega al partido: arranque negativo, rival motivado y Nervios (configure_match y
+# configure_rival_match, sin tocar el motor).
+func _test_event_match_effects() -> void:
+	var c := _new_career(21)
+	_apply(c, [{"tipo": "arranque", "valor": -0.03}, {"tipo": "rival_motivado", "valor": 0.05},
+		{"tipo": "carta_temporal", "carta": "nervios", "quien": "nueve"}])
+	var rng := RandomNumberGenerator.new()
+	rng.seed = 3
+	var player := PlayerStats.new()
+	var deck := c.build_deck()
+	var e := MatchEngine.new(player, DeckManager.new(deck, [], rng), rng, 0.15)
+	c.configure_match(e, player)
+	_check(is_equal_approx(e.opening_bonus, -0.03) and e.opening_moments == 2, "el arranque negativo llega al partido")
+	var nervios: Array = e.deck.active.filter(func(x: Card): return x.type == Card.Type.PENALTY)
+	_check(nervios.size() == 1 and nervios[0].display_name.begins_with("Nervios: "), "la carta de Nervios entra al mazo del partido con su nombre")
+	_check(e.deck.active.size() == c.build_deck().size() + 1, "los Nervios no cuentan al validar el mazo, solo entran al partido")
+	e.start()
+	var items: Array = e.chance_breakdown(deck[0])
+	_check(items.any(func(i): return i["label"] == "Apertura" and is_equal_approx(i["value"], -0.03)), "la apertura negativa resta en el desglose")
+
+	var profile := league.profile_for_team(league.get_team(c.rival_id))
+	var rival := MatchEngine.new(PlayerStats.new(), DeckManager.new([], [], rng), rng, 0.15)
+	profile.configure_engine(rival)
+	var before := rival.opening_bonus
+	c.configure_rival_match(rival)
+	_check(is_equal_approx(rival.opening_bonus, before + 0.05) and rival.opening_moments >= 2, "el rival motivado suma a la apertura de su perfil")
+	var calm := _new_career(21)
+	var r2 := MatchEngine.new(PlayerStats.new(), DeckManager.new([], [], rng), rng, 0.15)
+	profile.configure_engine(r2)
+	calm.configure_rival_match(r2)
+	_check(is_equal_approx(r2.opening_bonus, before), "sin rival motivado su apertura no cambia")
+
+
+# C2 «Ganamos seguro»: si ganas, popularidad +8; si no, −8 (además de lo de siempre por el resultado).
+func _test_promises() -> void:
+	var m: Dictionary = _new_career(1).data["match"]
+	for won in [true, false]:
+		var c := _new_career(31)
+		c.choose_sponsor("telnet")
+		_check(c.set_week_event("c2_ganan_domingo"), "C2 debería poder ser el evento de la semana")
+		c.resolve_event(0)
+		_check(c.promises.size() == 1, "prometer ganar deja una promesa pendiente")
+		c.choose_physio()
+		_check(c.prepare_match()["ok"], "la semana de la promesa se juega")
+		var pop := c.popularity
+		var entry := c.record_match(2 if won else 0, 1)
+		var expected: int = pop + (8 + int(m["popularity_win"]) if won else -8 + int(m["popularity_loss"]))
+		_check(c.popularity == clampi(expected, 0, 100), "promesa %s: popularidad %d -> %d (se esperaba %d)" % [
+			"cumplida" if won else "rota", pop, c.popularity, expected])
+		_check(c.promises.is_empty() and entry.get("promesas", []).size() > 0, "la promesa se cobra una vez y queda en el historial")
+
+
+# El mazo de la temporada: no repite hasta que salen todos, cambia con la semilla y deja afuera los
+# eventos que solo llegan por una rama.
+func _test_event_deck() -> void:
+	var deck_ids: Array = []
+	for ev in _new_career(1).events["eventos"]:
+		if not ev.get("solo_rama", false):
+			deck_ids.append(ev["id"])
+	var orders := {}
+	for seed in [41, 42, 43]:
+		var c := _new_career(seed)
+		var seen: Array = []
+		for w in 20:
+			var ev := c.week_event()
+			_check(not ev.is_empty(), "semilla %d, semana %d: siempre hay evento" % [seed, c.week])
+			if not ev.get("solo_rama", false):
+				_check(not seen.has(c.event_id), "semilla %d: %s se repite en la semana %d antes de salir todos" % [seed, c.event_id, c.week])
+				seen.append(c.event_id)
+			c.choose_sponsor("cerveza_glaciar")
+			c.resolve_event(c.event_options().size() - 1)
+			c.choose_physio()
+			c.prepare_match()
+			c.record_match(1, 1)
+		orders[",".join(seen.slice(0, 6))] = true
+		_check(seen.all(func(id): return deck_ids.has(id)), "semilla %d: solo salen eventos del mazo" % seed)
+	_check(orders.size() == 3, "el orden de los eventos cambia con la semilla")
+	var all := _new_career(44)._shuffled_events()
+	all.sort()
+	deck_ids.sort()
+	_check(all == deck_ids and deck_ids.size() == 25, "el mazo trae los 25 eventos sin rama (%d)" % deck_ids.size())
+
+
+# Las condiciones: H4 (mural) solo después de una derrota y H2 (banderazo) solo antes de un clásico;
+# cuando se cumplen, salen antes que el resto del mazo.
+func _test_event_conditions() -> void:
+	var c := _new_career(51)
+	c.history = [{"week": 1, "rival_id": "x", "gf": 0, "ga": 2, "income": 0, "fatigue_gained": 0}]
+	c.event_deck = ["h3_supermercado", "h4_mural"]
+	_check(c._take_from_deck() == "h4_mural", "tras una derrota, el mural sale primero")
+	c.history[0]["gf"] = 3
+	c.event_deck = ["h4_mural", "h3_supermercado"]
+	_check(c._take_from_deck() == "h3_supermercado" and c.event_deck == ["h4_mural"], "sin derrota, el mural espera")
+	_check(c._take_from_deck() == "", "si solo queda un evento cuya condición no se cumple, no sale")
+	_check(c.is_clasico("colo_colo", "universidad_de_chile") and not c.is_clasico("colo_colo", "everton"), "el clásico sale de los pares de clasicos")
+	c.rival_id = "universidad_de_chile"
+	c.event_deck = ["h3_supermercado", "h2_banderazo"]
+	_check(c._take_from_deck() == "h2_banderazo", "antes del clásico, el banderazo sale primero")
+
+
+# V2 «Prometer para fin de mes»: el 9 vuelve a las 4 semanas a pedir salir, con el mismo nombre.
+func _test_branch_returns() -> void:
+	var c := _new_career(61)
+	_check(c.set_week_event("v2_aumento"), "V2 debería poder ser el evento de la semana")
+	var nine := c.target_name("nueve")
+	_check(nine != "" and c.event_title().contains(nine), "el título nombra a tu 9 del plantel real (%s)" % c.event_title())
+	c.resolve_event(2)
+	_check(c.event_marks.size() == 1, "prometer deja la marca de la rama")
+	for w in 4:
+		_check(c.event_id != "v2_pide_salir", "la rama no vuelve antes de tiempo (semana %d)" % c.week)
+		c.choose_sponsor("cerveza_glaciar")
+		if c.event_result.is_empty():
+			c.resolve_event(c.event_options().size() - 1)
+		c.choose_physio()
+		c.prepare_match()
+		c.record_match(1, 0)
+	_check(c.week == 5 and c.event_id == "v2_pide_salir", "a las 4 semanas vuelve el 9 a pedir salir (semana %d: %s)" % [c.week, c.event_id])
+	_check(c.target_name("nueve") == nine and c.event_title().contains(nine), "la rama hereda el nombre del 9")
+	_check(c.event_marks.is_empty(), "la marca se consume al volver")
+	c.resolve_event(0)
+	_check(c.sold.has(c.event_names["nueve"]), "venderlo lo deja en la lista de vendidos")
+
+
+# El Bautizazo reescrito en el formato genérico da lo mismo que antes: aceptar = +5% en M1-2,
+# popularidad +5 y 30% de funa (disciplina −10, +50% de desgaste, Telnet no paga); negarse = disciplina +2,
+# popularidad −2.
+func _test_bautizazo_same() -> void:
+	var funas := 0
+	for seed in range(1, 201):
+		var c := _new_career(seed)
+		c.choose_sponsor("telnet")
+		var pop := c.popularity
+		var disc := c.discipline
+		var res := _bautizazo(c, true)
+		_check(is_equal_approx(c.match_mods["opening_bonus"], 0.05) and c.match_mods["opening_moments"] == 2 and c.popularity == pop + 5,
+				"aceptar el Bautizazo: +5% en M1-2 y popularidad +5")
+		if res["funa"]:
+			funas += 1
+			_check(c.discipline == disc - 10 and is_equal_approx(c.match_mods["funado_stamina_mult"], 1.5) and c.sponsor_week_lost,
+					"la funa del Bautizazo: disciplina −10, +50% de desgaste y Telnet no paga")
+		else:
+			_check(res["sello"] == "PASÓ PIOLA" and not c.sponsor_week_lost, "sin funa, el Bautizazo pasa piola")
+	_check(funas > 35 and funas < 85, "la funa del Bautizazo sale cerca del 30%% (%d de 200)" % funas)
+	var d := _new_career(7)
+	var pop := d.popularity
+	var disc := d.discipline
+	var res := _bautizazo(d, false)
+	_check(d.discipline == disc + 2 and d.popularity == pop - 2 and res["sello"] == "CONCENTRADOS" and d.match_mods.is_empty(),
+			"negarse al Bautizazo: disciplina +2, popularidad −2")
+
+
+# Guardar y cargar a mitad de temporada, con una rama, una promesa y una carta temporal pendientes:
+# todo vuelve igual y la rama vuelve en su semana en las dos carreras.
+func _test_save_events() -> void:
+	var c := _new_career(71)
+	c.choose_sponsor("telnet")
+	c.set_week_event("c7_actriz")
+	c.resolve_event(2)   # abandonar la sala: El Chisme vuelve en 2 semanas
+	c.choose_physio()
+	c.prepare_match()
+	c.record_match(1, 1)
+	c.set_week_event("c2_ganan_domingo")
+	c.resolve_event(0)   # promesa pendiente
+	c.temp_cards.append({"carta": "nervios", "quien": String(c.squads.lineup_ids("colo_colo")[9])})
+	_check(c.save(), "save() con eventos pendientes")
+	var loaded := Career.load_saved(league, squads)
+	_check(loaded != null, "la carrera con ramas pendientes debería cargar: %s" % [Career.last_load_errors])
+	if loaded == null:
+		return
+	_check_same_save(c.to_dict(), loaded.to_dict(), "con eventos pendientes")
+	_check(int(loaded.to_dict()["version"]) == 3 and typeof(loaded.event_marks[0]["semana"]) == TYPE_INT, "guardado v3 con la semana de la rama entera")
+	for x in [c, loaded]:
+		x.choose_physio()
+		x.prepare_match()
+		x.record_match(2, 0)
+	_check(c.event_id == "c7_fotos" and loaded.event_id == "c7_fotos", "la rama vuelve en la semana 3 en las dos (%s / %s)" % [c.event_id, loaded.event_id])
+	_check(c.popularity == loaded.popularity and c.event_deck == loaded.event_deck, "la promesa se cobra igual y el mazo sigue igual")
+
+	var cases := {}
+	var bad_event := c.to_dict()
+	bad_event["event_id"] = "evento_inventado"
+	cases["evento desconocido"] = bad_event
+	var bad_mark := c.to_dict()
+	bad_mark["event_marks"] = [{"evento": "evento_inventado", "semana": 4, "nombres": {}}]
+	cases["rama a un evento que no existe"] = bad_mark
+	var bad_card := c.to_dict()
+	bad_card["temp_cards"] = [{"carta": "carta_inventada", "quien": ""}]
+	cases["carta temporal desconocida"] = bad_card
+	var no_deck := c.to_dict()
+	no_deck.erase("event_deck")
+	cases["v3 sin mazo de eventos"] = no_deck
+	for name in cases:
+		_write_save(JSON.stringify(cases[name]))
+		_check(Career.load_saved(league, squads) == null and not Career.last_load_errors.is_empty(),
+				"guardado con %s: la carga debería devolver null con motivo" % name)
+
+
+# Un guardado v2 (antes de T-14: un solo evento, resultado con "accepted") se migra con el Bautizazo.
+func _test_save_v2_migration() -> void:
+	var c := _new_career(81)
+	c.choose_sponsor("telnet")
+	_bautizazo(c, true)
+	var v2 := c.to_dict()
+	v2["version"] = 2
+	for k in Career.V2_MISSING:
+		v2.erase(k)
+	v2["event_result"] = {"accepted": true, "funa": false, "funado_id": "", "lines": ["La fiesta prende."]}
+	_write_save(JSON.stringify(v2))
+	var loaded := Career.load_saved(league, squads)
+	_check(loaded != null, "un guardado v2 debería migrarse: %s" % [Career.last_load_errors])
+	if loaded == null:
+		return
+	_check(loaded.event_id == "bautizazo" and int(loaded.event_result["option"]) == 0 and loaded.event_result["sello"] == "PASÓ PIOLA",
+			"el v2 vuelve con el Bautizazo aceptado: %s" % [loaded.event_result])
+	_check(loaded.blocks_done()["block1"] and loaded.event_marks.is_empty() and loaded.promises.is_empty(), "el v2 sigue con el Bloque 1 hecho")
+	loaded.choose_physio()
+	loaded.prepare_match()
+	loaded.record_match(1, 0)
+	_check(not loaded.week_event().is_empty() and loaded.event_deck.size() == 24, "tras el v2 el mazo de eventos se baraja en la semana siguiente")

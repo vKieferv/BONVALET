@@ -4,7 +4,8 @@
 # playoffs y liguillas coherentes con sus marcadores, tabla acumulada, descenso (directo, administrativo
 # y liguillas por puesto en la acumulada), ascensos e ids que existen en teams_chile_2006.json. Cada
 # sección se comprueba si tiene datos; con "estado": "completo" se exigen todas. Antes, las mismas reglas
-# se prueban con temporadas sintéticas para que fallen cuando deben.
+# se prueban con temporadas sintéticas para que fallen cuando deben. También el catálogo de eventos de
+# la semana (data/eventos_2006.json, T-14): medios, efectos y ramas que existen.
 # Uso: godot --headless --path . -s res://tests/data_rules.gd
 extends SceneTree
 
@@ -43,6 +44,8 @@ func _initialize() -> void:
 	_test_temporada_sintetica()
 	_test_archivo_pendiente()
 	_test_history_file()
+	_test_eventos_sinteticos()
+	_test_eventos_file()
 	print("data_rules: %d comprobaciones, %d fallas" % [checks, failures.size()])
 	for f in failures:
 		print("  FALLA: " + f)
@@ -63,6 +66,166 @@ func _expect_ok(errors: Array[String], what: String) -> void:
 func _expect_error(errors: Array[String], what: String, contiene: String) -> void:
 	var hit := errors.any(func(e: String) -> bool: return e.contains(contiene))
 	_check(hit, "%s debería fallar con '%s': %s" % [what, contiene, errors])
+
+
+# ------------------------------------------------------------------ Eventos de la semana (T-14)
+
+const EVENTOS_PATH := "res://data/eventos_2006.json"
+const GRUPOS_EVENTO := ["conferencia", "vestuario", "dirigencia", "hinchas", "sponsor"]
+const PREGUNTAS := ["provocacion", "jugador", "tactica", "arbitraje", "promesa", "plata", "farandula"]
+const FOTOS := ["fiesta", "microfonos", "siluetas"]
+const KINDS_MEDIO := ["diario", "radio", "tv"]
+const QUIENES := ["nueve", "capitan", "arquero", "juvenil", "titular", "nuevo"]
+
+
+# El catálogo real: todo evento válido (medio conocido, efectos conocidos, ramas a eventos que
+# existen), los 27 de docs/eventos.md y los 7 tipos de pregunta en las conferencias.
+func _test_eventos_file() -> void:
+	var data = JSON.parse_string(FileAccess.get_file_as_string(EVENTOS_PATH))
+	_check(data is Dictionary, "%s no es JSON válido" % EVENTOS_PATH)
+	if not (data is Dictionary):
+		return
+	_expect_ok(_eventos_errors(data, CardDB.load_catalog()), "eventos_2006.json")
+	var catalogo := ["c1_equipo_chico", "c2_ganan_domingo", "c3_presionar", "c4_llego_tarde", "c5_arbitro", "c6_refuerzos",
+		"c7_actriz", "c8_juvenil", "bautizazo", "v2_aumento", "v3_asado", "v4_lesion_misteriosa", "v5_pelea", "v6_abuela",
+		"v7_musica", "d1_sobrino", "d2_reunion", "d3_presidente", "d4_amistoso", "d5_auditoria", "h1_entradas",
+		"h2_banderazo", "h3_supermercado", "h4_mural", "s1_comercial_playa", "s2_matinal", "s3_celulares"]
+	var ids: Array = data.get("eventos", []).map(func(ev): return ev.get("id"))
+	_check(catalogo.all(func(id): return ids.has(id)), "faltan eventos del catálogo de docs/eventos.md: %s" % [
+		catalogo.filter(func(id): return not ids.has(id))])
+	var preguntas := {}
+	for ev in data.get("eventos", []):
+		if ev.get("grupo") == "conferencia":
+			preguntas[ev.get("pregunta")] = true
+	_check(preguntas.size() == PREGUNTAS.size(), "las conferencias deberían usar los 7 tipos de pregunta: %s" % [preguntas.keys()])
+	_check(data.get("medios", []).size() == 6, "deberían ser los 6 medios de docs/eventos.md")
+
+
+# Las mismas reglas fallan cuando deben.
+func _test_eventos_sinteticos() -> void:
+	var catalog := {"pase_corto": {}}
+	var base := {"medios": [{"id": "m", "name": "M", "kind": "diario", "letra": "diario", "color": "#000000"}],
+		"clasicos": [["colo_colo", "universidad_de_chile"]],
+		"eventos": [{"id": "a", "grupo": "vestuario", "medio": "m", "titulo": "A", "texto": "", "foto": "siluetas",
+			"opciones": [{"texto": "Sí", "efectos": [{"tipo": "rama", "evento": "b", "semanas": 1}]}, {"texto": "No", "efectos": []}]},
+			{"id": "b", "grupo": "vestuario", "medio": "m", "titulo": "B", "texto": "", "foto": "siluetas", "solo_rama": true,
+			"opciones": [{"texto": "Sí", "efectos": [{"tipo": "popularidad", "valor": 1}]}, {"texto": "No", "efectos": []}]}]}
+	_expect_ok(_eventos_errors(base, catalog), "un catálogo sintético válido")
+	var bad := base.duplicate(true)
+	bad["eventos"][0]["medio"] = "otro"
+	_expect_error(_eventos_errors(bad, catalog), "un medio desconocido", "medio desconocido")
+	bad = base.duplicate(true)
+	bad["eventos"][0]["opciones"][0]["efectos"][0]["evento"] = "z"
+	_expect_error(_eventos_errors(bad, catalog), "una rama a un evento que no existe", "rama a un evento que no existe")
+	bad = base.duplicate(true)
+	bad["eventos"][1]["opciones"][0]["efectos"] = [{"tipo": "teletransporte"}]
+	_expect_error(_eventos_errors(bad, catalog), "un efecto desconocido", "efecto desconocido")
+	bad = base.duplicate(true)
+	bad["eventos"][1]["opciones"].resize(1)
+	_expect_error(_eventos_errors(bad, catalog), "un evento con una sola opción", "2 o 3 opciones")
+	bad = base.duplicate(true)
+	bad["eventos"][1]["solo_rama"] = false
+	bad["eventos"][0]["opciones"][0]["efectos"] = []
+	bad["eventos"][1]["solo_rama"] = true
+	_expect_error(_eventos_errors(bad, catalog), "un evento de rama al que nada lleva", "ninguna rama lleva")
+	bad = base.duplicate(true)
+	bad["eventos"][1]["opciones"][0]["efectos"] = [{"tipo": "carta_temporal", "carta": "chilena", "quien": "nueve"}]
+	_expect_error(_eventos_errors(bad, catalog), "una carta que no existe", "carta desconocida")
+	bad = base.duplicate(true)
+	bad["eventos"][1]["titulo"] = "[el presidente] se enoja"
+	_expect_error(_eventos_errors(bad, catalog), "un nombre entre corchetes desconocido", "corchetes")
+
+
+func _eventos_errors(data: Dictionary, catalog: Dictionary) -> Array[String]:
+	var e: Array[String] = []
+	var medios := {}
+	for m in _as_array(data.get("medios"), "medios", e):
+		if not (m is Dictionary and m.get("id") is String and m.get("name") is String and KINDS_MEDIO.has(m.get("kind")) \
+				and m.get("letra") is String and m.get("color") is String):
+			e.append("medio mal formado: %s" % [m])
+			continue
+		medios[m["id"]] = true
+	for pair in _as_array(data.get("clasicos"), "clasicos", e):
+		if not (pair is Array and pair.size() == 2 and _todos.has(pair[0]) and _todos.has(pair[1])):
+			e.append("clásico con clubes desconocidos: %s" % [pair])
+	var ids := {}
+	var solo_rama := {}
+	var destinos := {}
+	for ev in _as_array(data.get("eventos"), "eventos", e):
+		if not (ev is Dictionary and ev.get("id") is String):
+			e.append("evento sin id: %s" % [ev])
+			continue
+		var id: String = ev["id"]
+		if ids.has(id):
+			e.append("evento repetido: %s" % id)
+		ids[id] = true
+		if ev.get("solo_rama", false):
+			solo_rama[id] = true
+		if not medios.has(ev.get("medio")):
+			e.append("%s: medio desconocido %s" % [id, ev.get("medio")])
+		if not GRUPOS_EVENTO.has(ev.get("grupo")):
+			e.append("%s: grupo desconocido %s" % [id, ev.get("grupo")])
+		if ev.get("grupo") == "conferencia" and not PREGUNTAS.has(ev.get("pregunta")):
+			e.append("%s: una conferencia necesita su tipo de pregunta" % id)
+		if not FOTOS.has(ev.get("foto", "siluetas")) or not Career.CONDITIONS.has(ev.get("condicion", "")):
+			e.append("%s: foto o condición desconocida" % id)
+		for campo in ["titulo", "texto"]:
+			if not (ev.get(campo) is String):
+				e.append("%s: falta %s" % [id, campo])
+			else:
+				_corchetes(String(ev[campo]), id, e)
+		var ops := _as_array(ev.get("opciones"), id, e)
+		if ops.size() < 2 or ops.size() > 3:
+			e.append("%s: debería tener 2 o 3 opciones (tiene %d)" % [id, ops.size()])
+		for op in ops:
+			if not (op is Dictionary and op.get("texto") is String and op.get("efectos") is Array):
+				e.append("%s: opción mal formada" % id)
+				continue
+			_efectos_errors(op["efectos"], id, catalog, destinos, e)
+	for d in destinos:
+		if not ids.has(d):
+			e.append("rama a un evento que no existe: %s" % d)
+	for id in solo_rama:
+		if not destinos.has(id):
+			e.append("%s es solo de rama pero ninguna rama lleva a él" % id)
+	return e
+
+
+func _efectos_errors(list: Array, id: String, catalog: Dictionary, destinos: Dictionary, e: Array[String]) -> void:
+	for ef in list:
+		if not (ef is Dictionary and Career.EFFECTS.has(ef.get("tipo"))):
+			e.append("%s: efecto desconocido %s" % [id, ef])
+			continue
+		var tipo: String = ef["tipo"]
+		if tipo in ["popularidad", "disciplina", "presupuesto", "fatiga", "arranque", "rival_motivado"] and not _es_numero(ef.get("valor")):
+			e.append("%s: %s sin valor" % [id, tipo])
+		if ef.has("chance") and not (_es_numero(ef["chance"]) and ef["chance"] >= 0.0 and ef["chance"] <= 1.0):
+			e.append("%s: %s con una probabilidad fuera de 0-1" % [id, tipo])
+		if tipo in ["desgaste", "carta_temporal", "vender"] or ef.has("quien"):
+			if not QUIENES.has(ef.get("quien")):
+				e.append("%s: %s sobre un jugador desconocido %s" % [id, tipo, ef.get("quien")])
+		if tipo in ["carta_temporal", "carta_nueva"] and not (ef.get("carta") == "nervios" and tipo == "carta_temporal") \
+				and not catalog.has(ef.get("carta")):
+			e.append("%s: carta desconocida %s" % [id, ef.get("carta")])
+		if tipo == "rama":
+			if not (ef.get("evento") is String and _es_numero(ef.get("semanas")) and ef["semanas"] >= 1):
+				e.append("%s: rama mal formada" % id)
+			else:
+				destinos[ef["evento"]] = true
+		for key in ["efectos", "si_no", "si_ganas"]:
+			if ef.has(key):
+				_efectos_errors(_as_array(ef[key], id, e), id, catalog, destinos, e)
+
+
+func _es_numero(v: Variant) -> bool:
+	return typeof(v) == TYPE_INT or typeof(v) == TYPE_FLOAT
+
+
+func _corchetes(text: String, id: String, e: Array[String]) -> void:
+	var re := RegEx.create_from_string("\\[[^\\]]*\\]")
+	for m in re.search_all(text):
+		if not Career.PLACEHOLDERS.has(m.get_string()) and m.get_string() != "[el rival]":
+			e.append("%s: nombre entre corchetes desconocido %s" % [id, m.get_string()])
 
 
 # ------------------------------------------------------------------ El archivo real

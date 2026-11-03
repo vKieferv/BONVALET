@@ -235,17 +235,23 @@ La IA en ataque planifica combinaciones de su mano y en defensa elige según su 
 ## 5. La semana (modo carrera)
 
 ### 5.1 Bucle de 3 bloques [DECIDIDO]
-1. **Planificación y prensa:** sponsor (Cerveza Glaciar o Telnet) y evento social.
+1. **Planificación y prensa:** sponsor (Cerveza Glaciar o Telnet) y el evento de la semana (5.2).
 2. **Preparación (la decisión del mazo, D-21):** UNA entre entrenamiento táctico (1 de 3 cartas nuevas,
    +10 de fatiga), sesión de video (mejorar una carta, sin fatiga) o kinesiología (−25 de fatiga).
    Detalle en 3.4. Desde T-05 tu mazo se guarda con la carrera.
 3. **El partido** (`match_view`), previa validación del mazo.
 
 ### 5.2 Reputación y funas [DECIDIDO] · contenido [EN PRUEBA]
-Doble eje Popularidad (hinchada) vs Disciplina (directiva/sponsors). Hoy hay un evento
-("Bautizazo en Bellavista"): da forma en los primeros Momentos y popularidad, con 30% de riesgo de
-funa (−disciplina, +50% de desgaste en las cartas del funado, puede costar la semana de sponsor).
-Faltan más eventos (conferencia polémica, charla técnica, agentes): `ideas.md`.
+Doble eje Popularidad (hinchada) vs Disciplina (directiva/sponsors). Desde T-14 (I-57) cada semana trae
+un evento del catálogo de `docs/eventos.md` (27 eventos: conferencias de 6 medios parodia con 7 tipos de
+pregunta, vestuario, dirigencia, hinchas y sponsor), con 2 o 3 opciones y sus efectos a la vista antes de
+elegir: popularidad, disciplina, caja, fatiga, arranque (también negativo), rival motivado, funa (−disciplina,
++50% de desgaste en las cartas del funado, puede costar la semana de sponsor), cartas por una semana
+(Nervios o un canterano), promesas que se cobran con el resultado y **ramas** que vuelven semanas después
+con otro evento (el 9 que pide salir, la abuela del arquero en la radio, el presidente que no olvida).
+Los eventos salen de un mazo barajado por temporada, sin repetir hasta salir todos; los que tienen
+condición (después de una derrota, antes de un clásico) salen cuando se cumple. Los números son de prueba.
+El Bautizazo en Bellavista sigue igual. Pendiente: la relación con cada medio (`eventos.md`).
 
 ### 5.3 Fatiga entre partidos [DECIDIDO]
 La estamina gastada deja fatiga (6 + 18 × desgaste), que define con cuánta estamina arrancas el

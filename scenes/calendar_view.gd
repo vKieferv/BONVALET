@@ -2,8 +2,9 @@ extends Control
 
 # Semana del modo carrera como la mesa del DT vista desde arriba (D-37). La UI se arma por código y
 # las reglas viven en Career. Los pasos de la semana son los separadores de un archivador:
-#   1 · Prensa: hoja de calendario, libreta (caja, popularidad, disciplina, fatiga), Diario El Chisme
-#       con el evento, contratos de los sponsors paródicos y las dos decisiones como post-its con timbres.
+#   1 · Prensa: hoja de calendario, libreta (caja, popularidad, disciplina, fatiga), la portada del medio
+#       que trae el evento de la semana (su nombre y su letra; la radio y la TV, con su micrófono),
+#       contratos de los sponsors paródicos y las 2 o 3 opciones como post-its con sus efectos en timbres.
 #   2 · Entrenamiento, UNA opción por semana (D-21): portapapeles (táctico: abre el sobre con las 3
 #       láminas ofrecidas; con el mazo en su tope eliges cuál sale), cassette VHS (video: mejorar una
 #       lámina) o ficha médica (kinesiología). El sobre abre "Ver mazo". A la derecha, la promo del
@@ -23,7 +24,11 @@ const PASOS := ["prensa", "entrenamiento", "partido"]
 const PASO_TITULO := {"prensa": "1 · PRENSA", "entrenamiento": "2 · ENTRENAMIENTO", "partido": "3 · PARTIDO"}
 # Dónde va cada cosa sobre la mesa (maqueta v3, 1280×720) y adónde apunta la lámpara.
 const R_CONTRATOS := Rect2(896, 60, 356, 390)
-const R_POSTITS := Rect2(590, 450, 540, 250)
+const R_POSTITS := Rect2(586, 450, 640, 250)
+# Post-its de las opciones del evento: [rect, giro] para 2 o 3 opciones, y sus colores en orden.
+const POSTITS_2 := [[Rect2(600, 470, 250, 214), 3.0], [Rect2(876, 486, 236, 190), -3.0]]
+const POSTITS_3 := [[Rect2(596, 470, 200, 216), 3.0], [Rect2(808, 484, 196, 204), -2.0], [Rect2(1016, 472, 204, 214), 2.5]]
+const POSTIT_COLORES := [Paleta.POSTIT_AMARILLO, Paleta.POSTIT_VERDE, Paleta.POSTIT_ROSA]
 const R_ENTRENAMIENTOS := Rect2(20, 30, 270, 640)
 const R_CENTRO := Rect2(300, 40, 640, 660)
 const R_ENTRADA := Rect2(950, 590, 310, 110)
@@ -71,6 +76,9 @@ var _check_bad := false
 
 # Datos para los dibujos de esta mesa (se calculan al armarla).
 var _photo := Rect2()
+var _foto := "fiesta"         # dibujo de la foto del diario: fiesta | microfonos | siluetas
+var _medio_kind := "diario"   # diario | radio | tv (el medio del evento de la semana)
+var _medio_color := Paleta.TINTA_MESA
 var _pizarra: Array = []      # [{pos, name, star, gk}]
 var _imanes: Array = []       # [color de campo, color del arquero]
 
@@ -300,21 +308,39 @@ func _build_prensa(page: Control) -> void:
 
 func _build_diario(page: Control, ev: Dictionary) -> void:
     var c := _career
+    var medio := c.week_medio()
+    var kind := String(medio.get("kind", "diario"))
+    var tinta := Color(String(medio.get("color", "#1f1b16")))
+    _foto = String(ev.get("foto", "siluetas"))
+    _medio_kind = kind
+    _medio_color = tinta
     var diario := Mesa.objeto(Rect2(318, 40, 560, 520), -2.0, _draw_diario)
+    diario.tooltip_text = "%s · %s" % [medio.get("name", ""), medio.get("tipo", "")]
     page.add_child(diario)
-    var name := Paleta.etiqueta("Diario El Chisme", "diario", 42, Paleta.TINTA_MESA)
-    name.position = Vector2(26, 12)
+    # La cabecera dice quién pregunta (D-01, todos parodia): el nombre del diario con su letra, o el
+    # micrófono de la radio o la TV con su placa.
+    var x := 26.0
+    if kind != "diario":
+        var mic := Icono.crear("microfono", Paleta.TINTA_MESA, 46)
+        mic.position = Vector2(22, 12)
+        diario.add_child(mic)
+        x = 76.0
+    var letra := String(medio.get("letra", "diario"))
+    var name := Paleta.etiqueta(String(medio.get("name", "Diario El Chisme")), letra, 42 if letra == "diario" else 46, tinta, 0 if letra == "diario" else 1)
+    name.position = Vector2(x, 12 if letra == "diario" else 10)
     diario.add_child(name)
     var ed := Paleta.etiqueta("SEMANA %d" % c.week, "condensada", 15, Paleta.TINTA_SEPIA, 1)
     diario.add_child(ed)
     ed.position = Vector2(534 - ed.get_minimum_size().x, 36)
-    var tag := Mesa.placa_tv("EXCLUSIVO", 17, [Paleta.ROJO_DIARIO], Color.WHITE)
+    var conferencia := String(ev.get("grupo", "")) == "conferencia"
+    var tag := Mesa.placa_tv("EN VIVO" if kind != "diario" else ("CONFERENCIA" if conferencia else "EXCLUSIVO"), 17,
+            [Paleta.ROJO_DIARIO], Color.WHITE)
     tag.position = Vector2(30, 84)
     diario.add_child(tag)
-    var sec := Paleta.etiqueta("FARÁNDULA DEPORTIVA", "condensada", 15, Paleta.TINTA_SEPIA, 2)
+    var sec := Paleta.etiqueta(String(medio.get("seccion", "")), "condensada", 15, Paleta.TINTA_SEPIA, 2)
     sec.position = Vector2(tag.size.x + 44, 86)
     diario.add_child(sec)
-    var title := Paleta.etiqueta("¡%s!" % String(ev.get("title", "Sin novedades")), "diario", 52, Paleta.TINTA_MESA)
+    var title := Paleta.etiqueta(c.event_title(ev), "diario", 52, Paleta.TINTA_MESA)
     title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
     title.add_theme_constant_override("line_spacing", -12)
     title.position = Vector2(26, 112)
@@ -326,7 +352,7 @@ func _build_diario(page: Control, ev: Dictionary) -> void:
         title.add_theme_font_size_override("font_size", tam)
     var th := title.get_minimum_size().y
     _photo = Rect2(26, 112 + th + 6, 508, 176)
-    var body := Paleta.etiqueta(String(ev.get("text", "")), "texto_regular", 15, Color("#2e2820"))
+    var body := Paleta.etiqueta(c.event_text(ev), "texto_regular", 15, Color("#2e2820"))
     body.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
     body.position = Vector2(26, _photo.end.y + 10)
     body.size = Vector2(240, 0)
@@ -334,12 +360,12 @@ func _build_diario(page: Control, ev: Dictionary) -> void:
     var res := c.event_result
     if not res.is_empty():
         diario.tooltip_text = "\n".join(res["lines"])
-        var texto := "PASÓ PIOLA" if res["accepted"] else "CONCENTRADOS"
-        var tinta := Paleta.TIMBRE_VERDE
+        var texto := String(res.get("sello", ""))
+        var stamp_ink := Paleta.TIMBRE_VERDE
         if res["funa"]:
             texto = "¡FUNA! · %s" % Mesa.apellido(c.funado_name()).to_upper()
-            tinta = Paleta.TIMBRE_ROJO
-        var stamp := Mesa.sello(texto, tinta, -9.0, 36)
+            stamp_ink = Paleta.TIMBRE_ROJO
+        var stamp := Mesa.sello(texto, stamp_ink, -9.0, 36 if texto.length() <= 16 else 28)
         diario.add_child(stamp)
         stamp.position = _photo.get_center() - stamp.get_minimum_size() / 2.0
 
@@ -400,57 +426,51 @@ func _build_postits(page: Control, ev: Dictionary, locked: bool) -> void:
     var c := _career
     var res := c.event_result
     var resolved := not res.is_empty()
-    var terms := c.event_terms(ev).split("\n")
-    var r: Dictionary = ev.get("reward", {})
-    var k: Dictionary = ev.get("risk", {})
-    var d: Dictionary = ev.get("decline", {})
-
-    # Aceptar: lo que suma y el riesgo, en timbres.
-    var acc := Mesa.objeto(Rect2(600, 470, 250, 214), 3.0, _draw_postit.bind(Paleta.POSTIT_AMARILLO), _on_event.bind(true))
-    acc.disabled = resolved or locked
-    acc.tooltip_text = "\n".join(terms.slice(0, 2))
-    page.add_child(acc)
-    var box := _postit_box(acc, String(ev.get("accept_label", "Aceptar")), 27)
-    box.add_child(Mesa.timbre("%+d%% · M1-%d" % [roundi(float(r.get("opening_bonus", 0.0)) * 100.0), int(r.get("opening_moments", 2))],
-            "mira", Paleta.TIMBRE_VERDE, -3.0))
-    var pop := int(r.get("popularity", 0))
-    if pop != 0:
-        box.add_child(Mesa.timbre("%+d" % pop, "megafono", Paleta.TIMBRE_VERDE if pop > 0 else Paleta.TIMBRE_ROJO, 2.0))
-    box.add_child(Mesa.timbre("%d%% FUNA" % roundi(float(k.get("chance", 0.0)) * 100.0), "dado", Paleta.TIMBRE_ROJO, -2.0))
-    var risk := HBoxContainer.new()
-    risk.add_theme_constant_override("separation", 5)
+    var ops := c.event_options(ev)
+    var specs: Array = POSTITS_3 if ops.size() >= 3 else POSTITS_2
     var dark := Color("#8a1f14")
-    risk.add_child(Icono.crear("tarjeta", dark, 15))
-    risk.add_child(Paleta.etiqueta("%+d ·" % int(k.get("discipline", 0)), "condensada_negra", 16, dark))
-    risk.add_child(Icono.crear("gota", dark, 14))
-    risk.add_child(Paleta.etiqueta("+%d%% A UN TITULAR" % roundi(float(k.get("funado_stamina_extra", 0.5)) * 100.0), "condensada_negra", 16, dark))
-    for n in risk.get_children():
-        n.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-    box.add_child(risk)
-    Mesa.ignorar(box)
+    for i in mini(ops.size(), specs.size()):
+        var op: Dictionary = ops[i]
+        var efectos: Array = op.get("efectos", [])
+        var o := Mesa.objeto(specs[i][0], specs[i][1], _draw_postit.bind(POSTIT_COLORES[i]), _on_event.bind(i))
+        o.disabled = resolved or locked
+        o.tooltip_text = c.effects_text(efectos)
+        page.add_child(o)
+        var tres := ops.size() >= 3
+        var box := _postit_box(o, c.fill_names(String(op.get("texto", ""))), 21 if tres else 25)
+        box.add_theme_constant_override("separation", 6 if tres else 8)
+        # Los efectos a la vista antes de elegir (pilar 2): un timbre por efecto.
+        var badges := c.effect_badges(efectos)
+        for j in badges.size():
+            var b: Dictionary = badges[j]
+            var ink := Paleta.TIMBRE_VERDE if int(b["tono"]) > 0 else (Paleta.TIMBRE_ROJO if int(b["tono"]) < 0 else Paleta.TIMBRE_AZUL)
+            box.add_child(Mesa.timbre(String(b["texto"]), String(b["icono"]), ink, [-3.0, 2.0, -2.0][j % 3], 16 if tres else 18))
+            if efectos[j]["tipo"] == "funa":
+                # Lo que cuesta la funa si pasa: disciplina y desgaste del funado.
+                var risk := HBoxContainer.new()
+                risk.add_theme_constant_override("separation", 5)
+                risk.add_child(Icono.crear("tarjeta", dark, 15))
+                risk.add_child(Paleta.etiqueta("%+d ·" % int(efectos[j].get("disciplina", 0)), "condensada_negra", 16, dark))
+                risk.add_child(Icono.crear("gota", dark, 14))
+                # Un titular al azar no se nombra (sería adelantar a quién funan); el capitán, sí.
+                var quien := String(efectos[j].get("quien", "titular"))
+                var victima := "UN TITULAR" if quien == "titular" else Mesa.apellido(c.target_name(quien)).to_upper()
+                risk.add_child(Paleta.etiqueta("+%d%% A %s" % [roundi(float(efectos[j].get("extra", 0.5)) * 100.0), victima],
+                        "condensada_negra", 16, dark))
+                for n in risk.get_children():
+                    n.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+                box.add_child(risk)
+        if badges.is_empty():
+            box.add_child(Paleta.etiqueta("SIN EFECTOS", "condensada_negra", 16, Color("#33421f")))
+        Mesa.ignorar(box)
+        if resolved and int(res.get("option", -1)) == i:
+            var pin := Mesa.chincheta(0, true, 34)
+            pin.position = Vector2(-14, -16)
+            o.add_child(pin)
 
-    # Negarse: sin riesgo.
-    var dec := Mesa.objeto(Rect2(876, 486, 236, 190), -3.0, _draw_postit.bind(Paleta.POSTIT_VERDE), _on_event.bind(false))
-    dec.disabled = resolved or locked
-    dec.tooltip_text = terms[2] if terms.size() > 2 else ""
-    page.add_child(dec)
-    var box2 := _postit_box(dec, String(ev.get("decline_label", "Rechazar")), 25)
-    var disc := int(d.get("discipline", 0))
-    if disc != 0:
-        box2.add_child(Mesa.timbre("%+d" % disc, "tarjeta", Paleta.TIMBRE_VERDE if disc > 0 else Paleta.TIMBRE_ROJO, 3.0))
-    var dpop := int(d.get("popularity", 0))
-    if dpop != 0:
-        box2.add_child(Mesa.timbre("%+d" % dpop, "megafono", Paleta.TIMBRE_VERDE if dpop > 0 else Paleta.TIMBRE_ROJO, -3.0))
-    box2.add_child(Paleta.etiqueta("SIN RIESGO", "condensada_negra", 16, Color("#33421f")))
-    Mesa.ignorar(box2)
-
-    if resolved:
-        var pin := Mesa.chincheta(0, true, 34)
-        pin.position = Vector2(-14, -16)
-        (acc if res["accepted"] else dec).add_child(pin)
-    else:
+    if not resolved:
         var pin := Mesa.chincheta(2)
-        pin.position = Vector2(608, 450)
+        pin.position = specs[0][0].position + Vector2(8, -20)
         page.add_child(pin)
         var note := Mesa.plumon("2 · ¿qué hacemos?", 22, Paleta.PLUMON_CREMA, -5.0)
         note.position = Vector2(378, 612)
@@ -1115,15 +1135,26 @@ func _draw_diario(b: Button) -> void:
     Mesa.papel(b, Rect2(Vector2.ZERO, s), Paleta.PAPEL_DIARIO, [Color(0, 0, 0, 0.6), 22, 14])
     Mesa.cinta_adhesiva(b, Vector2(26, 8), -38.0)
     Mesa.cinta_adhesiva(b, Vector2(s.x - 26, 8), 36.0)
-    b.draw_line(Vector2(26, 66), Vector2(s.x - 26, 66), Paleta.TINTA_MESA, 1.5)
+    # Doble filete bajo la cabecera, del color del medio (la radio y la TV, más grueso).
+    var filete := _medio_color if _medio_kind == "diario" else _medio_color.darkened(0.1)
+    b.draw_line(Vector2(26, 66), Vector2(s.x - 26, 66), filete, 1.5 if _medio_kind == "diario" else 4.0)
     b.draw_line(Vector2(26, 71), Vector2(s.x - 26, 71), Paleta.TINTA_MESA, 1.5)
-    # Foto en trama: la fiesta del plantel (siluetas, bola de espejos y una estrella).
     var r := _photo
     b.draw_rect(r, Paleta.FOTO_DIARIO)
     b.draw_texture_rect(Paleta.trama(), r, true, Color(Color("#2e2820"), 0.85))
     var k := Vector2(r.size.x / 508.0, r.size.y / 196.0)
     b.draw_set_transform(r.position, 0.0, k)
     var ink := Paleta.FOTO_TINTA
+    if _foto == "microfonos":
+        _draw_foto_microfonos(b, ink)
+        b.draw_set_transform(Vector2.ZERO)
+        return
+    # Foto en trama: la fiesta del plantel (siluetas, bola de espejos y una estrella) o, sin la fiesta,
+    # solo las siluetas.
+    if _foto != "fiesta":
+        _draw_siluetas(b, ink)
+        b.draw_set_transform(Vector2.ZERO)
+        return
     b.draw_line(Vector2(254, 0), Vector2(254, 22), Color("#2e2820"), 2.0)
     b.draw_circle(Vector2(254, 44), 24, Color("#d9d0bb"), true, -1.0, true)
     for seg in [[Vector2(232, 36), Vector2(276, 36)], [Vector2(230, 48), Vector2(278, 48)], [Vector2(238, 26), Vector2(238, 62)],
@@ -1141,6 +1172,37 @@ func _draw_diario(b: Button) -> void:
     b.draw_colored_polygon(PackedVector2Array([Vector2(440, 40), Vector2(452, 80), Vector2(494, 72), Vector2(460, 98), Vector2(482, 136),
             Vector2(444, 114), Vector2(410, 146), Vector2(422, 104), Vector2(380, 88), Vector2(424, 82)]), Color(Paleta.PAPEL_CALENDARIO, 0.92))
     b.draw_set_transform(Vector2.ZERO)
+
+
+# Foto de conferencia (caja de 508×196): la mesa con los micrófonos de todos los medios apuntando al
+# DT; el del medio que pregunta va adelante, con su cubo del color del medio.
+func _draw_foto_microfonos(b: Button, ink: Color) -> void:
+    b.draw_rect(Rect2(0, 150, 508, 46), Color(ink, 0.9))
+    b.draw_circle(Vector2(254, 30), 22, Color(ink, 0.55), true, -1.0, true)   # el DT, desenfocado al fondo
+    b.draw_colored_polygon(PackedVector2Array([Vector2(206, 150), Vector2(214, 78), Vector2(254, 58), Vector2(294, 78), Vector2(302, 150)]),
+            Color(ink, 0.55))
+    var mics := [[Vector2(70, 196), Vector2(196, 96)], [Vector2(150, 196), Vector2(222, 92)], [Vector2(360, 196), Vector2(286, 92)],
+        [Vector2(438, 196), Vector2(312, 98)], [Vector2(254, 196), Vector2(254, 100)]]
+    for i in mics.size():
+        var base: Vector2 = mics[i][0]
+        var head: Vector2 = mics[i][1]
+        var front := i == mics.size() - 1
+        b.draw_line(base, head, ink, 7.0 if front else 5.0, true)
+        b.draw_circle(head, 15.0 if front else 11.0, ink, true, -1.0, true)
+        var cube_c := head.lerp(base, 0.32)
+        var cube := Rect2(cube_c - Vector2(22, 16), Vector2(44, 32)) if front else Rect2(cube_c - Vector2(15, 11), Vector2(30, 22))
+        b.draw_rect(cube, _medio_color if front else Color("#d9d0bb"))
+        b.draw_rect(cube, ink, false, 2.0)
+
+
+# Foto sin fiesta: siluetas del plantel en trama.
+func _draw_siluetas(b: Button, ink: Color) -> void:
+    for p in [[70.0, 92.0, 19.0, 34.0, 106.0, 120.0], [170.0, 104.0, 18.0, 134.0, 206.0, 130.0], [264.0, 88.0, 20.0, 226.0, 302.0, 116.0],
+            [360.0, 100.0, 18.0, 324.0, 396.0, 126.0], [450.0, 94.0, 19.0, 414.0, 486.0, 122.0]]:
+        b.draw_circle(Vector2(p[0], p[1]), p[2], ink, true, -1.0, true)
+        var body := Icono.bezier(Vector2(p[3], 196), Vector2(p[3] + 2, 150), Vector2(p[0] - 18, p[5]), Vector2(p[0], p[5]))
+        body.append_array(Icono.bezier(Vector2(p[0], p[5]), Vector2(p[0] + 18, p[5]), Vector2(p[4] - 2, 150), Vector2(p[4], 196)))
+        b.draw_colored_polygon(body, ink)
 
 
 func _draw_contrato(b: Button, id: String, i: int) -> void:
@@ -1411,11 +1473,11 @@ func _on_sponsor(id: String) -> void:
     _refresh()
 
 
-func _on_event(accept: bool) -> void:
+func _on_event(option: int) -> void:
     if _career == null:
         return
     _page = "prensa"
-    _career.resolve_event(accept)
+    _career.resolve_event(option)
     _save()
     _refresh()
 

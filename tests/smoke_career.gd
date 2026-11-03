@@ -1,6 +1,7 @@
-# Prueba de humo del bucle semanal: calendario → partido → calendario, dos semanas seguidas.
-# Semana 1: firma con Telnet, acepta la fiesta, entrenamiento táctico (se queda con la primera lámina ofrecida).
-# Semana 2: Cerveza Glaciar, rechaza, abre la sesión de video y "Ver mazo" y termina en kinesiología.
+# Prueba de humo del bucle semanal: calendario → partido → calendario, tres semanas seguidas, cada una
+# con un evento distinto (T-14: la portada con su medio y un post-it por opción; elige la última).
+# Semana 1: firma con Telnet, entrenamiento táctico (se queda con la primera lámina ofrecida).
+# Semanas 2 y 3: Cerveza Glaciar, abre la sesión de video y "Ver mazo" y termina en kinesiología.
 # Al final reabre el calendario como si se hubiera cerrado el juego, usa "Continuar carrera" y
 # comprueba que el mazo vuelve con la carta nueva.
 # Guarda en su propia ruta (TEST_SAVE), nunca en la partida real del usuario, y la borra al final.
@@ -11,8 +12,8 @@ extends SceneTree
 const CALENDAR := "res://scenes/calendar_view.tscn"
 const MATCH := "res://scenes/match_view.tscn"
 const TIME_SCALE := 20.0
-const MAX_FRAMES := 120000
-const WEEKS := 2
+const MAX_FRAMES := 180000
+const WEEKS := 3
 const TEST_SAVE := "user://test_smoke_carrera.json"
 const REAL_SAVE := "user://carrera.json"
 
@@ -25,6 +26,7 @@ var _real_save_time := 0   # fecha de modificación de la partida real (0 = no e
 var _closed_scene_id := 0  # calendario de antes de "cerrar el juego"
 var _new_card := ""        # id de la carta que se tomó en el entrenamiento táctico de la semana 1
 var _rival_checked := 0    # semanas en que se comprobó el mazo del rival (T-06)
+var _events_seen: Array = []  # eventos de cada semana (T-14: no se repiten)
 
 
 func _initialize() -> void:
@@ -65,7 +67,14 @@ func _process(_delta: float) -> bool:
 			var first := c.week == 1
 			scene._on_sponsor("telnet" if first else "cerveza_glaciar")   # firma uno de los contratos
 			_check_text_sizes(scene, "prensa")
-			scene._on_event(first)
+			_check_press(scene, c)
+			# La última opción de cada evento (ninguna abre una rama que cambie el mazo en 3 semanas).
+			scene._on_event(c.event_options().size() - 1)
+			if c.event_result.is_empty():
+				errors.append("Semana %d: el post-it no resolvió el evento %s" % [c.week, c.event_id])
+				return _finish()
+			print("  Semana %d · %s · %s: %s" % [c.week, c.week_medio().get("name", "?"), c.event_title(),
+					c.event_result["sello"]])
 			if first:
 				_take_first_offer(scene, c)
 			else:
@@ -183,6 +192,22 @@ func _look_and_rest(scene: Node, c: Career) -> void:
 	scene._on_training("physio")
 	if c.training != "physio" or c.deck.size() != 12:
 		errors.append("La kinesiología debería resolver el Bloque 2 sin tocar el mazo")
+
+
+# Paso Prensa (T-14): cada semana un evento distinto, la portada dice el nombre de su medio y hay un
+# post-it por opción.
+func _check_press(scene: Node, c: Career) -> void:
+	if _events_seen.has(c.event_id):
+		errors.append("Semana %d: el evento %s ya salió" % [c.week, c.event_id])
+	_events_seen.append(c.event_id)
+	var medio := String(c.week_medio().get("name", ""))
+	var labels: Array = scene.find_children("*", "Label", true, false)
+	if medio == "" or not labels.any(func(l): return l.is_visible_in_tree() and l.text == medio):
+		errors.append("Semana %d: la portada debería decir el nombre del medio (%s)" % [c.week, medio])
+	var postits: Array = scene.find_children("*", "Button", true, false).filter(func(b): return b.is_visible_in_tree() \
+			and b.get_rect().size.x < 260 and b.get_rect().position.y > 440 and b.get_rect().position.x > 580)
+	if postits.size() != c.event_options().size():
+		errors.append("Semana %d: deberían verse %d post-its (hay %d)" % [c.week, c.event_options().size(), postits.size()])
 
 
 # Ningún texto de juego bajo 14 px a 1280×720 (D-37).

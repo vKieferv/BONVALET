@@ -1,0 +1,285 @@
+{
+  "_notes": [
+    "Eventos de la semana (I-57, T-14): el catálogo de docs/eventos.md. Medios y marcas siempre parodia (D-01).",
+    "Cada evento: id, grupo (conferencia, vestuario, dirigencia, hinchas, sponsor), medio (id de 'medios': quién lo cuenta o pregunta), pregunta (solo conferencias: provocacion, jugador, tactica, arbitraje, promesa, plata, farandula), titulo, texto, foto (fiesta, microfonos, siluetas), condicion ('' | tras_derrota | antes_de_clasico), solo_rama (true = solo llega por una rama, no entra al mazo) y opciones (2 o 3).",
+    "Cada opción: texto (lo que dice el post-it), sello (opcional: el timbre sobre la foto al elegirla) y efectos, una lista. Efectos (Career.EFFECTS): popularidad/disciplina/fatiga {valor}; presupuesto {valor} en millones; arranque y rival_motivado {valor en puntos (0.05 = +5%), momentos (2)}; funa {chance, disciplina, extra (desgaste extra de sus cartas), clausula (el sponsor con cláusula de conducta no paga), quien}; desgaste {quien, extra} (como la funa, sin escándalo); carta_temporal {carta: nervios | id del catálogo, quien}; carta_nueva {carta}; promesa {si_ganas, si_no: listas de efectos, se cobran en el próximo partido}; rama {evento, semanas, chance}; azar {chance, efectos, si_no}; sin_pago_sponsor {} (solo si tu sponsor tiene cláusula); vender {quien} (su carta firma sale del mazo).",
+    "quien y los nombres entre corchetes del texto salen del plantel real: nueve ([tu 9]), capitan ([el capitán]), arquero ([el arquero]), juvenil ([el juvenil]), titular ([un titular]), nuevo ([el nuevo]); [el rival] es el rival de la semana. Una rama hereda los nombres del evento que la abrió.",
+    "Los números son de prueba (eventos.md): se ajustan jugando. Los eventos de rama que eventos.md solo describe (multa, fotos, el 9 pide salir, la abuela en la radio, el recorte, el escándalo, el mensaje filtrado) llevan opciones mínimas escritas para T-14 y anotadas en el informe.",
+    "clasicos: pares de clubes cuyo partido es un clásico (Colo-Colo, U. de Chile y U. Católica entre sí); los usa la condición antes_de_clasico."
+  ],
+  "medios": [
+    {"id": "el_chisme", "name": "Diario El Chisme", "kind": "diario", "tipo": "Prensa rosa", "seccion": "FARÁNDULA DEPORTIVA", "letra": "diario", "color": "#c8321f"},
+    {"id": "la_pizarra", "name": "La Pizarra", "kind": "diario", "tipo": "Diario deportivo", "seccion": "ANÁLISIS TÁCTICO", "letra": "condensada_negra", "color": "#1d4f9e"},
+    {"id": "el_hincha_fiel", "name": "El Hincha Fiel", "kind": "diario", "tipo": "Diario popular", "seccion": "LA VOZ DE LA GALERÍA", "letra": "tv", "color": "#c25a12"},
+    {"id": "el_mensajero", "name": "El Mensajero", "kind": "diario", "tipo": "Diario serio", "seccion": "ECONOMÍA Y DIRIGENCIA", "letra": "diario", "color": "#1f1b16"},
+    {"id": "radio_galactica", "name": "Radio Galáctica", "kind": "radio", "tipo": "Radio deportiva", "seccion": "LA PREVIA DEL DOMINGO", "letra": "tv", "color": "#7a4fc2"},
+    {"id": "tn", "name": "Televisora Nacional", "kind": "tv", "tipo": "La TV del partido", "seccion": "TN · MATINAL", "letra": "tv", "color": "#1b6b8f"}
+  ],
+  "clasicos": [
+    ["colo_colo", "universidad_de_chile"],
+    ["colo_colo", "universidad_catolica"],
+    ["universidad_de_chile", "universidad_catolica"]
+  ],
+  "eventos": [
+    {"id": "c1_equipo_chico", "grupo": "conferencia", "medio": "el_hincha_fiel", "pregunta": "provocacion", "foto": "microfonos",
+     "titulo": "«¿[el rival] es un equipo chico?»",
+     "texto": "El periodista de El Hincha Fiel ya tiene la portada armada. Solo le falta tu frase.",
+     "opciones": [
+       {"texto": "Respetarlo", "efectos": [{"tipo": "disciplina", "valor": 2}]},
+       {"texto": "Picarlo", "efectos": [{"tipo": "popularidad", "valor": 5}, {"tipo": "rival_motivado", "valor": 0.05}]},
+       {"texto": "«Sin comentarios»", "sello": "SIN COMENTARIOS", "efectos": [{"tipo": "popularidad", "valor": -2}]}
+     ]},
+    {"id": "c2_ganan_domingo", "grupo": "conferencia", "medio": "radio_galactica", "pregunta": "promesa", "foto": "microfonos",
+     "titulo": "«¿Ganan el domingo?»",
+     "texto": "Radio Galáctica transmite la conferencia en vivo y el locutor no te deja terminar las frases.",
+     "opciones": [
+       {"texto": "«Ganamos seguro»", "sello": "PROMETIDO", "efectos": [{"tipo": "promesa", "si_ganas": [{"tipo": "popularidad", "valor": 8}], "si_no": [{"tipo": "popularidad", "valor": -8}]}]},
+       {"texto": "«Vamos partido a partido»", "sello": "PARTIDO A PARTIDO", "efectos": []},
+       {"texto": "«Firmo el empate»", "sello": "FIRMA EL EMPATE", "efectos": [{"tipo": "popularidad", "valor": -3}, {"tipo": "arranque", "valor": 0.03}]}
+     ]},
+    {"id": "c3_presionar", "grupo": "conferencia", "medio": "la_pizarra", "pregunta": "tactica", "foto": "microfonos",
+     "titulo": "«¿Van a salir a presionar o a esperar?»",
+     "texto": "La Pizarra trae un dibujo de tu último partido lleno de flechas. Quiere saber el plan.",
+     "opciones": [
+       {"texto": "Contar el plan", "efectos": [{"tipo": "popularidad", "valor": 2}, {"tipo": "rival_motivado", "valor": 0.03}]},
+       {"texto": "Mentir con cara seria", "sello": "CARA DE PÓKER", "efectos": [{"tipo": "disciplina", "valor": -1}, {"tipo": "arranque", "valor": 0.03}]},
+       {"texto": "«Eso lo ven el domingo»", "sello": "SECRETO", "efectos": []}
+     ]},
+    {"id": "c4_llego_tarde", "grupo": "conferencia", "medio": "el_chisme", "pregunta": "jugador", "foto": "microfonos",
+     "titulo": "«¿Es cierto que [tu 9] llegó tarde al entrenamiento?»",
+     "texto": "El Chisme tiene una foto borrosa de un auto entrando al complejo a las 11:40.",
+     "opciones": [
+       {"texto": "Defenderlo", "efectos": [{"tipo": "disciplina", "valor": -2}, {"tipo": "arranque", "valor": 0.05}]},
+       {"texto": "Reconocerlo", "efectos": [{"tipo": "disciplina", "valor": 3}, {"tipo": "carta_temporal", "carta": "nervios", "quien": "nueve"}]},
+       {"texto": "Hablar del clima", "sello": "SOLEADO", "efectos": [{"tipo": "popularidad", "valor": -1}]}
+     ]},
+    {"id": "c5_arbitro", "grupo": "conferencia", "medio": "radio_galactica", "pregunta": "arbitraje", "foto": "microfonos",
+     "titulo": "«¿Qué opina del árbitro del domingo?»",
+     "texto": "El panel de Radio Galáctica ya votó: el árbitro es el tema de la semana.",
+     "opciones": [
+       {"texto": "Quejarse antes", "sello": "QUEJA", "efectos": [{"tipo": "popularidad", "valor": 3}, {"tipo": "rama", "evento": "c5_multa", "semanas": 1, "chance": 0.30}]},
+       {"texto": "Elogiarlo", "efectos": []},
+       {"texto": "«Lo conozco, es buena persona»", "sello": "BUENA PERSONA", "efectos": [{"tipo": "popularidad", "valor": -2}, {"tipo": "disciplina", "valor": 1}]}
+     ]},
+    {"id": "c6_refuerzos", "grupo": "conferencia", "medio": "el_mensajero", "pregunta": "plata", "foto": "microfonos",
+     "titulo": "«¿Le pidió refuerzos al presidente?»",
+     "texto": "El Mensajero sabe que el directorio se reunió el lunes y que nadie pidió café.",
+     "opciones": [
+       {"texto": "«Sí, y los necesitamos»", "sello": "PEDIDO", "efectos": [{"tipo": "popularidad", "valor": 3}, {"tipo": "rama", "evento": "d2_reunion", "semanas": 1}]},
+       {"texto": "«Con este plantel me alcanza»", "sello": "ME ALCANZA", "efectos": [{"tipo": "disciplina", "valor": 3}, {"tipo": "popularidad", "valor": -1}]},
+       {"texto": "Mirar al vocero hasta que corte la conferencia", "sello": "SE CORTÓ", "efectos": []}
+     ]},
+    {"id": "c7_actriz", "grupo": "conferencia", "medio": "el_chisme", "pregunta": "farandula", "foto": "microfonos",
+     "titulo": "«¿Cuál es su relación con la actriz de la teleserie de las 8?»",
+     "texto": "Nadie en la sala viene por el fútbol. El fotógrafo de El Chisme ya cambió de lente.",
+     "opciones": [
+       {"texto": "Desmentir", "efectos": []},
+       {"texto": "No desmentir", "sello": "NI SÍ NI NO", "efectos": [{"tipo": "popularidad", "valor": 6}, {"tipo": "disciplina", "valor": -3}]},
+       {"texto": "Abandonar la sala", "sello": "PORTAZO", "efectos": [{"tipo": "popularidad", "valor": -2}, {"tipo": "rama", "evento": "c7_fotos", "semanas": 2}]}
+     ]},
+    {"id": "c8_juvenil", "grupo": "conferencia", "medio": "la_pizarra", "pregunta": "jugador", "foto": "microfonos",
+     "titulo": "«¿Por qué no juega [el juvenil]?»",
+     "texto": "La Pizarra sacó sus números de la Sub-21. Son muy buenos y el periodista los trae impresos.",
+     "opciones": [
+       {"texto": "«Todavía no está listo»", "sello": "NO ESTÁ LISTO", "efectos": [{"tipo": "disciplina", "valor": 1}]},
+       {"texto": "«Este domingo juega»", "sello": "JUEGA", "efectos": [{"tipo": "carta_temporal", "carta": "promesa_control", "quien": "juvenil"}]},
+       {"texto": "«Pregúntele al presidente»", "sello": "AL PRESIDENTE", "efectos": [{"tipo": "popularidad", "valor": 2}, {"tipo": "rama", "evento": "d3_presidente", "semanas": 2}]}
+     ]},
+
+    {"id": "bautizazo", "grupo": "vestuario", "medio": "el_chisme", "foto": "fiesta",
+     "titulo": "¡Bautizazo en Bellavista!",
+     "texto": "El plantel quiere celebrar el cumpleaños del capitán en una disco de Bellavista. El fotógrafo de Diario El Chisme ya anda rondando.",
+     "opciones": [
+       {"texto": "Dar permiso", "sello": "PASÓ PIOLA", "efectos": [{"tipo": "arranque", "valor": 0.05, "momentos": 2}, {"tipo": "popularidad", "valor": 5},
+         {"tipo": "funa", "chance": 0.30, "disciplina": -10, "extra": 0.5, "clausula": true, "quien": "titular"}]},
+       {"texto": "Concentración en el hotel", "sello": "CONCENTRADOS", "efectos": [{"tipo": "disciplina", "valor": 2}, {"tipo": "popularidad", "valor": -2}]}
+     ]},
+    {"id": "v2_aumento", "grupo": "vestuario", "medio": "el_mensajero", "foto": "siluetas",
+     "titulo": "[tu 9] quiere un aumento",
+     "texto": "Llega su representante con un maletín y lentes de sol. Dentro de la oficina.",
+     "opciones": [
+       {"texto": "Pagar", "sello": "PAGADO", "efectos": [{"tipo": "presupuesto", "valor": -30}]},
+       {"texto": "Negarse", "sello": "NEGADO", "efectos": [{"tipo": "carta_temporal", "carta": "nervios", "quien": "nueve"}]},
+       {"texto": "Prometer para fin de mes", "sello": "FIN DE MES", "efectos": [{"tipo": "rama", "evento": "v2_pide_salir", "semanas": 4}]}
+     ]},
+    {"id": "v3_asado", "grupo": "vestuario", "medio": "el_hincha_fiel", "foto": "siluetas",
+     "titulo": "Asado en la casa de [el capitán]",
+     "texto": "Hay carne para cuarenta y el plantel tiene veinte. Te mandaron la ubicación tres veces.",
+     "opciones": [
+       {"texto": "Ir", "sello": "BUEN PROVECHO", "efectos": [{"tipo": "arranque", "valor": 0.03}, {"tipo": "fatiga", "valor": 5}]},
+       {"texto": "Mandar saludos", "sello": "SALUDOS", "efectos": [{"tipo": "disciplina", "valor": 1}, {"tipo": "arranque", "valor": -0.02}]}
+     ]},
+    {"id": "v4_lesion_misteriosa", "grupo": "vestuario", "medio": "la_pizarra", "foto": "siluetas",
+     "titulo": "Lesión misteriosa",
+     "texto": "A [un titular] «le duele algo». No sabe qué ni dónde. El kinesiólogo levanta una ceja.",
+     "opciones": [
+       {"texto": "Creerle", "sello": "DE REPOSO", "efectos": [{"tipo": "fatiga", "valor": -10}]},
+       {"texto": "Obligarlo a jugar", "sello": "A LA CANCHA", "efectos": [{"tipo": "disciplina", "valor": 3}, {"tipo": "azar", "chance": 0.30, "efectos": [{"tipo": "desgaste", "quien": "titular", "extra": 1.0}]}]},
+       {"texto": "Mandarlo a exámenes", "sello": "A EXÁMENES", "efectos": [{"tipo": "presupuesto", "valor": -10}]}
+     ]},
+    {"id": "v5_pelea", "grupo": "vestuario", "medio": "el_chisme", "foto": "siluetas",
+     "titulo": "Pelea en el entrenamiento",
+     "texto": "[el capitán] y [el nuevo] discuten por un balón que, según los dos, era suyo.",
+     "opciones": [
+       {"texto": "Castigar a los dos", "sello": "CASTIGADOS", "efectos": [{"tipo": "disciplina", "valor": 4}, {"tipo": "arranque", "valor": -0.02}]},
+       {"texto": "Apoyar al capitán", "sello": "CON EL CAPITÁN", "efectos": [{"tipo": "disciplina", "valor": 2}, {"tipo": "carta_temporal", "carta": "nervios", "quien": "nuevo"}]},
+       {"texto": "«Que lo arreglen en la cancha»", "sello": "EN LA CANCHA", "efectos": [{"tipo": "funa", "chance": 0.40, "disciplina": -5, "extra": 0.5, "clausula": true, "quien": "capitan"}]}
+     ]},
+    {"id": "v6_abuela", "grupo": "vestuario", "medio": "el_chisme", "foto": "siluetas",
+     "titulo": "Cumpleaños de la abuela de [el arquero]",
+     "texto": "Cumple 90 y vive a 800 km. Él jura que vuelve el sábado a primera hora.",
+     "opciones": [
+       {"texto": "Dar permiso", "sello": "FELIZ CUMPLEAÑOS", "efectos": [{"tipo": "popularidad", "valor": 2}, {"tipo": "desgaste", "quien": "arquero", "extra": 0.5}]},
+       {"texto": "Negarlo", "sello": "NEGADO", "efectos": [{"tipo": "disciplina", "valor": 2}, {"tipo": "rama", "evento": "v6_abuela_radio", "semanas": 1}]}
+     ]},
+    {"id": "v7_musica", "grupo": "vestuario", "medio": "el_hincha_fiel", "foto": "siluetas",
+     "titulo": "El plantel pide cambiar la música del camarín",
+     "texto": "Dicen que tu casete de baladas de 1985 «baja el ánimo». Hicieron una votación.",
+     "opciones": [
+       {"texto": "Dejar que elijan", "sello": "SUBE EL VOLUMEN", "efectos": [{"tipo": "arranque", "valor": 0.02}]},
+       {"texto": "Imponer tu música", "sello": "BALADAS", "efectos": [{"tipo": "disciplina", "valor": 2}, {"tipo": "arranque", "valor": -0.02}]}
+     ]},
+
+    {"id": "d1_sobrino", "grupo": "dirigencia", "medio": "el_mensajero", "foto": "siluetas",
+     "titulo": "El sobrino del presidente",
+     "texto": "El presidente quiere que juegue [el juvenil]. Casualmente, es su sobrino.",
+     "opciones": [
+       {"texto": "Aceptar", "sello": "ACEPTADO", "efectos": [{"tipo": "presupuesto", "valor": 20}, {"tipo": "carta_temporal", "carta": "nervios", "quien": "juvenil"}]},
+       {"texto": "Negarse", "sello": "NEGADO", "efectos": [{"tipo": "rama", "evento": "d1_recorte", "semanas": 3}]}
+     ]},
+    {"id": "d4_amistoso", "grupo": "dirigencia", "medio": "el_mensajero", "foto": "siluetas",
+     "titulo": "Amistoso pagado en el norte",
+     "texto": "A mitad de semana, 1.600 km de bus y un estadio sin luz. Pero pagan bien.",
+     "opciones": [
+       {"texto": "Ir", "sello": "AL NORTE", "efectos": [{"tipo": "presupuesto", "valor": 50}, {"tipo": "fatiga", "valor": 15}]},
+       {"texto": "No ir", "sello": "NOS QUEDAMOS", "efectos": []}
+     ]},
+    {"id": "d5_auditoria", "grupo": "dirigencia", "medio": "el_mensajero", "foto": "microfonos",
+     "titulo": "Auditoría: un gasto raro del club",
+     "texto": "El Mensajero pregunta por una factura de 300 balones. El club tiene doce.",
+     "opciones": [
+       {"texto": "Colaborar", "sello": "COLABORA", "efectos": [{"tipo": "disciplina", "valor": 2}]},
+       {"texto": "«No sé nada, yo solo entreno»", "sello": "NO SABE NADA", "efectos": [{"tipo": "popularidad", "valor": -1}, {"tipo": "rama", "evento": "d5_escandalo", "semanas": 1, "chance": 0.25}]}
+     ]},
+
+    {"id": "h1_entradas", "grupo": "hinchas", "medio": "el_hincha_fiel", "foto": "siluetas",
+     "titulo": "La barra pide entradas gratis",
+     "texto": "Llegan al complejo con un lienzo nuevo y una lista de nombres bastante larga.",
+     "opciones": [
+       {"texto": "Dárselas", "sello": "ENTRADAS", "efectos": [{"tipo": "popularidad", "valor": 4}, {"tipo": "presupuesto", "valor": -10}]},
+       {"texto": "Negarse", "sello": "PIFIAS", "efectos": [{"tipo": "arranque", "valor": -0.03}]}
+     ]},
+    {"id": "h2_banderazo", "grupo": "hinchas", "medio": "el_hincha_fiel", "foto": "siluetas", "condicion": "antes_de_clasico",
+     "titulo": "Banderazo antes del clásico",
+     "texto": "Hay humo, bombos y dos mil hinchas en la reja del entrenamiento. Se juega con [el rival].",
+     "opciones": [
+       {"texto": "Salir a saludar", "sello": "BANDERAZO", "efectos": [{"tipo": "popularidad", "valor": 5}, {"tipo": "fatiga", "valor": 5}]},
+       {"texto": "Entrenar a puertas cerradas", "sello": "PUERTAS CERRADAS", "efectos": [{"tipo": "arranque", "valor": 0.03}, {"tipo": "popularidad", "valor": -3}]}
+     ]},
+    {"id": "h3_supermercado", "grupo": "hinchas", "medio": "el_hincha_fiel", "foto": "siluetas",
+     "titulo": "Un hincha te reconoce en el supermercado",
+     "texto": "Y opina de tu táctica en voz alta, frente a la sección de lácteos.",
+     "opciones": [
+       {"texto": "Escucharlo", "sello": "ESCUCHADO", "efectos": [{"tipo": "popularidad", "valor": 2}]},
+       {"texto": "Explicarle la táctica con las frutas", "sello": "4-4-2 DE MANZANAS", "efectos": [{"tipo": "popularidad", "valor": 4}, {"tipo": "fatiga", "valor": 2}]},
+       {"texto": "Huir por la sección de congelados", "sello": "HUIDA", "efectos": []}
+     ]},
+    {"id": "h4_mural", "grupo": "hinchas", "medio": "el_hincha_fiel", "foto": "siluetas", "condicion": "tras_derrota",
+     "titulo": "Tras la derrota, pintan un mural contra ti",
+     "texto": "Tu cara, tres metros de alto y una palabra que no vamos a repetir.",
+     "opciones": [
+       {"texto": "Ir a conversar", "sello": "CONVERSADO", "efectos": [{"tipo": "popularidad", "valor": 3}, {"tipo": "azar", "chance": 0.20, "efectos": [{"tipo": "popularidad", "valor": -6}]}]},
+       {"texto": "Ignorarlo", "sello": "IGNORADO", "efectos": [{"tipo": "popularidad", "valor": -2}]}
+     ]},
+
+    {"id": "s1_comercial_playa", "grupo": "sponsor", "medio": "tn", "foto": "siluetas",
+     "titulo": "Cerveza Glaciar quiere un comercial en la playa",
+     "texto": "Con el plantel completo, en traje de baño y en pleno invierno.",
+     "opciones": [
+       {"texto": "Aceptar", "sello": "¡ACCIÓN!", "efectos": [{"tipo": "presupuesto", "valor": 25}, {"tipo": "disciplina", "valor": -3}]},
+       {"texto": "Negarse", "sello": "NEGADO", "efectos": [{"tipo": "sin_pago_sponsor"}]}
+     ]},
+    {"id": "s2_matinal", "grupo": "sponsor", "medio": "tn", "foto": "microfonos",
+     "titulo": "Te invitan al matinal de TN",
+     "texto": "El conductor quiere que bailes con la orquesta del programa. En vivo, a las 9 de la mañana.",
+     "opciones": [
+       {"texto": "Ir y bailar", "sello": "BAILÓ", "efectos": [{"tipo": "popularidad", "valor": 6}, {"tipo": "disciplina", "valor": -2}]},
+       {"texto": "Ir serio", "sello": "SERIO", "efectos": [{"tipo": "popularidad", "valor": 2}]},
+       {"texto": "No ir", "sello": "NO FUE", "efectos": []}
+     ]},
+    {"id": "s3_celulares", "grupo": "sponsor", "medio": "tn", "foto": "siluetas",
+     "titulo": "Telnet regala celulares al plantel",
+     "texto": "Con cámara y todo. Desde entonces nadie mira la pizarra en las charlas.",
+     "opciones": [
+       {"texto": "Prohibirlos en la concentración", "sello": "PROHIBIDOS", "efectos": [{"tipo": "disciplina", "valor": 3}, {"tipo": "arranque", "valor": -0.01}]},
+       {"texto": "Dejarlos", "sello": "LIBRES", "efectos": [{"tipo": "arranque", "valor": -0.03}, {"tipo": "rama", "evento": "s3_mensaje", "semanas": 2}]}
+     ]},
+
+    {"id": "d2_reunion", "grupo": "dirigencia", "medio": "el_mensajero", "foto": "siluetas", "solo_rama": true,
+     "titulo": "Reunión por refuerzos",
+     "texto": "El presidente leyó lo que dijiste en la conferencia. Te espera con la chequera cerrada.",
+     "opciones": [
+       {"texto": "Pedir un delantero", "sello": "FICHAJE", "efectos": [{"tipo": "presupuesto", "valor": -80}, {"tipo": "carta_nueva", "carta": "remate_primera"}]},
+       {"texto": "Pedir paciencia", "sello": "PACIENCIA", "efectos": [{"tipo": "disciplina", "valor": 2}]},
+       {"texto": "Amenazar con renunciar", "sello": "ULTIMÁTUM", "efectos": [{"tipo": "popularidad", "valor": 5},
+         {"tipo": "azar", "chance": 0.5, "efectos": [{"tipo": "carta_nueva", "carta": "remate_primera"}], "si_no": [{"tipo": "presupuesto", "valor": -30}]}]}
+     ]},
+    {"id": "d3_presidente", "grupo": "dirigencia", "medio": "el_mensajero", "foto": "siluetas", "solo_rama": true,
+     "titulo": "El presidente leyó lo que dijiste",
+     "texto": "Lo de «pregúntele al presidente» salió en todas las portadas. Él no se ríe.",
+     "opciones": [
+       {"texto": "Pedir disculpas", "sello": "DISCULPAS", "efectos": [{"tipo": "popularidad", "valor": -2}]},
+       {"texto": "Sostenerlo", "sello": "SOSTENIDO", "efectos": [{"tipo": "popularidad", "valor": 3}, {"tipo": "presupuesto", "valor": -20}]}
+     ]},
+    {"id": "c5_multa", "grupo": "dirigencia", "medio": "el_mensajero", "foto": "siluetas", "solo_rama": true,
+     "titulo": "Multa de la federación",
+     "texto": "Tus quejas contra el árbitro llegaron al tribunal. El fallo trae un número con muchos ceros.",
+     "opciones": [
+       {"texto": "Pagar la multa", "sello": "PAGADA", "efectos": [{"tipo": "presupuesto", "valor": -15}]},
+       {"texto": "Apelar", "sello": "APELADO", "efectos": [{"tipo": "presupuesto", "valor": -5}, {"tipo": "popularidad", "valor": -2}]}
+     ]},
+    {"id": "c7_fotos", "grupo": "conferencia", "medio": "el_chisme", "pregunta": "farandula", "foto": "siluetas", "solo_rama": true,
+     "titulo": "¡El Chisme tiene las fotos!",
+     "texto": "Tú y la actriz de la teleserie de las 8, en un café. Ella pidió té; tú, la cuenta.",
+     "opciones": [
+       {"texto": "Desmentir", "sello": "DESMENTIDO", "efectos": [{"tipo": "popularidad", "valor": -2}]},
+       {"texto": "Posar", "sello": "PORTADA", "efectos": [{"tipo": "popularidad", "valor": 5}, {"tipo": "disciplina", "valor": -3}]},
+       {"texto": "Demandar", "sello": "DEMANDA", "efectos": [{"tipo": "presupuesto", "valor": -15}, {"tipo": "disciplina", "valor": 1}]}
+     ]},
+    {"id": "v2_pide_salir", "grupo": "vestuario", "medio": "el_mensajero", "foto": "siluetas", "solo_rama": true,
+     "titulo": "[tu 9] pide salir",
+     "texto": "Pasó el fin de mes y el aumento no llegó. El representante volvió, ahora con dos maletines.",
+     "opciones": [
+       {"texto": "Venderlo", "sello": "VENDIDO", "efectos": [{"tipo": "presupuesto", "valor": 60}, {"tipo": "vender", "quien": "nueve"}]},
+       {"texto": "Retenerlo", "sello": "RETENIDO", "efectos": [{"tipo": "carta_temporal", "carta": "nervios", "quien": "nueve"}]}
+     ]},
+    {"id": "v6_abuela_radio", "grupo": "vestuario", "medio": "radio_galactica", "foto": "microfonos", "solo_rama": true,
+     "titulo": "La abuela de [el arquero] llama a la radio",
+     "texto": "En vivo y con nombre y apellido: el tuyo. El locutor no puede creer su suerte.",
+     "opciones": [
+       {"texto": "Dejarla hablar", "sello": "AL AIRE", "efectos": [{"tipo": "popularidad", "valor": -3}]},
+       {"texto": "Disculpa pública", "sello": "PERDÓN, ABUELA", "efectos": [{"tipo": "disciplina", "valor": -2}]}
+     ]},
+    {"id": "d1_recorte", "grupo": "dirigencia", "medio": "el_mensajero", "foto": "siluetas", "solo_rama": true,
+     "titulo": "El presidente no olvida",
+     "texto": "Tres semanas después de negarle la titularidad a su sobrino, llega el presupuesto nuevo.",
+     "opciones": [
+       {"texto": "Aceptar el recorte", "sello": "RECORTADO", "efectos": [{"tipo": "presupuesto", "valor": -30}]},
+       {"texto": "Que el sobrino entrene igual", "sello": "EL SOBRINO", "efectos": [{"tipo": "carta_temporal", "carta": "nervios", "quien": "juvenil"}]}
+     ]},
+    {"id": "d5_escandalo", "grupo": "dirigencia", "medio": "el_mensajero", "foto": "microfonos", "solo_rama": true,
+     "titulo": "El escándalo de los balones crece",
+     "texto": "Aparecieron otras dos facturas. Una dice «balones (de gas)».",
+     "opciones": [
+       {"texto": "Dar la cara", "sello": "DIO LA CARA", "efectos": [{"tipo": "popularidad", "valor": -3}]},
+       {"texto": "Esconderse en el camarín", "sello": "ESCONDIDO", "efectos": [{"tipo": "disciplina", "valor": -3}]}
+     ]},
+    {"id": "s3_mensaje", "grupo": "sponsor", "medio": "el_chisme", "foto": "microfonos", "solo_rama": true,
+     "titulo": "¡Se filtra el grupo del plantel!",
+     "texto": "Un mensaje con tu apodo llegó a la portada de El Chisme. Nadie sabe quién lo mandó; todos lo leyeron.",
+     "opciones": [
+       {"texto": "Reírse en público", "sello": "BUEN HUMOR", "efectos": [{"tipo": "popularidad", "valor": -2}]},
+       {"texto": "Buscar al culpable", "sello": "INVESTIGADO", "efectos": [{"tipo": "disciplina", "valor": 3}, {"tipo": "arranque", "valor": -0.02}]}
+     ]}
+  ]
+}

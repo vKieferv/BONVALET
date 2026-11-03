@@ -4,6 +4,7 @@
     "Montos en millones de CLP por semana: valores de diseño, no cifras reales. Oferta real = monto x escala de división x (1 + per_facility_level x nivel de instalaciones).",
     "Efectos de partido en puntos de acierto (0.05 = +5%). Fatiga 0-100: reduce la Estamina Global con que se arranca cada partido (tope x (1 - fatiga/200)); la estamina vuelve a ese valor en cada partido, la fatiga es lo que se arrastra entre semanas.",
     "Fatiga tras el partido = fatigue_base + fatigue_from_wear x (estamina gastada al final, 0-1): terminar agotado cansa más que terminar entero.",
+    "Los eventos de la semana (Bloque 1) están en data/eventos_2006.json (T-14): catálogo, medios, efectos y ramas.",
     "training = opciones del Bloque 2, se elige UNA por semana (D-21): tactical (1 de 3 cartas nuevas, ofertas en data/decks.json), video (mejorar una carta: CardDB.UPGRADE_BONUS o CardDB.UPGRADE_AP) y physio. fatigue = fatiga que suma o resta antes del partido. El táctico ya no da forma (+3%): la carta la reemplaza."
   ],
   "start": {"popularity": 50, "discipline": 50, "fatigue": 0},
@@ -14,18 +15,6 @@
      "weekly": 60, "win_bonus": 10, "conduct_clause": true}
   ],
   "sponsor_scale": {"division": {"Primera A": 1.0, "Primera B": 0.35}, "per_facility_level": 0.25},
-  "events": [
-    {
-      "id": "bautizazo",
-      "title": "Bautizazo en Bellavista",
-      "text": "El plantel quiere celebrar el cumpleaños del capitán en una disco de Bellavista. El fotógrafo de Diario El Chisme ya anda rondando.",
-      "accept_label": "Dar permiso",
-      "decline_label": "Concentración en el hotel",
-      "reward": {"opening_bonus": 0.05, "opening_moments": 2, "popularity": 5},
-      "risk": {"chance": 0.30, "discipline": -10, "funado_stamina_extra": 0.5, "lose_sponsor_week_if_clause": true},
-      "decline": {"discipline": 2, "popularity": -2}
-    }
-  ],
   "training": {
     "tactical": {"name": "Entrenamiento táctico", "fatigue": 10},
     "video": {"name": "Sesión de video", "fatigue": 0},

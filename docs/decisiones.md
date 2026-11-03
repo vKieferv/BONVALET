@@ -399,6 +399,16 @@ Tras la medición de T-13, donde el Catenaccio se hundía (0,57 goles) y la pelo
 Por qué (usuario): "el brillo del catenaccio es que es más defensivo que el otro equipo... la marca depende
 de cuantos jugadores habia en la zona al momento de la transicion".
 
+**D-43 · 2026-11-02 · Jugada corta, presión al portador y bots que piensan una jugada más** · VIGENTE (valores en prueba, T-13)
+Tras la segunda medición de T-13 (Palestino en 0,60 goles; Fernández con el 7% de los toques; los delanteros
+que presionan casi nunca roban):
+1. **La jugada corta pilla al rival desordenado:** en los Momentos de 2 jugadas (Catenaccio), el Área del
+   rival se reparte con los que se quedan atrás al atacar, como en una transición, y no con la defensa completa.
+2. **La presión al portador cuenta:** quien marca al que tiene la pelota también le resta en sus pases, no
+   solo en sus regates. Así importa si un equipo presiona arriba y con quién.
+3. **Los bots piensan una jugada más:** al elegir receptor, valoran lo que ese jugador puede hacer después
+   (por ejemplo, el regate de 90 de Fernández), no solo el % de recibir. No cambia las reglas.
+
 ### Descartadas (para no reabrirlas sin datos nuevos)
 - **Tempo ofensivo +7 / regen +3** (2026-10-26): no llegaba al objetivo de goles y quedó obsoleto con
   PA + Estamina; el stash se borró.

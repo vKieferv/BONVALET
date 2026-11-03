@@ -386,6 +386,19 @@ y D-37; sigue valiendo lo demás de ambas (TV de 2006, láminas de álbum, sin c
 Por qué: la prueba se vio bien sin descargar nada y dio más de 60 cuadros por segundo en el PC del usuario.
 Falta medir en una Steam Deck antes de cerrar T-11: lo que hay es una estimación.
 
+**D-42 · 2026-11-02 · Las marcas dependen de quién marca y de la transición** · VIGENTE (valores en prueba, T-13)
+Tras la medición de T-13, donde el Catenaccio se hundía (0,57 goles) y la pelota no llegaba a las figuras:
+1. **Cada marcador resta según su defensa:** un defensa resta más que un delantero que presiona. Así se ve
+   si a un equipo le conviene presionar arriba con sus delanteros. Reemplaza el −12 fijo por marcador de D-40.
+2. **En una transición** (robo, intercepción, contragolpe), en cada zona te esperan **los rivales que había
+   en esa zona al perder la pelota**, según su estilo y su postura. Un equipo que ataca con muchos deja pocos
+   atrás. El brillo del Catenaccio es justamente ese: contra un rival ofensivo encuentra el Área casi vacía.
+   En un ataque normal, el rival te espera con su formación completa.
+3. **No cualquier delantero sirve para la contra:** en esa transición pesan las habilidades del que la
+   recibe (el duelo de D-40), sin habilidad nueva.
+Por qué (usuario): "el brillo del catenaccio es que es más defensivo que el otro equipo... la marca depende
+de cuantos jugadores habia en la zona al momento de la transicion".
+
 ### Descartadas (para no reabrirlas sin datos nuevos)
 - **Tempo ofensivo +7 / regen +3** (2026-10-26): no llegaba al objetivo de goles y quedó obsoleto con
   PA + Estamina; el stash se borró.

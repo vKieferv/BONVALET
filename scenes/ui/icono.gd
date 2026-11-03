@@ -3,12 +3,14 @@ extends Control
 
 # Íconos propios del juego (D-37), nunca emojis: PA (moneda), estamina (gota), robo (pelota que se
 # escapa), fatiga (batería), acierto (mira), popularidad (megáfono), disciplina (tarjeta) y riesgo
-# (dado), más los de uso general (✓, estrella, cruz médica). Las formas salen del tablero "Anatomía de
+# (dado), más los de uso general (✓, estrella, cruz médica) y los de los eventos de la semana (T-14):
+# presupuesto (billete), carta temporal o nueva (carta), rama que vuelve (reloj) y medio (micrófono). Las formas salen del tablero "Anatomía de
 # la lámina e íconos" y se dibujan por código, así que se ven nítidas a cualquier tamaño.
 # Icono.dibujar() también lo usan la lámina y la mesa para pintar sobre su propio CanvasItem, y
 # Icono.jugada() dibuja la jugada de la ventana de cada lámina.
 
-const FORMAS := ["pa", "gota", "robo", "bateria", "mira", "megafono", "tarjeta", "dado", "check", "estrella", "cruz"]
+const FORMAS := ["pa", "gota", "robo", "bateria", "mira", "megafono", "tarjeta", "dado", "check", "estrella", "cruz",
+    "billete", "carta", "reloj", "microfono"]
 
 @export var forma := "gota":
     set(v):
@@ -99,6 +101,23 @@ static func dibujar(ci: CanvasItem, p_forma: String, rect: Rect2, col: Color, p_
             relleno(ci, PackedVector2Array([Vector2(9, 2), Vector2(15, 2), Vector2(15, 9), Vector2(22, 9),
                     Vector2(22, 15), Vector2(15, 15), Vector2(15, 22), Vector2(9, 22), Vector2(9, 15),
                     Vector2(2, 15), Vector2(2, 9), Vector2(9, 9)]), col, px)
+        "billete":   # presupuesto: billete con su círculo al medio
+            ci.draw_rect(Rect2(1, 4, 14, 8), col, false, 1.8, true)
+            ci.draw_arc(Vector2(8, 8), 2.2, 0.0, TAU, 20, col, 1.6, true)
+            ci.draw_circle(Vector2(3.6, 8), 0.9, col, true, -1.0, true)
+            ci.draw_circle(Vector2(12.4, 8), 0.9, col, true, -1.0, true)
+        "carta":     # carta temporal o nueva: una lámina con su ventana
+            ci.draw_rect(Rect2(3.5, 1.5, 9, 13), col, false, 1.8, true)
+            ci.draw_rect(Rect2(5.5, 4, 5, 4.5), col)
+        "reloj":     # rama: la historia vuelve en N semanas
+            ci.draw_arc(Vector2(8, 8), 6.2, 0.0, TAU, 32, col, 1.8, true)
+            ci.draw_line(Vector2(8, 8), Vector2(8, 4), col, 1.8, true)
+            ci.draw_line(Vector2(8, 8), Vector2(11, 9.5), col, 1.8, true)
+        "microfono": # conferencia, radio y TV
+            relleno(ci, PackedVector2Array([Vector2(5.5, 2), Vector2(10.5, 2), Vector2(10.5, 9), Vector2(5.5, 9)]), col, px)
+            ci.draw_polyline(bezier(Vector2(3.5, 7), Vector2(3.5, 12), Vector2(12.5, 12), Vector2(12.5, 7)), col, 1.5, true)
+            ci.draw_line(Vector2(8, 11.4), Vector2(8, 14.5), col, 1.6, true)
+            ci.draw_line(Vector2(5, 14.5), Vector2(11, 14.5), col, 1.6, true)
     ci.draw_set_transform(Vector2.ZERO)
 
 

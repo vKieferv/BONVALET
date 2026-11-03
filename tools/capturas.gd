@@ -1,4 +1,5 @@
-# Capturas de la UI para revisar cambios visuales: semana (inicio, prensa, prensa resuelta, entrenamiento
+# Capturas de la UI para revisar cambios visuales: semana (inicio, prensa, prensa con un evento de cada
+# medio (2c_prensa_<evento>...), prensa resuelta, entrenamiento
 # táctico, sesión de video, Ver mazo, semana lista para el partido) y partido (menú, ataque, defensa). Necesita pantalla: NO se corre con --headless.
 # Uso (desde futbolista/):
 #   ..\Godot_v4.7.2-stable_win64_console.exe --path . -s res://tools/capturas.gd -- --out=C:/ruta/capturas
@@ -9,6 +10,8 @@ const SAVE := "user://test_capturas.json"
 const MAX_FRAMES := 20000
 const SETTLE_FRAMES := 90   # frames para que la mano termine de aparecer antes de capturarla
 const LAMP_FRAMES := 40     # frames para que la luz de la lámpara llegue a lo que toca decidir
+# Eventos del paso Prensa que se capturan, uno por medio (el último queda resuelto con su opción 1).
+const PRESS_EVENTS := ["bautizazo", "c2_ganan_domingo", "c3_presionar", "c1_equipo_chico", "s2_matinal", "c6_refuerzos"]
 
 var out := "user://capturas"
 var frames := 0
@@ -17,6 +20,7 @@ var view: Node
 var _wait := 0
 var _taken := {}
 var _settled := ""   # captura del partido que ya esperó a que la mano terminara de entrar
+var _press_i := 0    # próximo evento de PRESS_EVENTS
 
 
 func _initialize() -> void:
@@ -56,9 +60,21 @@ func _process(_delta: float) -> bool:
 		"week":
 			_shot("2_semana")
 			scene._on_sponsor("telnet")
-			scene._on_event(true)
-			step = "press_done"
-			_wait = LAMP_FRAMES
+			_press_i = 0
+			step = "press"
+		"press":
+			# Paso Prensa con medios distintos (T-14): cada evento trae su portada o su micrófono.
+			if _press_i > 0:
+				_shot("2%s_prensa_%s" % [char(98 + _press_i), PRESS_EVENTS[_press_i - 1]])
+			if _press_i < PRESS_EVENTS.size():
+				scene._career.set_week_event(PRESS_EVENTS[_press_i])
+				scene._refresh()
+				_press_i += 1
+				_wait = LAMP_FRAMES
+			else:
+				scene._on_event(0)
+				step = "press_done"
+				_wait = LAMP_FRAMES
 		"press_done":
 			_shot("2b_prensa_resuelta")
 			scene._on_training("tactical")

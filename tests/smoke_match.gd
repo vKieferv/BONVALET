@@ -1,7 +1,10 @@
 # Prueba de humo de la escena del partido: juega partidos completos de match_view
 # (un rival por arquetipo, rotando la postura) eligiendo siempre la primera carta jugable,
 # tanto en ataque como en las fases defensivas (cada tercera defensa usa el Despeje de Emergencia).
-# Uno de cada dos partidos marca la casilla "Partido por zonas (prueba)" (D-36, T-10).
+# Los partidos pares se juegan por duelos (T-11) con el mouse simulado sobre la pantalla nueva: arrastra
+# pases a un compañero y regates o remates a la cancha, elige otro portador, mantiene una lámina para ver
+# la cuenta, defiende con clics y mira (o salta) el ataque del rival, comparando PA, %, portador, marcas,
+# desgaste y robo con el motor. Los impares, por zonas (D-36, T-10) y con el modo actual.
 # Uso: godot --headless --path . -s res://tests/smoke_match.gd [-- --matches=5]
 # Sale con código 1 si un partido se cuelga, el marcador no cuadra, la postura cambia durante
 # una jugada, nunca hay fase defensiva o no se prueba el contragolpe contra tu LOW.
@@ -9,6 +12,7 @@ extends SceneTree
 
 const TIME_SCALE := 20.0
 const MAX_FRAMES_PER_MATCH := 80000
+const MouseDuelos := preload("res://tests/mouse_duelos.gd")
 
 var view: Control
 var frames := 0
@@ -32,12 +36,29 @@ var card_checks := 0
 var effect_checks := 0         # cartas con efecto (avanza, roba, corta) cuya línea de efecto se revisó
 var zone_checks := 0           # jugadas por zonas cuya línea de zona se comparó con el motor
 var ui_checked_errors := false   # tras el primer error de UI se deja de revisar (evita miles de líneas)
+# Modo de duelos (T-11): se juega con el mouse simulado sobre PantallaDuelos.
+var mouse: MouseDuelos
+var _acting := false           # una jugada con el mouse en curso (es asíncrona)
+var _match_swapped := false    # ya se eligió otro portador en este partido
+var _rival_seen := -1          # índice del último ataque rival que se miró
+var rival_attacks := 0
+var duel_matches := 0
+var duel_plays := 0
+var duel_passes := 0
+var duel_checks := 0
+var duel_defense_plays := 0
+var carrier_swaps := 0
+var counts_seen := 0
+var rival_steps := 0
+var rival_skips := 0
+var rival_fast := 0
 
 
 func _initialize() -> void:
 	for arg in OS.get_cmdline_user_args():
 		if arg.begins_with("--matches="):
 			total_matches = maxi(1, int(arg.get_slice("=", 1)))
+	mouse = MouseDuelos.new(self)
 	view = load("res://scenes/match_view.tscn").instantiate()
 	root.add_child(view)
 	Engine.time_scale = TIME_SCALE
@@ -58,6 +79,8 @@ func _process(_delta: float) -> bool:
 		errors.append("Partido %d colgado (minuto %d)" % [played + 1, int(view._minute)])
 		return _finish()
 
+	if _acting:
+		return false   # el mouse simulado está en medio de una jugada de duelos
 	if view._menu.visible and not view._busy:
 		_check_result()
 		played += 1
@@ -68,6 +91,9 @@ func _process(_delta: float) -> bool:
 
 	if view._rival_engine != null and view._rival_engine.exploit_rival_space:
 		exploit_seen = true
+	if view._duel_mode:
+		_step_duel()
+		return false
 	if not view._in_defense:
 		_defense_open = false
 	if view._busy:
@@ -135,10 +161,21 @@ func _start_match() -> void:
 		exploit_expected = true
 	view._posture_buttons[posture].button_pressed = true
 	view._set_posture(posture)
-	view._zone_check.button_pressed = played % 2 == 1   # uno de cada dos, partido por zonas (T-10)
+	# Los pares por duelos (T-11, la pantalla nueva); los impares, por zonas (T-10) y el modo actual.
+	var mode := 0 if played % 2 == 0 else (1 if played % 4 == 1 else 2)
+	view._mode_option.selected = mode
 	view._on_start_pressed()
-	if view._engine != null and view._engine.zone_mode != (played % 2 == 1):
-		errors.append("La casilla de zonas no llegó al motor (partido %d)" % (played + 1))
+	if view._engine != null and (view._engine.zone_mode != (mode < 2) or view._engine.duel_mode != (mode == 0)):
+		errors.append("El modo elegido no llegó al motor (partido %d, modo %d)" % [played + 1, mode])
+	if mode == 0:
+		duel_matches += 1
+		_match_swapped = false
+		if view._pantalla == null or view._rival_engine == null or not view._rival_engine.duel_mode:
+			errors.append("Por duelos no se armó la pantalla nueva o el rival no juega por duelos (partido %d)" % (played + 1))
+		elif view._pitch.visible or view._scoreboard.visible:
+			errors.append("Por duelos la pantalla de siempre sigue a la vista (partido %d)" % (played + 1))
+	elif view._pantalla != null:
+		errors.append("Fuera de duelos quedó la pantalla de duelos (partido %d)" % (played + 1))
 	if view._engine != null:
 		view._engine.natural_executor_played.connect(func(_c: Card) -> void: natural_plays[0] += 1)
 	if view._rival_engine != null:
@@ -238,6 +275,8 @@ func _check_result() -> void:
 		errors.append("Marcador local %d ≠ goles del motor %d (partido %d)" % [shown, real, played + 1])
 	if int(view._away_goals.text) != view._rival_goals:
 		errors.append("Marcador visitante no cuadra (partido %d)" % (played + 1))
+	if view._pantalla != null and view._pantalla.texto_marcador() != "%d - %d" % [real, view._rival_goals]:
+		errors.append("La barra de TV dice %s y el partido terminó %d - %d" % [view._pantalla.texto_marcador(), real, view._rival_goals])
 	print("  Partido %d: %s" % [played + 1, view._menu_summary.text.replace("\n", " | ")])
 
 
@@ -254,6 +293,13 @@ func _finish() -> bool:
 		errors.append("Nunca hubo en la mano una carta con efecto (Despeje, Toque-toque...) para revisar su texto")
 	if played > 1 and zone_checks == 0:
 		errors.append("Nunca se revisó la línea del partido por zonas")
+	if duel_matches > 0:
+		if duel_passes == 0 or duel_plays == duel_passes:
+			errors.append("Por duelos faltó arrastrar un pase (%d) o soltar otra jugada (%d en total)" % [duel_passes, duel_plays])
+		if duel_defense_plays == 0:
+			errors.append("Por duelos nunca se defendió con una lámina")
+		print("  duelos: %d partidos · %d jugadas con el mouse (%d pases) · %d revisiones contra el motor · %d portadores elegidos · %d cuentas · %d jugadas del rival vistas (%d saltadas, %d aceleradas) · %d defensas con lámina" % [
+			duel_matches, duel_plays, duel_passes, duel_checks, carrier_swaps, counts_seen, rival_steps, rival_skips, rival_fast, duel_defense_plays])
 	print("  aguantaste el balón %d veces · %d jugadas por zonas revisadas" % [holds, zone_checks])
 	print("  el rival jugó %d cartas defensivas contra tus ataques" % rival_defense_plays)
 	print("smoke_match: %d partidos, %d defensas (%d despejes de emergencia), Ejecutor Natural: %d tuyas y %d del rival, %d chequeos de postura, %d cartas en pantalla verificadas contra el motor (%d con efecto), contragolpe visto: %s" % [
@@ -262,3 +308,37 @@ func _finish() -> bool:
 		print("  ERROR: " + e)
 	quit(1 if errors.size() > 0 else 0)
 	return true
+
+
+# ------------------------------------------------------------------ Modo de duelos (T-11)
+# PENDIENTE (sesión cortada por límite de uso): el recorrido con el mouse simulado (MouseDuelos) que
+# arrastra pases, elige portador, mantiene una lámina y salta el ataque rival. Por ahora el partido por
+# duelos se juega llamando a la pantalla directamente, con la primera jugada posible.
+func _step_duel() -> void:
+	var p: PantallaDuelos = view._pantalla
+	if p == null or view._busy or p.modo == PantallaDuelos.Modo.RIVAL:
+		return
+	var e: MatchEngine = view._engine
+	if view._in_defense:
+		if not _defense_open:
+			_defense_open = true
+			defenses += 1
+		for i in e.playable_indices():
+			duel_defense_plays += 1
+			view._on_jugar_duelo(i, "")
+			return
+		view._on_yield_pressed()
+	elif view._in_moment:
+		for i in e.playable_indices():
+			var c: Card = e.deck.hand[i]
+			var r := e.best_receiver(c) if MatchEngine.is_pass(c) else ""
+			duel_plays += 1
+			if r != "":
+				duel_passes += 1
+			view._on_jugar_duelo(i, r)
+			return
+		if e.can_hold():
+			holds += 1
+			view._on_hold_pressed()
+		else:
+			view._on_yield_pressed()

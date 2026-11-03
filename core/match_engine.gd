@@ -799,6 +799,11 @@ func zone_players(z: int) -> Array:
 	return _my_lines[z]
 
 
+# Los rivales de la línea que defiende la zona z (para la pantalla: dónde se paran los que no marcan).
+func defender_line(z: int) -> Array:
+	return _their_lines[2 - z]
+
+
 # Marcadores de tu jugador `id` en la zona z, del mejor al peor; [] = libre.
 func markers_of(z: int, id: String) -> Array:
 	return (marks.get(z, {}) as Dictionary).get(id, [])

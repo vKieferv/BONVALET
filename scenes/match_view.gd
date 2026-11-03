@@ -79,8 +79,11 @@ var _prev_hand: Array = []
 var _active_clone: CardUI
 var _last_roll_text := ""      # resultado visible de la última tirada de la jugada en curso
 var _possession := Ball.NONE
-var _zone_check: CheckBox      # partido rápido: "Partido por zonas (prueba)" (D-36, T-10; la pantalla es T-11)
-var _zone_mode := false        # la carrera juega el modo actual hasta que el usuario decida
+var _mode_option: OptionButton  # partido rápido: modo del partido (duelos por defecto, T-11)
+var _mode := "duelos"          # "duelos" (D-40, pantalla nueva), "zonas" (D-36) o "actual"; la carrera usa Career.match_mode
+var _zone_mode := false        # zonas o duelos: el motor juega por zonas
+var _duel_mode := false        # duelos: además, el portador, las marcas y la pantalla 3D (PantallaDuelos)
+var _pantalla: PantallaDuelos  # la pantalla de duelos; null en los otros modos (usan la de siempre)
 var _shown_ap := -1            # PA que muestra el orbe (para animar cuando cambian)
 var _ap_style: StyleBoxFlat
 
@@ -121,13 +124,26 @@ func _ready() -> void:
         _rival_option.visible = false
         _rival_team = _league.get_team(_career.rival_id)
         _rival = _league.profile_for_team(_rival_team)
+        _set_mode(_career.match_mode)
         _begin_match()
     else:
-        _zone_check = CheckBox.new()
-        _zone_check.text = "Partido por zonas (prueba)"
-        _zone_check.tooltip_text = "Salida, Medio y Área: remates solo en el Área, fallar no corta el Momento y un fallo en la Salida o el Medio puede ser robo."
-        _rival_option.add_sibling(_zone_check)
+        _mode_option = OptionButton.new()
+        for item in MODES:
+            _mode_option.add_item(item[1])
+        _mode_option.selected = 0
+        _mode_option.tooltip_text = "Duelos: el que tiene la pelota juega la carta, el pase elige a quién va y el rival marca (cancha 3D).\nPor zonas: Salida, Medio y Área, sin portador.\nActual: el partido de siempre."
+        _rival_option.add_sibling(_mode_option)
         _show_menu("TRANSMISIÓN EN VIVO", "Partido rápido con %s. Elige al rival y empieza el partido." % _local_name.text)
+
+
+# Modos del partido: [id, texto del menú del partido rápido]. El primero es el de por defecto.
+const MODES := [["duelos", "Modo: duelos (cancha 3D)"], ["zonas", "Modo: por zonas (prueba)"], ["actual", "Modo: actual"]]
+
+
+func _set_mode(mode: String) -> void:
+    _mode = mode if ["duelos", "zonas", "actual"].has(mode) else "duelos"
+    _zone_mode = _mode != "actual"
+    _duel_mode = _mode == "duelos"
 
 
 func _my_team_id() -> String:
@@ -234,6 +250,8 @@ func _set_posture(p: int) -> void:
     _posture = p as MatchEngine.Posture
     if _engine != null:
         _engine.posture = _posture   # entre momentos: define la recuperación del próximo
+    if _pantalla != null:
+        _pantalla.set_postura(p, _posture_locked)
     _update_posture_hint()
 
 
@@ -243,6 +261,8 @@ func _lock_posture(locked: bool) -> void:
     _posture_locked = locked
     for b in _posture_buttons:
         b.disabled = locked
+    if _pantalla != null:
+        _pantalla.set_postura(_posture, locked)
     _update_posture_hint()
 
 
@@ -335,6 +355,9 @@ func _update_hud() -> void:
     _emergency_button.text = "Despeje de emergencia (todos tus PA, −%d est.)" % roundi(_engine.emergency_stamina_cost())
     _emergency_button.disabled = not _in_defense or _busy or not _engine.can_emergency_clear()
     _update_hand_stats()
+    if _pantalla != null:
+        _pantalla.set_flow(_engine.flow_active)
+        _pantalla_marcador()
 
 
 # Partido por zonas (texto provisorio; la pantalla es T-11): zona, sus números y el robo % de cada
@@ -495,6 +518,12 @@ func _set_possession(ball: Ball) -> void:
 func _set_minute(v: float) -> void:
     _minute = v
     _minute_label.text = "%02d'" % int(v)
+    _pantalla_marcador()
+
+
+func _pantalla_marcador() -> void:
+    if _pantalla != null and _engine != null:
+        _pantalla.set_marcador(int(_engine.stats["goals"]), _rival_goals, int(_minute))
 
 
 func _tween_clock(target: float) -> void:
@@ -555,7 +584,7 @@ func _on_start_pressed() -> void:
     var team_id: String = _rival_option.get_item_metadata(_rival_option.selected)
     _rival_team = _league.get_team(team_id)
     _rival = _league.profile_for_team(_rival_team)
-    _zone_mode = _zone_check != null and _zone_check.button_pressed
+    _set_mode(String(MODES[maxi(0, _mode_option.selected)][0]) if _mode_option != null else "duelos")
     _begin_match()
 
 
@@ -567,6 +596,11 @@ func _setup_zones(e: MatchEngine, team_id: String) -> void:
     e.zone_mode = true
     e.formation = z["formation"]
     e.line_strength = z["line_strength"]
+    if _duel_mode:   # D-40: titulares con sus habilidades y el estilo con que marca el club
+        var d := _squads.duel_data(team_id)
+        e.duel_mode = true
+        e.duel_players = d["players"]
+        e.mark_style = d["style"]
 
 
 func _begin_match() -> void:
@@ -593,6 +627,7 @@ func _begin_match() -> void:
     _engine.natural_executor_played.connect(_on_natural_executor)
     _engine.start()
     _setup_rival_engine()
+    _setup_pantalla()
     _rival_goals = 0
     _busy = false
     _in_moment = false
@@ -636,6 +671,35 @@ func _setup_rival_engine() -> void:
     _rival_engine.start()
 
 
+# Modo de duelos: la pantalla nueva (cancha 3D, láminas simples, D-41 y v5) tapa la de siempre, que sigue
+# viva por debajo (los otros modos la usan). Se arma de nuevo en cada partido.
+func _setup_pantalla() -> void:
+    if _pantalla != null:
+        _pantalla.queue_free()
+        _pantalla = null
+    for n in [_pitch, _scoreboard, $PostureSelector, $HandOverlay]:
+        n.visible = not _duel_mode
+    if not _duel_mode:
+        return
+    _pantalla = PantallaDuelos.new()
+    add_child(_pantalla)
+    move_child(_pantalla, _pitch.get_index() + 1)
+    _pantalla.engine = _engine
+    _pantalla.rival_engine = _rival_engine
+    _pantalla.contexto_carta = _card_context
+    _pantalla.armar(_league, _league.get_team(_my_team_id()), _rival_team, _engine.duel_players, _rival_engine.duel_players)
+    _pantalla.jugar_carta.connect(_on_jugar_duelo)
+    _pantalla.ceder.connect(_on_yield_pressed)
+    _pantalla.aguantar.connect(_on_hold_pressed)
+    _pantalla.despejar.connect(_on_emergency_pressed)
+    _pantalla.postura_elegida.connect(func(p: int) -> void:
+        _posture_buttons[p].button_pressed = true
+        _set_posture(p))
+    _pantalla.portador_elegido.connect(_on_carrier_chosen)
+    _pantalla.set_postura(_posture, _posture_locked)
+    _pantalla.mostrar_neutral()
+
+
 # Mazo de inicio de un club (mazo estándar + carta de rasgo de su arquetipo + firmas de sus
 # titulares, D-23). Con él juega el rival del partido rápido; en la carrera crece con la semana (T-06).
 func _starter_deck(team_id: String) -> Array:
@@ -660,8 +724,17 @@ func _play_rival_moment(exploited: bool, defense: Dictionary) -> Dictionary:
     var scorer := {}
     var natural_names: Array = []
     var stolen := false
+    var steps: Array = []   # modo de duelos: cada jugada con lo que había antes, para verla en la cancha (I-60)
     while not e.moment_over:
+        var step := {"zona": e.zone, "marcas": e.marks.duplicate(), "portador": String(e.carrier.get("id", ""))}
+        var hand: Array = e.deck.hand.duplicate()
         var pev := CoachBot.act(e, _rival)
+        step["ev"] = pev
+        for c in hand:
+            if c.id == pev.get("card_id", ""):
+                step["card"] = c
+                break
+        steps.append(step)
         if pev.get("stolen", false):
             stolen = true
             _engine.counter_ready = true   # le robaste el balón (al aguantar o, por zonas, al fallar): tu contragolpe
@@ -676,6 +749,7 @@ func _play_rival_moment(exploited: bool, defense: Dictionary) -> Dictionary:
         "scorer": scorer,              # evento de la jugada del gol (card_name, natural)
         "natural_cards": natural_names,
         "stolen": stolen,              # quiso aguantar el balón y se lo robaste
+        "steps": steps,
     }
     e.advance(_rival.default_posture as MatchEngine.Posture)
     return ev
@@ -705,6 +779,8 @@ func _rival_event() -> bool:
     await _tween_clock(float(minute))
     _ball_place(0.78, 0.5)
     _set_possession(Ball.THEIRS)
+    if _pantalla != null:
+        _pantalla.mostrar_neutral(false)
     var nm := _rival.profile_name.to_upper()
     var exploited := _rival_exploits_posture()
     if exploited:
@@ -726,6 +802,10 @@ func _rival_event() -> bool:
         return true
 
     var ev := _play_rival_moment(exploited, defense)
+    if _pantalla != null:
+        _busy = true   # se mira su ataque (con ACELERAR y SALTAR); no se juega
+        await _pantalla.mirar_ataque_rival(ev["steps"])
+        _busy = false
     if not ev["natural_cards"].is_empty():
         # Su figura jugó su propia carta: mismo resplandor y aviso que en tus jugadas.
         await _banner_show("★ %s · EJECUTOR NATURAL" % ", ".join(ev["natural_cards"]).to_upper(), COLOR_NATURAL, 0.8)
@@ -883,6 +963,10 @@ func _on_hold_pressed() -> void:
     _last_roll_text = "Aguantar: tirada %d vs %d%% → %s" % [floori(ev["roll"] * 100.0), roundi(ev["chance"] * 100.0),
             "ÉXITO" if ev["success"] else "FALLO"]
     _update_hud()
+    if _pantalla != null:
+        _pantalla.ocupado = true
+        await _pantalla.animar_jugada(ev, null, _pantalla.instantanea(_engine))
+        _pantalla.ocupado = false
     if ev["success"]:
         var gained := " · +1 PA" if ev["ap_gained"] > 0 else ""
         await _banner_show("¡AGUANTASTE EL BALÓN! MANO NUEVA" + gained, COLOR_OK, 0.9)
@@ -944,6 +1028,12 @@ func _end_match(title: String) -> void:
 # ================================================================== Mano de cartas
 
 func _build_hand() -> void:
+    if _pantalla != null:   # modo de duelos: la mano va en la pantalla nueva
+        if _in_moment:
+            _pantalla.mostrar_ataque()
+        elif _in_defense:
+            _pantalla.mostrar_defensa()
+        return
     for c in _hand_box.get_children():
         _hand_box.remove_child(c)
         c.queue_free()
@@ -990,12 +1080,18 @@ func _clear_hand() -> void:
         _hand_box.remove_child(c)
         c.queue_free()
     _prev_hand.clear()
+    if _pantalla != null and _pantalla.modo != PantallaDuelos.Modo.NEUTRAL:
+        _pantalla.mostrar_neutral(_pantalla.modo == PantallaDuelos.Modo.ATAQUE)
 
 
 # Recalcula PA, desgaste y probabilidad de cada carta (postura, Flow, PA restantes...).
 func _update_hand_stats() -> void:
     # Según el motor, no según la UI: al cerrarse la defensa la mano sigue en pantalla un instante.
     if _engine == null or not (_in_moment or _engine.in_defense):
+        return
+    if _pantalla != null:
+        _pantalla.ocupado = _busy
+        _pantalla.refrescar()
         return
     for node in _hand_box.get_children():
         var ui: CardUI = node
@@ -1039,6 +1135,44 @@ func _on_card_chosen(ui: CardUI) -> void:
         _update_hud()
 
 
+# Modo de duelos: la pantalla soltó una lámina (con su receptor si es un pase). Mismo flujo que
+# _on_card_chosen, con la jugada vista en la cancha en vez de la carta volando al centro.
+func _on_jugar_duelo(index: int, receiver: String) -> void:
+    if _busy or not (_in_moment or _in_defense) or index < 0 or index >= _engine.deck.hand.size():
+        return
+    var card: Card = _engine.deck.hand[index]
+    if not _engine.can_play(card, receiver):
+        return
+    _busy = true
+    _pantalla.ocupado = true
+    _pantalla.refrescar()
+    var before := _pantalla.instantanea(_engine)
+    var ev := _engine.play_card(index, receiver)
+    await _pantalla.animar_jugada(ev, card, before)
+    await _present_result(ev, null)
+    _busy = false
+    _pantalla.ocupado = false
+    if _in_defense:
+        if _engine.in_defense:
+            _build_hand()
+            _update_hud()
+        else:
+            defense_finished.emit()
+    elif _engine.moment_over:
+        _finish_player_moment()
+    else:
+        _build_hand()
+        _update_hud()
+
+
+# Modo de duelos: antes de la primera jugada del Momento se elige con quién salir.
+func _on_carrier_chosen(id: String) -> void:
+    if _busy or not _in_moment or not _engine.set_carrier(id):
+        return
+    _pantalla.mostrar_ataque(0.3)
+    _update_hud()
+
+
 # Ejecutor Natural: la carta la jugó su dueño. Resplandor dorado sobre la carta lanzada.
 func _on_natural_executor(_card: Card) -> void:
     if _active_clone != null:
@@ -1066,13 +1200,15 @@ func _fly_to_center(c: CardUI) -> void:
 
 func _present_result(ev: Dictionary, clone: CardUI) -> void:
     if not ev.get("ok", false):
-        clone.queue_free()
+        if clone != null:
+            clone.queue_free()
         return
     var ok: bool = ev["success"]
     _last_roll_text = "Última tirada %d vs %d%% → %s" % [
         floori(ev["roll"] * 100.0), roundi(ev["chance"] * 100.0), "ÉXITO" if ok else "FALLO"]
-    clone.flash(COLOR_OK if ok else COLOR_BAD)
-    _move_ball(ev)
+    if clone != null:   # modo de duelos (sin clon): la tirada y la pelota ya se vieron en la cancha
+        clone.flash(COLOR_OK if ok else COLOR_BAD)
+        _move_ball(ev)
     _update_hud()
     if ev["natural"]:
         await _banner_show("¡EJECUTOR NATURAL!", COLOR_NATURAL, 0.6)
@@ -1098,6 +1234,8 @@ func _present_result(ev: Dictionary, clone: CardUI) -> void:
         await _banner_show("SIN PA PARA SEGUIR · SE PIERDE LA JUGADA", COLOR_WARN, 0.8)
     if ev["injury"]:
         await _banner_show("¡LESIÓN!", COLOR_BAD, 0.9)
+    if clone == null:
+        return
     var t := create_tween().set_parallel(true)
     t.tween_property(clone, "modulate:a", 0.0, 0.25)
     t.tween_property(clone, "scale", Vector2(0.8, 0.8), 0.25)

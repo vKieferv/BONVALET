@@ -82,6 +82,7 @@ var match_mods := {}
 var sponsor_week_lost := false
 var rival_id := ""
 var pending_match := false
+var match_mode := "duelos"     # modo del partido (T-11): "duelos" (pantalla 3D), "zonas" o "actual"; ajuste de la mesa del DT
 
 
 # seed = 0 -> aleatorio. Las pruebas pasan una semilla fija.
@@ -975,6 +976,7 @@ func to_dict() -> Dictionary:
         "promises": promises.duplicate(true),
         "temp_cards": temp_cards.duplicate(true),
         "sold": sold.duplicate(),
+        "match_mode": match_mode,
     }
 
 
@@ -1078,6 +1080,8 @@ static func load_saved(p_league: LeagueManager, p_squads: SquadManager, path: St
     c.sponsor_week_lost = d["sponsor_week_lost"]
     c.rival_id = String(d["rival_id"])
     c.pending_match = d["pending_match"]
+    if ["duelos", "zonas", "actual"].has(d.get("match_mode")):   # opcional: los guardados de antes de T-11 juegan duelos
+        c.match_mode = String(d["match_mode"])
     c.rng.seed = String(d["rng_seed"]).to_int()
     c.rng.state = String(d["rng_state"]).to_int()   # después de seed: asignar seed reinicia el state
     if migrate:

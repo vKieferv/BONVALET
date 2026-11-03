@@ -53,7 +53,9 @@
 #   duel: {"base": 0.39, "skill_factor": 0.5, "mark_pts": 0.12, "pelotazo_factor": 0.5,
 #          "shot_adjust": -0.10, "natural_bonus": 0.05, "mark_divisor": 6, "transition": true}
 #                                    valores del modo (variables duel_* del motor; mark_divisor 0 y
-#                                    transition false = las reglas de D-40, sin D-42)
+#                                    transition false = las reglas de D-40, sin D-42; D-43:
+#                                    "short_play": true, "press_divisor": 12 (0 = sin presión en los
+#                                    pases), "lookahead": true (bot que piensa una jugada más))
 #   Imprime además regates que entran a otra zona (y cuántos terminan en marca doble), vueltas atrás,
 #   cuántos titulares tocan la pelota por partido y los toques por jugador de Colo-Colo.
 # Un elemento {"defaults": {...}} en la lista se aplica a todas las variantes que lo siguen (las
@@ -121,6 +123,7 @@ func _init() -> void:
 			"steals": 0, "counters": 0, "no_cards": 0, "saves": 0, "rebounds": 0,
 			"dribble_entries": 0, "dribble_doubled": 0, "back_plays": 0, "touch_total": 0, "touch_top": 0,
 			"transition_moments": 0, "transition_goals": 0, "salida_steals": 0, "salida_steals_fwd": 0, "salida_steal_skill": 0,
+			"short_moments": 0, "short_goals": 0,
 			"touch_distinct": 0, "touch_teams": 0}
 		var per_club := {}   # id -> {gf, ga, inj, cut, n, touches: {id del jugador: veces que fue portador}}
 		for id in clubs:
@@ -151,7 +154,7 @@ func _init() -> void:
 				acc["holds_lost"] += r["holds_lost"]
 				for k in ["steals", "counters", "no_cards", "saves", "rebounds", "dribble_entries", "dribble_doubled",
 						"back_plays", "touch_total", "touch_top", "touch_distinct", "touch_teams", "transition_moments",
-						"transition_goals", "salida_steals", "salida_steals_fwd", "salida_steal_skill"]:
+						"transition_goals", "salida_steals", "salida_steals_fwd", "salida_steal_skill", "short_moments", "short_goals"]:
 					acc[k] += r[k]
 				for pair in [[ca, "touches_a"], [cb, "touches_b"]]:
 					for pid in r[pair[1]]:
@@ -182,6 +185,8 @@ func _init() -> void:
 				t_moments / n, acc["transition_goals"] / n, roundi(100.0 * acc["transition_goals"] / maxf(1.0, t_moments)),
 				(acc["goals"] - acc["transition_goals"]) / n, roundi(100.0 * (acc["goals"] - acc["transition_goals"]) / maxf(1.0, normal_moments)),
 				acc["salida_steals"] / n, acc["salida_steals_fwd"] / n, roundi(acc["salida_steal_skill"] / maxf(1.0, acc["salida_steals_fwd"]))])
+			print("    jugada corta (D-43, Momentos de 2 con el Área desordenada): %.2f Momentos y %.2f goles por partido" % [
+				acc["short_moments"] / n, acc["short_goals"] / n])
 			var colo: Dictionary = per_club[clubs[0]]["touches"]
 			var total := 0
 			for pid in colo:
@@ -365,6 +370,9 @@ func _apply_zone_values(e: MatchEngine, v: Dictionary) -> void:
 	e.duel_shot_adjust = float(d.get("shot_adjust", 0.0))
 	e.duel_mark_divisor = float(d.get("mark_divisor", MatchEngine.DUEL_MARK_DIVISOR))
 	e.duel_transition = bool(d.get("transition", true))
+	e.duel_short_play = bool(d.get("short_play", true))
+	e.duel_press_divisor = float(d.get("press_divisor", MatchEngine.DUEL_PRESS_DIVISOR))
+	e.duel_bot_lookahead = bool(d.get("lookahead", true))
 
 
 func _hooks(v: Dictionary) -> Dictionary:

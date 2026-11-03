@@ -39,6 +39,7 @@ func _initialize() -> void:
 	_test_duel_marks()
 	_test_duel_bot()
 	_test_duel_d42()
+	_test_duel_d43()
 	print("engine_rules: %d comprobaciones, %d fallas" % [checks, failures.size()])
 	for f in failures:
 		print("  FALLA: " + f)
@@ -1181,6 +1182,7 @@ func _test_duel_skills() -> void:
 # doble marca a Fernández (Iturra y Díaz), Candelo sobre Sánchez, Vidal y Meléndez libres.
 func _test_duel_pass_example() -> void:
 	var e := _duel_engine(91)
+	e.duel_press_divisor = 0.0   # la tabla es de D-40: la presión de Salas sobre Aceval (D-43) se prueba en _test_duel_d43
 	var u: Array = e.rival_players
 	e.carrier = _pl(e.duel_players, "miguel_aceval")
 	e.marks[MatchEngine.Zone.MEDIO] = {"matias_fernandez": [_pl(u, "manuel_iturra"), _pl(u, "marcelo_diaz")],
@@ -1470,3 +1472,58 @@ func _test_duel_d42() -> void:
 		stolen = true
 		break
 	_check(stolen, "las semillas deberían dar un robo en la Salida")
+
+
+# D-43: presión al portador en sus pases (Quite ÷ 12, línea propia), jugada corta en los Momentos de 2
+# (el Área con los que se quedan atrás) y el bot que mira una jugada más al elegir receptor.
+func _test_duel_d43() -> void:
+	var cat := CardDB.load_catalog(DECK_PATH)
+	var e := _duel_engine(401)
+	var u: Array = e.rival_players
+	e.carrier = _pl(e.duel_players, "miguel_aceval")
+	e.marks[MatchEngine.Zone.MEDIO] = {"arturo_vidal": [], "matias_fernandez": [_pl(u, "manuel_iturra"), _pl(u, "marcelo_diaz")]}
+	e.marks[MatchEngine.Zone.SALIDA] = {"miguel_aceval": [_pl(u, "marcelo_salas")]}
+	var pase := Card.from_dict(cat["pase_corto"])
+	e.deck.hand.append(pase)
+	var labels: Array = e.chance_breakdown(pase, -1, "arturo_vidal").map(func(i): return i["label"])
+	_check(labels.has("Presión de Marcelo Salas (Quite 53)"), "la presión al portador sale en su línea: %s" % [labels])
+	_check(e.success_chance(pase, -1, "arturo_vidal") == 0.53, "Aceval a Vidal con Salas encima: 57 − 4,4 = 53%% (da %s)" % e.success_chance(pase, -1, "arturo_vidal"))
+	e.duel_press_divisor = 6.0
+	_check(e.success_chance(pase, -1, "arturo_vidal") == 0.48, "con la presión completa (÷6): 57 − 8,8 = 48%% (da %s)" % e.success_chance(pase, -1, "arturo_vidal"))
+	e.duel_press_divisor = 12.0
+	var shown := e.success_chance(pase, -1, "arturo_vidal")
+	var ev := e.play_card(0, "arturo_vidal")
+	_check(is_equal_approx(ev["chance"], shown) and ev["success"] == (ev["roll"] < shown), "con presión, el % mostrado es el que se tira")
+	# Jugada corta: en un Momento de 2 jugadas el Área del rival tiene solo los que se quedan atrás (Tiki-Taka: 3 de 4).
+	var count := func(m: MatchEngine, z: int) -> int:
+		var t := 0
+		for id in m.marks.get(z, {}):
+			t += (m.marks[z][id] as Array).size()
+		return t
+	var short := _duel_engine(402, 2)
+	short.rival_mark_style = "Tiki-Taka"
+	short.begin_moment()
+	_check(short.short_play and count.call(short, MatchEngine.Zone.AREA) == 3, "jugada corta: en el Área esperan 3 de sus 4 defensas")
+	var long := _duel_engine(403, 3)
+	long.rival_mark_style = "Tiki-Taka"
+	long.begin_moment()
+	_check(not long.short_play and count.call(long, MatchEngine.Zone.AREA) == 4, "en un Momento de 3 jugadas el Área tiene la defensa completa")
+	var off := _duel_engine(404, 2)
+	off.rival_mark_style = "Tiki-Taka"
+	off.duel_short_play = false
+	off.begin_moment()
+	_check(count.call(off, MatchEngine.Zone.AREA) == 4, "sin la regla, la jugada corta encuentra la defensa completa")
+	# Bot con lookahead: valora la jugada siguiente del receptor (el Amague de Fernández, Regate 90, contra
+	# el de Vidal, Regate 64) y deja el motor como estaba.
+	var b := _duel_engine(405)
+	b.carrier = _pl(b.duel_players, "miguel_aceval")
+	var diaz := _pl(u, "marcelo_diaz")
+	b.marks[MatchEngine.Zone.MEDIO] = {"arturo_vidal": [diaz], "matias_fernandez": [diaz], "rodrigo_melendez": [diaz], "alexis_sanchez": [diaz]}
+	var p2 := Card.from_dict(cat["pase_corto"])
+	b.deck.hand.append_array([p2, Card.from_dict(cat["amague"])])
+	var before := [b.carrier, b.zone, b.progress]
+	var next_f := CoachBot._next_value(b, p2, _pl(b.duel_players, "matias_fernandez"))
+	var next_v := CoachBot._next_value(b, p2, _pl(b.duel_players, "arturo_vidal"))
+	_check(next_f > next_v, "Fernández puede hacer más después de recibir que Vidal (%s contra %s)" % [next_f, next_v])
+	_check([b.carrier, b.zone, b.progress] == before, "mirar una jugada más no cambia el motor")
+	_check(CoachBot.choose_receiver(b, p2) == "matias_fernandez", "con el mismo % de recibir, el bot se la da a Fernández")

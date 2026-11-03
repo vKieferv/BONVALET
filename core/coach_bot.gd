@@ -340,6 +340,7 @@ const MARK_JITTER := 4.0            # azar al ordenar tus figuras: dos parecidas
 const BACK_MAX_STEP_P := 0.40       # vuelve atrás si su mejor carta para avanzar no llega a esto...
 const BACK_MIN_P := 0.60            # ...y la vuelta atrás sale al menos así de seguido
 const RECEIVER_THREAT_WEIGHT := 0.1 # al elegir receptor, cuánto pesa lo peligroso que es (por punto / 100)
+const LOOKAHEAD_FLOOR := 0.25       # con lookahead (D-43): lo mínimo que vale recibir aunque después no haya jugada
 
 
 # Marcas del rival en una zona: sus defensores (los de su línea que la defiende) sobre tus atacantes.
@@ -381,18 +382,20 @@ static func _mark_quality(pl: Dictionary) -> int:
     return maxi(int(pl.get("quite", 0)), int(pl.get("lectura", 0)))
 
 
-# Portador de la primera zona: el compañero con quien la mejor carta de la mano sale más seguido.
+# Portador de la primera zona: el compañero con quien la mejor carta de la mano sale más seguido. Con
+# duel_bot_lookahead (D-43), cada carta vale lo de _play_value: un pase, mirando también lo que podrá
+# hacer el receptor después.
 static func choose_carrier(e: MatchEngine) -> String:
     var best := String(e.carrier.get("id", ""))
-    var best_p := -1.0
+    var best_p := -INF
     var current := best
     for pl in e.zone_players(e.zone):
         e.carrier = pl
-        var p := 0.0
+        var p := -INF
         for i in e.playable_indices():
             var c: Card = e.deck.hand[i]
             if c.kind != Card.Kind.PAUSE:
-                p = maxf(p, e.success_chance(c))
+                p = maxf(p, _play_value(e, c) if e.duel_bot_lookahead else e.success_chance(c))
         if p > best_p + 0.001:
             best_p = p
             best = pl["id"]
@@ -400,16 +403,63 @@ static func choose_carrier(e: MatchEngine) -> String:
     return best
 
 
-# Receptor del pase: el de mejor % menos riesgo de robo, con un poco de preferencia por el más peligroso.
+# Receptor del pase: el de mejor puntaje (_receiver_score).
 static func choose_receiver(e: MatchEngine, card: Card) -> String:
     var best := ""
     var best_score := -INF
     for r in e.receivers(card):
-        var score := e.success_chance(card, -1, r["id"]) - e.steal_chance(card, -1, r["id"]) \
-                + RECEIVER_THREAT_WEIGHT * MatchEngine.threat(r) / 100.0
+        var score := _receiver_score(e, card, r)
         if score > best_score:
             best_score = score
             best = r["id"]
+    return best
+
+
+# Sin lookahead: % de recibir menos riesgo de robo, con un poco de preferencia por el más peligroso. Con
+# lookahead (D-43, un solo paso): el % de recibir por lo que vale su mejor jugada siguiente (al menos
+# LOOKAHEAD_FLOOR, para no despreciar un pase seguro cuando la mano se acaba), menos el robo.
+static func _receiver_score(e: MatchEngine, card: Card, r: Dictionary) -> float:
+    var p := e.success_chance(card, -1, r["id"])
+    var s := e.steal_chance(card, -1, r["id"])
+    if not e.duel_bot_lookahead:
+        return p - s + RECEIVER_THREAT_WEIGHT * MatchEngine.threat(r) / 100.0
+    return p * (LOOKAHEAD_FLOOR + (1.0 - LOOKAHEAD_FLOOR) * _next_value(e, card, r)) - s
+
+
+# Lo que vale jugar la carta ahora: un pase, el puntaje de su mejor receptor; el resto, su % menos el robo.
+static func _play_value(e: MatchEngine, c: Card) -> float:
+    if MatchEngine.is_pass(c):
+        var r := choose_receiver(e, c)
+        return -INF if r == "" else _receiver_score(e, c, e._player_by_id(r))
+    return e.success_chance(c) - e.steal_chance(c)
+
+
+# El mejor % que tendría `r` en la jugada siguiente si recibe `card`: con sus habilidades y sus marcas en
+# la zona a la que llega y con las cartas que quedan en la mano (sin la Pausa ni la vuelta atrás; los
+# remates, solo si llega al Área o, de lejos, al Medio) y los PA que sobran. Simula el estado del motor y
+# lo deja como estaba.
+static func _next_value(e: MatchEngine, card: Card, r: Dictionary) -> float:
+    var saved := [e.carrier, e.zone, e.progress, e.carrier_extra]
+    var tz := e.target_zone(card)
+    e.progress = maxi(0, e.progress - 1) if card.back else e.progress + card.steps
+    e.zone = tz as MatchEngine.Zone
+    e.carrier = r
+    e.carrier_extra = false
+    var ap_left := e.ap - e.ap_cost_of(card)
+    var best := 0.0
+    for c in e.deck.hand:
+        if c == card or not c.playable or c.kind == Card.Kind.PAUSE or c.back or c.is_defensive():
+            continue
+        if c.kind == Card.Kind.SHOT and tz != MatchEngine.Zone.AREA \
+                and not (c.long_range and tz == MatchEngine.Zone.MEDIO):
+            continue
+        if e.ap_cost_of(c) > ap_left:
+            continue
+        best = maxf(best, e.success_chance(c))
+    e.carrier = saved[0]
+    e.zone = saved[1]
+    e.progress = saved[2]
+    e.carrier_extra = saved[3]
     return best
 
 

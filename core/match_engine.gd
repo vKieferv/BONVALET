@@ -119,6 +119,9 @@ const TRANSITION_STAY := {
 	"Kamikaze": [2, 2], "Tiki-Taka": [3, 3], "Directo": [3, 2], "Contragolpe": [4, 3], "Catenaccio": [5, 3],
 }
 const TRANSITION_STAY_DEFAULT := [4, 3]
+# D-43, presión al portador: quien lo marca le resta en sus pases su Quite ÷ este valor (12 = la mitad de
+# la resta de un marcador extra; se midió también 6). 0 = sin presión en los pases (D-42).
+const DUEL_PRESS_DIVISOR := 12.0
 # Orden de los puestos de atrás hacia adelante: reparte a los titulares en las líneas de la formación.
 const ROLE_DEPTH := {"DFC": 0, "LAT": 1, "MCD": 2, "MCO": 3, "EXT": 4, "DEL": 5}
 
@@ -181,6 +184,10 @@ var duel_shot_adjust := 0.0         # puntos que se suman a los remates en este 
 var duel_mark_divisor := DUEL_MARK_DIVISOR
 var duel_transition := true         # false: en el contragolpe el rival te espera con su formación completa (D-40)
 var transition := false             # el Momento en curso nació de una recuperación (D-42)
+var duel_short_play := true         # D-43: en los Momentos de 2 jugadas el Área se reparte con los que se quedan atrás
+var short_play := false             # el Momento en curso es una jugada corta con el Área desordenada (D-43)
+var duel_press_divisor := DUEL_PRESS_DIVISOR
+var duel_bot_lookahead := true      # D-43: CoachBot elige receptor y portador mirando una jugada más (no cambia reglas)
 var carrier: Dictionary = {}        # el portador: juega las cartas del Momento
 var carrier_extra := false          # llegó a esta zona con un regate: el rival lo cuenta al repartir
 var carrier_chosen := false         # quien juega ya eligió el portador de la Salida (set_carrier)
@@ -219,7 +226,7 @@ var stats := {"goals": 0, "moments": 0, "flow_moments": 0, "flow_breaks": 0, "in
 	"counters": 0, "steals": 0, "saves": 0, "rebounds": 0,
 	"dribble_entries": 0, "dribble_doubled": 0, "back_plays": 0,
 	"transition_moments": 0, "transition_goals": 0, "salida_steals": 0, "salida_steals_fwd": 0,
-	"salida_steal_skill": 0}
+	"salida_steal_skill": 0, "short_moments": 0, "short_goals": 0}
 # counters: Momentos propios que arrancaron con contragolpe. steals / saves / rebounds (modo de zonas):
 # fallos que fueron robo, remates fallados que se quedó el arquero y remates fallados con rebote.
 # Modo de duelos: dribble_entries = regates que entraron a otra zona; dribble_doubled = de ellos, los
@@ -882,12 +889,19 @@ func _player_by_id(id: String) -> Dictionary:
 func _duel_begin() -> void:
 	_my_lines = lines_of(duel_players, formation, posture)
 	_their_lines = lines_of(rival_players, rival_formation, rival_posture)
+	short_play = false
 	if transition:
 		stats["transition_moments"] += 1
 	if transition and duel_transition:   # D-42: solo te esperan los que se quedaron atrás (los más defensivos de cada línea)
 		var stay := transition_stay(rival_mark_style, rival_posture)
 		for line in 2:
 			_their_lines[line] = (_their_lines[line] as Array).slice(0, stay[line])
+	elif duel_short_play and int(current_moment()["steps_required"]) <= 2:
+		# D-43, jugada corta: en los Momentos de 2 jugadas (Catenaccio) el Área del rival se reparte con los
+		# que se quedan atrás al atacar, como en una transición.
+		_their_lines[0] = (_their_lines[0] as Array).slice(0, transition_stay(rival_mark_style, rival_posture)[0])
+		short_play = true
+		stats["short_moments"] += 1
 	carrier_extra = false
 	carrier_chosen = false
 	moment_plays = 0
@@ -959,6 +973,7 @@ func _duel_items(card: Card, z: int, receiver: String, items: Array) -> void:
 			r = _least_marked(zone_players(tz), tz, String(c["id"]))
 		if r.is_empty():
 			return
+		_press_item(c, markers_of(z, c["id"]), items)
 		var m := markers_of(tz, r["id"])
 		if card.steps >= 2 and not card.back:   # Pelotazo: sin duelo, se salta la línea
 			_mark_item(r, m, duel_pelotazo_factor, items, "lectura")
@@ -994,20 +1009,30 @@ func _duel_item(mine: String, attacker: Dictionary, theirs: String, defender: Di
 		"value": duel_skill_factor * float(a - d) / 100.0})
 
 
-# Robo en tu Salida (medición de D-42): quién se la quedó. En un regate, el mejor Quite de los que marcan
-# al portador (sus delanteros que presionan); en un pase, la mejor Lectura de los que marcan al receptor.
-# salida_steals_fwd cuenta los que hizo un delantero que presiona y salida_steal_skill suma su Quite.
+# D-43, presión al portador: cada uno que marca al que tiene la pelota le resta en sus pases su Quite ÷
+# duel_press_divisor (12 = la mitad de la resta normal; 0 = sin presión), en una línea propia.
+func _press_item(c: Dictionary, markers: Array, items: Array) -> void:
+	if duel_press_divisor <= 0.0:
+		return
+	for m in markers:
+		items.append({"label": "Presión de %s (Quite %d)" % [m.get("name", ""), int(m.get("quite", 0))],
+			"value": -float(m.get("quite", 0)) / duel_press_divisor / 100.0})
+
+
+# Robo en tu Salida (medición de D-42 y D-43): quién se la quedó. En un regate, o en un pase con el
+# portador presionado, el mejor Quite de los que marcan al portador (sus delanteros que presionan); en un
+# pase sin presión, la mejor Lectura de los que marcan al receptor. salida_steals_fwd cuenta los que hizo
+# un delantero que presiona y salida_steal_skill suma su Quite.
 func _count_salida_steal(card: Card, receiver: String, ev: Dictionary) -> void:
 	stats["salida_steals"] += 1
 	var stealer := {}
-	if is_pass(card):
+	var pressers := markers_of(Zone.SALIDA, String(carrier.get("id", "")))
+	if is_pass(card) and (duel_press_divisor <= 0.0 or pressers.is_empty()):
 		var m := markers_of(target_zone(card, Zone.SALIDA), receiver)
 		if not m.is_empty():
 			stealer = _best_by(m, "lectura")
-	else:
-		var m := markers_of(Zone.SALIDA, String(carrier.get("id", "")))
-		if not m.is_empty():
-			stealer = _best_by(m, "quite")
+	elif not pressers.is_empty():
+		stealer = _best_by(pressers, "quite")
 	if stealer.is_empty():
 		return
 	ev["stealer"] = stealer["id"]
@@ -1256,6 +1281,8 @@ func _finish_moment(success: bool) -> void:
 		stats["goals"] += 1
 		if transition:
 			stats["transition_goals"] += 1
+		if short_play:
+			stats["short_goals"] += 1
 	if moment_had_flow:
 		stats["flow_moments"] += 1
 	flow_active = false

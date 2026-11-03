@@ -52,7 +52,10 @@ diriges un club Catenaccio). 2 fallos lo pierden. Tras un contragolpe o con espa
   Kamikaze; a tus dos figuras Catenaccio): libre +12, 1 contra 1 = 0 y cada marcador extra resta su
   defensa ÷ 6 (D-42: Lectura contra un pase, Quite contra un regate; un defensa resta más que un
   delantero que presiona). **En una transición** (contragolpe) solo te esperan los rivales que se
-  quedaron atrás al atacar, según su estilo y su postura (Kamikaze deja pocos, Catenaccio todos). **Se
+  quedaron atrás al atacar, según su estilo y su postura (Kamikaze deja pocos, Catenaccio todos). D-43:
+  en una **jugada corta** (Momento de 2, Catenaccio) el Área del rival tiene solo los que se quedan atrás;
+  **quien marca al portador le resta también en sus pases** (su Quite ÷ 12, "Presión de..."); y los bots
+  eligen receptor mirando lo que este puede hacer en la jugada siguiente. **Se
   enfrentan las habilidades** (nivel + puesto + perfil, D-32): % = 39 + carta + 0,5 × (tu habilidad −
   la suya) + marcas; Pase contra la Lectura del mejor marcador del receptor, Regate contra el Quite del
   mejor marcador del portador, Remate contra la Atajada del arquero. El Pelotazo no pelea (marcas a la

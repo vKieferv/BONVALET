@@ -36,5 +36,18 @@
 	{"name": "D-42 ÷8 · mitad (+4)", "duelos": true, "picks": 4, "duel": {"mark_divisor": 8}},
 	{"name": "D-42 ÷8 · final (+8)", "duelos": true, "picks": 8, "duel": {"mark_divisor": 8}},
 	{"name": "solo resta ÷6, sin transición · inicio", "duelos": true, "duel": {"transition": false}},
-	{"name": "solo transición, −12 fijo · inicio", "duelos": true, "duel": {"mark_divisor": 0}}
+	{"name": "solo transición, −12 fijo · inicio", "duelos": true, "duel": {"mark_divisor": 0}},
+	{"defaults": {"extra_clubs": ["universidad_de_chile"]}},
+	{"name": "D-42 · inicio", "duelos": true, "duel": {"short_play": false, "press_divisor": 0, "lookahead": false}},
+	{"name": "D-42 · mitad (+4)", "duelos": true, "picks": 4, "duel": {"short_play": false, "press_divisor": 0, "lookahead": false}},
+	{"name": "D-42 · final (+8)", "duelos": true, "picks": 8, "duel": {"short_play": false, "press_divisor": 0, "lookahead": false}},
+	{"name": "solo 1 (jugada corta) · inicio", "duelos": true, "duel": {"press_divisor": 0, "lookahead": false}},
+	{"name": "D-43 presión ½ (÷12) · inicio", "duelos": true},
+	{"name": "D-43 presión ½ (÷12) · mitad (+4)", "duelos": true, "picks": 4},
+	{"name": "D-43 presión ½ (÷12) · final (+8)", "duelos": true, "picks": 8},
+	{"name": "solo 2 (presión ½) · inicio", "duelos": true, "duel": {"short_play": false, "lookahead": false}},
+	{"name": "D-43 presión completa (÷6) · inicio", "duelos": true, "duel": {"press_divisor": 6}},
+	{"name": "D-43 presión completa (÷6) · mitad (+4)", "duelos": true, "picks": 4, "duel": {"press_divisor": 6}},
+	{"name": "D-43 presión completa (÷6) · final (+8)", "duelos": true, "picks": 8, "duel": {"press_divisor": 6}},
+	{"name": "solo 3 (bot que piensa) · inicio", "duelos": true, "duel": {"short_play": false, "press_divisor": 0}}
 ]

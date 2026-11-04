@@ -341,6 +341,7 @@ const BACK_MAX_STEP_P := 0.40       # vuelve atrás si su mejor carta para avanz
 const BACK_MIN_P := 0.60            # ...y la vuelta atrás sale al menos así de seguido
 const RECEIVER_THREAT_WEIGHT := 0.1 # al elegir receptor, cuánto pesa lo peligroso que es (por punto / 100)
 const LOOKAHEAD_FLOOR := 0.25       # con lookahead (D-43): lo mínimo que vale recibir aunque después no haya jugada
+const SAME_ZONE_WEIGHT := 0.5       # D-46: cuánto vale un pase a la misma zona frente a uno que avanza
 
 
 # Marcas del rival en una zona: sus defensores (los de su línea que la defiende) sobre tus atacantes.
@@ -403,12 +404,15 @@ static func choose_carrier(e: MatchEngine) -> String:
     return best
 
 
-# Receptor del pase: el de mejor puntaje (_receiver_score).
+# Receptor del pase: el de mejor puntaje (_receiver_score). D-46: uno de la misma zona no avanza, así que su
+# puntaje vale SAME_ZONE_WEIGHT (lo elige solo si pasar hacia adelante es mucho peor).
 static func choose_receiver(e: MatchEngine, card: Card) -> String:
     var best := ""
     var best_score := -INF
     for r in e.receivers(card):
         var score := _receiver_score(e, card, r)
+        if e.pass_zone(card, r["id"]) == e.zone and e.target_zone(card) != e.zone:
+            score *= SAME_ZONE_WEIGHT if score > 0.0 else 1.0 / SAME_ZONE_WEIGHT
         if score > best_score:
             best_score = score
             best = r["id"]
@@ -440,8 +444,10 @@ static func _play_value(e: MatchEngine, c: Card) -> float:
 # lo deja como estaba.
 static func _next_value(e: MatchEngine, card: Card, r: Dictionary) -> float:
     var saved := [e.carrier, e.zone, e.progress, e.carrier_extra]
-    var tz := e.target_zone(card)
-    e.progress = maxi(0, e.progress - 1) if card.back else e.progress + card.steps
+    var tz := e.pass_zone(card, String(r.get("id", "")))
+    var same := tz == e.zone and e.target_zone(card) != e.zone   # D-46: no avanza
+    if not same:
+        e.progress = maxi(0, e.progress - 1) if card.back else e.progress + card.steps
     e.zone = tz as MatchEngine.Zone
     e.carrier = r
     e.carrier_extra = false

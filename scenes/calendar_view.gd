@@ -969,6 +969,37 @@ func _build_pizarra(page: Control) -> void:
     var fat := Mesa.dymo("PLANTEL %d%%" % int(c.fatigue), 0.0, 15, "bateria", Color("#7ee0a1") if c.fatigue < 30.0 else Paleta.CUESTA_MAS)
     board.add_child(fat)
     fat.position = Vector2(296 - fat.get_combined_minimum_size().x, 8)
+    board.add_child(_modo_partido_button())
+
+
+# Ajuste del modo del partido (T-11): una cinta Dymo en la pizarra que cambia entre duelos (la pantalla
+# 3D, por defecto), por zonas y el modo actual. Se guarda con la carrera.
+const MODOS_PARTIDO := {"duelos": "PARTIDO: DUELOS", "zonas": "PARTIDO: POR ZONAS", "actual": "PARTIDO: ACTUAL"}
+
+
+func _modo_partido_button() -> Button:
+    var b := Button.new()
+    b.name = "ModoPartido"
+    b.text = MODOS_PARTIDO.get(_career.match_mode, MODOS_PARTIDO["duelos"])
+    b.tooltip_text = "Modo del partido (clic para cambiar).\nDuelos: el que tiene la pelota juega la carta, el pase elige a quién va y el rival marca, en la cancha 3D.\nPor zonas: Salida, Medio y Área, sin portador.\nActual: el partido de siempre."
+    Paleta.estilo_texto(b, "condensada_negra", 15, Paleta.DYMO_LETRA, 2)
+    for estado in ["normal", "hover", "pressed", "focus"]:
+        var sb := Paleta.caja(Paleta.DYMO.lightened(0.12 if estado == "hover" else 0.0), 0, [Color(0, 0, 0, 0.5), 4, 3])
+        sb.content_margin_left = 10
+        sb.content_margin_right = 10
+        sb.content_margin_top = 2
+        sb.content_margin_bottom = 2
+        b.add_theme_stylebox_override(estado, sb)
+    b.add_theme_color_override("font_hover_color", Paleta.DYMO_LETRA)
+    b.position = Vector2(12, 236)
+    b.rotation = deg_to_rad(-1.5)
+    b.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+    b.pressed.connect(func() -> void:
+        var orden: Array = MODOS_PARTIDO.keys()
+        _career.match_mode = orden[(orden.find(_career.match_mode) + 1) % orden.size()]
+        b.text = MODOS_PARTIDO[_career.match_mode]
+        _save())
+    return b
 
 
 # Entrada al estadio: valida el mazo e inicia el partido; apagada con "falta el paso N".

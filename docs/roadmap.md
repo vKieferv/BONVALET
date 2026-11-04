@@ -54,6 +54,7 @@ visual, después el partido por zonas con su pantalla nueva.
 - [x] T-12 · prueba técnica de la cancha 3D low poly (`T-12-prueba-3d.md`, I-54) · mezclada 2026-11-01 en `scenes/prueba_3d/`: T-11 va en 3D (D-41), falta medir en Steam Deck
 - [x] T-13 · motor de D-40 a D-43: portador, marcas y habilidades (`T-13-motor-portador-marcas.md`) · mezclada 2026-11-03 como modo de duelos en prueba (2.45 goles al inicio)
 - [x] T-11 · pantalla del partido: TV de 2006, cancha 3D y duelos (`T-11-pantalla-partido.md`) · mezclada 2026-11-04; duelos por defecto, defensa nueva (D-44) pendiente
+- [ ] T-15 · la defensa nueva, el ataque al revés (`T-15-defensa-nueva.md`, D-44; en el PC)
 - [x] T-14 · eventos de la semana: catálogo, medios y ramas (`T-14-eventos-semana.md`, I-57) · mezclada 2026-11-03; valores de los efectos en prueba
 - [ ] Decisión del usuario tras medir y jugar: ¿el modo de zonas reemplaza al actual?
 

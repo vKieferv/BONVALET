@@ -79,7 +79,7 @@ func _correr() -> void:
 func _necesarias() -> Array:
 	if rapido:
 		return ["1_ataque_apuntando"]
-	return ["1_ataque_apuntando", "2_pase_en_el_aire", "3_tirada", "4_cuenta", "5_robo", "6_gol", "7_defensa", "8_ataque_rival"]
+	return ["1_ataque_apuntando", "2_pase_en_el_aire", "3_tirada", "4_cuenta", "5_robo", "6_gol", "7_defensa", "8_ataque_rival", "9_pase_misma_zona"]
 
 
 func _faltan() -> Array:
@@ -170,8 +170,14 @@ func _atacar(p: PantallaDuelos) -> void:
 		var desde := ui.get_global_rect().get_center()
 		if MatchEngine.is_pass(card):
 			var opciones: Array = e.receivers(card)
-			var r := String(opciones[randi() % opciones.size()]["id"])
-			var capturar := not tomadas.has("1_ataque_apuntando") or not tomadas.has("2_pase_en_el_aire")
+			var adelante: Array = opciones.filter(func(o): return e.pass_zone(card, o["id"]) != e.zone)
+			var r := String((adelante if not adelante.is_empty() else opciones)[randi() % maxi(1, (adelante if not adelante.is_empty() else opciones).size())]["id"])
+			# D-46: después de la primera captura, un pase a un compañero de la misma zona (placa con NO AVANZA).
+			var mismos: Array = opciones.filter(func(o): return e.pass_zone(card, o["id"]) == e.zone and e.target_zone(card) != e.zone)
+			var misma := tomadas.has("1_ataque_apuntando") and not tomadas.has("9_pase_misma_zona") and not mismos.is_empty()
+			if misma:
+				r = String(mismos[0]["id"])
+			var capturar := misma or not tomadas.has("1_ataque_apuntando") or not tomadas.has("2_pase_en_el_aire")
 			if capturar:
 				Engine.time_scale = 1.0
 				await _mientras(func(): return view._banner.visible)
@@ -184,6 +190,8 @@ func _atacar(p: PantallaDuelos) -> void:
 					break
 			if not tomadas.has("1_ataque_apuntando"):
 				_shot("1_ataque_apuntando")
+			elif misma and not tomadas.has("9_pase_misma_zona"):
+				_shot("9_pase_misma_zona")
 			mouse.soltar(p.punto_de("L:" + r))
 			if not tomadas.has("2_pase_en_el_aire"):
 				await _mientras(func(): return not (p.cancha.en_vuelo() and p.cancha._vuelo_carta != "conduccion"), 600)

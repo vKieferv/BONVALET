@@ -373,6 +373,7 @@ func _apply_zone_values(e: MatchEngine, v: Dictionary) -> void:
 	e.duel_short_play = bool(d.get("short_play", true))
 	e.duel_press_divisor = float(d.get("press_divisor", MatchEngine.DUEL_PRESS_DIVISOR))
 	e.duel_bot_lookahead = bool(d.get("lookahead", true))
+	e.duel_same_zone = bool(d.get("same_zone", true))
 
 
 func _hooks(v: Dictionary) -> Dictionary:

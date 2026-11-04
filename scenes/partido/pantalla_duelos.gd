@@ -31,6 +31,7 @@ const ANCHO_MANO := 915.0
 const Y_LAMINAS := 464.0
 const MANTENER_S := 0.45        # mantener la lámina quieta: cuenta completa
 const ARRASTRE_MIN := 14.0      # píxeles de movimiento para que cuente como arrastre
+const RAPIDO_RIVAL := 3.0       # velocidad de las jugadas del rival que no son importantes
 const CONTORNO_FLECHA := Color("#0d1118")
 const VERDE := Color("#4fd18b")
 const CORAL := Color("#ff7a6b")
@@ -75,6 +76,7 @@ var _zona := 0
 var _local_ataca := true
 var _con_balon: Control
 var _flecha: Control
+var _placa: Control             # el % del pase junto al compañero apuntado (playtest 2026-11-04)
 var _tirada: Control
 var _cuenta: Control
 var _raiz_mano: Control
@@ -107,6 +109,7 @@ var _linea_3d := PackedVector3Array()
 var _forma_linea := ""
 var _velocidad := 1.0
 var _saltar := false
+var _acelerado := false         # ACELERAR en el ataque rival (×3 sobre la velocidad de cada jugada)
 var _tirada_datos := {}
 var _tirada_t := -1.0
 var _tirada_aguja := 0.0
@@ -148,10 +151,15 @@ func armar(liga: LeagueManager, equipo_l: Dictionary, equipo_v: Dictionary, juga
     _flecha.size = Vector2(4000, 4000)
     _flecha.mouse_filter = Control.MOUSE_FILTER_IGNORE
     _flecha.draw.connect(_dibujar_flecha)
+    _placa = Control.new()
+    _placa.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    _placa.visible = false
+    _placa.draw.connect(_dibujar_placa)
     add_child(_flecha)
+    add_child(_placa)   # encima de la línea del pase
     _tirada = Control.new()
     _tirada.mouse_filter = Control.MOUSE_FILTER_IGNORE
-    _tirada.size = Vector2(560, 92)
+    _tirada.size = Vector2(640, 140)
     _tirada.visible = false
     _tirada.draw.connect(_dibujar_tirada)
     add_child(_tirada)
@@ -190,7 +198,8 @@ func _ajustar_ventana() -> void:
     _con_balon.position = Vector2(16, _alto_senal - 40.0)
     _raiz_mano.position = Vector2((_ancho - 1280.0) * 0.5, lienzo.y - 720.0)
     _colocar_barra()
-    _tirada.position = Vector2((_ancho - _tirada.size.x) * 0.5, 52.0)
+    # La tirada va sobre la zona de las láminas (que no se juegan mientras se tira): no tapa la jugada.
+    _tirada.position = Vector2(_raiz_mano.position.x + CENTRO_MANO - _tirada.size.x * 0.5, _alto_senal + 6.0)
 
 
 func _a_pantalla(p: Vector3) -> Vector2:
@@ -269,10 +278,13 @@ void fragment() {
     set_postura(1, false)
 
 
-func _sigla(equipo: Dictionary) -> String:
-    var corto := String(equipo.get("short_name", "?")).to_upper().replace(".", " ").replace("-", " ")
+# Sigla del marcador: iniciales del nombre corto (Colo-Colo CC, U. Católica UC). Con "de" se agregan dos
+# letras de la última palabra, para no confundir a la U. de Chile (UCH) con la Católica.
+static func sigla(corto_club: String) -> String:
+    var corto := corto_club.to_upper().replace(".", " ").replace("-", " ")
+    var palabras := corto.split(" ", false)
     var partes: Array = []
-    for p in corto.split(" ", false):
+    for p in palabras:
         if p.length() > 2 or partes.is_empty():
             partes.append(p)
     if partes.size() == 1:
@@ -280,7 +292,13 @@ func _sigla(equipo: Dictionary) -> String:
     var s := ""
     for p in partes:
         s += String(p).left(1)
+    if palabras.has("DE") and s.length() == 2:
+        s = s.left(1) + String(partes[-1]).left(2)
     return s.left(3)
+
+
+func _sigla(equipo: Dictionary) -> String:
+    return sigla(String(equipo.get("short_name", "?")))
 
 
 func _fondo_club(colores: Array) -> Array:
@@ -673,6 +691,8 @@ func _colocar_etiquetas(delta: float) -> void:
             cuerpos[clave] = r
     var pelota := _rect_pelota()
     var ocupados: Array[Rect2] = [_rect_con_balon(), Rect2(0, 0, _ancho, 72)]
+    if _placa.visible:
+        ocupados.append(Rect2(_placa.position, _placa.size).grow(4.0))
     if _tirada.visible:
         ocupados.append(Rect2(_tirada.position, _tirada.size))
     if _arrastre != null:
@@ -890,7 +910,7 @@ func refrescar() -> void:
                 engine.hold_ap_cost(), roundi(engine.hold_chance() * 100.0)] if modo == Modo.ATAQUE else ""
     _boton_acelerar.visible = rival
     _boton_saltar.visible = rival
-    _boton_acelerar.configurar("ACELERAR" if _velocidad <= 1.0 else "ACELERADO", 20, Color.WHITE, Paleta.TV_AZUL if _velocidad <= 1.0 else Grafica.SEMI_NOCHE)
+    _boton_acelerar.configurar("ACELERADO" if _acelerado else "ACELERAR", 20, Color.WHITE, Grafica.SEMI_NOCHE if _acelerado else Paleta.TV_AZUL)
     _aviso.text = _texto_aviso()
     _estamina.queue_redraw()
     _refrescar_laminas()
@@ -978,7 +998,7 @@ func linea_de(c: Card, receptor: String) -> Array:
     var duelo := _duelo(c, receptor)
     if MatchEngine.is_pass(c) and receptor != "":
         var nombre := apellido(String(engine._player_by_id(receptor).get("name", "")))
-        return ["a %s · LIBRE" % nombre, 0] if engine.markers_of(engine.target_zone(c), receptor).is_empty() \
+        return ["a %s · LIBRE" % nombre, 0] if engine.markers_of(engine.pass_zone(c, receptor), receptor).is_empty() \
                 else ["a " + nombre, duelo]
     var fx := CardUI.effect_text(c)
     if c.back:
@@ -1392,19 +1412,35 @@ func _dibujar_tirada() -> void:
     _tirada.draw_colored_polygon(PackedVector2Array([Vector2(dx, 0), Vector2(s.x, 0), Vector2(s.x - dx, s.y), Vector2(0, s.y)]), Color(0.043, 0.067, 0.106, 0.94))
     var f := Paleta.letra("tv")
     var pct: int = _tirada_datos["pct"]
-    _tirada.draw_string(f, Vector2(dx + 10, 22), String(_tirada_datos["titulo"]), HORIZONTAL_ALIGNMENT_LEFT, s.x - 120, 18, _tirada_datos["color"])
-    _tirada.draw_string(f, Vector2(s.x - 110, 22), "%d%%" % pct, HORIZONTAL_ALIGNMENT_RIGHT, 90, 20, Paleta.placa(pct / 100.0)[0][0])
-    var barra := Rect2(dx + 4, 32, s.x - dx * 2 - 8, 16)
+    _tirada.draw_rect(Rect2(dx, 0, s.x - dx, 4), Paleta.DORADO)
+    _tirada.draw_string(f, Vector2(dx + 12, 30), String(_tirada_datos["titulo"]), HORIZONTAL_ALIGNMENT_LEFT, s.x - 200, 22, _tirada_datos["color"])
+    _tirada.draw_string(f, Vector2(s.x - 190, 32), "NECESITAS < %d" % pct, HORIZONTAL_ALIGNMENT_RIGHT, 170, 24, Paleta.placa(pct / 100.0)[0][0])
+    # Barra gruesa: verde lo que sale, coral lo que falla; la aguja con su número encima.
+    var barra := Rect2(dx + 8, 44, s.x - dx * 2 - 16, 40)
     var corte := barra.size.x * pct / 100.0
-    _tirada.draw_rect(Rect2(barra.position, Vector2(corte, barra.size.y)), Color(VERDE, 0.85))
-    _tirada.draw_rect(Rect2(barra.position + Vector2(corte, 0), Vector2(barra.size.x - corte, barra.size.y)), Color(CORAL, 0.75))
+    _tirada.draw_rect(barra.grow(3), CONTORNO_FLECHA)
+    _tirada.draw_rect(Rect2(barra.position, Vector2(corte, barra.size.y)), Color(VERDE, 0.92))
+    _tirada.draw_rect(Rect2(barra.position + Vector2(corte, 0), Vector2(barra.size.x - corte, barra.size.y)), Color(CORAL, 0.85))
+    _tirada.draw_rect(Rect2(barra.position + Vector2(corte - 2, -4), Vector2(4, barra.size.y + 8)), Color.WHITE)
+    for marca in [0, 25, 50, 75, 99]:
+        var mx: float = barra.position.x + barra.size.x * marca / 100.0
+        _tirada.draw_rect(Rect2(mx - 1, barra.end.y - 8, 2, 8), Color(0, 0, 0, 0.35))
     var x := barra.position.x + barra.size.x * _tirada_aguja / 100.0
-    _tirada.draw_polyline(PackedVector2Array([Vector2(x, barra.position.y - 6), Vector2(x, barra.end.y + 6)]), CONTORNO_FLECHA, 6.0)
-    _tirada.draw_polyline(PackedVector2Array([Vector2(x, barra.position.y - 6), Vector2(x, barra.end.y + 6)]), Color.WHITE, 3.0)
+    var aguja := PackedVector2Array([Vector2(x, barra.position.y - 8), Vector2(x, barra.end.y + 8)])
+    _tirada.draw_polyline(aguja, CONTORNO_FLECHA, 10.0)
+    _tirada.draw_polyline(aguja, Color.WHITE, 5.0)
+    var n := "%d" % roundi(_tirada_aguja)
+    var nw := f.get_string_size(n, HORIZONTAL_ALIGNMENT_LEFT, -1, 30).x
+    var nx := clampf(x - nw * 0.5, barra.position.x + 4, barra.end.x - nw - 4)
+    _tirada.draw_string(f, Vector2(nx + 2, barra.end.y - 7), n, HORIZONTAL_ALIGNMENT_LEFT, -1, 30, CONTORNO_FLECHA)
+    _tirada.draw_string(f, Vector2(nx, barra.end.y - 9), n, HORIZONTAL_ALIGNMENT_LEFT, -1, 30, Color.WHITE)
     if _tirada_t >= 1.0:
         var ok: bool = _tirada_datos["ok"]
-        _tirada.draw_string(f, Vector2(dx + 6, 76), texto_tirada(), HORIZONTAL_ALIGNMENT_LEFT, s.x - 140, 18, Color.WHITE)
-        _tirada.draw_string(f, Vector2(s.x - 140, 76), "SALE" if ok else "FALLA", HORIZONTAL_ALIGNMENT_RIGHT, 120, 20, VERDE if ok else CORAL)
+        var sac := "SACASTE %d" % int(_tirada_datos["sacaste"])
+        _tirada.draw_string(f, Vector2(dx + 10, s.y - 14), sac, HORIZONTAL_ALIGNMENT_LEFT, -1, 34, Color.WHITE)
+        var w := f.get_string_size(sac, HORIZONTAL_ALIGNMENT_LEFT, -1, 34).x
+        _tirada.draw_string(f, Vector2(dx + 22 + w, s.y - 16), "· NECESITABAS MENOS DE %d" % pct, HORIZONTAL_ALIGNMENT_LEFT, -1, 20, Color("#dfe6f2"))
+        _tirada.draw_string(f, Vector2(s.x - 170, s.y - 12), "SALE" if ok else "FALLA", HORIZONTAL_ALIGNMENT_RIGHT, 150, 40, VERDE if ok else CORAL)
 
 
 func _animar_aguja(delta: float) -> void:
@@ -1483,8 +1519,10 @@ func _animar_balon(ev: Dictionary, card: Card, local: bool, portador: String, re
         else:
             var corta := String(ev.get("stealer", ""))
             if corta == "":
-                var tz := zona if card.back else mini(zona + card.steps, 2)
-                var m: Array = (marcas.get(tz, {}) as Dictionary).get(receptor, [])
+                var m: Array = []   # quien marca al receptor, en la zona que sea (D-46: puede ser la misma)
+                for z in marcas:
+                    if (marcas[z] as Dictionary).has(receptor):
+                        m = marcas[z][receptor]
                 if m.is_empty():
                     m = (marcas.get(zona, {}) as Dictionary).get(portador, [])
                 if not m.is_empty():
@@ -1550,7 +1588,9 @@ func _animar_balon(ev: Dictionary, card: Card, local: bool, portador: String, re
 # ------------------------------------------------------------------ El ataque del rival (I-60)
 
 func acelerar() -> void:
-    _velocidad = 3.0
+    if not _acelerado:
+        _velocidad *= 3.0
+    _acelerado = true
     cancha.velocidad = _velocidad
     refrescar()
 
@@ -1558,21 +1598,23 @@ func acelerar() -> void:
 func saltar() -> void:
     _saltar = true
 
-
 # Anima el Momento del rival ya resuelto por CoachBot: pasos = [{zona, marcas, ev, card}] de match_view.
-# Cada paso: todos a su lugar, su carta con su %, la aguja y la pelota. Con SALTAR todo queda de golpe.
+# Más rápido por defecto (playtest 2026-11-04): cada jugada pasa a RAPIDO_RIVAL y solo lo importante
+# (importante()) va a velocidad normal, con una pausa para leerlo. ACELERAR lo triplica; SALTAR deja todo de golpe.
 func mirar_ataque_rival(pasos: Array) -> void:
     modo = Modo.RIVAL
     _local_ataca = false
-    _velocidad = 1.0
+    _acelerado = false
     _saltar = false
-    cancha.velocidad = 1.0
     armar_mano()
     for i in pasos.size():
         var paso: Dictionary = pasos[i]
         var ev: Dictionary = paso["ev"]
         if ev.is_empty():
             continue
+        var clave := importante(ev, paso.get("card"))
+        _velocidad = (1.0 if clave else RAPIDO_RIVAL) * (3.0 if _acelerado else 1.0)
+        cancha.velocidad = _velocidad
         _zona = int(paso["zona"])
         _portador = "V:" + String(ev.get("carrier", paso.get("portador", "")))
         _formar(_posiciones(rival_engine, false, _zona, _portador, paso["marcas"]), 0.5)
@@ -1583,7 +1625,7 @@ func mirar_ataque_rival(pasos: Array) -> void:
         _camino.queue_redraw()
         if i == 0 and not _saltar:
             cancha.fijar_camara()
-        await _esperar(0.55)
+        await _esperar(0.4)
         var card: Card = paso.get("card")
         var titulo := _sigla(_equipo_v) + " · "
         if ev.get("hold", false) or card == null:
@@ -1596,12 +1638,22 @@ func mirar_ataque_rival(pasos: Array) -> void:
         await mostrar_tirada(titulo, ev["chance"], ev["roll"], ev["success"], _colores_v[0].lightened(0.3))
         if card != null and not ev.get("hold", false):
             await _animar_balon(ev, card, false, String(ev.get("carrier", "")), String(ev.get("receiver", "")), paso["marcas"], _zona)
-        await _esperar(0.3)
+        await _esperar(0.7 if clave else 0.15)   # lo importante se queda un momento en pantalla
         await ocultar_tirada()
     _velocidad = 1.0
     cancha.velocidad = 1.0
     _saltar = false
     _tirada.visible = false
+
+
+# Lo que merece mirarse con calma en el ataque rival: un pase o un regate que cambia de zona, un remate,
+# un robo y un gol. Los pases dentro de la zona y los fallos sin robo pasan rápido.
+static func importante(ev: Dictionary, card: Card) -> bool:
+    if ev.get("goal", false) or ev.get("stolen", false) or ev.get("saved", false):
+        return true
+    if card != null and card.kind == Card.Kind.SHOT:
+        return true
+    return ev.get("success", false) and int(ev.get("field_zone", -1)) != int(ev.get("play_zone", -1))
 
 
 # ------------------------------------------------------------------ Cuadro a cuadro
@@ -1616,5 +1668,94 @@ func _process(delta: float) -> void:
     if _arrastre != null:
         _actualizar_apuntado()
     _colocar_zonas()
+    _colocar_placa()   # primero la placa del pase: las etiquetas la esquivan
     _colocar_etiquetas(delta)
     _flecha.queue_redraw()
+
+
+# ------------------------------------------------------------------ Placa del % junto al receptor
+
+# Lo que dice la placa del pase apuntado: {pct, robo, misma_zona}; {} si no se está apuntando.
+func placa_info() -> Dictionary:
+    if _arrastre == null or _apuntado == "" or not MatchEngine.is_pass(_arrastre.card):
+        return {}
+    var c: Card = _arrastre.card
+    return {"pct": roundi(engine.success_chance(c, -1, _apuntado) * 100.0),
+        "robo": roundi(engine.steal_chance(c, -1, _apuntado) * 100.0),
+        "misma_zona": engine.pass_zone(c, _apuntado) == engine.zone and engine.target_zone(c) != engine.zone}
+
+
+func placa_visible() -> bool:
+    return _placa.visible
+
+
+# Al lado del apuntado, donde menos tape: arriba de la cabeza, a la derecha o a la izquierda del cuerpo,
+# sin montarse sobre otros jugadores ni el zócalo (las etiquetas la esquivan a ella).
+func _colocar_placa() -> void:
+    var info := placa_info()
+    _placa.visible = not info.is_empty()
+    if info.is_empty():
+        return
+    _placa.set_meta("info", info)
+    _placa.size = Vector2(150, 68 if (int(info["robo"]) >= 10 or info["misma_zona"]) else 46)
+    var j := _jug("L:" + _apuntado)
+    if j == null:
+        return
+    var cuerpo := _rect_cuerpo(j)
+    var s := _placa.size
+    var huecos := [
+        Vector2(cuerpo.get_center().x - s.x * 0.5, cuerpo.position.y - s.y - 8),
+        Vector2(cuerpo.end.x + 10, cuerpo.position.y),
+        Vector2(cuerpo.position.x - s.x - 10, cuerpo.position.y),
+        Vector2(cuerpo.end.x + 10, cuerpo.get_center().y),
+        Vector2(cuerpo.position.x - s.x - 10, cuerpo.get_center().y),
+    ]
+    var ocupados: Array[Rect2] = [_rect_con_balon(), Rect2(0, 0, _ancho, 44)]
+    for clave: String in cancha.jugadores:
+        ocupados.append(_rect_cuerpo(cancha.jugadores[clave]))
+    var limites := Rect2(6, 46, _ancho - 12, _alto_senal - 52)
+    var mejor: Vector2 = huecos[0]
+    var mejor_costo := INF
+    for i in huecos.size():
+        var r := Rect2(huecos[i], s)
+        var costo := i * 40.0
+        for o: Rect2 in ocupados:
+            costo += r.intersection(o).get_area()
+        if not limites.encloses(r):
+            costo += 50000.0
+        if costo < mejor_costo:
+            mejor_costo = costo
+            mejor = huecos[i]
+    _placa.position = mejor
+    _placa.queue_redraw()
+
+
+func _dibujar_placa() -> void:
+    var info: Dictionary = _placa.get_meta("info", {})
+    if info.is_empty():
+        return
+    var s := _placa.size
+    var dx := 46.0 * Grafica.SKEW
+    var colores: Array = Paleta.placa(int(info["pct"]) / 100.0)
+    var fondo: Array = colores[0]
+    var arriba := PackedVector2Array([Vector2(dx, 0), Vector2(s.x, 0), Vector2(s.x - dx * 0.5, 23), Vector2(dx * 0.5, 23)])
+    var abajo := PackedVector2Array([Vector2(dx * 0.5, 23), Vector2(s.x - dx * 0.5, 23), Vector2(s.x - dx, 46), Vector2(0, 46)])
+    _placa.draw_colored_polygon(PackedVector2Array([Vector2(dx, 4), Vector2(s.x + 4, 4), Vector2(s.x - dx + 4, 50), Vector2(4, 50)]), Color(0, 0, 0, 0.55))
+    _placa.draw_colored_polygon(arriba, fondo[0].lerp(fondo[1], 0.5))
+    _placa.draw_colored_polygon(abajo, fondo[2].lerp(fondo[3], 0.5))
+    _placa.draw_polyline(PackedVector2Array([Vector2(dx, 0), Vector2(s.x, 0), Vector2(s.x - dx, 46), Vector2(0, 46), Vector2(dx, 0)]), CONTORNO_FLECHA, 2.0, true)
+    var f := Paleta.letra("tv")
+    var pct := "%d%%" % int(info["pct"])
+    var w := f.get_string_size(pct, HORIZONTAL_ALIGNMENT_LEFT, -1, 42).x
+    _placa.draw_string(f, Vector2((s.x - w) * 0.5 + 2, 40), pct, HORIZONTAL_ALIGNMENT_LEFT, -1, 42, Color(0, 0, 0, 0.45))
+    _placa.draw_string(f, Vector2((s.x - w) * 0.5, 38), pct, HORIZONTAL_ALIGNMENT_LEFT, -1, 42, colores[1])
+    var extra: Array = []
+    if info["misma_zona"]:
+        extra.append("NO AVANZA")
+    if int(info["robo"]) >= 10:
+        extra.append("ROBO %d%%" % int(info["robo"]))
+    if not extra.is_empty():
+        var t := " · ".join(extra)
+        _placa.draw_rect(Rect2(4, 47, s.x - 12, 21), Color(0.043, 0.067, 0.106, 0.92))
+        var tw := f.get_string_size(t, HORIZONTAL_ALIGNMENT_LEFT, -1, 16).x
+        _placa.draw_string(f, Vector2((s.x - tw) * 0.5, 63), t, HORIZONTAL_ALIGNMENT_LEFT, -1, 16, CORAL if int(info["robo"]) >= 10 else Color.WHITE)

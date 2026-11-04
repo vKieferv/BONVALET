@@ -52,6 +52,7 @@ var counts_seen := 0
 var rival_steps := 0
 var rival_skips := 0
 var rival_fast := 0
+var same_zone_mouse := 0       # pases a la misma zona (D-46) hechos con el mouse
 
 
 func _initialize() -> void:
@@ -59,6 +60,9 @@ func _initialize() -> void:
 		if arg.begins_with("--matches="):
 			total_matches = maxi(1, int(arg.get_slice("=", 1)))
 	mouse = MouseDuelos.new(self)
+	for pair in [["U. de Chile", "UCH"], ["U. Católica", "UC"], ["Colo-Colo", "CC"]]:
+		if PantallaDuelos.sigla(pair[0]) != pair[1]:
+			errors.append("La sigla de %s sale %s (se espera %s)" % [pair[0], PantallaDuelos.sigla(pair[0]), pair[1]])
 	view = load("res://scenes/match_view.tscn").instantiate()
 	root.add_child(view)
 	Engine.time_scale = TIME_SCALE
@@ -302,10 +306,13 @@ func _finish() -> bool:
 			errors.append("Por duelos nunca se vio la cuenta completa al mantener una lámina")
 		if rival_steps == 0 or rival_skips == 0:
 			errors.append("Por duelos no se vio el ataque del rival (%d jugadas) o no se probó SALTAR (%d)" % [rival_steps, rival_skips])
+		if same_zone_mouse == 0:
+			errors.append("Por duelos nunca se pasó a un compañero de la misma zona (D-46)")
 		if duel_checks == 0:
 			errors.append("Por duelos nunca se comparó la pantalla con el motor")
 		if duel_defense_plays == 0:
 			errors.append("Por duelos nunca se defendió con una lámina")
+		print("  duelos: %d pases a la misma zona (D-46) hechos con el mouse" % same_zone_mouse)
 		print("  duelos: %d partidos · %d jugadas con el mouse (%d pases) · %d revisiones contra el motor · %d portadores elegidos · %d cuentas · %d jugadas del rival vistas (%d saltadas, %d aceleradas) · %d defensas con lámina" % [
 			duel_matches, duel_plays, duel_passes, duel_checks, carrier_swaps, counts_seen, rival_steps, rival_skips, rival_fast, duel_defense_plays])
 	print("  aguantaste el balón %d veces · %d jugadas por zonas revisadas" % [holds, zone_checks])
@@ -445,10 +452,17 @@ func _duel_attack(p: PantallaDuelos) -> void:
 			continue
 		var from := ui.get_global_rect().get_center()
 		var receiver := ""
+		var same := false
 		var target := p.punto_de("L:" + carrier)
 		if MatchEngine.is_pass(c):
 			var options: Array = e.receivers(c)
 			receiver = String(options[duel_plays % options.size()]["id"])
+			var same_options: Array = options.filter(func(r): return e.pass_zone(c, r["id"]) == e.zone and e.target_zone(c) != e.zone)
+			if duel_passes % 3 == 1 and not same_options.is_empty():   # D-46: también se pasa en la misma zona
+				receiver = String(same_options[0]["id"])
+			same = same_options.any(func(r): return r["id"] == receiver)
+			if same:
+				same_zone_mouse += 1
 			target = p.punto_de("L:" + receiver)
 		else:
 			target.y = minf(target.y, p._alto_senal - 30.0)
@@ -473,6 +487,11 @@ func _duel_attack(p: PantallaDuelos) -> void:
 			if p.apuntado() != receiver:
 				errors.append("Arrastrando %s sobre %s, la pantalla apunta a '%s'" % [c.display_name, receiver, p.apuntado()])
 			_check_count_lines(p, c, receiver)
+			var plate := p.placa_info()
+			if not p.placa_visible() or "%d%%" % int(plate.get("pct", -1)) != expected:
+				errors.append("Apuntando %s a %s, la placa junto al receptor dice %s (visible: %s) y el motor %s" % [c.display_name, receiver, plate.get("pct", "—"), p.placa_visible(), expected])
+			if same and not plate.get("misma_zona", false):
+				errors.append("El pase en la misma zona no dice NO AVANZA en la placa")
 		if shown != expected:
 			errors.append("Apuntando %s, la lámina dice %s y el motor tira contra %s" % [c.display_name, shown, expected])
 		var plays_before: int = e.stats["plays"]

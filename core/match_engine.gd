@@ -188,6 +188,7 @@ var duel_short_play := true         # D-43: en los Momentos de 2 jugadas el Áre
 var short_play := false             # el Momento en curso es una jugada corta con el Área desordenada (D-43)
 var duel_press_divisor := DUEL_PRESS_DIVISOR
 var duel_bot_lookahead := true      # D-43: CoachBot elige receptor y portador mirando una jugada más (no cambia reglas)
+var duel_same_zone := true          # D-46: el pase también puede ir a un compañero de la zona en juego (no avanza)
 var carrier: Dictionary = {}        # el portador: juega las cartas del Momento
 var carrier_extra := false          # llegó a esta zona con un regate: el rival lo cuenta al repartir
 var carrier_chosen := false         # quien juega ya eligió el portador de la Salida (set_carrier)
@@ -226,7 +227,7 @@ var stats := {"goals": 0, "moments": 0, "flow_moments": 0, "flow_breaks": 0, "in
 	"counters": 0, "steals": 0, "saves": 0, "rebounds": 0,
 	"dribble_entries": 0, "dribble_doubled": 0, "back_plays": 0,
 	"transition_moments": 0, "transition_goals": 0, "salida_steals": 0, "salida_steals_fwd": 0,
-	"salida_steal_skill": 0, "short_moments": 0, "short_goals": 0}
+	"salida_steal_skill": 0, "short_moments": 0, "short_goals": 0, "same_zone_passes": 0}
 # counters: Momentos propios que arrancaron con contragolpe. steals / saves / rebounds (modo de zonas):
 # fallos que fueron robo, remates fallados que se quedó el arquero y remates fallados con rebote.
 # Modo de duelos: dribble_entries = regates que entraron a otra zona; dribble_doubled = de ellos, los
@@ -641,8 +642,14 @@ func _resolve_attack(card: Card, success: bool, natural: bool, ev: Dictionary) -
 		deck.discard_from_hand(card)
 	elif success:
 		var back := duel_on() and card.back
+		# D-46: pase a un compañero de la zona en juego: cambia el portador sin avanzar.
+		var same := duel_on() and is_pass(card) and not back \
+				and pass_zone(card, String(ev.get("receiver", ""))) == zone and target_zone(card) != zone
 		if back:   # modo de duelos: la pelota vuelve a la zona anterior (deshace un avance)
 			progress = maxi(0, progress - 1)
+		elif same:
+			ev["same_zone"] = true
+			stats["same_zone_passes"] += 1
 		else:
 			progress += card.steps   # casi siempre 1; un Pelotazo vale 2
 		streak += NATURAL_FLOW_CHARGE if natural else 1
@@ -662,6 +669,8 @@ func _resolve_attack(card: Card, success: bool, natural: bool, ev: Dictionary) -
 			_finish_moment(true)
 		elif back:
 			zone = maxi(Zone.SALIDA, zone - 1) as Zone
+			_duel_after_success(card, String(ev.get("receiver", "")), ev)
+		elif same:
 			_duel_after_success(card, String(ev.get("receiver", "")), ev)
 		else:
 			var zone_before := zone
@@ -825,19 +834,39 @@ func target_zone(card: Card, z: int = -1) -> int:
 	return mini(Zone.AREA, z + card.steps)
 
 
-# Compañeros que pueden recibir el pase: los de la línea de la zona a la que va, menos el portador.
+# Compañeros que pueden recibir el pase: los de la línea de la zona a la que va, menos el portador; con
+# D-46 (duel_same_zone), también los de la zona en juego (pase que no avanza; la vuelta atrás, no).
 func receivers(card: Card, z: int = -1) -> Array:
 	if not is_pass(card):
 		return []
-	var cid := String(_assumed_carrier(zone if z < 0 else z).get("id", ""))
-	return zone_players(target_zone(card, z)).filter(func(r): return r["id"] != cid)
+	var zz := zone if z < 0 else z
+	var cid := String(_assumed_carrier(zz).get("id", ""))
+	var tz := target_zone(card, z)
+	var out: Array = zone_players(tz).filter(func(r): return r["id"] != cid)
+	if duel_same_zone and not card.back and tz != zz:
+		out.append_array(zone_players(zz).filter(func(r): return r["id"] != cid))
+	return out
 
 
-# El receptor con el mejor % para la carta ("" si no hay ninguno).
+# D-46: zona a la que llega el pase al receptor `receiver`: la zona en juego si es de esa línea (pase en la
+# misma zona, no avanza) o la de target_zone.
+func pass_zone(card: Card, receiver: String, z: int = -1) -> int:
+	var zz := zone if z < 0 else z
+	var tz := target_zone(card, z)
+	if duel_same_zone and not card.back and tz != zz and zone_players(zz).any(func(r): return r["id"] == receiver):
+		return zz
+	return tz
+
+
+# El receptor con el mejor % para la carta ("" si no hay ninguno), entre los que la hacen avanzar (los de
+# la misma zona solo si no hay otro): es el receptor por defecto y el que suponen los planes del bot.
 func best_receiver(card: Card) -> String:
 	var best := ""
 	var best_p := -1.0
-	for r in receivers(card):
+	var options := receivers(card).filter(func(r): return pass_zone(card, r["id"]) != zone)
+	if options.is_empty():
+		options = receivers(card)
+	for r in options:
 		var p := success_chance(card, -1, r["id"])
 		if p > best_p:
 			best_p = p
@@ -978,6 +1007,7 @@ func _duel_items(card: Card, z: int, receiver: String, items: Array) -> void:
 			r = _least_marked(zone_players(tz), tz, String(c["id"]))
 		if r.is_empty():
 			return
+		tz = pass_zone(card, r["id"], z)   # D-46: el receptor puede estar en la zona en juego
 		_press_item(c, markers_of(z, c["id"]), items)
 		var m := markers_of(tz, r["id"])
 		if card.steps >= 2 and not card.back:   # Pelotazo: sin duelo, se salta la línea
@@ -1033,7 +1063,7 @@ func _count_salida_steal(card: Card, receiver: String, ev: Dictionary) -> void:
 	var stealer := {}
 	var pressers := markers_of(Zone.SALIDA, String(carrier.get("id", "")))
 	if is_pass(card) and (duel_press_divisor <= 0.0 or pressers.is_empty()):
-		var m := markers_of(target_zone(card, Zone.SALIDA), receiver)
+		var m := markers_of(pass_zone(card, receiver, Zone.SALIDA), receiver)
 		if not m.is_empty():
 			stealer = _best_by(m, "lectura")
 	elif not pressers.is_empty():

@@ -40,6 +40,7 @@ func _initialize() -> void:
 	_test_duel_bot()
 	_test_duel_d42()
 	_test_duel_d43()
+	_test_duel_d46()
 	print("engine_rules: %d comprobaciones, %d fallas" % [checks, failures.size()])
 	for f in failures:
 		print("  FALLA: " + f)
@@ -1191,9 +1192,9 @@ func _test_duel_pass_example() -> void:
 	var cat := CardDB.load_catalog(DECK_PATH)
 	var pase := Card.from_dict(cat["pase_corto"])
 	e.deck.hand.append(pase)
-	var ids: Array = e.receivers(pase).map(func(r): return r["id"])
+	var ids: Array = e.receivers(pase).filter(func(r): return e.pass_zone(pase, r["id"]) == MatchEngine.Zone.MEDIO).map(func(r): return r["id"])
 	_check(ids.size() == 4 and ids.has("matias_fernandez") and not ids.has("miguel_aceval"),
-			"el pase de la Salida va a uno de los 4 del medio")
+			"el pase que avanza desde la Salida va a uno de los 4 del medio")
 	_check(e.success_chance(pase, -1, "matias_fernandez") == 0.29,
 			"Aceval a Fernández (1 vs 2, Iturra Lectura 75): 29%% (da %s)" % e.success_chance(pase, -1, "matias_fernandez"))
 	_check(e.success_chance(pase, -1, "arturo_vidal") == 0.57,
@@ -1295,7 +1296,8 @@ func _test_duel_rules() -> void:
 	_check(not to_suazo.any(func(i): return String(i["label"]).begins_with("Duelo")), "el Pelotazo no pelea")
 	_check(is_equal_approx(p.success_chance(pelotazo, -1, "hector_mancilla") - p.success_chance(pelotazo, -1, "humberto_suazo"), 0.12),
 			"el Pelotazo a un libre (+6) contra uno en doble marca (−6)")
-	_check(p.receivers(pelotazo).all(func(r): return p.zone_players(MatchEngine.Zone.AREA).has(r)), "el Pelotazo va al Área")
+	_check(p.receivers(pelotazo).filter(func(r): return p.pass_zone(pelotazo, r["id"]) != p.zone).all(
+			func(r): return p.zone_players(MatchEngine.Zone.AREA).has(r)), "el Pelotazo que avanza va al Área")
 	# Regate: si sale, sigue con la pelota y el rival reparte el Medio contándolo a él.
 	var dribbled := false
 	for seed in range(100, 200):
@@ -1527,3 +1529,63 @@ func _test_duel_d43() -> void:
 	_check(next_f > next_v, "Fernández puede hacer más después de recibir que Vidal (%s contra %s)" % [next_f, next_v])
 	_check([b.carrier, b.zone, b.progress] == before, "mirar una jugada más no cambia el motor")
 	_check(CoachBot.choose_receiver(b, p2) == "matias_fernandez", "con el mismo % de recibir, el bot se la da a Fernández")
+
+
+# D-46: el pase también va a un compañero de la zona en juego; no avanza, cambia el portador y se tira igual
+# (su Pase contra la Lectura de quien marca al receptor, con el robo de esa zona si falla).
+func _test_duel_d46() -> void:
+	var cat := CardDB.load_catalog(DECK_PATH)
+	var pase := Card.from_dict(cat["pase_corto"])
+	var e := _duel_engine(461)
+	e.deck.hand.append(pase)
+	var mate: Dictionary = e.zone_players(MatchEngine.Zone.SALIDA).filter(func(p): return p != e.carrier)[0]
+	var ids: Array = e.receivers(pase).map(func(r): return r["id"])
+	_check(ids.has(mate["id"]) and ids.has("matias_fernandez"), "el pase va a la Salida o al Medio (D-46): %s" % [ids])
+	_check(not ids.has(e.carrier["id"]), "el portador no se pasa a sí mismo")
+	_check(e.can_play(pase, mate["id"]), "se puede pasar a un compañero de la misma zona")
+	_check(e.pass_zone(pase, mate["id"]) == MatchEngine.Zone.SALIDA and e.pass_zone(pase, "matias_fernandez") == MatchEngine.Zone.MEDIO,
+			"pass_zone: la misma zona o la siguiente según el receptor")
+	_check(e.pass_zone(pase, e.best_receiver(pase)) == MatchEngine.Zone.MEDIO, "el receptor por defecto (y el de los planes del bot) avanza")
+	# Su duelo: Pase del portador contra la Lectura de quien marca al receptor, en la Salida.
+	var marker: Dictionary = e.defender_line(MatchEngine.Zone.SALIDA)[0]
+	e.marks[MatchEngine.Zone.SALIDA] = {mate["id"]: [marker], e.carrier["id"]: []}
+	var labels: Array = e.chance_breakdown(pase, -1, mate["id"]).map(func(i): return i["label"])
+	var duel := "Duelo: Pase %d contra Lectura %d (%s)" % [int(e.carrier["pase"]), int(marker["lectura"]), marker["name"]]
+	_check(labels.has(duel), "el pase en la misma zona pelea con la Lectura de su marca: %s" % [labels])
+	_check(e.steal_chance(pase, -1, mate["id"]) > 0.0, "si falla en la Salida, puede ser robo")
+	# Si sale: no avanza, la zona sigue y el receptor es el portador. El % mostrado es el que se tira.
+	var ok_seen := false
+	var fail_seen := false
+	for s in 40:
+		var t := _duel_engine(470 + s)
+		var c := Card.from_dict(cat["pase_corto"])
+		t.deck.hand.append(c)
+		var m: Dictionary = t.zone_players(MatchEngine.Zone.SALIDA).filter(func(p): return p != t.carrier)[0]
+		var shown := t.success_chance(c, -1, m["id"])
+		var steal := t.steal_chance(c, -1, m["id"])
+		var ev := t.play_card(t.deck.hand.find(c), m["id"])
+		_check(is_equal_approx(float(ev["chance"]), shown), "se tira contra el % mostrado para ese receptor")
+		if ev["success"]:
+			ok_seen = true
+			_check(t.progress == 0 and t.zone == MatchEngine.Zone.SALIDA, "el pase en la misma zona no avanza")
+			_check(t.carrier == m and ev.get("same_zone", false), "el receptor de la misma zona queda con la pelota")
+		else:
+			fail_seen = true
+			_check(ev.get("stolen", false) == (float(ev["roll"]) >= 1.0 - steal), "el robo sale de la misma tirada")
+	_check(ok_seen and fail_seen, "se vio el pase en la misma zona salir y fallar")
+	_check(int(_duel_engine(461).stats["same_zone_passes"]) == 0, "la estadística arranca en cero")
+	# Apagado (D-40), solo la zona siguiente; en el Área, los del Área (sin repetirlos).
+	var off := _duel_engine(462)
+	off.duel_same_zone = false
+	off.deck.hand.append(pase)
+	_check(off.receivers(pase).all(func(r): return off.zone_players(MatchEngine.Zone.MEDIO).has(r)), "sin D-46, solo la zona siguiente")
+	var a := _duel_engine(463)
+	a.zone = MatchEngine.Zone.AREA
+	a.progress = 2
+	a.carrier = a.zone_players(MatchEngine.Zone.AREA)[0]
+	_check(a.receivers(pase).size() == a.zone_players(MatchEngine.Zone.AREA).size() - 1, "en el Área los receptores no se repiten")
+	# El bot: CoachBot.choose_receiver puede elegir la misma zona, pero a la mitad de su puntaje.
+	var b := _duel_engine(464)
+	b.deck.hand.append(pase)
+	var choice := CoachBot.choose_receiver(b, pase)
+	_check(choice != "", "el bot elige un receptor con D-46")

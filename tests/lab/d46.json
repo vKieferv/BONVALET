@@ -1,0 +1,5 @@
+[
+	{"defaults": {"extra_clubs": ["universidad_de_chile"]}},
+	{"name": "duelos D-43 (sin pase en la misma zona) · inicio", "duelos": true, "duel": {"same_zone": false}},
+	{"name": "duelos D-46 (pase en la misma zona) · inicio", "duelos": true, "duel": {"same_zone": true}}
+]

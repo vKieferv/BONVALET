@@ -433,6 +433,15 @@ cada carta tiene su trayectoria (I-63), ningún regate y una defensa que no es l
    revisarla, por ejemplo 0 PA y robar 1.
 Se implementa después de mezclar T-13 (las reglas nuevas viven ahí) y se mide con `balance-lab`.
 
+**D-46 · 2026-11-04 · Se puede pasar a un compañero de la misma zona** · VIGENTE (valores en prueba)
+El usuario, al jugar T-11: "no me deja jugar cartas de pase entre jugadores de la misma zona". Cambia la
+regla 1 de D-40 (el pase iba solo a la zona siguiente):
+1. Una carta de pase puede ir a un compañero de la **zona actual** o de la siguiente.
+2. **El pase en la misma zona no avanza:** cambia el portador y se tira como cualquier pase (su Pase contra
+   la Lectura de quien marca al receptor), con el robo de esa zona si falla.
+3. Sirve para buscar a la figura o salir de una presión sin arriesgar el avance; el límite sigue siendo la
+   mano y los PA.
+
 ### Descartadas (para no reabrirlas sin datos nuevos)
 - **Tempo ofensivo +7 / regen +3** (2026-10-26): no llegaba al objetivo de goles y quedó obsoleto con
   PA + Estamina; el stash se borró.

@@ -1080,6 +1080,8 @@ func _refrescar_laminas() -> void:
         var chance := -1.0
         if not pase or receptor != "":
             chance = engine.success_chance(c, -1, receptor)
+        if not ataque and engine.duel_defense_on() and c.kind != Card.Kind.CLEARANCE and engine.defense_target(c) == "":
+            chance = -1.0   # D-44: no sirve contra esta jugada: sin defensor, no hay %
         var usable := engine.can_play(c) and not ocupado
         ui.update_stats(engine.ap_cost_of(c), c.ap_cost, engine.stamina_cost_of(c), maxf(chance, 0.0), usable,
                 c.flow_uses > 0 and engine.flow_active, [], "" if ocupado else CardUI.unplayable_reason(engine, c))

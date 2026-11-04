@@ -456,6 +456,7 @@ TEMPORAL, DESORDENADO y AMARILLA (esta última, además, como mecánica: D-39).
 | **AL TOQUE** | Si no la juegas en este Momento, se descarta |
 | **+PA** | Suma PA a este Momento |
 | **INSTRUCCIÓN** | Se juega una vez y queda activa el resto del partido; solo una a la vez |
+| **ATRÁS** | La pelota vuelve a la zona anterior y el rival reparte de nuevo sus marcas (D-47) |
 
 ### Tiki-Taka · brilla en el Medio: cadenas baratas, posesión, nunca perder la pelota
 | Carta | Rareza | Tipo | PA | Desg. | Bono | Efecto | "+" |
@@ -540,6 +541,29 @@ puede jugar y aparece con la cinta "DESGASTE EXCESIVO". Mientras no exista el ca
 | Atleta | **Pique largo** | pase | 1 | 8 | +10 | AVANZA 2 | +16 |
 | Atajador | **Achique** | defensa | 1 | 3 | +10 | Su remate en mano a mano −10 | −16 |
 | Atajador | **Atajada imposible** | defensa | 2 | 4 | — | UNA VEZ: anula un remate que iba a ser gol | Cuesta 1 PA |
+
+### Ajustes al partido de duelos (D-47, 2026-11-04)
+Las cartas v2 se diseñaron antes del portador y las marcas (D-40 a D-46). Donde una carta de arriba diga
+otra cosa, manda esto:
+1. **Traducción de efectos viejos:**
+   | Antes decía | Ahora significa |
+   |---|---|
+   | +1 ATACANTE en el Área (Llegada de segunda línea, Todos al área) | Aparece un compañero **libre** en el Área para recibir |
+   | +N DEFENSORES en tu Área o tu Medio (Línea de cinco, Doble pivote, Repliegue) | Pones N marcas más sobre rivales de esa zona |
+   | Ignora los números del Área (Lluvia de centros, Pelota parada) | **Ignora las marcas**: el que recibe o remata cuenta como libre |
+   | Caño: ignora la Presión rival | Ignora la **presión al portador** (D-43) |
+2. **Las jugadas de crack solo las juega su dueño, cuando tiene la pelota.** Para la Chilena, Suazo tiene que
+   ser el portador. Le da al jugador (y al bot) una razón para buscar a la figura aunque esté marcada.
+3. **Cartas que liberan a la figura:**
+   - **Paredita** (Tiki-Taka): pasas y te la devuelven; el portador recupera la pelota con **una marca menos**.
+   - **Sombrerito** (Gambeteador): si sale, el portador **se saca una marca de encima**.
+   - **Descarga** (genérica): 0 PA, ATRÁS y ROBA 1. Es el premio que le faltaba a la vuelta atrás.
+4. **Presión que sí sirve:** **Presión alta** (Kamikaze; y el Pressing de Tiki-Taka): el rival no puede salir
+   por su jugador libre y sale por el que tú elijas.
+5. **Defensa (D-44):** las cartas de defensa se arrastran sobre un rival y las juega tu defensor más cercano.
+   Marcaje al hombre, Pierna fuerte y Barrida calzan sin cambios de efecto.
+6. **ATRÁS es la 9.ª palabra clave** (Descarga, Esperar atrás), dentro del límite de 8 a 10 de D-39.
+7. **Sin cambios:** Cabezazo, Palomita, Vaselina, AVANZA 2, ROBA y CONTRAGOLPE.
 
 ### Cómo se mide y qué sigue (D-39)
 - **Regla del 4%:** cada carta se mide agregando **1 copia al mazo de todos los equipos** de la matriz de

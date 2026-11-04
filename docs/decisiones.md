@@ -442,6 +442,13 @@ regla 1 de D-40 (el pase iba solo a la zona siguiente):
 3. Sirve para buscar a la figura o salir de una presión sin arriesgar el avance; el límite sigue siendo la
    mano y los PA.
 
+**D-47 · 2026-11-04 · Las cartas v2 se ajustan al partido de duelos** · VIGENTE (valores en prueba)
+El usuario aprobó los 7 ajustes de `cartas.md`, "Ajustes al partido de duelos": traducir los efectos de números de
+zona a marcas, jugadas de crack solo por su dueño con la pelota, cartas que liberan a la figura (Paredita,
+Sombrerito, Descarga), Presión alta, defensa por arrastre (D-44) y ATRÁS como 9.ª palabra clave. Por qué: en
+T-13 la figura con doble marca quedó fuera del juego (1% de los toques de Fernández) y la presión casi no robaba;
+se resuelve con cartas en vez de más reglas.
+
 ### Descartadas (para no reabrirlas sin datos nuevos)
 - **Tempo ofensivo +7 / regen +3** (2026-10-26): no llegaba al objetivo de goles y quedó obsoleto con
   PA + Estamina; el stash se borró.

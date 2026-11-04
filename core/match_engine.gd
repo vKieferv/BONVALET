@@ -124,6 +124,12 @@ const TRANSITION_STAY_DEFAULT := [4, 3]
 const DUEL_PRESS_DIVISOR := 12.0
 # Orden de los puestos de atrás hacia adelante: reparte a los titulares en las líneas de la formación.
 const ROLE_DEPTH := {"DFC": 0, "LAT": 1, "MCD": 2, "MCO": 3, "EXT": 4, "DEL": 5}
+# D-44 (T-15), la defensa es el ataque al revés: con el modo de duelos, el rival anuncia cada jugada y
+# tus cartas de defensa se juegan sobre un rival con tu defensor más cercano. La Presión resta a la
+# jugada anunciada su efecto de hoy × este valor (hoy restaba 6 a todas las jugadas del ataque; ahora,
+# a una sola) y el Bloqueo, al remate anunciado, su efecto × el otro. Valores de prueba.
+const DUEL_DEF_PRESS_MULT := 2.0
+const DUEL_DEF_BLOCK_MULT := 1.0
 
 var player: PlayerStats
 var deck: DeckManager
@@ -189,6 +195,10 @@ var short_play := false             # el Momento en curso es una jugada corta co
 var duel_press_divisor := DUEL_PRESS_DIVISOR
 var duel_bot_lookahead := true      # D-43: CoachBot elige receptor y portador mirando una jugada más (no cambia reglas)
 var duel_same_zone := true          # D-46: el pase también puede ir a un compañero de la zona en juego (no avanza)
+var duel_defense := true            # D-44: contra un ataque por duelos, la defensa va jugada a jugada (false: la de T-10)
+var duel_def_press_mult := DUEL_DEF_PRESS_MULT
+var duel_def_block_mult := DUEL_DEF_BLOCK_MULT
+var defense_penalties: Array = []   # D-44: lo que la defensa rival le restó a la jugada anunciada [{label, value}]
 var carrier: Dictionary = {}        # el portador: juega las cartas del Momento
 var carrier_extra := false          # llegó a esta zona con un regate: el rival lo cuenta al repartir
 var carrier_chosen := false         # quien juega ya eligió el portador de la Salida (set_carrier)
@@ -220,6 +230,10 @@ var in_defense := false
 var defense_difficulty := 0.0
 var defense_plays := 0
 var defense_result := {}     # {pressure, block, cancelled, emergency}
+# D-44: el ataque por duelos del rival que estás defendiendo (null = la defensa de siempre, antes del
+# ataque) y su jugada anunciada {card: Card o null, receiver, hold}.
+var defense_att: MatchEngine = null
+var defense_intent := {}
 
 var stats := {"goals": 0, "moments": 0, "flow_moments": 0, "flow_breaks": 0, "injuries": 0,
 	"plays": 0, "elite_plays": 0, "tired_plays": 0, "natural_plays": 0, "skipped": 0,
@@ -227,7 +241,8 @@ var stats := {"goals": 0, "moments": 0, "flow_moments": 0, "flow_breaks": 0, "in
 	"counters": 0, "steals": 0, "saves": 0, "rebounds": 0,
 	"dribble_entries": 0, "dribble_doubled": 0, "back_plays": 0,
 	"transition_moments": 0, "transition_goals": 0, "salida_steals": 0, "salida_steals_fwd": 0,
-	"salida_steal_skill": 0, "short_moments": 0, "short_goals": 0, "same_zone_passes": 0}
+	"salida_steal_skill": 0, "short_moments": 0, "short_goals": 0, "same_zone_passes": 0,
+	"cut_moments": 0, "duel_def_plays": 0}
 # counters: Momentos propios que arrancaron con contragolpe. steals / saves / rebounds (modo de zonas):
 # fallos que fueron robo, remates fallados que se quedó el arquero y remates fallados con rebote.
 # Modo de duelos: dribble_entries = regates que entraron a otra zona; dribble_doubled = de ellos, los
@@ -402,6 +417,8 @@ func stamina_cost_of(card: Card) -> float:
 # las jugadas que vienen); -1 = la zona actual.
 # receiver (modo de duelos): id del compañero que recibe un pase; "" = el mejor receptor (best_receiver).
 func chance_breakdown(card: Card, at_zone: int = -1, receiver: String = "") -> Array:
+	if duel_defense_on() and card.kind != Card.Kind.CLEARANCE:
+		return _duel_defense_breakdown(card)
 	var duel := duel_on()
 	var items: Array = [{"label": "Base", "value": duel_base}] if duel \
 			else [{"label": "Base (técnica)", "value": player.base_success()}]
@@ -435,6 +452,8 @@ func chance_breakdown(card: Card, at_zone: int = -1, receiver: String = "") -> A
 				items.append({"label": "Espacios del rival", "value": exploit_shot_bonus})
 		if duel:
 			_duel_items(card, zone if at_zone < 0 else at_zone, receiver, items)
+			if at_zone < 0 or at_zone == zone:
+				items.append_array(defense_penalties)   # D-44: la defensa rival sobre la jugada anunciada
 		elif zone_mode:
 			_zone_items(card, zone if at_zone < 0 else at_zone, items)
 	return items
@@ -550,6 +569,8 @@ func can_play(card: Card, receiver: String = "") -> bool:
 	if receiver != "" and duel_on() and is_pass(card) \
 			and not receivers(card).any(func(r): return r["id"] == receiver):
 		return false
+	if duel_defense_on() and card.kind != Card.Kind.CLEARANCE and defense_target(card) == "":
+		return false
 	return not (card.kind == Card.Kind.PAUSE and pauses >= MAX_PAUSES)
 
 
@@ -579,6 +600,8 @@ func play_card(hand_index: int, receiver: String = "") -> Dictionary:
 	var steal := steal_chance(card, -1, receiver)   # modo de zonas: lo que mostraba la carta antes de jugarla
 	var save := save_chance(card, -1, receiver)
 	var natural := is_natural_executor(card)
+	var defended := defense_penalties.duplicate()
+	defense_penalties.clear()
 	ap -= ap_cost
 	player.energy = maxf(0.0, player.energy - stamina)
 	if in_defense:
@@ -602,6 +625,12 @@ func play_card(hand_index: int, receiver: String = "") -> Dictionary:
 		ev["play_zone"] = zone   # zona de la cancha donde se jugó la carta
 		ev["steal_chance"] = steal
 		ev["save_chance"] = save
+	if not defended.is_empty():
+		ev["defended"] = defended   # D-44: lo que le restó la defensa rival a esta jugada
+	if duel_defense_on() and card.kind != Card.Kind.CLEARANCE:
+		ev["defender"] = String(defense_defender(card).get("id", ""))   # quién la jugó
+		ev["target"] = defense_target(card)                              # sobre qué rival
+		stats["duel_def_plays"] += 1
 	if duel:
 		ev["carrier"] = String(carrier.get("id", ""))   # quién jugó la carta
 		ev["receiver"] = receiver                      # a quién iba el pase ("" si no es pase)
@@ -746,7 +775,16 @@ func _end_if_stuck(ev: Dictionary) -> void:
 
 
 func abort_moment() -> void:
+	defense_penalties.clear()
 	if not moment_over:
+		_finish_moment(false)
+
+
+# D-44: la defensa rival cortó el Momento a mitad de camino (intercepción o despeje).
+func cut_moment() -> void:
+	defense_penalties.clear()
+	if not moment_over:
+		stats["cut_moments"] += 1
 		_finish_moment(false)
 
 
@@ -1143,6 +1181,7 @@ func hold_ball() -> Dictionary:
 		return {"ok": false, "reason": "not_playable"}
 	var cost := hold_ap_cost()
 	var p := hold_chance()
+	defense_penalties.clear()
 	holds += 1
 	stats["holds"] += 1
 	ap -= cost
@@ -1199,7 +1238,13 @@ func advance(new_posture: Posture) -> void:
 # ---------- Defensa (posesión rival) ----------
 
 # attack_difficulty: dificultad de las jugadas defensivas (calidad del ataque rival).
-func begin_defense(attack_difficulty: float) -> void:
+# att (D-44): el motor del rival que ataca, ya con su Momento empezado; si los dos juegan por duelos, la
+# defensa va jugada a jugada (set_defense_intent antes de cada una) y quien arma el partido la cierra
+# (end_defense) cuando termina el Momento del rival.
+func begin_defense(attack_difficulty: float, att: MatchEngine = null) -> void:
+	defense_att = att if att != null and duel_defense and duel_mode and not duel_players.is_empty() \
+			and att.duel_on() else null
+	defense_intent = {}
 	in_defense = true
 	defense_difficulty = attack_difficulty
 	defense_plays = 0
@@ -1208,7 +1253,7 @@ func begin_defense(attack_difficulty: float) -> void:
 	ap = ap_max
 	deck.set_possession(DeckManager.Possession.POSSESSION_DEFENSE)
 	deck.draw(defense_draw_count())
-	if playable_indices().is_empty() and not can_emergency_clear():
+	if defense_att == null and playable_indices().is_empty() and not can_emergency_clear():
 		end_defense()
 
 
@@ -1221,6 +1266,8 @@ func end_defense() -> Dictionary:
 	if in_defense:
 		in_defense = false
 		deck.discard_hand()
+	defense_intent = {}
+	defense_att = null   # lo que restó la defensa (defense_penalties) sigue hasta que el rival tira
 	return defense_result
 
 
@@ -1246,6 +1293,8 @@ func emergency_clear() -> Dictionary:
 	stats["emergencies"] += 1
 	defense_result["block"] += EMERGENCY_SHOT_PENALTY
 	defense_result["emergency"] = true
+	if defense_att != null:   # D-44: castiga los remates que le quedan a este ataque
+		defense_att.opponent_block += EMERGENCY_SHOT_PENALTY
 	var ev := {"ok": true, "emergency": true, "ap": ap_spent, "stamina": stamina, "injury": false}
 	_check_exhaustion(ev)
 	_roll_injury(ev)
@@ -1259,6 +1308,9 @@ func emergency_clear() -> Dictionary:
 func _resolve_defense(card: Card, success: bool, ev: Dictionary) -> void:
 	defense_plays += 1
 	deck.discard_from_hand(card)
+	if defense_att != null:
+		_resolve_duel_defense(card, success, ev)
+		return
 	if success:
 		if card.counter:
 			counter_ready = true   # recuperas arriba: tu próximo Momento arranca con 1 jugada
@@ -1276,6 +1328,148 @@ func _resolve_defense(card: Card, success: bool, ev: Dictionary) -> void:
 	ev["cancelled"] = defense_result["cancelled"]
 	if defense_result["cancelled"] or injured \
 			or (playable_indices().is_empty() and not can_emergency_clear()):
+		end_defense()
+
+
+# ---------- Defensa por duelos (D-44, T-15) ----------
+# El ataque al revés: el rival anuncia su jugada (set_defense_intent) y tus cartas de defensa se juegan
+# sobre un rival con tu defensor más cercano: Presión sobre el portador (tu Quite contra su Regate; si
+# sale, su jugada anunciada pierde %), Intercepción sobre la línea del pase (tu Lectura contra su Pase;
+# si sale, cortas y recuperas con contragolpe), Bloqueo sobre el que remata (tu Quite contra su Remate;
+# si sale, su remate pierde %). El Despeje y el Despeje de emergencia, como siempre.
+
+func duel_defense_on() -> bool:
+	return in_defense and defense_att != null
+
+
+# Antes del Momento del rival: si los dos juegan por duelos, este equipo lo defiende jugada a jugada.
+func defends_by_duels(att: MatchEngine) -> bool:
+	return duel_defense and duel_mode and zone_mode and not duel_players.is_empty() \
+			and att.duel_mode and att.zone_mode and not att.duel_players.is_empty()
+
+
+# La jugada que anuncia el rival antes de tirarla: la carta (null si aguanta o cede), a quién pasa y si
+# aguanta el balón. Sin carta ni aguantar, no hay nada que defender.
+func set_defense_intent(card: Card, receiver: String = "", hold := false) -> void:
+	defense_intent = {"card": card, "receiver": receiver, "hold": hold} if card != null or hold else {}
+
+
+func intent_card() -> Card:
+	return defense_intent.get("card") if not defense_intent.is_empty() else null
+
+
+# Rival sobre el que va la carta con la jugada anunciada: la Presión, sobre el portador (si la jugada
+# pelea: no la Pausa); el Bloqueo, sobre el portador si remata; la Intercepción, sobre el receptor si
+# pasa. "" = la carta no sirve contra esta jugada (aguantar el balón solo se corta con el Despeje).
+func defense_target(card: Card) -> String:
+	var c := intent_card()
+	if defense_att == null or c == null:
+		return ""
+	var carrier_id := String(defense_att.carrier.get("id", ""))
+	match card.kind:
+		Card.Kind.PRESS:
+			return carrier_id if c.kind != Card.Kind.PAUSE else ""
+		Card.Kind.BLOCK:
+			return carrier_id if c.kind == Card.Kind.SHOT else ""
+		Card.Kind.INTERCEPT:
+			return String(defense_intent.get("receiver", "")) if is_pass(c) else ""
+	return ""
+
+
+# Zona (del que ataca) donde está el rival apuntado: el receptor de un pase puede estar en la siguiente.
+func defense_target_zone(card: Card) -> int:
+	if defense_att == null:
+		return -1
+	if card.kind == Card.Kind.INTERCEPT and intent_card() != null:
+		return defense_att.pass_zone(intent_card(), String(defense_intent.get("receiver", "")))
+	return defense_att.zone
+
+
+static func defense_skill(card: Card) -> String:
+	return "lectura" if card.kind == Card.Kind.INTERCEPT else "quite"
+
+
+static func defense_rival_skill(card: Card) -> String:
+	match card.kind:
+		Card.Kind.INTERCEPT:
+			return "pase"
+		Card.Kind.BLOCK:
+			return "remate"
+	return "regate"
+
+
+# Tu defensor para la carta: el mejor (para esa carta) de los que marcan al rival apuntado; si nadie lo
+# marca, el mejor de tu línea en esa zona (pregunta abierta de T-15: la opción más simple); si la línea
+# está vacía, el mejor de campo.
+func defense_defender(card: Card) -> Dictionary:
+	var id := defense_target(card)
+	if id == "":
+		return {}
+	var z := defense_target_zone(card)
+	var skill := defense_skill(card)
+	var m: Array = defense_att.markers_of(z, id)
+	if not m.is_empty():
+		return _best_by(m, skill)
+	var line: Array = defense_att.defender_line(z)
+	if line.is_empty():
+		line = duel_players.filter(func(pl): return String(pl.get("role", "")) != "POR")
+	return {} if line.is_empty() else _best_by(line, skill)
+
+
+# Cuánto le resta a la jugada anunciada una Presión o un Bloqueo que sale (0 para las que cortan).
+func defense_effect(card: Card) -> float:
+	match card.kind:
+		Card.Kind.PRESS:
+			return (card.effect if card.effect >= 0.0 else PRESS_EFFECT) * duel_def_press_mult
+		Card.Kind.BLOCK:
+			return (card.effect if card.effect >= 0.0 else BLOCK_EFFECT) * duel_def_block_mult
+	return 0.0
+
+
+# Base fija + carta + tu defensor contra el portador (Quite contra Regate o Remate; Lectura contra Pase),
+# como el ataque; sin la dificultad del ataque rival (su calidad son sus habilidades).
+func _duel_defense_breakdown(card: Card) -> Array:
+	var items: Array = [{"label": "Base", "value": duel_base}]
+	if card.effective_bonus() != 0.0:
+		items.append({"label": "Carta", "value": card.effective_bonus()})
+	var d := defense_defender(card)
+	var c: Dictionary = defense_att.carrier if defense_att != null else {}
+	if not d.is_empty() and not c.is_empty():
+		var mine := defense_skill(card)
+		var theirs := defense_rival_skill(card)
+		var a := int(d.get(mine, 0))
+		var b := int(c.get(theirs, 0))
+		items.append({"label": "Duelo de %s: %s %d contra %s %d (%s)" % [d.get("name", ""), mine.capitalize(), a,
+				theirs.capitalize(), b, c.get("name", "")], "value": duel_skill_factor * float(a - b) / 100.0})
+		if card.owner_id != "" and card.owner_id == String(d.get("id", "")):
+			items.append({"label": "Ejecutor Natural", "value": duel_natural_bonus})
+	if form_bonus != 0.0:
+		items.append({"label": "Entrenamiento", "value": form_bonus})
+	return items
+
+
+func _resolve_duel_defense(card: Card, success: bool, ev: Dictionary) -> void:
+	var att := defense_att
+	if success:
+		if card.counter:
+			counter_ready = true
+		var effect := defense_effect(card)
+		var who := String(defense_defender(card).get("name", ""))
+		match card.kind:
+			Card.Kind.PRESS, Card.Kind.BLOCK:
+				att.defense_penalties.append({"label": "%s de %s" % [card.display_name, who], "value": -effect})
+				defense_result["pressure" if card.kind == Card.Kind.PRESS else "block"] += effect
+				ev["effect"] = effect
+			Card.Kind.INTERCEPT:
+				defense_result["cancelled"] = true
+				counter_ready = true
+				stats["interceptions"] += 1
+			Card.Kind.CLEARANCE:
+				defense_result["cancelled"] = true
+		if defense_result["cancelled"]:
+			att.cut_moment()
+	ev["cancelled"] = defense_result["cancelled"]
+	if defense_result["cancelled"] or injured or ap <= 0:
 		end_defense()
 
 

@@ -122,6 +122,29 @@ func _match(me_team: Dictionary, rv_team: Dictionary, s: int, a: Dictionary) -> 
 func _attack(att: MatchEngine, ap: BotProfile, def: MatchEngine, dp: BotProfile, def_diff: float,
 		a: Dictionary, at: String, dt: String) -> void:
 	att.exploit_rival_space = ap.punishes_passivity and def.posture == MatchEngine.Posture.LOW
+	if def.defends_by_duels(att):   # D-44 (T-15): la defensa jugada a jugada, como match_view y DuelRunner
+		att.opponent_pressure = 0.0
+		att.opponent_block = 0.0
+		a[at + "_moments"] += 1
+		var before: int = att.stats["goals"]
+		att.set_zone_rival(def)
+		att.begin_moment()
+		if not def.injured and not att.moment_over:
+			def.begin_defense(def_diff, att)
+		while not att.moment_over:
+			var step := CoachBot.defended_step(att, ap, def, dp)
+			for d in step["defense"]:
+				_rec(a, dt + "_def", d)
+				if d.get("cancelled", false):
+					a[dt + "_cut"] += 1
+			_rec(a, at + "_att", step["ev"])
+			if step["ev"].get("stolen", false):
+				def.counter_ready = true
+				a[dt + "_steals"] += 1
+		def.end_defense()
+		a[at + "_goals"] += att.stats["goals"] - before
+		att.advance(ap.default_posture as MatchEngine.Posture)
+		return
 	var r := CoachBot.run_defense(def, dp, def_diff)
 	for ev in r["plays"]:
 		_rec(a, dt + "_def", ev)

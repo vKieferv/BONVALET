@@ -53,6 +53,11 @@ var rival_steps := 0
 var rival_skips := 0
 var rival_fast := 0
 var same_zone_mouse := 0       # pases a la misma zona (D-46) hechos con el mouse
+var duel_intents := 0          # D-44: jugadas anunciadas del rival que se defendieron con el mouse
+var duel_emergencies := 0
+var rival_defended_plays := 0   # D-44: tus jugadas que el rival defendió antes de tirarlas
+var rival_cut_plays := 0        # ...y las que te cortó
+var drag_kinds := {Card.Kind.PRESS: 0, Card.Kind.INTERCEPT: 0, Card.Kind.BLOCK: 0}
 
 
 func _initialize() -> void:
@@ -312,6 +317,12 @@ func _finish() -> bool:
 			errors.append("Por duelos nunca se comparó la pantalla con el motor")
 		if duel_defense_plays == 0:
 			errors.append("Por duelos nunca se defendió con una lámina")
+		for k in drag_kinds:
+			if drag_kinds[k] == 0:
+				errors.append("Por duelos nunca se arrastró una carta de tipo %d sobre un rival (D-44)" % k)
+		print("  duelos D-44: el rival defendió %d de tus jugadas (%d cortadas)" % [rival_defended_plays, rival_cut_plays])
+		print("  duelos D-44: %d jugadas del rival anunciadas · arrastradas: %d presiones, %d intercepciones, %d bloqueos · %d despejes de emergencia" % [
+			duel_intents, drag_kinds[Card.Kind.PRESS], drag_kinds[Card.Kind.INTERCEPT], drag_kinds[Card.Kind.BLOCK], duel_emergencies])
 		print("  duelos: %d pases a la misma zona (D-46) hechos con el mouse" % same_zone_mouse)
 		print("  duelos: %d partidos · %d jugadas con el mouse (%d pases) · %d revisiones contra el motor · %d portadores elegidos · %d cuentas · %d jugadas del rival vistas (%d saltadas, %d aceleradas) · %d defensas con lámina" % [
 			duel_matches, duel_plays, duel_passes, duel_checks, carrier_swaps, counts_seen, rival_steps, rival_skips, rival_fast, duel_defense_plays])
@@ -378,7 +389,9 @@ func _watch_rival(p: PantallaDuelos) -> void:
 func _duel_defense(p: PantallaDuelos) -> void:
 	_acting = true
 	var e: MatchEngine = view._engine
-	if defenses % 3 == 0 and e.can_emergency_clear():
+	if e.duel_defense_on():
+		await _duel_drag_defense(p)
+	elif defenses % 3 == 0 and e.can_emergency_clear():
 		emergencies += 1
 		await mouse.clic(p._boton_aguantar.get_global_rect().get_center())   # en la defensa dice DESPEJE
 	else:
@@ -396,6 +409,94 @@ func _duel_defense(p: PantallaDuelos) -> void:
 			await mouse.clic(p._boton_ceder.get_global_rect().get_center())   # dejar pasar
 	await _wait_idle()
 	_acting = false
+
+
+# D-44 (T-15): el rival anunció su jugada. Se compara su intención con su motor y se defiende arrastrando la
+# lámina sobre el rival: el apuntado, la placa (tu %), tu defensor resaltado y la tirada contra el motor. Las
+# láminas de inicio solo traen Marca y Despeje: la primera vez que el rival pasa (o remata) se agrega a la
+# mano una Intercepción (o un Bloqueo) para probarlos también. Cada tanto se deja pasar o se despeja de
+# emergencia contra un remate.
+func _duel_drag_defense(p: PantallaDuelos) -> void:
+	var e: MatchEngine = view._engine
+	var r: MatchEngine = view._rival_engine
+	var it: Dictionary = view._intent_actual
+	var ic: Card = it.get("card")
+	await mouse.cuadros(2)
+	if not view._in_defense or it.is_empty():
+		return
+	duel_intents += 1
+	var rival_pct := roundi((r.hold_chance() if ic == null else r.success_chance(ic, -1, String(it.get("receiver", "")))) * 100.0)
+	if p.intencion_pct() != rival_pct or not p.intencion_texto().ends_with("%d%%" % rival_pct):
+		errors.append("La intención del rival dice '%s' y su motor tira contra %d%%" % [p.intencion_texto(), rival_pct])
+	var plate := p.placa_info()
+	if plate.is_empty() or int(plate["pct"]) != rival_pct:
+		errors.append("La placa de la jugada del rival dice %s y su motor %d%%" % [plate.get("pct", "nada"), rival_pct])
+	if ic != null and ic.kind == Card.Kind.SHOT and e.can_emergency_clear() and duel_emergencies == 0 and duel_intents > 3:
+		duel_emergencies += 1
+		await mouse.clic(p._boton_aguantar.get_global_rect().get_center())   # DESPEJE de emergencia
+		await _wait_idle()
+		if e.in_defense:
+			errors.append("El Despeje de emergencia no cerró la defensa")
+		return
+	if ic != null:
+		var want := ""
+		if ic.kind == Card.Kind.SHOT and drag_kinds[Card.Kind.BLOCK] == 0:
+			want = "bloqueo"
+		elif MatchEngine.is_pass(ic) and drag_kinds[Card.Kind.INTERCEPT] == 0:
+			want = "intercepcion"
+		if want != "":
+			var extra := Card.from_dict(CardDB.load_catalog("res://data/cards.json")[want])
+			if e.ap >= e.ap_cost_of(extra):
+				e.deck.hand.append(extra)
+				view._build_hand()
+				await mouse.cuadros(2)
+	var pick: CardUI = null
+	for ui in p.laminas():
+		if e.can_play(ui.card) and ui.card.kind != Card.Kind.CLEARANCE:
+			if pick == null or drag_kinds[ui.card.kind] < drag_kinds[pick.card.kind]:
+				pick = ui
+	if pick == null or duel_intents % 4 == 0:
+		await mouse.clic(p._boton_ceder.get_global_rect().get_center())   # DEJAR PASAR esta jugada
+		await _wait_idle()
+		return
+	var c: Card = pick.card
+	var target := e.defense_target(c)
+	var to := p.punto_de("V:" + target)
+	if c.kind == Card.Kind.INTERCEPT and p._linea_rival_2d.size() > 4:
+		to = p._linea_rival_2d[p._linea_rival_2d.size() / 2]   # sobre la línea del pase, no sobre el receptor
+	var from := pick.get_global_rect().get_center()
+	await mouse.arrastrar_hasta(from, to)
+	for k in 30:   # los jugadores todavía pueden estar llegando a su lugar: se sigue al rival
+		var now := p.punto_de("V:" + target)
+		if c.kind == Card.Kind.INTERCEPT and p._linea_rival_2d.size() > 4:
+			now = p._linea_rival_2d[p._linea_rival_2d.size() / 2]
+		if now.distance_to(to) < 1.0 and k > 2:
+			break
+		to = now
+		mouse.mover(to)
+		await mouse.cuadros(1)
+	await mouse.cuadros(2)
+	var shown := e.success_chance(c)
+	if p.apuntado() != target:
+		errors.append("Arrastrar %s sobre %s apuntó a '%s'" % [c.display_name, target, p.apuntado()])
+	var info := p.placa_info()
+	if info.is_empty() or int(info["pct"]) != roundi(shown * 100.0) or String(info["clave"]) != "V:" + target:
+		errors.append("La placa de %s dice %s junto a %s; el motor tira contra %d%% sobre %s" % [c.display_name,
+			info.get("pct", "nada"), info.get("clave", "-"), roundi(shown * 100.0), target])
+	var defender := String(e.defense_defender(c).get("id", ""))
+	if p.defensor_resaltado() != "L:" + defender:
+		errors.append("Se resalta a %s y la carta la juega %s" % [p.defensor_resaltado(), defender])
+	var plays_before: int = e.stats["defense_plays"]
+	mouse.soltar(to)
+	await mouse.cuadros(2)
+	if int(e.stats["defense_plays"]) != plays_before + 1:
+		errors.append("Soltar %s sobre el rival no la jugó" % c.display_name)
+	elif int(p.ultima_tirada.get("pct", -1)) != roundi(shown * 100.0):
+		errors.append("La tirada de %s muestra %s y se tiró contra %d%%" % [c.display_name, p.ultima_tirada.get("pct", "-"), roundi(shown * 100.0)])
+	else:
+		drag_kinds[c.kind] += 1
+		duel_defense_plays += 1
+	await _wait_idle()
 
 
 func _duel_attack(p: PantallaDuelos) -> void:
@@ -495,9 +596,24 @@ func _duel_attack(p: PantallaDuelos) -> void:
 		if shown != expected:
 			errors.append("Apuntando %s, la lámina dice %s y el motor tira contra %s" % [c.display_name, shown, expected])
 		var plays_before: int = e.stats["plays"]
+		var rival_def: MatchEngine = view._rival_engine
+		var rdef_before: int = rival_def.stats["defense_plays"]
+		var rhit_before: float = float(rival_def.defense_result.get("pressure", 0.0)) + float(rival_def.defense_result.get("block", 0.0))
 		mouse.soltar(target)
 		await mouse.cuadros(1)
-		if int(e.stats["plays"]) != plays_before + 1:
+		# D-44: el rival puede defender la jugada antes de que se tire; se espera su tirada.
+		var waited := 0
+		while int(rival_def.stats["defense_plays"]) != rdef_before and int(e.stats["plays"]) == plays_before \
+				and not e.moment_over and waited < 3000:
+			await mouse.cuadros(1)
+			waited += 1
+		if int(rival_def.stats["defense_plays"]) != rdef_before:
+			rival_defended_plays += 1
+			var hit := float(rival_def.defense_result.get("pressure", 0.0)) + float(rival_def.defense_result.get("block", 0.0)) - rhit_before
+			expected = "%d%%" % maxi(5, int(expected.trim_suffix("%")) - roundi(hit * 100.0))
+		if int(rival_def.stats["defense_plays"]) != rdef_before and e.moment_over and int(e.stats["plays"]) == plays_before:
+			rival_cut_plays += 1   # te cortó antes de tirar
+		elif int(e.stats["plays"]) != plays_before + 1:
 			errors.append("Soltar %s no la jugó (apuntaba a '%s', receptor '%s', se puede: %s, ocupado: %s)" % [c.display_name,
 				p.apuntado(), receiver, e.can_play(c, receiver), view._busy])
 		elif int(p.ultima_tirada.get("pct", -1)) != int(expected.trim_suffix("%")):

@@ -1,0 +1,6 @@
+[
+	{"defaults": {"extra_clubs": ["universidad_de_chile"]}},
+	{"name": "duelos · inicio", "duelos": true},
+	{"name": "duelos · mitad (+4)", "duelos": true, "picks": 4},
+	{"name": "duelos · final (+8)", "duelos": true, "picks": 8}
+]

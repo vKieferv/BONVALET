@@ -69,17 +69,63 @@ const DIG_MIN_CHANCE := 0.5         # sin plan, juega una carta que roba si sale
 # ejecuta las decisiones del bot (lo usan match_view, SimRunner y DuelRunner). Devuelve el evento
 # del motor, o {} si cedió. Si el evento trae "stolen", quien arma el partido le da contragolpe al rival.
 static func act(e: MatchEngine, profile: BotProfile) -> Dictionary:
+    return execute(e, intent(e, profile))
+
+
+# D-44: la jugada que el bot decide antes de tirarla (la anuncia para que el rival defienda):
+# {index, card, receiver}, {hold: true} para aguantar o {} para ceder.
+static func intent(e: MatchEngine, profile: BotProfile) -> Dictionary:
     if e.duel_on() and e.moment_plays == 0 and not e.carrier_chosen:
         e.set_carrier(choose_carrier(e))   # modo de duelos: quién arranca con la pelota
     var idx := choose(e, profile)
     if idx == HOLD:
-        return e.hold_ball()
+        return {"hold": true}
     if idx < 0:
+        return {}
+    var card: Card = e.deck.hand[idx]
+    var receiver := choose_receiver(e, card) if e.duel_on() and MatchEngine.is_pass(card) else ""
+    return {"index": idx, "card": card, "receiver": receiver}
+
+
+# Tira la jugada anunciada (intent). Devuelve el evento del motor, o {} si cedió.
+static func execute(e: MatchEngine, it: Dictionary) -> Dictionary:
+    if it.is_empty():
         e.abort_moment()
         return {}
-    if e.duel_on() and MatchEngine.is_pass(e.deck.hand[idx]):
-        return e.play_card(idx, choose_receiver(e, e.deck.hand[idx]))
-    return e.play_card(idx)
+    if it.get("hold", false):
+        return e.hold_ball()
+    return e.play_card(int(it["index"]), String(it["receiver"]))
+
+
+# D-44: el que defiende ve la jugada anunciada (MatchEngine.set_defense_intent).
+static func announce(def: MatchEngine, it: Dictionary) -> void:
+    def.set_defense_intent(it.get("card"), String(it.get("receiver", "")), bool(it.get("hold", false)))
+
+
+# D-44: el bot que defiende responde a la jugada anunciada con una carta como mucho (la misma elección
+# de choose_defense: las que no sirven contra esa jugada no son jugables). Devuelve su evento o {}.
+static func defend_play(def: MatchEngine, profile: BotProfile) -> Dictionary:
+    if not def.duel_defense_on():
+        return {}
+    var idx := choose_defense(def, profile)
+    return def.play_card(idx) if idx >= 0 else {}
+
+
+# D-44: un paso del ataque de un bot contra la defensa por duelos de otro bot: anuncia, el otro
+# responde y, si el Momento sigue, tira. Devuelve {ev: el evento del ataque ({} si cedió o lo
+# cortaron), defense: [eventos de la defensa]}. Lo usan DuelRunner y las mediciones.
+static func defended_step(att: MatchEngine, att_profile: BotProfile, def: MatchEngine,
+        def_profile: BotProfile) -> Dictionary:
+    var it := intent(att, att_profile)
+    var plays: Array = []
+    if def.duel_defense_on() and not it.is_empty():
+        announce(def, it)
+        var d := defend_play(def, def_profile)
+        if not d.is_empty():
+            plays.append(d)
+    if att.moment_over:
+        return {"ev": {}, "defense": plays}
+    return {"ev": execute(att, it), "defense": plays}
 
 
 # Devuelve el índice de la carta a jugar, HOLD para aguantar el balón (mano sin plan de gol), o -1

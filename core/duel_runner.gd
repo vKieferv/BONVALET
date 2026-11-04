@@ -109,6 +109,9 @@ static func _attack(att: MatchEngine, att_side: Dictionary, def: MatchEngine, de
 		out: Dictionary, def_tag: String, hooks: Dictionary = {}) -> void:
 	var att_profile: BotProfile = att_side["profile"]
 	att.exploit_rival_space = att_profile.punishes_passivity and def.posture == MatchEngine.Posture.LOW
+	if def_side.get("defends", true) and def.defends_by_duels(att):
+		_duel_attack(att, att_side, def, def_side, out, def_tag, hooks)
+		return
 	if def_side.get("defends", true):
 		var r := CoachBot.run_defense(def, def_side["profile"], def_side.get("defense_difficulty", 0.15))
 		out["def_plays_" + def_tag] += r["plays"].size()
@@ -132,4 +135,34 @@ static func _attack(att: MatchEngine, att_side: Dictionary, def: MatchEngine, de
 		var ev := CoachBot.act(att, att_profile)
 		if ev.get("stolen", false):
 			def.counter_ready = true   # le robaron el balón (al aguantar o, por zonas, al fallar): contragolpe del que defendía
+	att.advance(att_profile.default_posture as MatchEngine.Posture)
+
+
+# D-44 (T-15): ataque por duelos contra una defensa jugada a jugada, como match_view: empieza el Momento,
+# el que defiende abre su mano y antes de cada jugada ve la anunciada y responde (CoachBot.defended_step).
+static func _duel_attack(att: MatchEngine, att_side: Dictionary, def: MatchEngine, def_side: Dictionary,
+		out: Dictionary, def_tag: String, hooks: Dictionary = {}) -> void:
+	var att_profile: BotProfile = att_side["profile"]
+	var def_profile: BotProfile = def_side["profile"]
+	att.opponent_pressure = 0.0
+	att.opponent_block = 0.0
+	var half := "2h" if int(att.current_moment()["minute"]) >= 45 else "1h"
+	att.set_zone_rival(def)
+	att.begin_moment()
+	if hooks.has("after_begin"):
+		hooks["after_begin"].call(att, att_side)
+	out["moments_" + half] += 1
+	if att.player.zone() != PlayerStats.Zone.SAFE:
+		out["tired_" + half] += 1
+	if not def.injured and not att.moment_over:
+		def.begin_defense(def_side.get("defense_difficulty", 0.15), att)
+	while not att.moment_over:
+		var step := CoachBot.defended_step(att, att_profile, def, def_profile)
+		for d in step["defense"]:
+			out["def_plays_" + def_tag] += 1
+			if d.get("cancelled", false):
+				out["cuts_by_" + def_tag] += 1
+		if step["ev"].get("stolen", false):
+			def.counter_ready = true
+	def.end_defense()
 	att.advance(att_profile.default_posture as MatchEngine.Posture)

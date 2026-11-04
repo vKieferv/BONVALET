@@ -114,6 +114,9 @@ var _tirada_datos := {}
 var _tirada_t := -1.0
 var _tirada_aguja := 0.0
 var ultima_tirada := {}         # lo que muestra la tirada (smoke_match la compara con el evento)
+var intencion := {}             # D-44: la jugada que anunció el rival (CoachBot.intent) mientras defiendes
+var _intencion_g: Control
+var _linea_rival_2d := PackedVector2Array()   # la línea de su pase en pantalla (para soltar la Intercepción)
 
 
 # ------------------------------------------------------------------ Armado
@@ -157,6 +160,10 @@ func armar(liga: LeagueManager, equipo_l: Dictionary, equipo_v: Dictionary, juga
     _placa.draw.connect(_dibujar_placa)
     add_child(_flecha)
     add_child(_placa)   # encima de la línea del pase
+    _intencion_g = Grafica.new()   # D-44: lo que va a hacer el rival, arriba de la cancha
+    _intencion_g.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    _intencion_g.visible = false
+    add_child(_intencion_g)
     _tirada = Control.new()
     _tirada.mouse_filter = Control.MOUSE_FILTER_IGNORE
     _tirada.size = Vector2(640, 140)
@@ -564,6 +571,7 @@ func _sincronizar_ataque(tiempo: float) -> void:
 
 func mostrar_defensa() -> void:
     modo = Modo.DEFENSA
+    intencion = {}
     _local_ataca = false
     _neutral()
     armar_mano()
@@ -574,6 +582,105 @@ func mostrar_neutral(local_ataca: bool = true) -> void:
     _local_ataca = local_ataca
     _neutral()
     armar_mano()
+
+
+# D-44 (T-15), la defensa es el ataque al revés: el rival anunció su jugada (it de CoachBot.intent). La
+# cancha muestra su ataque con tus marcas, arriba su intención (quién la tiene, a quién pasa o si regatea o
+# remata, y su %; la placa junto al que va a recibir o rematar) y abajo tu mano de defensa: la lámina se
+# arrastra sobre un rival y la juega tu defensor más cercano (MatchEngine.defense_defender).
+func mostrar_intencion(it: Dictionary, primero: bool = false) -> void:
+    intencion = it
+    modo = Modo.DEFENSA
+    _local_ataca = false
+    _saltar = false
+    _velocidad = 1.0
+    cancha.velocidad = 1.0
+    _zona = rival_engine.zone
+    _portador = "V:" + String(rival_engine.carrier.get("id", ""))
+    _formar(_posiciones(rival_engine, false, _zona, _portador, rival_engine.marks), 0.0 if primero else 0.5)
+    _pelota_al_portador(primero)
+    _rotular()
+    _encuadrar()
+    if primero:
+        cancha.fijar_camara()
+    _poner_con_balon()
+    _camino.queue_redraw()
+    armar_mano()
+
+
+# El % de la jugada anunciada del rival (con lo que ya le restó tu defensa): el mismo que va a tirar.
+func intencion_pct() -> int:
+    if intencion.is_empty():
+        return -1
+    if intencion.get("hold", false):
+        return roundi(rival_engine.hold_chance() * 100.0)
+    return roundi(rival_engine.success_chance(intencion["card"], -1, String(intencion.get("receiver", ""))) * 100.0)
+
+
+# "UCH · SALAS: PASE CORTO a MENA · 54%" (smoke_match lo compara con el motor del rival).
+func intencion_texto() -> String:
+    if intencion.is_empty():
+        return ""
+    var quien := "%s · %s" % [_sigla(_equipo_v), apellido(String(rival_engine.carrier.get("name", "")))]
+    if intencion.get("hold", false):
+        return "%s AGUANTA EL BALÓN · %d%%" % [quien, intencion_pct()]
+    var c: Card = intencion["card"]
+    var txt := "%s: %s" % [quien, c.display_name.to_upper()]
+    var r := String(intencion.get("receiver", ""))
+    if r != "":
+        txt += " a " + apellido(String(rival_engine._player_by_id(r).get("name", "")))
+    elif c.kind == Card.Kind.SHOT:
+        txt += " AL ARCO"
+    return txt + " · %d%%" % intencion_pct()
+
+
+func _actualizar_intencion() -> void:
+    if _intencion_g == null:
+        return
+    _intencion_g.visible = modo == Modo.DEFENSA and not intencion.is_empty()
+    if not _intencion_g.visible:
+        return
+    _intencion_g.configurar("VA A JUGAR  " + intencion_texto(), 20, Color.WHITE, _fondo_club(_colores_v))
+    _intencion_g.position = Vector2((_ancho - _intencion_g.size.x) * 0.5, 50.0)
+
+
+# Rival sobre el que se suelta la lámina de defensa: el único que sirve para esa carta (defense_target),
+# si el mouse está sobre su cuerpo o su etiqueta; la Intercepción, también sobre la línea de su pase.
+func _rival_apuntado(c: Card) -> String:
+    var t := engine.defense_target(c)
+    if t == "":
+        return ""
+    if _companero_bajo_mouse([{"id": t}], "V:") != "":
+        return t
+    if c.kind == Card.Kind.INTERCEPT and _linea_rival_2d.size() >= 2:
+        for i in _linea_rival_2d.size() - 1:
+            var p := Geometry2D.get_closest_point_to_segment(_mouse, _linea_rival_2d[i], _linea_rival_2d[i + 1])
+            if p.distance_to(_mouse) < 26.0:
+                return t
+    return ""
+
+
+# La línea del pase anunciado del rival: blanca, o del color de tu % si la apuntas con una Intercepción.
+func _dibujar_linea_rival() -> void:
+    _linea_rival_2d = PackedVector2Array()
+    var c: Card = intencion.get("card")
+    var r := String(intencion.get("receiver", ""))
+    if c == null or r == "" or _jug("V:" + r) == null:
+        return
+    var forma := Trayectoria.para_carta(c)
+    var pts3 := Trayectoria.puntos(forma, cancha.pelota.position, _llegada("V:" + r))
+    if pts3.size() < 4:
+        return
+    var pts := PackedVector2Array()
+    var suelo := PackedVector2Array()
+    for p in pts3:
+        pts.append(_a_pantalla(p))
+        suelo.append(_a_pantalla(Vector3(p.x, 0.03, p.z)))
+    _linea_rival_2d = suelo
+    var color := Color(1, 1, 1, 0.9)
+    if _arrastre != null and _arrastre.card.kind == Card.Kind.INTERCEPT and _apuntado == r:
+        color = Cancha.color_tono(_tono_apuntado())
+    _linea(pts, suelo, forma, color)
 
 
 func _neutral() -> void:
@@ -646,16 +753,28 @@ func portador() -> String:
 
 
 func _actualizar_anillos() -> void:
+    var lado := "V:" if modo == Modo.DEFENSA else "L:"
+    var defensor := defensor_resaltado()
     for clave: String in cancha.jugadores:
         var j = cancha.jugadores[clave]
         if clave == _portador:
             j.poner_anillo(cancha.anillos["portador"])
-        elif _arrastre != null and clave.substr(2) == _apuntado and clave.begins_with("L:"):
+        elif defensor != "" and clave == defensor:   # D-44: el tuyo que juega la carta de defensa
+            j.poner_anillo(cancha.anillos[Cancha.tono(engine.success_chance(_arrastre.card))])
+        elif _arrastre != null and clave.substr(2) == _apuntado and clave.begins_with(lado):
             j.poner_anillo(cancha.anillos[_tono_apuntado()])
         elif _rotulados.has(clave) and int(_info.get(clave, {}).get("marcas", 1)) == 0:
             j.poner_anillo(cancha.anillos["libre"])
         else:
             j.poner_anillo(null)
+
+
+# Clave ("L:id") de tu defensor mientras arrastras una lámina de defensa por duelos; "" si no.
+func defensor_resaltado() -> String:
+    if modo != Modo.DEFENSA or _arrastre == null or engine == null or not engine.duel_defense_on():
+        return ""
+    var d := engine.defense_defender(_arrastre.card)
+    return "" if d.is_empty() else "L:" + String(d["id"])
 
 
 func _rect_cuerpo(j: Node3D) -> Rect2:
@@ -691,6 +810,8 @@ func _colocar_etiquetas(delta: float) -> void:
             cuerpos[clave] = r
     var pelota := _rect_pelota()
     var ocupados: Array[Rect2] = [_rect_con_balon(), Rect2(0, 0, _ancho, 72)]
+    if _intencion_g != null and _intencion_g.visible:
+        ocupados.append(Rect2(_intencion_g.position, _intencion_g.size).grow(4.0))
     if _placa.visible:
         ocupados.append(Rect2(_placa.position, _placa.size).grow(4.0))
     if _tirada.visible:
@@ -913,6 +1034,7 @@ func refrescar() -> void:
     _boton_acelerar.configurar("ACELERADO" if _acelerado else "ACELERAR", 20, Color.WHITE, Grafica.SEMI_NOCHE if _acelerado else Paleta.TV_AZUL)
     _aviso.text = _texto_aviso()
     _estamina.queue_redraw()
+    _actualizar_intencion()
     _refrescar_laminas()
 
 
@@ -923,6 +1045,8 @@ func _texto_aviso() -> String:
                 return "toca a un compañero para salir con él"
             return "mantén la carta: ver la cuenta"
         Modo.DEFENSA:
+            if engine.duel_defense_on():
+                return "arrastra la carta sobre el rival"
             return "toca una carta para defender"
         Modo.RIVAL:
             return "ataca %s" % String(_equipo_v.get("short_name", "")).to_lower()
@@ -991,6 +1115,17 @@ func _contexto(c: Card) -> Dictionary:
 # En el ataque: a quién va o contra quién es el duelo (a FERNÁNDEZ ▼, a SALAS ▲, LIBRE) o sus efectos
 # (ROBA 1); en la defensa, las palabras clave de siempre.
 func linea_de(c: Card, receptor: String) -> Array:
+    if modo == Modo.DEFENSA and engine.duel_defense_on() and c.kind != Card.Kind.CLEARANCE:
+        # D-44: sobre quién va y si tu defensor le gana el duelo (▲▼); si no sirve contra esta jugada, por qué.
+        var t := engine.defense_target(c)
+        if t != "":
+            return ["sobre " + apellido(String(rival_engine._player_by_id(t).get("name", ""))), _duelo(c, "")]
+        match c.kind:
+            Card.Kind.BLOCK:
+                return ["SOLO A UN REMATE", 0]
+            Card.Kind.INTERCEPT:
+                return ["SOLO A UN PASE", 0]
+        return ["A SU JUGADA", 0]
     if modo != Modo.ATAQUE:
         return [CardUI.keywords(c, contexto_carta.call(c) if contexto_carta.is_valid() else {}), 0]
     if c.type == Card.Type.PENALTY:
@@ -1064,6 +1199,12 @@ func _al_tomar_lamina(ui: CardUI) -> void:
         _forma_linea = Trayectoria.para_carta(ui.card)
         ui.flash(Paleta.DORADO)
         _actualizar_apuntado()
+    elif engine.duel_defense_on() and ui.card.kind != Card.Kind.CLEARANCE:
+        _arrastre = ui   # D-44: se arrastra sobre el rival; tu defensor se ve con su anillo
+        _apuntado = ""
+        ui.flash(Paleta.DORADO)
+        _actualizar_apuntado()
+        _actualizar_anillos()
     _refrescar_laminas()
 
 
@@ -1115,6 +1256,15 @@ func _input(event: InputEvent) -> void:
         return
     if modo == Modo.DEFENSA:
         _presionado = null
+        if _arrastre != null:   # D-44: soltarla sobre el rival (un clic: sobre el único que sirve)
+            _actualizar_apuntado()
+            var objetivo := _apuntado
+            if objetivo == "" and not _movido:
+                objetivo = engine.defense_target(ui.card)
+            _soltar(false)
+            if objetivo != "":
+                _jugar(ui, objetivo)
+            return
         if not _movido or _mouse.y < _alto_senal:
             _jugar(ui, "")
         _refrescar_laminas()
@@ -1160,7 +1310,7 @@ func _soltar(_aceptar: bool) -> void:
     _cuenta.visible = false
     if ui != null and is_instance_valid(ui):
         ui.flash(Color(0, 0, 0, 0))
-    if modo == Modo.ATAQUE and engine != null:
+    if (modo == Modo.ATAQUE or modo == Modo.DEFENSA) and engine != null:
         _actualizar_etiquetas()
         _actualizar_anillos()
     if is_inside_tree():
@@ -1168,11 +1318,11 @@ func _soltar(_aceptar: bool) -> void:
 
 
 # Compañero bajo el mouse (su cuerpo o su etiqueta), de `lista`; "" si no hay.
-func _companero_bajo_mouse(lista: Array) -> String:
+func _companero_bajo_mouse(lista: Array, lado: String = "L:") -> String:
     var mejor := ""
     var mejor_d := INF
     for pl: Dictionary in lista:
-        var clave := "L:" + String(pl["id"])
+        var clave := lado + String(pl["id"])
         var j := _jug(clave)
         if j == null:
             continue
@@ -1190,14 +1340,17 @@ func _actualizar_apuntado() -> void:
     if _arrastre == null:
         return
     var nuevo := ""
-    if MatchEngine.is_pass(_arrastre.card):
+    var defensa := modo == Modo.DEFENSA
+    if defensa:
+        nuevo = _rival_apuntado(_arrastre.card)
+    elif MatchEngine.is_pass(_arrastre.card):
         nuevo = _companero_bajo_mouse(engine.receivers(_arrastre.card))
     if nuevo != _apuntado:
         _apuntado = nuevo
         _refrescar_laminas()
         _actualizar_etiquetas()
         _actualizar_anillos()
-    if MatchEngine.is_pass(_arrastre.card):
+    if not defensa and MatchEngine.is_pass(_arrastre.card):
         _linea_3d = Trayectoria.puntos(_forma_linea, cancha.pelota.position, _fin_linea())
     else:
         _linea_3d = PackedVector3Array()
@@ -1240,6 +1393,8 @@ func punto_de(clave: String) -> Vector2:
 
 
 func _dibujar_flecha() -> void:
+    if modo == Modo.DEFENSA and not intencion.is_empty():
+        _dibujar_linea_rival()
     if _arrastre == null or _linea_3d.size() < 4:
         return
     var pts := PackedVector2Array()
@@ -1481,6 +1636,10 @@ func animar_jugada(ev: Dictionary, card: Card, antes: Dictionary) -> void:
         return
     var titulo := "AGUANTAR" if ev.get("hold", false) else card.display_name.to_upper()
     if ev.get("defense", false):
+        var d := String(ev.get("defender", ""))   # D-44: quién la jugó y sobre quién
+        if d != "":
+            titulo += " · %s sobre %s" % [apellido(String(engine._player_by_id(d).get("name", ""))),
+                    apellido(String(rival_engine._player_by_id(String(ev.get("target", ""))).get("name", "")))]
         await mostrar_tirada(titulo, ev["chance"], ev["roll"], ev["success"])
         await _esperar(0.5)
         await ocultar_tirada()
@@ -1494,6 +1653,21 @@ func animar_jugada(ev: Dictionary, card: Card, antes: Dictionary) -> void:
     await _esperar(0.25)
     if not engine.moment_over:
         _sincronizar_ataque(0.55)
+    await ocultar_tirada()
+
+
+# D-44: el rival defiende tu jugada antes de que la tires (Presión, Intercepción, Bloqueo o Despeje):
+# su tirada, con quién la juega y sobre quién.
+func animar_defensa_rival(ev: Dictionary) -> void:
+    if not ev.get("ok", false):
+        return
+    var titulo := "%s · %s" % [_sigla(_equipo_v), String(ev.get("card_name", "")).to_upper()]
+    var d := String(ev.get("defender", ""))
+    if d != "":
+        titulo += " · %s sobre %s" % [apellido(String(rival_engine._player_by_id(d).get("name", ""))),
+                apellido(String(engine._player_by_id(String(ev.get("target", ""))).get("name", "")))]
+    await mostrar_tirada(titulo, ev["chance"], ev["roll"], ev["success"], _colores_v[0].lightened(0.3))
+    await _esperar(0.5)
     await ocultar_tirada()
 
 
@@ -1601,10 +1775,14 @@ func saltar() -> void:
 # Anima el Momento del rival ya resuelto por CoachBot: pasos = [{zona, marcas, ev, card}] de match_view.
 # Más rápido por defecto (playtest 2026-11-04): cada jugada pasa a RAPIDO_RIVAL y solo lo importante
 # (importante()) va a velocidad normal, con una pausa para leerlo. ACELERAR lo triplica; SALTAR deja todo de golpe.
-func mirar_ataque_rival(pasos: Array) -> void:
+# D-44: con la defensa por duelos, match_view la llama con una jugada a la vez (nuevo = false después de la
+# primera del Momento: sigue ACELERADO si lo pediste y la cámara no salta).
+func mirar_ataque_rival(pasos: Array, nuevo: bool = true) -> void:
     modo = Modo.RIVAL
+    intencion = {}
     _local_ataca = false
-    _acelerado = false
+    if nuevo:
+        _acelerado = false
     _saltar = false
     armar_mano()
     for i in pasos.size():
@@ -1618,12 +1796,12 @@ func mirar_ataque_rival(pasos: Array) -> void:
         _zona = int(paso["zona"])
         _portador = "V:" + String(ev.get("carrier", paso.get("portador", "")))
         _formar(_posiciones(rival_engine, false, _zona, _portador, paso["marcas"]), 0.5)
-        _pelota_al_portador(i == 0)
+        _pelota_al_portador(i == 0 and nuevo)
         _rotular()
         _encuadrar()
         _poner_con_balon()
         _camino.queue_redraw()
-        if i == 0 and not _saltar:
+        if i == 0 and nuevo and not _saltar:
             cancha.fijar_camara()
         await _esperar(0.4)
         var card: Card = paso.get("card")
@@ -1635,6 +1813,11 @@ func mirar_ataque_rival(pasos: Array) -> void:
             var r := String(ev.get("receiver", ""))
             if r != "":
                 titulo += " · a " + apellido(String(rival_engine._player_by_id(r).get("name", "")))
+        var resta := 0.0   # D-44: lo que le restó tu Presión o tu Bloqueo
+        for d: Dictionary in ev.get("defended", []):
+            resta += float(d["value"])
+        if resta != 0.0:
+            titulo += " · %d" % roundi(resta * 100.0)
         await mostrar_tirada(titulo, ev["chance"], ev["roll"], ev["success"], _colores_v[0].lightened(0.3))
         if card != null and not ev.get("hold", false):
             await _animar_balon(ev, card, false, String(ev.get("carrier", "")), String(ev.get("receiver", "")), paso["marcas"], _zona)
@@ -1676,13 +1859,38 @@ func _process(delta: float) -> void:
 # ------------------------------------------------------------------ Placa del % junto al receptor
 
 # Lo que dice la placa del pase apuntado: {pct, robo, misma_zona}; {} si no se está apuntando.
+# D-44, en la defensa: arrastrando, tu % junto al rival apuntado ("texto": la carta y tu defensor); sin
+# arrastrar, el % de la jugada anunciada del rival junto al que va a recibir o a rematar ("rival": true).
+# "clave" es el jugador junto al que va.
 func placa_info() -> Dictionary:
+    if modo == Modo.DEFENSA:
+        return _placa_defensa()
     if _arrastre == null or _apuntado == "" or not MatchEngine.is_pass(_arrastre.card):
         return {}
     var c: Card = _arrastre.card
     return {"pct": roundi(engine.success_chance(c, -1, _apuntado) * 100.0),
         "robo": roundi(engine.steal_chance(c, -1, _apuntado) * 100.0),
-        "misma_zona": engine.pass_zone(c, _apuntado) == engine.zone and engine.target_zone(c) != engine.zone}
+        "misma_zona": engine.pass_zone(c, _apuntado) == engine.zone and engine.target_zone(c) != engine.zone,
+        "clave": "L:" + _apuntado}
+
+
+func _placa_defensa() -> Dictionary:
+    if engine == null or not engine.duel_defense_on():
+        return {}
+    if _arrastre != null:
+        if _apuntado == "":
+            return {}
+        var c: Card = _arrastre.card
+        return {"pct": roundi(engine.success_chance(c) * 100.0), "robo": 0, "misma_zona": false, "clave": "V:" + _apuntado,
+            "texto": "%s · %s" % [c.display_name.to_upper(), apellido(String(engine.defense_defender(c).get("name", "")))]}
+    if intencion.is_empty() or ocupado:
+        return {}
+    var r := String(intencion.get("receiver", ""))
+    var c: Card = intencion.get("card")
+    var texto := "AGUANTA" if c == null else c.display_name.to_upper()
+    return {"pct": intencion_pct(), "robo": 0, "misma_zona": false, "rival": true,
+        "clave": "V:" + (r if r != "" else String(rival_engine.carrier.get("id", ""))),
+        "texto": "%s · %s" % [_sigla(_equipo_v), texto]}
 
 
 func placa_visible() -> bool:
@@ -1697,8 +1905,11 @@ func _colocar_placa() -> void:
     if info.is_empty():
         return
     _placa.set_meta("info", info)
-    _placa.size = Vector2(150, 68 if (int(info["robo"]) >= 10 or info["misma_zona"]) else 46)
-    var j := _jug("L:" + _apuntado)
+    var ancho := 150.0
+    if info.has("texto"):
+        ancho = maxf(ancho, Paleta.letra("tv").get_string_size(String(info["texto"]), HORIZONTAL_ALIGNMENT_LEFT, -1, 16).x + 34.0)
+    _placa.size = Vector2(ancho, 68 if (int(info["robo"]) >= 10 or info["misma_zona"] or info.has("texto")) else 46)
+    var j := _jug(String(info["clave"]))
     if j == null:
         return
     var cuerpo := _rect_cuerpo(j)
@@ -1750,6 +1961,8 @@ func _dibujar_placa() -> void:
     _placa.draw_string(f, Vector2((s.x - w) * 0.5 + 2, 40), pct, HORIZONTAL_ALIGNMENT_LEFT, -1, 42, Color(0, 0, 0, 0.45))
     _placa.draw_string(f, Vector2((s.x - w) * 0.5, 38), pct, HORIZONTAL_ALIGNMENT_LEFT, -1, 42, colores[1])
     var extra: Array = []
+    if info.has("texto"):
+        extra.append(String(info["texto"]))
     if info["misma_zona"]:
         extra.append("NO AVANZA")
     if int(info["robo"]) >= 10:

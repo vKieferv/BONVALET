@@ -41,6 +41,7 @@ func _initialize() -> void:
 	_test_duel_d42()
 	_test_duel_d43()
 	_test_duel_d46()
+	_test_duel_d44()
 	print("engine_rules: %d comprobaciones, %d fallas" % [checks, failures.size()])
 	for f in failures:
 		print("  FALLA: " + f)
@@ -1589,3 +1590,141 @@ func _test_duel_d46() -> void:
 	b.deck.hand.append(pase)
 	var choice := CoachBot.choose_receiver(b, pase)
 	_check(choice != "", "el bot elige un receptor con D-46")
+
+
+# ---------- Defensa por duelos (D-44, T-15) ----------
+
+# La U defiende el ataque de Colo-Colo de _duel_engine: mano vacía y 2 PA de defensa.
+func _duel_defender(seed: int, att: MatchEngine) -> MatchEngine:
+	var d := _new_engine(seed)
+	d.zone_mode = true
+	d.duel_mode = true
+	d.duel_players = att.rival_players
+	d.mark_style = att.rival_mark_style
+	d.start()
+	d.begin_defense(0.15, att)
+	d.deck.hand.clear()
+	d.ap = 2
+	return d
+
+
+func _test_duel_d44() -> void:
+	var cat := CardDB.load_catalog(DECK_PATH)
+	var att := _duel_engine(441)
+	var def := _duel_defender(442, att)
+	_check(def.defends_by_duels(att) and def.duel_defense_on(), "con duelos de los dos lados se defiende jugada a jugada")
+	var presion := Card.from_dict(cat["presion"])
+	var bloqueo := Card.from_dict(cat["bloqueo"])
+	var inter := Card.from_dict(cat["intercepcion"])
+	var despeje := Card.from_dict(cat["despeje"])
+	for c in [presion, bloqueo, inter, despeje]:
+		def.deck.hand.append(c)
+	_check(not def.can_play(presion) and def.can_play(despeje), "sin jugada anunciada solo sirve el Despeje")
+	# El rival anuncia un pase al Medio: Presión sobre el portador, Intercepción sobre el receptor, sin Bloqueo.
+	var pase := Card.from_dict(cat["pase_corto"])
+	att.deck.hand.append(pase)
+	var rec := att.best_receiver(pase)
+	def.set_defense_intent(pase, rec)
+	_check(def.defense_target(presion) == att.carrier["id"] and def.can_play(presion), "la Presión va sobre el portador")
+	_check(def.defense_target(inter) == rec and def.can_play(inter), "la Intercepción va sobre la línea del pase (el receptor)")
+	_check(not def.can_play(bloqueo), "contra un pase no hay Bloqueo")
+	# Tu defensor: el mejor de los que lo marcan para esa carta; sin marca, el mejor de tu línea en la zona.
+	var z := att.zone
+	var m: Array = att.markers_of(z, att.carrier["id"])
+	var want: Dictionary = MatchEngine._best_by(m, "quite") if not m.is_empty() \
+			else MatchEngine._best_by(att.defender_line(z), "quite")
+	_check(def.defense_defender(presion) == want, "la Presión la juega quien marca al portador (o el mejor de su línea)")
+	att.marks[z] = {}
+	_check(def.defense_defender(presion) == MatchEngine._best_by(att.defender_line(z), "quite"),
+			"si nadie lo marca, el de esa zona con mejor Quite")
+	att.marks[z] = {att.carrier["id"]: m}
+	var rz := att.pass_zone(pase, rec)
+	var rm: Array = att.markers_of(rz, rec)
+	if not rm.is_empty():
+		_check(def.defense_defender(inter) == MatchEngine._best_by(rm, "lectura"), "la Intercepción la juega la mejor Lectura de quien marca al receptor")
+	# Su %: base + carta + tu habilidad contra la suya, en una línea; lo mostrado es lo que se tira.
+	var d: Dictionary = def.defense_defender(presion)
+	var items := def.chance_breakdown(presion)
+	var label := "Duelo de %s: Quite %d contra Regate %d (%s)" % [d["name"], int(d["quite"]), int(att.carrier["regate"]), att.carrier["name"]]
+	_check(items.any(func(i): return i["label"] == label), "la Presión pelea Quite contra Regate: %s" % [items.map(func(i): return i["label"])])
+	_check(not items.any(func(i): return i["label"] == "Ataque rival"), "sin la dificultad de la defensa de siempre")
+	var di: Dictionary = def.defense_defender(inter)
+	_check(def.chance_breakdown(inter).any(func(i): return String(i["label"]).begins_with("Duelo de %s: Lectura %d contra Pase %d" % [di["name"], int(di["lectura"]), int(att.carrier["pase"])])),
+			"la Intercepción pelea Lectura contra Pase")
+	# Anuncia un remate: Bloqueo sobre el portador, Quite contra Remate.
+	var remate := Card.from_dict(cat["remate_simple"])
+	def.set_defense_intent(remate)
+	_check(def.can_play(bloqueo) and not def.can_play(inter), "contra un remate, Bloqueo y no Intercepción")
+	_check(def.chance_breakdown(bloqueo).any(func(i): return String(i["label"]).contains("Quite %d contra Remate %d" % [int(def.defense_defender(bloqueo)["quite"]), int(att.carrier["remate"])])),
+			"el Bloqueo pelea Quite contra Remate")
+	def.set_defense_intent(null, "", true)
+	_check(not def.can_play(presion) and def.can_play(despeje), "si aguanta el balón, solo el Despeje")
+	# La Presión que sale le resta a la jugada anunciada, en su desglose; lo mostrado al rival es lo que tira.
+	var press_ok := false
+	var cut_ok := false
+	for s in 60:
+		var a := _duel_engine(500 + s)
+		var df := _duel_defender(600 + s, a)
+		var p := Card.from_dict(cat["presion"])
+		var i := Card.from_dict(cat["intercepcion"])
+		df.deck.hand.append(p)
+		df.deck.hand.append(i)
+		var pc := Card.from_dict(cat["pase_corto"])
+		a.deck.hand.append(pc)
+		var r := a.best_receiver(pc)
+		df.set_defense_intent(pc, r)
+		var before := a.success_chance(pc, -1, r)
+		var shown := df.success_chance(p)
+		var ev := df.play_card(df.deck.hand.find(p))
+		_check(is_equal_approx(float(ev["chance"]), shown), "la defensa se tira contra el % mostrado")
+		_check(ev.get("defender", "") == df.defense_defender(p).get("id", "-") or not df.in_defense, "el evento dice quién defendió")
+		if ev["success"] and not press_ok:
+			press_ok = true
+			var after := a.success_chance(pc, -1, r)
+			_check(a.chance_breakdown(pc, -1, r).any(func(it): return String(it["label"]).begins_with("Presión de ") and is_equal_approx(float(it["value"]), -0.12)),
+					"la Presión que sale resta 12 a la jugada anunciada, en su desglose")
+			_check(after < before, "el rival ve su %% más bajo (%s → %s)" % [before, after])
+			var aev := a.play_card(a.deck.hand.find(pc), r)
+			_check(is_equal_approx(float(aev["chance"]), after) and aev.has("defended"), "el rival tira contra el % con la Presión")
+			_check(a.defense_penalties.is_empty(), "la Presión dura una sola jugada")
+		elif not ev["success"]:
+			continue
+		# Intercepción sobre el mismo pase (con 1 PA ya no alcanza: se prueba aparte).
+	for s in 80:
+		var a := _duel_engine(700 + s)
+		var df := _duel_defender(800 + s, a)
+		var i := Card.from_dict(cat["intercepcion"])
+		df.deck.hand.append(i)
+		var pc := Card.from_dict(cat["pase_corto"])
+		a.deck.hand.append(pc)
+		df.set_defense_intent(pc, a.best_receiver(pc))
+		var ev := df.play_card(df.deck.hand.find(i))
+		if ev["success"]:
+			cut_ok = true
+			_check(a.moment_over and int(a.stats["cut_moments"]) == 1 and int(a.stats["goals"]) == 0, "la Intercepción corta el Momento del rival")
+			_check(df.counter_ready and not df.in_defense and ev["cancelled"], "y recuperas con contragolpe")
+			break
+	_check(press_ok and cut_ok, "se vio la Presión y la Intercepción salir")
+	# Apagado (duel_defense = false): la defensa de siempre, antes del ataque.
+	var off_att := _duel_engine(443)
+	var off := _new_engine(444)
+	off.zone_mode = true
+	off.duel_mode = true
+	off.duel_players = off_att.rival_players
+	off.duel_defense = false
+	off.start()
+	off.begin_defense(0.15, off_att)
+	_check(not off.duel_defense_on() and not off.defends_by_duels(off_att), "con duel_defense apagado, la defensa de T-10")
+	off.end_defense()
+	# El bot defiende igual: con la jugada anunciada responde con una carta como mucho.
+	var ba := _duel_engine(445)
+	var bd := _duel_defender(446, ba)
+	bd.deck.hand.append(Card.from_dict(cat["presion"]))
+	bd.deck.hand.append(Card.from_dict(cat["presion"]))
+	var bp := Card.from_dict(cat["pase_corto"])
+	ba.deck.hand.append(bp)
+	CoachBot.announce(bd, {"card": bp, "receiver": ba.best_receiver(bp)})
+	var plays := 0
+	if not CoachBot.defend_play(bd, BotProfile.new()).is_empty():
+		plays += 1
+	_check(plays <= 1 and bd.deck.hand.size() >= 1, "el bot juega una carta como mucho por jugada")

@@ -259,6 +259,8 @@ static func unplayable_reason(engine: MatchEngine, c: Card) -> String:
     var zone_reason := engine.zone_block_reason(c)   # partido por zonas: remates solo en el Área
     if zone_reason != "":
         return zone_reason
+    if engine.duel_defense_on() and c.kind != Card.Kind.CLEARANCE and engine.defense_target(c) == "":
+        return "NO SIRVE AHORA"   # D-44: no le sirve a la jugada que anunció el rival
     var missing := engine.ap_cost_of(c) - engine.ap
     if missing > 0:
         return "FALTA 1 PA" if missing == 1 else "FALTAN %d PA" % missing

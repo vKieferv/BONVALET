@@ -55,7 +55,9 @@
 #                                    valores del modo (variables duel_* del motor; mark_divisor 0 y
 #                                    transition false = las reglas de D-40, sin D-42; D-43:
 #                                    "short_play": true, "press_divisor": 12 (0 = sin presión en los
-#                                    pases), "lookahead": true (bot que piensa una jugada más))
+#                                    pases), "lookahead": true (bot que piensa una jugada más); D-44:
+#                                    "defense": true (false = la defensa de T-10, antes del ataque),
+#                                    "def_press_mult": 2.0, "def_block_mult": 1.0)
 #   Imprime además regates que entran a otra zona (y cuántos terminan en marca doble), vueltas atrás,
 #   cuántos titulares tocan la pelota por partido y los toques por jugador de Colo-Colo.
 # Un elemento {"defaults": {...}} en la lista se aplica a todas las variantes que lo siguen (las
@@ -123,7 +125,7 @@ func _init() -> void:
 			"steals": 0, "counters": 0, "no_cards": 0, "saves": 0, "rebounds": 0,
 			"dribble_entries": 0, "dribble_doubled": 0, "back_plays": 0, "touch_total": 0, "touch_top": 0,
 			"transition_moments": 0, "transition_goals": 0, "salida_steals": 0, "salida_steals_fwd": 0, "salida_steal_skill": 0,
-			"short_moments": 0, "short_goals": 0,
+			"short_moments": 0, "short_goals": 0, "cuts": 0,
 			"touch_distinct": 0, "touch_teams": 0}
 		var per_club := {}   # id -> {gf, ga, inj, cut, n, touches: {id del jugador: veces que fue portador}}
 		for id in clubs:
@@ -146,6 +148,7 @@ func _init() -> void:
 				acc["goals"] += r["goals_a"] + r["goals_b"]
 				acc["matches"] += per_pair
 				acc["injuries"] += r["injuries"]
+				acc["cuts"] += r["cuts_by_a"] + r["cuts_by_b"]
 				acc["m1"] += r["moments_1h"]
 				acc["t1"] += r["tired_1h"]
 				acc["m2"] += r["moments_2h"]
@@ -168,8 +171,8 @@ func _init() -> void:
 			acc["holds"] / (2.0 * n), acc["holds_lost"] / (2.0 * n), (Time.get_ticks_msec() - t0) / 1000])
 		# Por partido (los dos equipos): robos al fallar (zonas), contragolpes jugados, Momentos perdidos
 		# sin cartas, y remates fallados que atajó el arquero o dieron rebote (zonas).
-		print("    por partido: robos %.2f · contragolpes %.2f · sin cartas %.2f · atajadas %.2f · rebotes %.2f" % [
-			acc["steals"] / n, acc["counters"] / n, acc["no_cards"] / n, acc["saves"] / n, acc["rebounds"] / n])
+		print("    por partido: robos %.2f · contragolpes %.2f · sin cartas %.2f · atajadas %.2f · rebotes %.2f · ataques cortados %.2f" % [
+			acc["steals"] / n, acc["counters"] / n, acc["no_cards"] / n, acc["saves"] / n, acc["rebounds"] / n, acc["cuts"] / n])
 		if acc["touch_teams"] > 0:
 			# Modo de duelos: regates que entraron a otra zona (y cuántos terminaron en marca doble), vueltas
 			# atrás, titulares que fueron portadores por equipo y partido, y la parte del que más la tocó.
@@ -374,6 +377,9 @@ func _apply_zone_values(e: MatchEngine, v: Dictionary) -> void:
 	e.duel_press_divisor = float(d.get("press_divisor", MatchEngine.DUEL_PRESS_DIVISOR))
 	e.duel_bot_lookahead = bool(d.get("lookahead", true))
 	e.duel_same_zone = bool(d.get("same_zone", true))
+	e.duel_defense = bool(d.get("defense", true))
+	e.duel_def_press_mult = float(d.get("def_press_mult", MatchEngine.DUEL_DEF_PRESS_MULT))
+	e.duel_def_block_mult = float(d.get("def_block_mult", MatchEngine.DUEL_DEF_BLOCK_MULT))
 
 
 func _hooks(v: Dictionary) -> Dictionary:

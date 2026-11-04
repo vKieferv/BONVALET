@@ -296,6 +296,14 @@ func _finish() -> bool:
 	if duel_matches > 0:
 		if duel_passes == 0 or duel_plays == duel_passes:
 			errors.append("Por duelos faltó arrastrar un pase (%d) o soltar otra jugada (%d en total)" % [duel_passes, duel_plays])
+		if carrier_swaps == 0:
+			errors.append("Por duelos nunca se eligió otro portador antes de jugar")
+		if counts_seen == 0:
+			errors.append("Por duelos nunca se vio la cuenta completa al mantener una lámina")
+		if rival_steps == 0 or rival_skips == 0:
+			errors.append("Por duelos no se vio el ataque del rival (%d jugadas) o no se probó SALTAR (%d)" % [rival_steps, rival_skips])
+		if duel_checks == 0:
+			errors.append("Por duelos nunca se comparó la pantalla con el motor")
 		if duel_defense_plays == 0:
 			errors.append("Por duelos nunca se defendió con una lámina")
 		print("  duelos: %d partidos · %d jugadas con el mouse (%d pases) · %d revisiones contra el motor · %d portadores elegidos · %d cuentas · %d jugadas del rival vistas (%d saltadas, %d aceleradas) · %d defensas con lámina" % [
@@ -311,34 +319,261 @@ func _finish() -> bool:
 
 
 # ------------------------------------------------------------------ Modo de duelos (T-11)
-# PENDIENTE (sesión cortada por límite de uso): el recorrido con el mouse simulado (MouseDuelos) que
-# arrastra pases, elige portador, mantiene una lámina y salta el ataque rival. Por ahora el partido por
-# duelos se juega llamando a la pantalla directamente, con la primera jugada posible.
+
+# Un paso del partido por duelos con el mouse simulado: mirar (o saltar) el ataque rival, revisar la
+# pantalla contra el motor y hacer la próxima jugada. Las jugadas son asíncronas (_acting).
 func _step_duel() -> void:
 	var p: PantallaDuelos = view._pantalla
-	if p == null or view._busy or p.modo == PantallaDuelos.Modo.RIVAL:
+	if p == null:
 		return
-	var e: MatchEngine = view._engine
+	if p.modo == PantallaDuelos.Modo.RIVAL:
+		if _rival_seen != rival_attacks:
+			_rival_seen = rival_attacks
+			_watch_rival(p)
+		return
+	if view._busy:
+		return
+	_check_duel(p)
 	if view._in_defense:
 		if not _defense_open:
 			_defense_open = true
 			defenses += 1
-		for i in e.playable_indices():
-			duel_defense_plays += 1
-			view._on_jugar_duelo(i, "")
-			return
-		view._on_yield_pressed()
+		_check_posture_lock()
+		_duel_defense(p)
 	elif view._in_moment:
-		for i in e.playable_indices():
-			var c: Card = e.deck.hand[i]
-			var r := e.best_receiver(c) if MatchEngine.is_pass(c) else ""
-			duel_plays += 1
-			if r != "":
-				duel_passes += 1
-			view._on_jugar_duelo(i, r)
+		_check_posture_lock()
+		_duel_attack(p)
+
+
+# Ataque del rival: unos se miran enteros, otros acelerados y otros se saltan.
+func _watch_rival(p: PantallaDuelos) -> void:
+	_acting = true
+	var k := rival_attacks
+	await mouse.cuadros(2)
+	if k % 3 == 1 and p.modo == PantallaDuelos.Modo.RIVAL:
+		await mouse.clic(p._boton_saltar.get_global_rect().get_center())
+		rival_skips += 1
+	elif k % 3 == 2 and p.modo == PantallaDuelos.Modo.RIVAL:
+		await mouse.clic(p._boton_acelerar.get_global_rect().get_center())
+		rival_fast += 1
+	var left := 6000
+	var last := {}
+	while p.modo == PantallaDuelos.Modo.RIVAL and left > 0:
+		if not p.ultima_tirada.is_empty() and p.ultima_tirada != last:
+			last = p.ultima_tirada
+			rival_steps += 1
+		await mouse.cuadros(1)
+		left -= 1
+	rival_attacks += 1
+	_acting = false
+
+
+func _duel_defense(p: PantallaDuelos) -> void:
+	_acting = true
+	var e: MatchEngine = view._engine
+	if defenses % 3 == 0 and e.can_emergency_clear():
+		emergencies += 1
+		await mouse.clic(p._boton_aguantar.get_global_rect().get_center())   # en la defensa dice DESPEJE
+	else:
+		var played_card := false
+		for ui in p.laminas():
+			if e.can_play(ui.card):
+				var plays_before: int = e.stats["defense_plays"]
+				await mouse.clic(ui.get_global_rect().get_center())
+				played_card = int(e.stats["defense_plays"]) == plays_before + 1
+				if not played_card:
+					errors.append("Un clic en la lámina de defensa %s no la jugó" % ui.card.display_name)
+				duel_defense_plays += 1
+				break
+		if not played_card and view._in_defense:
+			await mouse.clic(p._boton_ceder.get_global_rect().get_center())   # dejar pasar
+	await _wait_idle()
+	_acting = false
+
+
+func _duel_attack(p: PantallaDuelos) -> void:
+	_acting = true
+	var e: MatchEngine = view._engine
+	var carrier := String(e.carrier.get("id", ""))
+	# Antes de la primera jugada, una vez por partido: salir con otro compañero de la zona (un clic sobre él).
+	if not _match_swapped and e.moment_plays == 0:
+		var others: Array = e.zone_players(e.zone).filter(func(pl): return pl["id"] != carrier)
+		_match_swapped = true
+		if not others.is_empty():
+			var id := String(others[0]["id"])
+			await mouse.clic(p.punto_de("L:" + id))
+			await _wait_idle()
+			if String(e.carrier.get("id", "")) != id:
+				errors.append("Un clic en %s no lo dejó con la pelota (sigue %s)" % [id, e.carrier.get("id", "")])
+			else:
+				carrier_swaps += 1
+				if p.portador() != "L:" + id:
+					errors.append("La pantalla no cambió al portador elegido")
+			_acting = false
 			return
-		if e.can_hold():
-			holds += 1
-			view._on_hold_pressed()
+	# Una vez: mantener una lámina quieta muestra la cuenta, y soltarla no la juega.
+	if counts_seen == 0 and not p.laminas().is_empty():
+		var ui: CardUI = p.laminas()[0]
+		var card: Card = ui.card
+		var plays_before: int = e.stats["plays"]
+		var center := ui.get_global_rect().get_center()
+		mouse.apretar(center)
+		var n := 0
+		while not p.cuenta_visible() and n < 300:
+			await mouse.cuadros(1)
+			n += 1
+		if not p.cuenta_visible():
+			errors.append("Mantener la lámina %s no mostró la cuenta" % card.display_name)
 		else:
-			view._on_yield_pressed()
+			counts_seen += 1
+			_check_count_lines(p, card, "")
+		mouse.soltar(center)
+		await mouse.cuadros(2)
+		if int(e.stats["plays"]) != plays_before or p.cuenta_visible():
+			errors.append("Soltar después de ver la cuenta jugó la carta o dejó la cuenta abierta")
+		_acting = false
+		return
+	if holds == 0 and e.can_hold():
+		holds += 1
+		await mouse.clic(p._boton_aguantar.get_global_rect().get_center())
+		await _wait_idle()
+		_acting = false
+		return
+	for ui in p.laminas():
+		var c: Card = ui.card
+		if not e.can_play(c):
+			continue
+		var from := ui.get_global_rect().get_center()
+		var receiver := ""
+		var target := p.punto_de("L:" + carrier)
+		if MatchEngine.is_pass(c):
+			var options: Array = e.receivers(c)
+			receiver = String(options[duel_plays % options.size()]["id"])
+			target = p.punto_de("L:" + receiver)
+		else:
+			target.y = minf(target.y, p._alto_senal - 30.0)
+		await mouse.arrastrar_hasta(from, target)
+		if receiver != "":
+			# El receptor puede venir corriendo y la cámara deslizándose (a 20×): el mouse lo sigue hasta que
+			# se queda quieto en la pantalla, como haría alguien mirándolo.
+			for i in 120:
+				await mouse.cuadros(1)
+				var now := p.punto_de("L:" + receiver)
+				mouse.mover(now)
+				if now.distance_to(target) < 1.0 and p.apuntado() == receiver:
+					break
+				target = now
+			var visible_area := Rect2(0, 44, p._ancho, p._alto_senal - 44)
+			if not visible_area.has_point(target):
+				errors.append("El receptor %s queda fuera de la señal (%s): no se le puede pasar con el mouse" % [receiver, target])
+		await mouse.cuadros(2)
+		var shown := ui.chance_label.text if is_instance_valid(ui) else ""
+		var expected := "%d%%" % roundi(e.success_chance(c, -1, receiver) * 100.0)
+		if receiver != "":
+			if p.apuntado() != receiver:
+				errors.append("Arrastrando %s sobre %s, la pantalla apunta a '%s'" % [c.display_name, receiver, p.apuntado()])
+			_check_count_lines(p, c, receiver)
+		if shown != expected:
+			errors.append("Apuntando %s, la lámina dice %s y el motor tira contra %s" % [c.display_name, shown, expected])
+		var plays_before: int = e.stats["plays"]
+		mouse.soltar(target)
+		await mouse.cuadros(1)
+		if int(e.stats["plays"]) != plays_before + 1:
+			errors.append("Soltar %s no la jugó (apuntaba a '%s', receptor '%s', se puede: %s, ocupado: %s)" % [c.display_name,
+				p.apuntado(), receiver, e.can_play(c, receiver), view._busy])
+		elif int(p.ultima_tirada.get("pct", -1)) != int(expected.trim_suffix("%")):
+			errors.append("La tirada de %s se ve contra %d%% y la lámina decía %s" % [c.display_name, int(p.ultima_tirada.get("pct", -1)), expected])
+		duel_plays += 1
+		if receiver != "":
+			duel_passes += 1
+		await _wait_idle()
+		_acting = false
+		return
+	# Sin jugadas: aguantar si queda, o CEDER JUGADA.
+	if e.can_hold():
+		holds += 1
+		await mouse.clic(p._boton_aguantar.get_global_rect().get_center())
+	else:
+		await mouse.clic(p._boton_ceder.get_global_rect().get_center())
+	await _wait_idle()
+	_acting = false
+
+
+func _wait_idle() -> void:
+	var n := 0
+	await mouse.cuadros(1)
+	while view._busy and n < 6000:
+		await mouse.cuadros(1)
+		n += 1
+
+
+# La pantalla de duelos contra el motor: PA, mazo, descarte, portador, zona, marcas de cada etiqueta y, en
+# cada lámina, su %, sus PA, su desgaste, su línea (ROBA) y su cinta.
+func _check_duel(p: PantallaDuelos) -> void:
+	if ui_checked_errors:
+		return
+	var e: MatchEngine = view._engine
+	if not (view._in_moment or e.in_defense) or p.arrastrando():
+		return
+	duel_checks += 1
+	if p.pa_texto() != "%d" % e.ap:
+		errors.append("La moneda dice %s PA y el turno tiene %d" % [p.pa_texto(), e.ap])
+	if p.mazo_texto() != "MAZO %d" % e.deck.draw_pile.size() or p.descarte_texto() != "DESCARTE %d" % e.deck.discard_pile.size():
+		errors.append("La pantalla dice '%s' y '%s'; el motor, %d y %d" % [p.mazo_texto(), p.descarte_texto(),
+			e.deck.draw_pile.size(), e.deck.discard_pile.size()])
+	if view._in_moment and p.modo == PantallaDuelos.Modo.ATAQUE:
+		var carrier := String(e.carrier.get("id", ""))
+		if p.portador() != "L:" + carrier:
+			errors.append("La pantalla tiene la pelota en %s y el motor en %s" % [p.portador(), carrier])
+		var surname := PantallaDuelos.apellido(String(e.carrier.get("name", "")))
+		if not p.texto_con_balon().contains(surname):
+			errors.append("CON EL BALÓN dice '%s' y el portador es %s" % [p.texto_con_balon(), surname])
+		if p.zona_camino() != e.zone:
+			errors.append("El camino marca la zona %d y el motor está en la %d" % [p.zona_camino(), e.zone])
+		var labels := p.etiquetas()
+		if labels.is_empty():
+			errors.append("Atacando por duelos no hay etiquetas sobre tus jugadores")
+		for key: String in labels:
+			var info: Dictionary = p._info.get(key, {})
+			var real := e.markers_of(int(info.get("zona", -1)), key.substr(2)).size()
+			if int(labels[key]["puntos"]) != real:
+				errors.append("%s muestra %d marcas y el motor le pone %d" % [labels[key]["texto"], labels[key]["puntos"], real])
+			if real == 0 and key != p.portador() and not String(labels[key]["texto"]).ends_with("LIBRE"):
+				errors.append("%s está libre y su etiqueta no lo dice" % labels[key]["texto"])
+	for ui in p.laminas():
+		var c: Card = ui.card
+		if c.type == Card.Type.PENALTY:
+			continue
+		card_checks += 1
+		var choose := p.modo == PantallaDuelos.Modo.ATAQUE and MatchEngine.is_pass(c)
+		if choose:
+			if ui.chance_label.visible:
+				errors.append("El pase %s muestra %s antes de apuntar (debería decir ELIGE)" % [c.display_name, ui.chance_label.text])
+		elif ui.chance_label.text != "%d%%" % roundi(e.success_chance(c) * 100.0) or not ui.chance_label.visible:
+			errors.append("La lámina %s muestra %s pero el motor tira contra %d%%" % [c.display_name, ui.chance_label.text, roundi(e.success_chance(c) * 100.0)])
+		if ui.ap_label.text != "%d" % e.ap_cost_of(c):
+			errors.append("La lámina %s cuesta %s en pantalla y %d en el motor" % [c.display_name, ui.ap_label.text, e.ap_cost_of(c)])
+		if c.kind != Card.Kind.PAUSE and ui.cost_label.text != "%d" % roundi(e.stamina_cost_of(c)):
+			errors.append("La lámina %s desgasta '%s' en pantalla y %d en el motor" % [c.display_name, ui.cost_label.text, roundi(e.stamina_cost_of(c))])
+		if c.draw > 0 and not ui.effect_label.text.contains("ROBA %d" % c.draw):
+			errors.append("La lámina %s roba %d y su línea dice '%s'" % [c.display_name, c.draw, ui.effect_label.text])
+		var reason := CardUI.unplayable_reason(e, c)
+		if ui.ribbon.visible != (reason != ""):
+			errors.append("La lámina %s tiene la cinta %s y el motivo es '%s'" % [c.display_name, ui.ribbon.visible, reason])
+	ui_checked_errors = not errors.is_empty()
+
+
+# La cuenta completa: el acierto y el robo son los del motor (lo que se tira).
+func _check_count_lines(p: PantallaDuelos, c: Card, receiver: String) -> void:
+	var e: MatchEngine = view._engine
+	var r := receiver
+	if MatchEngine.is_pass(c) and r == "" and p.modo == PantallaDuelos.Modo.ATAQUE:
+		r = e.best_receiver(c)
+	var lines := {}
+	for l: Array in p.cuenta_de(c, receiver):
+		lines[l[0]] = l[1]
+	if lines.get("Acierto", "") != "%d%%" % roundi(e.success_chance(c, -1, r) * 100.0):
+		errors.append("La cuenta de %s dice acierto %s y el motor %d%%" % [c.display_name, lines.get("Acierto", "?"), roundi(e.success_chance(c, -1, r) * 100.0)])
+	var steal := roundi(e.steal_chance(c, -1, r) * 100.0)
+	if steal > 0 and lines.get("Robo si falla", "") != "%d%%" % steal:
+		errors.append("La cuenta de %s dice robo %s y el motor %d%%" % [c.display_name, lines.get("Robo si falla", "—"), steal])

@@ -51,6 +51,7 @@ var _equipo_v := {}
 var _colores_l: Array = []
 var _colores_v: Array = []
 var _nombres := {}              # "L:id" -> {name, role}
+var _madera: ColorRect
 var _vista: SubViewport
 var _senal: SubViewportContainer
 var _filtro: ColorRect
@@ -122,6 +123,8 @@ func armar(liga: LeagueManager, equipo_l: Dictionary, equipo_v: Dictionary, juga
     _colores_v = liga.team_colors(equipo_v)
     set_anchors_preset(Control.PRESET_FULL_RECT)
     mouse_filter = Control.MOUSE_FILTER_IGNORE
+    _madera = Mesa.madera()   # la mesa del DT bajo las láminas, como en la prueba de T-12
+    add_child(_madera)
     _senal = SubViewportContainer.new()
     _senal.mouse_filter = Control.MOUSE_FILTER_IGNORE
     add_child(_senal)
@@ -179,6 +182,8 @@ func _ajustar_ventana() -> void:
     _senal.size = pixeles
     cancha.camara.fov = rad_to_deg(2.0 * atan(_alto_senal * 0.5 / Cancha.FOCO))
     _filtro.size = Vector2(_ancho, _alto_senal)
+    _madera.size = lienzo
+    (_madera.material as ShaderMaterial).set_shader_parameter("tam", lienzo)
     _barra.size = Vector2(_ancho, 40)
     _camino.position.x = (_ancho - 1280.0) * 0.5
     _vivo.position.x = _ancho - 18.0 - _vivo.size.x
@@ -326,11 +331,11 @@ func _colocar_barra() -> void:
     _estamina.position = Vector2(x + 10.0, 5.0)
     var xr := _ancho - 18.0
     _vivo.position.x = xr - _vivo.size.x
-    xr = _ancho - 14.0
+    xr = _vivo.position.x - 14.0
     for i in range(2, -1, -1):
         var g: Control = _posturas[i]
         xr -= g.size.x - g.size.y * Grafica.SKEW
-        g.position = Vector2(xr, 46.0)
+        g.position = Vector2(xr, 20.0 - g.size.y * 0.5)
     _flow.position = Vector2(16.0, 48.0)
 
 
@@ -780,12 +785,12 @@ func _armar_mano() -> void:
     _boton_ceder.margen = 16.0
     _descarte = Grafica.new()
     _raiz_mano.add_child(_descarte)
-    _descarte.position = Vector2(1100, 560)
+    _descarte.position = Vector2(1080, 596)
     _boton_acelerar = _boton("ACELERAR", 20, Vector2(1066, 486), func() -> void: acelerar())
     _boton_saltar = _boton("SALTAR", 20, Vector2(1066, 540), func() -> void: saltar())
     _aviso = Paleta.etiqueta("", "plumon", 15, Paleta.PLUMON_CREMA)
-    _aviso.position = Vector2(1052, 608)
-    _aviso.size = Vector2(220, 90)
+    _aviso.position = Vector2(1076, 640)
+    _aviso.size = Vector2(196, 78)
     _aviso.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
     _aviso.rotation_degrees = -2.0
     _raiz_mano.add_child(_aviso)
@@ -820,12 +825,12 @@ func _al_boton(nombre: String) -> void:
 
 # Rehace las láminas con la mano del motor (nueva mano, carta jugada, defensa...).
 func armar_mano() -> void:
-    _soltar(false)
     for ui in _laminas:
         ui.queue_free()
     _laminas.clear()
     _elige.clear()
     _flechas_linea.clear()
+    _soltar(false)
     if engine != null and (modo == Modo.ATAQUE or modo == Modo.DEFENSA):
         var cartas: Array = engine.deck.hand
         for i in cartas.size():
@@ -895,8 +900,8 @@ func _texto_aviso() -> String:
     match modo:
         Modo.ATAQUE:
             if engine.moment_plays == 0 and engine.zone_players(engine.zone).size() > 1:
-                return "toca a otro compañero para salir con él · mantén la carta: ver la cuenta"
-            return "arrastra la carta · mantén la carta: ver la cuenta"
+                return "toca a un compañero para salir con él"
+            return "mantén la carta: ver la cuenta"
         Modo.DEFENSA:
             return "toca una carta para defender"
         Modo.RIVAL:
@@ -918,6 +923,9 @@ func descarte_texto() -> String:
 
 # La lámina simple de v5: costo, nombre, una línea y un solo %. Los pases dicen ELIGE hasta que apuntas.
 func _refrescar_laminas() -> void:
+    if not ((modo == Modo.ATAQUE and not engine.moment_over) or (modo == Modo.DEFENSA and engine.in_defense)):
+        _ordenar_mano()
+        return
     for ui in _laminas:
         var c: Card = ui.card
         var ataque := modo == Modo.ATAQUE

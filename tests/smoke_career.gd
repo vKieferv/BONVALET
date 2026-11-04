@@ -236,6 +236,11 @@ func _autoplay(view: Node) -> void:
 	if view._busy:
 		return
 	if view._in_defense or view._in_moment:
+		if view._pantalla != null:   # por duelos (T-11): la mano está en la pantalla nueva
+			for i in view._engine.playable_indices():
+				var c: Card = view._engine.deck.hand[i]
+				view._on_jugar_duelo(i, view._engine.best_receiver(c) if view._in_moment and MatchEngine.is_pass(c) else "")
+				return
 		for ui in view._hand_box.get_children():
 			if view._engine.can_play(ui.card):
 				view._on_card_chosen(ui)

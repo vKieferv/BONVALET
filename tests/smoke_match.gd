@@ -681,9 +681,13 @@ func _check_duel(p: PantallaDuelos) -> void:
 			continue
 		card_checks += 1
 		var choose := p.modo == PantallaDuelos.Modo.ATAQUE and MatchEngine.is_pass(c)
+		var useless := p.modo == PantallaDuelos.Modo.DEFENSA and e.duel_defense_on() and c.kind != Card.Kind.CLEARANCE and e.defense_target(c) == ""
 		if choose:
 			if ui.chance_label.visible:
 				errors.append("El pase %s muestra %s antes de apuntar (debería decir ELIGE)" % [c.display_name, ui.chance_label.text])
+		elif useless:
+			if ui.chance_label.visible:
+				errors.append("La lámina %s no sirve contra la jugada del rival y muestra %s" % [c.display_name, ui.chance_label.text])
 		elif ui.chance_label.text != "%d%%" % roundi(e.success_chance(c) * 100.0) or not ui.chance_label.visible:
 			errors.append("La lámina %s muestra %s pero el motor tira contra %d%%" % [c.display_name, ui.chance_label.text, roundi(e.success_chance(c) * 100.0)])
 		if ui.ap_label.text != "%d" % e.ap_cost_of(c):

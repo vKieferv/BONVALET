@@ -57,6 +57,9 @@ var duel_intents := 0          # D-44: jugadas anunciadas del rival que se defen
 var duel_emergencies := 0
 var rival_defended_plays := 0   # D-44: tus jugadas que el rival defendió antes de tirarlas
 var rival_cut_plays := 0        # ...y las que te cortó
+var corners_mouse := 0          # D-48: córners tirados con el mouse
+var rival_corners_seen := 0     # ...y córners del rival anunciados
+var outcomes_seen := {}         # desenlaces anunciados en la pantalla
 var drag_kinds := {Card.Kind.PRESS: 0, Card.Kind.INTERCEPT: 0, Card.Kind.BLOCK: 0}
 
 
@@ -88,6 +91,8 @@ func _process(_delta: float) -> bool:
 		errors.append("Partido %d colgado (minuto %d)" % [played + 1, int(view._minute)])
 		return _finish()
 
+	if view._pantalla != null and view._pantalla.ultimo_desenlace != "":
+		outcomes_seen[view._pantalla.ultimo_desenlace] = true   # D-48: los desenlaces que se anunciaron
 	if _acting:
 		return false   # el mouse simulado está en medio de una jugada de duelos
 	if view._menu.visible and not view._busy:
@@ -321,6 +326,9 @@ func _finish() -> bool:
 			if drag_kinds[k] == 0:
 				errors.append("Por duelos nunca se arrastró una carta de tipo %d sobre un rival (D-44)" % k)
 		print("  duelos D-44: el rival defendió %d de tus jugadas (%d cortadas)" % [rival_defended_plays, rival_cut_plays])
+		print("  duelos D-48: desenlaces anunciados %s · %d córners tuyos con el mouse · %d córners del rival anunciados" % [", ".join(outcomes_seen.keys()), corners_mouse, rival_corners_seen])
+		if outcomes_seen.size() < 3:
+			errors.append("Por duelos se anunciaron pocos desenlaces de fallos (D-48): %s" % [outcomes_seen.keys()])
 		print("  duelos D-44: %d jugadas del rival anunciadas · arrastradas: %d presiones, %d intercepciones, %d bloqueos · %d despejes de emergencia" % [
 			duel_intents, drag_kinds[Card.Kind.PRESS], drag_kinds[Card.Kind.INTERCEPT], drag_kinds[Card.Kind.BLOCK], duel_emergencies])
 		print("  duelos: %d pases a la misma zona (D-46) hechos con el mouse" % same_zone_mouse)
@@ -425,7 +433,9 @@ func _duel_drag_defense(p: PantallaDuelos) -> void:
 	if not view._in_defense or it.is_empty():
 		return
 	duel_intents += 1
-	var rival_pct := roundi((r.hold_chance() if ic == null else r.success_chance(ic, -1, String(it.get("receiver", "")))) * 100.0)
+	var rival_pct := roundi((r.corner_chance(String(it["corner"])) if it.has("corner") else (r.hold_chance() if ic == null else r.success_chance(ic, -1, String(it.get("receiver", ""))))) * 100.0)
+	if it.has("corner"):
+		rival_corners_seen += 1
 	if p.intencion_pct() != rival_pct or not p.intencion_texto().ends_with("%d%%" % rival_pct):
 		errors.append("La intención del rival dice '%s' y su motor tira contra %d%%" % [p.intencion_texto(), rival_pct])
 	var plate := p.placa_info()
@@ -455,7 +465,8 @@ func _duel_drag_defense(p: PantallaDuelos) -> void:
 		if e.can_play(ui.card) and ui.card.kind != Card.Kind.CLEARANCE:
 			if pick == null or drag_kinds[ui.card.kind] < drag_kinds[pick.card.kind]:
 				pick = ui
-	if pick == null or duel_intents % 4 == 0:
+	var save_for_block: bool = drag_kinds[Card.Kind.BLOCK] == 0 and drag_kinds[Card.Kind.PRESS] >= 2 and drag_kinds[Card.Kind.INTERCEPT] >= 1 and (ic == null or ic.kind != Card.Kind.SHOT)   # guarda PA: los remates del rival son pocos (D-48)
+	if pick == null or duel_intents % 4 == 0 or save_for_block:
 		await mouse.clic(p._boton_ceder.get_global_rect().get_center())   # DEJAR PASAR esta jugada
 		await _wait_idle()
 		return
@@ -490,7 +501,7 @@ func _duel_drag_defense(p: PantallaDuelos) -> void:
 	mouse.soltar(to)
 	await mouse.cuadros(2)
 	if int(e.stats["defense_plays"]) != plays_before + 1:
-		errors.append("Soltar %s sobre el rival no la jugó" % c.display_name)
+		errors.append("Soltar %s sobre el rival no la jugó (apuntado '%s', objetivo %s en %s, mouse %s, arrastrando %s, ocupado %s, se puede %s)" % [c.display_name, p.apuntado(), target, p.punto_de("V:" + target), to, p.arrastrando(), p.ocupado, e.can_play(c)])
 	elif int(p.ultima_tirada.get("pct", -1)) != roundi(shown * 100.0):
 		errors.append("La tirada de %s muestra %s y se tiró contra %d%%" % [c.display_name, p.ultima_tirada.get("pct", "-"), roundi(shown * 100.0)])
 	else:
@@ -502,6 +513,23 @@ func _duel_drag_defense(p: PantallaDuelos) -> void:
 func _duel_attack(p: PantallaDuelos) -> void:
 	_acting = true
 	var e: MatchEngine = view._engine
+	# D-48: un córner se tira tocando al compañero que va a cabecear; la placa dice el % del centro.
+	if e.corner_pending:
+		var rec := e.best_corner_receiver()
+		var at := p.punto_de("L:" + rec)
+		mouse.mover(at, false)
+		await mouse.cuadros(2)
+		var info := p.placa_info()
+		if info.is_empty() or int(info["pct"]) != roundi(e.corner_chance(rec) * 100.0):
+			errors.append("La placa del córner dice %s y el motor %d%%" % [info.get("pct", "nada"), roundi(e.corner_chance(rec) * 100.0)])
+		var crosses: int = e.stats["corner_crosses"]
+		await mouse.clic(at)
+		await _wait_idle()
+		if e.corner_pending and not e.moment_over:
+			errors.append("Tocar a %s no tiró el córner" % rec)
+		corners_mouse += 1
+		_acting = false
+		return
 	var carrier := String(e.carrier.get("id", ""))
 	# Antes de la primera jugada, una vez por partido: salir con otro compañero de la zona (un clic sobre él).
 	if not _match_swapped and e.moment_plays == 0:
@@ -617,7 +645,7 @@ func _duel_attack(p: PantallaDuelos) -> void:
 			errors.append("Soltar %s no la jugó (apuntaba a '%s', receptor '%s', se puede: %s, ocupado: %s)" % [c.display_name,
 				p.apuntado(), receiver, e.can_play(c, receiver), view._busy])
 		elif int(p.ultima_tirada.get("pct", -1)) != int(expected.trim_suffix("%")):
-			errors.append("La tirada de %s se ve contra %d%% y la lámina decía %s" % [c.display_name, int(p.ultima_tirada.get("pct", -1)), expected])
+			errors.append("La tirada de %s se ve contra %d%% y la lámina decía %s (rival defendió: %s, golpe %s, tirada '%s', penalidades %s)" % [c.display_name, int(p.ultima_tirada.get("pct", -1)), expected, int(rival_def.stats["defense_plays"]) - rdef_before, rival_def.defense_result, p.ultima_tirada.get("titulo", ""), e.defense_penalties])
 		duel_plays += 1
 		if receiver != "":
 			duel_passes += 1

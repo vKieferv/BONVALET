@@ -697,6 +697,7 @@ func _setup_pantalla() -> void:
         _posture_buttons[p].button_pressed = true
         _set_posture(p))
     _pantalla.portador_elegido.connect(_on_carrier_chosen)
+    _pantalla.corner_elegido.connect(_on_corner_elegido)
     _pantalla.set_postura(_posture, _posture_locked)
     _pantalla.mostrar_neutral()
 
@@ -1315,6 +1316,29 @@ func _rival_defends_play(card: Card, receiver: String, hold: bool) -> bool:
 
 
 # Modo de duelos: antes de la primera jugada del Momento se elige con quién salir.
+# D-48: tu córner. El rival puede despejarlo antes (su Despeje); si no, se tira el centro al elegido.
+func _on_corner_elegido(id: String) -> void:
+    if _busy or not _in_moment or not _engine.corner_pending:
+        return
+    _busy = true
+    _pantalla.ocupado = true
+    _pantalla.refrescar()
+    var before := _pantalla.instantanea(_engine)
+    if await _rival_defends_play(null, "", false):
+        _pantalla.ocupado = false
+        return
+    var ev := _engine.take_corner(id)
+    await _pantalla.animar_jugada(ev, null, before)
+    await _present_result(ev, null)
+    _busy = false
+    _pantalla.ocupado = false
+    if _engine.moment_over:
+        _finish_player_moment()
+    else:
+        _build_hand()
+        _update_hud()
+
+
 func _on_carrier_chosen(id: String) -> void:
     if _busy or not _in_moment or not _engine.set_carrier(id):
         return
@@ -1375,6 +1399,23 @@ func _present_result(ev: Dictionary, clone: CardUI) -> void:
     if ev.get("stolen", false):
         _rival_engine.counter_ready = true   # partido por zonas: el fallo fue robo
         await _banner_show("¡TE ROBARON EL BALÓN! · CONTRAGOLPE DE %s" % _rival.profile_name.to_upper(), COLOR_BAD, 1.0)
+    elif ev.has("outcome") and ev["outcome"] != "atajada":   # D-48: el desenlace del fallo
+        var won := bool(ev.get("dividida", {}).get("won", false))
+        match String(ev["outcome"]):
+            "dividida":
+                await _banner_show("¡GANASTE LA DIVIDIDA! SIGUES CON LA PELOTA" if won else "¡PERDISTE LA DIVIDIDA!", COLOR_OK if won else COLOR_BAD, 0.8)
+            "rebote":
+                await _banner_show("¡REBOTE A TU FAVOR! PUEDES VOLVER A REMATAR" if won else "¡EL REBOTE ES DE ELLOS!", COLOR_OK if won else COLOR_BAD, 0.8)
+            "lateral":
+                await _banner_show("¡AL LATERAL! SACA %s" % _rival.profile_name.to_upper(), COLOR_WARN, 0.8)
+            "afuera":
+                await _banner_show("¡AFUERA! SAQUE DE ARCO", COLOR_WARN, 0.8)
+            "falta":
+                await _banner_show("¡FALTA! SIGUES CON LA PELOTA", COLOR_WARN, 0.8)
+            "corner":
+                await _banner_show("¡AL CÓRNER! TOCA A QUIEN VA A CABECEAR", COLOR_GOLD, 0.9)
+            "despejado":
+                await _banner_show("¡DESPEJARON EL CÓRNER!", COLOR_BAD, 0.8)
     elif ev.get("saved", false):
         await _banner_show("¡ATAJÓ EL ARQUERO!", COLOR_BAD, 0.8)
     elif ev.get("rebound", false):

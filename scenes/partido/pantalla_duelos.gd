@@ -17,6 +17,7 @@ signal aguantar
 signal despejar
 signal postura_elegida(p: int)
 signal portador_elegido(id: String)
+signal corner_elegido(id: String)   # D-48: a quién va el centro del córner
 
 const Cancha := preload("res://scenes/partido/cancha_partido.gd")
 const Jugador := preload("res://scenes/prueba_3d/jugador_low_poly.gd")
@@ -550,6 +551,7 @@ func _encuadrar() -> void:
 
 # Tu ataque: el estado del motor, la mano y las etiquetas. tiempo 0 = todos a su lugar de golpe.
 func mostrar_ataque(tiempo: float = 0.6) -> void:
+    _saltar = false   # un SALTAR del ataque rival no se salta tus jugadas
     modo = Modo.ATAQUE
     _local_ataca = true
     _sincronizar_ataque(tiempo)
@@ -578,6 +580,7 @@ func mostrar_defensa() -> void:
 
 
 func mostrar_neutral(local_ataca: bool = true) -> void:
+    _saltar = false
     modo = Modo.NEUTRAL
     _local_ataca = local_ataca
     _neutral()
@@ -614,6 +617,8 @@ func intencion_pct() -> int:
         return -1
     if intencion.get("hold", false):
         return roundi(rival_engine.hold_chance() * 100.0)
+    if intencion.has("corner"):
+        return roundi(rival_engine.corner_chance(String(intencion["corner"])) * 100.0)
     return roundi(rival_engine.success_chance(intencion["card"], -1, String(intencion.get("receiver", ""))) * 100.0)
 
 
@@ -622,6 +627,9 @@ func intencion_texto() -> String:
     if intencion.is_empty():
         return ""
     var quien := "%s · %s" % [_sigla(_equipo_v), apellido(String(rival_engine.carrier.get("name", "")))]
+    if intencion.has("corner"):   # D-48: "UCH · CÓRNER de SALAS a MENA · 54%"
+        return "%s · CÓRNER de %s a %s · %d%%" % [_sigla(_equipo_v), apellido(String(rival_engine.corner_taker().get("name", ""))),
+                apellido(String(rival_engine._player_by_id(String(intencion["corner"])).get("name", ""))), intencion_pct()]
     if intencion.get("hold", false):
         return "%s AGUANTA EL BALÓN · %d%%" % [quien, intencion_pct()]
     var c: Card = intencion["card"]
@@ -1041,6 +1049,8 @@ func refrescar() -> void:
 func _texto_aviso() -> String:
     match modo:
         Modo.ATAQUE:
+            if engine.corner_pending:
+                return "córner: toca a quien va a cabecear"
             if engine.moment_plays == 0 and engine.zone_players(engine.zone).size() > 1:
                 return "toca a un compañero para salir con él"
             return "mantén la carta: ver la cuenta"
@@ -1087,6 +1097,8 @@ func _refrescar_laminas() -> void:
                 c.flow_uses > 0 and engine.flow_active, [], "" if ocupado else CardUI.unplayable_reason(engine, c))
         ui.tooltip_text = ""
         ui.chance_label.visible = chance >= 0.0 and c.type != Card.Type.PENALTY
+        if engine.corner_taken and MatchEngine.CORNER_CARDS.has(c.id) and modo == Modo.ATAQUE:
+            ui.flash(Paleta.DORADO)   # D-48: Cabezazo y Palomita brillan después de un córner
         var linea := linea_de(c, receptor)
         ui.effect_label.text = linea[0]
         ui._layout()
@@ -1240,6 +1252,11 @@ func _input(event: InputEvent) -> void:
             if r != "" and ui != null:
                 _jugar(ui, r)
             get_viewport().set_input_as_handled()
+        elif _arrastre == null and _presionado == null and modo == Modo.ATAQUE and not ocupado and engine.corner_pending:
+            var receptor := _companero_bajo_mouse(engine.corner_receivers())   # D-48: el centro del córner
+            if receptor != "":
+                corner_elegido.emit(receptor)
+                get_viewport().set_input_as_handled()
         elif _arrastre == null and _presionado == null and modo == Modo.ATAQUE and not ocupado and engine.moment_plays == 0:
             var otro := _companero_bajo_mouse(engine.zone_players(engine.zone))
             if otro != "" and otro != String(engine.carrier.get("id", "")):
@@ -1478,6 +1495,13 @@ func cuenta_de(c: Card, receptor: String) -> Array:
     var atajada := engine.save_chance(c, -1, receptor)
     if atajada > 0.0:
         out.append(["Atajada si falla", "%d%%" % roundi(atajada * 100.0)])
+    if modo == Modo.ATAQUE and engine.duel_on() and engine.duel_outcomes:   # D-48: qué pasa si falla
+        var lb := engine.loose_ball(c, receptor)
+        for o: Array in engine.fail_outcomes(c):
+            var nombre := String(MatchEngine.OUTCOME_TEXT.get(o[0], o[0])).replace("¡", "").replace("!", "").to_lower()
+            if (o[0] == "dividida" or o[0] == "rebote") and not lb.is_empty():
+                nombre += " (la ganas %d%%)" % roundi(float(lb["chance"]) * 100.0)
+            out.append(["Si falla: " + nombre, "%d%%" % roundi(float(o[1]) * 100.0)])
     out.append(["Cuesta %d PA · desgaste" % engine.ap_cost_of(c), "%d" % roundi(engine.stamina_cost_of(c))])
     return out
 
@@ -1636,7 +1660,7 @@ func instantanea(e: MatchEngine) -> Dictionary:
 func animar_jugada(ev: Dictionary, card: Card, antes: Dictionary) -> void:
     if not ev.get("ok", false):
         return
-    var titulo := "AGUANTAR" if ev.get("hold", false) else card.display_name.to_upper()
+    var titulo := "AGUANTAR" if ev.get("hold", false) else ("CÓRNER" if card == null else card.display_name.to_upper())
     if ev.get("defense", false):
         var d := String(ev.get("defender", ""))   # D-44: quién la jugó y sobre quién
         if d != "":
@@ -1651,11 +1675,128 @@ func animar_jugada(ev: Dictionary, card: Card, antes: Dictionary) -> void:
         titulo += " · a " + apellido(String(engine._player_by_id(receptor).get("name", "")))
     await mostrar_tirada(titulo, ev["chance"], ev["roll"], ev["success"])
     if not ev.get("hold", false):
-        await _animar_balon(ev, card, true, String(ev.get("carrier", antes["portador"])), receptor, antes["marcas"], int(antes["zona"]))
+        await _jugada_balon(ev, card, true, String(ev.get("carrier", antes["portador"])), receptor, antes["marcas"], int(antes["zona"]))
     await _esperar(0.25)
     if not engine.moment_over:
         _sincronizar_ataque(0.55)
     await ocultar_tirada()
+
+
+# D-48: la pelota según el desenlace. Los robos y la atajada van como siempre (_animar_balon); el resto
+# tiene su propia animación (lateral, afuera, córner, falta, dividida con su tirada); el córner, la suya.
+# Después, el desenlace se anuncia como gráfica de TV.
+func _jugada_balon(ev: Dictionary, card: Card, local: bool, portador: String, receptor: String, marcas: Dictionary, zona: int) -> void:
+    if ev.get("corner", false):
+        await _animar_corner(ev, local)
+        return
+    var o := String(ev.get("outcome", ""))
+    if o == "" or o == "cortada" or o == "pierde" or o == "atajada":
+        if card != null:
+            await _animar_balon(ev, card, local, portador, receptor, marcas, zona)
+    else:
+        await _animar_desenlace(ev, card, local, portador, zona)
+    if o != "":
+        await _anunciar(String(MatchEngine.OUTCOME_TEXT.get(o, o.to_upper())))
+
+
+var _desenlace_g: Control
+var ultimo_desenlace := ""      # lo último anunciado (smoke_match y las capturas lo leen)
+
+
+func _anunciar(texto: String) -> void:
+    ultimo_desenlace = texto
+    if _desenlace_g == null:
+        _desenlace_g = Grafica.new()
+        _desenlace_g.mouse_filter = Control.MOUSE_FILTER_IGNORE
+        add_child(_desenlace_g)
+    _desenlace_g.configurar(texto, 40, Paleta.DORADO, Grafica.SEMI_NOCHE)
+    _desenlace_g.position = Vector2((_ancho - _desenlace_g.size.x) * 0.5, _alto_senal * 0.32)
+    _desenlace_g.visible = true
+    await _esperar(0.8)
+    _desenlace_g.visible = false
+
+
+func _animar_desenlace(ev: Dictionary, card: Card, local: bool, portador: String, zona: int) -> void:
+    var at := "L:" if local else "V:"
+    var de := "V:" if local else "L:"
+    var dir := 1.0 if local else -1.0
+    var yo := _jug(at + portador)
+    if yo == null:
+        return
+    var o := String(ev["outcome"])
+    var forma := Trayectoria.para_carta(card) if card != null else "pase_corto"
+    if card != null and (MatchEngine.is_pass(card) or card.kind == Card.Kind.SHOT):
+        var patada: float = Trayectoria.forma(forma)["patada"]
+        yo.patear(patada)
+        await _esperar(Jugador.CONTACTO_PATADA / patada)
+    var arco := cancha.arco_x(not local)
+    match o:
+        "lateral":
+            cancha.volar("pase_corto", Vector3(yo.position.x + dir * 4.0, Cancha.RADIO_PELOTA, CanchaZonas.FONDO_Z - 0.6))
+            await _esperar_vuelo()
+        "afuera":
+            cancha.volar(forma, Vector3(arco + dir * 1.5, 0.6, 4.6))
+            await _esperar_vuelo()
+        "corner":
+            cancha.volar(forma, Vector3(arco - dir * 0.6, 0.9, 2.6))
+            await _esperar_vuelo()
+            cancha.volar("pase_corto", Vector3(arco - dir * 0.4, Cancha.RADIO_PELOTA, CanchaZonas.FONDO_Z + 0.8))
+            await _esperar_vuelo()
+        "falta":
+            await _esperar(0.5)
+        "dividida", "rebote":
+            var d: Dictionary = ev.get("dividida", {})
+            var ja := _jug(at + String(d.get("attacker", portador)))
+            var jd := _jug(de + String(d.get("defender", "")))
+            if ja == null:
+                ja = yo
+            var mid := ja.position + Vector3(dir * 2.0, 0, 0)
+            if o == "rebote":
+                mid = Vector3(arco - dir * 6.0, 0, 1.0)
+            elif jd != null:
+                mid = (ja.position + jd.position) * 0.5
+            cancha.volar("pase_corto", mid + Vector3(0, Cancha.RADIO_PELOTA, 0))
+            ja.ir_a(mid - Vector3(dir * 0.6, 0, 0.3), 0.4 / _velocidad)
+            if jd != null:
+                jd.ir_a(mid + Vector3(dir * 0.6, 0, 0.3), 0.4 / _velocidad)
+            await _esperar_vuelo()
+            var nombre_a := apellido(String((engine if local else rival_engine)._player_by_id(String(d.get("attacker", ""))).get("name", "")))
+            var nombre_d := apellido(String((rival_engine if local else engine)._player_by_id(String(d.get("defender", ""))).get("name", "")))
+            var titulo := "%s · %s contra %s" % ["REBOTE" if o == "rebote" else "DIVIDIDA", nombre_a, nombre_d]
+            await mostrar_tirada(titulo, float(d.get("chance", 0.5)), float(d.get("roll", 0.0)), bool(d.get("won", false)),
+                    Paleta.DORADO if local else _colores_v[0].lightened(0.3))
+            var gana := ja if d.get("won", false) or jd == null else jd
+            cancha.volar("conduccion", gana.junto_al_pie(Vector3(arco, 0, gana.position.z), Cancha.RADIO_PELOTA))
+            await _esperar_vuelo()
+
+
+# D-48: el córner. El lanzador va a la esquina y centra; si llega, la pelota cae en el receptor; si no, la
+# despeja el que lo marcaba (o el arquero).
+func _animar_corner(ev: Dictionary, local: bool) -> void:
+    var at := "L:" if local else "V:"
+    var de := "V:" if local else "L:"
+    var dir := 1.0 if local else -1.0
+    var e := engine if local else rival_engine
+    var arco := cancha.arco_x(not local)
+    var esquina := Vector3(arco - dir * 0.4, Cancha.RADIO_PELOTA, CanchaZonas.FONDO_Z + 0.8)
+    var lanza := _jug(at + String(ev.get("carrier", "")))
+    if lanza != null:
+        lanza.colocar(esquina + Vector3(-dir * 0.8, 0, -0.6), Vector3(arco - dir * 6.0, 0, 0))
+    cancha.pelota_en(esquina)
+    await _esperar(0.3)
+    var r := String(ev.get("receiver", ""))
+    var destino := _jug(at + r)
+    if not ev.get("success", false):
+        var m: Array = e.markers_of(MatchEngine.Zone.AREA, r)
+        var k := MatchEngine.keeper_of(e.rival_players)
+        var corta := String(MatchEngine._best_by(m, "lectura")["id"]) if not m.is_empty() else String(k.get("id", ""))
+        destino = _jug(de + corta) if corta != "" else destino
+    if lanza != null:
+        lanza.patear(Trayectoria.forma("centro")["patada"])
+        await _esperar(Jugador.CONTACTO_PATADA / float(Trayectoria.forma("centro")["patada"]))
+    if destino != null:
+        cancha.volar("centro", destino.position + Vector3(0, 1.4, 0))
+        await _esperar_vuelo()
 
 
 # D-44: el rival defiende tu jugada antes de que la tires (Presión, Intercepción, Bloqueo o Despeje):
@@ -1808,7 +1949,9 @@ func mirar_ataque_rival(pasos: Array, nuevo: bool = true) -> void:
         await _esperar(0.4)
         var card: Card = paso.get("card")
         var titulo := _sigla(_equipo_v) + " · "
-        if ev.get("hold", false) or card == null:
+        if ev.get("corner", false):
+            titulo += "CÓRNER · a " + apellido(String(rival_engine._player_by_id(String(ev.get("receiver", ""))).get("name", "")))
+        elif ev.get("hold", false) or card == null:
             titulo += "AGUANTA"
         else:
             titulo += card.display_name.to_upper()
@@ -1821,8 +1964,8 @@ func mirar_ataque_rival(pasos: Array, nuevo: bool = true) -> void:
         if resta != 0.0:
             titulo += " · %d" % roundi(resta * 100.0)
         await mostrar_tirada(titulo, ev["chance"], ev["roll"], ev["success"], _colores_v[0].lightened(0.3))
-        if card != null and not ev.get("hold", false):
-            await _animar_balon(ev, card, false, String(ev.get("carrier", "")), String(ev.get("receiver", "")), paso["marcas"], _zona)
+        if (card != null or ev.get("corner", false)) and not ev.get("hold", false):
+            await _jugada_balon(ev, card, false, String(ev.get("carrier", "")), String(ev.get("receiver", "")), paso["marcas"], _zona)
         await _esperar(0.7 if clave else 0.15)   # lo importante se queda un momento en pantalla
         await ocultar_tirada()
     _velocidad = 1.0
@@ -1834,7 +1977,7 @@ func mirar_ataque_rival(pasos: Array, nuevo: bool = true) -> void:
 # Lo que merece mirarse con calma en el ataque rival: un pase o un regate que cambia de zona, un remate,
 # un robo y un gol. Los pases dentro de la zona y los fallos sin robo pasan rápido.
 static func importante(ev: Dictionary, card: Card) -> bool:
-    if ev.get("goal", false) or ev.get("stolen", false) or ev.get("saved", false):
+    if ev.get("goal", false) or ev.get("stolen", false) or ev.get("saved", false) or ev.has("outcome") or ev.get("corner", false):
         return true
     if card != null and card.kind == Card.Kind.SHOT:
         return true
@@ -1867,6 +2010,11 @@ func _process(delta: float) -> void:
 func placa_info() -> Dictionary:
     if modo == Modo.DEFENSA:
         return _placa_defensa()
+    if modo == Modo.ATAQUE and engine != null and engine.corner_pending and not ocupado:
+        var cr := _companero_bajo_mouse(engine.corner_receivers())   # D-48: el % del centro junto al que apuntas
+        if cr == "":
+            cr = engine.best_corner_receiver()
+        return {"pct": roundi(engine.corner_chance(cr) * 100.0), "robo": 0, "misma_zona": false, "clave": "L:" + cr, "texto": "CÓRNER"}
     if _arrastre == null or _apuntado == "" or not MatchEngine.is_pass(_arrastre.card):
         return {}
     var c: Card = _arrastre.card
@@ -1887,9 +2035,9 @@ func _placa_defensa() -> Dictionary:
             "texto": "%s · %s" % [c.display_name.to_upper(), apellido(String(engine.defense_defender(c).get("name", "")))]}
     if intencion.is_empty() or ocupado:
         return {}
-    var r := String(intencion.get("receiver", ""))
+    var r := String(intencion.get("receiver", intencion.get("corner", "")))
     var c: Card = intencion.get("card")
-    var texto := "AGUANTA" if c == null else c.display_name.to_upper()
+    var texto := "CÓRNER" if intencion.has("corner") else ("AGUANTA" if c == null else c.display_name.to_upper())
     return {"pct": intencion_pct(), "robo": 0, "misma_zona": false, "rival": true,
         "clave": "V:" + (r if r != "" else String(rival_engine.carrier.get("id", ""))),
         "texto": "%s · %s" % [_sigla(_equipo_v), texto]}

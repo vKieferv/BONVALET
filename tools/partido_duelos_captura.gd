@@ -18,6 +18,7 @@ var out := "user://capturas_t11"
 var sufijo := ""
 var rapido := false
 var defensa := false
+var desenlaces := false   # D-48: capturas de los desenlaces (dividida, lateral, falta, rebote, córner)
 var view: Control
 var mouse: MouseDuelos
 var tomadas := {}
@@ -31,6 +32,8 @@ func _initialize() -> void:
 			out = arg.get_slice("=", 1)
 		elif arg.begins_with("--sufijo="):
 			sufijo = "_" + arg.get_slice("=", 1)
+		elif arg == "--desenlaces":
+			desenlaces = true
 		elif arg == "--defensa":
 			defensa = true
 		elif arg == "--rapido":
@@ -81,6 +84,8 @@ func _correr() -> void:
 
 
 func _necesarias() -> Array:
+	if desenlaces:
+		return ["v2_dividida", "v2_lateral", "v2_falta", "v2_rebote", "v2_corner", "v2_corner_centro"]
 	if defensa:
 		return ["t15_1_intencion", "t15_2_presion", "t15_3_intercepcion", "t15_4_bloqueo", "t15_5_tirada_defensa"]
 	if rapido:
@@ -109,7 +114,7 @@ func _jugar_partido() -> void:
 		if rapido and _listo():
 			return
 		if p.modo == PantallaDuelos.Modo.RIVAL:
-			if defensa or (tomadas.has("8_ataque_rival") and tomadas.has("5_robo") and tomadas.has("6_gol")):
+			if defensa or desenlaces or (tomadas.has("8_ataque_rival") and tomadas.has("5_robo") and tomadas.has("6_gol")):
 				await mouse.clic(p._boton_saltar.get_global_rect().get_center())
 				await _mientras(func(): return p.modo == PantallaDuelos.Modo.RIVAL)
 			else:
@@ -136,6 +141,19 @@ func _jugar_partido() -> void:
 # Lo que se captura apenas aparece: la tirada resuelta, los carteles de robo y gol y el ataque rival.
 func _vigilar(p: PantallaDuelos) -> void:
 	var tirada_lista: bool = p._tirada.visible and p._tirada_t >= 1.0
+	if desenlaces:   # D-48: cada desenlace cuando se anuncia, y la tirada de la dividida
+		var titulo := String(p._tirada_datos.get("titulo", ""))
+		if tirada_lista and titulo.contains("DIVIDIDA") and not tomadas.has("v2_dividida"):
+			_shot("v2_dividida")
+		if tirada_lista and titulo.begins_with("REBOTE") and not tomadas.has("v2_rebote"):
+			_shot("v2_rebote")
+		var g: Control = p._desenlace_g
+		if g != null and g.visible:
+			var nombre: String = {"¡AL LATERAL!": "v2_lateral", "¡FALTA!": "v2_falta", "¡AL CÓRNER!": "v2_corner"}.get(p.ultimo_desenlace, "")
+			if nombre != "" and not tomadas.has(nombre):
+				_shot(nombre)
+		if p.modo == PantallaDuelos.Modo.ATAQUE and view._engine.corner_pending and not view._busy and not tomadas.has("v2_corner_centro"):
+			_shot("v2_corner_centro")
 	if tirada_lista and p.modo == PantallaDuelos.Modo.RIVAL and not tomadas.has("8_ataque_rival"):
 		_shot("8_ataque_rival")
 	elif tirada_lista and p.modo == PantallaDuelos.Modo.DEFENSA and defensa and not tomadas.has("t15_5_tirada_defensa"):
@@ -165,6 +183,10 @@ func _defender(p: PantallaDuelos) -> void:
 # Intercepción (sobre la línea del pase) y el Bloqueo arrastrados sobre el rival, con la placa y tu defensor.
 # Las láminas de inicio solo traen Marca y Despeje: la Intercepción y el Bloqueo se agregan a la mano.
 func _defender_duelos(p: PantallaDuelos) -> void:
+	if desenlaces:
+		await mouse.clic(p._boton_ceder.get_global_rect().get_center())
+		await _ocupado()
+		return
 	var e: MatchEngine = view._engine
 	var it: Dictionary = view._intent_actual
 	var ic: Card = it.get("card")
@@ -223,6 +245,14 @@ func _defender_duelos(p: PantallaDuelos) -> void:
 
 func _atacar(p: PantallaDuelos) -> void:
 	var e: MatchEngine = view._engine
+	if e.corner_pending:   # D-48: el córner se tira tocando al que va a cabecear
+		var rec := e.best_corner_receiver()
+		mouse.mover(p.punto_de("L:" + rec), false)
+		await _quieto(20)
+		_vigilar(p)
+		await mouse.clic(p.punto_de("L:" + rec))
+		await _ocupado()
+		return
 	if not tomadas.has("4_cuenta") and not p.laminas().is_empty() and not rapido:
 		Engine.time_scale = 1.0
 		var ui: CardUI = p.laminas()[0]

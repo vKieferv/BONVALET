@@ -449,6 +449,22 @@ Sombrerito, Descarga), Presión alta, defensa por arrastre (D-44) y ATRÁS como 
 T-13 la figura con doble marca quedó fuera del juego (1% de los toques de Fernández) y la presión casi no robaba;
 se resuelve con cartas en vez de más reglas.
 
+**D-48 · 2026-11-08 · Una jugada fallida tiene varios desenlaces** · VIGENTE (valores en prueba)
+El usuario, al jugar T-15: "si fallo no tiene porque devolverseme la pelota, deberia decir rebote?". Hoy un fallo
+es blanco o negro (sigue la jugada, o robo con contragolpe). Precisa la regla 2 de D-36 en el modo de duelos:
+1. **Pase fallido:** ¡DIVIDIDA! (pelota suelta), ¡AL LATERAL! (saque para el que defendía, en esa zona, sin
+   contragolpe) o ¡CORTADA! (robo limpio con contragolpe, como hoy).
+2. **Regate fallido:** ¡FALTA! (tiro libre: el que atacaba sigue con la pelota en esa zona), ¡DIVIDIDA! o ¡LA PIERDE!.
+3. **Remate fallido:** ¡ATAJADA! (fin del ataque), ¡REBOTE! (dividida en el Área; si la gana el que atacaba,
+   puede volver a rematar), ¡AL CÓRNER! o ¡AFUERA! (saque de arco, fin sin contragolpe).
+4. **La dividida es automática:** la pelean el jugador más cercano de cada equipo, Quite contra Quite, con su %
+   a la vista.
+5. **El córner es una jugada especial de pelota parada:** un centro desde la esquina y un remate en el Área,
+   donde brillan Cabezazo y Palomita.
+6. **Pilar 2:** la cuenta de cada carta muestra antes las probabilidades de cada desenlace ("si falla: 40%
+   dividida, 35% lateral, 25% cortada"), y cada uno se anuncia como gráfica de TV.
+Por qué: un fallo no siempre es perder la pelota, y el contragolpe se vuelve más raro y valioso.
+
 ### Descartadas (para no reabrirlas sin datos nuevos)
 - **Tempo ofensivo +7 / regen +3** (2026-10-26): no llegaba al objetivo de goles y quedó obsoleto con
   PA + Estamina; el stash se borró.

@@ -39,13 +39,20 @@ Tareas:
       hace visible que el azar es justo (pilar 2) y ayuda a responder los playtests (brief por escribir)
 - [ ] Playtests 1-5 (usuario) → skill `playtest`; los arreglos que salgan, como tareas nuevas
 
-**Duelos por línea (I-45, D-28 a D-32, `docs/cartas.md`):** el usuario diseñó en papel un modelo nuevo
-del partido (cada jugada contra un jugador rival, habilidades, formaciones por estilo, fallar no corta el
-Momento, cansancio por jugador). Si se adopta, cambia el corazón de M1 y obliga a recalibrar. Siguiente
-paso: un **prototipo medido** en una rama de diseño (motor mínimo + `balance-lab` + playtest) antes de
-decidir. Mientras tanto no se sigue afinando el modelo actual (la curva de M2 espera esa decisión).
+**Duelos (I-45, D-28 a D-48):** adoptado. El modo de duelos (portador, marcas, habilidades) es el partido
+por defecto desde T-11; el modo actual y el de zonas quedan como opción para comparar. Los playtests de
+M1 se hacen ahora sobre los duelos.
 
-## Ahora · Cara visual y partido por zonas (2026-10-28)
+## Siguiente, en este orden (revisado el 2026-11-09)
+1. **Cerrar T-15** (defensa por arrastre y desenlaces del fallo, D-44 y D-48): playtest del usuario y mezcla.
+2. **Mazo nuevo y cartas v2** (D-45 y D-47): brief por escribir tras T-15.
+3. **Una sola medición con el mazo nuevo** para decidir juntos la curva de la temporada (mitad y final
+   sobre 2,6) y el cansancio (I-59: quitarlo, dejarlo o por jugador).
+4. **T-03, más chico:** el resumen post-partido (I-35); la tirada visible ya cubre parte.
+5. **M3:** la temporada completa.
+Pendientes sueltos: perfiles de la élite (propuesta del 2026-11-03 sin confirmar), Steam Deck.
+
+## Hecho · Cara visual y partido nuevo (2026-10-28 a 2026-11-09)
 Antes de seguir, el juego tiene que dar ganas de jugarlo (usuario). Orden decidido (D-35): primero lo
 visual, después el partido por zonas con su pantalla nueva.
 - [x] T-09 · lámina, íconos y semana como mesa del DT (mezclada el 2026-10-29; capturas en `../capturas-t09/`)
@@ -54,9 +61,9 @@ visual, después el partido por zonas con su pantalla nueva.
 - [x] T-12 · prueba técnica de la cancha 3D low poly (`T-12-prueba-3d.md`, I-54) · mezclada 2026-11-01 en `scenes/prueba_3d/`: T-11 va en 3D (D-41), falta medir en Steam Deck
 - [x] T-13 · motor de D-40 a D-43: portador, marcas y habilidades (`T-13-motor-portador-marcas.md`) · mezclada 2026-11-03 como modo de duelos en prueba (2.45 goles al inicio)
 - [x] T-11 · pantalla del partido: TV de 2006, cancha 3D y duelos (`T-11-pantalla-partido.md`) · mezclada 2026-11-04; duelos por defecto, defensa nueva (D-44) pendiente
-- [ ] T-15 · la defensa nueva, el ataque al revés (`T-15-defensa-nueva.md`, D-44; en el PC)
+- [ ] T-15 · la defensa nueva y los desenlaces del fallo (`T-15-defensa-nueva.md`, D-44, D-48) · en curso
 - [x] T-14 · eventos de la semana: catálogo, medios y ramas (`T-14-eventos-semana.md`, I-57) · mezclada 2026-11-03; valores de los efectos en prueba
-- [ ] Decisión del usuario tras medir y jugar: ¿el modo de zonas reemplaza al actual?
+- [x] ¿Qué modo es el partido? → los duelos, por defecto desde T-11 (2026-11-04)
 
 ## M2 · Deckbuilder de verdad (diseño cerrado, en implementación)
 Diseño:
@@ -64,15 +71,15 @@ Diseño:
       también crecen. Detalle en GDD 3.4.
 - [x] Mazo inicial estándar + carta de rasgo del DT (D-23, EN PRUEBA): medido con `balance-lab`
       (`tests/lab/m2_propuesta.json`, `m2_crecimiento.json`). Detalle en GDD 3.5.
-- [ ] Curva de la temporada: medida oficialmente en T-04 (inicio 2.47, mitad 2.73, final 2.65). Espera
-      la decisión de los duelos antes de recalibrar.
+- [ ] Curva de la temporada: medida en T-04 (2.47 / 2.73 / 2.65) y con duelos en T-15 (2.38 / 2.63 / 2.61). Espera
+      el mazo nuevo (paso 3 de "Siguiente").
 - [ ] Canteranos y progresión (I-05): por diseñar.
 - [ ] Modo Copa (I-34): por diseñar; partida corta de 5-6 partidos con mazo que crece, sirve de demo.
 
 Tareas (en este orden; cada una termina en un PR):
 - [x] T-04 · mazo estándar, cartas de rasgo y balance por etapa (PR #4, mezclada el 2026-10-28)
 - [x] T-05 · Bloque 2 con carta, video o kinesiología y mazo propio guardado (mezclada el 2026-10-28)
-- [ ] T-06 · los rivales crecen durante la temporada (`T-06-rivales-crecen.md`, tras T-04; mejor después de T-05)
+- [x] T-06 · los rivales crecen durante la temporada (mezclada el 2026-10-29)
 
 ## M3 · Una temporada (diseño decidido, datos en preparación)
 - [x] Formato fiel a 2006 (D-24), los demás partidos simulados (D-25), comparar con la realidad (I-36).

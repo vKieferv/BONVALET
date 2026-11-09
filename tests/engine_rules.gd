@@ -42,6 +42,7 @@ func _initialize() -> void:
 	_test_duel_d43()
 	_test_duel_d46()
 	_test_duel_d44()
+	_test_duel_d48()
 	print("engine_rules: %d comprobaciones, %d fallas" % [checks, failures.size()])
 	for f in failures:
 		print("  FALLA: " + f)
@@ -1185,6 +1186,7 @@ func _test_duel_skills() -> void:
 func _test_duel_pass_example() -> void:
 	var e := _duel_engine(91)
 	e.duel_press_divisor = 0.0   # la tabla es de D-40: la presión de Salas sobre Aceval (D-43) se prueba en _test_duel_d43
+	e.duel_outcomes = false   # el ejemplo es el robo de D-36; los desenlaces de D-48 se prueban en _test_duel_d48
 	var u: Array = e.rival_players
 	e.carrier = _pl(e.duel_players, "miguel_aceval")
 	e.marks[MatchEngine.Zone.MEDIO] = {"matias_fernandez": [_pl(u, "manuel_iturra"), _pl(u, "marcelo_diaz")],
@@ -1728,3 +1730,118 @@ func _test_duel_d44() -> void:
 	if not CoachBot.defend_play(bd, BotProfile.new()).is_empty():
 		plays += 1
 	_check(plays <= 1 and bd.deck.hand.size() >= 1, "el bot juega una carta como mucho por jugada")
+
+
+# ---------- Desenlaces de los fallos (D-48, T-15) ----------
+
+func _test_duel_d48() -> void:
+	var cat := CardDB.load_catalog(DECK_PATH)
+	for kind in MatchEngine.FAIL_OUTCOMES:
+		for row: Array in MatchEngine.FAIL_OUTCOMES[kind]:
+			var s := 0.0
+			for o in row:
+				s += float(o[1])
+			_check(is_equal_approx(s, 1.0), "la fila de desenlaces de %s suma 1: %s" % [kind, row])
+	# El robo es la CORTADA de la tabla: (1 − %) × su parte.
+	var e := _duel_engine(481)
+	var pase := Card.from_dict(cat["pase_corto"])
+	e.deck.hand.append(pase)
+	var r := e.best_receiver(pase)
+	var p := e.success_chance(pase, -1, r)
+	_check(is_equal_approx(e.steal_chance(pase, -1, r), roundi((1.0 - p) * 0.20 * 100.0) / 100.0), "el robo del pase en la Salida es la cortada (20% de los fallos)")
+	# La dividida: 50 + factor × (Quite del portador − el mejor Quite de los que lo marcan).
+	var lb := e.loose_ball(pase, r)
+	var want := 0.5 + e.duel_skill_factor * float(int(lb["attacker"]["quite"]) - int(lb["defender"]["quite"])) / 100.0
+	_check(is_equal_approx(lb["chance"], roundi(clampf(want, 0.05, 0.95) * 100.0) / 100.0), "la dividida es Quite contra Quite: %s" % [lb])
+	# Pases fallidos en la Salida: cada desenlace sale de la misma tirada y hace lo suyo.
+	var seen := {}
+	for s in 300:
+		var t := _duel_engine(2000 + s)
+		var c := Card.from_dict(cat["pase_corto"])
+		t.deck.hand.append(c)
+		t.deck.hand.append(Card.from_dict(cat["pase_corto"]))
+		var rr := t.best_receiver(c)
+		var carrier_before := String(t.carrier["id"])
+		var ev := t.play_card(t.deck.hand.find(c), rr)
+		if ev["success"]:
+			continue
+		var o := String(ev.get("outcome", ""))
+		seen[o] = true
+		var u := (float(ev["roll"]) - float(ev["chance"])) / (1.0 - float(ev["chance"]))
+		match o:
+			"cortada":
+				_check(ev.get("stolen", false) and t.moment_over and u >= 0.8 - 0.0001, "la cortada es robo arriba de los fallos (u %.2f)" % u)
+			"lateral":
+				_check(t.moment_over and not ev.get("stolen", false) and u >= 0.5 - 0.0001 and u < 0.8, "al lateral: fin sin contragolpe")
+			"dividida":
+				var d: Dictionary = ev["dividida"]
+				_check(d["won"] == (float(d["roll"]) < float(d["chance"])) and t.moment_over != d["won"], "la dividida se tira contra su %%: %s" % [d])
+				if d["won"]:
+					_check(String(t.carrier["id"]) == carrier_before and t.zone == MatchEngine.Zone.SALIDA, "si la ganas, sigues con la pelota en esa zona")
+			_:
+				_check(false, "desenlace de pase inesperado: '%s'" % o)
+	_check(seen.has("cortada") and seen.has("lateral") and seen.has("dividida"), "se vieron los tres desenlaces del pase: %s" % [seen.keys()])
+	# Remates fallidos en el Área: atajada, rebote, córner y afuera; el córner se tira sin carta.
+	var shots := {}
+	var corner_done := false
+	for s in 400:
+		var t := _duel_engine(3000 + s)
+		t.zone = MatchEngine.Zone.AREA
+		t.progress = 2
+		t.carrier = t.zone_players(MatchEngine.Zone.AREA)[0]
+		var c := Card.from_dict(cat["remate_simple"])
+		t.deck.hand.append(c)
+		t.deck.hand.append(Card.from_dict(cat["remate_simple"]))
+		var ev := t.play_card(t.deck.hand.find(c))
+		if ev["success"]:
+			continue
+		var o := String(ev.get("outcome", ""))
+		shots[o] = true
+		if o == "atajada" or o == "afuera":
+			_check(t.moment_over and not ev.get("stolen", false), "%s: fin del ataque sin contragolpe" % o)
+		if o == "corner" and not corner_done:
+			_check(not t.moment_over and t.corner_pending and t.playable_indices().is_empty() and not t.can_hold(), "al córner: el Momento sigue y no se juega carta")
+			var rec := t.best_corner_receiver()
+			var shown := t.corner_chance(rec)
+			var labels: Array = t.corner_breakdown(rec).map(func(i): return i["label"])
+			_check(labels.has("Córner (pelota parada)"), "el centro del córner tiene su línea: %s" % [labels])
+			var cev := t.take_corner(rec)
+			_check(is_equal_approx(float(cev["chance"]), shown) and cev["success"] == (float(cev["roll"]) < shown), "el córner se tira contra su %")
+			_check(not t.corner_pending, "el córner se tira una vez")
+			if cev["success"]:
+				corner_done = true
+				_check(String(t.carrier["id"]) == rec and t.zone == MatchEngine.Zone.AREA and not t.moment_over, "si el centro llega, el receptor remata en el Área")
+				var gol := false
+				for k in 30:
+					var t2 := t
+					if t2.moment_over:
+						break
+					var ev2 := t2.play_card(0)
+					gol = ev2.get("goal", false)
+				if gol:
+					_check(int(t.stats["corner_goals"]) == 1, "el gol después del córner cuenta como de pelota parada")
+			else:
+				_check(t.moment_over, "si no llega, despejan")
+	_check(shots.has("atajada") and shots.has("rebote") and shots.has("corner") and shots.has("afuera"), "se vieron los desenlaces del remate: %s" % [shots.keys()])
+	# Regate fallido: la falta deja la pelota al que atacaba.
+	var falta := false
+	for s in 300:
+		var t := _duel_engine(4000 + s)
+		t.zone = MatchEngine.Zone.MEDIO
+		t.progress = 1
+		var c := Card.from_dict(cat["amague"])
+		t.deck.hand.append(c)
+		t.deck.hand.append(Card.from_dict(cat["amague"]))
+		var ev := t.play_card(t.deck.hand.find(c))
+		if String(ev.get("outcome", "")) == "falta":
+			falta = true
+			_check(not t.moment_over and t.zone == MatchEngine.Zone.MEDIO, "falta: sigues con la pelota en esa zona")
+			break
+	_check(falta, "se vio una falta")
+	# Apagado: el robo de D-36, sin desenlaces.
+	var off := _duel_engine(482)
+	off.duel_outcomes = false
+	var oc := Card.from_dict(cat["pase_corto"])
+	off.deck.hand.append(oc)
+	var oev := off.play_card(0, off.best_receiver(oc))
+	_check(not oev.has("outcome"), "con duel_outcomes apagado no hay desenlaces")

@@ -130,6 +130,38 @@ const ROLE_DEPTH := {"DFC": 0, "LAT": 1, "MCD": 2, "MCO": 3, "EXT": 4, "DEL": 5}
 # a una sola) y el Bloqueo, al remate anunciado, su efecto × el otro. Valores de prueba.
 const DUEL_DEF_PRESS_MULT := 2.0
 const DUEL_DEF_BLOCK_MULT := 1.0
+# D-48 (T-15): en el modo de duelos una jugada fallida tiene varios desenlaces. Por tipo de jugada y zona
+# donde se jugó [Salida, Medio, Área], la parte de los fallos que termina en cada uno (cada fila suma 1;
+# el orden importa: el último es el de arriba de la tirada). Reemplaza el robo de D-36 en este modo: la
+# CORTADA y LA PIERDE son ese robo (con contragolpe). Valores de prueba: se cambian aquí (o con
+# fail_table, que tests/balance_lab.gd puede reemplazar).
+#   dividida: pelota suelta, la pelean el más cercano de cada lado (Quite contra Quite); si la gana el que
+#             atacaba, sigue con la pelota en esa zona; si no, se termina el ataque sin contragolpe.
+#   lateral / afuera: saque del que defendía, fin sin contragolpe. falta: el que atacaba sigue con la pelota.
+#   atajada: fin. rebote: dividida en el Área (si la gana, puede volver a rematar). corner: pelota parada.
+const FAIL_OUTCOMES := {
+	"pase": [
+		[["dividida", 0.50], ["lateral", 0.30], ["cortada", 0.20]],
+		[["dividida", 0.55], ["lateral", 0.33], ["cortada", 0.12]],
+		[["dividida", 0.60], ["lateral", 0.40]],
+	],
+	"regate": [
+		[["falta", 0.30], ["dividida", 0.50], ["pierde", 0.20]],
+		[["falta", 0.35], ["dividida", 0.53], ["pierde", 0.12]],
+		[["falta", 0.40], ["dividida", 0.60]],
+	],
+	"remate": [
+		[["atajada", 0.40], ["rebote", 0.25], ["corner", 0.20], ["afuera", 0.15]],
+		[["atajada", 0.40], ["rebote", 0.25], ["corner", 0.20], ["afuera", 0.15]],
+		[["atajada", 0.40], ["rebote", 0.25], ["corner", 0.20], ["afuera", 0.15]],
+	],
+}
+const OUTCOME_TEXT := {"dividida": "¡DIVIDIDA!", "lateral": "¡AL LATERAL!", "cortada": "¡CORTADA!",
+	"falta": "¡FALTA!", "pierde": "¡LA PIERDE!", "atajada": "¡ATAJADA!", "rebote": "¡REBOTE!",
+	"corner": "¡AL CÓRNER!", "afuera": "¡AFUERA!"}
+const DIVIDIDA_BASE := 0.50          # la dividida: 50% + factor × (tu Quite − el suyo)
+const CORNER_BONUS := 0.10           # el centro del córner (pelota parada, sin presión): +10 de prueba
+const CORNER_CARDS := ["cabezazo", "palomita"]   # las que brillan después de un córner (cartas v2, aún no en el catálogo)
 
 var player: PlayerStats
 var deck: DeckManager
@@ -202,6 +234,12 @@ var defense_penalties: Array = []   # D-44: lo que la defensa rival le restó a 
 var carrier: Dictionary = {}        # el portador: juega las cartas del Momento
 var carrier_extra := false          # llegó a esta zona con un regate: el rival lo cuenta al repartir
 var carrier_chosen := false         # quien juega ya eligió el portador de la Salida (set_carrier)
+var duel_outcomes := true           # D-48: desenlaces de los fallos en el modo de duelos (false = el robo de D-36)
+var fail_table: Dictionary = FAIL_OUTCOMES
+var dividida_base := DIVIDIDA_BASE
+var corner_bonus := CORNER_BONUS
+var corner_pending := false         # D-48: el Momento sigue con un córner (take_corner) antes de cualquier carta
+var corner_taken := false           # en este Momento hubo un córner bien centrado (para contar sus goles)
 var marks := {}                     # zona -> {id de tu jugador: [sus marcadores, del mejor al peor]}
 var touches := {}                   # id -> veces que fue portador en el partido
 var moment_plays := 0               # jugadas del Momento en curso (el portador se elige antes de la primera)
@@ -242,7 +280,9 @@ var stats := {"goals": 0, "moments": 0, "flow_moments": 0, "flow_breaks": 0, "in
 	"dribble_entries": 0, "dribble_doubled": 0, "back_plays": 0,
 	"transition_moments": 0, "transition_goals": 0, "salida_steals": 0, "salida_steals_fwd": 0,
 	"salida_steal_skill": 0, "short_moments": 0, "short_goals": 0, "same_zone_passes": 0,
-	"cut_moments": 0, "duel_def_plays": 0}
+	"cut_moments": 0, "duel_def_plays": 0,
+	"divididas": 0, "divididas_won": 0, "laterales": 0, "faltas": 0, "afueras": 0, "corners": 0,
+	"corner_crosses": 0, "corner_goals": 0}
 # counters: Momentos propios que arrancaron con contragolpe. steals / saves / rebounds (modo de zonas):
 # fallos que fueron robo, remates fallados que se quedó el arquero y remates fallados con rebote.
 # Modo de duelos: dribble_entries = regates que entraron a otra zona; dribble_doubled = de ellos, los
@@ -327,6 +367,8 @@ func begin_moment() -> Dictionary:
 	flow_cards.clear()
 	moment_had_flow = false
 	moment_over = false
+	corner_pending = false
+	corner_taken = false
 	ap_max = int(AP_BY_POSTURE[posture])
 	ap = ap_max
 	# Zonas: se arranca en la Salida; el contragolpe y el espacio rival arrancan en el Medio.
@@ -531,6 +573,8 @@ func steal_chance(card: Card, at_zone: int = -1, receiver: String = "") -> float
 		return 0.0
 	var z := zone if at_zone < 0 else at_zone
 	var s := zone_steal_salida if z == Zone.SALIDA else (zone_steal_medio if z == Zone.MEDIO else 0.0)
+	if duel_on() and duel_outcomes:   # D-48: el robo es la CORTADA (pase) o LA PIERDE (regate) de la tabla
+		s = outcome_share(card, z, "cortada") + outcome_share(card, z, "pierde")
 	return roundi((1.0 - success_chance(card, at_zone, receiver)) * s * 100.0) / 100.0
 
 
@@ -539,6 +583,9 @@ func steal_chance(card: Card, at_zone: int = -1, receiver: String = "") -> float
 func save_chance(card: Card, at_zone: int = -1, receiver: String = "") -> float:
 	if not zone_mode or in_defense or card.kind != Card.Kind.SHOT:
 		return 0.0
+	if duel_on() and duel_outcomes:   # D-48: la ATAJADA de la tabla
+		var z := zone if at_zone < 0 else at_zone
+		return roundi((1.0 - success_chance(card, at_zone, receiver)) * outcome_share(card, z, "atajada") * 100.0) / 100.0
 	return roundi((1.0 - success_chance(card, at_zone, receiver)) * ZONE_SAVE_CHANCE * 100.0) / 100.0
 
 
@@ -560,7 +607,7 @@ func zone_block_reason(card: Card) -> String:
 # Se puede jugar si alcanzan los PA del turno. La estamina nunca bloquea (agotado se juega igual,
 # con riesgo de lesión). receiver (modo de duelos): el pase solo a un compañero de la zona siguiente.
 func can_play(card: Card, receiver: String = "") -> bool:
-	if not card.playable or ap_cost_of(card) > ap:
+	if not card.playable or ap_cost_of(card) > ap or corner_pending:
 		return false
 	if not DeckManager.fits_possession(card, deck.possession):
 		return false
@@ -748,6 +795,9 @@ func _resolve_zone_fail(card: Card, ev: Dictionary) -> void:
 	var extra := float(ev["stamina"]) * ZONE_FAIL_STAMINA
 	player.energy = maxf(0.0, player.energy - extra)
 	ev["fail_stamina"] = extra
+	if duel_on() and duel_outcomes and card.kind != Card.Kind.PAUSE:
+		_resolve_duel_fail(card, ev)
+		return
 	var roll: float = ev["roll"]
 	if card.kind == Card.Kind.SHOT:
 		if roll >= 1.0 - float(ev["save_chance"]):
@@ -768,6 +818,8 @@ func _resolve_zone_fail(card: Card, ev: Dictionary) -> void:
 func _end_if_stuck(ev: Dictionary) -> void:
 	if not moment_over and injured:
 		_finish_moment(false)
+	if corner_pending:
+		return   # D-48: el córner se tira sin carta
 	if not moment_over and playable_indices().is_empty() and not can_hold():
 		ev["out_of_ap"] = true
 		stats["out_of_ap"] += 1
@@ -776,6 +828,7 @@ func _end_if_stuck(ev: Dictionary) -> void:
 
 func abort_moment() -> void:
 	defense_penalties.clear()
+	corner_pending = false
 	if not moment_over:
 		_finish_moment(false)
 
@@ -1152,7 +1205,7 @@ func _mark_item(who: Dictionary, markers: Array, factor: float, items: Array, sk
 # ---------- Aguantar el Balón ----------
 
 func can_hold() -> bool:
-	return not in_defense and not moment_over and not injured and holds < MAX_HOLDS
+	return not in_defense and not moment_over and not injured and holds < MAX_HOLDS and not corner_pending
 
 
 # 1 PA, o 0 si no quedan (y entonces el éxito da +1 PA).
@@ -1331,6 +1384,195 @@ func _resolve_defense(card: Card, success: bool, ev: Dictionary) -> void:
 		end_defense()
 
 
+# ---------- Desenlaces de los fallos (D-48, T-15) ----------
+
+# Tabla de desenlaces de la carta si falla en la zona z: [[nombre, parte de los fallos], ...]; [] si no tiene
+# (la Pausa). Solo rige en el modo de duelos (duel_outcomes).
+func fail_outcomes(card: Card, z: int = -1) -> Array:
+	var kind := ""
+	if card.kind == Card.Kind.SHOT:
+		kind = "remate"
+	elif is_pass(card):
+		kind = "pase"
+	elif is_dribble(card):
+		kind = "regate"
+	if kind == "" or not fail_table.has(kind):
+		return []
+	return fail_table[kind][clampi(zone if z < 0 else z, 0, 2)]
+
+
+func outcome_share(card: Card, z: int, name: String) -> float:
+	for o in fail_outcomes(card, z):
+		if o[0] == name:
+			return float(o[1])
+	return 0.0
+
+
+# La dividida (pelota suelta): el más cercano de cada lado, Quite contra Quite. El que atacaba es el portador;
+# el que defiende, el mejor Quite de los que lo marcan, o si no los del receptor del pase, o los de su línea en
+# esa zona, o el arquero. {attacker, defender, chance} (chance = la del que atacaba).
+func loose_ball(card: Card, receiver: String = "", at_zone: int = -1) -> Dictionary:
+	var z := zone if at_zone < 0 else at_zone
+	var a := _assumed_carrier(z)
+	if a.is_empty():
+		return {}
+	var m: Array = markers_of(z, a["id"])
+	if m.is_empty() and receiver != "" and is_pass(card):
+		m = markers_of(pass_zone(card, receiver, z), receiver)
+	if m.is_empty():
+		m = defender_line(z)
+	if m.is_empty():
+		var k := keeper_of(rival_players)
+		m = [] if k.is_empty() else [k]
+	if m.is_empty():
+		return {"attacker": a, "defender": {}, "chance": MAX_CHANCE}
+	var d := _best_by(m, "quite")
+	var p := dividida_base + duel_skill_factor * float(int(a.get("quite", 0)) - int(d.get("quite", 0))) / 100.0
+	return {"attacker": a, "defender": d, "chance": roundi(clampf(p, MIN_CHANCE, MAX_CHANCE) * 100.0) / 100.0}
+
+
+# Fallo en el modo de duelos: la misma tirada de la jugada elige el desenlace (la parte de arriba de los fallos
+# es la cortada / la pierde, como el robo de D-36). ev["outcome"] = su nombre; la dividida trae su tirada.
+func _resolve_duel_fail(card: Card, ev: Dictionary) -> void:
+	var p := float(ev["chance"])
+	var u := clampf((float(ev["roll"]) - p) / maxf(0.0001, 1.0 - p), 0.0, 0.9999)
+	var table := fail_outcomes(card, int(ev.get("play_zone", zone)))
+	var outcome := ""
+	var acc := 0.0
+	for o in table:
+		acc += float(o[1])
+		outcome = String(o[0])
+		if u < acc:
+			break
+	if outcome == "":
+		return
+	ev["outcome"] = outcome
+	match outcome:
+		"cortada", "pierde":
+			ev["stolen"] = true
+			stats["steals"] += 1
+			_finish_moment(false)
+		"atajada":
+			ev["saved"] = true
+			stats["saves"] += 1
+			_finish_moment(false)
+		"lateral":
+			stats["laterales"] += 1
+			_finish_moment(false)
+		"afuera":
+			stats["afueras"] += 1
+			_finish_moment(false)
+		"falta":
+			stats["faltas"] += 1
+		"corner":
+			stats["corners"] += 1
+			corner_pending = true
+		"dividida", "rebote":
+			var lb := loose_ball(card, String(ev.get("receiver", "")))
+			var roll := rng.randf()
+			var won := roll < float(lb.get("chance", 0.5))
+			ev["dividida"] = {"attacker": String(lb.get("attacker", {}).get("id", "")),
+				"defender": String((lb.get("defender", {}) as Dictionary).get("id", "")),
+				"chance": float(lb.get("chance", 0.5)), "roll": roll, "won": won}
+			stats["divididas"] += 1
+			if outcome == "rebote":
+				ev["rebound"] = true
+				stats["rebounds"] += 1
+			if won:
+				stats["divididas_won"] += 1
+			else:
+				_finish_moment(false)   # la ganó el que defendía: sin contragolpe
+
+
+# ---------- El córner (D-48): pelota parada ----------
+
+# El lanzador: el mejor Pase de los de campo.
+func corner_taker() -> Dictionary:
+	var field := duel_players.filter(func(pl): return String(pl.get("role", "")) != "POR")
+	return {} if field.is_empty() else _best_by(field, "pase")
+
+
+# Los que pueden recibir el centro: los del Área (o, si no hay, cualquiera de campo), menos el lanzador.
+func corner_receivers() -> Array:
+	var t := String(corner_taker().get("id", ""))
+	var out: Array = zone_players(Zone.AREA).filter(func(pl): return pl["id"] != t)
+	if out.is_empty():
+		out = duel_players.filter(func(pl): return pl["id"] != t and String(pl.get("role", "")) != "POR")
+	return out
+
+
+# Desglose del centro: base + córner + Pase del lanzador contra la Lectura de quien marca al receptor y sus marcas.
+func corner_breakdown(receiver: String) -> Array:
+	var items: Array = [{"label": "Base", "value": duel_base}, {"label": "Córner (pelota parada)", "value": corner_bonus}]
+	var t := corner_taker()
+	var r := _player_by_id(receiver)
+	if t.is_empty() or r.is_empty():
+		return items
+	var m := markers_of(Zone.AREA, receiver)
+	if not m.is_empty():
+		_duel_item("Pase", t, "Lectura", _best_by(m, "lectura"), items)
+	_mark_item(r, m, 1.0, items, "lectura")
+	if form_bonus != 0.0:
+		items.append({"label": "Entrenamiento", "value": form_bonus})
+	return items
+
+
+func corner_chance(receiver: String) -> float:
+	var p := 0.0
+	for item in corner_breakdown(receiver):
+		p += float(item["value"])
+	return roundi(clampf(p, MIN_CHANCE, MAX_CHANCE) * 100.0) / 100.0
+
+
+# El receptor que más conviene: % del centro × lo bien que remata.
+func best_corner_receiver() -> String:
+	var best := ""
+	var best_v := -1.0
+	for r in corner_receivers():
+		var v := corner_chance(r["id"]) * (0.5 + float(r.get("remate", 0)) / 200.0)
+		if v > best_v:
+			best_v = v
+			best = r["id"]
+	return best
+
+
+# Tira el córner hacia `receiver` (sin carta ni PA). Si llega, el receptor queda con la pelota en el Área para
+# rematar con la mano que tengas; si no, la defensa despeja (fin del ataque, sin contragolpe).
+func take_corner(receiver: String = "") -> Dictionary:
+	if not corner_pending or moment_over:
+		return {"ok": false, "reason": "invalid"}
+	if receiver == "" or not corner_receivers().any(func(r): return r["id"] == receiver):
+		receiver = best_corner_receiver()
+	var p := corner_chance(receiver)
+	var t := corner_taker()
+	var roll := rng.randf()
+	var ok := roll < p
+	corner_pending = false
+	defense_penalties.clear()
+	var ev := {"ok": true, "corner": true, "card_id": "", "card_name": "Córner", "kind": Card.Kind.CROSS,
+		"ap": 0, "stamina": 0.0, "chance": p, "roll": roll, "success": ok, "natural": false, "defense": false,
+		"flow_started": false, "flow_broken": false, "goal": false, "injury": false, "cancelled": false,
+		"out_of_ap": false, "carrier": String(t.get("id", "")), "receiver": receiver, "play_zone": Zone.AREA}
+	if ok:
+		stats["corner_crosses"] += 1
+		carrier = _player_by_id(receiver)
+		carrier_extra = false
+		zone = Zone.AREA
+		corner_taken = true
+		_touch()
+		_end_if_stuck(ev)
+	else:
+		ev["outcome"] = "despejado"
+		_finish_moment(false)
+	ev["field_zone"] = zone
+	ev["moment_over"] = moment_over
+	ev["energy"] = player.energy
+	ev["zone"] = player.zone()
+	ev["progress"] = progress
+	ev["ap_left"] = ap
+	return ev
+
+
 # ---------- Defensa por duelos (D-44, T-15) ----------
 # El ataque al revés: el rival anuncia su jugada (set_defense_intent) y tus cartas de defensa se juegan
 # sobre un rival con tu defensor más cercano: Presión sobre el portador (tu Quite contra su Regate; si
@@ -1505,9 +1747,12 @@ func _roll_injury(ev: Dictionary) -> void:
 
 func _finish_moment(success: bool) -> void:
 	moment_over = true
+	corner_pending = false
 	stats["moments"] += 1
 	if success:
 		stats["goals"] += 1
+		if corner_taken:
+			stats["corner_goals"] += 1
 		if transition:
 			stats["transition_goals"] += 1
 		if short_play:

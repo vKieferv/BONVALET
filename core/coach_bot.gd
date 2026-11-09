@@ -75,6 +75,8 @@ static func act(e: MatchEngine, profile: BotProfile) -> Dictionary:
 # D-44: la jugada que el bot decide antes de tirarla (la anuncia para que el rival defienda):
 # {index, card, receiver}, {hold: true} para aguantar o {} para ceder.
 static func intent(e: MatchEngine, profile: BotProfile) -> Dictionary:
+    if e.corner_pending:   # D-48: pelota parada, sin carta: centra al que más conviene
+        return {"corner": e.best_corner_receiver()}
     if e.duel_on() and e.moment_plays == 0 and not e.carrier_chosen:
         e.set_carrier(choose_carrier(e))   # modo de duelos: quién arranca con la pelota
     var idx := choose(e, profile)
@@ -92,6 +94,8 @@ static func execute(e: MatchEngine, it: Dictionary) -> Dictionary:
     if it.is_empty():
         e.abort_moment()
         return {}
+    if it.has("corner"):
+        return e.take_corner(String(it["corner"]))
     if it.get("hold", false):
         return e.hold_ball()
     return e.play_card(int(it["index"]), String(it["receiver"]))

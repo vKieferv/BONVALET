@@ -57,7 +57,9 @@
 #                                    "short_play": true, "press_divisor": 12 (0 = sin presión en los
 #                                    pases), "lookahead": true (bot que piensa una jugada más); D-44:
 #                                    "defense": true (false = la defensa de T-10, antes del ataque),
-#                                    "def_press_mult": 2.0, "def_block_mult": 1.0)
+#                                    "def_press_mult": 2.0, "def_block_mult": 1.0; D-48: "outcomes": true
+#                                    (false = el robo de D-36), "dividida_base": 0.5, "corner_bonus": 0.10,
+#                                    "fail": {"pase": [...], ...} filas como MatchEngine.FAIL_OUTCOMES)
 #   Imprime además regates que entran a otra zona (y cuántos terminan en marca doble), vueltas atrás,
 #   cuántos titulares tocan la pelota por partido y los toques por jugador de Colo-Colo.
 # Un elemento {"defaults": {...}} en la lista se aplica a todas las variantes que lo siguen (las
@@ -125,7 +127,8 @@ func _init() -> void:
 			"steals": 0, "counters": 0, "no_cards": 0, "saves": 0, "rebounds": 0,
 			"dribble_entries": 0, "dribble_doubled": 0, "back_plays": 0, "touch_total": 0, "touch_top": 0,
 			"transition_moments": 0, "transition_goals": 0, "salida_steals": 0, "salida_steals_fwd": 0, "salida_steal_skill": 0,
-			"short_moments": 0, "short_goals": 0, "cuts": 0,
+			"short_moments": 0, "short_goals": 0, "cuts": 0, "divididas": 0, "divididas_won": 0, "laterales": 0, "faltas": 0,
+			"afueras": 0, "corners": 0, "corner_crosses": 0, "corner_goals": 0,
 			"touch_distinct": 0, "touch_teams": 0}
 		var per_club := {}   # id -> {gf, ga, inj, cut, n, touches: {id del jugador: veces que fue portador}}
 		for id in clubs:
@@ -157,7 +160,8 @@ func _init() -> void:
 				acc["holds_lost"] += r["holds_lost"]
 				for k in ["steals", "counters", "no_cards", "saves", "rebounds", "dribble_entries", "dribble_doubled",
 						"back_plays", "touch_total", "touch_top", "touch_distinct", "touch_teams", "transition_moments",
-						"transition_goals", "salida_steals", "salida_steals_fwd", "salida_steal_skill", "short_moments", "short_goals"]:
+						"transition_goals", "salida_steals", "salida_steals_fwd", "salida_steal_skill", "short_moments", "short_goals",
+						"divididas", "divididas_won", "laterales", "faltas", "afueras", "corners", "corner_crosses", "corner_goals"]:
 					acc[k] += r[k]
 				for pair in [[ca, "touches_a"], [cb, "touches_b"]]:
 					for pid in r[pair[1]]:
@@ -188,6 +192,9 @@ func _init() -> void:
 				t_moments / n, acc["transition_goals"] / n, roundi(100.0 * acc["transition_goals"] / maxf(1.0, t_moments)),
 				(acc["goals"] - acc["transition_goals"]) / n, roundi(100.0 * (acc["goals"] - acc["transition_goals"]) / maxf(1.0, normal_moments)),
 				acc["salida_steals"] / n, acc["salida_steals_fwd"] / n, roundi(acc["salida_steal_skill"] / maxf(1.0, acc["salida_steals_fwd"]))])
+			print("    desenlaces (D-48) por partido: divididas %.2f (%d%% ganadas por el que atacaba) · laterales %.2f · faltas %.2f · afuera %.2f · córners %.2f (%.2f centros que llegan, %.2f goles de pelota parada)" % [
+				acc["divididas"] / n, roundi(100.0 * acc["divididas_won"] / maxf(1.0, acc["divididas"])), acc["laterales"] / n, acc["faltas"] / n,
+				acc["afueras"] / n, acc["corners"] / n, acc["corner_crosses"] / n, acc["corner_goals"] / n])
 			print("    jugada corta (D-43, Momentos de 2 con el Área desordenada): %.2f Momentos y %.2f goles por partido" % [
 				acc["short_moments"] / n, acc["short_goals"] / n])
 			var colo: Dictionary = per_club[clubs[0]]["touches"]
@@ -380,6 +387,13 @@ func _apply_zone_values(e: MatchEngine, v: Dictionary) -> void:
 	e.duel_defense = bool(d.get("defense", true))
 	e.duel_def_press_mult = float(d.get("def_press_mult", MatchEngine.DUEL_DEF_PRESS_MULT))
 	e.duel_def_block_mult = float(d.get("def_block_mult", MatchEngine.DUEL_DEF_BLOCK_MULT))
+	e.duel_outcomes = bool(d.get("outcomes", true))
+	e.dividida_base = float(d.get("dividida_base", MatchEngine.DIVIDIDA_BASE))
+	e.corner_bonus = float(d.get("corner_bonus", MatchEngine.CORNER_BONUS))
+	if d.has("fail"):   # tabla completa como FAIL_OUTCOMES: {"pase": [[["dividida", 0.5], ...], ...], ...}
+		var t: Dictionary = MatchEngine.FAIL_OUTCOMES.duplicate(true)
+		t.merge(d["fail"], true)
+		e.fail_table = t
 
 
 func _hooks(v: Dictionary) -> Dictionary:

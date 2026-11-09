@@ -29,7 +29,8 @@ static func run(a: Dictionary, b: Dictionary, n: int, hooks: Dictionary = {}) ->
 		"counters": 0, "steals": 0, "saves": 0, "rebounds": 0, "no_cards": 0,
 		"dribble_entries": 0, "dribble_doubled": 0, "back_plays": 0, "transition_moments": 0, "transition_goals": 0,
 		"salida_steals": 0, "salida_steals_fwd": 0, "salida_steal_skill": 0, "short_moments": 0, "short_goals": 0, "same_zone_passes": 0,
-		"touch_total": 0, "touch_top": 0, "touch_distinct": 0, "touch_teams": 0, "touches_a": {}, "touches_b": {}}
+		"touch_total": 0, "touch_top": 0, "touch_distinct": 0, "touch_teams": 0, "touches_a": {}, "touches_b": {},
+		"divididas": 0, "divididas_won": 0, "laterales": 0, "faltas": 0, "afueras": 0, "corners": 0, "corner_crosses": 0, "corner_goals": 0}
 	for s in n:
 		var ea := _engine(a, s * 2 + 1)
 		var eb := _engine(b, s * 2 + 2)
@@ -49,7 +50,8 @@ static func run(a: Dictionary, b: Dictionary, n: int, hooks: Dictionary = {}) ->
 		out["holds_lost"] += int(ea.stats["holds_lost"]) + int(eb.stats["holds_lost"])
 		for k in ["counters", "steals", "saves", "rebounds", "dribble_entries", "dribble_doubled", "back_plays",
 				"transition_moments", "transition_goals", "salida_steals", "salida_steals_fwd", "salida_steal_skill",
-				"short_moments", "short_goals", "same_zone_passes"]:
+				"short_moments", "short_goals", "same_zone_passes", "divididas", "divididas_won", "laterales", "faltas",
+				"afueras", "corners", "corner_crosses", "corner_goals"]:
 			out[k] += int(ea.stats[k]) + int(eb.stats[k])
 		out["no_cards"] += int(ea.stats["out_of_ap"]) + int(eb.stats["out_of_ap"])
 		# Modo de duelos: cuánto se reparte el balón (veces que cada titular fue portador).

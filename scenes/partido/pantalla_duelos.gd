@@ -287,7 +287,7 @@ void fragment() {
         _posturas.append(g)
     _flow = Grafica.new()
     add_child(_flow)
-    _flow.configurar("FLOW", 18, Color("#1a1408"), [Color("#ffd24a"), Color("#ff9a2e"), Color("#ff6a00"), Color("#ff8a1a")])
+    _flow.configurar("EN RACHA", 18, Color("#1a1408"), [Color("#ffd24a"), Color("#ff9a2e"), Color("#ff6a00"), Color("#ff8a1a")])
     _flow.visible = false
     _con_balon = Control.new()
     _con_balon.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -346,7 +346,7 @@ func texto_marcador() -> String:
 func set_postura(p: int, fija: bool) -> void:
     _postura = p
     _postura_fija = fija
-    var nombres := ["LOW", "NORMAL", "HIGH"]
+    var nombres := ["BAJO", "NORMAL", "ALTO"]   # T-16: en español (el GDD las llama LOW / NORMAL / HIGH)
     for i in 3:
         var activa := i == p
         var g: Control = _posturas[i]
@@ -1586,7 +1586,7 @@ func cuenta_de(c: Card, receptor: String) -> Array:
         if receptor != "":
             out.append(["Al mejor receptor: " + apellido(String(engine._player_by_id(receptor).get("name", ""))), ""])
     for item in engine.chance_breakdown(c, -1, receptor):
-        out.append([String(item["label"]), "%+d" % roundi(float(item["value"]) * 100.0)])
+        out.append([String(item["label"]).replace("Postura LOW", "Postura: BAJO"), "%+d" % roundi(float(item["value"]) * 100.0)])
     out.append(["Acierto", "%d%%" % roundi(engine.success_chance(c, -1, receptor) * 100.0)])
     var robo := engine.steal_chance(c, -1, receptor)
     if robo > 0.0:

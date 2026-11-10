@@ -302,14 +302,14 @@ func _posture_text(p: int) -> String:
     var wear_text := "desgaste normal" if wear == 0 else "desgaste %+d%%" % wear
     match p:
         MatchEngine.Posture.LOW:
-            hint = "LOW: %d PA por turno · %s · recuperas %d%% · remates −%d pts · máx. %d momentos" % [
+            hint = "BAJO: %d PA por turno · %s · recuperas %d%% · remates −%d pts · máx. %d momentos" % [
                 ap, wear_text, rec, roundi(MatchEngine.LOW_SHOT_PENALTY * 100.0), MatchEngine.LOW_MAX_MOMENTS]
             if _rival != null and _rival.punishes_passivity:
                 hint += " · %s castiga el repliegue" % _rival.profile_name
         MatchEngine.Posture.NORMAL:
             hint = "NORMAL: %d PA por turno · %s · recuperas %d%%" % [ap, wear_text, rec]
         _:
-            hint = "HIGH: %d PA por turno · %s · recuperas solo %d%% · más momentos extra" % [ap, wear_text, rec]
+            hint = "ALTO: %d PA por turno · %s · recuperas solo %d%% · más momentos extra" % [ap, wear_text, rec]
     return hint
 
 
@@ -418,7 +418,7 @@ func _update_hold_button() -> void:
     var lines: Array = ["Retención = " + " ".join(_engine.hold_breakdown().map(
             func(i): return "%s %+d" % [i["label"], roundi(float(i["value"]) * 100.0)])) + " = %d%%" % pct,
         "Desgasta %d de estamina. Una vez por Momento." % roundi(MatchEngine.HOLD_STAMINA),
-        "Éxito: descartas la mano, se corta el Flow sin penalización y robas %d cartas." % _player.draw_count(),
+        "Éxito: descartas la mano, se corta la racha sin penalización y robas %d cartas." % _player.draw_count(),
         "Fallo: el rival te roba el balón y queda con contragolpe."]
     _hold_button.tooltip_text = "\n".join(lines)
 
@@ -1155,7 +1155,7 @@ func _end_match(title: String) -> void:
     var mine: int = s["goals"]
     var res := "VICTORIA" if mine > _rival_goals else ("DERROTA" if mine < _rival_goals else "EMPATE")
     _hand_title.text = "FIN"
-    var summary := "%s\n%s %d - %d %s\nJugadas: %d · Momentos con Flow: %d\nDefensa: %d jugadas · %d intercepciones · %d despejes de emergencia" % [
+    var summary := "%s\n%s %d - %d %s\nJugadas: %d · Momentos en racha: %d\nDefensa: %d jugadas · %d intercepciones · %d despejes de emergencia" % [
         res, _local_name.text, mine, _rival_goals, _rival.profile_name, s["plays"], s["flow_moments"],
         s["defense_plays"], s["interceptions"], s["emergencies"]]
     if _career != null:
@@ -1431,9 +1431,9 @@ func _present_result(ev: Dictionary, clone: CardUI) -> void:
     else:
         await _banner_show(_result_text(ev["kind"], ok), COLOR_OK if ok else COLOR_BAD, 0.7)
     if ev["flow_started"]:
-        await _banner_show("¡MODO FLOW!", COLOR_FLOW, 0.6)
+        await _banner_show("¡EN RACHA!", COLOR_FLOW, 0.6)
     if ev["flow_broken"]:
-        await _banner_show("¡SE ROMPIÓ EL FLOW!", COLOR_WARN, 0.6)
+        await _banner_show("¡SE CORTÓ LA RACHA!", COLOR_WARN, 0.6)
     if ev.has("penalties_added"):
         await _banner_show("¡JUGADOR EXHAUSTO!", COLOR_BAD, 0.7)
     if ev.get("stolen", false):

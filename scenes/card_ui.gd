@@ -339,7 +339,7 @@ func update_stats(ap: int, base_ap: int, stamina: float, chance: float, usable: 
 func _show_breakdown(breakdown: Array, chance: float) -> void:
     var tip: Array = [_cost_tip] if _cost_tip != "" else []
     for item in breakdown:
-        tip.append("%s: %+d" % [item["label"], roundi(float(item["value"]) * 100.0)])
+        tip.append("%s: %+d" % [String(item["label"]).replace("Postura LOW", "Postura: BAJO"), roundi(float(item["value"]) * 100.0)])
     if not breakdown.is_empty():
         tip.append("= %d%% (tirada de 0 a 99: éxito si sale menos de %d)" % [roundi(chance * 100.0), roundi(chance * 100.0)])
     for tag in card.tags:

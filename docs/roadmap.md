@@ -44,7 +44,7 @@ por defecto desde T-11; el modo actual y el de zonas quedan como opción para co
 M1 se hacen ahora sobre los duelos.
 
 ## Siguiente, en este orden (revisado el 2026-11-09)
-1. **Cerrar T-15** (defensa por arrastre y desenlaces del fallo, D-44 y D-48): playtest del usuario y mezcla.
+1. **T-15 mezclada** (2026-11-09): falta el playtest del usuario de la defensa y los desenlaces (D-44, D-48).
 2. **T-16 · pulido visual del partido** (`T-16-pulido-visual-partido.md`): cartel de gol, menú del partido
    rápido, mano legible, mesa en el turno rival, jugadores y etiquetas, textos en español. Tras mezclar T-15.
 3. **Mazo nuevo y cartas v2** (D-45 y D-47): brief por escribir tras T-15.
@@ -63,7 +63,7 @@ visual, después el partido por zonas con su pantalla nueva.
 - [x] T-12 · prueba técnica de la cancha 3D low poly (`T-12-prueba-3d.md`, I-54) · mezclada 2026-11-01 en `scenes/prueba_3d/`: T-11 va en 3D (D-41), falta medir en Steam Deck
 - [x] T-13 · motor de D-40 a D-43: portador, marcas y habilidades (`T-13-motor-portador-marcas.md`) · mezclada 2026-11-03 como modo de duelos en prueba (2.45 goles al inicio)
 - [x] T-11 · pantalla del partido: TV de 2006, cancha 3D y duelos (`T-11-pantalla-partido.md`) · mezclada 2026-11-04; duelos por defecto, defensa nueva (D-44) pendiente
-- [ ] T-15 · la defensa nueva y los desenlaces del fallo (`T-15-defensa-nueva.md`, D-44, D-48) · en curso
+- [x] T-15 · la defensa nueva y los desenlaces del fallo (`T-15-defensa-nueva.md`, D-44, D-48) · mezclada 2026-11-09 sin playtest del usuario; medición de D-48 pendiente
 - [x] T-14 · eventos de la semana: catálogo, medios y ramas (`T-14-eventos-semana.md`, I-57) · mezclada 2026-11-03; valores de los efectos en prueba
 - [x] ¿Qué modo es el partido? → los duelos, por defecto desde T-11 (2026-11-04)
 

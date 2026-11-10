@@ -36,6 +36,14 @@ const RAPIDO_RIVAL := 3.0       # velocidad de las jugadas del rival que no son 
 const CONTORNO_FLECHA := Color("#0d1118")
 const VERDE := Color("#4fd18b")
 const CORAL := Color("#ff7a6b")
+# T-16: reparto de una línea dentro de su zona. Cada jugador va en una columna distinta a la de sus vecinos
+# (metros desde el centro de la zona, hacia el arco rival), así no quedan en fila ni se tapan en pantalla.
+const COLUMNAS := [-4.0, 0.6, -1.8, 2.8, -3.0, 1.6]
+# Dónde se para cada marcador respecto de su marcado: [hacia el arco, hacia la cámara], uno por marca.
+const MARCAS := [Vector2(1.3, -0.7), Vector2(1.3, 0.9), Vector2(2.2, 0.1), Vector2(2.3, -1.5)]
+const LIBRES_X := 6.4          # los rivales sin marca de la zona, más atrás
+const SEP_X := 1.25            # separación mínima entre dos jugadores: a lo ancho de la pantalla...
+const SEP_Z := 1.5             # ...y en profundidad (se ve aplastada por la cámara)
 const SHORT_POR_CLUB := {"universidad_de_chile": Color("#f2f2f2")}   # los clubes guardan 2 colores (hallazgo de T-12)
 
 enum Modo { NEUTRAL, ATAQUE, DEFENSA, RIVAL }
@@ -168,7 +176,7 @@ func armar(liga: LeagueManager, equipo_l: Dictionary, equipo_v: Dictionary, juga
     add_child(_intencion_g)
     _tirada = Control.new()
     _tirada.mouse_filter = Control.MOUSE_FILTER_IGNORE
-    _tirada.size = Vector2(640, 140)
+    _tirada.size = Vector2(640, 120)   # baja (T-16): al pie de la cancha tapa lo menos posible
     _tirada.visible = false
     _tirada.draw.connect(_dibujar_tirada)
     add_child(_tirada)
@@ -466,16 +474,16 @@ func _posiciones(e: MatchEngine, local: bool, zona: int, portador: String, marca
         var tomados := {}
         for i in n:
             var p: Dictionary = linea[i]
-            var pos := Vector3(centro + dir * ((i % 2) * 2.4 - 1.8), 0, lerpf(Cancha.Z_MIN, Cancha.Z_MAX, (i + 0.5) / n))
+            var pos := Vector3(centro + dir * float(COLUMNAS[i % COLUMNAS.size()]), 0, lerpf(Cancha.Z_MIN, Cancha.Z_MAX, (i + 0.5) / n))
             out[at + String(p["id"])] = pos
             var ms: Array = (marcas.get(z, {}) as Dictionary).get(p["id"], [])
             _info[at + String(p["id"])] = {"marcas": ms.size(), "zona": z}
             for j in ms.size():
-                out[de + String(ms[j]["id"])] = pos + Vector3(dir * (1.2 + 0.3 * j), 0, -0.75 if j == 0 else 0.8)
+                out[de + String(ms[j]["id"])] = _junto_a(pos, dir, j)
                 tomados[ms[j]["id"]] = true
         var libres: Array = e.defender_line(z).filter(func(d): return not tomados.has(d["id"]))
         for j in libres.size():
-            out[de + String(libres[j]["id"])] = Vector3(centro + dir * 4.6, 0,
+            out[de + String(libres[j]["id"])] = Vector3(centro + dir * LIBRES_X, 0,
                     lerpf(Cancha.Z_MIN + 1.0, Cancha.Z_MAX - 1.0, (j + 0.5) / libres.size()))
     # El portador que entró a otra zona con un regate: adelante en esa zona, con sus marcas.
     var pid := portador.trim_prefix(at)
@@ -485,7 +493,7 @@ func _posiciones(e: MatchEngine, local: bool, zona: int, portador: String, marca
         var ms: Array = (marcas.get(zona, {}) as Dictionary).get(pid, [])
         _info[at + pid] = {"marcas": ms.size(), "zona": zona}
         for j in ms.size():
-            out[de + String(ms[j]["id"])] = pos + Vector3(dir * (1.2 + 0.3 * j), 0, -0.75 if j == 0 else 0.8)
+            out[de + String(ms[j]["id"])] = _junto_a(pos, dir, j)
     elif pid != "" and _info.has(at + pid):
         _info[at + pid]["zona"] = zona
     var mio := MatchEngine.keeper_of(e.duel_players)
@@ -494,7 +502,45 @@ func _posiciones(e: MatchEngine, local: bool, zona: int, portador: String, marca
         out[at + String(mio["id"])] = Vector3(cancha.arco_x(local) + dir * 1.5, 0, 0.2)
     if not suyo.is_empty():
         out[de + String(suyo["id"])] = Vector3(cancha.arco_x(not local) - dir * 1.4, 0, 0.2)
+    _separar(out, [at + String(mio.get("id", "")), de + String(suyo.get("id", ""))])
     return out
+
+
+# El marcador número j de un jugador: pegado a él, del lado del arco que defiende.
+func _junto_a(pos: Vector3, dir: float, j: int) -> Vector3:
+    var o: Vector2 = MARCAS[mini(j, MARCAS.size() - 1)]
+    return pos + Vector3(dir * o.x, 0, o.y)
+
+
+# Separación mínima (T-16): si dos quedaron encima, se apartan lo justo (los marcadores siguen junto a su
+# marcado). `fijos` no se mueven (los arqueros). Siempre da el mismo resultado para las mismas posiciones.
+func _separar(pos: Dictionary, fijos: Array) -> void:
+    var claves: Array = pos.keys()
+    claves.sort()
+    for vuelta in 8:
+        var movio := false
+        for a in claves.size():
+            for b in range(a + 1, claves.size()):
+                var pa: Vector3 = pos[claves[a]]
+                var pb: Vector3 = pos[claves[b]]
+                var e := Vector2((pb.x - pa.x) / SEP_X, (pb.z - pa.z) / SEP_Z)
+                var l := e.length()
+                if l >= 1.0:
+                    continue
+                var fa := fijos.has(claves[a])
+                var fb := fijos.has(claves[b])
+                if fa and fb:
+                    continue
+                var hacia := e / l if l > 0.001 else Vector2(1, 0)
+                var falta := (1.0 - l) * (1.0 if fa or fb else 0.5)
+                var mov := Vector3(hacia.x * falta * SEP_X, 0, hacia.y * falta * SEP_Z)
+                if not fa:
+                    pos[claves[a]] = pa - mov
+                if not fb:
+                    pos[claves[b]] = pb + mov
+                movio = true
+        if not movio:
+            return
 
 
 # Sin Momento en juego (antes de un ataque rival o entre jugadas): cada equipo en sus líneas, sin marcas.
@@ -510,11 +556,12 @@ func _posiciones_neutras() -> Dictionary:
             var centro: float = cancha.centro_zona(z, local)
             var linea: Array = lineas[z]
             for i in linea.size():
-                out[String(datos[2]) + String(linea[i]["id"])] = Vector3(centro + dir * ((i % 2) * 2.4 - 1.8 + 1.4), 0,
+                out[String(datos[2]) + String(linea[i]["id"])] = Vector3(centro + dir * (float(COLUMNAS[i % COLUMNAS.size()]) + 1.4), 0,
                         lerpf(Cancha.Z_MIN, Cancha.Z_MAX, (i + 0.5) / linea.size()))
         var arquero := MatchEngine.keeper_of(e.duel_players)
         if not arquero.is_empty():
             out[String(datos[2]) + String(arquero["id"])] = Vector3(cancha.arco_x(local) + dir * 1.5, 0, 0.2)
+    _separar(out, [])
     return out
 
 
@@ -851,21 +898,28 @@ func _colocar_etiquetas(delta: float) -> void:
             Vector2(pies.x - s.x * 0.5, pies.y + 14 + s.y),
             Vector2(propio.position.x - s.x - 8, pies.y - s.y),
             Vector2(propio.end.x + 8, pies.y - s.y),
+            Vector2(propio.position.x - s.x - 8, propio.position.y - s.y * 0.5),
+            Vector2(propio.end.x + 8, propio.position.y - s.y * 0.5),
+            Vector2(pies.x - s.x * 0.5, pies.y + 18 + s.y * 2.0),
+            Vector2(pies.x - s.x * 0.5, propio.position.y - s.y * 2.0 - 12),
         ]
         var mejor := 0
         var mejor_costo := INF
         for i in huecos.size():
+            # T-16: ningún hueco sale de la pantalla (se acota al borde; alejarse de su jugador cuesta) y
+            # pisar otra etiqueta o una gráfica cuesta mucho más que tapar un cuerpo.
+            var pedido: Vector2 = huecos[i]
+            huecos[i] = Vector2(clampf(pedido.x, limites.position.x, maxf(limites.position.x, limites.end.x - s.x)),
+                    clampf(pedido.y, limites.position.y, maxf(limites.position.y, limites.end.y - s.y)))
             var r := Rect2(huecos[i], s)
-            var costo := i * 3.0
+            var costo := i * 3.0 + pedido.distance_to(huecos[i]) * 1.5
             if i != int(_hueco_etiqueta.get(clave, 0)):
                 costo += 8.0
             for otro: String in cuerpos:
                 costo += r.intersection(cuerpos[otro]).get_area()
             costo += r.intersection(pelota).get_area()
             for o: Rect2 in ocupados:
-                costo += r.intersection(o).get_area() * 3.0
-            if not limites.encloses(r):
-                costo += 2000.0
+                costo += r.intersection(o).get_area() * 12.0
             if costo < mejor_costo:
                 mejor_costo = costo
                 mejor = i
@@ -1639,10 +1693,10 @@ func _dibujar_tirada() -> void:
     var f := Paleta.letra("tv")
     var pct: int = _tirada_datos["pct"]
     _tirada.draw_rect(Rect2(dx, 0, s.x - dx, 4), Paleta.DORADO)
-    _tirada.draw_string(f, Vector2(dx + 12, 30), String(_tirada_datos["titulo"]), HORIZONTAL_ALIGNMENT_LEFT, s.x - 200, 22, _tirada_datos["color"])
-    _tirada.draw_string(f, Vector2(s.x - 190, 32), "NECESITAS < %d" % pct, HORIZONTAL_ALIGNMENT_RIGHT, 170, 24, Paleta.placa(pct / 100.0)[0][0])
+    _tirada.draw_string(f, Vector2(dx + 12, 27), String(_tirada_datos["titulo"]), HORIZONTAL_ALIGNMENT_LEFT, s.x - 200, 20, _tirada_datos["color"])
+    _tirada.draw_string(f, Vector2(s.x - 190, 28), "NECESITAS < %d" % pct, HORIZONTAL_ALIGNMENT_RIGHT, 170, 22, Paleta.placa(pct / 100.0)[0][0])
     # Barra gruesa: verde lo que sale, coral lo que falla; la aguja con su número encima.
-    var barra := Rect2(dx + 8, 44, s.x - dx * 2 - 16, 40)
+    var barra := Rect2(dx + 8, 37, s.x - dx * 2 - 16, 32)
     var corte := barra.size.x * pct / 100.0
     _tirada.draw_rect(barra.grow(3), CONTORNO_FLECHA)
     _tirada.draw_rect(Rect2(barra.position, Vector2(corte, barra.size.y)), Color(VERDE, 0.92))
@@ -1653,20 +1707,20 @@ func _dibujar_tirada() -> void:
         _tirada.draw_rect(Rect2(mx - 1, barra.end.y - 8, 2, 8), Color(0, 0, 0, 0.35))
     var x := barra.position.x + barra.size.x * _tirada_aguja / 100.0
     var aguja := PackedVector2Array([Vector2(x, barra.position.y - 8), Vector2(x, barra.end.y + 8)])
-    _tirada.draw_polyline(aguja, CONTORNO_FLECHA, 10.0)
+    _tirada.draw_polyline(aguja, CONTORNO_FLECHA, 9.0)
     _tirada.draw_polyline(aguja, Color.WHITE, 5.0)
     var n := "%d" % roundi(_tirada_aguja)
-    var nw := f.get_string_size(n, HORIZONTAL_ALIGNMENT_LEFT, -1, 30).x
+    var nw := f.get_string_size(n, HORIZONTAL_ALIGNMENT_LEFT, -1, 26).x
     var nx := clampf(x - nw * 0.5, barra.position.x + 4, barra.end.x - nw - 4)
-    _tirada.draw_string(f, Vector2(nx + 2, barra.end.y - 7), n, HORIZONTAL_ALIGNMENT_LEFT, -1, 30, CONTORNO_FLECHA)
-    _tirada.draw_string(f, Vector2(nx, barra.end.y - 9), n, HORIZONTAL_ALIGNMENT_LEFT, -1, 30, Color.WHITE)
+    _tirada.draw_string(f, Vector2(nx + 2, barra.end.y - 5), n, HORIZONTAL_ALIGNMENT_LEFT, -1, 26, CONTORNO_FLECHA)
+    _tirada.draw_string(f, Vector2(nx, barra.end.y - 7), n, HORIZONTAL_ALIGNMENT_LEFT, -1, 26, Color.WHITE)
     if _tirada_t >= 1.0:
         var ok: bool = _tirada_datos["ok"]
         var sac := "SACASTE %d" % int(_tirada_datos["sacaste"])
-        _tirada.draw_string(f, Vector2(dx + 10, s.y - 14), sac, HORIZONTAL_ALIGNMENT_LEFT, -1, 34, Color.WHITE)
-        var w := f.get_string_size(sac, HORIZONTAL_ALIGNMENT_LEFT, -1, 34).x
-        _tirada.draw_string(f, Vector2(dx + 22 + w, s.y - 16), "· NECESITABAS MENOS DE %d" % pct, HORIZONTAL_ALIGNMENT_LEFT, -1, 20, Color("#dfe6f2"))
-        _tirada.draw_string(f, Vector2(s.x - 170, s.y - 12), "SALE" if ok else "FALLA", HORIZONTAL_ALIGNMENT_RIGHT, 150, 40, VERDE if ok else CORAL)
+        _tirada.draw_string(f, Vector2(dx + 10, s.y - 12), sac, HORIZONTAL_ALIGNMENT_LEFT, -1, 30, Color.WHITE)
+        var w := f.get_string_size(sac, HORIZONTAL_ALIGNMENT_LEFT, -1, 30).x
+        _tirada.draw_string(f, Vector2(dx + 22 + w, s.y - 14), "· NECESITABAS MENOS DE %d" % pct, HORIZONTAL_ALIGNMENT_LEFT, -1, 18, Color("#dfe6f2"))
+        _tirada.draw_string(f, Vector2(s.x - 170, s.y - 10), "SALE" if ok else "FALLA", HORIZONTAL_ALIGNMENT_RIGHT, 150, 36, VERDE if ok else CORAL)
 
 
 func _animar_aguja(delta: float) -> void:

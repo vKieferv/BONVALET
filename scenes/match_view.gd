@@ -11,6 +11,7 @@ signal defense_finished
 enum Ball { NONE, OURS, THEIRS }   # quién tiene la pelota (badge de posesión)
 
 const CARD_SCENE := preload("res://scenes/card_ui.tscn")
+const Previa := preload("res://scenes/partido/previa_tv.gd")
 const BASE_DIFFICULTY := 0.15
 const DEFAULT_REGEN := 0.22
 const LEAGUE_ID := "chile_2006"
@@ -79,12 +80,14 @@ var _intent_actual := {}       # D-44: la jugada que anunció el rival y que est
 var _prev_hand: Array = []
 var _active_clone: CardUI
 var _last_roll_text := ""      # resultado visible de la última tirada de la jugada en curso
+var _last_carrier := ""        # quién tenía la pelota en tu última jugada (el goleador del cartel de gol)
 var _possession := Ball.NONE
 var _mode_option: OptionButton  # partido rápido: modo del partido (duelos por defecto, T-11)
 var _mode := "duelos"          # "duelos" (D-40, pantalla nueva), "zonas" (D-36) o "actual"; la carrera usa Career.match_mode
 var _zone_mode := false        # zonas o duelos: el motor juega por zonas
 var _duel_mode := false        # duelos: además, el portador, las marcas y la pantalla 3D (PantallaDuelos)
 var _pantalla: PantallaDuelos  # la pantalla de duelos; null en los otros modos (usan la de siempre)
+var _previa: Previa             # T-16: la previa de TV (menú del partido rápido, final y avisos); tapa todo lo demás
 var _shown_ap := -1            # PA que muestra el orbe (para animar cuando cambian)
 var _ap_style: StyleBoxFlat
 
@@ -126,6 +129,7 @@ func _ready() -> void:
         _rival_team = _league.get_team(_career.rival_id)
         _rival = _league.profile_for_team(_rival_team)
         _set_mode(_career.match_mode)
+        _setup_previa()
         _begin_match()
     else:
         _mode_option = OptionButton.new()
@@ -134,7 +138,20 @@ func _ready() -> void:
         _mode_option.selected = 0
         _mode_option.tooltip_text = "Duelos: el que tiene la pelota juega la carta, el pase elige a quién va y el rival marca (cancha 3D).\nPor zonas: Salida, Medio y Área, sin portador.\nActual: el partido de siempre."
         _rival_option.add_sibling(_mode_option)
+        _setup_previa()
         _show_menu("TRANSMISIÓN EN VIVO", "Partido rápido con %s. Elige al rival y empieza el partido." % _local_name.text)
+        _previa.mostrar_previa()
+
+
+# T-16: la previa de TV va encima de todo y reemplaza a la vista el panel del menú. El panel sigue llevando
+# el estado (visible, rival y modo elegidos, resumen: los tests lo leen), pero transparente.
+func _setup_previa() -> void:
+    _previa = Previa.new()
+    add_child(_previa)
+    _previa.armar(_league, _league.get_team(_my_team_id()), _rival_option, _mode_option, _on_start_pressed)
+    _previa.visible = _menu.visible
+    _menu.visibility_changed.connect(func() -> void: _previa.visible = _menu.visible)
+    _menu.modulate.a = 0.0
 
 
 # Modos del partido: [id, texto del menú del partido rápido]. El primero es el de por defecto.
@@ -539,6 +556,9 @@ func _tween_clock(target: float) -> void:
 
 func _banner_show(text: String, color: Color, hold: float) -> void:
     _banner_label.text = text
+    if _pantalla != null:   # modo de duelos: el aviso es una gráfica de TV sobre la cancha (T-16)
+        await _pantalla.cartel(text, color, hold)
+        return
     var sb := _flat(color.darkened(0.55), 10)
     sb.border_color = color
     sb.set_border_width_all(3)
@@ -565,6 +585,8 @@ func _show_menu(title: String, summary: String) -> void:
     _menu_title.text = title
     _menu_summary.text = summary
     _menu.visible = true
+    if _previa != null:
+        _previa.mostrar_aviso(title, summary, "VOLVER AL CALENDARIO" if _career != null else _start_button.text)
 
 
 # Menú de rivales = los 32 clubes (Primera A y Primera B) con su arquetipo.
@@ -915,7 +937,14 @@ func _rival_event() -> bool:
         var how := ""
         if not ev["scorer"].is_empty():
             how = " · " + String(ev["scorer"]["card_name"]).to_upper()
-        await _banner_show("¡GOL DE %s!%s" % [nm, how], COLOR_BAD, 1.3)
+        if _pantalla != null:   # T-16: cartel de gol de TV, con el goleador y el marcador nuevo
+            _banner_label.text = "¡GOL DE %s!%s" % [nm, how]
+            _pantalla_marcador()
+            var quien := String(_rival_engine._player_by_id(String(ev["scorer"].get("carrier", ""))).get("name", ""))
+            await _pantalla.cartel_gol(false, PantallaDuelos.apellido(quien) if quien != "" else "",
+                    int(_engine.stats["goals"]), _rival_goals, how.trim_prefix(" · "))
+        else:
+            await _banner_show("¡GOL DE %s!%s" % [nm, how], COLOR_BAD, 1.3)
     elif ev["stolen"] and _zone_mode:
         await _banner_show("¡LE ROBASTE EL BALÓN A %s! · CONTRAGOLPE LISTO" % nm, COLOR_OK, 1.0)
     elif ev["stolen"]:
@@ -1138,6 +1167,9 @@ func _end_match(title: String) -> void:
     else:
         _start_button.text = "JUGAR OTRA VEZ"
     _show_menu(title, summary)
+    # T-16: el final como gráfica de TV (marcador grande, resultado y las cifras del partido).
+    var lineas: Array = Array(summary.split("\n")).slice(2)
+    _previa.mostrar_final(title, _rival_team, mine, _rival_goals, lineas, _start_button.text, _career == null)
 
 
 # ================================================================== Mano de cartas
@@ -1264,6 +1296,7 @@ func _on_jugar_duelo(index: int, receiver: String) -> void:
     _pantalla.ocupado = true
     _pantalla.refrescar()
     var before := _pantalla.instantanea(_engine)
+    _last_carrier = String(before["portador"])
     if not _in_defense:
         if receiver == "" and _engine.duel_on() and MatchEngine.is_pass(card):
             receiver = _engine.best_receiver(card)   # el mismo que elegiría play_card
@@ -1387,7 +1420,14 @@ func _present_result(ev: Dictionary, clone: CardUI) -> void:
         await _banner_show("¡EJECUTOR NATURAL!", COLOR_NATURAL, 0.6)
     if ev["goal"]:
         _local_goals.text = str(_engine.stats["goals"])
-        await _banner_show("¡GOOOOL!", COLOR_OK, 1.3)
+        if _pantalla != null:   # T-16: cartel de gol de TV, con el goleador y el marcador nuevo
+            _banner_label.text = "¡GOOOOL!"
+            _pantalla_marcador()
+            var quien := String(_engine._player_by_id(String(ev.get("carrier", _last_carrier))).get("name", ""))
+            await _pantalla.cartel_gol(true, PantallaDuelos.apellido(quien) if quien != "" else "",
+                    int(_engine.stats["goals"]), _rival_goals)
+        else:
+            await _banner_show("¡GOOOOL!", COLOR_OK, 1.3)
     else:
         await _banner_show(_result_text(ev["kind"], ok), COLOR_OK if ok else COLOR_BAD, 0.7)
     if ev["flow_started"]:

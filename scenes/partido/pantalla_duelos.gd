@@ -1984,6 +1984,143 @@ static func importante(ev: Dictionary, card: Card) -> bool:
     return ev.get("success", false) and int(ev.get("field_zone", -1)) != int(ev.get("play_zone", -1))
 
 
+# ------------------------------------------------------------------ Carteles de TV (T-16)
+
+var _cartel: Control
+var cartel_texto := ""          # lo que dice el cartel a la vista ("" si no hay): lo leen las capturas
+var cartel_listo := false       # el cartel ya terminó de entrar
+
+
+func _nuevo_cartel(texto: String) -> Control:
+    _quitar_cartel()
+    var raiz := Control.new()
+    raiz.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    add_child(raiz)
+    _cartel = raiz
+    cartel_texto = texto
+    cartel_listo = false
+    return raiz
+
+
+func _quitar_cartel() -> void:
+    if _cartel != null and is_instance_valid(_cartel):
+        _cartel.queue_free()
+    _cartel = null
+    cartel_texto = ""
+    cartel_listo = false
+
+
+func _fondo_color(c: Color) -> Array:
+    return [c.lightened(0.28), c, c.darkened(0.28), c.darkened(0.12)]
+
+
+# Gráfica con la letra achicada hasta que quepa en `ancho_max` (nunca bajo `minimo`).
+func _grafica_que_quepa(padre: Control, texto: String, tam: int, minimo: int, ancho_max: float, color: Color, fondo: Array, margen: float) -> Control:
+    var g := Grafica.new()
+    padre.add_child(g)
+    g.margen = margen
+    g.configurar(texto, tam, color, fondo)
+    while g.size.x > ancho_max and tam > minimo:
+        tam -= 2
+        g.configurar(texto, tam, color, fondo)
+    return g
+
+
+# Cartel de la transmisión (avisos del partido): gráfica de TV inclinada que entra desde la izquierda; lo
+# que va después del primer "·" baja a una segunda placa oscura. Reemplaza la caja redondeada de antes.
+func cartel(texto: String, color: Color, espera: float) -> void:
+    var raiz := _nuevo_cartel(texto)
+    var partes := texto.replace("★ ", "").split("·", false, 1)
+    var claro := color.get_luminance() > 0.5
+    var arriba := _grafica_que_quepa(raiz, String(partes[0]).strip_edges(), 46, 22, _ancho - 120.0,
+            Color("#0b111b") if claro else Color.WHITE, _fondo_color(color), 18.0)
+    var y := _alto_senal * 0.26
+    var x_arriba := (_ancho - arriba.size.x) * 0.5
+    arriba.position = Vector2(-arriba.size.x - 20.0, y)
+    var t := create_tween().set_parallel(true)
+    t.tween_property(arriba, "position:x", x_arriba, 0.2).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+    if partes.size() > 1:
+        var abajo := _grafica_que_quepa(raiz, String(partes[1]).strip_edges(), 24, 16, _ancho - 160.0, Color.WHITE, Grafica.SEMI_NOCHE, 14.0)
+        abajo.position = Vector2(_ancho + 20.0, y + arriba.size.y + 5.0)
+        t.tween_property(abajo, "position:x", (_ancho - abajo.size.x) * 0.5 - arriba.size.y * Grafica.SKEW * 0.5, 0.2) \
+                .set_delay(0.06).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+    await t.finished
+    if _cartel != raiz:
+        return
+    cartel_listo = true
+    await get_tree().create_timer(espera).timeout
+    if _cartel != raiz or not is_instance_valid(raiz):
+        return
+    cartel_listo = false
+    var s := create_tween()
+    s.tween_property(raiz, "modulate:a", 0.0, 0.15)
+    await s.finished
+    if _cartel == raiz:
+        _quitar_cartel()
+
+
+# Cartel de gol: gráfica de TV grande (Barlow Condensed 800 cursiva, sombra dura, inclinada) con el
+# goleador y el marcador nuevo debajo. Entra desde la izquierda con rebote, la fila del marcador desde la
+# derecha, un fogonazo sobre la cancha y dos latidos; se va por el otro lado. Todo por código (D-41).
+func cartel_gol(local: bool, goleador: String, goles_l: int, goles_v: int, detalle: String = "") -> void:
+    var col: Array = _colores_l if local else _colores_v
+    var texto := "¡GOOOOL!" if local else "¡GOL DE %s!" % String(_equipo_v.get("short_name", "")).to_upper()
+    var raiz := _nuevo_cartel(texto)
+    var destello := ColorRect.new()
+    destello.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    destello.color = Color(1, 1, 1, 0.5)
+    destello.size = Vector2(_ancho, _alto_senal)
+    raiz.add_child(destello)
+    var titulo := _grafica_que_quepa(raiz, texto, 104 if local else 76, 40, _ancho - 160.0,
+            Color("#1a1408") if local else _texto_club(col), Paleta.PLACA_DORADA if local else _fondo_club(col), 30.0)
+    var fila := Control.new()
+    fila.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    raiz.add_child(fila)
+    var partes: Array = []
+    if goleador != "":
+        partes.append([goleador if detalle == "" else "%s · %s" % [goleador, detalle], Color("#0b111b"), Grafica.PLATA])
+    partes.append([_sigla(_equipo_l), _texto_club(_colores_l), _fondo_club(_colores_l)])
+    partes.append(["%d - %d" % [goles_l, goles_v], Color.WHITE, Paleta.TV_AZUL])
+    partes.append([_sigla(_equipo_v), _texto_club(_colores_v), _fondo_club(_colores_v)])
+    var x := 0.0
+    var alto := 0.0
+    for p: Array in partes:
+        var g := Grafica.new()
+        fila.add_child(g)
+        g.margen = 14.0
+        g.configurar(String(p[0]), 34, p[1], p[2])
+        g.position = Vector2(x, 0)
+        x += g.size.x - g.size.y * Grafica.SKEW
+        alto = g.size.y
+    var ancho_fila := x + alto * Grafica.SKEW
+    var y := _alto_senal * 0.2
+    var x_fila := (_ancho - ancho_fila) * 0.5 - titulo.size.y * Grafica.SKEW * 0.5   # sigue la inclinación del título
+    titulo.pivot_offset = titulo.size * 0.5
+    titulo.position = Vector2(-titulo.size.x - 40.0, y)
+    fila.position = Vector2(_ancho + 40.0, y + titulo.size.y + 10.0)
+    var t := create_tween().set_parallel(true)
+    t.tween_property(destello, "color:a", 0.0, 0.35)
+    t.tween_property(titulo, "position:x", (_ancho - titulo.size.x) * 0.5, 0.28).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+    t.tween_property(fila, "position:x", x_fila, 0.26).set_delay(0.14).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+    await t.finished
+    if _cartel != raiz:
+        return
+    cartel_listo = true
+    var latido := create_tween().set_loops(2)
+    latido.tween_property(titulo, "scale", Vector2(1.05, 1.05), 0.16)
+    latido.tween_property(titulo, "scale", Vector2.ONE, 0.16)
+    await get_tree().create_timer(1.5).timeout
+    if _cartel != raiz or not is_instance_valid(raiz):
+        return
+    cartel_listo = false
+    var s := create_tween().set_parallel(true)
+    s.tween_property(titulo, "position:x", _ancho + 40.0, 0.2).set_ease(Tween.EASE_IN)
+    s.tween_property(fila, "position:x", -ancho_fila - 40.0, 0.2).set_ease(Tween.EASE_IN)
+    await s.finished
+    if _cartel == raiz:
+        _quitar_cartel()
+
+
 # ------------------------------------------------------------------ Cuadro a cuadro
 
 func _process(delta: float) -> void:

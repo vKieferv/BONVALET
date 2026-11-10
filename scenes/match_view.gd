@@ -75,6 +75,7 @@ var _minute := 0.0
 var _busy := false
 var _in_moment := false
 var _in_defense := false
+var _intent_actual := {}       # D-44: la jugada que anunció el rival y que estás defendiendo
 var _prev_hand: Array = []
 var _active_clone: CardUI
 var _last_roll_text := ""      # resultado visible de la última tirada de la jugada en curso
@@ -696,6 +697,7 @@ func _setup_pantalla() -> void:
         _posture_buttons[p].button_pressed = true
         _set_posture(p))
     _pantalla.portador_elegido.connect(_on_carrier_chosen)
+    _pantalla.corner_elegido.connect(_on_corner_elegido)
     _pantalla.set_postura(_posture, _posture_locked)
     _pantalla.mostrar_neutral()
 
@@ -755,6 +757,94 @@ func _play_rival_moment(exploited: bool, defense: Dictionary) -> Dictionary:
     return ev
 
 
+# D-44 (T-15), modo de duelos: el Momento del rival jugada a jugada, como DuelRunner. Antes de cada una
+# el bot la decide y la anuncia (CoachBot.intent): la ves en la cancha y defiendes arrastrando una lámina
+# sobre un rival (o DEJAR PASAR); después la tira y se anima. Devuelve lo mismo que _play_rival_moment
+# más "defense" (MatchEngine.end_defense: si lo cortaste, despejaste de emergencia...).
+func _play_rival_moment_duelos(exploited: bool) -> Dictionary:
+    var e := _rival_engine
+    e.exploit_rival_space = exploited
+    e.opponent_pressure = 0.0
+    e.opponent_block = 0.0
+    e.set_zone_rival(_engine)
+    var m := e.begin_moment()
+    var goals_before: int = e.stats["goals"]
+    var scorer := {}
+    var natural_names: Array = []
+    var stolen := false
+    _lock_posture(true)
+    _last_roll_text = ""
+    if not _engine.injured and not e.moment_over:
+        _engine.begin_defense(LeagueManager.defense_difficulty_vs(_rival_team, BASE_DIFFICULTY), e)
+    var primero := true
+    while not e.moment_over and not _engine.injured:
+        var step := {"zona": e.zone, "marcas": e.marks.duplicate(), "portador": String(e.carrier.get("id", ""))}
+        var it := CoachBot.intent(e, _rival)
+        if _engine.duel_defense_on() and not it.is_empty():
+            CoachBot.announce(_engine, it)
+            await _defender_jugada(it, primero)
+            primero = false
+            if e.moment_over or _engine.injured:
+                break   # lo cortaste (o te lesionaste defendiendo)
+        var pev := CoachBot.execute(e, it)
+        step["ev"] = pev
+        step["card"] = it.get("card")
+        if not pev.is_empty():
+            _busy = true
+            await _pantalla.mirar_ataque_rival([step], primero)
+            _busy = false
+        primero = false
+        if pev.get("stolen", false):
+            stolen = true
+            _engine.counter_ready = true
+        if pev.get("natural", false) and not natural_names.has(pev["card_name"]):
+            natural_names.append(pev["card_name"])
+        if pev.get("goal", false):
+            scorer = pev
+    var defense: Dictionary = _engine.end_defense().duplicate()
+    _in_defense = false
+    _intent_actual = {}
+    _lock_posture(false)
+    _update_hud()
+    var ev := {
+        "minute": m["minute"],
+        "goal": e.stats["goals"] > goals_before,
+        "energy_pct": e.player.energy_pct(),
+        "scorer": scorer,
+        "natural_cards": natural_names,
+        "stolen": stolen,
+        "steps": [],
+        "defense": defense,
+    }
+    e.advance(_rival.default_posture as MatchEngine.Posture)
+    return ev
+
+
+# Tu respuesta a una jugada anunciada del rival: esperas tus láminas (o DEJAR PASAR). Si no tienes con qué
+# defender esa jugada, se ve un instante y sigue.
+func _defender_jugada(it: Dictionary, primero: bool) -> void:
+    _intent_actual = it
+    _in_defense = true
+    _pantalla.mostrar_intencion(it, primero)
+    _update_hud()
+    if _defensa_espera():
+        await defense_finished
+    else:
+        await get_tree().create_timer(0.5).timeout
+    _in_defense = false
+
+
+# Hay algo que decidir contra la jugada anunciada: una lámina que sirve o, contra un remate, el Despeje de
+# emergencia.
+func _defensa_espera() -> bool:
+    if not _engine.duel_defense_on() or _intent_actual.is_empty():
+        return false
+    if not _engine.playable_indices().is_empty():
+        return true
+    var c: Card = _intent_actual.get("card")
+    return c != null and c.kind == Card.Kind.SHOT and _engine.can_emergency_clear()
+
+
 # Línea de tiempo: se intercalan los momentos del jugador y los del rival por minuto.
 func _next_step() -> void:
     var p_min := 9999
@@ -788,21 +878,30 @@ func _rival_event() -> bool:
     else:
         await _banner_show("¡ATACA %s! A DEFENDER" % nm, COLOR_WARN, 0.8)
 
-    var defense := await _defend()
+    var duelos := _pantalla != null and _engine.defends_by_duels(_rival_engine)
+    var defense := {}
+    var ev := {}
+    if duelos:   # D-44: defiendes jugada a jugada, viendo lo que va a hacer
+        ev = await _play_rival_moment_duelos(exploited)
+        defense = ev["defense"]
+    else:
+        defense = await _defend()
     if _engine.injured:
         _end_match("LESIÓN — FIN DEL PARTIDO")
         return false
     if defense["cancelled"]:
-        _rival_engine.skip_moment()
-        _rival_engine.advance(_rival.default_posture as MatchEngine.Posture)
+        if not duelos:
+            _rival_engine.skip_moment()
+            _rival_engine.advance(_rival.default_posture as MatchEngine.Posture)
         _set_possession(Ball.OURS)
         var counter := "  ·  ¡CONTRAGOLPE LISTO!" if _engine.counter_ready else ""
         await _banner_show("¡RECUPERASTE EL BALÓN!" + counter, COLOR_OK, 0.9)
         _set_possession(Ball.NONE)
         return true
 
-    var ev := _play_rival_moment(exploited, defense)
-    if _pantalla != null:
+    if not duelos:
+        ev = _play_rival_moment(exploited, defense)
+    if _pantalla != null and not duelos:
         _busy = true   # se mira su ataque (con ACELERAR y SALTAR); no se juega
         await _pantalla.mirar_ataque_rival(ev["steps"])
         _busy = false
@@ -863,24 +962,34 @@ func _player_moment_start() -> void:
     _last_roll_text = ""
     _set_possession(Ball.OURS)
 
-    # Fase defensiva del rival: si intercepta o despeja, pierdes este Momento.
-    var defense := _rival_defends()
-    if defense["cancelled"]:
-        _set_possession(Ball.THEIRS)
-        var counter := "  ·  SU CONTRAGOLPE QUEDA LISTO" if _rival_engine.counter_ready else ""
-        await _banner_show("¡%s CORTÓ TU ATAQUE!%s" % [_rival.profile_name.to_upper(), counter], COLOR_BAD, 1.0)
-        _engine.skip_moment()
-        _finish_player_moment()
-        return
-    _engine.opponent_pressure = defense["pressure"]   # se ven en tus cartas como Presión/Bloqueo rival
-    _engine.opponent_block = defense["block"]
-    if _engine.zone_mode:
+    # D-44: por duelos, el rival te defiende jugada a jugada (al soltar cada lámina, en _on_jugar_duelo).
+    var duelos := _pantalla != null and _rival_engine.defends_by_duels(_engine)
+    if duelos:
+        _engine.opponent_pressure = 0.0
+        _engine.opponent_block = 0.0
         _engine.set_zone_rival(_rival_engine)
-    var defense_text := _rival_defense_text(defense)
-    if defense_text != "":
-        await _banner_show(defense_text, COLOR_WARN, 0.8)
+    else:
+        # Fase defensiva del rival: si intercepta o despeja, pierdes este Momento.
+        var defense := _rival_defends()
+        if defense["cancelled"]:
+            _set_possession(Ball.THEIRS)
+            var counter := "  ·  SU CONTRAGOLPE QUEDA LISTO" if _rival_engine.counter_ready else ""
+            await _banner_show("¡%s CORTÓ TU ATAQUE!%s" % [_rival.profile_name.to_upper(), counter], COLOR_BAD, 1.0)
+            _engine.skip_moment()
+            _finish_player_moment()
+            return
+        _engine.opponent_pressure = defense["pressure"]   # se ven en tus cartas como Presión/Bloqueo rival
+        _engine.opponent_block = defense["block"]
+        if _engine.zone_mode:
+            _engine.set_zone_rival(_rival_engine)
+        var defense_text := _rival_defense_text(defense)
+        if defense_text != "":
+            await _banner_show(defense_text, COLOR_WARN, 0.8)
 
     _engine.begin_moment()
+    if duelos and not _engine.moment_over and not _rival_engine.injured:
+        var my_team := _league.get_team(_my_team_id())
+        _rival_engine.begin_defense(LeagueManager.defense_difficulty_vs(my_team, BASE_DIFFICULTY), _engine)
     if _engine.moment_over:
         await _banner_show("SIN JUGADAS DISPONIBLES", COLOR_WARN, 0.9)
         _finish_player_moment()
@@ -921,6 +1030,9 @@ func _rival_defense_text(defense: Dictionary) -> String:
 
 
 func _finish_player_moment() -> void:
+    if _rival_engine.in_defense:
+        _rival_engine.end_defense()   # D-44: el rival defendía este Momento jugada a jugada
+        _set_bar(_rival_bar, _rival_fill, _rival_engine.player.energy_pct())
     _in_moment = false
     _set_possession(Ball.NONE)
     _lock_posture(false)
@@ -940,7 +1052,8 @@ func _on_yield_pressed() -> void:
     if _busy:
         return
     if _in_defense:
-        _engine.end_defense()
+        if not _engine.duel_defense_on():   # D-44: por duelos, dejas pasar solo esta jugada
+            _engine.end_defense()
         defense_finished.emit()
         return
     if not _in_moment:
@@ -959,6 +1072,8 @@ func _on_hold_pressed() -> void:
         return
     _busy = true
     _update_hud()
+    if await _rival_defends_play(null, "", true):
+        return
     var ev := _engine.hold_ball()
     _last_roll_text = "Aguantar: tirada %d vs %d%% → %s" % [floori(ev["roll"] * 100.0), roundi(ev["chance"] * 100.0),
             "ÉXITO" if ev["success"] else "FALLO"]
@@ -1031,6 +1146,8 @@ func _build_hand() -> void:
     if _pantalla != null:   # modo de duelos: la mano va en la pantalla nueva
         if _in_moment:
             _pantalla.mostrar_ataque()
+        elif _in_defense and _engine.duel_defense_on() and not _intent_actual.is_empty():
+            _pantalla.mostrar_intencion(_intent_actual)   # D-44: la jugada anunciada, con su % al día
         elif _in_defense:
             _pantalla.mostrar_defensa()
         return
@@ -1147,13 +1264,22 @@ func _on_jugar_duelo(index: int, receiver: String) -> void:
     _pantalla.ocupado = true
     _pantalla.refrescar()
     var before := _pantalla.instantanea(_engine)
+    if not _in_defense:
+        if receiver == "" and _engine.duel_on() and MatchEngine.is_pass(card):
+            receiver = _engine.best_receiver(card)   # el mismo que elegiría play_card
+        if await _rival_defends_play(card, receiver, false):
+            _pantalla.ocupado = false
+            return
     var ev := _engine.play_card(index, receiver)
     await _pantalla.animar_jugada(ev, card, before)
     await _present_result(ev, null)
     _busy = false
     _pantalla.ocupado = false
     if _in_defense:
-        if _engine.in_defense:
+        if _engine.duel_defense_on() and _defensa_espera():
+            _build_hand()   # D-44: sigues defendiendo la misma jugada (ya con su % nuevo)
+            _update_hud()
+        elif _engine.in_defense and not _engine.duel_defense_on():
             _build_hand()
             _update_hud()
         else:
@@ -1165,7 +1291,54 @@ func _on_jugar_duelo(index: int, receiver: String) -> void:
         _update_hud()
 
 
+# D-44: el rival ve la jugada que soltaste (o que aguantas) y responde con una lámina de defensa antes de
+# que la tires; su tirada se ve en la cancha. true si te cortó el Momento (ya cerrado aquí).
+func _rival_defends_play(card: Card, receiver: String, hold: bool) -> bool:
+    if not _rival_engine.duel_defense_on():
+        return false
+    CoachBot.announce(_rival_engine, {"card": card, "receiver": receiver, "hold": hold})
+    var dev := CoachBot.defend_play(_rival_engine, _rival)
+    if dev.is_empty():
+        return false
+    await _pantalla.animar_defensa_rival(dev)
+    _set_bar(_rival_bar, _rival_fill, _rival_engine.player.energy_pct())
+    if not _engine.moment_over:
+        if dev["success"]:
+            await _banner_show("%s: %s · TU JUGADA −%d" % [_rival.profile_name.to_upper(), String(dev["card_name"]).to_upper(),
+                    roundi(float(dev.get("effect", 0.0)) * 100.0)], COLOR_WARN, 0.7)
+        return false
+    _set_possession(Ball.THEIRS)
+    var counter := "  ·  SU CONTRAGOLPE QUEDA LISTO" if _rival_engine.counter_ready else ""
+    await _banner_show("¡%s CORTÓ TU ATAQUE!%s" % [_rival.profile_name.to_upper(), counter], COLOR_BAD, 1.0)
+    _busy = false
+    _finish_player_moment()
+    return true
+
+
 # Modo de duelos: antes de la primera jugada del Momento se elige con quién salir.
+# D-48: tu córner. El rival puede despejarlo antes (su Despeje); si no, se tira el centro al elegido.
+func _on_corner_elegido(id: String) -> void:
+    if _busy or not _in_moment or not _engine.corner_pending:
+        return
+    _busy = true
+    _pantalla.ocupado = true
+    _pantalla.refrescar()
+    var before := _pantalla.instantanea(_engine)
+    if await _rival_defends_play(null, "", false):
+        _pantalla.ocupado = false
+        return
+    var ev := _engine.take_corner(id)
+    await _pantalla.animar_jugada(ev, null, before)
+    await _present_result(ev, null)
+    _busy = false
+    _pantalla.ocupado = false
+    if _engine.moment_over:
+        _finish_player_moment()
+    else:
+        _build_hand()
+        _update_hud()
+
+
 func _on_carrier_chosen(id: String) -> void:
     if _busy or not _in_moment or not _engine.set_carrier(id):
         return
@@ -1226,6 +1399,23 @@ func _present_result(ev: Dictionary, clone: CardUI) -> void:
     if ev.get("stolen", false):
         _rival_engine.counter_ready = true   # partido por zonas: el fallo fue robo
         await _banner_show("¡TE ROBARON EL BALÓN! · CONTRAGOLPE DE %s" % _rival.profile_name.to_upper(), COLOR_BAD, 1.0)
+    elif ev.has("outcome") and ev["outcome"] != "atajada":   # D-48: el desenlace del fallo
+        var won := bool(ev.get("dividida", {}).get("won", false))
+        match String(ev["outcome"]):
+            "dividida":
+                await _banner_show("¡GANASTE LA DIVIDIDA! SIGUES CON LA PELOTA" if won else "¡PERDISTE LA DIVIDIDA!", COLOR_OK if won else COLOR_BAD, 0.8)
+            "rebote":
+                await _banner_show("¡REBOTE A TU FAVOR! PUEDES VOLVER A REMATAR" if won else "¡EL REBOTE ES DE ELLOS!", COLOR_OK if won else COLOR_BAD, 0.8)
+            "lateral":
+                await _banner_show("¡AL LATERAL! SACA %s" % _rival.profile_name.to_upper(), COLOR_WARN, 0.8)
+            "afuera":
+                await _banner_show("¡AFUERA! SAQUE DE ARCO", COLOR_WARN, 0.8)
+            "falta":
+                await _banner_show("¡FALTA! SIGUES CON LA PELOTA", COLOR_WARN, 0.8)
+            "corner":
+                await _banner_show("¡AL CÓRNER! TOCA A QUIEN VA A CABECEAR", COLOR_GOLD, 0.9)
+            "despejado":
+                await _banner_show("¡DESPEJARON EL CÓRNER!", COLOR_BAD, 0.8)
     elif ev.get("saved", false):
         await _banner_show("¡ATAJÓ EL ARQUERO!", COLOR_BAD, 0.8)
     elif ev.get("rebound", false):

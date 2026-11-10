@@ -1,0 +1,4 @@
+[
+	{"defaults": {"extra_clubs": ["universidad_de_chile"]}},
+	{"name": "D-48 dividida 0,60 · inicio", "duelos": true , "duel": {"dividida_base": 0.60}}
+]

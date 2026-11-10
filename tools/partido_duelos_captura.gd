@@ -4,7 +4,8 @@
 # cuadros por segundo con los 22 jugadores. Necesita pantalla: NO se corre con --headless.
 # Uso (desde futbolista/):
 #   ..\Godot_v4.7.2-stable_win64_console.exe --path . --resolution 1280x720 -s res://tools/partido_duelos_captura.gd -- --out=C:/ruta
-# Opciones (después de --): --sufijo=texto (nombre de las capturas), --rapido (solo menú, apuntando y FPS).
+# Opciones (después de --): --sufijo=texto (nombre de las capturas), --rapido (solo menú, apuntando y FPS),
+# --defensa (T-15, D-44: intención del rival, Presión, Intercepción y Bloqueo arrastrados y una tirada de defensa).
 extends SceneTree
 
 const MouseDuelos := preload("res://tests/mouse_duelos.gd")
@@ -16,6 +17,8 @@ const RAPIDO_JUEGO := 5.0      # time_scale mientras se juega sin capturar
 var out := "user://capturas_t11"
 var sufijo := ""
 var rapido := false
+var defensa := false
+var desenlaces := false   # D-48: capturas de los desenlaces (dividida, lateral, falta, rebote, córner)
 var view: Control
 var mouse: MouseDuelos
 var tomadas := {}
@@ -29,6 +32,10 @@ func _initialize() -> void:
 			out = arg.get_slice("=", 1)
 		elif arg.begins_with("--sufijo="):
 			sufijo = "_" + arg.get_slice("=", 1)
+		elif arg == "--desenlaces":
+			desenlaces = true
+		elif arg == "--defensa":
+			defensa = true
 		elif arg == "--rapido":
 			rapido = true
 	DirAccess.make_dir_recursive_absolute(out)
@@ -77,6 +84,10 @@ func _correr() -> void:
 
 
 func _necesarias() -> Array:
+	if desenlaces:
+		return ["v2_dividida", "v2_lateral", "v2_falta", "v2_rebote", "v2_corner", "v2_corner_centro"]
+	if defensa:
+		return ["t15_1_intencion", "t15_2_presion", "t15_3_intercepcion", "t15_4_bloqueo", "t15_5_tirada_defensa"]
 	if rapido:
 		return ["1_ataque_apuntando"]
 	return ["1_ataque_apuntando", "2_pase_en_el_aire", "3_tirada", "4_cuenta", "5_robo", "6_gol", "7_defensa", "8_ataque_rival", "9_pase_misma_zona"]
@@ -103,7 +114,7 @@ func _jugar_partido() -> void:
 		if rapido and _listo():
 			return
 		if p.modo == PantallaDuelos.Modo.RIVAL:
-			if tomadas.has("8_ataque_rival") and tomadas.has("5_robo") and tomadas.has("6_gol"):
+			if defensa or desenlaces or (tomadas.has("8_ataque_rival") and tomadas.has("5_robo") and tomadas.has("6_gol")):
 				await mouse.clic(p._boton_saltar.get_global_rect().get_center())
 				await _mientras(func(): return p.modo == PantallaDuelos.Modo.RIVAL)
 			else:
@@ -113,6 +124,9 @@ func _jugar_partido() -> void:
 			await mouse.cuadros(1)
 			continue
 		if view._in_defense:
+			if view._engine.duel_defense_on():
+				await _defender_duelos(p)
+				continue
 			if not tomadas.has("7_defensa"):
 				await _quieto(30)
 				_shot("7_defensa")
@@ -127,8 +141,23 @@ func _jugar_partido() -> void:
 # Lo que se captura apenas aparece: la tirada resuelta, los carteles de robo y gol y el ataque rival.
 func _vigilar(p: PantallaDuelos) -> void:
 	var tirada_lista: bool = p._tirada.visible and p._tirada_t >= 1.0
+	if desenlaces:   # D-48: cada desenlace cuando se anuncia, y la tirada de la dividida
+		var titulo := String(p._tirada_datos.get("titulo", ""))
+		if tirada_lista and titulo.contains("DIVIDIDA") and not tomadas.has("v2_dividida"):
+			_shot("v2_dividida")
+		if tirada_lista and titulo.begins_with("REBOTE") and not tomadas.has("v2_rebote"):
+			_shot("v2_rebote")
+		var g: Control = p._desenlace_g
+		if g != null and g.visible:
+			var nombre: String = {"¡AL LATERAL!": "v2_lateral", "¡FALTA!": "v2_falta", "¡AL CÓRNER!": "v2_corner"}.get(p.ultimo_desenlace, "")
+			if nombre != "" and not tomadas.has(nombre):
+				_shot(nombre)
+		if p.modo == PantallaDuelos.Modo.ATAQUE and view._engine.corner_pending and not view._busy and not tomadas.has("v2_corner_centro"):
+			_shot("v2_corner_centro")
 	if tirada_lista and p.modo == PantallaDuelos.Modo.RIVAL and not tomadas.has("8_ataque_rival"):
 		_shot("8_ataque_rival")
+	elif tirada_lista and p.modo == PantallaDuelos.Modo.DEFENSA and defensa and not tomadas.has("t15_5_tirada_defensa"):
+		_shot("t15_5_tirada_defensa")
 	elif tirada_lista and p.modo == PantallaDuelos.Modo.ATAQUE and not tomadas.has("3_tirada"):
 		_shot("3_tirada")
 	var cartel: String = view._banner_label.text if view._banner.visible and view._banner.modulate.a > 0.95 else ""
@@ -149,8 +178,81 @@ func _defender(p: PantallaDuelos) -> void:
 	await _ocupado()
 
 
+
+# T-15 (D-44): el rival anunció su jugada. Se captura la intención y, una vez cada una, la Presión, la
+# Intercepción (sobre la línea del pase) y el Bloqueo arrastrados sobre el rival, con la placa y tu defensor.
+# Las láminas de inicio solo traen Marca y Despeje: la Intercepción y el Bloqueo se agregan a la mano.
+func _defender_duelos(p: PantallaDuelos) -> void:
+	if desenlaces:
+		await mouse.clic(p._boton_ceder.get_global_rect().get_center())
+		await _ocupado()
+		return
+	var e: MatchEngine = view._engine
+	var it: Dictionary = view._intent_actual
+	var ic: Card = it.get("card")
+	Engine.time_scale = 1.0
+	await _quieto(45)   # que lleguen a su lugar
+	if not view._in_defense or it.is_empty():
+		Engine.time_scale = RAPIDO_JUEGO
+		return
+	if not tomadas.has("t15_1_intencion") and ic != null and MatchEngine.is_pass(ic):
+		_shot("t15_1_intencion")
+	var quiero := Card.Kind.PRESS
+	var nombre := "t15_2_presion"
+	if ic != null and ic.kind == Card.Kind.SHOT:
+		quiero = Card.Kind.BLOCK
+		nombre = "t15_4_bloqueo"
+	elif ic != null and MatchEngine.is_pass(ic) and tomadas.has("t15_2_presion"):
+		quiero = Card.Kind.INTERCEPT
+		nombre = "t15_3_intercepcion"
+	if ic != null and not e.deck.hand.any(func(c): return c.kind == quiero) and quiero != Card.Kind.PRESS:
+		var extra := Card.from_dict(CardDB.load_catalog("res://data/cards.json")["bloqueo" if quiero == Card.Kind.BLOCK else "intercepcion"])
+		if e.ap >= e.ap_cost_of(extra):
+			e.deck.hand.append(extra)
+			view._build_hand()
+			await _quieto(45)
+	var pick: CardUI = null
+	for ui in p.laminas():
+		if e.can_play(ui.card) and ui.card.kind == quiero:
+			pick = ui
+	if pick == null or tomadas.has(nombre):
+		await mouse.clic(p._boton_ceder.get_global_rect().get_center())
+		Engine.time_scale = RAPIDO_JUEGO
+		await _ocupado()
+		return
+	var target := e.defense_target(pick.card)
+	var to := p.punto_de("V:" + target)
+	if quiero == Card.Kind.INTERCEPT and p._linea_rival_2d.size() > 4:
+		to = p._linea_rival_2d[p._linea_rival_2d.size() / 2]
+	await mouse.arrastrar_hasta(pick.get_global_rect().get_center(), to, 12)
+	for k in 40:   # siguen llegando a su lugar: el mouse sigue al rival
+		var ahora := p.punto_de("V:" + target)
+		if quiero == Card.Kind.INTERCEPT and p._linea_rival_2d.size() > 4:
+			ahora = p._linea_rival_2d[p._linea_rival_2d.size() / 2]
+		to = ahora
+		mouse.mover(to)
+		await mouse.cuadros(1)
+		if p.apuntado() == target and k > 4:
+			break
+	await _quieto(20)
+	_shot(nombre)
+	mouse.soltar(to)
+	await _mientras(func(): return not (p._tirada.visible and p._tirada_t >= 1.0), 600)
+	if not tomadas.has("t15_5_tirada_defensa"):
+		_shot("t15_5_tirada_defensa")
+	Engine.time_scale = RAPIDO_JUEGO
+	await _ocupado()
+
 func _atacar(p: PantallaDuelos) -> void:
 	var e: MatchEngine = view._engine
+	if e.corner_pending:   # D-48: el córner se tira tocando al que va a cabecear
+		var rec := e.best_corner_receiver()
+		mouse.mover(p.punto_de("L:" + rec), false)
+		await _quieto(20)
+		_vigilar(p)
+		await mouse.clic(p.punto_de("L:" + rec))
+		await _ocupado()
+		return
 	if not tomadas.has("4_cuenta") and not p.laminas().is_empty() and not rapido:
 		Engine.time_scale = 1.0
 		var ui: CardUI = p.laminas()[0]

@@ -33,7 +33,7 @@ func armar(liga: LeagueManager, local: Dictionary, rivales: OptionButton, modos:
     _rivales = rivales
     _modos = modos
     _al_iniciar = al_iniciar
-    set_anchors_preset(Control.PRESET_FULL_RECT)
+    set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
     mouse_filter = Control.MOUSE_FILTER_STOP   # nada de lo que queda debajo recibe el mouse
     _raiz = Control.new()
     _raiz.size = Vector2(1280, 720)
@@ -45,7 +45,7 @@ func armar(liga: LeagueManager, local: Dictionary, rivales: OptionButton, modos:
     sh.code = """shader_type canvas_item;
 void fragment() {
     float linea = step(2.0, mod(FRAGCOORD.y, 3.0)) * 0.07;
-    float vin = smoothstep(0.62, 1.05, length((UV - 0.5) * vec2(1.82, 2.0))) * 0.45;
+    float vin = smoothstep(0.62, 1.05, length((UV - 0.5) * vec2(1.82, 2.0))) * 0.2;
     COLOR = vec4(0.0, 0.0, 0.0, 1.0 - (1.0 - linea) * (1.0 - vin));
 }"""
     var mat := ShaderMaterial.new()

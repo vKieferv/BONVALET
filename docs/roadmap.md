@@ -45,11 +45,13 @@ M1 se hacen ahora sobre los duelos.
 
 ## Siguiente, en este orden (revisado el 2026-11-09)
 1. **Cerrar T-15** (defensa por arrastre y desenlaces del fallo, D-44 y D-48): playtest del usuario y mezcla.
-2. **Mazo nuevo y cartas v2** (D-45 y D-47): brief por escribir tras T-15.
-3. **Una sola medición con el mazo nuevo** para decidir juntos la curva de la temporada (mitad y final
+2. **T-16 · pulido visual del partido** (`T-16-pulido-visual-partido.md`): cartel de gol, menú del partido
+   rápido, mano legible, mesa en el turno rival, jugadores y etiquetas, textos en español. Tras mezclar T-15.
+3. **Mazo nuevo y cartas v2** (D-45 y D-47): brief por escribir tras T-15.
+4. **Una sola medición con el mazo nuevo** para decidir juntos la curva de la temporada (mitad y final
    sobre 2,6) y el cansancio (I-59: quitarlo, dejarlo o por jugador).
-4. **T-03, más chico:** el resumen post-partido (I-35); la tirada visible ya cubre parte.
-5. **M3:** la temporada completa.
+5. **T-03, más chico:** el resumen post-partido (I-35); la tirada visible ya cubre parte.
+6. **M3:** la temporada completa.
 Pendientes sueltos: perfiles de la élite (propuesta del 2026-11-03 sin confirmar), Steam Deck.
 
 ## Hecho · Cara visual y partido nuevo (2026-10-28 a 2026-11-09)

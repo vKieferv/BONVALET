@@ -54,6 +54,13 @@ var card: Card
 var hand_index := -1
 var interactive := true
 var slot_hidden := false
+# T-16: en el abanico del partido la lámina siguiente tapa la parte derecha de esta. Ancho que queda a la
+# vista (0 = toda): el tipo, la moneda, el nombre y la placa del % se arman dentro de esa franja.
+var ancho_visible := 0.0:
+    set(v):
+        if not is_equal_approx(v, ancho_visible):
+            ancho_visible = v
+            _layout()
 # Quién la juega en el partido: {"jugador": {name, role}, "colores": [camiseta, detalle], "propia": bool}.
 var contexto := {}
 
@@ -79,6 +86,7 @@ var _tween: Tween
 var _cost_tip := ""
 var _k := 1.0
 var _r_inner := Rect2()
+var _lim_x := 0.0          # borde derecho de lo que se ve (T-16): el del marco, o el de la franja visible
 var _r_band := Rect2()
 var _r_window := Rect2()
 var _r_footer := Rect2()
@@ -120,6 +128,7 @@ func _init() -> void:
     ribbon.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
     ribbon.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
     ribbon.add_theme_stylebox_override("normal", Paleta.caja(Paleta.CINTA_MOTIVO, 0, [Color(0, 0, 0, 0.3), 3, 2]))
+    ribbon.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART   # en la franja angosta del abanico va en dos líneas
     ribbon.visible = false
     glow = ColorRect.new()
     glow.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -373,6 +382,11 @@ func set_ribbon(text: String) -> void:
         _layout()
 
 
+# Borde derecho de lo que se ve de la lámina (T-16): ahí se apoyan la placa y lo que la pantalla le agrega.
+func limite_x() -> float:
+    return _lim_x
+
+
 func set_interactive(v: bool) -> void:
     interactive = v
 
@@ -449,6 +463,13 @@ func _fs(l: Label, base: float) -> int:
     return tam
 
 
+func _palabra_ancha(partes: PackedStringArray, font: Font, tam: int) -> float:
+    var ancho := 0.0
+    for parte in partes:
+        ancho = maxf(ancho, font.get_string_size(parte, HORIZONTAL_ALIGNMENT_LEFT, -1, tam).x)
+    return ancho
+
+
 func _colores() -> Array:
     if card == null:
         return Paleta.JUGADA[Card.Kind.PASS]
@@ -474,19 +495,27 @@ func _layout() -> void:
     var band_h := maxf(36.0 * k, 20.0)
     _r_band = Rect2(_r_inner.position, Vector2(_r_inner.size.x, band_h))
     _coin_r = maxf(21.0 * k, 12.0)
-    _coin_c = Vector2(_r_inner.end.x - 6.0 * k - _coin_r, _r_inner.position.y + 3.0 * k + _coin_r)
+    # T-16: con la lámina siguiente encima, todo lo que importa se arma dentro de la franja que se ve.
+    var compacta := ancho_visible > 0.0 and ancho_visible < w - 1.0
+    _lim_x = minf(_r_inner.end.x, ancho_visible - 3.0) if compacta else _r_inner.end.x
+    _coin_c = Vector2(_lim_x - (2.0 if compacta else 6.0) * k - _coin_r, _r_inner.position.y + 3.0 * k + _coin_r)
     var foot_h := maxf(40.0 * k, 24.0)
     _r_footer = Rect2(_r_inner.position.x, _r_inner.end.y - foot_h, _r_inner.size.x, foot_h)
-    var pad := 12.0 * k
+    var pad := (8.0 if compacta else 12.0) * k
 
     # Banda: tipo de jugada; "RASGO" o la estrella si caben antes de la moneda.
     var band_size := _fs(band_label, 19.0)
     band_label.add_theme_font_override("font", Paleta.letra("condensada_negra", 2 if k >= 0.7 else 1))
     var band_x := _r_band.position.x + pad
     var star := 16.0 * k if card.owner_id != "" else 0.0
-    var room := (_coin_c.x - _coin_r - 4.0 * k if ap_label.visible else _r_band.end.x - pad) - band_x - star
     var font := band_label.get_theme_font("font")
     var kind_name: String = "PENALIZACIÓN" if card.type == Card.Type.PENALTY else KIND_NAMES.get(card.kind, "")
+    var room := (_coin_c.x - _coin_r - 4.0 * k if ap_label.visible else _lim_x - pad) - band_x - star
+    if compacta and font.get_string_size(kind_name, HORIZONTAL_ALIGNMENT_LEFT, -1, band_size).x + 2.0 > room:
+        # Franja muy angosta (9 o 10 láminas): el tipo ocupa la banda y la moneda baja a la esquina de la ventana.
+        star = 0.0
+        _coin_c = Vector2(_lim_x - 2.0 * k - _coin_r, _r_band.end.y + 3.0 * k + _coin_r)
+        room = _lim_x - 3.0 * k - band_x
     var band_text := kind_name
     if card.type != Card.Type.PENALTY and is_trait(card) and font.get_string_size(kind_name + " · RASGO", HORIZONTAL_ALIGNMENT_LEFT, -1, band_size).x <= room:
         band_text = kind_name + " · RASGO"
@@ -503,16 +532,19 @@ func _layout() -> void:
     ap_label.size = Vector2(_coin_r, _coin_r) * 2.0
 
     # Nombre y palabras clave debajo de la ventana; la ventana cede alto si el nombre ocupa dos líneas.
-    var text_w := _r_inner.size.x - 2.0 * pad
+    var text_w := _lim_x - _r_inner.position.x - pad - (3.0 * k if compacta else pad)
     var name_size := _fs(name_label, 28.0)
     name_label.add_theme_constant_override("line_spacing", -roundi(4.0 * k))
     name_label.size = Vector2(text_w, 0)
-    while name_label.get_line_count() > 2 and name_size > Paleta.TEXTO_MIN:
+    var name_font := name_label.get_theme_font("font")
+    var partes := name_label.text.split(" ", false)
+    # Se achica hasta que entre en sus líneas y ninguna palabra se parta en dos.
+    while (name_label.get_line_count() > (3 if compacta else 2) or _palabra_ancha(partes, name_font, name_size) > text_w - 2.0) and name_size > Paleta.TEXTO_MIN:
         name_size -= 1
         name_label.add_theme_font_size_override("font_size", name_size)
     var name_h := name_label.get_minimum_size().y
     name_label.size = Vector2(text_w, name_h)
-    effect_label.visible = not mini and effect_label.text != ""
+    effect_label.visible = not mini and effect_label.text != "" and (not compacta or text_w >= 96.0)
     var kw_h := 0.0
     if effect_label.visible:
         _fs(effect_label, 18.0)
@@ -542,7 +574,8 @@ func _layout() -> void:
         var plate_size := _fs(chance_label, 42.0)
         var tw := chance_label.get_theme_font("font").get_string_size(chance_label.text, HORIZONTAL_ALIGNMENT_LEFT, -1, plate_size).x
         var ph := plate_size * 1.12
-        _r_plate = Rect2(_r_inner.end.x + 6.0 * k - (tw + 30.0 * k), _r_window.end.y - ph + 4.0 * k, tw + 30.0 * k, ph)
+        var pw := tw + (14.0 if compacta else 30.0) * k
+        _r_plate = Rect2((_lim_x - 5.0 if compacta else _lim_x + 6.0 * k) - pw, _r_window.end.y - ph + 4.0 * k, pw, ph)
         chance_label.position = _r_plate.position
         chance_label.size = _r_plate.size
 
@@ -550,7 +583,7 @@ func _layout() -> void:
     _fs(cost_label, 24.0)
     var cw := cost_label.get_minimum_size().x
     var icon := maxf(20.0 * k, 14.0)
-    var x0 := _r_footer.get_center().x - (icon + 5.0 * k + cw) / 2.0
+    var x0 := (_r_inner.position.x + _lim_x) / 2.0 - (icon + 5.0 * k + cw) / 2.0
     _r_gota = Rect2(x0, _r_footer.get_center().y - icon / 2.0, icon, icon)
     cost_label.position = Vector2(x0 + icon + 5.0 * k, _r_footer.position.y)
     cost_label.size = Vector2(cw, foot_h)
@@ -561,10 +594,10 @@ func _layout() -> void:
         var rb := ribbon.get_theme_stylebox("normal") as StyleBoxFlat
         rb.content_margin_top = 2.0 * k
         rb.content_margin_bottom = 2.0 * k
-        ribbon.size = Vector2(_r_window.size.x + 24.0 * k, 0)
+        ribbon.size = Vector2((_lim_x - _r_inner.position.x + 6.0 * k) if compacta else (_r_window.size.x + 24.0 * k), 0)
         ribbon.size = Vector2(ribbon.size.x, ribbon.get_minimum_size().y)
         ribbon.pivot_offset = ribbon.size / 2.0
-        ribbon.position = _r_window.get_center() - ribbon.size / 2.0
+        ribbon.position = Vector2((_r_inner.position.x + _lim_x) / 2.0 if compacta else _r_window.get_center().x, _r_window.get_center().y) - ribbon.size / 2.0
         ribbon.rotation = deg_to_rad(-12.0)
 
     body.size = size

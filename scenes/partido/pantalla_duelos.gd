@@ -100,6 +100,7 @@ var _reloj := 0.0
 var _arrastre: CardUI
 var _apuntado := ""             # id del receptor apuntado (sin lado)
 var _presionado: CardUI
+var _encima: CardUI             # la lámina bajo el cursor: pasa al frente (T-16)
 var _pres_pos := Vector2.ZERO
 var _pres_t := 0.0
 var _movido := false
@@ -977,6 +978,7 @@ func armar_mano() -> void:
     for ui in _laminas:
         ui.queue_free()
     _laminas.clear()
+    _encima = null
     _elige.clear()
     _flechas_linea.clear()
     _soltar(false)
@@ -991,8 +993,10 @@ func armar_mano() -> void:
             ui.pivot_offset = CardUI.TAMANO * 0.5
             ui.rotation_degrees = (i - (cartas.size() - 1) * 0.5) * 2.0
             ui.chosen.connect(_al_tomar_lamina)
+            ui.mouse_entered.connect(_al_entrar_lamina.bind(ui))
+            ui.mouse_exited.connect(_al_salir_lamina.bind(ui))
             var elige := Grafica.new()
-            ui.add_child(elige)
+            ui.body.add_child(elige)   # en el cuerpo: sube con la lámina cuando el cursor la levanta
             elige.triangulo = true
             elige.configurar("ELIGE", 20, Color.WHITE, Paleta.TV_AZUL)
             elige.visible = false
@@ -1103,18 +1107,10 @@ func _refrescar_laminas() -> void:
         ui.effect_label.text = linea[0]
         ui._layout()
         var fl: Control = _flechas_linea[ui]
-        fl.visible = linea[1] != 0
+        fl.set_meta("flecha", linea[1])
         fl.set_meta("arriba", linea[1] > 0)
-        if fl.visible:
-            var f := ui.effect_label.get_theme_font("font")
-            var tam := ui.effect_label.get_theme_font_size("font_size")
-            var w := f.get_string_size(linea[0], HORIZONTAL_ALIGNMENT_LEFT, -1, tam).x
-            var r := Rect2(ui.effect_label.position, ui.effect_label.size)
-            fl.position = Vector2(r.get_center().x + w * 0.5 + 4.0, r.get_center().y - 7.0)
-            fl.queue_redraw()
         var elige: Control = _elige[ui]
         elige.visible = pase and chance < 0.0 and usable
-        elige.position = Vector2(ui._r_inner.end.x + 4.0 - elige.size.x, ui._r_window.end.y - elige.size.y + 2.0)
     _ordenar_mano()
 
 
@@ -1189,8 +1185,41 @@ func _ordenar_mano() -> void:
         var baja := absf(i - (n - 1) * 0.5) * 4.0
         var alza := 26.0 if ui == _arrastre or ui == _presionado else 0.0
         ui.position = Vector2(x, Y_LAMINAS + baja - alza)
-        ui.z_index = 1 if ui == _arrastre else 0
+        # T-16: abanico. La que se arrastra, se aprieta o está bajo el cursor pasa al frente y se ve entera;
+        # las demás arman el tipo, la moneda, el nombre y la placa del % en la franja que deja ver la siguiente.
+        var frente := ui == _arrastre or ui == _presionado or ui == _encima
+        ui.z_index = 2 if ui == _arrastre else (1 if frente else 0)
+        ui.ancho_visible = 0.0 if frente or i == n - 1 or paso >= CardUI.TAMANO.x else paso
+        _colocar_extras(ui)
         x += paso
+
+
+# El triángulo ▲▼ después de la línea y la gráfica ELIGE, según el armado que le quedó a la lámina.
+func _colocar_extras(ui: CardUI) -> void:
+    if not _elige.has(ui):
+        return
+    var fl: Control = _flechas_linea[ui]
+    fl.visible = int(fl.get_meta("flecha", 0)) != 0 and ui.effect_label.visible
+    if fl.visible:
+        var f := ui.effect_label.get_theme_font("font")
+        var tam := ui.effect_label.get_theme_font_size("font_size")
+        var w := f.get_string_size(ui.effect_label.text, HORIZONTAL_ALIGNMENT_LEFT, -1, tam).x
+        var r := Rect2(ui.effect_label.position, ui.effect_label.size)
+        fl.position = Vector2(minf(r.position.x + w + 5.0, ui.limite_x() - 16.0), r.position.y + minf(r.size.y, tam * 1.2) * 0.5 - 7.0)
+        fl.queue_redraw()
+    var elige: Control = _elige[ui]
+    elige.position = Vector2(ui.limite_x() + (4.0 if ui.ancho_visible <= 0.0 else -2.0) - elige.size.x, ui._r_window.end.y - elige.size.y + 2.0)
+
+
+func _al_entrar_lamina(ui: CardUI) -> void:
+    _encima = ui
+    _ordenar_mano()
+
+
+func _al_salir_lamina(ui: CardUI) -> void:
+    if _encima == ui:
+        _encima = null
+        _ordenar_mano()
 
 
 # ------------------------------------------------------------------ Mouse: tomar, apuntar, soltar

@@ -207,8 +207,9 @@ func _ajustar_ventana() -> void:
     _con_balon.position = Vector2(16, _alto_senal - 40.0)
     _raiz_mano.position = Vector2((_ancho - 1280.0) * 0.5, lienzo.y - 720.0)
     _colocar_barra()
-    # La tirada va sobre la zona de las láminas (que no se juegan mientras se tira): no tapa la jugada.
-    _tirada.position = Vector2(_raiz_mano.position.x + CENTRO_MANO - _tirada.size.x * 0.5, _alto_senal + 6.0)
+    # T-16: la tirada va al pie de la cancha, centrada: no tapa las láminas (ni las tuyas ni las de defensa
+    # mientras ataca el rival). Las etiquetas la esquivan (_colocar_etiquetas).
+    _tirada.position = Vector2((_ancho - _tirada.size.x) * 0.5, _alto_senal - _tirada.size.y - 10.0)
 
 
 func _a_pantalla(p: Vector3) -> Vector2:
@@ -982,7 +983,9 @@ func armar_mano() -> void:
     _elige.clear()
     _flechas_linea.clear()
     _soltar(false)
-    if engine != null and (modo == Modo.ATAQUE or modo == Modo.DEFENSA):
+    # T-16: mientras ataca el rival tus láminas de defensa siguen en la mesa (sin jugarse): no queda solo madera.
+    var mirando := modo == Modo.RIVAL and engine != null and engine.in_defense
+    if engine != null and (modo == Modo.ATAQUE or modo == Modo.DEFENSA or mirando):
         var cartas: Array = engine.deck.hand
         for i in cartas.size():
             var ui: CardUI = CARD_SCENE.instantiate()
@@ -993,6 +996,9 @@ func armar_mano() -> void:
             ui.pivot_offset = CardUI.TAMANO * 0.5
             ui.rotation_degrees = (i - (cartas.size() - 1) * 0.5) * 2.0
             ui.chosen.connect(_al_tomar_lamina)
+            if mirando:
+                ui.set_interactive(false)
+                ui.modulate = Color(0.82, 0.82, 0.82)
             ui.mouse_entered.connect(_al_entrar_lamina.bind(ui))
             ui.mouse_exited.connect(_al_salir_lamina.bind(ui))
             var elige := Grafica.new()
@@ -1081,11 +1087,21 @@ func descarte_texto() -> String:
 
 # La lámina simple de v5: costo, nombre, una línea y un solo %. Los pases dicen ELIGE hasta que apuntas.
 func _refrescar_laminas() -> void:
-    if not ((modo == Modo.ATAQUE and not engine.moment_over) or (modo == Modo.DEFENSA and engine.in_defense)):
+    var mirando := modo == Modo.RIVAL and engine.in_defense
+    if not ((modo == Modo.ATAQUE and not engine.moment_over) or (modo == Modo.DEFENSA and engine.in_defense) or mirando):
         _ordenar_mano()
         return
     for ui in _laminas:
         var c: Card = ui.card
+        if mirando:   # se ven, no se juegan: costo, nombre y palabras clave, sin % ni cinta
+            ui.setup(c, ui.hand_index, _contexto(c))
+            ui.seal_label.visible = false
+            ui.update_stats(engine.ap_cost_of(c), c.ap_cost, engine.stamina_cost_of(c), 0.0, true, false, [], "")
+            ui.tooltip_text = ""
+            ui.chance_label.visible = false
+            ui.effect_label.text = String(linea_de(c, "")[0])
+            ui._layout()
+            continue
         var ataque := modo == Modo.ATAQUE
         ui.setup(c, ui.hand_index, _contexto(c))
         ui.seal_label.visible = false

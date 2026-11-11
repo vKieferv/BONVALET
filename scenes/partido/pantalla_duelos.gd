@@ -38,7 +38,7 @@ const VERDE := Color("#4fd18b")
 const CORAL := Color("#ff7a6b")
 # T-16: reparto de una línea dentro de su zona. Cada jugador va en una columna distinta a la de sus vecinos
 # (metros desde el centro de la zona, hacia el arco rival), así no quedan en fila ni se tapan en pantalla.
-const COLUMNAS := [-4.0, 0.6, -1.8, 2.8, -3.0, 1.6]
+const COLUMNAS := [-4.2, 0.4, -2.0, -5.4, -0.8, -3.2]   # nunca más adelante que antes (+0.6): el de la zona siguiente sigue en cámara
 # Dónde se para cada marcador respecto de su marcado: [hacia el arco, hacia la cámara], uno por marca.
 const MARCAS := [Vector2(1.3, -0.7), Vector2(1.3, 0.9), Vector2(2.2, 0.1), Vector2(2.3, -1.5)]
 const LIBRES_X := 6.4          # los rivales sin marca de la zona, más atrás

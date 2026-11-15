@@ -1507,7 +1507,14 @@ func arrastrando() -> bool:
 # Centro en pantalla de un jugador (para el mouse simulado de smoke_match): a media altura del cuerpo.
 func punto_de(clave: String) -> Vector2:
     var j := _jug(clave)
-    return _rect_cuerpo(j).get_center() if j != null else Vector2.ZERO
+    if j == null:
+        return Vector2.ZERO
+    var centro := _rect_cuerpo(j).get_center()
+    # Si el cuerpo queda en el borde de la señal (cámara a medio deslizar), se pasa tocando su etiqueta,
+    # que siempre está dentro de la pantalla.
+    if not Rect2(0, 44, _ancho, _alto_senal - 44).has_point(centro) and _rect_etiqueta.has(clave):
+        return (_rect_etiqueta[clave] as Rect2).get_center()
+    return centro
 
 
 func _dibujar_flecha() -> void:

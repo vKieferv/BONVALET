@@ -45,11 +45,12 @@ M1 se hacen ahora sobre los duelos.
 
 ## Siguiente, en este orden (revisado el 2026-11-14)
 1. **T-15 y T-16 mezcladas** (2026-11-14): falta medir los desenlaces del fallo (D-48) con el mazo nuevo.
-2. **T-18 · triángulo de estilos** (`T-18-triangulo-estilos.md`, D-49): Tiki-Taka > Catenaccio > Contragolpe > Tiki-Taka; Directo y Kamikaze en pausa. T-17 (mazo nuevo, a medias y sin commit en su rama) se reduce a esos tres estilos.
-3. **Una sola medición con el mazo nuevo** para decidir juntos la curva de la temporada (mitad y final
+2. **T-18 · triángulo de estilos** (`T-18-triangulo-estilos.md`, D-49): Tiki-Taka > Catenaccio > Contragolpe > Tiki-Taka; Directo y Kamikaze en pausa. En curso.
+3. **T-17 · el mazo se arma semana a semana** (`T-17-mazo-nuevo.md`, reescrito el 2026-11-15): las 24 cartas de los tres estilos con su "+", ofertas con al menos 1 de tu estilo. Tras mezclar T-18. Después, congelar reglas y jugar (5 partidos y 3 semanas de carrera) para cerrar M1 y M2.
+4. **Una sola medición con el mazo nuevo** para decidir juntos la curva de la temporada (mitad y final
    sobre 2,6) y el cansancio (I-59: quitarlo, dejarlo o por jugador).
-4. **T-03, más chico:** el resumen post-partido (I-35); la tirada visible ya cubre parte.
-5. **M3:** la temporada completa.
+5. **T-03, más chico:** el resumen post-partido (I-35); la tirada visible ya cubre parte.
+6. **M3:** la temporada completa.
 Pendientes sueltos: perfiles de la élite (propuesta del 2026-11-03 sin confirmar), Steam Deck.
 
 ## Hecho · Cara visual y partido nuevo (2026-10-28 a 2026-11-09)

@@ -52,7 +52,8 @@ func _radio_punto() -> float:
 func _draw() -> void:
     var s := size
     var dx := s.y * SKEW
-    var sombra := PackedVector2Array([Vector2(dx, 3), Vector2(s.x, 3), Vector2(s.x - dx, s.y + 3), Vector2(0, s.y + 3)])
+    var caida := maxf(3.0, tam * 0.07)   # la sombra dura crece con la letra (cartel de gol, T-16)
+    var sombra := PackedVector2Array([Vector2(dx, caida), Vector2(s.x, caida), Vector2(s.x - dx, s.y + caida), Vector2(0, s.y + caida)])
     draw_colored_polygon(sombra, Color(0, 0, 0, 0.55))
     var medio_y := s.y * 0.5
     var medio_dx := dx * 0.5
@@ -64,7 +65,7 @@ func _draw() -> void:
         draw_polyline(PackedVector2Array([Vector2(dx, 0), Vector2(s.x, 0), Vector2(s.x - dx, s.y), Vector2(0, s.y), Vector2(dx, 0)]), borde, 2.0, true)
     var f := Paleta.letra("tv")
     var base := Vector2(margen + dx * 0.5, f.get_ascent(tam) + 1.0)
-    draw_string(f, base + Vector2(0, 1.5), texto, HORIZONTAL_ALIGNMENT_LEFT, -1, tam, Color(0, 0, 0, 0.55))
+    draw_string(f, base + Vector2(0, maxf(1.5, tam * 0.05)), texto, HORIZONTAL_ALIGNMENT_LEFT, -1, tam, Color(0, 0, 0, 0.55))
     draw_string(f, base, texto, HORIZONTAL_ALIGNMENT_LEFT, -1, tam, color_texto)
     if triangulo:
         var x0 := base.x + f.get_string_size(texto, HORIZONTAL_ALIGNMENT_LEFT, -1, tam).x + tam * 0.2

@@ -6,6 +6,8 @@
 #   ..\Godot_v4.7.2-stable_win64_console.exe --path . --resolution 1280x720 -s res://tools/partido_duelos_captura.gd -- --out=C:/ruta
 # Opciones (después de --): --sufijo=texto (nombre de las capturas), --rapido (solo menú, apuntando y FPS),
 # --defensa (T-15, D-44: intención del rival, Presión, Intercepción y Bloqueo arrastrados y una tirada de defensa).
+# T-16: además captura la mano con 5, 7 y 10 láminas (y con el cursor encima), tu defensa, el gol del rival
+# y el final del partido. Sirve también sobre el código anterior a T-16 (para las capturas de "antes").
 extends SceneTree
 
 const MouseDuelos := preload("res://tests/mouse_duelos.gd")
@@ -74,6 +76,10 @@ func _correr() -> void:
 		await _jugar_partido()
 		if rapido:
 			break
+		if view._menu.visible and not tomadas.has("10_final"):
+			Engine.time_scale = 1.0
+			await mouse.cuadros(30)
+			_shot("10_final")
 	await _medir()
 	for falta in _faltan():
 		print("FALTA la captura: ", falta)
@@ -90,7 +96,8 @@ func _necesarias() -> Array:
 		return ["t15_1_intencion", "t15_2_presion", "t15_3_intercepcion", "t15_4_bloqueo", "t15_5_tirada_defensa"]
 	if rapido:
 		return ["1_ataque_apuntando"]
-	return ["1_ataque_apuntando", "2_pase_en_el_aire", "3_tirada", "4_cuenta", "5_robo", "6_gol", "7_defensa", "8_ataque_rival", "9_pase_misma_zona"]
+	return ["1_ataque_apuntando", "2_pase_en_el_aire", "3_tirada", "4_cuenta", "5_robo", "6_gol", "7_defensa", "8_ataque_rival",
+		"9_pase_misma_zona", "10_final", "mano_5", "mano_7", "mano_7_cursor", "mano_10"]
 
 
 func _faltan() -> Array:
@@ -160,11 +167,54 @@ func _vigilar(p: PantallaDuelos) -> void:
 		_shot("t15_5_tirada_defensa")
 	elif tirada_lista and p.modo == PantallaDuelos.Modo.ATAQUE and not tomadas.has("3_tirada"):
 		_shot("3_tirada")
-	var cartel: String = view._banner_label.text if view._banner.visible and view._banner.modulate.a > 0.95 else ""
+	var cartel := _cartel(p)
 	if cartel.contains("ROBARON") and not tomadas.has("5_robo"):
 		_shot("5_robo")
 	elif cartel.contains("GOOOOL") and not tomadas.has("6_gol"):
 		_shot("6_gol")
+	elif cartel.contains("GOL DE") and not tomadas.has("6b_gol_rival"):
+		_shot("6b_gol_rival")
+	elif cartel.contains("A DEFENDER") and not tomadas.has("5b_aviso"):
+		_shot("5b_aviso")
+
+
+# El cartel a la vista: la gráfica de TV de la pantalla de duelos (T-16) o, antes, la caja de match_view.
+func _cartel(p: PantallaDuelos) -> String:
+	if p != null and "cartel_listo" in p:
+		return String(p.get("cartel_texto")) if p.get("cartel_listo") else ""
+	return view._banner_label.text if view._banner.visible and view._banner.modulate.a > 0.95 else ""
+
+
+# T-16: la mano con 5, 7 y 10 láminas (se completan con cartas del mazo) y con el cursor sobre una.
+func _capturar_manos(p: PantallaDuelos) -> void:
+	var e: MatchEngine = view._engine
+	Engine.time_scale = 1.0
+	await _mientras(func(): return _cartel(p) != "" or view._busy, 600)
+	var original: Array = e.deck.hand.duplicate()
+	var reserva: Array = e.deck.draw_pile + e.deck.discard_pile
+	for n: int in [5, 7, 10]:
+		var mano: Array = original.duplicate()
+		var i := 0
+		while mano.size() < n and not reserva.is_empty():
+			mano.append(reserva[i % reserva.size()])
+			i += 1
+		e.deck.hand.clear()
+		e.deck.hand.append_array(mano.slice(0, n))
+		view._build_hand()
+		mouse.mover(Vector2(640, 250), false)
+		await _quieto(40)
+		_shot("mano_%d" % n)
+		if n == 7 and p.laminas().size() > 2:
+			var ui: CardUI = p.laminas()[2]
+			mouse.mover(ui.global_position + Vector2(36, 120), false)
+			await _quieto(30)
+			_shot("mano_7_cursor")
+			mouse.mover(Vector2(640, 250), false)
+	e.deck.hand.clear()
+	e.deck.hand.append_array(original)
+	view._build_hand()
+	await _quieto(10)
+	Engine.time_scale = RAPIDO_JUEGO
 
 
 func _defender(p: PantallaDuelos) -> void:
@@ -195,6 +245,8 @@ func _defender_duelos(p: PantallaDuelos) -> void:
 	if not view._in_defense or it.is_empty():
 		Engine.time_scale = RAPIDO_JUEGO
 		return
+	if not defensa and not tomadas.has("7_defensa"):
+		_shot("7_defensa")
 	if not tomadas.has("t15_1_intencion") and ic != null and MatchEngine.is_pass(ic):
 		_shot("t15_1_intencion")
 	var quiero := Card.Kind.PRESS
@@ -252,6 +304,9 @@ func _atacar(p: PantallaDuelos) -> void:
 		_vigilar(p)
 		await mouse.clic(p.punto_de("L:" + rec))
 		await _ocupado()
+		return
+	if not tomadas.has("mano_10") and not rapido and not defensa and not desenlaces and e.deck.hand.size() >= 3:
+		await _capturar_manos(p)
 		return
 	if not tomadas.has("4_cuenta") and not p.laminas().is_empty() and not rapido:
 		Engine.time_scale = 1.0

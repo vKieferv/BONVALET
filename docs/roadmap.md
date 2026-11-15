@@ -45,7 +45,7 @@ M1 se hacen ahora sobre los duelos.
 
 ## Siguiente, en este orden (revisado el 2026-11-14)
 1. **T-15 y T-16 mezcladas** (2026-11-14): falta medir los desenlaces del fallo (D-48) con el mazo nuevo.
-2. **T-18 · triángulo de estilos** (`T-18-triangulo-estilos.md`, D-49): Tiki-Taka > Catenaccio > Contragolpe > Tiki-Taka; Directo y Kamikaze en pausa. En curso.
+2. **T-18 mezclada** (2026-11-15): ventaja de estilo ±3 (`data/estilos.json`). Pendiente: Catenaccio sigue perdiendo con Contragolpe (37%); se arregla con sus cartas en T-17 y se vuelve a medir solo ese cruce.
 3. **T-17 · el mazo se arma semana a semana** (`T-17-mazo-nuevo.md`, reescrito el 2026-11-15): las 24 cartas de los tres estilos con su "+", ofertas con al menos 1 de tu estilo. Tras mezclar T-18. Después, congelar reglas y jugar (5 partidos y 3 semanas de carrera) para cerrar M1 y M2.
 4. **Una sola medición con el mazo nuevo** para decidir juntos la curva de la temporada (mitad y final
    sobre 2,6) y el cansancio (I-59: quitarlo, dejarlo o por jugador).

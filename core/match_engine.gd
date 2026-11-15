@@ -213,6 +213,8 @@ var duel_players: Array = []
 var mark_style := ""                # estilo de este equipo al marcar (su arquetipo)
 var rival_players: Array = []
 var rival_mark_style := ""
+var style_edge := StyleTriangle.activo()   # D-49: la ventaja del triángulo de estilos; false = el partido de antes
+var style_edge_pts := -1.0                 # N en puntos (0.06); < 0 = el de data/estilos.json
 var duel_base := DUEL_BASE
 var duel_skill_factor := DUEL_SKILL_FACTOR
 var duel_mark_pts := DUEL_MARK_PTS
@@ -474,6 +476,8 @@ func chance_breakdown(card: Card, at_zone: int = -1, receiver: String = "") -> A
 		items.append({"label": "Ejecutor Natural", "value": duel_natural_bonus if duel else NATURAL_EXECUTOR_BONUS})
 	if form_bonus != 0.0:
 		items.append({"label": "Entrenamiento", "value": form_bonus})
+	if duel:
+		_style_edge_item(mark_style, rival_mark_style, items)
 	if not in_defense:
 		if moment_idx < opening_moments and opening_bonus != 0.0:
 			items.append({"label": "Apertura", "value": opening_bonus})
@@ -499,6 +503,16 @@ func chance_breakdown(card: Card, at_zone: int = -1, receiver: String = "") -> A
 		elif zone_mode:
 			_zone_items(card, zone if at_zone < 0 else at_zone, items)
 	return items
+
+
+# D-49: "Ventaja de estilo" (+N / −N) cuando mi estilo vence al del rival o él al mío (triángulo Tiki-Taka >
+# Catenaccio > Contragolpe > Tiki-Taka); con cualquier otro estilo no hay línea. Solo en el modo de duelos.
+func _style_edge_item(mine: String, theirs: String, items: Array) -> void:
+	if not style_edge:
+		return
+	var v := StyleTriangle.ventaja(mine, theirs, style_edge_pts)
+	if v != 0.0:
+		items.append({"label": "Ventaja de estilo", "value": v})
 
 
 # Números de la zona (D-36, regla 3): jugadores de tu línea contra los de la suya (con la postura de
@@ -1687,6 +1701,8 @@ func _duel_defense_breakdown(card: Card) -> Array:
 			items.append({"label": "Ejecutor Natural", "value": duel_natural_bonus})
 	if form_bonus != 0.0:
 		items.append({"label": "Entrenamiento", "value": form_bonus})
+	if defense_att != null:
+		_style_edge_item(mark_style, defense_att.mark_style, items)
 	return items
 
 

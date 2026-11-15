@@ -44,6 +44,7 @@ func _initialize() -> void:
 	_test_duel_d46()
 	_test_duel_d44()
 	_test_duel_d48()
+	_test_style_edge()
 	print("engine_rules: %d comprobaciones, %d fallas" % [checks, failures.size()])
 	for f in failures:
 		print("  FALLA: " + f)
@@ -1134,6 +1135,7 @@ func _duel_engine(seed: int, steps: int = 3) -> MatchEngine:
 	e.formation = squads.zone_data("colo_colo")["formation"]
 	e.rival_players = u["players"]
 	e.rival_mark_style = u["style"]
+	e.style_edge = false   # D-49: las cuentas de estas pruebas son sin la ventaja de estilo (la prueba del triángulo la enciende)
 	e.rival_formation = squads.zone_data("universidad_de_chile")["formation"]
 	e.zone = MatchEngine.Zone.SALIDA
 	e.progress = 0
@@ -1909,3 +1911,78 @@ func _test_cartas_v2() -> void:
 	for id in ["pase_al_pie", "pase_largo", "amague", "presion", "intercepcion", "bloqueo"]:
 		_check(std.has(id), "el mazo de inicio debería traer %s" % id)
 	_check(std.count("remate_simple") == 2, "el mazo de inicio trae 2 Remate simple")
+
+
+# D-49 (T-18): el triángulo de estilos. "Ventaja de estilo" (+N / −N) solo si el rival es del triángulo, simétrica
+# entre los dos lados, también en la defensa, y apagada = el partido de antes.
+func _test_style_edge() -> void:
+	var cat := CardDB.load_catalog()
+	var pase := Card.from_dict(cat["pase_corto"])
+	var linea := func(e: MatchEngine, c: Card) -> float:
+		for it in e.chance_breakdown(c):
+			if it["label"] == "Ventaja de estilo":
+				return float(it["value"])
+		return 0.0
+	var n := 0.03
+	for par in [["Tiki-Taka", "Catenaccio"], ["Catenaccio", "Contragolpe"], ["Contragolpe", "Tiki-Taka"]]:
+		var a := _edge_engine(601)
+		a.mark_style = par[0]
+		a.rival_mark_style = par[1]
+		var b := _edge_engine(601)
+		b.mark_style = par[1]
+		b.rival_mark_style = par[0]
+		_check(is_equal_approx(linea.call(a, pase), n), "%s contra %s: +N de ventaja de estilo" % par)
+		_check(is_equal_approx(linea.call(b, pase), -n), "%s contra %s: −N al que la sufre" % [par[1], par[0]])
+	for otro in ["Directo", "Kamikaze", "", "Tiki-Taka"]:
+		var c := _edge_engine(602)
+		c.mark_style = "Tiki-Taka"
+		c.rival_mark_style = otro
+		_check(linea.call(c, pase) == 0.0, "Tiki-Taka contra '%s': sin línea de ventaja" % otro)
+	var d := _edge_engine(603)
+	d.mark_style = "Directo"
+	d.rival_mark_style = "Catenaccio"
+	_check(linea.call(d, pase) == 0.0, "Directo queda fuera del triángulo")
+	# La línea mueve el % exactamente N, y apagada el partido es el de antes.
+	var on := _edge_engine(604)
+	on.mark_style = "Tiki-Taka"
+	on.rival_mark_style = "Catenaccio"
+	var off := _edge_engine(604)
+	off.mark_style = "Tiki-Taka"
+	off.rival_mark_style = "Catenaccio"
+	off.style_edge = false
+	var neutro := _edge_engine(604)
+	neutro.mark_style = "Tiki-Taka"
+	neutro.rival_mark_style = "Directo"
+	var base_on := on.success_chance(pase)
+	_check(linea.call(off, pase) == 0.0, "con el interruptor apagado no hay línea")
+	_check(off.chance_breakdown(pase).size() == neutro.chance_breakdown(pase).size(), "apagada: el mismo desglose que sin ventaja")
+	_check(absf(base_on - off.success_chance(pase) - n) < 0.011, "la ventaja suma N al %% (con ventaja %s, sin ella %s)" % [base_on, off.success_chance(pase)])
+	on.style_edge_pts = 0.10
+	_check(is_equal_approx(linea.call(on, pase), 0.10), "style_edge_pts cambia N")
+	# En la defensa: el que defiende con ventaja suma N; el desventajado resta N.
+	var att := _edge_engine(605)
+	att.mark_style = "Contragolpe"
+	var def := _edge_engine(606)
+	def.mark_style = "Catenaccio"
+	def.deck.hand.clear()
+	var marca := Card.from_dict(cat["marca"]) if cat.has("marca") else null
+	if marca != null:
+		def.defense_att = att
+		var item_def := 0.0
+		for it in def._duel_defense_breakdown(marca):
+			if it["label"] == "Ventaja de estilo":
+				item_def = float(it["value"])
+		_check(is_equal_approx(item_def, n), "Catenaccio que defiende contra Contragolpe: +N en sus jugadas defensivas")
+		def.mark_style = "Tiki-Taka"
+		item_def = 0.0
+		for it in def._duel_defense_breakdown(marca):
+			if it["label"] == "Ventaja de estilo":
+				item_def = float(it["value"])
+		_check(is_equal_approx(item_def, -n), "Tiki-Taka que defiende contra Contragolpe: −N")
+
+
+func _edge_engine(seed: int, steps: int = 3) -> MatchEngine:
+	var e := _duel_engine(seed, steps)
+	e.style_edge = true
+	e.style_edge_pts = -1.0
+	return e

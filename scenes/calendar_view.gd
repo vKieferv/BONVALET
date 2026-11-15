@@ -922,6 +922,9 @@ func _build_tv(page: Control, rival: Dictionary) -> void:
 
     # Informe del rival: solo lo que el juego sabe (estilo y figura).
     var lines: Array = ["%s: %s" % [rival.get("short_name", "?"), rival.get("archetype", "?")]]
+    var ideal := StyleTriangle.contra(String(rival.get("archetype", ""))) if StyleTriangle.activo() else ""
+    if ideal != "":   # D-49: el estilo que le gana (nada si el rival no es del triángulo)
+        lines.append("te conviene %s" % ideal if ideal != String(c.team().get("archetype", "")) else "tu estilo le gana")
     if rival.get("signature_card") != null and String(rival["signature_card"]) != "":
         lines.append("ojo: %s" % Mesa.apellido(String(rival["signature_card"])))
     # Su mazo crece con la semana (T-06): mazo de inicio + week − 1 cartas de su crecimiento.

@@ -13,6 +13,7 @@ var checks := 0
 func _initialize() -> void:
 	_test_deck_and_league_rules()
 	_test_standard_deck()
+	_test_cartas_v2()
 	_test_possession_filter()
 	_test_natural_executor()
 	_test_defense_and_emergency()
@@ -241,8 +242,8 @@ func _test_standard_deck() -> void:
 	# decks.json: solo cartas del catálogo, un rasgo y 8 cartas de crecimiento por arquetipo.
 	var archetypes := ["Tiki-Taka", "Directo", "Catenaccio", "Kamikaze", "Contragolpe"]
 	var standard: Array = lists.get("estandar", [])
-	_check(standard.size() == 11 and standard.count(CardDB.TRAIT_SLOT) == 1,
-			"el mazo estándar debería tener 11 cartas, una de ellas el lugar del rasgo (%d)" % standard.size())
+	_check(standard.size() == 12 and standard.count(CardDB.TRAIT_SLOT) == 1,
+			"el mazo estándar debería tener 12 cartas, una de ellas el lugar del rasgo (%d)" % standard.size())
 	for id in standard:
 		_check(id == CardDB.TRAIT_SLOT or catalog.has(id), "decks.json estandar: carta desconocida %s" % id)
 	var rasgos: Dictionary = lists.get("rasgos", {})
@@ -254,11 +255,11 @@ func _test_standard_deck() -> void:
 		for id in pool:
 			_check(catalog.has(id), "decks.json crecimiento de %s: carta desconocida %s" % [arch, id])
 		var ids := CardDB.deck_ids(lists, arch, 0)
-		_check(ids.size() == 11 and ids.count(rasgos.get(arch, "")) == 1 and not ids.has(CardDB.TRAIT_SLOT),
-				"%s: el mazo estándar debería tener 11 cartas con su rasgo en lugar de %s" % [arch, CardDB.TRAIT_SLOT])
+		_check(ids.size() == 12 and ids.count(rasgos.get(arch, "")) == 1 and not ids.has(CardDB.TRAIT_SLOT),
+				"%s: el mazo estándar debería tener 12 cartas con su rasgo en lugar de %s" % [arch, CardDB.TRAIT_SLOT])
 		var mid := CardDB.deck_ids(lists, arch, 4)
-		_check(mid.size() == 15 and mid.slice(11) == pool.slice(0, 4), "%s +4: las primeras 4 de su crecimiento, en orden" % arch)
-		_check(CardDB.deck_ids(lists, arch, 99).size() == 19, "%s: el crecimiento no suma más de sus 8 cartas" % arch)
+		_check(mid.size() == 16 and mid.slice(12) == pool.slice(0, 4), "%s +4: las primeras 4 de su crecimiento, en orden" % arch)
+		_check(CardDB.deck_ids(lists, arch, 99).size() == 20, "%s: el crecimiento no suma más de sus 8 cartas" % arch)
 	# Ofertas del entrenamiento táctico (D-20, T-05): una lista por arquetipo y una general, solo cartas
 	# del catálogo, sin repetir y nunca una carta de rasgo; alcanzan para 2 de tu estilo + 1 general.
 	var offers: Dictionary = lists.get("ofertas", {})
@@ -293,7 +294,7 @@ func _test_standard_deck() -> void:
 			continue
 		seen[arch] = true
 		var deck := squads.build_match_deck(t["id"], squads.starter_templates(t["id"]))
-		_check(deck.size() == 12, "%s (%s): el mazo de inicio debería tener 12 cartas (tiene %d)" % [t["id"], arch, deck.size()])
+		_check(deck.size() == 13, "%s (%s): el mazo de inicio debería tener 13 cartas (tiene %d)" % [t["id"], arch, deck.size()])
 		_check(deck.filter(func(c: Card) -> bool: return c.id == rasgos.get(arch, "")).size() == 1,
 				"%s (%s): el mazo de inicio debería traer una %s" % [t["id"], arch, rasgos.get(arch, "")])
 		var figure := String(t.get("signature_card", ""))
@@ -1845,3 +1846,66 @@ func _test_duel_d48() -> void:
 	off.deck.hand.append(oc)
 	var oev := off.play_card(0, off.best_receiver(oc))
 	_check(not oev.has("outcome"), "con duel_outcomes apagado no hay desenlaces")
+
+
+# T-17 (D-45): primera tanda de cartas v2 que el motor ya sabe jugar y el mazo de inicio nuevo.
+func _test_cartas_v2() -> void:
+	var cat := CardDB.load_catalog(DECK_PATH)
+	var lists := CardDB.load_deck_lists()
+	var ids := ["segunda_pelota", "saque_largo", "hacer_tiempo", "recuperar_arriba", "salida_velocidad", "pique_largo", "taco", "descarga"]
+	var growth_ids := {}
+	for arch in lists["crecimiento"]:
+		for id in lists["crecimiento"][arch]:
+			growth_ids[id] = arch
+	for id in ids:
+		_check(cat.has(id), "falta la carta v2 %s en el catálogo" % id)
+		if not cat.has(id):
+			return
+		var c := Card.from_dict(cat[id])
+		_check(c.ap_cost >= 0 and c.ap_cost <= 3, "%s: PA fuera de rango" % id)
+		_check(growth_ids.has(id) or lists["ofertas"]["general"].has(id), "%s debería ofrecerse en algún estilo o en la general" % id)
+		if cat[id].has("plus"):   # el "+" solo cambia campos que la carta ya tiene
+			for k in cat[id]["plus"]:
+				_check(cat[id].has(k), "%s: su \"+\" cambia %s, que la carta no tiene" % [id, k])
+		_check(CardUI.effect_text(c) != "" or c.kind == Card.Kind.PAUSE, "%s: su efecto debería verse en la lámina" % id)
+	# Efectos que ya existían, ahora en cartas de estilo.
+	var segunda := Card.from_dict(cat["segunda_pelota"])
+	_check(segunda.kind == Card.Kind.BLOCK and segunda.counter, "Segunda pelota bloquea y es CONTRAGOLPE")
+	var recuperar := Card.from_dict(cat["recuperar_arriba"])
+	_check(recuperar.kind == Card.Kind.PRESS and recuperar.counter, "Recuperar arriba presiona y es CONTRAGOLPE")
+	var salida := Card.from_dict(cat["salida_velocidad"])
+	_check(salida.counter and salida.ap_cost == 0 and salida.effect == 0.0, "Salida en velocidad: 0 PA, no frena y es CONTRAGOLPE")
+	_check(Card.from_dict(cat["saque_largo"]).steps == 2 and Card.from_dict(cat["pique_largo"]).steps == 2, "Saque largo y Pique largo AVANZAN 2")
+	_check(Card.from_dict(cat["hacer_tiempo"]).kind == Card.Kind.PAUSE, "Hacer tiempo es una Pausa")
+	var taco := Card.from_dict(cat["taco"])
+	_check(taco.draw == 1 and taco.ap_cost == 0, "Taco: 0 PA y ROBA 1")
+	var descarga := Card.from_dict(cat["descarga"])
+	_check(descarga.back and descarga.draw == 1 and descarga.ap_cost == 0, "Descarga: 0 PA, ATRÁS y ROBA 1")
+	# Descarga en juego: vuelve a la Salida y roba 1; Salida en velocidad no resta nada a la jugada rival.
+	var drew := false
+	for seed in range(100, 200):
+		var g := _duel_engine(seed)
+		g.zone = MatchEngine.Zone.MEDIO
+		g.progress = 1
+		g.carrier = g.zone_players(MatchEngine.Zone.MEDIO)[0]
+		g.marks.erase(MatchEngine.Zone.SALIDA)
+		var d := Card.from_dict(cat["descarga"])
+		d.bonus = 1.0
+		g.deck.hand.append(d)
+		var hand_before := g.deck.hand.size()
+		var ev := g.play_card(0)
+		if not ev["success"]:
+			continue
+		_check(g.zone == MatchEngine.Zone.SALIDA and g.progress == 0, "Descarga deja la pelota en la Salida")
+		_check(g.deck.hand.size() == hand_before - 1 + int(ev.get("drawn", 0)) and int(ev.get("drawn", 0)) == 1, "Descarga roba 1 carta")
+		drew = true
+		break
+	_check(drew, "las semillas deberían dar una Descarga que sale")
+	var e := _duel_engine(5)
+	_check(e.defense_effect(Card.from_dict(cat["salida_velocidad"])) == 0.0, "Salida en velocidad no baja la jugada rival")
+	# Mazo de inicio nuevo (D-45): 12 cartas; con 2 Promesas porque la liga pide 2 Sub-21.
+	var std: Array = lists["estandar"]
+	_check(std.size() == 12 and std.count("promesa_control") == 2, "el estándar tiene 12 cartas y 2 Promesas (regla de liga de 2 Sub-21)")
+	for id in ["pase_al_pie", "pase_largo", "amague", "presion", "intercepcion", "bloqueo"]:
+		_check(std.has(id), "el mazo de inicio debería traer %s" % id)
+	_check(std.count("remate_simple") == 2, "el mazo de inicio trae 2 Remate simple")

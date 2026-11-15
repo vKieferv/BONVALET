@@ -135,10 +135,10 @@ func _test_decks_for_every_club() -> void:
 	var c := Career.new()
 	_check(c.setup(league, squads, "colo_colo", 99), "Career no arranca: %s" % [c.load_errors])
 	var mine := c.build_deck()
-	_check(mine.size() == 12 and mine.any(func(x: Card) -> bool: return x.id == "toque_toque"),
-			"Colo-Colo (Tiki-Taka) debería arrancar la carrera con 12 cartas y su Toque-toque (tiene %d)" % mine.size())
+	_check(mine.size() == 13 and mine.any(func(x: Card) -> bool: return x.id == "toque_toque"),
+			"Colo-Colo (Tiki-Taka) debería arrancar la carrera con 13 cartas y su Toque-toque (tiene %d)" % mine.size())
 	var starter_ids: Array = squads.starter_templates("colo_colo").map(func(d): return d["id"])
-	_check(c.deck.size() == 11 and c.deck.map(func(e): return e["id"]) == starter_ids
+	_check(c.deck.size() == 12 and c.deck.map(func(e): return e["id"]) == starter_ids
 			and c.deck.all(func(e): return e["mejora"] == ""),
 			"tu mazo propio debería arrancar con las 11 cartas del DT del mazo de inicio, sin mejoras")
 	_check(c.deck_size() == mine.size() and not c.deck_full(), "deck_size cuenta las cartas del DT y las firmas")
@@ -207,7 +207,7 @@ func _test_week_flow() -> void:
 	var r := c.prepare_match()
 	_check(r["ok"], "con los bloques completos el partido debería validarse: %s" % [r["errors"]])
 	_check(c.pending_match and c.fatigue == fatigue_before + 10.0, "el entrenamiento táctico suma 10 de fatiga")
-	_check(r["deck_size"] == 13, "el partido se juega con la carta nueva (13 cartas, tiene %d)" % r["deck_size"])
+	_check(r["deck_size"] == 14, "el partido se juega con la carta nueva (14 cartas, tiene %d)" % r["deck_size"])
 
 	var rng := RandomNumberGenerator.new()
 	var player := PlayerStats.new()
@@ -224,7 +224,7 @@ func _test_week_flow() -> void:
 	# Con funa + cláusula de conducta se pierde el fijo, pero el bono por victoria se paga igual.
 	_check(c.budget > budget, "ganar con sponsor debería sumar presupuesto (pago perdido: %s)" % lost)
 	_check(c.event_result.is_empty() and c.training == "" and c.rival_id != rival, "la semana 2 empieza limpia y con otro rival")
-	_check(c.deck.size() == 12 and c.training_offer.size() == Career.OFFER_SIZE, "la semana 2 conserva el mazo y trae oferta nueva")
+	_check(c.deck.size() == 13 and c.training_offer.size() == Career.OFFER_SIZE, "la semana 2 conserva el mazo y trae oferta nueva")
 
 
 # Entrenamiento táctico (D-20): 3 cartas distintas, 2 de la lista de tu estilo y 1 de la general
@@ -293,7 +293,7 @@ func _test_take_offer() -> void:
 	_check(c.take_offer(1) and c.training == "tactical" and c.blocks_done()["block2"], "elegir una carta resuelve el Bloque 2")
 	_check(c.deck.size() == before + 1 and c.deck.back() == {"id": id, "mejora": ""}, "la carta elegida se agrega al mazo")
 	var built := c.build_deck()
-	_check(built.size() == 13 and built[before].id == id, "la carta nueva entra al mazo del partido (antes de las firmas)")
+	_check(built.size() == 14 and built[before].id == id, "la carta nueva entra al mazo del partido (antes de las firmas)")
 	_check(not c.take_offer(0) and not c.decline_offer() and not c.choose_physio() and not c.upgrade_card(0, "acierto"),
 			"el Bloque 2 es una opción por semana")
 
@@ -472,9 +472,9 @@ func _test_rival_growth() -> void:
 			_check(league.validate_deck(deck, LEAGUE_ID)["valid"], "%s semana %d: el mazo del rival no pasa validate_deck" % [id, week])
 	# Semana 1 = mazo de inicio (12 con la firma); semana 5 = inicio + 4.
 	c.week = 1
-	_check(c.build_rival_deck("universidad_de_chile").size() == 12, "en la semana 1 el rival juega con su mazo de inicio (12)")
+	_check(c.build_rival_deck("universidad_de_chile").size() == 13, "en la semana 1 el rival juega con su mazo de inicio (13)")
 	c.week = 5
-	_check(c.build_rival_deck("universidad_de_chile").size() == 16, "en la semana 5 el rival suma 4 cartas (16)")
+	_check(c.build_rival_deck("universidad_de_chile").size() == 17, "en la semana 5 el rival suma 4 cartas (17)")
 	c.week = 1
 	_check(c.build_rival_deck().size() == squads.build_match_deck(c.rival_id, squads.starter_templates(c.rival_id)).size(),
 			"sin argumento, build_rival_deck usa el rival de la semana")
@@ -508,7 +508,7 @@ func _test_save_round_trip() -> void:
 	_check(loaded.blocks_done()["block1"] and not loaded.blocks_done()["block2"], "la semana a medias sigue a medias")
 	var names_a: Array = c.build_deck().map(func(x: Card) -> String: return x.display_name)
 	var names_b: Array = loaded.build_deck().map(func(x: Card) -> String: return x.display_name)
-	_check(loaded.deck.size() == 12 and names_a == names_b and names_b.has("Remate simple+"),
+	_check(loaded.deck.size() == 13 and names_a == names_b and names_b.has("Remate simple+"),
 			"el mazo vuelve con la carta nueva y la mejora: %s" % [names_b])
 	_check(loaded.training_offer == c.training_offer and loaded.training_offer.size() == Career.OFFER_SIZE,
 			"la oferta guardada no cambia al cargar")
@@ -578,7 +578,7 @@ func _test_save_v1_migration() -> void:
 	_check(loaded != null, "un guardado v1 debería migrarse: %s" % [Career.last_load_errors])
 	if loaded == null:
 		return
-	_check(loaded.deck == loaded.starter_deck() and loaded.build_deck().size() == 12, "el guardado v1 arranca con el mazo de inicio del club")
+	_check(loaded.deck == loaded.starter_deck() and loaded.build_deck().size() == 13, "el guardado v1 arranca con el mazo de inicio del club")
 	var offers: Dictionary = squads.deck_lists["ofertas"]
 	_check(loaded.training_offer.size() == Career.OFFER_SIZE and loaded.training_offer.all(func(id): return offers["general"].has(id) \
 			or offers["Contragolpe"].has(id)), "el guardado v1 recibe una oferta nueva: %s" % [loaded.training_offer])
@@ -706,7 +706,7 @@ func _test_event_effects() -> void:
 	var t := _new_career(13)
 	var size := t.build_deck().size()
 	_apply(t, [{"tipo": "carta_temporal", "carta": "promesa_control", "quien": "juvenil"}])
-	_check(t.build_deck().size() == size + 1 and t.deck.size() == 11, "una carta temporal buena entra al mazo del partido, no a tu mazo")
+	_check(t.build_deck().size() == size + 1 and t.deck.size() == 12, "una carta temporal buena entra al mazo del partido, no a tu mazo")
 	_check(t.prepare_match()["errors"].filter(func(e): return String(e).contains("mazo")).is_empty(), "el mazo con la carta temporal sigue siendo válido")
 	t.pending_match = true
 	t.record_match(1, 0)
@@ -714,7 +714,7 @@ func _test_event_effects() -> void:
 
 	var n := _new_career(14)
 	_apply(n, [{"tipo": "carta_nueva", "carta": "remate_primera"}])
-	_check(n.deck.size() == 12 and n.deck.back()["id"] == "remate_primera", "una carta nueva entra a tu mazo")
+	_check(n.deck.size() == 13 and n.deck.back()["id"] == "remate_primera", "una carta nueva entra a tu mazo")
 
 	var s := _new_career(15)
 	s.choose_sponsor("cerveza_glaciar")

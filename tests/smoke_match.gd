@@ -608,7 +608,7 @@ func _duel_attack(p: PantallaDuelos) -> void:
 				target = now
 			var visible_area := Rect2(0, 44, p._ancho, p._alto_senal - 44)
 			if not visible_area.has_point(target):
-				errors.append("El receptor %s queda fuera de la señal (%s): no se le puede pasar con el mouse" % [receiver, target])
+				errors.append("El receptor %s (carta %s, avanza %d) queda fuera de la señal (%s): no se le puede pasar con el mouse" % [receiver, c.display_name, c.steps, target])
 		await mouse.cuadros(2)
 		var shown := ui.chance_label.text if is_instance_valid(ui) else ""
 		var expected := "%d%%" % roundi(e.success_chance(c, -1, receiver) * 100.0)

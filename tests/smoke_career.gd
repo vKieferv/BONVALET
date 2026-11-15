@@ -145,7 +145,7 @@ func _process(_delta: float) -> bool:
 				errors.append("Continuar debería recuperar la semana %d con los bloques por hacer" % (WEEKS + 1))
 			elif not scene._club_label.text.contains(String(c.team()["short_name"]).to_upper()):
 				errors.append("Al continuar, la hoja del calendario debería mostrar el club de la carrera (%s, dice '%s')" % [c.team_id, scene._club_label.text])
-			elif c.deck.size() != 12 or c.deck[11]["id"] != _new_card or c.build_deck().size() != 13:
+			elif c.deck.size() != 13 or c.deck[12]["id"] != _new_card or c.build_deck().size() != 14:
 				errors.append("Continuar debería recuperar el mazo con la carta nueva (%s): %s" % [_new_card, c.deck])
 			elif not _deck_shows(scene, String(c.squads.catalog[_new_card]["name"])):
 				errors.append("Al continuar, Ver mazo debería mostrar la carta nueva")
@@ -170,7 +170,7 @@ func _take_first_offer(scene: Node, c: Career) -> void:
 	_check_text_sizes(scene, "sobre del táctico")
 	_new_card = String(c.training_offer[0])
 	scene._on_offer_chosen(0)
-	if c.deck.size() != 12 or c.deck.back()["id"] != _new_card or c.training != "tactical":
+	if c.deck.size() != 13 or c.deck.back()["id"] != _new_card or c.training != "tactical":
 		errors.append("Elegir la primera carta debería agregarla al mazo (%s): %s" % [_new_card, c.deck])
 	print("  Bloque 2 · semana 1: %s" % scene._training_status.text.get_slice("\n", 0))
 
@@ -190,7 +190,7 @@ func _look_and_rest(scene: Node, c: Career) -> void:
 	_check_text_sizes(scene, "ver mazo")
 	scene._on_view_deck()
 	scene._on_training("physio")
-	if c.training != "physio" or c.deck.size() != 12:
+	if c.training != "physio" or c.deck.size() != 13:
 		errors.append("La kinesiología debería resolver el Bloque 2 sin tocar el mazo")
 
 

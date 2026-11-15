@@ -45,7 +45,7 @@ M1 se hacen ahora sobre los duelos.
 
 ## Siguiente, en este orden (revisado el 2026-11-14)
 1. **T-15 y T-16 mezcladas** (2026-11-14): falta medir los desenlaces del fallo (D-48) con el mazo nuevo.
-2. **Triángulo de estilos (D-49):** Tiki-Taka > Catenaccio > Contragolpe > Tiki-Taka; Directo y Kamikaze en pausa. T-17 (mazo nuevo, a medias y sin commit en su rama) se reduce a esos tres estilos.
+2. **T-18 · triángulo de estilos** (`T-18-triangulo-estilos.md`, D-49): Tiki-Taka > Catenaccio > Contragolpe > Tiki-Taka; Directo y Kamikaze en pausa. T-17 (mazo nuevo, a medias y sin commit en su rama) se reduce a esos tres estilos.
 3. **Una sola medición con el mazo nuevo** para decidir juntos la curva de la temporada (mitad y final
    sobre 2,6) y el cansancio (I-59: quitarlo, dejarlo o por jugador).
 4. **T-03, más chico:** el resumen post-partido (I-35); la tirada visible ya cubre parte.

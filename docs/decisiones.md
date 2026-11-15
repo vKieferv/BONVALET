@@ -465,6 +465,22 @@ es blanco o negro (sigue la jugada, o robo con contragolpe). Precisa la regla 2 
    dividida, 35% lateral, 25% cortada"), y cada uno se anuncia como gráfica de TV.
 Por qué: un fallo no siempre es perder la pelota, y el contragolpe se vuelve más raro y valioso.
 
+**D-49 · 2026-11-15 · Los estilos se desarrollan como piedra-papel-tijera, de a tres** · VIGENTE (por implementar)
+El usuario: la idea original era que elegir un estilo funcionara como piedra-papel-tijera-lagarto-Spock; con
+cinco estilos es demasiado, así que **por ahora se desarrollan solo tres** ("ignorar lagarto-Spock"). Elegido:
+1. **El triángulo:** **Tiki-Taka vence a Catenaccio** (la pelota circula hasta romper el bloque bajo),
+   **Catenaccio vence a Contragolpe** (sin espacio atrás no hay contra) y **Contragolpe vence a Tiki-Taka**
+   (castiga cuando pierde la pelota arriba). Cada estilo vence a uno y pierde con otro.
+2. **En pausa:** Directo y Kamikaze. Siguen en el código y en los datos, pero no se desarrollan ni se miden, y
+   no entran a T-17 ni a las nuevas tandas de cartas hasta que el triángulo funcione.
+3. **Cómo se nota (propuesta, por probar):** una línea "Ventaja de estilo" dentro de `chance_breakdown`
+   (+N al que tiene ventaja, −N al otro; N de partida 6), visible en la cuenta de cada carta; y que el rival
+   se vea desde la previa ("U. Católica: Contragolpe. Te conviene Catenaccio"). El valor de N se mide al
+   implementar, sin simular todos los cruces: bastan los tres cruces del triángulo.
+4. **Por qué:** hoy la jerarquía entre estilos sale de los planteles, no del estilo (Palestino, Catenaccio,
+   siempre último); con el triángulo, elegir el estilo contra el rival tiene sentido y Catenaccio deja de ser
+   la peor opción.
+
 ### Descartadas (para no reabrirlas sin datos nuevos)
 - **Tempo ofensivo +7 / regen +3** (2026-10-26): no llegaba al objetivo de goles y quedó obsoleto con
   PA + Estamina; el stash se borró.

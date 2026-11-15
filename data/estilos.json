@@ -1,0 +1,10 @@
+{
+  "_nota": "D-49 (T-18): el triángulo de estilos. Cada estilo vence al de su derecha: Tiki-Taka vence a Catenaccio, Catenaccio vence a Contragolpe y Contragolpe vence a Tiki-Taka. Directo y Kamikaze quedan fuera (sin ventaja ni desventaja). 'puntos' es N en puntos de probabilidad; 'activo' false = el partido de antes.",
+  "activo": true,
+  "puntos": 3,
+  "vence_a": {
+    "Tiki-Taka": "Catenaccio",
+    "Catenaccio": "Contragolpe",
+    "Contragolpe": "Tiki-Taka"
+  }
+}

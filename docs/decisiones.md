@@ -465,7 +465,7 @@ es blanco o negro (sigue la jugada, o robo con contragolpe). Precisa la regla 2 
    dividida, 35% lateral, 25% cortada"), y cada uno se anuncia como gráfica de TV.
 Por qué: un fallo no siempre es perder la pelota, y el contragolpe se vuelve más raro y valioso.
 
-**D-49 · 2026-11-15 · Los estilos se desarrollan como piedra-papel-tijera, de a tres** · VIGENTE (por implementar)
+**D-49 · 2026-11-15 · Los estilos se desarrollan como piedra-papel-tijera, de a tres** · VIGENTE (implementada en T-18, N = 3)
 El usuario: la idea original era que elegir un estilo funcionara como piedra-papel-tijera-lagarto-Spock; con
 cinco estilos es demasiado, así que **por ahora se desarrollan solo tres** ("ignorar lagarto-Spock"). Elegido:
 1. **El triángulo:** **Tiki-Taka vence a Catenaccio** (la pelota circula hasta romper el bloque bajo),

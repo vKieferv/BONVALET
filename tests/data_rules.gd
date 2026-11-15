@@ -46,6 +46,7 @@ func _initialize() -> void:
 	_test_history_file()
 	_test_eventos_sinteticos()
 	_test_eventos_file()
+	_test_triangulo_estilos()
 	print("data_rules: %d comprobaciones, %d fallas" % [checks, failures.size()])
 	for f in failures:
 		print("  FALLA: " + f)
@@ -1297,3 +1298,24 @@ func _temporada_sintetica() -> Dictionary:
 			"clausura": clausura, "tabla_acumulada": acumulada,
 			"descenso": {"directo": acumulada[-1]["club"], "administrativo": administrativo, "liguilla": liguilla},
 			"ascensos": ascensos, "review": []}
+
+
+# D-49 (T-18): data/estilos.json es un triángulo cerrado: cada estilo vence a uno y pierde con otro.
+func _test_triangulo_estilos() -> void:
+	var v: Dictionary = StyleTriangle.vence_a()
+	_check(v.size() == 3, "el triángulo tiene tres estilos (hay %d)" % v.size())
+	var vencidos := {}
+	for k: String in v:
+		_check(v[k] != k and v.has(v[k]), "%s vence a %s, que también es del triángulo" % [k, v[k]])
+		vencidos[v[k]] = true
+	_check(vencidos.size() == 3, "cada estilo pierde con exactamente uno")
+	for k: String in v:   # el ciclo vuelve al inicio en tres pasos
+		_check(v[v[v[k]]] == k, "%s: el ciclo se cierra en tres" % k)
+	var arqs := {}
+	for t in league.teams:
+		arqs[String(t["archetype"])] = true
+	for k: String in v:
+		_check(arqs.has(k), "'%s' es un arquetipo real de la liga" % k)
+	_check(StyleTriangle.puntos() > 0.0 and StyleTriangle.puntos() <= 0.15, "N entre 0 y 15 puntos (%s)" % StyleTriangle.puntos())
+	_check(StyleTriangle.ventaja("Directo", "Tiki-Taka") == 0.0 and StyleTriangle.ventaja("Kamikaze", "Catenaccio") == 0.0, "Directo y Kamikaze sin ventaja")
+	_check(StyleTriangle.contra("Contragolpe") == "Catenaccio" and StyleTriangle.contra("Directo") == "", "el estilo que le gana al rival")

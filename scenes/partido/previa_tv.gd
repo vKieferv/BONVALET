@@ -239,6 +239,11 @@ func _armar_previa() -> void:
     if rival.is_empty():
         return
     _club(rival, 950, ("%s · %s" % [rival.get("division", ""), rival.get("archetype", "")]).to_upper())
+    # D-49: el triángulo de estilos; si el rival es de los tres, qué estilo le gana (nada si no hay ventaja).
+    var aviso := StyleTriangle.aviso(String(rival.get("archetype", "")), String(_local.get("archetype", "")))
+    if aviso != "":
+        var a := _grafica(aviso.to_upper(), 16, TINTA_TV, Paleta.PLACA_DORADA, 10.0)
+        _centrar(a, 950, 408)
     var vs := Paleta.etiqueta("VS", "tv", 120, Paleta.DORADO)
     Paleta.sombra_tv(vs, 6)
     vs.size = Vector2(300, 150)

@@ -375,6 +375,7 @@ func _update_hud() -> void:
     _update_hand_stats()
     if _pantalla != null:
         _pantalla.set_flow(_engine.flow_active)
+        _pantalla.set_instruccion(String(_engine.instruction.get("name", "")))
         _pantalla_marcador()
 
 
@@ -1297,15 +1298,19 @@ func _on_jugar_duelo(index: int, receiver: String) -> void:
     _pantalla.refrescar()
     var before := _pantalla.instantanea(_engine)
     _last_carrier = String(before["portador"])
-    if not _in_defense:
+    if not _in_defense and card.instruction == "":
         if receiver == "" and _engine.duel_on() and MatchEngine.is_pass(card):
             receiver = _engine.best_receiver(card)   # el mismo que elegiría play_card
         if await _rival_defends_play(card, receiver, false):
             _pantalla.ocupado = false
             return
     var ev := _engine.play_card(index, receiver)
-    await _pantalla.animar_jugada(ev, card, before)
-    await _present_result(ev, null)
+    if card.instruction != "":   # T-17: la instrucción no se tira ni mueve la pelota: queda activa en el marcador
+        _update_hud()
+        await _banner_show("INSTRUCCIÓN: %s" % String(card.display_name).to_upper(), COLOR_FLOW, 0.8)
+    else:
+        await _pantalla.animar_jugada(ev, card, before)
+        await _present_result(ev, null)
     _busy = false
     _pantalla.ocupado = false
     if _in_defense:

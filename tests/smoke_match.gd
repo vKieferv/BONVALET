@@ -40,6 +40,8 @@ var ui_checked_errors := false   # tras el primer error de UI se deja de revisar
 var mouse: MouseDuelos
 var _acting := false           # una jugada con el mouse en curso (es asíncrona)
 var _match_swapped := false    # ya se eligió otro portador en este partido
+var instruction_tested := false   # T-17: la instrucción se probó con el mouse
+var instruction_seen := 0
 var _rival_seen := -1          # índice del último ataque rival que se miró
 var rival_attacks := 0
 var duel_matches := 0
@@ -332,6 +334,9 @@ func _finish() -> bool:
 		print("  duelos D-44: %d jugadas del rival anunciadas · arrastradas: %d presiones, %d intercepciones, %d bloqueos · %d despejes de emergencia" % [
 			duel_intents, drag_kinds[Card.Kind.PRESS], drag_kinds[Card.Kind.INTERCEPT], drag_kinds[Card.Kind.BLOCK], duel_emergencies])
 		print("  duelos: %d pases a la misma zona (D-46) hechos con el mouse" % same_zone_mouse)
+		if instruction_seen == 0:
+			errors.append("Por duelos nunca se probó soltar una instrucción con el mouse (T-17)")
+		print("  duelos T-17: instrucción activa vista en el marcador %d vez" % instruction_seen)
 		print("  duelos: %d partidos · %d jugadas con el mouse (%d pases) · %d revisiones contra el motor · %d portadores elegidos · %d cuentas · %d jugadas del rival vistas (%d saltadas, %d aceleradas) · %d defensas con lámina" % [
 			duel_matches, duel_plays, duel_passes, duel_checks, carrier_swaps, counts_seen, rival_steps, rival_skips, rival_fast, duel_defense_plays])
 	print("  aguantaste el balón %d veces · %d jugadas por zonas revisadas" % [holds, zone_checks])
@@ -462,7 +467,7 @@ func _duel_drag_defense(p: PantallaDuelos) -> void:
 				await mouse.cuadros(2)
 	var pick: CardUI = null
 	for ui in p.laminas():
-		if e.can_play(ui.card) and ui.card.kind != Card.Kind.CLEARANCE:
+		if e.can_play(ui.card) and ui.card.kind != Card.Kind.CLEARANCE and ui.card.instruction == "":
 			if pick == null or drag_kinds[ui.card.kind] < drag_kinds[pick.card.kind]:
 				pick = ui
 	var save_for_block: bool = drag_kinds[Card.Kind.BLOCK] == 0 and drag_kinds[Card.Kind.PRESS] >= 2 and drag_kinds[Card.Kind.INTERCEPT] >= 1 and (ic == null or ic.kind != Card.Kind.SHOT)   # guarda PA: los remates del rival son pocos (D-48)
@@ -547,6 +552,32 @@ func _duel_attack(p: PantallaDuelos) -> void:
 					errors.append("La pantalla no cambió al portador elegido")
 			_acting = false
 			return
+	# T-17: una instrucción se suelta sobre la cancha, queda activa en el marcador y no cuenta como jugada.
+	if not instruction_tested and e.moment_plays == 0 and _match_swapped:
+		instruction_tested = true
+		var inst := Card.from_dict(CardDB.load_catalog("res://data/cards.json")["juego_posicion"])
+		if e.ap >= e.ap_cost_of(inst):
+			e.deck.hand.append(inst)
+			view._build_hand()
+			await mouse.cuadros(2)
+			var iui: CardUI = null
+			for l in p.laminas():
+				if l.card == inst:
+					iui = l
+			if iui == null:
+				errors.append("La instrucción Juego de posición no apareció en la mano")
+			else:
+				p._jugar(iui, "")   # lo que dispara soltarla sobre la cancha (las láminas se tapan: se evita apuntar con el mouse)
+				await mouse.cuadros(2)
+				await _wait_idle()
+				if String(e.instruction.get("id", "")) != "posicion" or e.moment_plays != 0:
+					errors.append("Soltar Juego de posición sobre la cancha no la dejó activa (instrucción %s, jugadas %d)" % [e.instruction, e.moment_plays])
+				elif not p.texto_instruccion().contains("JUEGO DE POSICIÓN"):
+					errors.append("El marcador no muestra la instrucción activa (dice '%s')" % p.texto_instruccion())
+				else:
+					instruction_seen += 1
+			_acting = false
+			return
 	# Una vez: mantener una lámina quieta muestra la cuenta, y soltarla no la juega.
 	if counts_seen == 0 and not p.laminas().is_empty():
 		var ui: CardUI = p.laminas()[0]
@@ -577,7 +608,7 @@ func _duel_attack(p: PantallaDuelos) -> void:
 		return
 	for ui in p.laminas():
 		var c: Card = ui.card
-		if not e.can_play(c):
+		if not e.can_play(c) or c.instruction != "":   # las instrucciones se prueban aparte (T-17)
 			continue
 		var from := ui.get_global_rect().get_center()
 		var receiver := ""
@@ -709,10 +740,13 @@ func _check_duel(p: PantallaDuelos) -> void:
 			continue
 		card_checks += 1
 		var choose := p.modo == PantallaDuelos.Modo.ATAQUE and MatchEngine.is_pass(c)
-		var useless := p.modo == PantallaDuelos.Modo.DEFENSA and e.duel_defense_on() and c.kind != Card.Kind.CLEARANCE and e.defense_target(c) == ""
+		var useless := p.modo == PantallaDuelos.Modo.DEFENSA and e.duel_defense_on() and c.kind != Card.Kind.CLEARANCE and c.instruction == "" and e.defense_target(c) == ""
 		if choose:
 			if ui.chance_label.visible:
 				errors.append("El pase %s muestra %s antes de apuntar (debería decir ELIGE)" % [c.display_name, ui.chance_label.text])
+		elif c.instruction != "":
+			if ui.chance_label.visible:
+				errors.append("La instrucción %s siempre sale y muestra %s" % [c.display_name, ui.chance_label.text])
 		elif useless:
 			if ui.chance_label.visible:
 				errors.append("La lámina %s no sirve contra la jugada del rival y muestra %s" % [c.display_name, ui.chance_label.text])

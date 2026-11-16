@@ -200,7 +200,7 @@ static func keywords(c: Card, ctx: Dictionary = {}) -> String:
     for e in _effects(c):
         fx.append(e[0])
     if parts.is_empty():
-        if c.kind in ADVANCE_KINDS and c.steps == 1:
+        if c.kind in ADVANCE_KINDS and c.steps == 1 and c.instruction == "" and c.steps_counter == 0:
             parts.append("AVANZA")
         elif fx.is_empty():
             parts.append("RECUPERA ESTAMINA" if c.kind == Card.Kind.PAUSE else "REMATA")
@@ -269,15 +269,15 @@ static func _effects_v2(c: Card, out: Array) -> void:
         out.append(["INSTRUCCIÓN", "Queda activa el resto del partido (una sola a la vez; otra la reemplaza): %s." % detail])
     if c.once:
         out.append(["UNA VEZ", "Se juega una vez por partido; después sale del mazo hasta el próximo."])
-    if c.steps_counter > 0:
-        out.append(["EN CONTRAGOLPE AVANZA %d" % c.steps_counter, "Si el Momento nació de una recuperación, cuenta como %d jugadas." % c.steps_counter])
     if c.only_counter:
-        out.append(["SOLO EN CONTRAGOLPE", "Solo se puede jugar en un Momento que nació de una recuperación."])
+        out.append(["SOLO EN CONTRA", "Solo se puede jugar en un Momento que nació de una recuperación (y entonces avanza %d)." % maxi(2, c.steps_counter)])
+    elif c.steps_counter > 0:
+        out.append(["EN CONTRA: AVANZA %d" % c.steps_counter, "Si el Momento nació de una recuperación, cuenta como %d jugadas." % c.steps_counter])
     if c.next_ap > 0:
         out.append(["PRÓXIMA −%d PA" % c.next_ap, "Si sale, tu próxima carta cuesta %d PA menos." % c.next_ap])
     if c.next_bonus > 0.0:
         var what := "REMATE" if c.next_kind == "shot" else "CARTA"
-        out.append(["PRÓXIMO %s +%d" % [what, roundi(c.next_bonus * 100.0)], "Tu próximo %s suma %d pts." % [what.to_lower(), roundi(c.next_bonus * 100.0)]])
+        out.append(["%s +%d" % [what, roundi(c.next_bonus * 100.0)], "Tu próximo %s suma %d pts." % [what.to_lower(), roundi(c.next_bonus * 100.0)]])
     if c.ignore_marks:
         out.append(["SIN MARCAS", "El que remata cuenta como libre: las marcas no restan."])
     if c.keep_ball:

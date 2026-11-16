@@ -1,0 +1,13 @@
+[{"defaults":{"duelos":true}},
+{"name":"+1 pase_profundidad","deck":["pase_corto","pase_al_pie","pase_largo","amague","promesa_control","promesa_control","remate_simple","remate_simple","presion","intercepcion","bloqueo","@rasgo","pase_profundidad"]}
+,
+{"name":"+1 leer_pase","deck":["pase_corto","pase_al_pie","pase_largo","amague","promesa_control","promesa_control","remate_simple","remate_simple","presion","intercepcion","bloqueo","@rasgo","leer_pase"]}
+,
+{"name":"+1 contra_letal","deck":["pase_corto","pase_al_pie","pase_largo","amague","promesa_control","promesa_control","remate_simple","remate_simple","presion","intercepcion","bloqueo","@rasgo","contra_letal"]}
+,
+{"name":"+1 contra_manual","deck":["pase_corto","pase_al_pie","pase_largo","amague","promesa_control","promesa_control","remate_simple","remate_simple","presion","intercepcion","bloqueo","@rasgo","contra_manual"]}
+,
+{"name":"+1 transiciones","deck":["pase_corto","pase_al_pie","pase_largo","amague","promesa_control","promesa_control","remate_simple","remate_simple","presion","intercepcion","bloqueo","@rasgo","transiciones"]}
+,
+{"name":"+1 descarga","deck":["pase_corto","pase_al_pie","pase_largo","amague","promesa_control","promesa_control","remate_simple","remate_simple","presion","intercepcion","bloqueo","@rasgo","descarga"]}
+]

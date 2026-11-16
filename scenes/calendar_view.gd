@@ -714,7 +714,7 @@ func _fill_video() -> void:
     var rival := _league.get_team(c.rival_id)
     _header(2, "elige una lámina y su mejora")
     var grid := _album(_b2_detail, "sesión de video · vs %s" % rival.get("short_name", "?"),
-            "+%d DE ACIERTO EN TODAS SUS TIRADAS O %d PA MENOS · UNA MEJORA POR LÁMINA" % [
+            "+%d DE ACIERTO EN TODAS SUS TIRADAS O %d PA MENOS · LAS DE ESTILO, SU \"+\" · UNA MEJORA POR LÁMINA" % [
             roundi(CardDB.UPGRADE_BONUS * 100.0), CardDB.UPGRADE_AP], "", Callable())
     for g in _deck_groups(false):
         var index: int = g["indices"][0]

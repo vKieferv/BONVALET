@@ -15,6 +15,7 @@ func _initialize() -> void:
 	_test_standard_deck()
 	_test_cartas_v2()
 	_test_cartas_v2_mecanicas()
+	_test_bot_con_remate_prohibido()
 	_test_possession_filter()
 	_test_natural_executor()
 	_test_defense_and_emergency()
@@ -2166,3 +2167,21 @@ func _test_cartas_v2_mecanicas() -> void:
 		wall_ok = true
 		break
 	_check(wall_ok, "las semillas deberían dar un Muro que sale")
+
+
+# El muro (T-17): un bot con remates en la mano y el ataque sin permiso para rematar cierra el Momento (antes quedaba
+# repitiendo una jugada que el motor no admite).
+func _test_bot_con_remate_prohibido() -> void:
+	var cat := CardDB.load_catalog(DECK_PATH)
+	var profile: BotProfile = BotProfile.presets()[0]
+	for s in 10:
+		var a := _duel_engine(1200 + s)
+		a.shot_banned = true
+		a.deck.hand.append(Card.from_dict(cat["pase_corto"]))
+		a.deck.hand.append(Card.from_dict(cat["pase_al_pie"]))
+		a.deck.hand.append(Card.from_dict(cat["remate_simple"]))
+		var steps := 0
+		while not a.moment_over and steps < 30:
+			CoachBot.act(a, profile)
+			steps += 1
+		_check(a.moment_over, "con el remate prohibido el bot cierra el Momento (%d pasos)" % steps)

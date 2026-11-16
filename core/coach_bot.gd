@@ -102,7 +102,11 @@ static func execute(e: MatchEngine, it: Dictionary) -> Dictionary:
         return e.take_corner(String(it["corner"]))
     if it.get("hold", false):
         return e.hold_ball()
-    return e.play_card(int(it["index"]), String(it["receiver"]))
+    var ev := e.play_card(int(it["index"]), String(it["receiver"]))
+    if not ev.get("ok", false):   # una jugada que el motor no admite (T-17): se cede el Momento en vez de repetirla para siempre
+        e.abort_moment()
+        return {}
+    return ev
 
 
 # T-17: una jugada anunciada que es una instrucción no se defiende (no mueve la pelota).
@@ -254,7 +258,7 @@ static func _zone_plan(e: MatchEngine, profile: BotProfile, playable: Array, ste
     var shots: Array = []
     for i in e.deck.hand.size():
         var c: Card = e.deck.hand[i]
-        if c.kind == Card.Kind.SHOT and c.playable and e.ap_cost_of(c) <= e.ap:
+        if c.kind == Card.Kind.SHOT and c.playable and e.ap_cost_of(c) <= e.ap and not e.shot_banned:   # El muro: sin remate
             shots.append(i)
     for s in shots:
         var shot: Card = e.deck.hand[s]

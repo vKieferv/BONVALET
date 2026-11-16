@@ -264,6 +264,11 @@ var exhausted_flagged := false
 var pauses := 0
 var holds := 0
 var counter_ready := false   # tras una intercepción, el próximo Momento propio arranca con 1 jugada (si pide más de 2)
+var instruction: Dictionary = {}     # T-17: la INSTRUCCIÓN activa {id, pts, name}; una sola a la vez, dura el partido
+var next_discount := 0               # T-17: PA que baja la próxima carta (Posesión)
+var next_bonus: Dictionary = {}      # T-17: {value, kind} para tu próxima carta (Contra letal)
+var shield_fails := 0                # T-17: fallos de este Momento que no te quitan la pelota
+var shot_banned := false             # T-17: El muro: este ataque ya no puede rematar
 
 # Estado de la defensa en curso
 var in_defense := false
@@ -277,7 +282,7 @@ var defense_intent := {}
 
 var stats := {"goals": 0, "moments": 0, "flow_moments": 0, "flow_breaks": 0, "injuries": 0,
 	"plays": 0, "elite_plays": 0, "tired_plays": 0, "natural_plays": 0, "skipped": 0,
-	"defense_plays": 0, "interceptions": 0, "emergencies": 0, "out_of_ap": 0, "holds": 0, "holds_lost": 0,
+	"defense_plays": 0, "interceptions": 0, "emergencies": 0, "instructions": 0, "shields": 0, "extra_marks": 0, "out_of_ap": 0, "holds": 0, "holds_lost": 0,
 	"counters": 0, "steals": 0, "saves": 0, "rebounds": 0,
 	"dribble_entries": 0, "dribble_doubled": 0, "back_plays": 0,
 	"transition_moments": 0, "transition_goals": 0, "salida_steals": 0, "salida_steals_fwd": 0,
@@ -323,6 +328,11 @@ func start() -> void:
 	injured = false
 	exhausted_flagged = false
 	counter_ready = false
+	instruction = {}
+	next_discount = 0
+	next_bonus = {}
+	shield_fails = 0
+	shot_banned = false
 	in_defense = false
 	ap = 0
 	ap_max = 0
@@ -373,9 +383,14 @@ func begin_moment() -> Dictionary:
 	corner_taken = false
 	ap_max = int(AP_BY_POSTURE[posture])
 	ap = ap_max
+	next_discount = 0
+	shield_fails = 0
+	shot_banned = false
 	# Zonas: se arranca en la Salida; el contragolpe y el espacio rival arrancan en el Medio.
 	zone = Zone.SALIDA
 	transition = counter_ready and duel_on()
+	if transition and String(instruction.get("id", "")) == "transiciones":
+		ap += 1   # Transiciones (T-17): tus contragolpes arrancan con +1 PA
 	if exploit_rival_space:
 		var m: Dictionary = current_moment()
 		var before := int(m["steps_required"])
@@ -438,7 +453,37 @@ func ap_cost_of(card: Card) -> int:
 		c += card.flow_uses
 	if exploit_rival_space and card.kind == Card.Kind.SHOT:
 		c = maxi(1, c - PASSIVITY_AP_REDUCTION)
+	if next_discount > 0:
+		c = maxi(0, c - next_discount)   # Posesión (T-17): la próxima carta cuesta menos
 	return c
+
+
+# Avances que suma la carta ahora: los suyos, o los de steps_counter si el Momento nació de una recuperación.
+func steps_of(card: Card) -> int:
+	if card.steps_counter > 0 and transition:
+		return maxi(card.steps, card.steps_counter)
+	return card.steps
+
+
+# Cuánto suma la INSTRUCCIÓN activa a esta carta (0 si no le toca). Juego de posición: tus pases en el Medio;
+# Bloque bajo: tus cartas de defensa.
+func instruction_bonus(card: Card, z: int = -1) -> float:
+	match String(instruction.get("id", "")):
+		"posicion":
+			var zz := zone if z < 0 else z
+			return float(instruction["pts"]) if is_pass(card) and not in_defense and zz == Zone.MEDIO else 0.0
+		"bloque_bajo":
+			return float(instruction["pts"]) if card.is_defensive() else 0.0
+	return 0.0
+
+
+# Lo que deja la jugada anterior para esta carta (Contra letal: tu próximo remate), 0 si no le toca.
+func next_bonus_for(card: Card) -> float:
+	if next_bonus.is_empty() or in_defense:
+		return 0.0
+	if String(next_bonus["kind"]) == "shot" and card.kind != Card.Kind.SHOT:
+		return 0.0
+	return float(next_bonus["value"])
 
 
 # Estamina que gasta jugar la carta ahora: desgaste base x STAMINA_SCALE, menos si es física y hay
@@ -478,6 +523,12 @@ func chance_breakdown(card: Card, at_zone: int = -1, receiver: String = "") -> A
 		items.append({"label": "Entrenamiento", "value": form_bonus})
 	if duel:
 		_style_edge_item(mark_style, rival_mark_style, items)
+		var ib := instruction_bonus(card, at_zone)
+		if ib != 0.0:
+			items.append({"label": "Instrucción: %s" % instruction.get("name", ""), "value": ib})
+		var nb := next_bonus_for(card)
+		if nb != 0.0:
+			items.append({"label": "Jugada preparada", "value": nb})
 	if not in_defense:
 		if moment_idx < opening_moments and opening_bonus != 0.0:
 			items.append({"label": "Apertura", "value": opening_bonus})
@@ -607,6 +658,10 @@ func save_chance(card: Card, at_zone: int = -1, receiver: String = "") -> float:
 # Área; los tiros lejanos, también desde el Medio. Modo de duelos: un pase necesita un compañero en la
 # zona a la que va, y volver atrás, una zona anterior.
 func zone_block_reason(card: Card) -> String:
+	if not in_defense and card.only_counter and not transition:
+		return "SOLO EN CONTRAGOLPE"
+	if not in_defense and card.kind == Card.Kind.SHOT and shot_banned:
+		return "EL MURO"
 	if duel_on() and is_pass(card):
 		if card.back and zone == Zone.SALIDA:
 			return "NO HAY ZONA ANTERIOR"
@@ -630,7 +685,7 @@ func can_play(card: Card, receiver: String = "") -> bool:
 	if receiver != "" and duel_on() and is_pass(card) \
 			and not receivers(card).any(func(r): return r["id"] == receiver):
 		return false
-	if duel_defense_on() and card.kind != Card.Kind.CLEARANCE and defense_target(card) == "":
+	if duel_defense_on() and card.kind != Card.Kind.CLEARANCE and card.instruction == "" and defense_target(card) == "":
 		return false
 	return not (card.kind == Card.Kind.PAUSE and pauses >= MAX_PAUSES)
 
@@ -663,7 +718,9 @@ func play_card(hand_index: int, receiver: String = "") -> Dictionary:
 	var natural := is_natural_executor(card)
 	var defended := defense_penalties.duplicate()
 	defense_penalties.clear()
+	var used_next := next_bonus_for(card) != 0.0
 	ap -= ap_cost
+	next_discount = 0   # Posesión: la rebaja era para esta carta
 	player.energy = maxf(0.0, player.energy - stamina)
 	if in_defense:
 		stats["defense_plays"] += 1
@@ -688,30 +745,39 @@ func play_card(hand_index: int, receiver: String = "") -> Dictionary:
 		ev["save_chance"] = save
 	if not defended.is_empty():
 		ev["defended"] = defended   # D-44: lo que le restó la defensa rival a esta jugada
-	if duel_defense_on() and card.kind != Card.Kind.CLEARANCE:
+	if duel_defense_on() and card.kind != Card.Kind.CLEARANCE and card.instruction == "":
 		ev["defender"] = String(defense_defender(card).get("id", ""))   # quién la jugó
 		ev["target"] = defense_target(card)                              # sobre qué rival
 		stats["duel_def_plays"] += 1
 	if duel:
 		ev["carrier"] = String(carrier.get("id", ""))   # quién jugó la carta
 		ev["receiver"] = receiver                      # a quién iba el pase ("" si no es pase)
-		moment_plays += 1
+		if card.instruction == "":
+			moment_plays += 1   # la instrucción no cuenta: el portador se puede elegir después
 	if natural:
 		stats["natural_plays"] += 1
 		natural_executor_played.emit(card)
 	_check_exhaustion(ev)
 	_roll_injury(ev)
-	var roll := rng.randf()
-	var success := roll < p   # p es la misma que mostraba la carta antes de jugarla
-	ev["roll"] = roll
-	ev["success"] = success
-
-	if in_defense:
-		_resolve_defense(card, success, ev)
+	if card.instruction != "":
+		_play_instruction(card, ev)   # T-17: no se tira ni avanza la jugada
 	else:
-		_resolve_attack(card, success, natural, ev)
-		if duel and ev.get("stolen", false) and int(ev.get("play_zone", -1)) == Zone.SALIDA:
-			_count_salida_steal(card, receiver, ev)
+		var roll := rng.randf()
+		var success := roll < p   # p es la misma que mostraba la carta antes de jugarla
+		ev["roll"] = roll
+		ev["success"] = success
+
+		if in_defense:
+			_resolve_defense(card, success, ev)
+		else:
+			_resolve_attack(card, success, natural, ev)
+			if duel and ev.get("stolen", false) and int(ev.get("play_zone", -1)) == Zone.SALIDA:
+				_count_salida_steal(card, receiver, ev)
+	if used_next:
+		next_bonus = {}   # Contra letal: el bono era para esta carta
+	if card.once:
+		deck.exhaust(card)   # UNA VEZ: no vuelve hasta el próximo partido
+		ev["exhausted"] = true
 
 	ev["moment_over"] = moment_over
 	ev["defense_over"] = not in_defense
@@ -724,7 +790,35 @@ func play_card(hand_index: int, receiver: String = "") -> Dictionary:
 	return ev
 
 
+# INSTRUCCIÓN (T-17): sale siempre, deja activa su regla (reemplaza a la anterior; la misma, la renueva) y va al
+# descarte. No hay tirada: no cuenta como jugada del Momento ni mueve la pelota.
+func _play_instruction(card: Card, ev: Dictionary) -> void:
+	instruction = {"id": card.instruction, "pts": card.instruction_pts, "name": card.display_name.trim_suffix("+")}
+	deck.discard_from_hand(card)
+	ev["success"] = true
+	ev["roll"] = 0.0
+	ev["instruction"] = card.instruction
+	stats["instructions"] += 1
+	if in_defense:
+		if ap <= 0 or injured:
+			end_defense()
+	else:
+		_end_if_stuck(ev)
+
+
+# Lo que deja una carta que sale bien (T-17): la rebaja de la próxima, el bono de la próxima y el escudo del Momento.
+func _on_success_effects(card: Card) -> void:
+	if card.next_ap > 0:
+		next_discount = card.next_ap
+	if card.next_bonus > 0.0:
+		next_bonus = {"value": card.next_bonus, "kind": card.next_kind}
+	if card.shield > 0:
+		shield_fails += card.shield
+
+
 func _resolve_attack(card: Card, success: bool, natural: bool, ev: Dictionary) -> void:
+	if success:
+		_on_success_effects(card)
 	if card.kind == Card.Kind.PAUSE:
 		pauses += 1
 	if success and card.kind == Card.Kind.PAUSE:
@@ -741,7 +835,7 @@ func _resolve_attack(card: Card, success: bool, natural: bool, ev: Dictionary) -
 			ev["same_zone"] = true
 			stats["same_zone_passes"] += 1
 		else:
-			progress += card.steps   # casi siempre 1; un Pelotazo vale 2
+			progress += steps_of(card)   # casi siempre 1; un Pelotazo vale 2
 		streak += NATURAL_FLOW_CHARGE if natural else 1
 		if not flow_active and streak >= player.flow_threshold():
 			flow_active = true
@@ -764,7 +858,7 @@ func _resolve_attack(card: Card, success: bool, natural: bool, ev: Dictionary) -
 			_duel_after_success(card, String(ev.get("receiver", "")), ev)
 		else:
 			var zone_before := zone
-			_advance_zone(card.steps)
+			_advance_zone(steps_of(card))
 			if duel_on():
 				_duel_after_success(card, String(ev.get("receiver", "")), ev, zone_before)
 		if card.draw > 0 and not moment_over:
@@ -809,6 +903,17 @@ func _resolve_zone_fail(card: Card, ev: Dictionary) -> void:
 	var extra := float(ev["stamina"]) * ZONE_FAIL_STAMINA
 	player.energy = maxf(0.0, player.energy - extra)
 	ev["fail_stamina"] = extra
+	if card.kind != Card.Kind.SHOT and card.kind != Card.Kind.PAUSE:
+		# T-17: Salida limpia (su propio fallo en la Salida) y el escudo de La pelota es nuestra: cansa igual,
+		# pero no te quitan la pelota y sigues con ella.
+		var kept := card.keep_ball and int(ev.get("play_zone", zone)) == Zone.SALIDA
+		if not kept and shield_fails > 0:
+			shield_fails -= 1
+			kept = true
+		if kept:
+			ev["kept"] = true
+			stats["shields"] += 1
+			return
 	if duel_on() and duel_outcomes and card.kind != Card.Kind.PAUSE:
 		_resolve_duel_fail(card, ev)
 		return
@@ -934,9 +1039,9 @@ func target_zone(card: Card, z: int = -1) -> int:
 		z = zone
 	if card.back:
 		return maxi(Zone.SALIDA, z - 1)
-	if z == zone and int(current_moment()["steps_required"]) - (progress + card.steps) <= 1:
+	if z == zone and int(current_moment()["steps_required"]) - (progress + steps_of(card)) <= 1:
 		return Zone.AREA
-	return mini(Zone.AREA, z + card.steps)
+	return mini(Zone.AREA, z + steps_of(card))
 
 
 # Compañeros que pueden recibir el pase: los de la línea de la zona a la que va, menos el portador; con
@@ -1115,7 +1220,7 @@ func _duel_items(card: Card, z: int, receiver: String, items: Array) -> void:
 		tz = pass_zone(card, r["id"], z)   # D-46: el receptor puede estar en la zona en juego
 		_press_item(c, markers_of(z, c["id"]), items)
 		var m := markers_of(tz, r["id"])
-		if card.steps >= 2 and not card.back:   # Pelotazo: sin duelo, se salta la línea
+		if steps_of(card) >= 2 and not card.back:   # Pelotazo: sin duelo, se salta la línea
 			_mark_item(r, m, duel_pelotazo_factor, items, "lectura")
 			return
 		if not m.is_empty():
@@ -1125,7 +1230,7 @@ func _duel_items(card: Card, z: int, receiver: String, items: Array) -> void:
 		var keeper := keeper_of(rival_players)
 		if not keeper.is_empty():
 			_duel_item("Remate", c, "Atajada", keeper, items)
-		_mark_item(c, markers_of(z, c["id"]), 1.0, items, "quite")
+		_mark_item(c, [] if card.ignore_marks else markers_of(z, c["id"]), 1.0, items, "quite")   # Pelota parada: libre (D-47)
 	elif is_dribble(card):
 		var m := markers_of(z, c["id"])
 		if not m.is_empty():
@@ -1381,6 +1486,7 @@ func _resolve_defense(card: Card, success: bool, ev: Dictionary) -> void:
 	if success:
 		if card.counter:
 			counter_ready = true   # recuperas arriba: tu próximo Momento arranca con 1 jugada
+		_on_success_effects(card)
 		match card.kind:
 			Card.Kind.PRESS:
 				defense_result["pressure"] += card.effect if card.effect >= 0.0 else PRESS_EFFECT
@@ -1703,6 +1809,9 @@ func _duel_defense_breakdown(card: Card) -> Array:
 		items.append({"label": "Entrenamiento", "value": form_bonus})
 	if defense_att != null:
 		_style_edge_item(mark_style, defense_att.mark_style, items)
+	var ib := instruction_bonus(card)
+	if ib != 0.0:
+		items.append({"label": "Instrucción: %s" % instruction.get("name", ""), "value": ib})
 	return items
 
 
@@ -1711,6 +1820,8 @@ func _resolve_duel_defense(card: Card, success: bool, ev: Dictionary) -> void:
 	if success:
 		if card.counter:
 			counter_ready = true
+		_on_success_effects(card)
+		_defense_extras(card, att)
 		var effect := defense_effect(card)
 		var who := String(defense_defender(card).get("name", ""))
 		match card.kind:
@@ -1731,6 +1842,32 @@ func _resolve_duel_defense(card: Card, success: bool, ev: Dictionary) -> void:
 		end_defense()
 
 
+
+
+# Lo que hacen las cartas de defensa que salen bien sobre el ataque rival (T-17, D-47): marcas de más sobre el
+# portador, el Ejecutor Natural que pierde su bono y El muro (el ataque ya no puede rematar).
+func _defense_extras(card: Card, att: MatchEngine) -> void:
+	if att == null:
+		return
+	if card.add_marks > 0:
+		var cid := String(att.carrier.get("id", ""))
+		var z := att.zone
+		var list: Array = (att.markers_of(z, cid) as Array).duplicate()
+		for i in card.add_marks:
+			var pool: Array = duel_players.filter(func(pl): return String(pl.get("role", "")) != "POR" and not list.has(pl))
+			if pool.is_empty():
+				break
+			list.append(_best_by(pool, "quite"))
+		if not att.marks.has(z):
+			att.marks[z] = {}
+		(att.marks[z] as Dictionary)[cid] = list
+		att.stats["extra_marks"] += card.add_marks
+	if card.kill_natural:
+		var c := intent_card()
+		if c != null and att.is_natural_executor(c):
+			att.defense_penalties.append({"label": "%s: sin Ejecutor Natural" % card.display_name, "value": -att.duel_natural_bonus})
+	if card.ban_shot:
+		att.shot_banned = true
 # ---------- Internos ----------
 
 # Cartas de penalización al entrar en agotamiento (aquí NO se tira lesión).

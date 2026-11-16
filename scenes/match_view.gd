@@ -802,7 +802,7 @@ func _play_rival_moment_duelos(exploited: bool) -> Dictionary:
     while not e.moment_over and not _engine.injured:
         var step := {"zona": e.zone, "marcas": e.marks.duplicate(), "portador": String(e.carrier.get("id", ""))}
         var it := CoachBot.intent(e, _rival)
-        if _engine.duel_defense_on() and not it.is_empty():
+        if _engine.duel_defense_on() and not it.is_empty() and not CoachBot.is_utility(it):
             CoachBot.announce(_engine, it)
             await _defender_jugada(it, primero)
             primero = false
@@ -811,7 +811,7 @@ func _play_rival_moment_duelos(exploited: bool) -> Dictionary:
         var pev := CoachBot.execute(e, it)
         step["ev"] = pev
         step["card"] = it.get("card")
-        if not pev.is_empty():
+        if not pev.is_empty() and not pev.has("instruction"):
             _busy = true
             await _pantalla.mirar_ataque_rival([step], primero)
             _busy = false

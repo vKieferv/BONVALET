@@ -731,11 +731,12 @@ func _fill_video() -> void:
         else:
             var row := HBoxContainer.new()
             row.add_theme_constant_override("separation", 4)
-            for m in CardDB.UPGRADES:
+            var entry: Dictionary = c.squads.catalog[c.deck[index]["id"]]
+            for m in CardDB.upgrade_options(entry):
                 var b := _mejora_button(m)
                 b.pressed.connect(_on_upgrade.bind(index, m))
                 b.disabled = not c.can_upgrade(index, m)
-                b.tooltip_text = "Mejora: %s." % _upgrade_text(m) if not b.disabled else \
+                b.tooltip_text = "Mejora: %s." % _upgrade_text(m, entry) if not b.disabled else \
                         "Solo láminas que cuestan %d PA o más." % CardDB.UPGRADE_AP
                 row.add_child(b)
             cell.add_child(row)
@@ -746,10 +747,10 @@ func _fill_video() -> void:
 func _mejora_button(mejora: String) -> Button:
     var b := Button.new()
     b.add_to_group("mejora")
-    b.text = "+%d" % roundi(CardDB.UPGRADE_BONUS * 100.0) if mejora == "acierto" else "−%d PA" % CardDB.UPGRADE_AP
+    b.text = "SU +" if mejora == "plus" else ("+%d" % roundi(CardDB.UPGRADE_BONUS * 100.0) if mejora == "acierto" else "−%d PA" % CardDB.UPGRADE_AP)
     b.custom_minimum_size = Vector2(54, 32)
     b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-    var tinta := Paleta.TIMBRE_VERDE if mejora == "acierto" else Color("#8a5a10")
+    var tinta := Paleta.TIMBRE_VERDE if mejora in ["acierto", "plus"] else Color("#8a5a10")
     Paleta.estilo_texto(b, "condensada_negra", 16, tinta)
     for state in ["font_hover_color", "font_pressed_color", "font_focus_color", "font_hover_pressed_color"]:
         b.add_theme_color_override(state, tinta.darkened(0.3))
@@ -762,7 +763,7 @@ func _mejora_button(mejora: String) -> Button:
         sb.content_margin_left = 22
         sb.content_margin_right = 4
         b.add_theme_stylebox_override(state, sb)
-    var icon := Icono.crear("mira" if mejora == "acierto" else "pa", tinta, 15)
+    var icon := Icono.crear("mira" if mejora in ["acierto", "plus"] else "pa", tinta, 15)
     icon.position = Vector2(5, 8)
     b.add_child(icon)
     b.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
@@ -1456,7 +1457,9 @@ func _deck_groups(with_signatures: bool) -> Array:
     return groups
 
 
-func _upgrade_text(mejora: String) -> String:
+func _upgrade_text(mejora: String, entry: Dictionary = {}) -> String:
+    if mejora == "plus":
+        return "su \"+\" (%s)" % CardDB.plus_text(entry) if not entry.is_empty() else "su \"+\""
     return "+%d de acierto" % roundi(CardDB.UPGRADE_BONUS * 100.0) if mejora == "acierto" else "−%d PA" % CardDB.UPGRADE_AP
 
 
@@ -1597,7 +1600,7 @@ func _on_upgrade(index: int, mejora: String) -> void:
         return
     var name: String = _career.build_deck()[index].display_name
     if _career.upgrade_card(index, mejora):
-        _b2_result = "%s queda mejorada: %s." % [name, _upgrade_text(mejora)]
+        _b2_result = "%s queda mejorada: %s." % [name, _upgrade_text(mejora, _career.squads.catalog[_career.deck[index]["id"]])]
         _b2_card = index
         _save()
     _refresh()

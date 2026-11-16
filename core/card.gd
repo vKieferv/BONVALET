@@ -33,6 +33,23 @@ var effect: float = -1.0         # fuerza de una Presión o Bloqueo exitoso; -1 
 var counter: bool = false        # en defensa, si sale bien tu próximo Momento arranca con 1 jugada
 var long_range: bool = false     # tiro lejano: en el partido por zonas se remata desde el Medio (D-36)
 var back: bool = false           # modo de duelos (D-40): la pelota vuelve a la zona anterior y el rival reparte de nuevo
+# T-17 (D-49, cartas v2 de los tres estilos): efectos opcionales; por defecto la carta es la de siempre.
+var once: bool = false           # UNA VEZ: tras jugarla sale del mazo hasta el próximo partido
+var instruction: String = ""     # INSTRUCCIÓN: id de la que deja activa (una sola a la vez); no avanza la jugada
+var instruction_pts: float = 0.0 # fuerza de la instrucción (0.04 = +4 pts)
+var next_ap: int = 0             # si sale: tu próxima carta cuesta este número de PA menos
+var next_bonus: float = 0.0      # si sale: tu próxima carta del tipo next_kind suma esto
+var next_kind: String = ""       # "" = cualquiera, "shot" = solo un remate
+var ignore_marks: bool = false   # el que remata cuenta como libre (D-47)
+var keep_ball: bool = false      # si falla, no te quitan la pelota (Salida limpia)
+var shield: int = 0              # tus próximos N fallos del Momento no te quitan la pelota
+var add_marks: int = 0           # defensa: pone N marcas más sobre el rival apuntado (D-47)
+var kill_natural: bool = false   # defensa: si el rival juega un Ejecutor Natural, pierde su bono
+var steps_counter: int = 0       # avances si el Momento nació de una recuperación (0 = los de siempre)
+var only_counter: bool = false   # solo se juega en un contragolpe
+var ban_shot: bool = false       # defensa: el ataque rival ya no puede rematar
+var rarity: String = ""          # basica | tactica | elite | instruccion (la oferta semanal, D-49)
+var style: String = ""           # estilo de la carta ("" = genérica)
 # Metadatos de jugador. owner_id = "" -> carta colectiva (del DT), sin dueño.
 # owner_id identifica al Ejecutor Natural y cuenta para el plantel en las reglas de liga.
 var owner_id: String = ""
@@ -74,4 +91,20 @@ static func from_dict(d: Dictionary) -> Card:
 	c.counter = bool(d.get("counter", false))
 	c.long_range = bool(d.get("lejano", false))
 	c.back = bool(d.get("atras", false))
+	c.once = bool(d.get("una_vez", false))
+	c.instruction = String(d.get("instruccion", ""))
+	c.instruction_pts = float(d.get("instruccion_pts", 0.0))
+	c.next_ap = int(d.get("prox_pa", 0))
+	c.next_bonus = float(d.get("prox_bono", 0.0))
+	c.next_kind = String(d.get("prox_tipo", ""))
+	c.ignore_marks = bool(d.get("sin_marcas", false))
+	c.keep_ball = bool(d.get("conserva", false))
+	c.shield = int(d.get("escudo", 0))
+	c.add_marks = int(d.get("marcas", 0))
+	c.kill_natural = bool(d.get("sin_ejecutor", false))
+	c.steps_counter = int(d.get("avanza_contra", 0))
+	c.only_counter = bool(d.get("solo_contra", false))
+	c.ban_shot = bool(d.get("sin_remate", false))
+	c.rarity = String(d.get("rareza", ""))
+	c.style = String(d.get("estilo", ""))
 	return c

@@ -43,6 +43,10 @@ static func choose_defense(e: MatchEngine, profile: BotProfile) -> int:
         var c: Card = e.deck.hand[i]
         if (e.player.energy - e.stamina_cost_of(c)) / max_e < floor_pct:
             continue
+        if c.instruction != "":   # T-17: la instrucción de defensa se deja una vez y no se tira
+            if e.instruction.is_empty():
+                return i
+            continue
         var score := e.success_chance(c)
         if c.kind == focus:
             score *= DEFENSE_FOCUS_WEIGHT
@@ -101,6 +105,12 @@ static func execute(e: MatchEngine, it: Dictionary) -> Dictionary:
     return e.play_card(int(it["index"]), String(it["receiver"]))
 
 
+# T-17: una jugada anunciada que es una instrucción no se defiende (no mueve la pelota).
+static func is_utility(it: Dictionary) -> bool:
+    var c = it.get("card")
+    return c != null and (c as Card).instruction != ""
+
+
 # D-44: el que defiende ve la jugada anunciada (MatchEngine.set_defense_intent).
 static func announce(def: MatchEngine, it: Dictionary) -> void:
     def.set_defense_intent(it.get("card"), String(it.get("receiver", "")), bool(it.get("hold", false)))
@@ -122,7 +132,7 @@ static func defended_step(att: MatchEngine, att_profile: BotProfile, def: MatchE
         def_profile: BotProfile) -> Dictionary:
     var it := intent(att, att_profile)
     var plays: Array = []
-    if def.duel_defense_on() and not it.is_empty():
+    if def.duel_defense_on() and not it.is_empty() and not is_utility(it):
         announce(def, it)
         var d := defend_play(def, def_profile)
         if not d.is_empty():
@@ -135,6 +145,9 @@ static func defended_step(att: MatchEngine, att_profile: BotProfile, def: MatchE
 # Devuelve el índice de la carta a jugar, HOLD para aguantar el balón (mano sin plan de gol), o -1
 # para ceder la jugada.
 static func choose(e: MatchEngine, profile: BotProfile) -> int:
+    var inst := _playable_instruction(e)   # T-17: sin instrucción activa, deja una (no cuesta jugada)
+    if inst >= 0:
+        return inst
     var plan := best_plan(e, profile)
     var pause := _playable_pause(e)
     var back := _duel_back_card(e, plan)
@@ -186,7 +199,7 @@ static func best_plan(e: MatchEngine, profile: BotProfile) -> Dictionary:
     var steps: Array = []     # cartas que pueden ser pasos previos (todo menos la Pausa y, por duelos, la vuelta atrás)
     for i in playable:
         var c: Card = e.deck.hand[i]
-        if c.kind != Card.Kind.PAUSE and not (c.back and e.duel_on()):
+        if c.instruction == "" and c.kind != Card.Kind.PAUSE and not (c.back and e.duel_on()):
             steps.append(i)
     var best := {}
     if e.zone_mode:
@@ -287,8 +300,8 @@ static func _zone_plan(e: MatchEngine, profile: BotProfile, playable: Array, ste
                     if c.kind == Card.Kind.SHOT:
                         shot_p = cp
                     else:
-                        prog += c.steps
-                        z = MatchEngine.Zone.AREA if required - prog <= 1 else mini(MatchEngine.Zone.AREA, z + c.steps)
+                        prog += e.steps_of(c)
+                        z = MatchEngine.Zone.AREA if required - prog <= 1 else mini(MatchEngine.Zone.AREA, z + e.steps_of(c))
                 if not legal:
                     continue
                 var score := p * risk * keep
@@ -313,7 +326,7 @@ static func _zone_advance_card(e: MatchEngine) -> int:
     var best_score := -INF
     for i in e.playable_indices():
         var c: Card = e.deck.hand[i]
-        if c.kind == Card.Kind.SHOT or c.kind == Card.Kind.PAUSE or (c.back and e.duel_on()):
+        if c.instruction != "" or c.kind == Card.Kind.SHOT or c.kind == Card.Kind.PAUSE or (c.back and e.duel_on()):
             continue
         var score := e.success_chance(c) - e.steal_chance(c) - 0.05 * e.ap_cost_of(c)
         if score > best_score:
@@ -333,7 +346,7 @@ static func _step_combos(e: MatchEngine, items: Array, k: int) -> Array:
             var total := 0
             var smallest := 99
             for i in combo:
-                var st: int = (e.deck.hand[i] as Card).steps
+                var st: int = e.steps_of(e.deck.hand[i] as Card)
                 total += st
                 smallest = mini(smallest, st)
             if total >= k and total - smallest < k:
@@ -360,6 +373,16 @@ static func _should_hold(e: MatchEngine, profile: BotProfile) -> bool:
     if not e.can_hold() or e.hold_chance() < HOLD_MIN_CHANCE:
         return false
     return not (profile.energy_conservation >= 0.8 and e.player.zone() != PlayerStats.Zone.SAFE)
+
+
+# T-17: una carta de instrucción jugable si todavía no hay ninguna activa (la que deja la del estilo del DT); -1 si no.
+static func _playable_instruction(e: MatchEngine) -> int:
+    if not e.instruction.is_empty():
+        return -1
+    for i in e.playable_indices():
+        if (e.deck.hand[i] as Card).instruction != "":
+            return i
+    return -1
 
 
 # Carta de ataque que roba al salir bien (y no es un remate), con buena probabilidad; -1 si no hay.
@@ -497,14 +520,14 @@ static func _next_value(e: MatchEngine, card: Card, r: Dictionary) -> float:
     var tz := e.pass_zone(card, String(r.get("id", "")))
     var same := tz == e.zone and e.target_zone(card) != e.zone   # D-46: no avanza
     if not same:
-        e.progress = maxi(0, e.progress - 1) if card.back else e.progress + card.steps
+        e.progress = maxi(0, e.progress - 1) if card.back else e.progress + e.steps_of(card)
     e.zone = tz as MatchEngine.Zone
     e.carrier = r
     e.carrier_extra = false
     var ap_left := e.ap - e.ap_cost_of(card)
     var best := 0.0
     for c in e.deck.hand:
-        if c == card or not c.playable or c.kind == Card.Kind.PAUSE or c.back or c.is_defensive():
+        if c == card or not c.playable or c.kind == Card.Kind.PAUSE or c.back or c.is_defensive() or c.instruction != "":
             continue
         if c.kind == Card.Kind.SHOT and tz != MatchEngine.Zone.AREA \
                 and not (c.long_range and tz == MatchEngine.Zone.MEDIO):

@@ -139,3 +139,10 @@ func swap_with_sideboard(active_idx: int, side_idx: int) -> void:
 	var tmp = active[active_idx]
 	active[active_idx] = sideboard[side_idx]
 	sideboard[side_idx] = tmp
+
+
+# UNA VEZ (T-17): la carta sale del partido (mano, pilas y descarte) y vuelve al armar el próximo.
+func exhaust(card: Card) -> void:
+	hand.erase(card)
+	draw_pile.erase(card)
+	discard_pile.erase(card)

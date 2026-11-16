@@ -1,5 +1,5 @@
 {
-  "_notes": "Mazos de juego (D-23, GDD 3.5; D-45 los renueva en T-17). Las cartas son ids del catálogo data/cards.json (CardDB.load_catalog). estandar = las 12 cartas del DT con que arranca todo club, una entrada por copia; \"@rasgo\" se reemplaza por la carta de rasgo de su arquetipo (rasgos). D-45 pedía 2 Pase corto y 1 Promesa, pero la liga exige 2 cartas Sub-21 en el mazo (data/league_config.json mandatory_sub21_cards) y cada Promesa es una: el estándar lleva 1 Pase corto y 2 Promesas hasta que el usuario decida (informe de T-17). \"Pase largo\" de D-45 = Pelotazo (avanza 2). SquadManager.starter_templates(team_id) arma ese mazo de inicio y build_match_templates le suma la firma de su figura titular (13 cartas). crecimiento = 8 cartas por arquetipo, en orden, que se suman al mazo durante la temporada (SquadManager.season_templates(team_id, extra) toma las primeras extra, sin pasar de DeckManager.DECK_MAX con las firmas): core/sim.gd las usa para medir la mitad (+4) y el final (+8) de la temporada y T-06 para que los rivales crezcan. Desde T-17 mezclan las cartas v2 de su estilo (D-45 regla 2) con genéricas; alternan ataque y defensa. ofertas = de dónde salen las 3 cartas del entrenamiento táctico de tu carrera (D-20, T-05; Career.new_offer): 2 distintas de la lista de tu arquetipo + 1 de \"general\", sin repetir entre las 3 y nunca una carta de rasgo. La lista de cada arquetipo = su crecimiento sin repetir; las cartas v2 de estilo solo se ofrecen a su estilo y las genéricas (Descarga, Taco) también en \"general\".",
+  "_notes": "Mazos de juego (D-23, GDD 3.5; D-45 los renueva en T-17). Las cartas son ids del catálogo data/cards.json (CardDB.load_catalog). estandar = las 12 cartas del DT con que arranca todo club, una entrada por copia; \"@rasgo\" se reemplaza por la carta de rasgo de su arquetipo (rasgos). D-45 pedía 2 Pase corto y 1 Promesa, pero la liga exige 2 cartas Sub-21 en el mazo (data/league_config.json mandatory_sub21_cards) y cada Promesa es una: el estándar lleva 1 Pase corto y 2 Promesas hasta que el usuario decida (informe de T-17). \"Pase largo\" de D-45 = Pelotazo (avanza 2). SquadManager.starter_templates(team_id) arma ese mazo de inicio y build_match_templates le suma la firma de su figura titular (13 cartas). crecimiento = 8 cartas por arquetipo, en orden, que se suman al mazo durante la temporada (SquadManager.season_templates(team_id, extra) toma las primeras extra, sin pasar de DeckManager.DECK_MAX con las firmas): core/sim.gd las usa para medir la mitad (+4) y el final (+8) de la temporada y T-06 para que los rivales crezcan. Desde T-17 los tres estilos del triángulo (D-49) mezclan las cartas v2 de su estilo (D-45 regla 2) con genéricas; alternan ataque y defensa. ofertas = de dónde salen las 3 cartas del entrenamiento táctico de tu carrera (D-20, T-05, D-49; Career.new_offer): al menos 1 de la lista de tu arquetipo y las otras de la general y de los otros estilos, sin repetir, sin cartas de rasgo y sin la que rechazaste la semana pasada; rarezas por semana según CardDB.rarity (básicas siempre, tácticas desde la semana 3, élite e instrucciones desde la 8 y solo a veces). Las listas de los tres estilos llevan sus 8 cartas v2 (las implementadas); Directo y Kamikaze, en pausa (D-49), conservan las de antes.",
   "estandar": ["pase_corto", "pase_al_pie", "pase_largo", "amague", "promesa_control", "promesa_control",
     "remate_simple", "remate_simple", "presion", "intercepcion", "bloqueo", "@rasgo"],
   "rasgos": {
@@ -10,19 +10,19 @@
     "Contragolpe": "anticipo"
   },
   "crecimiento": {
-    "Tiki-Taka": ["taco", "presion", "pase_filtrado", "intercepcion", "remate_primera", "descarga", "centro", "tiro_lejano"],
-    "Directo": ["saque_largo", "segunda_pelota", "centro", "presion", "remate_primera", "tiro_lejano", "chilena", "pase_filtrado"],
-    "Catenaccio": ["hacer_tiempo", "bloqueo", "tiro_lejano", "despeje", "remate_primera", "presion", "descarga", "pase_filtrado"],
-    "Kamikaze": ["recuperar_arriba", "pique_largo", "remate_primera", "amague", "chilena", "presion", "bloqueo", "movimiento"],
-    "Contragolpe": ["salida_velocidad", "intercepcion", "pase_filtrado", "tiro_lejano", "remate_primera", "bloqueo", "descarga", "presion"]
+    "Tiki-Taka": ["salida_limpia", "presion_tras_perdida", "posesion", "intercepcion", "pase_filtrado", "descarga", "tiro_lejano", "bloqueo"],
+    "Directo": ["tiro_lejano", "despeje", "remate_primera", "presion", "centro", "intercepcion", "chilena", "pase_al_pie"],
+    "Catenaccio": ["linea_cinco", "pelota_parada", "doble_pivote", "hacer_tiempo", "marcaje_hombre", "despeje", "tiro_lejano", "pase_al_pie"],
+    "Kamikaze": ["presion", "remate_primera", "despeje", "amague", "chilena", "intercepcion", "bloqueo", "movimiento"],
+    "Contragolpe": ["salida_velocidad", "pase_profundidad", "repliegue", "leer_pase", "contra_letal", "pase_filtrado", "tiro_lejano", "bloqueo"]
   },
   "ofertas": {
-    "Tiki-Taka": ["taco", "presion", "pase_filtrado", "intercepcion", "remate_primera", "descarga", "centro", "tiro_lejano"],
-    "Directo": ["saque_largo", "segunda_pelota", "centro", "presion", "remate_primera", "tiro_lejano", "chilena", "pase_filtrado"],
-    "Catenaccio": ["hacer_tiempo", "bloqueo", "tiro_lejano", "despeje", "remate_primera", "presion", "descarga", "pase_filtrado"],
-    "Kamikaze": ["recuperar_arriba", "pique_largo", "remate_primera", "amague", "chilena", "presion", "bloqueo", "movimiento"],
-    "Contragolpe": ["salida_velocidad", "intercepcion", "pase_filtrado", "tiro_lejano", "remate_primera", "bloqueo", "descarga", "presion"],
+    "Tiki-Taka": ["salida_limpia", "posesion", "presion_tras_perdida", "pelota_nuestra", "juego_posicion"],
+    "Directo": ["tiro_lejano", "despeje", "remate_primera", "presion", "centro", "intercepcion", "chilena", "pase_al_pie"],
+    "Catenaccio": ["linea_cinco", "hacer_tiempo", "doble_pivote", "pelota_parada", "marcaje_hombre", "el_muro", "bloque_bajo"],
+    "Kamikaze": ["presion", "remate_primera", "despeje", "amague", "chilena", "intercepcion", "bloqueo", "movimiento"],
+    "Contragolpe": ["salida_velocidad", "repliegue", "pase_profundidad", "leer_pase", "contra_letal", "contra_manual", "transiciones"],
     "general": ["pase_filtrado", "amague", "centro", "tiro_lejano", "chilena", "remate_primera", "presion", "bloqueo",
-      "intercepcion", "despeje", "pase_al_pie", "pausa", "movimiento", "descarga", "taco"]
+      "intercepcion", "despeje", "pase_al_pie", "pausa", "movimiento", "descarga"]
   }
 }

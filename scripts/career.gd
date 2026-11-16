@@ -42,7 +42,10 @@ const PLACEHOLDERS := {"[tu 9]": "nueve", "[el capitán]": "capitan", "[el arque
 const CONDITIONS := ["", "tras_derrota", "antes_de_clasico"]
 const TRAINING_KINDS := ["tactical", "video", "physio"]   # opciones del Bloque 2, en el orden del calendario
 const OFFER_SIZE := 3    # cartas que ofrece el entrenamiento táctico (D-20)
-const OFFER_STYLE := 2   # de ellas, de la lista de tu arquetipo; el resto, de la general
+const OFFER_STYLE_MIN := 1   # de ellas, al menos 1 de tu estilo (D-49)
+const OFFER_TACTICAL_WEEK := 3   # las tácticas se ofrecen desde esta semana
+const OFFER_ELITE_WEEK := 8      # élite e instrucciones, desde la mitad de la temporada (15 semanas)
+const OFFER_RARE_CHANCE := 0.35  # y cada una entra a la oferta con esta probabilidad (poco frecuentes)
 
 var league: LeagueManager
 var squads: SquadManager
@@ -76,6 +79,8 @@ var temp_cards: Array = [] # cartas de esta semana: [{carta, quien}] (nervios o 
 var event_result := {}     # vacío = evento sin resolver
 var training := ""         # Bloque 2 resuelto: "" | "tactical" | "video" | "physio"
 var training_offer: Array = []   # ids de las cartas que ofrece el táctico esta semana (new_offer)
+var offer_taken := ""             # la carta de la oferta que tomaste esta semana ("" = ninguna)
+var last_rejected: Array = []      # lo que se ofreció la semana pasada y no tomaste: no vuelve a salir (D-49)
 # opening_bonus/opening_moments (arranque, también negativo), rival_bonus/rival_moments (rival
 # motivado), funado_id/funado_stamina_mult (funa) y owner_mults {id: multiplicador} (desgaste)
 var match_mods := {}
@@ -142,6 +147,8 @@ func _new_week() -> void:
     pending_match = false
     temp_cards = []
     rival_id = next_rival()
+    last_rejected = training_offer.filter(func(id): return id != offer_taken)   # D-49: no vuelve la semana siguiente
+    offer_taken = ""
     training_offer = new_offer()   # se guarda: recargar no cambia las opciones de la semana
     _draw_event()
 
@@ -749,17 +756,46 @@ func choose_physio() -> bool:
     return true
 
 
-# Las cartas del entrenamiento táctico (D-20): OFFER_STYLE distintas de la lista de tu arquetipo y el
-# resto de la general (decks.json "ofertas"), sin repetir entre ellas y nunca una carta de rasgo.
-# Puede ofrecer una carta que ya tienes (segunda copia). Sale del rng de la carrera: misma semilla,
-# mismas ofertas.
+# Las cartas del entrenamiento táctico (D-20, D-49): la primera es siempre de tu estilo (la lista de tu arquetipo
+# en decks.json "ofertas") y las otras dos salen de la general y de los otros estilos; sin repetir entre ellas,
+# sin una carta de rasgo y sin la que rechazaste la semana pasada. Rarezas por semana: básicas siempre, tácticas
+# desde OFFER_TACTICAL_WEEK; élite e instrucciones desde OFFER_ELITE_WEEK y solo a veces (OFFER_RARE_CHANCE).
+# Puede ofrecer una carta que ya tienes (segunda copia). Sale del rng de la carrera: misma semilla, mismas ofertas.
 func new_offer() -> Array:
     var lists: Dictionary = squads.deck_lists.get("ofertas", {})
     var traits: Array = squads.deck_lists.get("rasgos", {}).values()
+    var arch := String(team()["archetype"])
+    var own := _offer_pool(lists.get(arch, []), traits)
+    var rest: Array = []
+    for key in lists:
+        if key != arch:
+            rest.append_array(lists[key])
     var offer: Array = []
-    _draw_offer(offer, lists.get(String(team()["archetype"]), []), OFFER_STYLE, traits)
-    _draw_offer(offer, lists.get("general", []), OFFER_SIZE - offer.size(), traits)
+    _draw_offer(offer, own, OFFER_STYLE_MIN, traits)
+    _draw_offer(offer, _offer_pool(rest, traits), OFFER_SIZE - offer.size(), traits)
+    if offer.size() < OFFER_SIZE:   # pocas cartas elegibles esta semana: se completa con lo que haya de tu estilo
+        _draw_offer(offer, own, OFFER_SIZE - offer.size(), traits)
     return offer
+
+
+# Las cartas de la lista que se pueden ofrecer esta semana (rareza) y que no rechazaste la semana pasada.
+func _offer_pool(list: Array, traits: Array) -> Array:
+    var out: Array = []
+    var seen := {}
+    for id in list:
+        if seen.has(id) or traits.has(id) or not squads.catalog.has(id) or last_rejected.has(id):
+            continue
+        seen[id] = true
+        match CardDB.rarity(squads.catalog[id]):
+            "basica":
+                out.append(id)
+            "tactica":
+                if week >= OFFER_TACTICAL_WEEK:
+                    out.append(id)
+            _:
+                if week >= OFFER_ELITE_WEEK and rng.randf() < OFFER_RARE_CHANCE:
+                    out.append(id)
+    return out
 
 
 func _draw_offer(offer: Array, pool: Array, n: int, excluded: Array) -> void:
@@ -787,6 +823,7 @@ func take_offer(offer_index: int, replace_index: int = -1) -> bool:
     else:
         deck.append(entry)
     training = "tactical"
+    offer_taken = String(entry["id"])
     return true
 
 
@@ -969,6 +1006,8 @@ func to_dict() -> Dictionary:
         "rng_state": str(rng.state),
         "deck": deck.duplicate(true),
         "training_offer": training_offer.duplicate(),
+        "offer_taken": offer_taken,
+        "last_rejected": last_rejected.duplicate(),
         "event_id": event_id,
         "event_names": event_names.duplicate(),
         "event_deck": event_deck.duplicate(),
@@ -1080,6 +1119,11 @@ static func load_saved(p_league: LeagueManager, p_squads: SquadManager, path: St
     c.sponsor_week_lost = d["sponsor_week_lost"]
     c.rival_id = String(d["rival_id"])
     c.pending_match = d["pending_match"]
+    c.offer_taken = String(d.get("offer_taken", ""))   # opcionales: los guardados de antes de T-17 no los traen
+    c.last_rejected = []
+    if d.get("last_rejected") is Array:
+        for id in d["last_rejected"]:
+            c.last_rejected.append(String(id))
     if ["duelos", "zonas", "actual"].has(d.get("match_mode")):   # opcional: los guardados de antes de T-11 juegan duelos
         c.match_mode = String(d["match_mode"])
     c.rng.seed = String(d["rng_seed"]).to_int()

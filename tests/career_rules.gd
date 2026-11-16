@@ -28,6 +28,7 @@ func _initialize() -> void:
 	_test_week_flow()
 	_test_training_offer()
 	_test_take_offer()
+	_test_two_careers_differ()
 	_test_video_upgrades()
 	_test_career_stamina()
 	_test_rivals_and_sponsor_scale()
@@ -243,7 +244,7 @@ func _test_training_offer() -> void:
 		for seed in range(1, 21):
 			var c := Career.new()
 			c.setup(league, squads, t["id"], seed)
-			for w in 3:
+			for w in 9:
 				var offer: Array = c.training_offer
 				var distinct := {}
 				for id in offer:
@@ -251,8 +252,15 @@ func _test_training_offer() -> void:
 				_check(offer.size() == Career.OFFER_SIZE and distinct.size() == offer.size(),
 						"%s: la oferta debería tener %d cartas distintas: %s" % [t["id"], Career.OFFER_SIZE, offer])
 				if offer.size() == 3:
-					_check(offers[arch].has(offer[0]) and offers[arch].has(offer[1]) and offers["general"].has(offer[2]),
-							"%s: la oferta debería ser 2 cartas de %s + 1 general: %s" % [t["id"], arch, offer])
+					_check(offer.any(func(id): return offers[arch].has(id)),
+							"%s: la oferta debería traer al menos 1 carta de %s: %s" % [t["id"], arch, offer])
+					_check(offer.all(func(id): return offers["general"].has(id) or offers.keys().any(func(k): return offers[k].has(id))),
+							"%s: la oferta solo trae cartas de las listas de decks.json: %s" % [t["id"], offer])
+				for id in offer:   # rarezas por semana (D-49): básicas siempre, tácticas desde la 3, élite e instrucciones desde la 8
+					var rar := CardDB.rarity(squads.catalog[id])
+					_check(rar == "basica" or (rar == "tactica" and c.week >= Career.OFFER_TACTICAL_WEEK) or c.week >= Career.OFFER_ELITE_WEEK,
+							"%s semana %d: %s (%s) no debería ofrecerse todavía" % [t["id"], c.week, id, rar])
+				_check(not offer.any(func(id): return c.last_rejected.has(id)), "%s: no vuelve la carta que rechazaste la semana pasada: %s" % [t["id"], offer])
 				_check(not offer.any(func(id): return traits.has(id)), "%s: la oferta no debería traer una carta de rasgo: %s" % [t["id"], offer])
 				variety[",".join(offer)] = true
 				c.decline_offer()
@@ -580,8 +588,8 @@ func _test_save_v1_migration() -> void:
 		return
 	_check(loaded.deck == loaded.starter_deck() and loaded.build_deck().size() == 13, "el guardado v1 arranca con el mazo de inicio del club")
 	var offers: Dictionary = squads.deck_lists["ofertas"]
-	_check(loaded.training_offer.size() == Career.OFFER_SIZE and loaded.training_offer.all(func(id): return offers["general"].has(id) \
-			or offers["Contragolpe"].has(id)), "el guardado v1 recibe una oferta nueva: %s" % [loaded.training_offer])
+	_check(loaded.training_offer.size() == Career.OFFER_SIZE and loaded.training_offer.all(func(id): return offers.values().any(func(l): return (l as Array).has(id))) \
+			and loaded.training_offer.any(func(id): return offers["Contragolpe"].has(id)), "el guardado v1 recibe una oferta nueva con una carta de tu estilo: %s" % [loaded.training_offer])
 	_check(loaded.training == "" and loaded.block2_open() and not loaded.match_mods.has("form_bonus"),
 			"un táctico v1 sin partido pendiente se vuelve a elegir y sin la forma de antes")
 	_check(loaded.sponsor_id == "telnet" and loaded.blocks_done()["block1"] and loaded.week == 1, "el resto de la semana se conserva")
@@ -980,3 +988,50 @@ func _test_save_v2_migration() -> void:
 	loaded.prepare_match()
 	loaded.record_match(1, 0)
 	_check(not loaded.week_event().is_empty() and loaded.event_deck.size() == 24, "tras el v2 el mazo de eventos se baraja en la semana siguiente")
+
+
+# Criterio de salida de M2 (T-17, D-49): dos carreras con el mismo club y distinta semilla, eligiendo al azar de
+# lo que se ofrece cada semana, terminan con mazos que difieren en al menos 5 cartas. Y la oferta trae un estilo
+# propio: la mayoría de lo que se toma es del estilo del club.
+func _test_two_careers_differ() -> void:
+	for club in ["colo_colo", "palestino", "union_espanola"]:
+		var decks: Array = []
+		for seed in [11, 22]:
+			var c := Career.new()
+			c.setup(league, squads, club, seed)
+			var pick := RandomNumberGenerator.new()
+			pick.seed = seed * 7
+			for week in 14:
+				c.choose_sponsor("telnet")
+				_bautizazo(c, false)
+				var taken := false
+				if not c.training_offer.is_empty():
+					var i := pick.randi_range(0, c.training_offer.size() - 1)
+					if not c.deck_full():
+						taken = c.take_offer(i)
+					else:
+						for r in c.deck.size():
+							if c.replace_error(i, r) == "":
+								taken = c.take_offer(i, r)
+								break
+				if not taken:
+					c.decline_offer()
+				c.prepare_match()
+				c.record_match(1, 1)
+			var ids: Array = c.deck.map(func(e): return String(e["id"]))
+			decks.append(ids)
+		var only_a := _multiset_minus(decks[0], decks[1])
+		_check(only_a >= 5, "%s: dos carreras con semillas distintas deberían terminar con mazos que difieren en 5 cartas o más (difieren en %d)" % [club, only_a])
+
+
+# Cuántas cartas de `a` no tiene `b` (por copias).
+func _multiset_minus(a: Array, b: Array) -> int:
+	var rest: Array = b.duplicate()
+	var n := 0
+	for id in a:
+		var i := rest.find(id)
+		if i >= 0:
+			rest.remove_at(i)
+		else:
+			n += 1
+	return n

@@ -24,7 +24,12 @@ func _perfil(estilo: String) -> BotProfile:
 
 
 func _lado(squads: SquadManager, estilo: String, defiende_vs: Dictionary) -> Dictionary:
-	var lado := {"profile": _perfil(estilo), "templates": squads.build_match_templates(ID, squads.starter_templates(ID)),
+	var mazo: Array = squads.starter_templates(ID)
+	# T-17: --cartas=ofertas suma las cartas de estilo (decks.json "ofertas") de ese estilo; --cartas=crecimiento, las del crecimiento.
+	var cartas := _arg("cartas", "")
+	if cartas != "":
+		mazo.append_array(CardDB.templates_from_ids(squads.deck_lists.get("ofertas" if cartas == "ofertas" else "crecimiento", {}).get(estilo, []), squads.catalog))
+	var lado := {"profile": _perfil(estilo), "templates": squads.build_match_templates(ID, mazo),
 		"lineup": squads.lineup_ids(ID), "defends": true, "attack_difficulty": BASE, "defense_difficulty": BASE,
 		"zone_mode": true, "duel_mode": true}
 	lado.merge(squads.zone_data(ID))

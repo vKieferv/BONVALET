@@ -432,6 +432,7 @@ cada carta tiene su trayectoria (I-63), ningún regate y una defensa que no es l
 3. **La carta para volver atrás necesita un premio** (en la medición de T-13 restaba goles): se define al
    revisarla, por ejemplo 0 PA y robar 1.
 Se implementa después de mezclar T-13 (las reglas nuevas viven ahí) y se mide con `balance-lab`.
+**Implementada en T-17 (2026-11-16), con dos desvíos que el usuario debe confirmar:** (a) el mazo lleva **1 Pase corto y 2 Promesas** en vez de 2 y 1, porque la liga exige 2 cartas Sub-21 en el mazo (`mandatory_sub21_cards`) y cada Promesa cuenta como una; (b) "Pase largo" es una carta propia (`pase_largo`, igual al Pelotazo) porque el Pelotazo ya es el rasgo de Directo. Solo los tres estilos de D-49; detalle en `docs/cartas.md`, "En el juego desde T-17".
 
 **D-46 · 2026-11-04 · Se puede pasar a un compañero de la misma zona** · VIGENTE (valores en prueba)
 El usuario, al jugar T-11: "no me deja jugar cartas de pase entre jugadores de la misma zona". Cambia la

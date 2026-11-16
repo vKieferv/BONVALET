@@ -565,6 +565,51 @@ otra cosa, manda esto:
 6. **ATRÁS es la 9.ª palabra clave** (Descarga, Esperar atrás), dentro del límite de 8 a 10 de D-39.
 7. **Sin cambios:** Cabezazo, Palomita, Vaselina, AVANZA 2, ROBA y CONTRAGOLPE.
 
+### En el juego desde T-17 (D-45 y D-49, 2026-11-16)
+Entran **19 de las 24 cartas** de los tres estilos del triángulo (Tiki-Taka, Catenaccio, Contragolpe) más **Descarga**
+(genérica: 0 PA, ATRÁS, ROBA 1). Directo y Kamikaze quedan en pausa (D-49): sus cartas ya hechas
+(Segunda pelota, Saque largo del arquero, Recuperar arriba, Pique largo, Taco) siguen en el catálogo, fuera de las ofertas.
+Cada carta trae su "+" en `data/cards.json` (`plus`: los campos que cambia); la sesión de video lo aplica con un solo
+botón "SU +" y reemplaza la mejora genérica de +10 / −1 PA (las genéricas sin "+" conservan la de hoy).
+Valores de partida = los de las tablas de arriba, salvo lo que dice la columna "Cambió".
+
+| Estilo | Carta (rareza) | PA | Cómo quedó | Cambió |
+|---|---|---|---|---|
+| Tiki-Taka | Salida limpia (básica) | 0 | control +10; si falla (en la Salida) no te quitan la pelota | — |
+| | Posesión (básica) | 1 | control +14; si sale, tu próxima carta cuesta −1 PA | — |
+| | Presión tras pérdida (táctica) | 1 | presión +6, CONTRAGOLPE | simplificada: sin la condición "si el rival falla en su Salida" |
+| | La pelota es nuestra (élite) | 2 | UNA VEZ; si sale, tus 2 próximos fallos del Momento no te quitan la pelota | no tiene bono (sale con la base) |
+| | Juego de posición (instrucción) | 2 | tus pases en el Medio +4 | — |
+| Catenaccio | Línea de cinco (básica) | 1 | bloqueo +8; si sale, 2 marcas más sobre el portador rival | las marcas van sobre el portador, no sobre "rivales de la zona" |
+| | Hacer tiempo (básica) | 1 | Pausa +25 | igual a la Pausa (su "recupera más" no existe) |
+| | Doble pivote (básica) | 1 | presión +6; 1 marca más sobre el portador | ídem Línea de cinco |
+| | Pelota parada (táctica) | 2 | remate +28; el que remata cuenta como libre | — |
+| | Marcaje al hombre (táctica) | 1 | presión +4; si el rival juega un Ejecutor Natural, pierde su bono | — |
+| | El muro (élite) | 2 | UNA VEZ; bloqueo: ese ataque ya no puede rematar | — |
+| | Bloque bajo (instrucción) | 1 | tus cartas de defensa +4 | — |
+| Contragolpe | Salida en velocidad (básica) | 0 | defensa +12 que no frena; CONTRAGOLPE | — |
+| | Repliegue (básica) | 1 | bloqueo +6, 1 marca más, CONTRAGOLPE | el CONTRAGOLPE sale si el bloqueo sale (no "si su remate falla") |
+| | Pase en profundidad (básica) | 1 | pase +14; en un contragolpe AVANZA 2 | — |
+| | Leer el pase (táctica) | 1 | intercepción: corta y deja el contragolpe | igual a Anticipo (la carta de rasgo) |
+| | Contra letal (táctica) | 2 | intercepción; tu próximo remate +10 | — |
+| | Contra de manual (élite) | 1 | UNA VEZ; solo en un contragolpe: va directo al Área y tu próximo remate +15 | — |
+| | Transiciones (instrucción) | 1 | tus contragolpes arrancan con +1 PA | — |
+
+**No entraron** (mecánica cara o dudosa; insumo para la siguiente tanda):
+| Carta | Qué le falta |
+|---|---|
+| Paredita (Tiki-Taka) | pase de ida y vuelta: el portador no cambia y se saca una marca de encima (regla nueva del portador, D-47 punto 3) |
+| Rondo (Tiki-Taka) | cartas temporales que se crean en la mano y desaparecen al terminar el Momento |
+| Leer el medio (Tiki-Taka) | mirar las 3 próximas cartas y elegir cuáles descartar (pantalla de elección en pleno Momento) |
+| Falta táctica (Catenaccio) | cortar en el Medio y que el próximo Momento rival arranque en tu Área (tiro libre) |
+| Esperar atrás (Contragolpe) | elegir cartas de la mano para guardarlas al próximo Momento (pantalla de elección) |
+Ni AL TOQUE ni +PA entraron: ninguna de las 19 cartas los necesita.
+
+**Reglas nuevas del motor** (`Card`, `MatchEngine`, `CoachBot`; pruebas en `tests/engine_rules.gd`): UNA VEZ (`una_vez`,
+la carta sale del partido), INSTRUCCIÓN (`instruccion`: una sola activa, se ve en el marcador, no cuenta como jugada
+ni mueve la pelota; el rival no la defiende), "tu próxima carta…" (`prox_pa`, `prox_bono`), ignorar marcas
+(`sin_marcas`), fallos que no quitan la pelota (`conserva`, `escudo`), marcas de más (`marcas`), `sin_ejecutor`,
+`sin_remate`, avanzar más en un contragolpe (`avanza_contra`, `solo_contra`). Rarezas de la oferta: `CardDB.rarity`.
 ### Cómo se mide y qué sigue (D-39)
 - **Regla del 4%:** cada carta se mide agregando **1 copia al mazo de todos los equipos** de la matriz de
   `balance-lab`. Si los goles por partido suben más de un 4% (hoy 2.50 → tope 2.60), la carta se encarece

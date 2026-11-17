@@ -44,7 +44,7 @@
 	{"id": "posesion",         "name": "Posesión",           "type": "basic",    "kind": "control",   "ap": 1, "stamina": 2, "bonus": 0.14, "count": 0, "estilo": "Tiki-Taka", "prox_pa": 1, "plus": {"ap": 0}},
 	{"id": "presion_tras_perdida", "name": "Presión tras pérdida", "type": "tactical", "kind": "press", "ap": 1, "stamina": 5, "bonus": 0.06, "count": 0, "estilo": "Tiki-Taka", "counter": true, "tags": ["fisica"], "plus": {"bonus": 0.10}},
 	{"id": "pelota_nuestra",   "name": "La pelota es nuestra", "type": "elite",  "kind": "control",   "ap": 2, "stamina": 4, "bonus": 0.00, "count": 0, "estilo": "Tiki-Taka", "escudo": 2, "una_vez": true, "plus": {"ap": 1}},
-	{"id": "juego_posicion",   "name": "Juego de posición",  "type": "tactical", "kind": "control",   "ap": 2, "stamina": 0, "bonus": 0.00, "count": 0, "estilo": "Tiki-Taka", "instruccion": "posicion", "instruccion_pts": 0.04, "plus": {"instruccion_pts": 0.06}},
+	{"id": "juego_posicion",   "name": "Juego de posición",  "type": "tactical", "kind": "control",   "ap": 1, "stamina": 0, "bonus": 0.00, "count": 0, "estilo": "Tiki-Taka", "instruccion": "posicion", "instruccion_pts": 0.04, "plus": {"instruccion_pts": 0.06}},
 
 	{"id": "linea_cinco",      "name": "Línea de cinco",     "type": "basic",    "kind": "block",     "ap": 1, "stamina": 2, "bonus": 0.08, "count": 0, "estilo": "Catenaccio", "marcas": 2, "plus": {"ap": 0}},
 	{"id": "doble_pivote",     "name": "Doble pivote",       "type": "basic",    "kind": "press",     "ap": 1, "stamina": 2, "bonus": 0.06, "count": 0, "estilo": "Catenaccio", "marcas": 1, "plus": {"marcas": 2}},

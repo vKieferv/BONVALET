@@ -925,12 +925,14 @@ func _build_tv(page: Control, rival: Dictionary) -> void:
     var lines: Array = ["%s: %s" % [rival.get("short_name", "?"), rival.get("archetype", "?")]]
     var ideal := StyleTriangle.contra(String(rival.get("archetype", ""))) if StyleTriangle.activo() else ""
     if ideal != "":   # D-49: el estilo que le gana (nada si el rival no es del triángulo)
-        lines.append("te conviene %s" % ideal if ideal != String(c.team().get("archetype", "")) else "tu estilo le gana")
+        lines.append("juega %s" % ideal if ideal != String(c.team().get("archetype", "")) else "tu estilo le gana")
     if rival.get("signature_card") != null and String(rival["signature_card"]) != "":
         lines.append("ojo: %s" % Mesa.apellido(String(rival["signature_card"])))
     # Su mazo crece con la semana (T-06): mazo de inicio + week − 1 cartas de su crecimiento.
     lines.append("mazo: %d cartas" % _career.build_rival_deck().size())
-    var post := Mesa.objeto(Rect2(1112, 232, 150, 104), 6.0, _draw_postit.bind(Paleta.POSTIT_AMARILLO))
+    # El post-it va pegado ENCIMA de la pizarra (z_index) y crece con sus líneas, para que no se corte.
+    var post := Mesa.objeto(Rect2(1112, 232, 150, 24 + 21 * lines.size()), 6.0, _draw_postit.bind(Paleta.POSTIT_AMARILLO))
+    post.z_index = 2
     post.tooltip_text = "Rival: %s (%s) · DT %s" % [rival.get("name", "?"), rival.get("division", "?"), _league.dt_name(rival)]
     page.add_child(post)
     var l := Mesa.plumon("\n".join(lines), 15, Paleta.PLUMON, 0.0, false)

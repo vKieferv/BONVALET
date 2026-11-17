@@ -1,11 +1,12 @@
 ﻿# Verificación headless de Futbolista Deckbuilder.
-# Uso (desde la raíz del repo): & .\.claude\skills\godot-check\check.ps1 [-Matches 5] [-Balance] [-SkipSmoke] [-Full]
+# Uso (desde la raíz del repo): & .\.claude\skills\godot-check\check.ps1 [-Matches 5] [-Balance [-Duelos]] [-SkipSmoke] [-Full]
 # Salida corta: una línea si pasa (más las métricas con -Balance) o las últimas 25 líneas si falla.
 # El detalle de cada paso queda en %TEMP%\godot-check\resumen.txt; -Full lo imprime entero.
 # Godot se busca en: variable de entorno GODOT, la carpeta que contiene el repo, y el PATH.
 param(
     [int]$Matches = 5,
     [switch]$Balance,
+    [switch]$Duelos,     # con -Balance: mide el modo de duelos (la referencia desde T-17, decisión del 2026-11-17)
     [switch]$SkipSmoke,
     [switch]$Full,
     [int]$TimeoutSec = 240,
@@ -97,7 +98,10 @@ if (-not $SkipSmoke -and $failed.Count -eq 0) {
 
 # 5. Métricas de balance por arquetipo (opcional, 2000 partidos por perfil con semillas fijas)
 if ($Balance -and $failed.Count -eq 0) {
-    $code = Invoke-Godot "balance" @("-s", "res://core/sim.gd") $BalanceTimeoutSec
+    # -Duelos: la medición de referencia desde T-17 (el partido que se juega); tarda mucho más.
+    $simArgs = if ($Duelos) { @("-s", "res://core/sim.gd", "--", "--duelos") } else { @("-s", "res://core/sim.gd") }
+    $limit = if ($Duelos) { [Math]::Max($BalanceTimeoutSec, 3600) } else { $BalanceTimeoutSec }
+    $code = Invoke-Godot "balance" $simArgs $limit
     if ($code -ne 0) { $failed += "balance" }
 }
 

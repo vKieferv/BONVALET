@@ -482,6 +482,18 @@ cinco estilos es demasiado, así que **por ahora se desarrollan solo tres** ("ig
    siempre último); con el triángulo, elegir el estilo contra el rival tiene sentido y Catenaccio deja de ser
    la peor opción.
 
+**D-50 · 2026-11-17 · Cierre de T-17: mazo nuevo y cartas de los tres estilos** · VIGENTE
+El usuario aprobó mezclar T-17 con estas respuestas a sus decisiones abiertas:
+1. **Dos Promesas y un Pase corto** en el mazo de inicio (la liga exige 2 Sub-21; cada Promesa es una). Precisa D-45.
+2. **Pase largo** es una carta propia, igual al Pelotazo (que sigue siendo el rasgo de Directo).
+3. **La medición de referencia pasa al modo de duelos** (`godot-check -Balance -Duelos`; con el mazo nuevo, 2,27
+   goles al inicio). La matriz clásica (2,91) queda solo para comparar y su rango ya no manda. No se recalibra
+   hasta después de jugar.
+4. **Catenaccio contra Contragolpe** (40% para Catenaccio aun con ventaja y sus cartas) se arregla después de
+   jugar, en el perfil del bot de Catenaccio, no en las reglas.
+5. **Juego de posición cuesta 1 PA** (era 2; al jugarse bajaba los goles a 1,82).
+Después de esto, **las reglas se congelan** hasta jugar 5 partidos y 3 semanas de carrera (cierre de M1 y M2).
+
 ### Descartadas (para no reabrirlas sin datos nuevos)
 - **Tempo ofensivo +7 / regen +3** (2026-10-26): no llegaba al objetivo de goles y quedó obsoleto con
   PA + Estamina; el stash se borró.

@@ -200,7 +200,7 @@ static func keywords(c: Card, ctx: Dictionary = {}) -> String:
     for e in _effects(c):
         fx.append(e[0])
     if parts.is_empty():
-        if c.kind in ADVANCE_KINDS and c.steps == 1:
+        if c.kind in ADVANCE_KINDS and c.steps == 1 and c.instruction == "" and c.steps_counter == 0:
             parts.append("AVANZA")
         elif fx.is_empty():
             parts.append("RECUPERA ESTAMINA" if c.kind == Card.Kind.PAUSE else "REMATA")
@@ -237,7 +237,10 @@ static func _effects(c: Card) -> Array:
     if c.draw > 0:
         var cards := "carta" if c.draw == 1 else "cartas"
         out.append(["ROBA %d" % c.draw, "Si sale, robas %d %s de ataque para seguir la jugada." % [c.draw, cards]])
-    if c.kind == Card.Kind.PRESS:
+    _effects_v2(c, out)
+    if c.instruction != "" or (c.kind == Card.Kind.PRESS and c.effect == 0.0):
+        pass   # una instrucción no frena, y Salida en velocidad tampoco: solo su efecto propio
+    elif c.kind == Card.Kind.PRESS:
         var pts := roundi((c.effect if c.effect >= 0.0 else MatchEngine.PRESS_EFFECT) * 100.0)
         var normal := "" if c.effect < 0.0 else " (una Presión normal, %d)" % roundi(MatchEngine.PRESS_EFFECT * 100.0)
         out.append(["SU ATAQUE −%d" % pts, "Si sale, todas las jugadas de ese ataque rival pierden %d pts%s." % [pts, normal]])
@@ -253,6 +256,40 @@ static func _effects(c: Card) -> Array:
     elif c.counter:
         out.append(["CONTRAGOLPE", "Si sale, " + counter_tip])
     return out
+
+
+# Efectos de las cartas v2 de los tres estilos (T-17, D-49): [palabras clave, detalle]. Cortas, como el resto.
+static func _effects_v2(c: Card, out: Array) -> void:
+    if c.instruction != "":
+        var detail: String = {
+            "posicion": "tus pases en el Medio suman %d pts" % roundi(c.instruction_pts * 100.0),
+            "bloque_bajo": "tus cartas de defensa suman %d pts" % roundi(c.instruction_pts * 100.0),
+            "transiciones": "tus contragolpes arrancan con +1 PA",
+        }.get(c.instruction, "")
+        out.append(["INSTRUCCIÓN", "Queda activa el resto del partido (una sola a la vez; otra la reemplaza): %s." % detail])
+    if c.once:
+        out.append(["UNA VEZ", "Se juega una vez por partido; después sale del mazo hasta el próximo."])
+    if c.only_counter:
+        out.append(["SOLO EN CONTRA", "Solo se puede jugar en un Momento que nació de una recuperación (y entonces avanza %d)." % maxi(2, c.steps_counter)])
+    elif c.steps_counter > 0:
+        out.append(["EN CONTRA: AVANZA %d" % c.steps_counter, "Si el Momento nació de una recuperación, cuenta como %d jugadas." % c.steps_counter])
+    if c.next_ap > 0:
+        out.append(["PRÓXIMA −%d PA" % c.next_ap, "Si sale, tu próxima carta cuesta %d PA menos." % c.next_ap])
+    if c.next_bonus > 0.0:
+        var what := "REMATE" if c.next_kind == "shot" else "CARTA"
+        out.append(["%s +%d" % [what, roundi(c.next_bonus * 100.0)], "Tu próximo %s suma %d pts." % [what.to_lower(), roundi(c.next_bonus * 100.0)]])
+    if c.ignore_marks:
+        out.append(["SIN MARCAS", "El que remata cuenta como libre: las marcas no restan."])
+    if c.keep_ball:
+        out.append(["NO TE LA QUITAN", "Si falla en la Salida, no te quitan la pelota (cansa igual)."])
+    if c.shield > 0:
+        out.append(["ESCUDO %d" % c.shield, "Si sale, tus próximos %d fallos de este Momento no te quitan la pelota." % c.shield])
+    if c.add_marks > 0:
+        out.append(["+%d MARCA%s" % [c.add_marks, "" if c.add_marks == 1 else "S"], "Si sale, pones %d marca%s más sobre el rival apuntado." % [c.add_marks, "" if c.add_marks == 1 else "s"]])
+    if c.kill_natural:
+        out.append(["SIN EJECUTOR", "Si sale, ese ataque pierde el bono de Ejecutor Natural."])
+    if c.ban_shot:
+        out.append(["SIN REMATE", "Si sale, ese ataque ya no puede rematar."])
 
 
 # Por qué no se puede jugar la carta ahora, en pocas palabras para la cinta ("" si se puede).

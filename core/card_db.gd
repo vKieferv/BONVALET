@@ -109,6 +109,10 @@ static func archetype_templates(catalog: Dictionary, lists: Dictionary, archetyp
 
 # ¿Se le puede dar esta mejora a la carta? "pa" solo si cuesta UPGRADE_AP o más.
 static func can_upgrade(d: Dictionary, mejora: String) -> bool:
+	if mejora == "plus":
+		return d.get("plus") is Dictionary and not (d["plus"] as Dictionary).is_empty()
+	if d.has("plus"):
+		return false   # D-38: su "+" propio reemplaza la mejora genérica
 	if mejora == "pa":
 		return int(d.get("ap", 0)) >= UPGRADE_AP
 	return mejora == "acierto"
@@ -121,7 +125,9 @@ static func upgraded(d: Dictionary, mejora: String) -> Dictionary:
 	var out := d.duplicate(true)
 	if mejora == "" or not can_upgrade(d, mejora):
 		return out
-	if mejora == "acierto":
+	if mejora == "plus":
+		out.merge(d["plus"], true)   # su "+" (D-38): los campos que cambia la carta
+	elif mejora == "acierto":
 		out["bonus"] = float(out["bonus"]) + UPGRADE_BONUS
 	else:
 		out["ap"] = int(out["ap"]) - UPGRADE_AP
@@ -147,3 +153,43 @@ static func make_penalty(id: String) -> Card:
 	c.playable = false
 	c.is_temporary = true
 	return c
+
+
+# Mejoras que admite la carta: su "+" si lo tiene (D-38) o las dos genéricas.
+static func upgrade_options(d: Dictionary) -> Array:
+	return ["plus"] if can_upgrade(d, "plus") else UPGRADES
+
+
+# Qué cambia el "+" de la carta, en palabras ("+16 de acierto", "cuesta 0 PA"...).
+static func plus_text(d: Dictionary) -> String:
+	var parts: Array = []
+	var plus: Dictionary = d.get("plus", {})
+	for k in plus:
+		match String(k):
+			"bonus":
+				parts.append("%+d de acierto" % roundi((float(plus[k]) - float(d.get("bonus", 0.0))) * 100.0))
+			"ap":
+				parts.append("cuesta %d PA" % int(plus[k]))
+			"draw":
+				parts.append("roba %d" % int(plus[k]))
+			"marcas":
+				parts.append("%d marcas" % int(plus[k]))
+			"instruccion_pts":
+				parts.append("+%d de fuerza" % roundi(float(plus[k]) * 100.0))
+			"prox_bono":
+				parts.append("tu remate +%d" % roundi(float(plus[k]) * 100.0))
+			_:
+				parts.append(String(k))
+	return ", ".join(parts)
+
+
+# Rareza de la oferta semanal (D-49): básica, táctica, élite o instrucción.
+static func rarity(d: Dictionary) -> String:
+	if String(d.get("instruccion", "")) != "":
+		return "instruccion"
+	match String(d.get("type", "basic")):
+		"elite":
+			return "elite"
+		"tactical":
+			return "tactica"
+	return "basica"

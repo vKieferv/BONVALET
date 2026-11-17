@@ -73,6 +73,7 @@ var _posturas: Array = []
 var _postura := 1
 var _postura_fija := false
 var _flow: Control
+var _instruccion: Control   # T-17: la INSTRUCCIÓN activa, un solo cartel como la postura
 var _estamina: Control
 var _zonas: Array = []          # [Label, zona]
 var _etiquetas := {}            # clave -> gráfica de TV
@@ -289,6 +290,10 @@ void fragment() {
     add_child(_flow)
     _flow.configurar("EN RACHA", 18, Color("#1a1408"), [Color("#ffd24a"), Color("#ff9a2e"), Color("#ff6a00"), Color("#ff8a1a")])
     _flow.visible = false
+    _instruccion = Grafica.new()
+    add_child(_instruccion)
+    _instruccion.configurar("", 16, Color.WHITE, [Color("#1f5fa8"), Color("#1f5fa8"), Color("#174a85"), Color("#174a85")])
+    _instruccion.visible = false
     _con_balon = Control.new()
     _con_balon.mouse_filter = Control.MOUSE_FILTER_IGNORE
     add_child(_con_balon)
@@ -373,10 +378,24 @@ func _colocar_barra() -> void:
         xr -= g.size.x - g.size.y * Grafica.SKEW
         g.position = Vector2(xr, 20.0 - g.size.y * 0.5)
     _flow.position = Vector2(16.0, 48.0)
+    _instruccion.position = Vector2(16.0 + (_flow.size.x + 8.0 if _flow.visible else 0.0), 48.0)
 
 
 func set_flow(activo: bool) -> void:
     _flow.visible = activo
+    _colocar_barra()
+
+
+# T-17: muestra la instrucción activa del equipo (nombre en mayúsculas) o la oculta si no hay ninguna.
+func set_instruccion(nombre: String) -> void:
+    _instruccion.visible = nombre != ""
+    if nombre != "":
+        _instruccion.configurar("INSTRUCCIÓN: %s" % nombre.to_upper(), 16, Color.WHITE, [Color("#1f5fa8"), Color("#1f5fa8"), Color("#174a85"), Color("#174a85")])
+    _colocar_barra()
+
+
+func texto_instruccion() -> String:
+    return _instruccion.texto if _instruccion.visible else ""
 
 
 # Estamina del equipo (D-31 la hará por jugador): una gota y una barra, sin número (v5: mostrar por excepción).
@@ -753,11 +772,16 @@ func _neutral() -> void:
 
 
 # Quién lleva etiqueta: el portador y los atacantes de la zona en juego y de la siguiente.
+# T-17: el pase largo (AVANZA 2) llega a la zona de más allá: mientras se arrastra, también se rotulan sus receptores.
+func _arrastra_pase_largo() -> bool:
+    return _arrastre != null and engine != null and modo == Modo.ATAQUE and MatchEngine.is_pass(_arrastre.card) and engine.steps_of(_arrastre.card) >= 2
+
+
 func _rotular() -> void:
     _rotulados.clear()
     for clave: String in _info:
         var z: int = _info[clave]["zona"]
-        if z == _zona or z == mini(_zona + 1, 2) or clave == _portador:
+        if z == _zona or z == mini(_zona + 1, 2) or clave == _portador or (z == mini(_zona + 2, 2) and _arrastra_pase_largo()):
             _rotulados.append(clave)
     _actualizar_etiquetas()
     _actualizar_anillos()
@@ -1164,7 +1188,9 @@ func _refrescar_laminas() -> void:
         var chance := -1.0
         if not pase or receptor != "":
             chance = engine.success_chance(c, -1, receptor)
-        if not ataque and engine.duel_defense_on() and c.kind != Card.Kind.CLEARANCE and engine.defense_target(c) == "":
+        if c.instruction != "":
+            chance = -1.0   # T-17: una instrucción siempre sale: sin %
+        elif not ataque and engine.duel_defense_on() and c.kind != Card.Kind.CLEARANCE and engine.defense_target(c) == "":
             chance = -1.0   # D-44: no sirve contra esta jugada: sin defensor, no hay %
         var usable := engine.can_play(c) and not ocupado
         ui.update_stats(engine.ap_cost_of(c), c.ap_cost, engine.stamina_cost_of(c), maxf(chance, 0.0), usable,
@@ -1311,6 +1337,8 @@ func _al_tomar_lamina(ui: CardUI) -> void:
         _apuntado = ""
         _forma_linea = Trayectoria.para_carta(ui.card)
         ui.flash(Paleta.DORADO)
+        if _arrastra_pase_largo():
+            _rotular()
         _actualizar_apuntado()
     elif engine.duel_defense_on() and ui.card.kind != Card.Kind.CLEARANCE:
         _arrastre = ui   # D-44: se arrastra sobre el rival; tu defensor se ve con su anillo
@@ -1380,7 +1408,7 @@ func _input(event: InputEvent) -> void:
             if objetivo == "" and not _movido:
                 objetivo = engine.defense_target(ui.card)
             _soltar(false)
-            if objetivo != "":
+            if objetivo != "" or ui.card.instruction != "":   # T-17: una instrucción se suelta sin rival
                 _jugar(ui, objetivo)
             return
         if not _movido or _mouse.y < _alto_senal:
@@ -1420,6 +1448,7 @@ func _jugar(ui: CardUI, receptor: String) -> void:
 
 func _soltar(_aceptar: bool) -> void:
     var ui := _arrastre
+    var era_largo := _arrastra_pase_largo()
     _arrastre = null
     _presionado = null
     _pegado = false
@@ -1428,6 +1457,8 @@ func _soltar(_aceptar: bool) -> void:
     _cuenta.visible = false
     if ui != null and is_instance_valid(ui):
         ui.flash(Color(0, 0, 0, 0))
+    if era_largo:
+        _rotular()
     if (modo == Modo.ATAQUE or modo == Modo.DEFENSA) and engine != null:
         _actualizar_etiquetas()
         _actualizar_anillos()

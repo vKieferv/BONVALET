@@ -13,6 +13,9 @@ var checks := 0
 func _initialize() -> void:
 	_test_deck_and_league_rules()
 	_test_standard_deck()
+	_test_cartas_v2()
+	_test_cartas_v2_mecanicas()
+	_test_bot_con_remate_prohibido()
 	_test_possession_filter()
 	_test_natural_executor()
 	_test_defense_and_emergency()
@@ -242,8 +245,8 @@ func _test_standard_deck() -> void:
 	# decks.json: solo cartas del catálogo, un rasgo y 8 cartas de crecimiento por arquetipo.
 	var archetypes := ["Tiki-Taka", "Directo", "Catenaccio", "Kamikaze", "Contragolpe"]
 	var standard: Array = lists.get("estandar", [])
-	_check(standard.size() == 11 and standard.count(CardDB.TRAIT_SLOT) == 1,
-			"el mazo estándar debería tener 11 cartas, una de ellas el lugar del rasgo (%d)" % standard.size())
+	_check(standard.size() == 12 and standard.count(CardDB.TRAIT_SLOT) == 1,
+			"el mazo estándar debería tener 12 cartas, una de ellas el lugar del rasgo (%d)" % standard.size())
 	for id in standard:
 		_check(id == CardDB.TRAIT_SLOT or catalog.has(id), "decks.json estandar: carta desconocida %s" % id)
 	var rasgos: Dictionary = lists.get("rasgos", {})
@@ -255,11 +258,11 @@ func _test_standard_deck() -> void:
 		for id in pool:
 			_check(catalog.has(id), "decks.json crecimiento de %s: carta desconocida %s" % [arch, id])
 		var ids := CardDB.deck_ids(lists, arch, 0)
-		_check(ids.size() == 11 and ids.count(rasgos.get(arch, "")) == 1 and not ids.has(CardDB.TRAIT_SLOT),
-				"%s: el mazo estándar debería tener 11 cartas con su rasgo en lugar de %s" % [arch, CardDB.TRAIT_SLOT])
+		_check(ids.size() == 12 and ids.count(rasgos.get(arch, "")) == 1 and not ids.has(CardDB.TRAIT_SLOT),
+				"%s: el mazo estándar debería tener 12 cartas con su rasgo en lugar de %s" % [arch, CardDB.TRAIT_SLOT])
 		var mid := CardDB.deck_ids(lists, arch, 4)
-		_check(mid.size() == 15 and mid.slice(11) == pool.slice(0, 4), "%s +4: las primeras 4 de su crecimiento, en orden" % arch)
-		_check(CardDB.deck_ids(lists, arch, 99).size() == 19, "%s: el crecimiento no suma más de sus 8 cartas" % arch)
+		_check(mid.size() == 16 and mid.slice(12) == pool.slice(0, 4), "%s +4: las primeras 4 de su crecimiento, en orden" % arch)
+		_check(CardDB.deck_ids(lists, arch, 99).size() == 20, "%s: el crecimiento no suma más de sus 8 cartas" % arch)
 	# Ofertas del entrenamiento táctico (D-20, T-05): una lista por arquetipo y una general, solo cartas
 	# del catálogo, sin repetir y nunca una carta de rasgo; alcanzan para 2 de tu estilo + 1 general.
 	var offers: Dictionary = lists.get("ofertas", {})
@@ -271,7 +274,7 @@ func _test_standard_deck() -> void:
 			_check(not rasgos.values().has(id), "decks.json ofertas de %s: %s es una carta de rasgo y no se ofrece" % [list_name, id])
 			unique[id] = true
 		_check(unique.size() == pool.size(), "decks.json ofertas de %s: cartas repetidas" % list_name)
-		var needed := Career.OFFER_SIZE if list_name == "general" else Career.OFFER_STYLE
+		var needed := Career.OFFER_SIZE if list_name == "general" else Career.OFFER_STYLE_MIN
 		_check(pool.size() >= needed, "decks.json ofertas de %s: tiene %d cartas y la oferta pide %d" % [list_name, pool.size(), needed])
 	var base_shot: Dictionary = catalog.get("remate_simple", {})
 	if not base_shot.is_empty():
@@ -294,7 +297,7 @@ func _test_standard_deck() -> void:
 			continue
 		seen[arch] = true
 		var deck := squads.build_match_deck(t["id"], squads.starter_templates(t["id"]))
-		_check(deck.size() == 12, "%s (%s): el mazo de inicio debería tener 12 cartas (tiene %d)" % [t["id"], arch, deck.size()])
+		_check(deck.size() == 13, "%s (%s): el mazo de inicio debería tener 13 cartas (tiene %d)" % [t["id"], arch, deck.size()])
 		_check(deck.filter(func(c: Card) -> bool: return c.id == rasgos.get(arch, "")).size() == 1,
 				"%s (%s): el mazo de inicio debería traer una %s" % [t["id"], arch, rasgos.get(arch, "")])
 		var figure := String(t.get("signature_card", ""))
@@ -1849,6 +1852,71 @@ func _test_duel_d48() -> void:
 	_check(not oev.has("outcome"), "con duel_outcomes apagado no hay desenlaces")
 
 
+# T-17 (D-45): primera tanda de cartas v2 que el motor ya sabe jugar y el mazo de inicio nuevo.
+func _test_cartas_v2() -> void:
+	var cat := CardDB.load_catalog(DECK_PATH)
+	var lists := CardDB.load_deck_lists()
+	var ids := ["segunda_pelota", "saque_largo", "hacer_tiempo", "recuperar_arriba", "salida_velocidad", "pique_largo", "taco", "descarga"]
+	var growth_ids := {}
+	for arch in lists["crecimiento"]:
+		for id in lists["crecimiento"][arch]:
+			growth_ids[id] = arch
+	for id in ids:
+		_check(cat.has(id), "falta la carta v2 %s en el catálogo" % id)
+		if not cat.has(id):
+			return
+		var c := Card.from_dict(cat[id])
+		_check(c.ap_cost >= 0 and c.ap_cost <= 3, "%s: PA fuera de rango" % id)
+		var paused: bool = id in ["segunda_pelota", "saque_largo", "recuperar_arriba", "pique_largo", "taco"]   # Directo, Kamikaze y crack: en pausa (D-49)
+		var offered: bool = lists["ofertas"].values().any(func(l): return (l as Array).has(id))
+		_check(offered != paused, "%s %s en las ofertas" % [id, "no debería estar" if paused else "debería estar"])
+		if cat[id].has("plus"):   # el "+" solo cambia campos que la carta ya tiene
+			for k in cat[id]["plus"]:
+				_check(cat[id].has(k), "%s: su \"+\" cambia %s, que la carta no tiene" % [id, k])
+		_check(CardUI.effect_text(c) != "" or c.kind == Card.Kind.PAUSE, "%s: su efecto debería verse en la lámina" % id)
+	# Efectos que ya existían, ahora en cartas de estilo.
+	var segunda := Card.from_dict(cat["segunda_pelota"])
+	_check(segunda.kind == Card.Kind.BLOCK and segunda.counter, "Segunda pelota bloquea y es CONTRAGOLPE")
+	var recuperar := Card.from_dict(cat["recuperar_arriba"])
+	_check(recuperar.kind == Card.Kind.PRESS and recuperar.counter, "Recuperar arriba presiona y es CONTRAGOLPE")
+	var salida := Card.from_dict(cat["salida_velocidad"])
+	_check(salida.counter and salida.ap_cost == 0 and salida.effect == 0.0, "Salida en velocidad: 0 PA, no frena y es CONTRAGOLPE")
+	_check(Card.from_dict(cat["saque_largo"]).steps == 2 and Card.from_dict(cat["pique_largo"]).steps == 2, "Saque largo y Pique largo AVANZAN 2")
+	_check(Card.from_dict(cat["hacer_tiempo"]).kind == Card.Kind.PAUSE, "Hacer tiempo es una Pausa")
+	var taco := Card.from_dict(cat["taco"])
+	_check(taco.draw == 1 and taco.ap_cost == 0, "Taco: 0 PA y ROBA 1")
+	var descarga := Card.from_dict(cat["descarga"])
+	_check(descarga.back and descarga.draw == 1 and descarga.ap_cost == 0, "Descarga: 0 PA, ATRÁS y ROBA 1")
+	# Descarga en juego: vuelve a la Salida y roba 1; Salida en velocidad no resta nada a la jugada rival.
+	var drew := false
+	for seed in range(100, 200):
+		var g := _duel_engine(seed)
+		g.zone = MatchEngine.Zone.MEDIO
+		g.progress = 1
+		g.carrier = g.zone_players(MatchEngine.Zone.MEDIO)[0]
+		g.marks.erase(MatchEngine.Zone.SALIDA)
+		var d := Card.from_dict(cat["descarga"])
+		d.bonus = 1.0
+		g.deck.hand.append(d)
+		var hand_before := g.deck.hand.size()
+		var ev := g.play_card(0)
+		if not ev["success"]:
+			continue
+		_check(g.zone == MatchEngine.Zone.SALIDA and g.progress == 0, "Descarga deja la pelota en la Salida")
+		_check(g.deck.hand.size() == hand_before - 1 + int(ev.get("drawn", 0)) and int(ev.get("drawn", 0)) == 1, "Descarga roba 1 carta")
+		drew = true
+		break
+	_check(drew, "las semillas deberían dar una Descarga que sale")
+	var e := _duel_engine(5)
+	_check(e.defense_effect(Card.from_dict(cat["salida_velocidad"])) == 0.0, "Salida en velocidad no baja la jugada rival")
+	# Mazo de inicio nuevo (D-45): 12 cartas; con 2 Promesas porque la liga pide 2 Sub-21.
+	var std: Array = lists["estandar"]
+	_check(std.size() == 12 and std.count("promesa_control") == 2, "el estándar tiene 12 cartas y 2 Promesas (regla de liga de 2 Sub-21)")
+	for id in ["pase_al_pie", "pase_largo", "amague", "presion", "intercepcion", "bloqueo"]:
+		_check(std.has(id), "el mazo de inicio debería traer %s" % id)
+	_check(std.count("remate_simple") == 2, "el mazo de inicio trae 2 Remate simple")
+
+
 # D-49 (T-18): el triángulo de estilos. "Ventaja de estilo" (+N / −N) solo si el rival es del triángulo, simétrica
 # entre los dos lados, también en la defensa, y apagada = el partido de antes.
 func _test_style_edge() -> void:
@@ -1922,3 +1990,198 @@ func _edge_engine(seed: int, steps: int = 3) -> MatchEngine:
 	e.style_edge = true
 	e.style_edge_pts = -1.0
 	return e
+
+
+# T-17 (D-49): las mecánicas mínimas de las cartas de Tiki-Taka, Catenaccio y Contragolpe.
+func _test_cartas_v2_mecanicas() -> void:
+	var cat := CardDB.load_catalog(DECK_PATH)
+	for id in ["salida_limpia", "posesion", "presion_tras_perdida", "pelota_nuestra", "juego_posicion", "linea_cinco", "doble_pivote",
+			"pelota_parada", "marcaje_hombre", "el_muro", "bloque_bajo", "repliegue", "pase_profundidad", "leer_pase", "contra_letal",
+			"contra_manual", "transiciones"]:
+		_check(cat.has(id), "falta la carta %s" % id)
+		if not cat.has(id):
+			return
+		_check(cat[id].has("plus") and CardDB.can_upgrade(cat[id], "plus") and not CardDB.can_upgrade(cat[id], "acierto"),
+				"%s trae su \"+\" y este reemplaza la mejora genérica" % id)
+		var up := CardDB.upgraded(cat[id], "plus")
+		_check(String(up["name"]).ends_with("+") and up["mejora"] == "plus", "%s: su \"+\" se aplica con la marca +" % id)
+	_check(CardDB.upgraded(cat["salida_limpia"], "plus")["bonus"] == 0.16 and CardDB.upgraded(cat["posesion"], "plus")["ap"] == 0,
+			"el \"+\" de Salida limpia sube a 16 y el de Posesión cuesta 0 PA")
+	_check(CardDB.can_upgrade(cat["pase_corto"], "acierto") and not CardDB.can_upgrade(cat["pase_corto"], "plus"),
+			"las genéricas sin \"+\" conservan la mejora de hoy")
+	_check(CardDB.rarity(cat["salida_limpia"]) == "basica" and CardDB.rarity(cat["pelota_parada"]) == "tactica"
+			and CardDB.rarity(cat["el_muro"]) == "elite" and CardDB.rarity(cat["transiciones"]) == "instruccion", "rarezas de las cartas")
+
+	# INSTRUCCIÓN: no mueve la pelota ni cuenta como jugada; una sola activa; Juego de posición suma a los pases en el Medio.
+	var e := _duel_engine(41)
+	var pase := Card.from_dict(cat["pase_corto"])
+	var base_medio := e.success_chance(pase, MatchEngine.Zone.MEDIO)
+	var inst := Card.from_dict(cat["juego_posicion"])
+	e.deck.hand.append(inst)
+	var ev := e.play_card(0)
+	_check(ev["ok"] and ev["success"] and ev["instruction"] == "posicion" and e.instruction["id"] == "posicion", "Juego de posición se deja activa")
+	_check(e.moment_plays == 0 and e.progress == 0 and e.zone == MatchEngine.Zone.SALIDA, "la instrucción no cuenta como jugada ni mueve la pelota")
+	_check(not e.deck.hand.has(inst) and e.deck.discard_pile.has(inst), "la instrucción va al descarte")
+	_check(e.success_chance(pase, MatchEngine.Zone.MEDIO) > base_medio, "Juego de posición suma a los pases en el Medio")
+	_check(is_equal_approx(e.instruction_bonus(pase, MatchEngine.Zone.SALIDA), 0.0), "...y no en la Salida")
+	var other := Card.from_dict(cat["transiciones"])
+	e.deck.hand.append(other)
+	e.play_card(e.deck.hand.find(other))
+	_check(e.instruction["id"] == "transiciones" and e.instruction_bonus(pase, MatchEngine.Zone.MEDIO) == 0.0, "otra instrucción reemplaza a la anterior")
+	# Transiciones: el contragolpe arranca con +1 PA.
+	e.counter_ready = true
+	e.begin_moment()
+	_check(e.transition and e.ap == e.ap_max + 1, "con Transiciones el contragolpe arranca con +1 PA (%d de %d)" % [e.ap, e.ap_max])
+	# Bloque bajo: suma a las cartas de defensa.
+	var bb := _duel_engine(42)
+	bb.instruction = {"id": "bloque_bajo", "pts": 0.04, "name": "Bloque bajo"}
+	_check(is_equal_approx(bb.instruction_bonus(Card.from_dict(cat["bloqueo"])), 0.04) and bb.instruction_bonus(pase) == 0.0, "Bloque bajo suma 4 a las cartas de defensa")
+
+	# Posesión: la próxima carta cuesta 1 PA menos (una sola vez).
+	var pos_ok := false
+	for s in 60:
+		var g := _duel_engine(100 + s)
+		var posesion := Card.from_dict(cat["posesion"])
+		posesion.bonus = 1.0
+		g.deck.hand.append(posesion)
+		var pev := g.play_card(0)
+		if not pev["success"]:
+			continue
+		var cost := Card.from_dict(cat["pase_al_pie"])
+		_check(g.next_discount == 1 and g.ap_cost_of(cost) == 0, "tras Posesión, la próxima carta de 1 PA cuesta 0")
+		g.deck.hand.append(cost)
+		g.play_card(g.deck.hand.find(cost))
+		_check(g.next_discount == 0 and g.ap_cost_of(Card.from_dict(cat["pase_al_pie"])) == 1, "la rebaja es de una sola carta")
+		pos_ok = true
+		break
+	_check(pos_ok, "las semillas deberían dar una Posesión que sale")
+
+	# Escudo (La pelota es nuestra): los 2 primeros fallos del Momento no te quitan la pelota; cansan igual.
+	var shield_ok := false
+	for s in 120:
+		var g := _duel_engine(200 + s)
+		g.shield_fails = 2
+		var c := Card.from_dict(cat["pase_corto"])
+		g.deck.hand.append(c)
+		var pev := g.play_card(0)
+		if pev["success"]:
+			continue
+		_check(pev.get("kept", false) and g.shield_fails == 1 and not g.moment_over and float(pev["fail_stamina"]) > 0.0,
+				"con escudo, el fallo no quita la pelota, no corta el Momento y cansa igual")
+		shield_ok = true
+		break
+	_check(shield_ok, "las semillas deberían dar un pase fallado")
+	# Salida limpia: su propio fallo en la Salida nunca es robo.
+	var clean := 0
+	for s in 150:
+		var g := _duel_engine(300 + s)
+		var c := Card.from_dict(cat["salida_limpia"])
+		c.bonus = -0.3   # fuerza el fallo
+		g.deck.hand.append(c)
+		var pev := g.play_card(0)
+		if pev["success"]:
+			continue
+		clean += 1
+		_check(pev.get("kept", false) and not pev.get("stolen", false) and not g.moment_over, "Salida limpia: si falla en la Salida no te la quitan")
+	_check(clean > 20, "debería haber fallos de Salida limpia que probar (%d)" % clean)
+
+	# UNA VEZ: tras jugarla sale del mazo hasta el próximo partido.
+	var g1 := _duel_engine(7)
+	var once_card := Card.from_dict(cat["pase_corto"])
+	once_card.once = true
+	g1.deck.hand.append(once_card)
+	var oev := g1.play_card(g1.deck.hand.find(once_card))
+	_check(oev.get("exhausted", false) and not g1.deck.hand.has(once_card) and not g1.deck.discard_pile.has(once_card)
+			and not g1.deck.draw_pile.has(once_card), "UNA VEZ: la carta sale del partido")
+
+	# Jugada preparada (Contra letal / Contra de manual): tu próximo REMATE suma, una sola vez.
+	var g2 := _duel_engine(8)
+	g2.zone = MatchEngine.Zone.AREA
+	var shot := Card.from_dict(cat["remate_simple"])
+	var plain := g2.success_chance(shot)
+	g2._on_success_effects(Card.from_dict(cat["contra_letal"]))
+	_check(g2.success_chance(shot) > plain and g2.chance_breakdown(shot).any(func(i): return i["label"] == "Jugada preparada" and is_equal_approx(float(i["value"]), 0.10)),
+			"Contra letal suma 10 al próximo remate")
+	_check(g2.chance_breakdown(Card.from_dict(cat["pase_corto"])).all(func(i): return i["label"] != "Jugada preparada"), "...pero no a un pase")
+	g2.deck.hand.append(shot)
+	g2.play_card(g2.deck.hand.find(shot))
+	_check(g2.next_bonus.is_empty(), "el bono es de una sola carta")
+
+	# Pelota parada: el que remata cuenta como libre aunque lo marquen.
+	var g3 := _duel_engine(9)
+	g3.zone = MatchEngine.Zone.AREA
+	g3.carrier = g3.zone_players(MatchEngine.Zone.AREA)[0]
+	var line: Array = g3.defender_line(MatchEngine.Zone.AREA)
+	g3.marks[MatchEngine.Zone.AREA] = {g3.carrier["id"]: [line[0], line[1]]}
+	var pp := Card.from_dict(cat["pelota_parada"])
+	var pp_plain := Card.from_dict(cat["pelota_parada"])
+	pp_plain.ignore_marks = false
+	_check(g3.success_chance(pp) > g3.success_chance(pp_plain) and g3.chance_breakdown(pp).any(func(i): return String(i["label"]).contains("libre")),
+			"Pelota parada ignora las marcas: el que remata cuenta como libre")
+
+	# Contragolpe: Pase en profundidad avanza 2 solo si el Momento nació de una recuperación; Contra de manual solo ahí.
+	var g4 := _duel_engine(10)
+	var prof := Card.from_dict(cat["pase_profundidad"])
+	var manual := Card.from_dict(cat["contra_manual"])
+	_check(g4.steps_of(prof) == 1 and not g4.can_play(manual) and g4.zone_block_reason(manual) == "SOLO EN CONTRAGOLPE", "fuera de un contragolpe no avanza 2 ni se juega el de manual")
+	g4.transition = true
+	_check(g4.steps_of(prof) == 2 and g4.steps_of(manual) == 3 and g4.can_play(manual), "en un contragolpe: Pase en profundidad avanza 2 y el de manual va al Área")
+
+	# Defensa: marcas de más sobre el portador y El muro.
+	var marks_ok := false
+	for s in 40:
+		var a := _duel_engine(900 + s)
+		var df := _duel_defender(950 + s, a)
+		var rem := Card.from_dict(cat["remate_simple"])
+		a.deck.hand.append(rem)
+		df.set_defense_intent(rem)
+		var before: int = a.markers_of(a.zone, a.carrier["id"]).size()
+		var lc := Card.from_dict(cat["linea_cinco"])
+		lc.bonus = 1.0
+		df.deck.hand.append(lc)
+		var dev := df.play_card(df.deck.hand.find(lc))
+		if not dev["success"]:
+			continue
+		_check(a.markers_of(a.zone, a.carrier["id"]).size() == before + 2 and a.stats["extra_marks"] == 2, "Línea de cinco pone 2 marcas más sobre el portador")
+		marks_ok = true
+		break
+	_check(marks_ok, "las semillas deberían dar una Línea de cinco que sale")
+	var wall_ok := false
+	for s in 40:
+		var a := _duel_engine(1000 + s)
+		a.zone = MatchEngine.Zone.AREA
+		var df := _duel_defender(1050 + s, a)
+		var rem := Card.from_dict(cat["remate_simple"])
+		a.deck.hand.append(rem)
+		df.set_defense_intent(rem)
+		var muro := Card.from_dict(cat["el_muro"])
+		muro.bonus = 1.0
+		df.deck.hand.append(muro)
+		var dev := df.play_card(df.deck.hand.find(muro))
+		if not dev["success"]:
+			continue
+		_check(a.shot_banned and not a.can_play(rem) and a.zone_block_reason(rem) == "EL MURO" and dev.get("exhausted", false),
+				"El muro: el ataque ya no puede rematar y la carta es de una sola vez")
+		a.begin_moment()
+		_check(not a.shot_banned, "el muro vale para un ataque, no para el partido")
+		wall_ok = true
+		break
+	_check(wall_ok, "las semillas deberían dar un Muro que sale")
+
+
+# El muro (T-17): un bot con remates en la mano y el ataque sin permiso para rematar cierra el Momento (antes quedaba
+# repitiendo una jugada que el motor no admite).
+func _test_bot_con_remate_prohibido() -> void:
+	var cat := CardDB.load_catalog(DECK_PATH)
+	var profile: BotProfile = BotProfile.presets()[0]
+	for s in 10:
+		var a := _duel_engine(1200 + s)
+		a.shot_banned = true
+		a.deck.hand.append(Card.from_dict(cat["pase_corto"]))
+		a.deck.hand.append(Card.from_dict(cat["pase_al_pie"]))
+		a.deck.hand.append(Card.from_dict(cat["remate_simple"]))
+		var steps := 0
+		while not a.moment_over and steps < 30:
+			CoachBot.act(a, profile)
+			steps += 1
+		_check(a.moment_over, "con el remate prohibido el bot cierra el Momento (%d pasos)" % steps)

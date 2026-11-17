@@ -77,17 +77,19 @@ Capturas de la UI (necesita pantalla, sin `--headless`; inicio, prensa sin resol
 ## Versión actual
 **Cara visual de la maqueta v3: la semana como mesa del DT y las láminas de álbum** (T-09, D-37; no cambia reglas ni números, ni la matriz) sobre el **mazo propio en la carrera con el Bloque 2 de carta, video o kinesiología** (T-05, D-20/D-21; no cambia la matriz: los bots no usan el Bloque 2) sobre el **mazo estándar con cartas de rasgo** (T-04, 2026-10-27, D-23) sobre **PA + Estamina Global con Aguantar el Balón** (2026-10-26: refactor PA + Estamina en cuatro fases, luego el playtest que trajo Aguantar, remates a 2 PA y Momentos de 3 jugadas; decisiones D-04 a D-13 en `docs/decisiones.md`; 2026-10-27, reglas de M1: Catenaccio a 2 jugadas y Kamikaze con lesión tardía ×2.5, D-16 y D-17). Línea base medida con `godot-check -Balance` (matriz neutral de 5 clubes, 400 partidos por cruce), en tres etapas de la temporada:
 
-| Métrica | Inicio (12 cartas) | Mitad (+4) | Final (+8) | Objetivo |
+**Línea base de T-17 (2026-11-16, `godot-check -Balance`, matriz clásica de `sim.gd`; el mazo estándar nuevo sube los goles y deja el inicio, la mitad y el final sobre el rango: se decide con el usuario, no se recalibró).** En el modo de duelos (el que se juega, `balance-lab` con `"duelos": true`, 100 partidos por cruce): inicio con el mazo nuevo **2.27 goles**, 2.8% lesiones, cansancio 16% / 53%; con el mazo de antes (400 por cruce) eran 1.75 al inicio y 1.97 a la mitad. La regla del 4% por carta y el cruce Catenaccio-Contragolpe están en `docs/tareas/T-17-informe.md`.
+
+| Métrica (T-17: mazo estándar nuevo de D-45 y crecimiento de los tres estilos; entre paréntesis la línea de antes) | Inicio (13 cartas con la firma) | Mitad (+4) | Final (+8) | Objetivo |
 |---|---|---|---|---|
-| Goles totales por partido | 2.50 | 2.75 | 2.68 | 2.3-2.6 |
-| Equipos lesionados por partido | 2.8% | 3.2% | 3.5% | 2-5% |
-| Momentos que empiezan cansados (1T / 2T) | 15% / 49% | 17% / 53% | 16% / 53% | cansancio en el 2T |
+| Goles totales por partido | **2.91** (antes 2.50) | **2.86** (2.75) | **2.76** (2.68) | 2.3-2.6 · FUERA DE RANGO |
+| Equipos lesionados por partido | 3.9% (2.8%) | 3.8% (3.2%) | 3.7% (3.5%) | 2-5% |
+| Momentos que empiezan cansados (1T / 2T) | 19% / 65% (15% / 49%) | 20% / 61% (17% / 53%) | 21% / 62% (16% / 53%) | cansancio en el 2T |
 
 | Otras métricas (mazo de inicio) | Valor | Objetivo |
 |---|---|---|
-| Constructibilidad de Colo-Colo (3 jugadas, estamina llena) | 92% | ≥85% |
-| Goles en tus partidos (Colo-Colo bot contra 6 rivales) | 2.55 | — |
-| Palestino (Catenaccio, plantel real desde T-08) goles a favor en la matriz | 1.26 | — |
+| Constructibilidad de Colo-Colo (3 jugadas, estamina llena) | 96% (antes 92%) | ≥85% |
+| Goles en tus partidos (Colo-Colo bot contra 6 rivales) | 2.59 (2.55) | — |
+| Catenaccio sin firma (matriz "Arquetipos", mazo estándar sin figura) goles por partido | 0.00 (el bot no remata con el Remate simple; sin verificar si ya era así antes de T-17) | — |
 | La Serena (Kamikaze) partidos con lesión | 13% | "hasta 15%" |
 
 Valores calibrados que la sostienen: PA por turno LOW 3 / NORMAL 3 / HIGH 4 y 2 en defensa; `STAMINA_SCALE` 1.6; `INJURY_CHANCE_MAX` 0.009; 4 Momentos por equipo de 3 jugadas (`MOMENT_STEPS`; Catenaccio 2 con `BotProfile.moment_steps`); Kamikaze lesión tardía ×2.5 (`late_injury_mult`); Aguantar 80% / 1 PA / 3 de estamina; Pase corto, Desmarque, canteranos y Toque-toque a 0 PA, tácticas, Tiro de lejos, Remate simple, Marca y las otras cartas de rasgo 1, Remate de primera y "Sello de" 2, firmas con nombre propio 3 (2 la Sangre fría), Despeje e Intercepción 2. En la carrera, la fatiga tras el partido es 6 + 18 × (estamina gastada) y define con cuánta estamina se arranca el siguiente (tope × (1 − fatiga/200)); el Bloque 2 suma +10 de fatiga con el táctico, 0 con el video y −25 con la kinesiología, y las mejoras del video son +10 de acierto o −1 PA (valores iniciales, sin medir en playtests).

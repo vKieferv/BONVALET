@@ -141,15 +141,18 @@ Decidido el 2026-10-27 (D-20 a D-22):
 
 **Cómo quedó en el juego (T-05; los números son iniciales):**
 - **Tu mazo es tuyo:** arranca con el mazo de inicio de tu club (3.5) y se guarda con la carrera.
-- **Táctico (fatiga +10):** la oferta son 3 cartas distintas, 2 de la lista de tu estilo y 1 de una
-  lista general (`data/decks.json` `"ofertas"`; hoy la de cada estilo = su `crecimiento`), nunca la
-  carta de rasgo; puede salir una carta que ya tienes (segunda copia). Se sortea al empezar la semana
+- **Táctico (fatiga +10):** la oferta son 3 cartas distintas: **al menos 1 de tu estilo** y las otras de la
+  lista general y de los otros estilos (`data/decks.json` `"ofertas"`, D-49), nunca la carta de rasgo y
+  nunca una que rechazaste la semana anterior. Rarezas por semana: las básicas siempre, las tácticas
+  desde la semana 3 y las élite e instrucciones desde la 8, cada una con 35% de entrar a la oferta
+  (T-17); puede salir una carta que ya tienes (segunda copia). Se sortea al empezar la semana
   con el azar de la carrera y se guarda: recargar no la cambia. Puedes no tomar ninguna. Con el mazo
   en 20, eliges cuál de tus cartas del DT sale; no se acepta un reemplazo que deje el mazo fuera de
   las reglas de liga (sacar una Promesa te dejaría con 1 Sub-21 y la carrera quedaría trabada). Ya no
   da +3% de forma (D-21).
 - **Video (sin fatiga):** +10 de acierto o −1 PA (solo cartas de 1 PA o más), una mejora por carta;
-  la carta mejorada lleva "+" en el nombre ("Remate simple+"). Las firmas de los titulares no se
+  las cartas de estilo de T-17 tienen su "+" propio (un solo botón "SU +", ver `docs/cartas.md`).
+  La carta mejorada lleva "+" en el nombre ("Remate simple+"). Las firmas de los titulares no se
   mejoran ni se sacan: no son del DT.
 - **Kinesiología:** −25 de fatiga, como antes.
 - Cada opción es final para la semana; "Ver mazo" muestra el mazo completo con sus mejoras.
@@ -172,14 +175,16 @@ Reemplaza los "perfiles de DT con mazos de 12-22" del GDD original. Aprobada el 
 tras medirla con `balance-lab` (`tests/lab/m2_propuesta.json`; cada rasgo por separado en
 `m2_rasgos_2.json`). Los números son iniciales: se ajustan con playtests.
 
-**Mazo estándar (11 cartas del DT + la firma de la figura = 12):**
+**Mazo estándar desde T-17 (D-45: 12 cartas del DT + la firma de la figura = 13).** El de T-04 (11 cartas: 4 Pase corto, 2 Promesa, 1 Remate simple, 2 Marca, 1 Despeje y el rasgo) quedó atrás; las medidas de abajo son de ese mazo.
 | Carta | Copias | Qué es |
 |---|---|---|
-| Pase corto | 4 | ataque básico, 0 PA |
-| Promesa: Control | 2 | ataque básico de un canterano (cumple la regla de 2 Sub-21) |
-| **Remate simple** (nueva) | 1 | remate barato y poco certero: 1 PA, +10 |
-| **Marca** (nueva) | 2 | defensa básica: presión chica, 1 PA, +4 |
-| Despeje | 1 | la única carta que corta un ataque al empezar |
+| Pase corto | 1 | ataque básico, 0 PA (D-45 pedía 2) |
+| Pase al pie | 1 | pase de 1 PA, +8 |
+| **Pase largo** (nueva) | 1 | igual al Pelotazo: 1 PA, +0, AVANZA 2 |
+| Amague | 1 | regate táctico de 1 PA, +18 |
+| Promesa: Control | 2 | ataque básico de un canterano (la liga exige 2 Sub-21; D-45 pedía 1) |
+| Remate simple | 2 | remate barato y poco certero: 1 PA, +10 |
+| Presión / Intercepción / Bloqueo | 1 c/u | las tres defensas de D-44 |
 | Carta de rasgo | 1 | según el arquetipo del DT |
 
 **Cartas de rasgo (por arquetipo; las de DT famosos, después):**

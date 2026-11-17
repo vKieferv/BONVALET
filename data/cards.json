@@ -25,8 +25,39 @@
 
 	{"id": "toque_toque",     "name": "Toque-toque",        "type": "tactical", "kind": "pass",      "ap": 0, "stamina": 2, "bonus": 0.20, "count": 0, "draw": 1},
 	{"id": "pelotazo",        "name": "Pelotazo",           "type": "tactical", "kind": "pass",      "ap": 1, "stamina": 3, "bonus": 0.00, "count": 0, "steps": 2},
+	{"id": "pase_largo",      "name": "Pase largo",         "type": "basic",    "kind": "pass",      "ap": 1, "stamina": 3, "bonus": 0.00, "count": 0, "steps": 2},
 	{"id": "cerrojo",         "name": "Cerrojo",            "type": "tactical", "kind": "clearance", "ap": 1, "stamina": 2, "bonus": 0.00, "count": 0},
 	{"id": "remate_en_carrera", "name": "Remate en carrera", "type": "tactical", "kind": "shot",      "ap": 1, "stamina": 10, "bonus": 0.25, "count": 0, "tags": ["fisica"]},
-	{"id": "anticipo",        "name": "Anticipo",           "type": "tactical", "kind": "intercept", "ap": 1, "stamina": 4, "bonus": 0.00, "count": 0}
+	{"id": "anticipo",        "name": "Anticipo",           "type": "tactical", "kind": "intercept", "ap": 1, "stamina": 4, "bonus": 0.00, "count": 0},
+
+	{"id": "segunda_pelota",  "name": "Segunda pelota",     "type": "basic",    "kind": "block",     "ap": 1, "stamina": 3, "bonus": 0.08, "count": 0, "counter": true, "plus": {"bonus": 0.14}},
+	{"id": "saque_largo",     "name": "Saque largo del arquero", "type": "basic", "kind": "pass",     "ap": 0, "stamina": 2, "bonus": 0.00, "count": 0, "steps": 2, "plus": {"bonus": 0.12}},
+	{"id": "hacer_tiempo",    "name": "Hacer tiempo",       "type": "basic",    "kind": "pause",     "ap": 1, "stamina": 0, "bonus": 0.25, "count": 0, "estilo": "Catenaccio", "plus": {"ap": 0}},
+	{"id": "recuperar_arriba", "name": "Recuperar arriba",  "type": "basic",    "kind": "press",     "ap": 1, "stamina": 6, "bonus": 0.06, "count": 0, "counter": true, "tags": ["fisica"], "plus": {"bonus": 0.12}},
+	{"id": "salida_velocidad", "name": "Salida en velocidad", "type": "basic",  "kind": "press",     "ap": 0, "stamina": 4, "bonus": 0.12, "count": 0, "estilo": "Contragolpe", "counter": true, "effect": 0.0, "plus": {"bonus": 0.18}},
+	{"id": "pique_largo",     "name": "Pique largo",        "type": "tactical", "kind": "pass",      "ap": 1, "stamina": 8, "bonus": 0.10, "count": 0, "steps": 2, "tags": ["fisica"], "plus": {"bonus": 0.16}},
+	{"id": "taco",            "name": "Taco",               "type": "tactical", "kind": "pass",      "ap": 0, "stamina": 3, "bonus": 0.14, "count": 0, "draw": 1, "plus": {"draw": 2}},
+	{"id": "descarga",        "name": "Descarga",           "type": "basic",    "kind": "pass",      "ap": 0, "stamina": 2, "bonus": 0.00, "count": 0, "draw": 1, "atras": true, "plus": {"draw": 2}}
+,
+
+	{"id": "salida_limpia",    "name": "Salida limpia",      "type": "basic",    "kind": "control",   "ap": 0, "stamina": 2, "bonus": 0.10, "count": 0, "estilo": "Tiki-Taka", "conserva": true, "plus": {"bonus": 0.16}},
+	{"id": "posesion",         "name": "Posesión",           "type": "basic",    "kind": "control",   "ap": 1, "stamina": 2, "bonus": 0.14, "count": 0, "estilo": "Tiki-Taka", "prox_pa": 1, "plus": {"ap": 0}},
+	{"id": "presion_tras_perdida", "name": "Presión tras pérdida", "type": "tactical", "kind": "press", "ap": 1, "stamina": 5, "bonus": 0.06, "count": 0, "estilo": "Tiki-Taka", "counter": true, "tags": ["fisica"], "plus": {"bonus": 0.10}},
+	{"id": "pelota_nuestra",   "name": "La pelota es nuestra", "type": "elite",  "kind": "control",   "ap": 2, "stamina": 4, "bonus": 0.00, "count": 0, "estilo": "Tiki-Taka", "escudo": 2, "una_vez": true, "plus": {"ap": 1}},
+	{"id": "juego_posicion",   "name": "Juego de posición",  "type": "tactical", "kind": "control",   "ap": 2, "stamina": 0, "bonus": 0.00, "count": 0, "estilo": "Tiki-Taka", "instruccion": "posicion", "instruccion_pts": 0.04, "plus": {"instruccion_pts": 0.06}},
+
+	{"id": "linea_cinco",      "name": "Línea de cinco",     "type": "basic",    "kind": "block",     "ap": 1, "stamina": 2, "bonus": 0.08, "count": 0, "estilo": "Catenaccio", "marcas": 2, "plus": {"ap": 0}},
+	{"id": "doble_pivote",     "name": "Doble pivote",       "type": "basic",    "kind": "press",     "ap": 1, "stamina": 2, "bonus": 0.06, "count": 0, "estilo": "Catenaccio", "marcas": 1, "plus": {"marcas": 2}},
+	{"id": "pelota_parada",    "name": "Pelota parada",      "type": "tactical", "kind": "shot",      "ap": 2, "stamina": 5, "bonus": 0.28, "count": 0, "estilo": "Catenaccio", "sin_marcas": true, "plus": {"bonus": 0.36}},
+	{"id": "marcaje_hombre",   "name": "Marcaje al hombre",  "type": "tactical", "kind": "press",     "ap": 1, "stamina": 3, "bonus": 0.04, "count": 0, "estilo": "Catenaccio", "sin_ejecutor": true, "plus": {"bonus": 0.10}},
+	{"id": "el_muro",          "name": "El muro",            "type": "elite",    "kind": "block",     "ap": 2, "stamina": 3, "bonus": 0.00, "count": 0, "estilo": "Catenaccio", "sin_remate": true, "una_vez": true, "plus": {"ap": 1}},
+	{"id": "bloque_bajo",      "name": "Bloque bajo",        "type": "tactical", "kind": "block",     "ap": 1, "stamina": 0, "bonus": 0.00, "count": 0, "estilo": "Catenaccio", "instruccion": "bloque_bajo", "instruccion_pts": 0.04, "plus": {"instruccion_pts": 0.06}},
+
+	{"id": "repliegue",        "name": "Repliegue",          "type": "basic",    "kind": "block",     "ap": 1, "stamina": 2, "bonus": 0.06, "count": 0, "estilo": "Contragolpe", "marcas": 1, "counter": true, "plus": {"bonus": 0.10}},
+	{"id": "pase_profundidad", "name": "Pase en profundidad", "type": "basic",   "kind": "pass",      "ap": 1, "stamina": 4, "bonus": 0.14, "count": 0, "estilo": "Contragolpe", "avanza_contra": 2, "plus": {"bonus": 0.20}},
+	{"id": "leer_pase",        "name": "Leer el pase",       "type": "tactical", "kind": "intercept", "ap": 1, "stamina": 3, "bonus": 0.00, "count": 0, "estilo": "Contragolpe", "plus": {"ap": 0}},
+	{"id": "contra_letal",     "name": "Contra letal",       "type": "tactical", "kind": "intercept", "ap": 2, "stamina": 4, "bonus": 0.00, "count": 0, "estilo": "Contragolpe", "prox_bono": 0.10, "prox_tipo": "shot", "plus": {"prox_bono": 0.16}},
+	{"id": "contra_manual",    "name": "Contra de manual",   "type": "elite",    "kind": "pass",      "ap": 1, "stamina": 6, "bonus": 0.00, "count": 0, "estilo": "Contragolpe", "avanza_contra": 3, "solo_contra": true, "una_vez": true, "prox_bono": 0.15, "prox_tipo": "shot", "plus": {"prox_bono": 0.25}},
+	{"id": "transiciones",     "name": "Transiciones",       "type": "tactical", "kind": "control",   "ap": 1, "stamina": 0, "bonus": 0.00, "count": 0, "estilo": "Contragolpe", "instruccion": "transiciones", "plus": {"ap": 0}}
   ]
 }
